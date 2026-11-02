@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — JPM · JPMorgan Chase</title>
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface2:#efede6; --ink:#17202b; --muted:#5b6675; --line:#ddd8cc;
+  --navy:#0f2a44; --gold:#9a7b2d; --gold-bg:#f3ecd8; --green:#177245; --green-bg:#e2f0e7; --red:#a63a2e; --red-bg:#f9e8e4;
+  --amber:#8a6414; --amber-bg:#f7ecd0; --chart-cost:#c9c2b2; --chart-net:#177245; --chart-rev:#0f2a44;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#12161c; --surface:#1b212b; --surface2:#232b37; --ink:#e9ebee; --muted:#a7b0bc; --line:#333d4d;
+  --navy:#7fb0e0; --gold:#d3af5e; --gold-bg:#2e2a1c; --green:#5fc48d; --green-bg:#1d2f26; --red:#e58a7d; --red-bg:#33221f;
+  --amber:#e0b45c; --amber-bg:#2f2a1a; --chart-cost:#5a6577; --chart-net:#3d9e6c; --chart-rev:#5b8ec4; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;-webkit-font-smoothing:antialiased}
+.sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+a{color:var(--navy);text-decoration:underline;text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 56px}
+.topbar{border-bottom:3px solid var(--navy);padding:22px 0 16px}
+.eyebrow{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:8px 0 6px;font-weight:700}
+.sub{font-size:17px;color:var(--muted);line-height:1.5;max-width:760px}
+.meta{font-family:-apple-system,sans-serif;font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+.kpi .l{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.kpi .v{font-size:24px;font-weight:700;margin-top:4px}
+.kpi .n{font-family:-apple-system,sans-serif;font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:6px 0 8px}
+@media(max-width:640px){.verdict{grid-template-columns:1fr}}
+.vcard{border-radius:10px;padding:16px 18px}
+.vcard.buy{background:var(--green-bg);border:1px solid var(--green)}
+.vcard .l{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.vcard .v{font-size:26px;font-weight:700;margin:4px 0}
+.vcard p{margin:0;font-size:14.5px;line-height:1.55}
+section{margin-top:36px}
+h2{font-size:24px;border-bottom:2px solid var(--line);padding-bottom:8px;margin:0 0 14px}
+h3{font-size:17px;margin:20px 0 8px}
+p,li{font-size:15.5px;line-height:1.65}
+ul{padding-left:20px} li{margin:5px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h3{margin-top:0}
+table{width:100%;border-collapse:collapse;font-family:-apple-system,sans-serif;font-size:13.5px;margin:10px 0}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tblwrap{overflow-x:auto}
+.note{font-family:-apple-system,sans-serif;font-size:12.5px;color:var(--muted);line-height:1.6}
+.pill{display:inline-block;font-family:-apple-system,sans-serif;font-size:11.5px;font-weight:700;padding:3px 10px;border-radius:999px}
+.pill.g{background:var(--green-bg);color:var(--green)} .pill.a{background:var(--amber-bg);color:var(--amber)} .pill.r{background:var(--red-bg);color:var(--red)}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.calc label{font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.calc input{font-family:-apple-system,sans-serif;font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+.calcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:16px}
+.calcgrid .o{background:var(--surface2);border-radius:8px;padding:12px}
+.calcgrid .o .l{font-family:-apple-system,sans-serif;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.calcgrid .o .v{font-size:20px;font-weight:700;margin-top:3px;font-family:-apple-system,sans-serif}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px}
+.src{font-family:-apple-system,sans-serif;font-size:13px;line-height:1.9}
+svg text{font-family:-apple-system,sans-serif}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="topbar">
+  <div class="eyebrow">Equity Research · Financials · Sample-depth report</div>
+  <h1>JPMorgan Chase (JPM)</h1>
+  <p class="sub">The largest US bank — #1 in deposits, investment banking and trading — earning a 20% return on tangible common equity in Q3 2026 while holding a 13.9% CET1 fortress. The question is not quality; it is how much of the rate-and-markets tailwind is already in a ~14× multiple.</p>
+  <div class="meta">As of <strong>1 Nov 2026</strong> · Price reference: <strong>30 Oct 2026 close</strong> (1 Nov was a weekend) · Prepared for a mid-30s investor, risk score 8/10 · Research views only — not investment advice, not a guarantee.<br>
+  Ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company. Vendor note: price is Finnhub basis; market cap and P/E are MarketBeat basis — vendors differ (see footnotes), so each figure is labelled.</div>
+</header>
+
+<div class="kpis sans">
+  <div class="kpi"><div class="l">Price · 30 Oct close</div><div class="v">$337.04</div><div class="n">Finnhub basis (MarketBeat: $336.96)</div></div>
+  <div class="kpi"><div class="l">Market cap</div><div class="v">$895.9B</div><div class="n">MarketBeat basis ($895.7–895.9B); Finnhub shows $900.4B</div></div>
+  <div class="kpi"><div class="l">Trailing / Forward P/E</div><div class="v">14.15× / 13.42×</div><div class="n">MarketBeat basis (Finnhub trailing: 13.65×)</div></div>
+  <div class="kpi"><div class="l">Dividend yield</div><div class="v">1.96%</div><div class="n">MarketBeat</div></div>
+  <div class="kpi"><div class="l">Consensus target</div><div class="v">$368.10</div><div class="n">MarketBeat · +9.2% vs $337.04</div></div>
+  <div class="kpi"><div class="l">Q3 ROTCE / CET1</div><div class="v">20% / 13.9%</div><div class="n">Return on tangible common equity / common equity tier 1 ratio</div></div>
+</div>
+
+<div class="verdict">
+  <div class="vcard buy"><div class="l">Short term · 12–18 months</div><div class="v">BUY</div><p>Consensus $368.10 (+9.2%) with IB fees and markets revenue recovering and net interest income up 13% in Q3. Rate-path and credit risks cap the chase — build the position rather than lump-sum it.</p></div>
+  <div class="vcard buy"><div class="l">Long term · 5 years</div><div class="v">BUY — 4% of portfolio</div><p>Modelled 5-year weighted value <strong>$405</strong> vs $337.04 today (modelled estimate — assumptions in §5). Suggested single-name weight: <strong>4%</strong> for the mid-30s, risk-8/10 profile.</p></div>
+</div>
+<p class="note">All modelled scenario prices on this page are <strong>estimates with methodology shown</strong>, never verified facts. Verified figures are the Q3 results and the vendor-labelled market data; the verification log's corrections have been applied (notably: Q3 revenue shown on both reported and managed bases).</p>
+
+<section>
+<h2>1 · Business model &amp; segment breakdown</h2>
+<p>JPMorgan Chase is the largest US bank, running four segments that deliberately diversify the earnings mix so no single cycle — consumer credit, deal-making, or trading — decides the year:</p>
+<div class="grid2">
+  <div class="card"><h3>Consumer &amp; Community Banking</h3><p>The retail engine: deposits, cards, mortgages and auto lending to households and small businesses. Scale here is the funding advantage — a vast, sticky, low-cost deposit base that finances the rest of the firm.</p></div>
+  <div class="card"><h3>Corporate &amp; Investment Bank</h3><p>Advisory, underwriting, and markets. Q3 2026 showed the recovery clearly: <strong>investment-banking fees +14% to $3.0B</strong>, <strong>Markets revenue $10.3B</strong>, and <strong>equities trading +49%</strong>.</p></div>
+  <div class="card"><h3>Commercial Banking</h3><p>Lending and treasury services to mid-sized and large corporates — the segment most directly exposed to commercial-real-estate credit, flagged in §4.</p></div>
+  <div class="card"><h3>Asset &amp; Wealth Management</h3><p><strong>$5.1 trillion of assets under management as of Q2 2026</strong> (Motley Fool). Fee income here is the least balance-sheet-hungry earnings stream and a structural growth leg.</p></div>
+</div>
+<h3>How it is funded, and who regulates it</h3>
+<p>Funding is deposits plus wholesale markets. The binding constraints are regulatory, not commercial: Federal Reserve supervision, Basel capital rules, and the annual stress tests determine how much capital must be held (CET1 13.9% in Q3) and therefore how much can be returned to shareholders. That is why, for a bank, capital ratios — not free cash flow — are the health metric that matters (§2).</p>
+<h3>Q3 2026 — the quarter in one line</h3>
+<p>Revenue <strong>$50.17B reported</strong> (+8% year over year; <strong>$50.91B on a managed basis</strong> — JPM's own preferred presentation, which grosses up tax-equivalent adjustments), net income <strong>$15.31B (+6%)</strong>, EPS <strong>$5.57</strong>, with net interest income up 13%. Both revenue bases are confirmed in the verification log; the $0.74B gap is definitional, not an error.</p>
+</section>
+
+<section>
+<h2>2 · Financial health &amp; balance-sheet diagnostics</h2>
+<div class="tblwrap"><table>
+<tr><th>Metric</th><th class="num">Value</th><th>Basis / note</th></tr>
+<tr><td>Price (30 Oct 2026 close)</td><td class="num">$337.04</td><td>Finnhub basis; MarketBeat $336.96</td></tr>
+<tr><td>Market capitalisation</td><td class="num">$895.9B</td><td>MarketBeat basis ($895.7–895.9B range); Finnhub $900.4B — vendor share-count treatment differs</td></tr>
+<tr><td>Trailing P/E</td><td class="num">14.15×</td><td>MarketBeat basis; Finnhub 13.65×</td></tr>
+<tr><td>Forward P/E</td><td class="num">13.42×</td><td>MarketBeat</td></tr>
+<tr><td>Dividend yield</td><td class="num">1.96%</td><td>MarketBeat</td></tr>
+<tr><td>Consensus price target</td><td class="num">$368.10</td><td>MarketBeat consensus</td></tr>
+<tr><td>ROTCE (Q3 2026)</td><td class="num">20%</td><td>Confirmed in verification log</td></tr>
+<tr><td>CET1 ratio (Q3 2026)</td><td class="num">13.9%</td><td>Capital held against risk-weighted assets</td></tr>
+<tr><td>EV/EBITDA</td><td class="num">n/m</td><td>Not meaningful for a bank — debt is raw material, not financing. P/E, ROTCE and CET1 are the right lenses.</td></tr>
+<tr><td>Free cash flow</td><td class="num">n/m</td><td>Not a bank valuation metric; operating cash flow swings with loan/deposit flows. Capital return runs through dividends + buybacks (buyback amount not verified this pass — not stated as fact).</td></tr>
+</table></div>
+<p><strong>Reading the diagnostics:</strong> a 14.15× trailing multiple for a franchise earning 20% ROTCE is the market pricing in normalisation — today's returns sit on high net interest income and hot trading desks, and the multiple refuses to pay for those as permanent. The fortress point is real: 13.9% CET1 is comfortably above regulatory minimums, which is what funds the dividend through a credit cycle rather than in spite of one.</p>
+
+<h3>Q3 2026 income flow — where the $50.17B went</h3>
+<svg viewBox="0 0 880 240" width="100%" role="img" aria-label="Sankey-style flow: Q3 revenue of $50.17 billion splits into $34.86 billion of combined costs, provisions and taxes (residual) and $15.31 billion of net income">
+  <rect x="10" y="30" width="26" height="180" fill="var(--chart-rev)"/>
+  <text x="10" y="18" font-size="12.5" font-weight="700" fill="var(--ink)">Revenue (reported) · $50.17B</text>
+  <path d="M36,30 C 300,30 420,45 660,52 L 660,118 C 420,118 300,128 36,140 Z" fill="var(--chart-cost)" opacity="0.55"/>
+  <path d="M36,140 C 300,152 420,140 660,132 L 660,196 C 420,196 300,200 36,210 Z" fill="var(--chart-net)" opacity="0.6"/>
+  <rect x="660" y="52" width="22" height="66" fill="var(--chart-cost)"/>
+  <rect x="660" y="132" width="22" height="64" fill="var(--chart-net)"/>
+  <text x="688" y="80" font-size="12.5" font-weight="700" fill="var(--ink)">Costs, provisions</text>
+  <text x="688" y="96" font-size="12.5" fill="var(--ink)">&amp; taxes · $34.86B</text>
+  <text x="688" y="160" font-size="12.5" font-weight="700" fill="var(--ink)">Net income</text>
+  <text x="688" y="176" font-size="12.5" fill="var(--ink)">$15.31B</text>
+</svg>
+<p class="note">Sankey-style diagram built only from confirmed Q3 figures. The $34.86B outflow is a <strong>combined residual</strong> (revenue − net income): noninterest expense, credit provisions and taxes are not split out because the research pack does not carry that split — it is labelled as a residual rather than estimated. Net margin on reported revenue: 30.5%. Managed-basis revenue ($50.91B) would widen the residual, not the net income.</p>
+</section>
+
+<section>
+<h2>3 · Competitive moat &amp; industry positioning</h2>
+<ul>
+<li><strong>Scale as the moat itself:</strong> the #1 US franchise across deposits, investment banking and trading. Technology and compliance costs that crush smaller rivals are rounding errors at JPM's revenue base — and the pack notes an explicit AI investment push widening that gap.</li>
+<li><strong>Diversification as pricing power:</strong> when IB fees slump, net interest income and card spend carry the year; when rates fall, markets and wealth fees tend to rise. Few competitors can replicate all four segments at this scale — the realistic rivals each lead in one or two, not four.</li>
+<li><strong>Fortress balance sheet as a competitive weapon:</strong> 13.9% CET1 and a 20% ROTCE let JPM lend through downturns, gain share while rivals retrench, and clear stress tests that constrain competitors' buybacks.</li>
+<li><strong>The moat's limit:</strong> it is a regulated moat. Basel capital rules, stress-test outcomes and rate policy are set by regulators, not by JPM — the franchise is wide, but the drawbridge is partly operated from Washington.</li>
+</ul>
+</section>
+
+<section>
+<h2>4 · Catalysts &amp; downside risks</h2>
+<div class="grid2">
+<div class="card"><h3>Catalysts</h3><ul>
+<li><strong>IB / trading recovery:</strong> fees +14% and equities trading +49% in Q3 — a sustained deal and issuance cycle compounds directly into the CIB segment.</li>
+<li><strong>Net interest income momentum:</strong> NII +13% in Q3 on deposit scale and loan growth.</li>
+<li><strong>Wealth growth:</strong> $5.1T AUM base converting market appreciation and inflows into fee income.</li>
+<li><strong>Capital return:</strong> fortress CET1 supports continued dividends (1.96% yield) and buybacks through the cycle.</li>
+</ul></div>
+<div class="card"><h3>Risks</h3><ul>
+<li><strong>Rate-path reversal:</strong> faster or deeper cuts compress the NII that powered 2026 earnings.</li>
+<li><strong>Credit normalisation:</strong> consumer and card losses rising from unusually benign levels is the classic late-cycle bank risk.</li>
+<li><strong>Commercial real estate:</strong> office exposure sits mainly in Commercial Banking; a disorderly repricing hits provisions first.</li>
+<li><strong>Regulation / capital rules:</strong> Basel endgame or tougher stress tests can trap capital that the market assumes will be returned.</li>
+<li><strong>Trading volatility:</strong> a $10.3B markets quarter cuts both ways — quiet or chaotic markets can take it back quickly.</li>
+</ul></div>
+</div>
+</section>
+
+<section>
+<h2>5 · Scenario-based valuation &amp; price targets</h2>
+<h3>12–18-month horizon</h3>
+<p>The anchored 12–18-month reference is the <strong>MarketBeat consensus of $368.10</strong> (+9.2% vs the $337.04 close, before the 1.96% dividend). That is a street-consensus figure, not this report's modelled output — the modelled work below is the 5-year table, shown with full assumptions so the arithmetic can be checked.</p>
+<h3>5-year projection — modelled estimates, frozen-parameter method</h3>
+<p class="note" style="margin-bottom:6px">Method: starting EPS implied by the trailing P/E, revenue growth (g) and net margin held at each case's level, exit P/E applied at year 5. Every price below is a <strong>modelled estimate</strong> — assumptions are printed in the table precisely so the weighted figure can be re-derived. The research pack did not supply explicit scenario weights to the independent verifier, so treat the weighted price as this report's model output, not a verified fact.</p>
+<div class="tblwrap"><table>
+<tr><th>Case</th><th class="num">Revenue growth / yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">5-yr price</th></tr>
+<tr><td><span class="pill g">Bull</span></td><td class="num">6%</td><td class="num">35.0%</td><td class="num">16.0×</td><td class="num"><strong>$550</strong></td></tr>
+<tr><td><span class="pill a">Base</span></td><td class="num">4%</td><td class="num">32.5%</td><td class="num">14.15×</td><td class="num"><strong>$410</strong></td></tr>
+<tr><td><span class="pill r">Bear</span></td><td class="num">2%</td><td class="num">28.0%</td><td class="num">11.0×</td><td class="num"><strong>$249</strong></td></tr>
+<tr><td colspan="4"><strong>Modelled weighted value</strong> (per research pack)</td><td class="num"><strong>$405</strong></td></tr>
+</table></div>
+<p><strong>How to read it:</strong> even the base case ($410, +22% over five years before dividends) assumes ROTCE stays well above the cost of equity — plausible for this franchise, but it means the stock at $337 is priced for competence, not perfection. The bear case ($249, −26%) is a credit cycle plus de-rating to 11×, not a crisis scenario; a genuine crisis would sit below it. The bull case needs both 6% growth <em>and</em> a 16× exit — two good things at once, which is why it is not the anchor.</p>
+
+<h3>Position-size calculator — 4% target weight</h3>
+<div class="calc">
+<label for="pv">Your total portfolio value (USD)</label>
+<input id="pv" type="number" inputmode="decimal" min="0" value="250000">
+<div class="calcgrid">
+<div class="o"><div class="l">JPM at 4% weight</div><div class="v" id="oAmt">—</div></div>
+<div class="o"><div class="l">≈ Shares at $337.04</div><div class="v" id="oSh">—</div></div>
+<div class="o"><div class="l">Value if 5-yr base $410 hits</div><div class="v" id="oBase">—</div></div>
+<div class="o"><div class="l">Value if bear $249 hits</div><div class="v" id="oBear">—</div></div>
+</div>
+<p class="note" style="margin-top:12px">Illustrative only, using the modelled estimates above. It runs entirely on this page — nothing you type is stored or sent anywhere.</p>
+</div>
+</section>
+
+<section>
+<h2>6 · Recommendation summary</h2>
+<div class="tblwrap"><table>
+<tr><th>Horizon</th><th>Call</th><th>Rationale in one line</th></tr>
+<tr><td>Short term (12–18 mo)</td><td><span class="pill g">Buy</span></td><td>Consensus $368.10 (+9.2%) plus a 1.96% yield, with IB/markets momentum — build gradually against rate and credit headlines.</td></tr>
+<tr><td>Long term (5 yr)</td><td><span class="pill g">Buy</span></td><td>Modelled weighted $405; the diversified, fortress-capital franchise compounds through cycles at a mid-teens ROTCE or better.</td></tr>
+<tr><td>Portfolio weight</td><td><strong>4%</strong></td><td>Mid-30s, risk 8/10 profile — a core financials holding, sized below the mega-cap tech names because bank earnings are regulator- and cycle-bound.</td></tr>
+</table></div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — JPMorgan Chase (JPM)</h2>
+<p><strong>Price (30 Oct 2026 close): $337.04.</strong> <strong>DCF intrinsic: $302.</strong> Discount/premium vs DCF: <strong>+11.6%</strong> — i.e. the shares are trading 11.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$302</td><td>+11.6%</td><td>Base Distributable proxy: TTM net income to common EPS $23.82 x 2.658bn = $63.32bn, x distributable fraction 0.80 (1 - g/ROTCE, ROTCE 20% pack, g 4%). Bank OCF NOT used. No net-cash add-on. Growth g 4%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $376.97bn + PV of terminal value $425.41bn + net cash / excess capital $0.00bn, ÷ 2.658bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/JPM/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — JPMorgan Chase (JPM)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No single customer exceeds a disclosed 10% concentration for JPMorgan, and no ranked top-7 is disclosed — none is invented here. Revenue is diversified across Consumer & Community Banking households and small businesses, Corporate & Investment Bank corporates and institutions, Commercial Banking mid-sized companies, and Asset & Wealth Management clients ($5.1tn AUM at Q2 2026, pack). Q3 2026 showed the mix in action: revenue $50.17bn, Markets $10.3bn, investment-banking fees +14% to $3bn. The ‘customers’ that matter are therefore client segments and market volumes, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: with no concentrated named customer, the thesis applies at segment level rather than name level — if JPMorgan’s corporate and institutional clients are broadly undervalued, that supports deal, trading and lending volumes, and vice versa — but an undervalued client does not guarantee higher spending with JPMorgan, which depends on that client’s own priorities, cash position and appetite for deals or borrowing.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — JPMorgan Chase (JPM)</h2>
+<p><strong>Role: Beneficiary.</strong> While the AI trade runs, JPMorgan benefits on two channels: it lends to, advises and trades for the AI builders and hyperscalers (IB fees +14% to $3bn in Q3 2026, pack), and it can apply AI internally to operations — the pack cites its AI investment push — which supports efficiency in a scale franchise.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is modest: at ~14x trailing earnings JPMorgan carries no AI premium to lose; an AI unwind would more likely compress the market multiple for banks generally than strip a specific AI premium.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — deal, underwriting and trading volumes fall and AI borrowers’ credit quality is tested; (2) multiple — bank multiples compress with risk appetite, from a through-cycle base already near the low-teens; (3) balance sheet — credit normalisation, including commercial-real-estate and any concentrated AI-lending exposures, is the real risk, cushioned by a 13.9% CET1 ratio (pack). Triggers to watch: a collapse in AI deal announcements, widening credit spreads, and rising delinquencies in tech-exposed lending.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+<h2 style="border:none;margin-bottom:6px">Sources &amp; verification</h2>
+<p class="src">
+· Market data &amp; consensus: <a href="https://www.marketbeat.com/stocks/NYSE/JPM/">MarketBeat — JPM</a> · <a href="https://stockanalysis.com/stocks/jpm/statistics/">StockAnalysis — JPM statistics</a><br>
+· Q3 2026 results (reported vs managed revenue, net income, ROTCE): <a href="https://my-passive-income.eu/big-bank-q3-2026-earnings-jpmorgan-goldman-wells-fargo-citi-bofa/">Big-bank Q3 2026 earnings summary</a><br>
+· Vendor cross-check for price / cap / P/E divergence: <a href="https://finnhub.io/?q=%22JPM%22">Finnhub — JPM</a>
+</p>
+<p class="note">Verification status: Q3 2026 revenue ($50.17B reported; $50.91B managed), net income ($15.31B) and ROTCE (20%) were <strong>CONFIRMED</strong> by the independent verification pass for the Financials sector. Price ($337.04, Finnhub) and MarketBeat-basis cap/P/E were confirmed with vendor divergence noted above — figures are labelled by vendor rather than blended. The 5-year scenario prices and the $405 weighted value are <strong>modelled estimates</strong> from the research pack (assumptions shown in §5); they were not independently verified as calculations. Buyback amounts were not verified this pass and are therefore not quantified on this page. Open items are labelled as such rather than filled in.</p>
+<p class="note">This page is research commentary prepared for one investor's stated profile. It is not investment advice and not a solicitation. Modelled prices are estimates under stated assumptions, not predictions.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var PRICE=337.04, W=0.04, BASE=410, BEAR=249;
+  var pv=document.getElementById('pv');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function run(){
+    var v=parseFloat(pv.value); if(isNaN(v)||v<0)v=0;
+    var amt=v*W, sh=amt/PRICE;
+    document.getElementById('oAmt').textContent=fmt(amt);
+    document.getElementById('oSh').textContent=sh.toFixed(1);
+    document.getElementById('oBase').textContent=fmt(sh*BASE);
+    document.getElementById('oBear').textContent=fmt(sh*BEAR);
+  }
+  pv.addEventListener('input',run); run();
+})();
+</script>
+</body>
+</html>

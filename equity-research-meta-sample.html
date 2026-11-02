@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — META (Sample)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+
+/* ---------- stock tabs ---------- */
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+
+/* ---------- verdict strip ---------- */
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+
+/* ---------- nav ---------- */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* ---------- sections ---------- */
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+
+/* ---------- tables ---------- */
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{ text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+
+/* ---------- bars / visuals ---------- */
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:150px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 64px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+
+/* scenario cards */
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+
+/* toggle + calculator */
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+
+/* rating pills */
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Sample Report 1 of 20</span><span>Technology · Internet &amp; AI Platforms</span></div>
+  <h1>Meta Platforms <span class="tick">(NASDAQ: META)</span></h1>
+  <p class="lede">The world's most profitable attention machine is now spending like an infrastructure utility. Q3 2026 proved the ad engine is stronger than ever — revenue +26%, ad price +14% — while a $9.9B legal settlement, $135–145B of capex and negative free cash flow reset what the stock is actually priced on: not today's earnings, but whether AI spending converts to cash before the balance sheet forces the issue.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $614.99 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026, reported 21 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">META — this report</span>
+    <span class="tab soon">+ 19 more — tabs added as each name is researched</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$614.99</div><div class="vsub down">−1.53% on the day · −15.5% in 1 month · 52-wk $520–$780</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$1.57T</div><div class="vsub">~2.53B diluted shares · Beta 1.26</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM / Forward P/E</div><div class="vbig mono">21.0× / ~21×</div><div class="vsub">P/S ~6.6× · PEG ~1.1 · Div. yield 0.34%</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus (57 analysts)</div><div class="vbig mono">$833 <span class="up" style="font-size:16px">+35%</span></div><div class="vsub">Moderate Buy · Range $650–$1,000</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (0–12 mo)</div><div class="vbig" style="font-size:21px">HOLD — accumulate on dips <span class="pill hold">Hold</span></div><div class="vsub">Capex guide for 2027 (due with Q4 print) is the swing factor; FCF is negative and S&amp;P outlook is negative.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (3–5 yr)</div><div class="vbig" style="font-size:21px">BUY — staged build <span class="pill buy">Buy</span></div><div class="vsub">Core ad compounder at a below-history multiple; probability-weighted 5-yr value ≈ $1,300.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">6–8% of portfolio</div><div class="vsub">Core single-name position; hard cap 10%. See §6 for the full framework.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#sankey">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#matrix">7 · Comparative matrix</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Meta beat on the only line the ad business is judged by — revenue — and missed on everything the AI buildout touches. Reported GAAP profit is distorted by a <b>$9.89B charge</b> for the August settlement with 52 state attorneys general over teen mental-health litigation (total payments up to <b>$18.59B</b>). Use the toggle: the underlying business earned a ~35% operating margin; the reported one earned 20%.</p>
+  <div class="toggle" role="group" aria-label="GAAP versus underlying view">
+    <button id="btnEx" class="on" type="button">Underlying (ex-$9.9B charge)</button>
+    <button id="btnGaap" type="button">As reported (GAAP)</button>
+  </div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 (quarter ended 30 Sep)</th><th class="n">Actual</th><th class="n">Year ago</th><th class="n">Change</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="n">$64.60B</td><td class="n">$51.24B</td><td class="n">+26.1%</td><td>Beat $63.3–63.4B consensus; above top of $61–64B guide</td></tr>
+      <tr><td>Operating income</td><td class="n" data-ex="$22.88B" data-gaap="$12.99B">$22.88B</td><td class="n">$20.68B</td><td class="n" data-ex="+11%" data-gaap="−37%">+11%</td><td data-ex="Margin 35.4% — ad leverage intact under the charge" data-gaap="Margin 20.1% vs 40.1% a year ago — the charge is the whole gap">Margin 35.4% — ad leverage intact under the charge</td></tr>
+      <tr><td>Diluted EPS</td><td class="n" data-ex="$7.40" data-gaap="$3.83">$7.40</td><td class="n">$1.05 GAAP</td><td class="n" data-ex="Beat ~$6.80 est." data-gaap="Miss vs ~$5.46–5.89 est.">Beat ~$6.80 est.</td><td data-ex="Clean beat once the one-off is stripped" data-gaap="GAAP net income $9.86B, +264% YoY only because last year's tax hit was worse">Clean beat once the one-off is stripped</td></tr>
+      <tr><td>Operating cash flow</td><td class="n">$32.79B</td><td class="n">$30.00B</td><td class="n">+9%</td><td>The cash engine itself is still growing</td></tr>
+      <tr><td>Capital expenditure</td><td class="n">$34.91B</td><td class="n">—</td><td class="n">—</td><td>Includes finance-lease principal; one quarter now exceeds OCF</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">−$2.12B</td><td class="n">+$10.63B</td><td class="n">Negative</td><td>First negative quarter in the recent run; Q2 was only +$0.78B</td></tr>
+      <tr><td>Q4 2026 revenue guidance</td><td class="n">$73–76B</td><td class="n">—</td><td class="n">Mid +24.4%</td><td>Midpoint $74.5B, ~1% FX headwind assumed; above $73.6B consensus</td></tr>
+      <tr><td>FY26 capex / total expense guide</td><td class="n">$135–145B / $175–179B</td><td class="n">—</td><td class="n">Raised</td><td>Expense guide includes the legal charge; ex-charge opex still grows into 2027</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Meta Q3 2026 earnings release (21 Oct 2026) via coverage linked in Sources. Consensus figures as reported by LSEG/StockStory coverage of the print.</p>
+</section>
+
+<!-- ================= SANKEY ================= -->
+<section id="sankey">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 income flow — where $64.6B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Sankey-style flow of Meta Q3 2026 revenue into segments, costs, operating profit and Reality Labs loss" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <!-- sources -->
+      <rect x="8" y="30" width="180" height="52" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="52" font-size="13" font-weight="700" fill="var(--ink)">Advertising</text><text x="20" y="70" font-size="12" fill="var(--ink2)">$63.06B · 97.6%</text>
+      <rect x="8" y="104" width="180" height="44" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="124" font-size="13" font-weight="700" fill="var(--ink)">FoA other (WhatsApp etc.)</text><text x="20" y="140" font-size="12" fill="var(--ink2)">$1.10B · +59% YoY</text>
+      <rect x="8" y="170" width="180" height="40" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="189" font-size="13" font-weight="700" fill="var(--ink)">Reality Labs</text><text x="20" y="204" font-size="12" fill="var(--ink2)">$0.44B · −5.7% YoY</text>
+      <!-- revenue -->
+      <rect x="300" y="86" width="170" height="66" fill="var(--navy)"/><text x="316" y="114" font-size="14" font-weight="700" fill="#fff">Total revenue</text><text x="316" y="134" font-size="13" fill="#fff">$64.60B · +26.1%</text>
+      <line x1="188" y1="56" x2="296" y2="104" stroke="var(--muted)" stroke-width="10" opacity=".35"/>
+      <line x1="188" y1="126" x2="296" y2="118" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <line x1="188" y1="190" x2="296" y2="132" stroke="var(--muted)" stroke-width="2" opacity=".35"/>
+      <!-- split -->
+      <rect x="580" y="26" width="190" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="594" y="48" font-size="13" font-weight="700" fill="var(--ink)">FoA operating profit</text><text x="594" y="66" font-size="12" fill="var(--ink2)">$17.12B · 26.7% margin*</text>
+      <rect x="580" y="100" width="190" height="48" fill="var(--red-soft)" stroke="var(--line2)"/><text x="594" y="121" font-size="13" font-weight="700" fill="var(--ink)">Reality Labs loss</text><text x="594" y="138" font-size="12" fill="var(--ink2)">−$4.13B in the quarter</text>
+      <rect x="580" y="166" width="190" height="48" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="594" y="187" font-size="13" font-weight="700" fill="var(--ink)">Legal settlement charge</text><text x="594" y="204" font-size="12" fill="var(--ink2)">$9.89B (in costs &amp; expenses)</text>
+      <line x1="470" y1="104" x2="576" y2="58" stroke="var(--muted)" stroke-width="6" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="470" y1="122" x2="576" y2="122" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="470" y1="138" x2="576" y2="186" stroke="var(--muted)" stroke-width="4" opacity=".35" marker-end="url(#ar)"/>
+      <!-- outcome -->
+      <rect x="580" y="238" width="392" height="48" fill="var(--paper)" stroke="var(--line2)"/><text x="594" y="259" font-size="13" font-weight="700" fill="var(--ink)">GAAP operating income $12.99B (20.1%) → net income $9.86B · EPS $3.83</text><text x="594" y="277" font-size="12" fill="var(--ink2)">Ex-charge: operating income $22.88B (35.4%) · EPS $7.40</text>
+    </svg>
+    <figcaption>*FoA margin is after the segment's share of the charge allocation as reported; the $22.88B ex-charge group figure is Meta's own disclosure. Flow widths are indicative, not to scale. All figures Q3 2026, Meta earnings release 21 Oct 2026.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Meta is, financially, <b>one business with two science projects attached</b>. Family of Apps (FoA) — Facebook, Instagram, Messenger, WhatsApp and Threads — produced <b>99.3% of Q3 revenue</b>. Reality Labs (Quest headsets, Ray-Ban Meta glasses, Horizon) produced 0.7% of revenue and a $4.13B quarterly loss. Everything in this report ultimately prices off FoA advertising; the open question is how much of FoA's cash the other bets are allowed to consume, and for how long.</p>
+
+  <h3>Revenue architecture — Q3 2026</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th class="n">Q3 2026</th><th class="n">Share</th><th class="n">YoY</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Advertising (FoA)</td><td class="n">$63.06B</td><td class="n">97.6%</td><td class="n">+26%</td><td>Impressions +10%, average price per ad +14% — AI ranking (Andromeda/GEM) is lifting both volume and price simultaneously, the rarest and most valuable combination in ads</td></tr>
+      <tr><td>FoA other</td><td class="n">$1.10B</td><td class="n">1.7%</td><td class="n">+59%</td><td>WhatsApp paid messaging, click-to-message ads plumbing, subscriptions — small, but the fastest-growing line and the seed of business messaging monetisation</td></tr>
+      <tr><td>Reality Labs</td><td class="n">$0.44B</td><td class="n">0.7%</td><td class="n">−5.7%</td><td>Quest hardware soft; smart glasses are the growth unit inside a shrinking segment total</td></tr>
+      <tr class="total"><td>Total</td><td class="n">$64.60B</td><td class="n">100%</td><td class="n">+26.1%</td><td>Family DAP 3.64B people/day (+3%); revenue per person $17.72 (+23%) — monetisation, not user growth, is the engine now</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Geographic mix (by user location, Q3 2026)</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">US &amp; Canada</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$28.9B · 45%</span></div>
+        <div class="bar-row"><span class="bl">Europe</span><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><span class="bv">$14.5B · 22%</span></div>
+        <div class="bar-row"><span class="bl">Asia-Pacific</span><div class="bar-track"><div class="bar-fill" style="width:41%"></div></div><span class="bv">$11.9B · 18%</span></div>
+        <div class="bar-row"><span class="bl">Rest of World</span><div class="bar-track"><div class="bar-fill gold" style="width:32%"></div></div><span class="bv">$9.3B · 15%</span></div>
+      </div>
+      <p class="small">Growth: US &amp; Canada +32.9%, RoW +34.4%, Europe +17.9%, APAC +15.8%. The richest market is also the fastest-growing — pricing power, not emerging-market volume, is carrying the P&amp;L. That cuts both ways: US ad-cycle exposure is the single largest macro sensitivity.</p>
+    </div>
+    <div>
+      <h3>Segment economics</h3>
+      <ul>
+        <li><b>FoA operating income $17.12B</b> in Q3 (26.7% margin as reported, after charge effects). Cumulative Reality Labs losses since 2021 are now ≈ <b>$77B+</b>; FY26 RL loss guided <b>$18–19B</b>, narrowing to ≈ <b>$15B in 2027</b> as spend is re-pointed at AI.</li>
+        <li><b>Headcount 66,775</b>, down ~15% YoY after a ~8,000-person May 2026 reduction — Meta is simultaneously hiring elite AI researchers at record packages and shrinking everywhere else.</li>
+        <li><b>Non-cancelable commitments of $454.5B</b> sat on the 10-Q at 30 Sep ($45.9B due in the rest of 2026, <b>$121.4B in 2027</b>), plus up to $14.7B contingent cloud capacity. The AI buildout is now contractually pre-committed, not discretionary — a structural change from every prior Meta cycle.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Structural pivots (2025–26)</h3>
+  <ul>
+    <li><b>From social graph to AI platform:</b> Muse, launched 8 Sep 2026, is Meta's consumer AI agent bet — 6.6M downloads and ~1.8M daily users in its first weeks, #1 in the app store for 16 straight days, but <b>zero disclosed monetisation</b> and growth explicitly capped by compute, per Zuckerberg. This is the Reels playbook (spend first, monetise later) run at infrastructure scale.</li>
+    <li><b>From cash-funded to balance-sheet-funded:</b> zero buybacks in 2026 (vs $26.2B in 9M 2025), $24.9B of new bonds issued, and a new <b>non-voting Class C share class</b> created as a future equity-raising rail. The funding model of the company has changed in one year.</li>
+    <li><b>Reality Labs de-emphasised, not killed:</b> metaverse spend is being harvested to fund AI; glasses (Ray-Ban) survive as the AI hardware wedge, Quest/Horizon absorb the cuts implied by the narrowing loss guide.</li>
+  </ul>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Accelerators:</b> NVIDIA GPUs remain the critical path for training/inference, supplemented by Meta's in-house MTIA silicon and reported multi-vendor deals — allocation, not demand, gates Muse's growth.</li>
+    <li><b>Power &amp; data centres:</b> multi-GW campuses (e.g., Prometheus/Hyperion-class builds) tie Meta to US grid interconnection queues, gas/turbine stopgaps and long-dated power contracts — now a utility-scale execution risk.</li>
+    <li><b>Networking &amp; HBM:</b> high-bandwidth memory and advanced packaging are shared bottlenecks with every hyperscaler; the $454B commitment book is largely this exposure, pre-paid.</li>
+    <li><b>Devices:</b> EssilorLuxottica (frames/optics) for glasses; TSMC-fabricated silicon throughout. China-linked component exposure is modest vs peers, but export-control shifts on AI silicon are a live variable.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The P&amp;L is elite; the cash-flow statement is where the debate lives. Meta converts attention to cash better than almost any company on earth — operating cash flow was $32.8B in a single quarter — and is currently choosing to spend <i>more</i> than that on capex. The balance sheet can fund this for years, but 2026 is the year Meta stopped being a net-cash fortress in any meaningful sense: $82.45B of cash and securities against $83.67B of total debt is, arithmetically, <b>≈ $1.2B of net debt</b>.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $614.99 (30 Oct 2026 close). TTM = trailing twelve months to Q3 2026.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (TTM EPS $29.33)</td><td class="n">21.0×</td><td>Below Meta's own 3-yr (~26×) and 5-yr (~25×) averages — the market is already charging for the capex cycle</td></tr>
+      <tr><td>Forward P/E (NTM consensus)</td><td class="n">~21×</td><td>Vendor range 18–22×; FY27 is widely modelled as the EPS trough year, so the forward multiple overstates expensiveness if 2028 recovers</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~6.6×</td><td>Premium to Alphabet, discount to Microsoft — consistent with faster growth, worse FCF conversion</td></tr>
+      <tr><td>EV / EBITDA (TTM, est.)</td><td class="n">~13–15×</td><td>EV ≈ market cap now that net cash ≈ 0; EBITDA is flattered pre-depreciation — D&amp;A on $135–145B/yr of capex lands in 2027–28 earnings</td></tr>
+      <tr><td>PEG (fwd P/E ÷ growth)</td><td class="n">~1.1</td><td>Not optically cheap, not expensive for 20%+ revenue growth</td></tr>
+      <tr><td>ROE / Net margin (TTM)</td><td class="n">30.7% / ~31%</td><td>Both distorted by the Q1 tax benefit and Q2–Q3 legal charges — underlying net margin ex-items ≈ high-20s</td></tr>
+      <tr><td>Cash &amp; marketable securities</td><td class="n">$82.45B</td><td>Down from $90.3B at Q2-end as capex outran OCF</td></tr>
+      <tr><td>Total debt (incl. current)</td><td class="n">$83.67B</td><td>LT debt $80.92B vs $58.74B at end-2025; +$24.9B bonds issued in 9M 2026 (incl. $25B May deal)</td></tr>
+      <tr><td>Debt / Equity</td><td class="n">~0.4×</td><td>Still modest leverage for the cash flows — the issue is trajectory and FCF, not solvency</td></tr>
+      <tr><td>Credit</td><td class="n">AA−, outlook negative</td><td>S&amp;P (30 Oct): forecasts free operating cash flow <i>deficits</i> of $39B (2026) and $71B (2027); leverage could cross its 1.0× AA− threshold in 2027</td></tr>
+      <tr><td>Dividend</td><td class="n">$1.36B/qtr · 0.34% yield</td><td>Initiated 2024; maintained through the capex surge — a signal management wants the income-investor base to stay</td></tr>
+      <tr><td>Buybacks</td><td class="n">$0 in 2026</td><td>vs $26.25B in 9M 2025 — the clearest single tell that cash now has a higher-priority use; also removes the bid that cushioned prior drawdowns</td></tr>
+      <tr><td>R&amp;D intensity</td><td class="n">~28–30% of revenue</td><td>Superintelligence Labs compensation is the fastest-growing opex line; total FY26 expenses guided $175–179B incl. the $9.9B charge</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">The one number to watch — 2027 capex</div>
+  <p>Meta declined to guide 2027 capex at Q3. Sell-side scenarios run to <b>$190–250B</b>. With $121.4B of contractual commitments already falling due in 2027, the Q4 print (early 2027) is a genuine binary: a disciplined guide (&lt;$175B) likely re-rates the stock; a $225B+ guide with no Muse revenue line likely de-rates it further, whatever Q4 revenue does. S&amp;P's negative outlook is the institutional version of the same warning.</p></div>
+
+  <h3>Capital allocation, in order of current priority</h3>
+  <ul>
+    <li><b>1. AI infrastructure</b> — $135–145B capex in 2026 alone; depreciation tail is the 2027–28 earnings story.</li>
+    <li><b>2. Debt markets</b> — funding the gap with bonds while rates sit at 3.75–4.00% funds; Class C equity is the un-used third rail.</li>
+    <li><b>3. Dividend</b> — protected. <b>4. Buybacks</b> — suspended in practice; resumption would be a strong positive signal that management sees the FCF trough.</li>
+    <li><b>5. M&amp;A / talent</b> — acqui-hire economics (nine-figure researcher packages) now run through opex, not deals, partly for regulatory optics.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide, and widening on the ad side; unproven on the AI-consumer side.</b> Meta's moat is not any single app — it is the combination of 3.64B daily users, the social graph, and an AI ad stack that now improves the product advertisers actually buy (outcomes) rather than the inventory Meta sells (impressions).</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Network effects at planetary scale:</b> 3.64B DAP — no rival can offer an advertiser this reach in one buy; TikTok, Snap and Pinterest are complements in most media plans, Meta is the line item.</li>
+      <li><b>Pricing power, demonstrated:</b> +14% average price per ad <i>and</i> +10% impressions in the same quarter. That is the signature of a platform raising ROI for buyers, not just raising prices.</li>
+      <li><b>Data + AI flywheel:</b> Advantage+ automation and the Andromeda/GEM ranking stack convert Meta's engagement data into measurable advertiser returns; each conversion funds more compute, which improves targeting further.</li>
+      <li><b>Distribution for new products:</b> Threads and Muse launch into billions of existing accounts — customer acquisition cost ≈ $0, the advantage every AI startup lacks.</li>
+      <li><b>Switching costs via WhatsApp business:</b> business messaging embeds Meta into merchant operations (esp. India, LatAm, SE Asia), a B2B moat the consumer apps never had.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Alphabet (Search/YouTube)</b> — owns intent data Meta cannot replicate; competing for the same AI capex talent and dollars with a stronger FCF cushion.</li>
+      <li><b>TikTok</b> — still the attention share threat among under-25s; a US resolution either way reshapes the ad map.</li>
+      <li><b>OpenAI / Anthropic / Google (Gemini)</b> — in consumer AI, Meta is the challenger, not the incumbent; Muse has distribution but no demonstrated retention or revenue moat yet.</li>
+      <li><b>Amazon Ads &amp; retail media</b> — growing faster off a smaller base, with purchase data Meta lost post-ATT and only partially rebuilt.</li>
+      <li><b>Regulatory erosion:</b> EU/US cases increasingly target the data-consolidation itself (see §4) — the moat is also the antitrust exhibit.</li>
+      <li><b>No enterprise/cloud leg:</b> unlike Microsoft and Google, Meta cannot rent its AI infrastructure out — every GPU dollar must pay back through ads or consumer products.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> intact and arguably strengthening — ad price growth at 26% revenue growth, at Meta's scale, is close to unprecedented. <b>Barriers to entry:</b> absolute in social/ads; merely financial (tens of billions in compute) in AI models, where open-source Llama strategy deliberately trades model exclusivity for ecosystem control. <b>Technological edge:</b> recommendation AI is best-in-class; frontier-model position is contested and talent-expensive.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Q4 2026 print + 2027 capex guide (early 2027)</b> — the master catalyst, in both directions (see §2 callout).</li>
+        <li><b>Muse monetisation reveal</b> — any disclosed revenue line (subscriptions, business agents, commerce take-rate) converts Muse from cost centre to second growth engine; even a credible 2028 target would matter.</li>
+        <li><b>WhatsApp monetisation inflecting</b> — FoA-other +59% YoY; click-to-message and paid messaging scaling in India/Brazil is under-modelled revenue.</li>
+        <li><b>Reality Labs discipline</b> — loss narrowing $18–19B → ~$15B (2027 guide) is ≈ $1.30/share of earnings relief if delivered.</li>
+        <li><b>Buyback resumption</b> — any restart signals the FCF trough is in sight; historically a powerful re-rating trigger for META.</li>
+        <li><b>Ray-Ban / AI glasses</b> — the one hardware line with genuine consumer pull; a breakout holiday quarter reframes RL from metaverse write-off to AI distribution.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Capex escalation without revenue proof</b> — commitments already total $454.5B; S&amp;P sees FOCF deficits widening to $71B in 2027 and leverage crossing 1.0×. A downgrade raises funding costs into the build.</li>
+        <li><b>Legal stack compounding</b> — the $18.59B state-AG settlement is not the end: the New Mexico case (seeking ~$25B per prior coverage), the UK CMA's formal investigation into publisher/advertiser terms (opened 30 Oct), Norway's interim block on new commercial terms, and French publisher litigation all target the data practices the AI strategy depends on.</li>
+        <li><b>Depreciation cliff</b> — $135–145B/yr of capex becomes D&amp;A with a lag; FY27 EPS trough risk is real even if revenue holds.</li>
+        <li><b>Macro / ad cycle</b> — 45% US &amp; Canada revenue at peak pricing is high-beta to a consumer slowdown; a 200–300bp ad-growth miss overwhelms cost control.</li>
+        <li><b>Key-person &amp; governance</b> — dual-class control concentrates the AI bet in one decision-maker; the new Class C class extends that structure to future raises.</li>
+        <li><b>Geopolitics</b> — AI-silicon export controls, EU digital taxes/DSA enforcement, and any TikTok resolution that strengthens a rival all sit outside management control.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Two consecutive quarters of ad-revenue growth below ~15% <i>while</i> capex guidance rises again. Either alone is survivable — Meta has absorbed both separately (2022, 2026). Together they would mean the AI spend is no longer being funded by a growing core, and the multiple, not just earnings, would compress toward the bear case in §5.</p></div>
+</section>
+
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: earnings-power scenarios, not a single DCF — with FCF negative through the build, a DCF's answer is whatever its terminal year assumes. Each case states its forward EPS (the earnings year the market will be pricing at the target date) and the multiple that case's cash-flow visibility would justify. Cross-check: the Street's 12-month consensus is <b>$833 (range $650–$1,000)</b>; post-Q3 targets cluster at $820–$875 (Morgan Stanley $820, BofA $845, Guggenheim $850, Piper Sandler $850), with Wells Fargo's $1,000 the high outlier. Our base sits modestly below consensus — deliberately, until the 2027 capex guide exists.</p>
+
+  <h3>12–18-month targets (to roughly mid-2028)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$515</div><div class="ret down">−16% vs $614.99</div><p><b>EPS $27 × 19×.</b> 2027 capex guided ≥$225B with no Muse revenue; ad growth slows to low-teens on a US consumer wobble; FY27 EPS falls below FY26 as depreciation lands; S&amp;P downgrades. The multiple de-rates to trough-cycle levels.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$780</div><div class="ret up">+27% vs $614.99</div><p><b>EPS $32.50 × 24×.</b> Capex guided $165–190B; revenue compounds mid-teens; FY27 is the EPS trough (~$29–30) with recovery priced for FY28; RL losses narrow on guide; buybacks resume late in the window. Multiple returns toward, not above, the 5-yr average.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$1,010</div><div class="ret up">+64% vs $614.99</div><p><b>EPS $36 × 28×.</b> Muse discloses a real revenue run-rate; WhatsApp business messaging inflects; ad growth holds ≥20% through 2027; capex discipline surprises (≤$165B) and FCF troughs early. The market pays a scarcity multiple for the only scaled consumer-AI distribution asset.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo)</div><div class="wv mono">≈ $771</div></div><p>0.25×$515 + 0.50×$780 + 0.25×$1,010 = $771, or <b>+25%</b> from $614.99. Positive skew: the bear case loses 16%, the bull case gains 64% — that asymmetry, at a below-history multiple, is the core of the long-term buy case. It is not a promise: re-weight immediately if the 2027 capex guide lands outside $165–190B.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (your standard format)</h3>
+  <p>Starting point: <b>FY26E revenue ≈ $256B</b> (9M actual $181.7B + Q4 guide $73–76B). Share count <b>held frozen at ~2.53B</b>; only revenue growth, net margin and the exit P/E vary by case — exactly the convention used in this season's AMZN and INTC models, so the three are directly comparable. Net margin here is the <i>2031 steady state</i>, after the depreciation wave is absorbed.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">CAGR from $615</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">8%</td><td class="n">20%</td><td class="n">~$376B</td><td class="n">~$29.70</td><td class="n">17×</td><td class="n">$505</td><td class="n">−3.9%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">14%</td><td class="n">28%</td><td class="n">~$493B</td><td class="n">~$54.50</td><td class="n">24×</td><td class="n">$1,310</td><td class="n">+16.3%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">18%</td><td class="n">32%</td><td class="n">~$586B</td><td class="n">~$74.10</td><td class="n">28×</td><td class="n">$2,075</td><td class="n">+27.5%</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $1,300</td><td class="n">+16.1%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sanity anchors: base-case 14% growth is <i>below</i> Meta's FY21–25 revenue CAGR of 14.3% and well below 2026's ~27%; the 28% net margin is below the ~35% underlying operating economics FoA already prints, leaving room for a permanently smaller RL drag (~$15B) rather than zero. The bear case still assumes no revenue decline in any year — a genuine recession case would sit below it. Illustrative model, not a forecast.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon (25+ years to retirement), self-rated risk tolerance 8/10</b> — i.e., equity-heavy, comfortable with 30–40% drawdowns in single names, no near-term liability against this money.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (0–12 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold existing; add only on weakness.</b> The stock is down ~15.5% in a month and five straight weeks — momentum and the January capex guide argue against chasing. Add tranches on a retest of the $550–575 zone or after a disciplined 2027 capex guide, whichever comes first. Do not add ahead of the Q4 print at full size.</td></tr>
+      <tr><td>Long term (3–5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Staged build to target weight.</b> Probability-weighted 5-yr value ≈ $1,300 (+16%/yr) with positive scenario skew. Build in 3 tranches (now / post-capex-guide / mid-2027) so the position is fully exposed to the base case but not hostage to one guidance print.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim above ~$950 without a Muse revenue line (multiple doing all the work); cut to half on the §4 thesis-breaker (two quarters &lt;15% ad growth <i>with</i> rising capex guide); hard-review on an S&amp;P downgrade below A+.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>META target: 6–8% of total portfolio</b> (hard cap 10%). At beta 1.26 and single-name AI-capex risk, 7% contributes roughly a tenth of portfolio volatility — meaningful, not dominant.</li>
+    <li><b>Within the equity sleeve</b> (≈85% of portfolio at risk 8/10), META at 7% of total ≈ 8% of equities — a top-3 single-name conviction slot, behind only diversified index core.</li>
+    <li><b>Watch the look-through overlap:</b> META is ~4–5% of the S&amp;P 500 and ~7–8% of Nasdaq-100 funds. If the core is QQQ-heavy, direct META of 7% can mean ~13–14% effective exposure — in that case hold direct META to <b>4–5%</b>.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+
+  <h3>Strategic allocation framework (risk 8/10, mid-30s — the frame the full 20-name matrix will plug into)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Sleeve</th><th class="n">Target</th><th>Role / notes</th></tr></thead>
+    <tbody>
+      <tr><td>Diversified core (broad US + intl index)</td><td class="n">40–45%</td><td>The compounding base; also carries passive META/GOOGL/MSFT exposure — count it in look-through</td></tr>
+      <tr><td>Mega-cap AI platforms (single names: META + peers to come)</td><td class="n">20–25%</td><td>META 6–8% sits here; cap any one name at 10%, the AI-platform cluster at ~25% combined</td></tr>
+      <tr><td>Semiconductors &amp; AI infrastructure</td><td class="n">8–10%</td><td>The capex recipients — a partial hedge on META's spending risk (their revenue is Meta's cost)</td></tr>
+      <tr><td>Quality growth / other sectors (healthcare, financials, industrials)</td><td class="n">10–12%</td><td>Deliberate non-AI ballast; where later reports in this series will add names</td></tr>
+      <tr><td>Small/mid &amp; international direct</td><td class="n">5–8%</td><td>Higher-octane satellite for an 8/10 profile</td></tr>
+      <tr><td>Bonds / cash / dry powder</td><td class="n">10–15%</td><td>At 8/10 risk this is optionality, not return — it funds the dip-buying tranches above</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 7 MATRIX ================= -->
+<section id="matrix">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Comparative Matrix — Coverage Universe</h2></div>
+  <p>This sample populates <b>1 of 20</b> rows. The columns below are the fixed template every subsequent report in this series will fill, so the matrix becomes comparable the moment the next tab is added — same as-of conventions, same frozen-parameter 5-year model.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Company</th><th class="n">Price (30 Oct)</th><th class="n">Mkt cap</th><th class="n">TTM P/E</th><th class="n">Fwd P/E</th><th class="n">P/S</th><th class="n">Rev growth</th><th class="n">Net margin</th><th class="n">FCF (latest qtr)</th><th class="n">Net cash / (debt)</th><th class="n">Base target</th><th class="n">5-yr wtd value</th><th>LT call</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>META — Meta Platforms</td><td class="n">$614.99</td><td class="n">$1.57T</td><td class="n">21.0×</td><td class="n">~21×</td><td class="n">~6.6×</td><td class="n">+26% (Q3)</td><td class="n">~31%*</td><td class="n">−$2.12B</td><td class="n">≈ −$1.2B</td><td class="n">$780</td><td class="n">~$1,300</td><td><span class="pill buy">Buy</span></td></tr>
+      <tr><td colspan="13" style="color:var(--muted);font-weight:400">Rows 2–20 — added one per approved report, in the order you supply the tickers. Each new row links to its own tab above. *TTM net margin distorted by Q1 tax benefit and Q2–Q3 legal charges; underlying ≈ high-20s.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout good"><div class="ct">How to use this sample</div><p>If the depth, the frozen-parameter 5-year format and the sizing framework work for you, send the next tickers (or the full remaining 19) and each gets the identical six-section treatment, its own tab, and a row here — the portfolio framework in §6 then rebalances across the whole set rather than name by name.</p></div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — META (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $614.99.</strong> <strong>DCF intrinsic: $242.</strong> Discount/premium vs DCF: <strong>+154.1%</strong> — i.e. the shares are trading 154.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$242</td><td>+154.1%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $25.1bn. TTM FCF to Q3 2026 (pack + sec-api.io analysis: Q3 FCF -$2.12bn, TTM $25.1bn). PARTIALLY VERIFIED: Q3 components are confirmed; the TTM $25.1bn figure itself was not separately re-sourced — treat it as Q3-confirmed, not as a confirmed TTM figure. Capex-depressed; Q3 capex $34.91bn exceeded OCF $32.79bn. Growth g = 10% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $251.0bn + PV of terminal value $369.33bn + net cash $-1.22bn, divided by 2.556bn diluted shares = <strong>$242</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://sec-api.io/insights/financial-analysis-of-meta-platforms-meta-q3-2026-earnings</li><li>$0.525 quarterly x4 = $2.10 (BloFin dividend history; pack yield 0.34%)</li><li>Q3 2026 release: total stockholders&#x27; equity $272,386m; pack shares 2,556,240,000</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — META (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>Large advertisers — e-commerce/retail, consumer goods, financial services, gaming and travel (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Small and medium advertisers — the long tail of the auction (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>WhatsApp business-messaging customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Reality Labs hardware channel partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Political and advocacy advertisers (group, cyclical)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>App and game developers advertising on Family of Apps (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Subscription / other Family of Apps payers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr></tbody></table><p><strong>Read-through.</strong> Meta discloses no single advertiser above 10% of revenue, so the read-through is aggregate, not customer-specific: if its advertiser base — overwhelmingly businesses whose own fortunes drive ad budgets — were broadly trading at a discount to intrinsic, that would be a potential tailwind for ad spend, and broad overvaluation or cash pressure would be the reverse. But an undervalued customer does not guarantee higher spending, which depends on each advertiser's own priorities and cash position, so this is a demand backdrop to monitor, not a commitment of future budgets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — META</h2>
+<p><strong>Role: Enabler / Beneficiary.</strong> Meta is an AI spender first and an AI monetiser second: Q3 2026 capex of $34.9bn exceeded operating cash flow of $32.8bn, while ad impressions rose 10% and price per ad 14% on AI-driven targeting.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through better ad targeting and pricing, plus WhatsApp monetisation and AI glasses; the multiple is supported by the market treating AI ads optimisation as a durable margin lever.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in advertising: advertisers cut budgets and AI-ads gains stall; then the multiple compresses as the $135–145bn 2026 capex programme and higher 2027 spend are re-priced against negative FCF; then the balance sheet — debt $83.7bn against cash and securities $82.4bn at 30 Sep 2026, with $454.5bn of off-balance-sheet commitments — limits room to keep spending. Watch: Q4 revenue guidance ($73–76bn) being missed, a further capex guide-up without an ads response, and Reality Labs losses running above the $18–19bn 2026 guide.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Primary figures are from Meta's Q3 2026 earnings release (21 Oct 2026) as carried by the coverage below; market data as of the 30 Oct 2026 close. Scenario targets in §5 are this report's model, cross-checked against the analyst targets listed.</p>
+  <ol class="refs">
+    <li><a href="https://ppc.land/meta-takes-9-89bn-teen-settlement-charge-as-ad-revenue-gains-26/" target="_blank" rel="noopener">PPC Land — Q3 2026 full detail: segments, balance sheet, buybacks, guidance</a></li>
+    <li><a href="https://cranberryjournal.com/technology/meta-thirty-four-nine-capex/" target="_blank" rel="noopener">Cranberry Journal — $34.9B capex, negative FCF, commitments &amp; net-debt arithmetic</a></li>
+    <li><a href="https://www.piptheory.com/research/meta-q3-2026-negative-free-cash-flow-class-c-stock-ai-capex" target="_blank" rel="noopener">PipTheory — FCF bridge, funding-mix shift and the new Class C stock</a></li>
+    <li><a href="https://www.tradingview.com/news/stockstory:d06db8f85094b:0-meta-q3-deep-dive-ai-investments-drive-engagement-legal-costs-hit-margins-muse-launches/" target="_blank" rel="noopener">TradingView / StockStory — Q3 deep dive vs consensus</a></li>
+    <li><a href="https://www.mitrade.com/ae-en/insights/news/live-news/article-8-2182406-20261022" target="_blank" rel="noopener">TradingKey via Mitrade — Q3 highlights, settlement and guidance detail</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3012324/meta-platforms-meta-reports-q3-earnings-what-key-metrics-have-to-say" target="_blank" rel="noopener">Zacks — Q3 key metrics: DAP, ARPP, geographic revenue vs estimates</a></li>
+    <li><a href="https://sec-api.io/insights/financial-analysis-of-meta-platforms-meta-q3-2026-earnings" target="_blank" rel="noopener">SEC-API — multi-year segment history, RL cumulative losses, TTM revenue</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/META/?AccountID=10790435&hash=591C733E500CD08AB021FFB52BE378051A09112709DF9639835D57DFAE26090A&utm_source=newsletter&utm_medium=email" target="_blank" rel="noopener">MarketBeat — price, $833 consensus target (57 analysts), key stats</a></li>
+    <li><a href="https://www.financecharts.com/stocks/META/value/pe-ratio" target="_blank" rel="noopener">FinanceCharts — trailing/forward P/E vs 3-yr and 5-yr averages</a></li>
+    <li><a href="https://www.gurufocus.com/term/forward-pe-ratio/META" target="_blank" rel="noopener">GuruFocus — forward P/E and GF Value estimate</a></li>
+    <li><a href="https://moneycheck.com/meta-stock-jumps-after-q3-revenue-beat-and-q4-guidance-tops-estimates/" target="_blank" rel="noopener">MoneyCheck — Q3 reaction and Morgan Stanley's $820 target raise</a></li>
+    <li><a href="https://tickernerd.com/stock/meta-forecast/" target="_blank" rel="noopener">TickerNerd — post-Q3 analyst target changes (BofA $845, Guggenheim $850, Piper $850)</a></li>
+    <li><a href="https://wixx.com/2026/10/30/sp-global-revises-outlook-on-meta-to-negative-on-cashflow-concerns/" target="_blank" rel="noopener">Reuters via WIXX — S&amp;P cuts outlook to negative (AA− affirmed), FOCF deficit forecasts</a></li>
+    <li><a href="https://www.morningstar.com/news/dow-jones/202610305925/meta-faces-uk-antitrust-probe-over-publisher-content-use" target="_blank" rel="noopener">Morningstar / Dow Jones — UK CMA opens formal investigation (30 Oct)</a></li>
+    <li><a href="https://financebuzz.com/news/wells-fargo-meta-price-target" target="_blank" rel="noopener">FinanceBuzz — Wells Fargo's $1,000 target and the 2027 EPS-trough thesis</a></li>
+    <li><a href="https://www.barchart.com/story/news/8261570/meta-platforms-earnings-preview-what-to-expect?utm_source=rss&utm_medium=feed&utm_campaign=nordot" target="_blank" rel="noopener">Barchart — consensus EPS path FY26E/FY27E and analyst rating mix</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> Research snapshot as of 1 Nov 2026, built from the public sources above. Prices, multiples and analyst targets move daily and will stale quickly — the 2027 capex guide (expected with Q4 results in early 2027) is the next scheduled reset for every number in §5. Scenario prices are an illustrative model with stated assumptions, not a forecast or personalised financial advice; position sizing assumes the stated profile (mid-30s, risk 8/10, no near-term need for the funds) and should be re-checked against your actual portfolio, including index-fund look-through, before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // GAAP / underlying toggle
+  var ex = document.getElementById('btnEx'), ga = document.getElementById('btnGaap');
+  function setMode(mode){
+    var cells = document.querySelectorAll('[data-ex]');
+    for (var i=0;i<cells.length;i++){ cells[i].textContent = cells[i].getAttribute(mode==='ex'?'data-ex':'data-gaap'); }
+    ex.classList.toggle('on', mode==='ex'); ga.classList.toggle('on', mode==='gaap');
+  }
+  ex.addEventListener('click', function(){ setMode('ex'); });
+  ga.addEventListener('click', function(){ setMode('gaap'); });
+
+  // Position-size calculator (in-memory only)
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v = parseFloat(pf.value) || 0;
+    var lo = v*0.06, hi = v*0.08, cap = v*0.10, price = 614.99;
+    out.innerHTML = 'META at <b>6–8%</b> = <b>' + fmt(lo) + ' – ' + fmt(hi) + '</b> (≈ ' + Math.floor(lo/price) + '–' + Math.floor(hi/price) + ' shares at $614.99) · hard cap 10% = <b>' + fmt(cap) + '</b>. If your core is Nasdaq-100-heavy, use 4–5% instead (' + fmt(v*0.04) + ' – ' + fmt(v*0.05) + ').';
+  }
+  pf.addEventListener('input', calc); calc();
+
+  // Scrollspy
+  var links = document.querySelectorAll('#toc a');
+  var secs = [];
+  links.forEach(function(a){ var el = document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a, el:el}); });
+  function spy(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s){ if (s.el.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, {passive:true}); spy();
+})();
+</script>
+</body>
+</html>

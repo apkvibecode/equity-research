@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — NBIS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f4ef;--paper:#fffdf8;--ink:#131a22;--muted:#5b6572;--line:#ddd6c8;--accent:#0f766e;--accent2:#b45309;--red:#b42318;--green:#067647;--chip:#eef6f3;--card:#ffffff;--soft:#f0ece1;--gold:#8a6d1b}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1216;--paper:#151a20;--ink:#e8edf2;--muted:#9aa6b2;--line:#2a333d;--accent:#2dd4bf;--accent2:#f59e0b;--chip:#142a27;--card:#1a2129;--soft:#1e262f;--gold:#e5c158}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:28px 20px 56px}
+.topbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--line);padding-bottom:14px}
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;padding:28px 0 8px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+h1{font-family:Fraunces,serif;font-size:clamp(2.6rem,6vw,4.6rem);line-height:.95;margin:.1em 0 .15em;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.lede{font-size:1.12rem;color:var(--muted);max-width:62ch}
+.ticker{font-family:"JetBrains Mono",monospace;font-weight:700}
+.pricebox{background:var(--paper);border:1px solid var(--line);padding:22px}
+.price{font-family:"JetBrains Mono",monospace;font-size:2.6rem;font-weight:700;line-height:1}
+.down{color:var(--red);font-weight:800}
+.mono{font-family:"JetBrains Mono",monospace}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+@media(max-width:760px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--card);border:1px solid var(--line);padding:16px}
+.kpi b{display:block;font-size:1.35rem;line-height:1.1}.kpi span{font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:18px 0 28px}
+@media(max-width:760px){.verdict{grid-template-columns:1fr}}
+.vcard{padding:18px;border:1px solid var(--line);background:var(--chip)}
+.vcard.warn{background:#fdf2e9;border-color:#e8c9a8}@media(prefers-color-scheme:dark){.vcard.warn{background:#2b2113;border-color:#4a3a1f}}
+.vcard h3{margin:0 0 6px;font-size:.85rem;letter-spacing:.07em;text-transform:uppercase}.vcard p{margin:0;font-weight:700;font-size:1.15rem}
+section{background:var(--paper);border:1px solid var(--line);padding:26px;margin:18px 0}
+section h2{font-family:Fraunces,serif;font-size:1.9rem;line-height:1.1;margin:0 0 6px}
+.kicker{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:800}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:.94rem;margin:14px 0} th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)} td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+ul{padding-left:1.15rem} li{margin:.45rem 0}
+.note{background:var(--soft);border-left:4px solid var(--accent);padding:14px 16px;margin:16px 0;font-size:.93rem}
+.note.warn{border-color:var(--accent2)}
+.badge{display:inline-block;padding:3px 8px;border:1px solid var(--line);background:var(--chip);font-size:.78rem;font-weight:700;border-radius:999px}
+.bar{height:12px;background:var(--line);position:relative;margin:8px 0 16px}.bar i{position:absolute;inset:0 auto 0 0;background:var(--accent)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;background:var(--card);border:1px solid var(--line);padding:18px}@media(max-width:760px){.calc{grid-template-columns:1fr}}
+input{width:100%;padding:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:1.1rem;font-family:"JetBrains Mono",monospace}
+.small{font-size:.86rem;color:var(--muted)} .sources li{word-break:break-all;font-size:.88rem}
+footer{color:var(--muted);font-size:.85rem;padding:20px 2px}
+</style>
+</head>
+<body><div class="wrap">
+<div class="topbar"><span>Equity Research • Information Technology</span><span>As of 1 Nov 2026 • Price ref: 30 Oct 2026 close</span><span>Risk 8/10 • Mid-30s profile</span></div>
+
+<div class="hero">
+<div>
+<div class="kicker">Nebius Group N.V. — NASDAQ: NBIS</div>
+<h1>Nebius is a <span>power-and-GPU</span> bet, not a normal cloud stock.</h1>
+<p class="lede">Former Yandex ex-Russia assets rebuilt as an AI neocloud: GPU compute clusters, Token Factory inference, and Toloka data solutions. The Q2 print shows hyper-growth off a tiny base — and a funding bill that dwarfs current revenue. That tension is the whole investment case.</p>
+<p class="small"><strong>Ranking basis:</strong> FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung / SK Hynix appear in that source’s global ranking but are excluded from detail (foreign listings, not in the named set).</p>
+</div>
+<div class="pricebox">
+<div class="small" style="text-transform:uppercase;letter-spacing:.07em;font-weight:800">30 Oct 2026 close</div>
+<div class="price">$154.14</div>
+<p><span class="down">▼ −10.38% on the day</span> &nbsp;•&nbsp; <span class="badge">Moderate Buy — consensus</span></p>
+<hr style="border-color:var(--line)">
+<p style="margin:.4rem 0"><strong>Consensus target:</strong> <span class="mono">$243.25</span> <span class="small">(MarketBeat)</span><br>
+<strong>Market cap:</strong> <span class="mono">$39–47B</span> <span class="small">— share-count dependent, see note</span><br>
+<strong>TTM revenue:</strong> <span class="mono">$1.36B</span><br>
+<strong>2026 guide:</strong> <span class="mono">$3.0–3.4B</span> revenue</p>
+<div class="note warn" style="margin-bottom:0"><strong>Market-cap basis — read this:</strong> $39.0B on 253m shares (MarketBeat/Zacks), $42.3B on 274m shares (StockAnalysis), Finnhub $46.8B (~303m implied). No single figure is definitive; the range is the honest number.</div>
+</div>
+</div>
+
+<div class="kpis">
+<div class="kpi"><span>Q2 2026 group revenue</span><b>$582.3M</b><small>+454% YoY — verified</small></div>
+<div class="kpi"><span>AI cloud revenue (Q2)</span><b>$574.9M</b><small>+514% YoY • 98.7% of group</small></div>
+<div class="kpi"><span>Q2 GAAP net loss</span><b>−$190.4M</b><small>−$0.68 / share • adj. loss −$33.2M</small></div>
+<div class="kpi"><span>Contracted power target</span><b>5 GW</b><small>raised target • prepayments &gt;$9B</small></div>
+</div>
+
+<div class="verdict">
+<div class="vcard"><h3>Short term • 12–18 months</h3><p>HOLD</p><small>Do not chase after a −10% day into a Q3 print due early–mid Nov 2026. Volatility and dilution risk dominate.</small></div>
+<div class="vcard"><h3>Long term • 5 years</h3><p>BUY — speculative only</p><small>Only as a satellite position. The payoff requires flawless capacity conversion.</small></div>
+<div class="vcard warn"><h3>Portfolio weight</h3><p>0.5% of total portfolio</p><small>For a mid-30s, risk 8/10 investor. At $100k portfolio = $500 ≈ 3.2 shares at $154.14.</small></div>
+</div>
+
+<section id="business">
+<div class="kicker">01 — Business model</div><h2>Business Model &amp; Segment Breakdown</h2>
+<p>Nebius sells scarce AI infrastructure: large GPU clusters for training and inference, packaged with its own software stack, plus data services that help models learn. It is a <em>neocloud</em> — smaller and more specialised than hyperscalers, competing on GPU availability, cluster performance, and speed to deploy.</p>
+<table><thead><tr><th>Segment (Q2 2026)</th><th class="num">Revenue</th><th class="num">Share</th><th>What it is</th></tr></thead><tbody>
+<tr><td><strong>AI Cloud</strong></td><td class="num">$574.9M</td><td class="num">98.7%</td><td>GPU compute clusters + Token Factory inference platform. +514% YoY.</td></tr>
+<tr><td><strong>Toloka + other</strong></td><td class="num">~$7.4M*</td><td class="num">~1.3%</td><td>Toloka data solutions for AI training/evaluation; residual group lines. *Derived as group minus AI cloud.</td></tr>
+<tr><td><strong>Group total</strong></td><td class="num"><strong>$582.3M</strong></td><td class="num">100%</td><td>+454% YoY. TTM group revenue $1.36B.</td></tr>
+</tbody></table>
+<div class="bar" aria-hidden="true"><i style="width:98.7%"></i></div><p class="small">AI cloud share of Q2 revenue — this is effectively a single-segment company today.</p>
+<h3>2026 guidance — reaffirmed</h3>
+<table><thead><tr><th>Guide item</th><th class="num">Value</th><th>Implication</th></tr></thead><tbody>
+<tr><td>Group revenue</td><td class="num">$3.0–3.4B</td><td>Midpoint $3.2B is the base used in the 5-year model below — <em>not</em> TTM revenue.</td></tr>
+<tr><td>AI-cloud exit run-rate</td><td class="num">$7–9B</td><td>Exit rate, not full-year revenue. Requires Q4 capacity to come online on time.</td></tr>
+<tr><td>Adjusted EBITDA margin</td><td class="num">~40%</td><td>At scale, if utilisation holds. Not a GAAP net margin.</td></tr>
+<tr><td>Capex</td><td class="num">$20–25B</td><td>~6–8× guided revenue — see Financials.</td></tr>
+<tr><td>Customer prepayments</td><td class="num">&gt;$9B</td><td>Customers part-fund the build — de-risks, but concentrates counterparties.</td></tr>
+</tbody></table>
+<p><strong>Structural pivot &amp; dependencies:</strong> Built from Yandex’s ex-Russia assets after divestiture. Announced 15 Jul 2026: a partner-financed infrastructure model to share the build cost. Critical dependencies: NVIDIA GPU supply, power and land (5 GW contracted-power target), permitting, and financing markets.</p>
+</section>
+
+<section id="financials">
+<div class="kicker">02 — Financial health</div><h2>Financial Health &amp; Balance Sheet Diagnostics</h2>
+<div class="note"><strong>Valuation warning — trailing P/E is not meaningful.</strong> Nebius is loss-making on a GAAP basis. Finnhub’s ~1,102× figure is an artefact of a tiny positive trailing EPS from a non-operating gain; other feeds show P/E N/A or −5,136×. None of them should be quoted as valuation. Judge this stock on revenue, guide delivery, P/S on forward revenue, and cash funding — not P/E.</div>
+<div class="grid2"><div>
+<table><thead><tr><th>Metric</th><th class="num">Value</th></tr></thead><tbody>
+<tr><td>Share price (30 Oct close)</td><td class="num">$154.14</td></tr>
+<tr><td>Shares outstanding</td><td class="num">253.02M*</td></tr>
+<tr><td>Market cap</td><td class="num">$39.0B*</td></tr>
+<tr><td>TTM revenue</td><td class="num">$1.36B</td></tr>
+<tr><td>Trailing P/S (on TTM)</td><td class="num">~28.7×*</td></tr>
+<tr><td>P/S on 2026 guide midpoint ($3.2B)</td><td class="num">~12.2×*</td></tr>
+<tr><td>Debt / equity</td><td class="num">0.82</td></tr>
+<tr><td>Current ratio</td><td class="num">4.03</td></tr>
+</tbody></table><p class="small">*On the 253m-share MarketBeat basis. On Finnhub’s $46.8B cap the P/S figures are ~20% higher. Ratios as cited in the research pack.</p>
+</div><div>
+<h3 style="margin-top:0">The funding maths</h3>
+<p>Capex guided at <strong>$20–25B</strong> against <strong>$3.0–3.4B</strong> of guided revenue is the defining balance-sheet fact. Even with &gt;$9B of customer prepayments and a <strong>$3.5B Citi senior secured facility</strong> for data-center / GPU build-out, Nebius must keep raising debt and almost certainly equity — hence the 0.30B share count (dilution allowance) used in the 5-year model, vs 253m today.</p>
+<ul><li><strong>Free cash flow:</strong> deeply negative during the build phase — the model is “build first, harvest later.” No dividend; no buyback is plausible or discussed.</li><li><strong>Liquidity:</strong> current ratio 4.03 looks comfortable, but it is a snapshot before the capex wave lands.</li><li><strong>Capital allocation:</strong> effectively 100% into GPUs, data centres, and power. R&amp;D is embedded in the platform build (Token Factory, cluster software).</li></ul>
+</div></div>
+<h3>Capex vs revenue — why funding risk is Risk #1</h3>
+<p class="small" style="margin-bottom:4px">Guided revenue (midpoint $3.2B)</p><div class="bar"><i style="width:13%"></i></div>
+<p class="small" style="margin-bottom:4px">Guided capex (midpoint $22.5B)</p><div class="bar"><i style="width:92%;background:var(--accent2)"></i></div>
+<p class="small">Bars scaled to capex midpoint. A ~7× capex-to-revenue ratio only works if contracted demand converts and capital markets stay open.</p>
+</section>
+
+<section id="moat">
+<div class="kicker">03 — Moat &amp; positioning</div><h2>Competitive Moat &amp; Industry Positioning</h2>
+<div class="grid2"><div><h3>What could be a moat</h3><ul><li><strong>GPU-cluster operations know-how</strong> — running large, high-utilisation training clusters is operationally hard; Yandex heritage helps.</li><li><strong>Software stack + Token Factory</strong> — inference tooling on top of raw compute improves stickiness vs pure GPU rental.</li><li><strong>Power &amp; land pipeline</strong> — 5 GW contracted-power target; in 2026, power <em>is</em> the barrier to entry.</li><li><strong>Partner-financed model</strong> (15 Jul 2026) — spreads the capital burden and can accelerate build vs going it alone.</li></ul></div>
+<div><h3>Why the moat is still thin</h3><ul><li>No pricing power yet proven through a cycle — neocloud GPU pricing collapses fast if hyperscaler supply loosens.</li><li>Competitors: <strong>CoreWeave</strong> (closest peer), hyperscalers (Microsoft, Google, Amazon), <strong>Lambda, Crusoe</strong>.</li><li>Customer concentration: prepayments &gt;$9B implies a small number of very large counterparties.</li><li>Hardware depreciates quickly — today’s GPU fleet is not a durable asset moat.</li></ul><p><strong>Verdict:</strong> an execution and power-access edge, not yet a structural moat. The moat question is answered by utilisation and renewal rates in 2027, not by 2026 growth rates.</p></div></div>
+</section>
+
+<section id="risks">
+<div class="kicker">04 — Catalysts &amp; risks</div><h2>Catalysts &amp; Downside Risks</h2>
+<div class="grid2"><div><h3>Catalysts</h3><ul><li><strong>Q3 2026 report — expected early–mid Nov 2026:</strong> first check on guide delivery and capacity conversion.</li><li>Capacity coming online converts the $7–9B exit run-rate guide from promise to revenue.</li><li>New large customer / prepayment announcements; partner-financing deals closing.</li><li>Token Factory adoption — higher-margin inference mix.</li></ul></div>
+<div><h3>Risks</h3><ul><li><strong>Funding risk:</strong> $20–25B capex vs ~$3.2B revenue — dilution and debt costs can overwhelm growth.</li><li><strong>Customer concentration</strong> and counterparty risk on prepayments.</li><li><strong>Power / permitting delays</strong> slipping capacity (and revenue) to the right.</li><li><strong>Pricing collapse</strong> if hyperscalers add supply or GPU rental rates fall.</li><li>Geopolitical / heritage complexity from Yandex origins; execution risk at hyper-scale build speed.</li></ul></div></div>
+</section>
+
+<section id="valuation">
+<div class="kicker">05 — Valuation</div><h2>Scenario-Based Valuation &amp; Price Targets</h2>
+<p class="small">All scenario prices below are <strong>modelled estimates</strong> — methodology shown so you can check the arithmetic. They are not verified facts and not analyst targets. Consensus (MarketBeat) is separate: $243.25, Moderate Buy.</p>
+<h3>12–18 month scenarios</h3>
+<table><thead><tr><th>Case</th><th class="num">Target</th><th class="num">vs $154.14</th><th>Assumes</th></tr></thead><tbody>
+<tr><td>Bear (25%)</td><td class="num">$80</td><td class="num">−48%</td><td>Guide slip, dilutive raise, GPU pricing softens.</td></tr>
+<tr><td>Base (50%)</td><td class="num">$190</td><td class="num">+23%</td><td>Guide delivered, capacity converts on schedule.</td></tr>
+<tr><td>Bull (25%)</td><td class="num">$280</td><td class="num">+82%</td><td>Exit run-rate at top of $7–9B, new anchor customers.</td></tr>
+<tr><td><strong>Weighted (25/50/25)</strong></td><td class="num"><strong>$185</strong></td><td class="num">+20%</td><td>Modelled: 0.25×80 + 0.50×190 + 0.25×280 = $185.</td></tr>
+</tbody></table>
+<h3>5-year projection — adapted mature-margin method</h3>
+<div class="note">A standard EPS × P/E model fails for a loss-making hyper-grower, so this uses the pack’s adapted method: start from the <strong>2026 guide midpoint revenue $3.2B</strong> (not TTM), grow it for 5 years, apply a <em>mature</em> net margin, divide by <strong>0.30B shares</strong> (dilution allowance vs 253m today), then apply a mature P/E. Bear case has 0% margin, so it falls back to price/sales.</div>
+<table><thead><tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 revenue</th><th class="num">Mature margin</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr></thead><tbody>
+<tr><td>Bear (25%)</td><td class="num">15%</td><td class="num">$6.44B</td><td class="num">0% → P/S 3×</td><td class="num">—</td><td class="num">—</td><td class="num"><strong>$64</strong></td></tr>
+<tr><td>Base (50%)</td><td class="num">35%</td><td class="num">$14.34B</td><td class="num">15%</td><td class="num">$7.17</td><td class="num">35×</td><td class="num"><strong>$251</strong></td></tr>
+<tr><td>Bull (25%)</td><td class="num">50%</td><td class="num">~$24.3B</td><td class="num">25%</td><td class="num">~$20.26</td><td class="num">50×</td><td class="num"><strong>$1,013</strong></td></tr>
+<tr><td colspan="6"><strong>Probability-weighted (0.25×64 + 0.50×251 + 0.25×1,013)</strong></td><td class="num"><strong>$395</strong></td></tr>
+</tbody></table>
+<p class="small">Check the base case: $3.2B × 1.35⁵ = $14.34B; ×15% = $2.15B net income; ÷0.30B = $7.17 EPS; ×35 = $251. The bull case is an extreme right tail — treat $395 as a maths average across very different worlds, not a forecast. Even the weighted figure sits ~2.6× today’s price only because the bull tail is so large; the bear case is −58%.</p>
+</section>
+
+<section id="rec">
+<div class="kicker">06 — Recommendation</div><h2>Recommendation &amp; Position Sizing</h2>
+<p><strong>Short term (12–18m): HOLD.</strong> A −10.38% drop into an imminent Q3 print, with a funding programme this large, is not a dip to chase blindly — wait for guide confirmation. <strong>Long term (5y): BUY, speculative only, at 0.5%.</strong> The asymmetry is real, but so is the chance of heavy dilution or a pricing reset; size it so being wrong costs little.</p>
+<div class="calc"><div><label for="pv" style="font-weight:700">Your total portfolio ($)</label><input id="pv" type="number" value="250000" min="0" step="1000"><p class="small">In-memory calculator only — nothing is saved or sent.</p></div>
+<div><p style="margin:.2rem 0"><strong>NBIS at 0.5%:</strong> <span class="mono" id="alloc">$1,250</span></p><p style="margin:.2rem 0"><strong>Shares at $154.14:</strong> <span class="mono" id="shares">8.1</span></p><p class="small">If 0.5% feels too small to matter — that is the point. Nebius is a venture-style satellite inside a public portfolio, not a core holding like the mega-cap names.</p></div></div>
+<p class="small" style="margin-top:14px"><strong>Open questions:</strong> Q3 2026 results (early–mid Nov) not yet reported at the 1 Nov cut; share count / market cap unresolved across providers ($39–47B range); forward EV/EBITDA and P/S on a single agreed share count not verified — omitted rather than guessed.</p>
+</section>
+
+<section id="sources">
+<div class="kicker">Sources</div><h2>Sources &amp; Verification</h2>
+<p class="small">Key Q2 figures (group $582.3M +454%, AI cloud $574.9M +514%, GAAP net loss $190.4M / −$0.68, guides $3.0–3.4B revenue and $20–25B capex) were independently re-checked 1 Nov 2026 and confirmed; market-cap correction and the “P/E not meaningful” treatment come from that verification pass. Scenario prices are modelled estimates with methodology shown above.</p>
+<ul class="sources">
+<li>Kalkine — Nebius ahead of earnings: <a href="https://kalkine.com/news/general-news/why-is-nebius-nasdaqnbis-flat-as-ai-cloud-stocks-slide-what-investors-may-be-missing-ahead-of-its-next-earnings-report">kalkine.com</a></li>
+<li>MarketBeat — NBIS stock page (price, cap on 253m shares, consensus $243.25): <a href="https://www.marketbeat.com/stocks/NASDAQ/NBIS/">marketbeat.com/stocks/NASDAQ/NBIS</a></li>
+<li>Ticker Report — NBIS down 10.4% (30 Oct): <a href="https://www.tickerreport.com/banking-finance/13643472/nebius-group-nasdaqnbis-stock-price-down-10-4-whats-next.html">tickerreport.com</a></li>
+<li>AlgoTradeAlert — Citi financing expands: <a href="https://algotradealert.substack.com/p/nebius-nbis-citi-financing-expands">algotradealert.substack.com</a></li>
+<li>StockAnalysis — NBIS statistics (274m share count): <a href="https://stockanalysis.com/stocks/nbis/statistics/">stockanalysis.com/stocks/nbis/statistics</a></li>
+</ul>
+</section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>NBIS — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $154.14.</strong> <strong>DCF intrinsic: $126.</strong> Discount/premium vs DCF: <strong>+22.3%</strong> — i.e. the shares are trading 22.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$126</td><td>+22.3%</td></tr></table>
+<p><strong>Method 1 — DCF: $126.</strong> Base FCF $1.50B, constant growth g = 15% for years 1–10, discount rate r = 12% (high-risk/speculative (12%)), terminal growth 3%. PV of projected FCF (years 1–10) = $17.40B; Year-10 FCF = $6.07B; terminal value = Year-10 FCF × 1.03 / (12% − 3%) discounted to present = $22.36B. Equity value = PV of FCF + PV of terminal value + net cash ($-2.02B) = $37.74B; divided by 0.3B diluted shares = $126. Base note: FORWARD NORMALISED FCF ASSUMPTION — HIGHLY UNCERTAIN: TTM FCF was -$5.88B (OCF $5.26B less capex $11.14B, Fool) and the pack guides $20-25B of 2026 capex against $3.0-3.4B of revenue, so no TTM base is usable. Base $1.5B is a forward normalised proxy anchored to the pack's base-case mature earnings path (2031 revenue $14.34B at 15% margin = $2.15B), haircut for ongoing capex intensity. It is an assumption, not a reported figure. Shares 0.30B = pack dilution allowance (vs 253-272M outstanding).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://www.fool.com/quote/nasdaq/nbis/ ; https://business-news-today.com/nebius-group-company-profile-ai-cloud-financials-stock-outlook/ ; research pack (2026 guide, capex $20-25B, prepayments >$9B)</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NBIS — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of NBIS's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>Contracted neocloud capacity — part of the $40B+ contracted backlog reported for Nebius</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Meta Platforms</td><td>Contracted neocloud capacity — part of the same reported backlog</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Nvidia</td><td>GPU supply and ~9.3% Class A holder / strategic partner (supplier-investor, not purely a customer)</td><td></td><td>$166</td><td>+23.3%</td></tr><tr><td>Other hyperscaler and enterprise customers (undisclosed individually)</td><td>Token Factory / inference and GPU-cluster customers — no ranked list disclosed</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Nebius's read-through is almost entirely two names — Microsoft and Meta, the reported core of its $40B+ contracted backlog — so discounts at their filled DCF intrinsics would be a potential tailwind for capacity conversion, while premiums would warn of slower prepayment-backed growth. An undervalued customer does not guarantee higher Nebius spending — it depends on each customer's own AI-capacity priorities and cash position — and Nebius's own pack risk is funding $20-25B of capex against $3.2B of revenue, which customer health alone cannot fix. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NBIS — AI trade positioning</h2>
+<p><strong>Role: Enabler — neocloud AI capacity (speculative).</strong> Nebius is a pure-play AI infrastructure enabler: GPU clusters, Token Factory inference and Toloka data solutions, with Q2 2026 group revenue of $582.3M (+454% YoY), AI-cloud revenue of $574.9M (+514%), and a reaffirmed 2026 guide of $3.0–3.4B revenue with a $7–9B AI-cloud exit run-rate, per the pack.</p>
+<p>While the AI trade runs, demand comes through contracted capacity conversion — a $40B+ contracted backlog and >$9B of customer prepayments in the pack — with contracted power raised to a 5 GW target. On multiples, Nebius has no meaningful trailing P/E (loss-making; the pack warns the Finnhub 1,102x is an artefact), so the AI narrative is capitalised entirely in growth expectations, not earnings.</p>
+<p>If the AI trade unwinds, demand breaks first through customer prepayment and contract slippage — neocloud pricing collapsing if hyperscaler supply loosens is the pack's named risk — with utilisation falling before contracts formally break. Multiple compression follows from growth-expectation pricing toward asset value, which is thin. The balance sheet is the break point: $20–25B of 2026 capex against $3.2B of guided revenue, $10.06B of debt against $8.04B of cash, a $3.5B Citi senior secured facility, and a $5.75B convertible layer in coverage — funding, not demand, is the binding constraint. Triggers to watch: Q3 results (early-mid Nov 2026), capacity-conversion and utilisation prints, power/permitting milestones, and any customer prepayment or contract headlines.</p>
+</div>
+<footer>Research views only, not investment advice and not guarantees. Data as of 1 Nov 2026; price reference is the 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Modelled targets are estimates — see methodology in Section 05. — Blaze</footer>
+</div>
+<script>
+(function(){var pv=document.getElementById('pv'),a=document.getElementById('alloc'),s=document.getElementById('shares');function fmt(n){return '$'+Math.round(n).toLocaleString('en-US')}
+function upd(){var v=parseFloat(pv.value)||0;var dollars=v*0.005;a.textContent=fmt(dollars);s.textContent=(dollars/154.14).toFixed(1)}
+pv.addEventListener('input',upd);upd();})();
+</script>
+</body></html>

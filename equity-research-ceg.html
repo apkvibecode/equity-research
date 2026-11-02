@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CEG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 76px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Utilities · Merchant Nuclear Generation</span></div>
+  <h1>Constellation Energy <span class="tick">(NASDAQ: CEG)</span></h1>
+  <p class="lede">America's largest carbon-free generator is not a utility in the way the word is usually meant. Constellation is a merchant power company: no regulator guarantees its earnings, so power prices, capacity auctions and data-centre power deals decide what it makes. The stock has de-rated hard — down 25.7% year-to-date and 30.4% over one year — even as trailing earnings held up. That gap, between a scarce 24/7 clean-power asset and a price that no longer trusts merchant earnings, is the whole debate in this note.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $262.38 close, Fri 30 Oct 2026</span>
+    <span><b>Latest full year:</b> FY2025</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">CEG — this report</span>
+    <span class="tab soon">Utilities peers in this series: NEE · SO · DUK · AEP · D · SRE · ETR · XEL · EXC</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$262.38</div><div class="vsub down">YTD −25.7% · 1-yr −30.4% (Finnhub)</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$92.96B</div><div class="vsub">#4 in XLU by market cap (TipRanks, 30 Oct)</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing / Forward P/E</div><div class="vbig mono">25.6× / 20.7×</div><div class="vsub">TTM diluted EPS $10.26 · Div. yield 0.6%</div></div>
+  <div class="vcell span3"><div class="vlabel">12–18-mo base target (modelled est.)</div><div class="vbig mono">$330 <span class="up" style="font-size:16px">+26%</span></div><div class="vsub">Bear $210 · Bull $400 — modelled estimates, §5</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">The de-rating may not be finished; merchant earnings are volatile and there is no regulated floor under them.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Highest upside optionality in Utilities for a risk-8 profile — if data-centre demand for firm clean power holds.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Sized for volatility, not for yield. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">FY2025</span><h2>The year in one view</h2></div>
+  <p>Two EPS numbers appear in this note and they are not a contradiction. <b>FY2025 diluted EPS was $7.40</b> on net income of $2.3B and revenue of $25.5B. The <b>trailing-twelve-month diluted EPS used for valuation is $10.26</b> — a later, stronger trailing window than the closed FY2025 accounts. The trailing P/E of 25.6× is struck off the $10.26 figure; the FY2025 figures describe the last completed financial year. Keep the two bases separate, because the 5-year model in §5 grows the $10.26 trailing base, not the $7.40 FY2025 print.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Figure</th><th class="n">Value</th><th>Basis</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="n">$25.5B</td><td>FY2025</td><td>+8.3% vs prior year — growth, but at utility pace, not AI-infrastructure pace</td></tr>
+      <tr><td>Net income</td><td class="n">$2.3B</td><td>FY2025</td><td>Implied FY net margin ≈ 9.0% ($2.3B ÷ $25.5B, computed) — thin for the revenue scale, typical of merchant generation where fuel, purchased power and fleet costs sit between revenue and profit</td></tr>
+      <tr><td>Diluted EPS</td><td class="n">$7.40</td><td>FY2025</td><td>The closed-year earnings base</td></tr>
+      <tr class="hl"><td>Diluted EPS (TTM)</td><td class="n">$10.26</td><td>Trailing 12 months</td><td>Stronger than FY2025 — the earnings power the current price is actually capitalising</td></tr>
+      <tr><td>Sales growth (TTM)</td><td class="n">+26.0%</td><td>Trailing, peer table</td><td>Trailing sales momentum is far above the FY2025 +8.3% — power-price and volume conditions improved into the trailing window</td></tr>
+      <tr><td>Operating margin</td><td class="n">14.7%</td><td>Trailing, peer table</td><td>Merchant margins move with power prices; this is a point-in-cycle figure, not a regulated entitlement</td></tr>
+      <tr><td>Share price performance</td><td class="n">−25.7% YTD · −30.4% 1-yr</td><td>Finnhub, to 30 Oct 2026</td><td>The sector's big de-rating despite earnings — the market is paying less per dollar of CEG earnings than it did a year ago</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: FY2025 revenue, net income and EPS — <a href="https://greeksoup.ai/stocks/us/ceg/" target="_blank" rel="noopener">GreekSoup CEG profile</a>. TTM EPS, P/E — <a href="https://www.financecharts.com/stocks/CEG/value/pe-ratio-averages" target="_blank" rel="noopener">FinanceCharts</a>. Price performance — Finnhub (see Sources). FinanceCharts shows a $262.70 close vs Finnhub's $262.38 — a $0.32 vendor difference; this note uses the independently confirmed $262.38 throughout.</p>
+</section>
+
+<!-- ================= INCOME FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>FY2025 income flow — where $25.5B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 240" width="100%" role="img" aria-label="Flow of Constellation Energy FY2025 revenue of 25.5 billion dollars to net income of 2.3 billion dollars, with the residual shown as a combined line" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="70" width="200" height="80" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="102" font-size="13" font-weight="700" fill="var(--ink)">Generation + retail supply</text><text x="20" y="120" font-size="12" fill="var(--ink2)">Nuclear fleet output and</text><text x="20" y="136" font-size="12" fill="var(--ink2)">competitive supply sales</text>
+      <rect x="330" y="78" width="190" height="64" fill="var(--navy)"/><text x="346" y="106" font-size="14" font-weight="700" fill="#fff">FY2025 revenue</text><text x="346" y="126" font-size="13" fill="#fff">$25.5B · +8.3% YoY</text>
+      <line x1="208" y1="110" x2="326" y2="110" stroke="var(--muted)" stroke-width="10" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="640" y="36" width="330" height="62" fill="var(--chip)" stroke="var(--line2)"/><text x="654" y="60" font-size="13" font-weight="700" fill="var(--ink)">All operating costs, fuel &amp; purchased power,</text><text x="654" y="78" font-size="13" font-weight="700" fill="var(--ink)">interest, depreciation &amp; tax (combined residual)</text><text x="654" y="94" font-size="12" fill="var(--ink2)">$23.2B — not split out in the verified pack</text>
+      <rect x="640" y="130" width="330" height="62" fill="var(--green-soft)" stroke="var(--line2)"/><text x="654" y="156" font-size="13" font-weight="700" fill="var(--ink)">Net income $2.3B</text><text x="654" y="175" font-size="12" fill="var(--ink2)">Diluted EPS $7.40 · implied net margin ≈ 9.0%</text>
+      <line x1="520" y1="100" x2="636" y2="70" stroke="var(--muted)" stroke-width="8" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="520" y1="122" x2="636" y2="156" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>The verified research pack carries revenue and net income for FY2025 but no audited cost split, so the $23.2B between them is shown honestly as one combined residual ($25.5B − $2.3B) rather than broken into invented line items. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Constellation is the nuclear fleet spun out of Exelon, now standing alone as the <b>largest carbon-free generator in the United States</b>, paired with a competitive retail and commercial power-supply business. The single most important fact about the model is what it is <b>not</b>: it is <b>not a regulated utility</b>. A regulated peer earns a state-approved return on its asset base whether power prices rise or fall. Constellation earns what the market pays — wholesale power prices, capacity-market payments for being available, and negotiated supply contracts, increasingly including power purchase agreements (PPAs) with data-centre operators who need electricity that is both firm and carbon-free, around the clock.</p>
+
+  <h3>The two engines</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Engine</th><th>What it sells</th><th>What drives its earnings</th></tr></thead>
+    <tbody>
+      <tr><td>Generation — nuclear-led fleet</td><td>Electricity and capacity from the largest US carbon-free fleet, sold into wholesale markets and under contract</td><td>Wholesale power prices; capacity-auction clearing prices; fleet reliability and uptime; nuclear licence life</td></tr>
+      <tr><td>Competitive retail &amp; commercial supply</td><td>Power supply to commercial, industrial and retail customers</td><td>Contract margins over wholesale cost; customer retention; the ability to offer carbon-free supply matched to fleet output</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Open point, stated plainly: the verified research pack does not carry an audited revenue or profit split between generation and supply, so no segment percentages are shown here. Any split quoted elsewhere should be checked against Constellation's own segment reporting before use.</p>
+
+  <h3>How the money actually moves</h3>
+  <ul>
+    <li><b>Energy margin:</b> nuclear generation has high fixed costs and very low marginal cost. Once the fleet is running, each dollar of power-price increase falls largely to profit — and each dollar of decrease falls out of it. That operating leverage is why CEG's earnings and share price are far more volatile than a regulated utility's.</li>
+    <li><b>Capacity payments:</b> grid operators pay generators simply to exist and be available at peak. Capacity-auction outcomes are therefore a direct earnings line, and a weak auction is a real earnings event, not a sentiment event.</li>
+    <li><b>Contracted clean power:</b> long-dated PPAs — above all with hyperscale data-centre customers — convert volatile merchant output into contracted revenue. The strategic contest inside the business is how much output to contract (certainty, lower upside) versus leave merchant (full price exposure, both ways).</li>
+    <li><b>Ranking basis for this series:</b> CEG is #4 among Utilities here because the universe is <b>XLU holdings ranked by market cap as of 30 Oct 2026 (TipRanks)</b> — NEE $175.57B, SO $107.80B, DUK $99.33B, then CEG $92.96B. XLU is 100% US geography, so a US-listed-only list is defensible <i>as an XLU methodology</i> — but it is <b>not a global top 10</b>. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the list and XEL and EXC would fall out. Market-cap figures in this note are TipRanks values; Finnhub's float-based values differ by up to ~$3B for some names — vendors are never mixed within a figure.</li>
+  </ul>
+
+  <h3>Structural position &amp; dependencies</h3>
+  <ul>
+    <li><b>Fleet life is the asset life:</b> nuclear licence extensions determine how long the core asset earns. Each extension is long-dated, low-marginal-cost, carbon-free capacity that no competitor can replicate on any realistic timeline — new nuclear takes a decade or more.</li>
+    <li><b>Fuel and operations:</b> uranium fuel is a small share of nuclear running cost versus gas for thermal rivals, which insulates the energy margin from gas-price spikes — but leaves earnings exposed to the <i>selling</i> price of power, which gas often sets at the margin.</li>
+    <li><b>Policy dependency:</b> merchant nuclear economics lean on the policy value placed on carbon-free generation and on capacity-market design. Both are set by regulators and legislatures, not by Constellation — see §4.</li>
+    <li><b>Customer concentration risk, emerging:</b> the data-centre PPA story concentrates future contracted growth in a handful of very large technology buyers, whose own build plans can slow — see §4.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The diagnostic story is a <b>de-rating, not a deterioration</b> — so far. Trailing EPS of $10.26 is above the FY2025 print of $7.40, trailing sales growth is +26.0%, yet the share price is down 30.4% in a year. The market is not disputing last year's earnings; it is refusing to capitalise merchant earnings at the multiple it used when data-centre power scarcity was the only story in the sector. At 25.6× trailing and 20.7× forward, CEG still trades at a clear premium to regulated utilities — the question §5 prices is how much of that premium the contracted-PPA story can defend.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $262.38 (30 Oct 2026 close, Finnhub; independently confirmed). Market cap on the TipRanks basis — do not mix vendors.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (TTM EPS $10.26)</td><td class="n">25.60×</td><td>Premium multiple for a utility — justified only if merchant earnings prove durable through a power-price cycle</td></tr>
+      <tr><td>Forward P/E</td><td class="n">20.66×</td><td>The ~5-point gap to trailing implies the market expects earnings growth — or is pricing a softer trailing base rolling off</td></tr>
+      <tr><td>Operating margin (TTM)</td><td class="n">14.7%</td><td>Cycle-dependent: expands fast when power prices rise, compresses just as fast when they fall</td></tr>
+      <tr><td>Sales growth (TTM)</td><td class="n">+26.0%</td><td>Strong trailing momentum — against which the −30.4% one-year share move is the de-rating in a single pair of numbers</td></tr>
+      <tr><td>Dividend yield</td><td class="n">0.6%</td><td>Token by utility standards — regulated peers typically yield multiples of this. CEG is bought for price appreciation or not at all; the 2.0% sizing in §6 follows from this</td></tr>
+      <tr><td>Debt / Equity</td><td class="n">0.77×</td><td>Moderate leverage for a generator. Not stretched — but merchant cash flows are the wrong kind of cash flow to lever heavily, because they can fall with prices</td></tr>
+      <tr><td>FY2025 net margin (computed)</td><td class="n">≈ 9.0%</td><td>$2.3B net income ÷ $25.5B revenue — computed from verified figures, not a reported line</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="bars" aria-label="Share price performance">
+    <div class="bar-row"><span class="bl">Year to date</span><div class="bar-track"><div class="bar-fill neg" style="width:64%"></div></div><span class="bv">−25.7%</span></div>
+    <div class="bar-row"><span class="bl">One year</span><div class="bar-track"><div class="bar-fill neg" style="width:76%"></div></div><span class="bv">−30.4%</span></div>
+    <div class="bar-row"><span class="bl">TTM sales growth</span><div class="bar-track"><div class="bar-fill green" style="width:65%"></div></div><span class="bv">+26.0%</span></div>
+  </div>
+  <p class="small">Bar lengths are relative within this chart only. Performance: Finnhub, to the 30 Oct 2026 close.</p>
+
+  <div class="callout warn"><div class="ct">What the verified pack does not carry — and this note will not invent</div>
+  <p>Free cash flow, buyback and dividend-per-share history, a debt maturity ladder, and EV/EBITDA were <b>not in the verified research pack</b> for CEG, so they are omitted here rather than estimated silently. For a merchant generator those omissions matter: capital allocation and cash conversion are exactly where the next verification pass should go before any position is enlarged beyond the starter sizing in §6.</p></div>
+
+  <h3>Capital allocation — what can be said on verified figures</h3>
+  <ul>
+    <li><b>Dividend:</b> a 0.6% yield at $262.38 implies roughly $1.57 of annual dividend per share (computed from the verified yield and price) — a commitment device, not an income proposition.</li>
+    <li><b>Balance-sheet posture:</b> D/E of 0.77× leaves room to fund fleet life-extension and uprate work without equity issuance at today's de-rated price — the cheapest funding decision available to management is <i>not</i> issuing shares here.</li>
+    <li><b>The merchant caveat on every ratio above:</b> each of these metrics is struck off trailing earnings earned in strong power-price conditions. Stress them mentally at lower prices before trusting them — §5's bear case does exactly that.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: narrow-to-wide, and of an unusual kind — asset scarcity, not brand, network or switching costs.</b> Constellation's advantage is that it owns something that cannot be rebuilt: the largest operating carbon-free nuclear fleet in the US, producing firm power — available day and night, in all weather — at very low marginal cost. In a market where the marginal new buyer is a hyperscaler that needs exactly that product and cannot wait a decade for new nuclear, scarcity itself is the moat.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Irreplaceable fleet scale:</b> no competitor can assemble equivalent US nuclear capacity at any price on a relevant timeline; permitting and construction horizons for new nuclear run to a decade-plus.</li>
+      <li><b>The 24/7 carbon-free product:</b> wind and solar are carbon-free but intermittent; gas is firm but not carbon-free. Nuclear is the only scaled source that is both — which is precisely the specification data-centre buyers are contracting for.</li>
+      <li><b>Low marginal cost:</b> once running, the fleet produces into almost any power price profitably, so in weak markets CEG survives prices that squeeze thermal rivals; in strong markets the price uplift is nearly pure margin.</li>
+      <li><b>Capacity-market positioning:</b> a large, reliable fleet is structurally favoured by capacity mechanisms that pay for dependable availability — scarcity of firm capacity raises the value of what CEG already owns.</li>
+      <li><b>Licence-life runway:</b> life extensions stretch the earning life of sunk-cost assets — returns on extension capital are typically far above returns on any new-build alternative.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Vistra (VST) and Talen Energy (TLN)</b> — the closest merchant peers, with their own nuclear exposure and data-centre co-location stories; every hyperscaler PPA is contested among this small set.</li>
+      <li><b>NRG Energy (NRG)</b> and regulated peers' merchant arms compete on the retail/commercial supply side, where the moat is thinner and contracts re-price.</li>
+      <li><b>No price-setting power over the commodity:</b> CEG is a price-<i>taker</i> in energy markets. Its moat defends volume and cost position, not price — when power prices fall, the moat does not stop earnings falling with them.</li>
+      <li><b>Scarcity can be competed away at the edges:</b> gas build, storage, demand response and eventually new nuclear or geothermal all chip at the firm-clean premium over a 5–10-year horizon.</li>
+      <li><b>Political visibility:</b> the more visibly data centres bid up power, the more political pressure falls on exactly the pricing mechanism CEG profits from — a moat with a public-opinion exposure regulated peers do not carry in the same way.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> strong on <i>contracted</i> clean-firm supply (bilateral PPAs, where scarcity negotiates), absent on <i>merchant</i> energy (auction-priced). The investment case is the migration of volume from the second category to the first. <b>Barriers to entry:</b> near-absolute in nuclear generation; modest in retail supply. <b>Industry position:</b> #4 in XLU by market cap ($92.96B, TipRanks) — the largest pure expression of the merchant-nuclear theme available in US large caps.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Data-centre co-location and PPA signings</b> — each long-dated, premium-priced contract converts merchant megawatts into contracted cash flow and directly defends the premium multiple. This is the single largest upside lever.</li>
+        <li><b>Capacity-price strength</b> — firm-capacity scarcity clearing at high auction prices flows almost directly to earnings and validates the fleet-scarcity thesis in reported numbers, not narrative.</li>
+        <li><b>Nuclear life extensions and uprates</b> — extending or expanding existing units adds low-cost carbon-free capacity from sunk assets; approvals are discrete, datable catalysts.</li>
+        <li><b>Multiple repair after the de-rating</b> — at −30.4% over one year with trailing EPS intact, even a flat earnings path can produce a strong return if the forward multiple merely stops compressing (see §5 base case).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Merchant power-price collapse</b> — the defining risk. There is <b>no regulated floor</b>: if wholesale prices fall (gas glut, demand disappointment, new supply), earnings fall with them and the premium multiple has nothing to rest on.</li>
+        <li><b>Capacity-auction outcomes</b> — a weak clearing price in a major auction is an immediate, quantifiable earnings downgrade, and can arrive with little warning.</li>
+        <li><b>Political pressure on data-centre power costs</b> — if regulators or legislatures decide hyperscalers are raising household bills, the remedies (cost reallocation, contract intervention, connection restrictions) land on merchant generators first.</li>
+        <li><b>Data-centre demand disappointment</b> — the PPA pipeline assumes hyperscaler build-out continues at pace; an AI-capex digestion phase delays or reprices the contracts the bull case needs.</li>
+        <li><b>Fleet operational risk</b> — an extended unplanned outage at a major unit removes low-cost volume precisely when replacement power is most expensive; a concentrated fleet concentrates this risk.</li>
+        <li><b>De-rating continuation</b> — the short-term call in §6 exists because a stock down 30% on multiple compression can compress further before it recovers; the 20.7× forward multiple is not yet a utility multiple.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A major capacity auction clearing materially lower <i>while</i> wholesale power prices soften. Either alone trims earnings; together they remove both pillars of the premium multiple — earnings level and earnings durability — and the bear cases in §5, not the base cases, become the planning assumption.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Every price in this section is a <b>modelled estimate</b>, not a verified fact: the scenarios, growth rates and exit multiples are modelling choices, shown in full so the arithmetic can be checked. Only the inputs — price $262.38, TTM EPS $10.26, trailing P/E 25.6×, forward P/E 20.66× — are verified figures. Scenario weights used for every weighted figure in this section: <b>Bear 25% · Base 50% · Bull 25%</b>.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$210</div><div class="ret down">−20% vs $262.38</div><p>Power prices soften and a capacity auction disappoints; the forward multiple compresses toward regulated-utility territory as merchant earnings are marked down. The de-rating that began this year completes.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$330</div><div class="ret up">+26% vs $262.38</div><p>Earnings hold near the trailing run-rate, PPA signings continue at a steady pace, and the multiple partially repairs from oversold levels — a recovery to roughly the forward-earnings path the market priced before the de-rating.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$400</div><div class="ret up">+52% vs $262.38</div><p>Marquee data-centre contracts at premium prices plus strong capacity auctions re-establish CEG as the scarce clean-firm asset, and the multiple re-rates back toward its scarcity premium.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo, modelled est.)</div><div class="wv mono">≈ $318</div></div><p>0.25×$210 + 0.50×$330 + 0.25×$400 = <b>$317.50</b>, or +21% from $262.38. Keep this weighted figure in mind — §5's five-year panel explains itself against it.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>The standard format for this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>, with parameters frozen per case. For CEG the verified pack supplies the model in its algebraically identical EPS form — 2031 EPS is 2031 revenue × net margin ÷ shares, so growing EPS directly is the same calculation with the intermediate revenue and share lines collapsed: <b>2031 price = EPS<sub>TTM</sub> $10.26 × (1+g)<sup>5</sup> × exit P/E</b>. No adaptation of the multiple is needed — unlike loss-making names in this series, CEG's trailing P/E (25.6×) is meaningful, so the exit multiples below are set as normalisations of a real multiple, not substitutes for a broken one. Growth rates are <i>EPS</i> growth, frozen per case.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">EPS growth / yr (frozen)</th><th class="n">Implied 2031 EPS</th><th class="n">Exit P/E (frozen)</th><th class="n">2031 price</th><th class="n">vs $262.38</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">3%</td><td class="n">≈ $11.88</td><td class="n">17×</td><td class="n">$202.00</td><td class="n">−23%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">7%</td><td class="n">≈ $14.42</td><td class="n">22×</td><td class="n">$317.20</td><td class="n">+21%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">10%</td><td class="n">≈ $16.50</td><td class="n">26×</td><td class="n">$429.00</td><td class="n">+64%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$316.40</td><td class="n">+21%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Implied 2031 EPS is each case's price ÷ its exit P/E, shown so the pack's arithmetic can be followed end-to-end; small differences from compounding $10.26 directly are rounding in the source model. All five figures in this table are modelled estimates.</p>
+
+  <div class="callout"><div class="ct">Read this before quoting the 5-year number — why $316.40 sits below the $330 base target</div>
+  <p>Independent verification flagged that CEG's 5-year weighted price ($316.40) falls <i>below</i> its 12–18-month base target ($330). That looks like an error; on the stated weights it is arithmetic, and the comparison itself mixes two different objects:</p>
+  <p><b>1. A weighted average is not a base case.</b> $330 is the base <i>scenario</i> for 12–18 months. $316.40 is a probability-<i>weighted</i> figure — the 25% bear weight at $202 drags it below any base scenario. The like-for-like comparison is weighted-to-weighted: the 12–18-month weighted value on the same 25/50/25 weights is $317.50 — essentially identical to the 5-year weighted $316.40, not $330.</p>
+  <p><b>2. The two horizons genuinely offset.</b> In this model the near-term return is mostly <i>multiple repair</i> (a de-rated stock recovering toward $330 on flat-to-modest earnings), while the 5-year return is mostly <i>EPS compounding at 7% against a normalising multiple</i> (22× exit vs 25.6× trailing today). Those two engines happen to land in the same place — which is the model's real message: <b>most of CEG's expected 5-year weighted return is available in the first 12–18 months if the re-rating happens, and the long path adds little unless the bull case's contracting story delivers.</b> An investor who does not believe in near-term multiple repair should not take comfort from the 5-year column.</p>
+  <p><b>3. What would change the picture:</b> bull-case PPA volume large enough to lift frozen EPS growth above 10%, or an exit multiple that holds at today's 25.6× rather than normalising to 22×. Neither is assumed anywhere in this note.</p></div>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified for this series: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not chase, do not panic-sell.</b> A 30.4% one-year de-rating may not be complete while merchant earnings visibility is low — there is no regulated floor under the price. Existing holders keep the position at starter size; new money waits for either a capacity-auction print that confirms earnings durability or a further leg down toward the $210 bear zone, where the risk/reward changes character.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy on the staged plan below.</b> CEG offers the highest upside optionality in the Utilities sector for a risk-8 investor: a scarce, irreplaceable clean-firm fleet whose contracted value rises with every data-centre PPA — bought after a de-rating, at 20.7× forward earnings rather than at the scarcity peak.</td></tr>
+      <tr><td>Review / exit triggers</td><td><span class="pill trim">Review</span></td><td>Re-underwrite on: a materially weak capacity auction; wholesale price weakness persisting two consecutive quarters; political intervention in data-centre power contracting; or the share price reaching the $400 bull zone without contracted-earnings evidence to support it (multiple doing all the work).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>CEG target: 2.0% of total portfolio.</b> This is deliberately small for a long-term Buy — the sizing follows the volatility, not the enthusiasm. CEG is a merchant generator with a 0.6% yield: in a bad power-price year it can fall like a cyclical while paying almost nothing to wait.</li>
+    <li><b>Why not larger:</b> within a Utilities sleeve, regulated names (the NEE/DUK type) earn their weight with contracted, regulator-backed cash flows. CEG's 2.0% is the sleeve's high-octane satellite — sized so that even the bear case (−23% over five years, −20% in the 12–18-month window) costs the total portfolio roughly half a percent, while the bull case (+64%) adds over a percent.</li>
+    <li><b>Staging:</b> build in two tranches — half at starter size now or on weakness, half after the next capacity-auction evidence — so the position is not fully exposed to a single auction print.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the 2.0% target weight from this note. It is an illustration of the sizing rule, not a recommendation of any portfolio value.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>CEG — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $262.38.</strong> <strong>DCF intrinsic: $248.</strong> Discount/premium vs DCF: <strong>+5.8%</strong> — i.e. the shares are trading 5.8% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$248</td><td>+5.8%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $10 per share — Pack diluted EPS TTM $10.26 - merchant earnings proxy (TTM FCF/share only $0.83, too thin/distorted to project). TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 7.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/CEG/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/ceg/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CEG — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Constellation is merchant, not regulated: it sells power and 24/7 carbon-free energy products to commercial, industrial and wholesale buyers as well as retail customers. That mix is more B2B than a regulated utility's, but the pack discloses no ranked list of power buyers and no revenue share for any single data-centre PPA counterparty, so no top-7 list is fabricated; it is treated here with a B2C-like note rather than an invented table.</p><p><strong>Key demand drivers:</strong> merchant power and capacity prices, data-centre PPA/co-location signings and pricing, and nuclear life extensions — with no regulated floor if power prices fall.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CEG — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Constellation is the largest US carbon-free generator, and its 24/7 nuclear output is exactly the product hyperscalers want for data-centre PPAs and co-location — the pack names data-centre PPAs as a catalyst and capacity-market positioning as a moat.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Hyperscaler demand for firm carbon-free power lifts contracted PPA prices and volumes for the nuclear fleet, and strengthens capacity-auction outcomes, turning AI power demand into contracted revenue without building new plants.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Constellation's multiple has already de-rated sharply (YTD -25.7%, 1-yr -30.4% per pack) as merchant power fears dominate, so the multiple channel is recovery toward its forward P/E of 20.66 if PPA signings prove demand is contracted.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: hyperscalers pause data-centre builds or switch to self-built generation, leaving merchant power exposed to price falls with no regulated floor — the pack's central risk. Second, multiple compression: the stock has already de-rated, so further compression is bounded, but a failed capacity auction or weak PPA pricing would extend it. Third, balance sheet: moderate — D/E 0.77 per pack is the lightest among the utilities here, and the $24.00B net-debt position is manageable, though merchant cash flows are lumpier than regulated ones. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Data-centre PPA/co-location announcements and pricing; capacity-auction results; and merchant power-price trends into the 9 Nov 2026 earnings date.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Verified figures are from the research pack for this ticker, independently re-checked against a second source where the verification log required it; the log's corrections override the pack and have been applied (vendor labelling for price and market cap, US-listed — not global — ranking basis, and explicit labelling of all modelled prices as estimates). Scenario targets in §5 are this series' model, not sourced facts.</p>
+  <ol class="refs">
+    <li><a href="https://greeksoup.ai/stocks/us/ceg/" target="_blank" rel="noopener">GreekSoup — CEG profile: FY2025 revenue $25.5B (+8.3%), net income $2.3B, diluted EPS $7.40, dividend yield 0.6%, D/E 0.77, operating margin 14.7%, TTM sales growth 26.0%</a></li>
+    <li><a href="https://www.financecharts.com/stocks/CEG/value/pe-ratio-averages" target="_blank" rel="noopener">FinanceCharts — trailing P/E 25.60, forward P/E 20.66, TTM diluted EPS $10.26 (and the $262.70 vendor-variant close)</a></li>
+    <li><a href="https://finnhub.io/?q=%22CEG%22" target="_blank" rel="noopener">Finnhub — confirmed 30 Oct 2026 close $262.38; YTD −25.7%, 1-yr −30.4%</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings &amp; market caps at 30 Oct 2026 (ranking basis: NEE $175.57B, SO $107.80B, DUK $99.33B, CEG $92.96B)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global Utilities market caps (why this is a US-listed list, not a global top 10: Iberdrola $163.31B, Enel $103.42B, National Grid $84.52B)</a></li>
+  </ol>
+  <p class="disc">Disclaimer: This note is research for information only — it is not investment advice, a solicitation, or a guarantee of future returns. Prices reference the 30 Oct 2026 close and will move. Modelled targets are estimates built on the stated frozen assumptions; actual outcomes will differ, and merchant power earnings can fall sharply with market prices. Verify any figure against the linked primary source before acting on it.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    var secs=[];
+    links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)secs.push({a:a,el:el});});
+    function onScroll(){
+      var y=window.scrollY+120,cur=null;
+      secs.forEach(function(s){if(s.el.offsetTop<=y)cur=s;});
+      links.forEach(function(a){a.classList.remove('on');});
+      if(cur)cur.a.classList.add('on');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  }
+  var pf=document.getElementById('pf'),out=document.getElementById('pfOut');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function calc(){
+    if(!pf||!out)return;
+    var v=parseFloat(pf.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.0% sizing.';return;}
+    var target=v*0.02;
+    var shares=target/262.38;
+    out.innerHTML='At the <b>2.0%</b> target weight: <b>'+fmt(target)+'</b> in CEG ≈ <b>'+shares.toFixed(1)+' shares</b> at $262.38. Bear-case mark ($202) would cost the portfolio ≈ <b>'+fmt(target-shares*202)+'</b>; bull-case mark ($429) would add ≈ <b>'+fmt(shares*429-target)+'</b>.';
+  }
+  if(pf){pf.addEventListener('input',calc);calc();}
+})();
+</script>
+</body>
+</html>

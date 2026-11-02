@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TSM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface2:#eef0f3; --ink:#12161c; --muted:#5b6572; --faint:#8a95a3;
+  --line:#dde1e7; --accent:#b91c1c; --accent-soft:#fef2f2; --teal:#0f766e; --teal-soft:#ecfdf5;
+  --amber:#92400e; --amber-soft:#fffbeb; --navy:#1e293b;
+  --green:#15803d; --red:#b91c1c;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0c0f14; --surface:#151a21; --surface2:#1c232e; --ink:#e8ecf1; --muted:#9aa6b5; --faint:#6b7889;
+    --line:#2a333f; --accent:#f87171; --accent-soft:#2a1515; --teal:#2dd4bf; --teal-soft:#0f2a27;
+    --amber:#fbbf24; --amber-soft:#2a2110; --navy:#e8ecf1;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px 16px;justify-content:space-between;align-items:center;padding:14px 0 0;font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.topbar strong{color:var(--ink)}
+.ranknote{margin-top:10px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--muted)}
+.ranknote strong{color:var(--ink)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+.hero{padding:28px 0 8px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-size:44px;font-weight:700;letter-spacing:-.01em;margin-top:8px}
+.hero h1 .ticker{font-family:"JetBrains Mono",monospace;font-size:.62em;vertical-align:middle;background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:8px;letter-spacing:0}
+.subtitle{font-size:18px;color:var(--muted);max-width:720px;margin-top:10px}
+.price-row{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:12px;margin-top:22px}
+@media(max-width:760px){.price-row{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat .label{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.stat .value{font-family:"JetBrains Mono",monospace;font-size:26px;font-weight:600;margin-top:4px}
+.stat .value.small{font-size:19px;padding-top:4px}
+.stat .sub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.verdict{margin-top:16px;background:var(--navy);color:#fff;border-radius:14px;padding:20px 22px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px}
+@media(prefers-color-scheme: dark){.verdict{background:#1c232e;border:1px solid var(--line);color:var(--ink)}}
+@media(max-width:760px){.verdict{grid-template-columns:1fr}}
+.verdict h2{font-size:21px;color:#fff}
+@media(prefers-color-scheme: dark){.verdict h2{color:var(--ink)}}
+.verdict p{margin:6px 0 0;font-size:14px;opacity:.88}
+.verdict .box{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:12px 14px}
+@media(prefers-color-scheme: dark){.verdict .box{background:var(--surface2);border-color:var(--line)}}
+.verdict .box .k{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;opacity:.7}
+.verdict .box .v{font-size:22px;font-weight:700;margin-top:2px}
+.verdict .box .d{font-size:13px;opacity:.85}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 4px}
+nav.toc a{background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;padding:7px 12px;border-radius:999px}
+section{margin-top:34px}
+.sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px}
+.sec-num{font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:600;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.sec-head h2{font-size:26px}
+.sec-head .hint{margin-left:auto;font-size:13px;color:var(--muted);text-align:right}
+@media(max-width:640px){.sec-head .hint{display:none}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-top:14px}
+.card h3{font-size:19px;margin-bottom:8px}
+.card p{margin:8px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:10px}
+th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 10px}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-family:"JetBrains Mono",monospace;font-size:13.5px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.bar-row{display:grid;grid-template-columns:150px 1fr 64px;gap:10px;align-items:center;margin:9px 0;font-size:14px}
+@media(max-width:560px){.bar-row{grid-template-columns:104px 1fr 52px}}
+.bar-track{height:12px;background:var(--surface2);border-radius:99px;overflow:hidden}
+.bar-fill{height:100%;border-radius:99px;background:var(--accent)}
+.bar-fill.teal{background:var(--teal)}
+.bar-fill.slate{background:#64748b}
+.bar-val{font-family:"JetBrains Mono",monospace;font-size:13px;text-align:right}
+.tag{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:999px;vertical-align:middle}
+.tag.buy{background:var(--teal-soft);color:var(--teal);border:1px solid var(--teal)}
+.tag.warn{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+.tag.risk{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+ul.tight{margin:8px 0;padding-left:20px}
+ul.tight li{margin:5px 0}
+.callout{border-radius:12px;padding:14px 16px;font-size:14.5px;margin-top:14px}
+.callout.amber{background:var(--amber-soft);border:1px solid var(--amber)}
+.callout.red{background:var(--accent-soft);border:1px solid var(--accent)}
+.callout.teal{background:var(--teal-soft);border:1px solid var(--teal)}
+.small{font-size:13px;color:var(--muted)}
+.mono{font-family:"JetBrains Mono",monospace}
+.sankey-wrap{overflow-x:auto;padding:6px 0}
+.sankey-wrap svg{min-width:640px;width:100%;height:auto;display:block}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.calc{grid-template-columns:1fr}}
+.calc label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+.calc input{width:100%;font:inherit;font-family:"JetBrains Mono",monospace;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink)}
+.calc .out{background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:14.5px}
+.calc .out strong{font-family:"JetBrains Mono",monospace}
+.sources{font-size:13.5px}
+.sources li{margin:7px 0;word-break:break-word}
+.foot{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted)}
+.method{background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:13.5px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span><strong>Equity Research</strong> · Information Technology — Semiconductors &amp; Foundry</span>
+    <span>As of <strong>1 Nov 2026</strong> · Prices: <strong>30 Oct 2026 close</strong></span>
+  </div>
+  <div class="ranknote"><strong>Ranking basis:</strong> FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung / SK Hynix appear in that source’s global ranking but are excluded from detail (foreign listings, not in the named set). For a mid-30s investor, risk score 8/10. Research views only — not guarantees, not investment advice.</div>
+
+  <div class="hero">
+    <div class="kicker">Pure-play foundry · NYSE ADR</div>
+    <h1>Taiwan Semiconductor <span class="ticker">TSM</span></h1>
+    <p class="subtitle">The world’s leading-edge chip manufacturer. Q3 2026 was a decisive beat — revenue and margins both above guide — powered by AI / high-performance computing now at 68% of sales. The debate is no longer demand; it is capacity, capex, and Taiwan concentration.</p>
+    <div class="price-row">
+      <div class="stat"><div class="label">ADR price · 30 Oct close</div><div class="value">$406.13</div><div class="sub">Verified in independent log</div></div>
+      <div class="stat"><div class="label">Market cap (total)</div><div class="value small">~$2.10–2.11T</div><div class="sub">Mitrade / MarketBeat basis — see note †</div></div>
+      <div class="stat"><div class="label">Trailing P/E</div><div class="value small">~24.6–26.3×</div><div class="sub">Net margin cited ~51.1%</div></div>
+      <div class="stat"><div class="label">Q3 revenue</div><div class="value small">$46.72B</div><div class="sub">+41.2% YoY in USD · beat guide</div></div>
+    </div>
+    <div class="small" style="margin-top:8px">† Market-cap correction applied per independent verification: the pack’s $1.81T “ADR” figure is understated and is <strong>not</strong> used. Total cap is ~$2.10–2.11T at the 30 Oct close. StockAnalysis gives $1.88T on a different share count — provider and share-count basis matter, so the range and provider are stated here rather than a single unqualified number.</div>
+
+    <div class="verdict">
+      <div>
+        <h2>Verdict: Buy — both horizons</h2>
+        <p>Short-term Buy and long-term Buy in the research pack. Unusually for this set, TSM is one of the few names rated Buy on both horizons: demand exceeds supply, the 2nm ramp is underway, and valuation (~25× trailing) is not stretched for 66% gross margins. Size is still capped — see sizing — because the dominant risk is geopolitical, not operational.</p>
+      </div>
+      <div class="box"><div class="k">Short term · 12–18 mo</div><div class="v">BUY</div><div class="d">Base target $480 (+18% vs $406.13)</div></div>
+      <div class="box"><div class="k">Long term · 5 yr + Sizing</div><div class="v">BUY · 3.5%</div><div class="d">3.5% of total portfolio at risk 8/10</div></div>
+    </div>
+  </div>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#business">1 · Business</a>
+    <a href="#financials">2 · Financials</a>
+    <a href="#moat">3 · Moat</a>
+    <a href="#catalysts">4 · Catalysts &amp; Risks</a>
+    <a href="#valuation">5 · Valuation</a>
+    <a href="#recommendation">6 · Recommendation</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2><span class="hint">Q3 2026 actuals</span></div>
+    <div class="card">
+      <h3>Pure-play foundry — it manufactures other people’s chips</h3>
+      <p>TSMC does not design chips under its own brand. It fabricates designs for fabless customers and integrated customers who outsource leading-edge production. That neutrality is the model: every major AI accelerator, smartphone SoC, and hyperscaler custom-silicon programme that needs the most advanced process competes for the same TSMC capacity — so TSMC monetises the whole AI buildout without betting on a single chip winner.</p>
+      <p><strong>Q3 2026 headline (confirmed in verification log):</strong> revenue <span class="mono">NT$1,494.24B = $46.72B</span>, up <span class="mono">+50.9%</span> in TWD / <span class="mono">+41.2%</span> in USD year-on-year, beating the $44.6–45.8B guide. Net income <span class="mono">NT$763.06B, +68.7%</span>. Gross margin <span class="mono">66.4%</span>, operating margin <span class="mono">58.7%</span>.</p>
+      <div class="grid2">
+        <div>
+          <h3 style="font-size:16px">Revenue by platform — Q3 2026</h3>
+          <div class="bar-row"><span>High-perf. computing</span><div class="bar-track"><div class="bar-fill" style="width:68%"></div></div><span class="bar-val">68%</span></div>
+          <div class="bar-row"><span>Smartphones</span><div class="bar-track"><div class="bar-fill teal" style="width:21%"></div></div><span class="bar-val">21%</span></div>
+          <div class="bar-row"><span>All other *</span><div class="bar-track"><div class="bar-fill slate" style="width:11%"></div></div><span class="bar-val">11%</span></div>
+          <p class="small">* Residual (100 − 68 − 21): IoT, automotive, digital consumer and other platforms combined. The pack states only HPC and smartphone shares; the residual is arithmetic, not a separately sourced segment figure. In dollars: HPC ≈ $31.8B, smartphones ≈ $9.8B, other ≈ $5.1B of the $46.72B total.</p>
+        </div>
+        <div>
+          <h3 style="font-size:16px">Wafer revenue by node — Q3 2026</h3>
+          <div class="bar-row"><span>3nm</span><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><span class="bar-val">33%</span></div>
+          <div class="bar-row"><span>2nm</span><div class="bar-track"><div class="bar-fill teal" style="width:8%"></div></div><span class="bar-val">8%</span></div>
+          <div class="bar-row"><span>Other ≤7nm †</span><div class="bar-track"><div class="bar-fill slate" style="width:38%"></div></div><span class="bar-val">38%</span></div>
+          <div class="bar-row"><span>Above 7nm †</span><div class="bar-track"><div class="bar-fill slate" style="width:21%;opacity:.55"></div></div><span class="bar-val">21%</span></div>
+          <p class="small">† 7nm-and-below is 79% of wafer revenue in total. “Other ≤7nm” (79 − 33 − 8 = 38%) and “above 7nm” (100 − 79 = 21%) are arithmetic residuals from that stated total. Note: node shares are of <em>wafer</em> revenue, not total revenue.</p>
+        </div>
+      </div>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Customers &amp; concentration</h3>
+        <p>Named customers in the pack: <strong>Apple, Nvidia, AMD, Qualcomm, Broadcom</strong>, plus hyperscaler custom silicon. Concentration is described in the pack as <em>“a feature and a risk”</em> — the same handful of customers drive the leading-edge order book, so a single customer’s inventory correction or in-sourcing move would be felt immediately, while their collective AI spending is what keeps utilisation and pricing at record levels.</p>
+      </div>
+      <div class="card">
+        <h3>Geography &amp; structural pivot</h3>
+        <p>Production remains centred on <strong>Taiwan fabs</strong>, with expansion underway in <strong>Arizona (US), Japan, and Germany</strong>. The pack explicitly flags <strong>margin dilution</strong> from the overseas build-out: overseas fabs run at higher cost than Taiwan fabs, so geographic diversification buys supply-chain resilience at the price of some margin. <strong>Supply-chain dependencies:</strong> ASML EUV lithography is the critical dependency, and advanced packaging (CoWoS) is the current constraint on AI-chip throughput.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section id="financials">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2><span class="hint">Q3 2026 · guide &amp; multiples</span></div>
+    <div class="card">
+      <table>
+        <tr><th>Metric</th><th class="num">Value</th><th>Basis / note</th></tr>
+        <tr><td>Q3 2026 revenue</td><td class="num">$46.72B</td><td>NT$1,494.24B · +41.2% USD YoY · beat $44.6–45.8B guide — <span class="tag buy">Confirmed</span></td></tr>
+        <tr><td>Q3 net income</td><td class="num">NT$763.06B</td><td>+68.7% YoY — <span class="tag buy">Confirmed</span> (≈ $23.9B at the quarter’s implied NT$/US$ rate; ≈51% net margin)</td></tr>
+        <tr><td>Gross / operating margin</td><td class="num">66.4% / 58.7%</td><td>Q3 2026 — <span class="tag buy">Confirmed</span></td></tr>
+        <tr><td>Q4 2026 guide</td><td class="num">$52.3–54.3B</td><td>Guide gross margin 65–67% — <span class="tag buy">Confirmed</span></td></tr>
+        <tr><td>2026 capex guide</td><td class="num">$60–64B</td><td>Reaffirmed — <span class="tag buy">Confirmed</span></td></tr>
+        <tr><td>Trailing P/E</td><td class="num">~24.6–26.3×</td><td>Range as cited in pack; provider-dependent</td></tr>
+        <tr><td>Net margin (cited)</td><td class="num">~51.1%</td><td>Consistent with Q3 net income ÷ revenue (≈51.0%)</td></tr>
+        <tr><td>Market cap (total)</td><td class="num">~$2.10–2.11T</td><td>Mitrade / MarketBeat. StockAnalysis: $1.88T on a different share count — <span class="tag warn">Corrected</span> (pack’s $1.81T ADR figure deleted)</td></tr>
+        <tr><td>Dividend</td><td class="num">Payer</td><td>ADR yield described as modest in the pack; no yield % is asserted here because the pack gives none</td></tr>
+      </table>
+      <div class="callout amber"><strong>What the pack does not give — stated plainly:</strong> no cash / debt / leverage (debt-to-equity) split, no free-cash-flow figure, and no buyback amount for TSM are carried in the research pack, so none are printed here. What is known: capex intensity is very high ($60–64B guided for 2026 alone) and the company remains a dividend payer. Do not read the absence of a leverage figure as zero leverage — it is an open item, not a finding.</div>
+      <h3 style="margin-top:18px">Q3 2026 income flow — where the $46.72B went</h3>
+      <p class="small">Built only from figures in the pack and verification log. Gross profit and operating income are derived from the stated margins (66.4% / 58.7%); the final step to net income is a <em>combined residual</em> (non-operating items and tax) — the pack does not split it further, so it is labelled as a residual rather than broken into invented lines.</p>
+      <div class="sankey-wrap" role="img" aria-label="Sankey-style diagram: HPC 31.8 billion, smartphones 9.8 billion and other 5.1 billion flow into 46.72 billion revenue, which splits into 31.0 billion gross profit and 15.7 billion cost of revenue; gross profit splits into 27.4 billion operating income and 3.6 billion operating expenses; operating income less a 3.6 billion combined residual gives about 23.9 billion net income.">
+        <svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, sans-serif">
+          <!-- flows -->
+          <path d="M150,40 C260,40 260,120 370,120 L370,150 C260,150 260,70 150,70 Z" fill="#b91c1c" opacity=".55"/>
+          <path d="M150,86 C260,86 260,150 370,150 L370,168 C260,168 260,104 150,104 Z" fill="#0f766e" opacity=".55"/>
+          <path d="M150,116 C260,116 260,168 370,168 L370,178 C260,178 260,124 150,124 Z" fill="#64748b" opacity=".5"/>
+          <path d="M430,96 L560,96 L560,150 L430,178 Z" fill="#b91c1c" opacity=".35"/>
+          <path d="M430,178 L560,196 L560,232 L430,232 Z" fill="#64748b" opacity=".45"/>
+          <path d="M620,96 L740,110 L740,168 L620,150 Z" fill="#0f766e" opacity=".4"/>
+          <path d="M620,150 L740,168 L740,182 L620,168 Z" fill="#92400e" opacity=".45"/>
+          <path d="M800,110 L860,110 L860,150 L800,150 Z" fill="#0f766e" opacity=".55"/>
+          <path d="M800,150 L860,150 L860,164 L800,164 Z" fill="#92400e" opacity=".5"/>
+          <!-- nodes -->
+          <rect x="140" y="36" width="10" height="36" fill="#b91c1c"/><rect x="140" y="82" width="10" height="24" fill="#0f766e"/><rect x="140" y="112" width="10" height="14" fill="#64748b"/>
+          <rect x="370" y="92" width="12" height="140" fill="#1e293b"/>
+          <rect x="560" y="92" width="12" height="140" fill="#b91c1c" opacity=".85"/>
+          <rect x="740" y="106" width="12" height="76" fill="#0f766e"/>
+          <rect x="860" y="106" width="12" height="60" fill="#0f766e"/>
+          <!-- labels -->
+          <text x="132" y="58" text-anchor="end" font-size="13" font-weight="600" fill="currentColor">HPC $31.8B</text>
+          <text x="132" y="98" text-anchor="end" font-size="13" font-weight="600" fill="currentColor">Phones $9.8B</text>
+          <text x="132" y="123" text-anchor="end" font-size="13" font-weight="600" fill="currentColor">Other $5.1B</text>
+          <text x="376" y="82" text-anchor="middle" font-size="14" font-weight="700" fill="currentColor">Revenue $46.72B</text>
+          <text x="566" y="82" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Gross profit $31.0B</text>
+          <text x="566" y="252" text-anchor="middle" font-size="12" fill="currentColor">Cost of revenue $15.7B</text>
+          <text x="746" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Operating inc. $27.4B</text>
+          <text x="746" y="200" text-anchor="middle" font-size="12" fill="currentColor">Op. expenses $3.6B</text>
+          <text x="866" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Net inc. ≈$23.9B</text>
+          <text x="866" y="182" text-anchor="middle" font-size="11.5" fill="currentColor">Residual (tax + other) ≈$3.6B</text>
+          <text x="460" y="292" font-size="11.5" fill="currentColor">Derived: gross profit = 66.4% × revenue; operating income = 58.7% × revenue; net income converted from NT$763.06B at the quarter’s implied rate. Residual is combined, per pack.</text>
+        </svg>
+      </div>
+      <p><strong>Capital allocation read:</strong> the story is reinvestment. A $60–64B capex guide for 2026 — against a ~$175B annualised revenue base — is the price of staying one node ahead, and it is being spent while demand exceeds supply. The dividend continues alongside it (modest ADR yield). The pack does not describe a buyback programme for TSM, so no buyback claim is made.</p>
+    </div>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <div class="card">
+      <p><strong>The pack’s moat verdict:</strong> process lead (2nm ramp), scale, yield, and ecosystem — <em>“effectively unreplicable at leading edge in &lt;5 years.”</em> That is the core of the investment case: even a well-funded rival cannot buy its way to TSMC’s yields, supplier ecosystem, and customer trust inside one product cycle.</p>
+      <div class="grid3">
+        <div><h3 style="font-size:16px">Pricing power</h3><p>66.4% gross margin in a manufacturing business is the evidence. When capacity is the industry bottleneck and CoWoS packaging is the constraint, the foundry — not the customer — sets the terms. Q4 guide holds gross margin at 65–67% even as 2nm ramps and overseas fabs dilute.</p></div>
+        <div><h3 style="font-size:16px">Barriers to entry</h3><p>Three stacked barriers: (1) process technology and yield learning accumulated over decades; (2) capital — a $60–64B <em>annual</em> capex guide; (3) the ASML EUV supply chain and the customer ecosystem (design tools, IP libraries, packaging) built around TSMC’s nodes.</p></div>
+        <div><h3 style="font-size:16px">Competitors</h3><p><strong>Samsung Foundry</strong> — the only other leading-edge alternative, still chasing yield and share. <strong>Intel Foundry</strong> — rebuilding, not yet a proven external leading-edge supplier. <strong>SMIC</strong> — confined to lagging nodes under export controls. None, per the pack, replicates TSMC at the leading edge in under five years.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS / RISKS -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Catalysts <span class="tag buy">Upside</span></h3>
+        <ul class="tight">
+          <li><strong>AI / HPC demand exceeds supply</strong> — the pack cites the chairman’s statement that demand is ahead of supply; HPC is already 68% of revenue and Q4 is guided up to $52.3–54.3B (≈ +12–16% sequentially from Q3).</li>
+          <li><strong>2nm ramp</strong> — 2nm is already 8% of wafer revenue in Q3 2026; each point of mix shift toward 2nm supports both revenue and the technology-lead narrative.</li>
+          <li><strong>CoWoS capacity</strong> — advanced packaging is the stated constraint; relieving it converts directly into shippable AI accelerators for Nvidia, AMD, Broadcom and hyperscaler silicon.</li>
+          <li><strong>Geographic expansion</strong> — Arizona / Japan / Germany capacity de-risks the single-region story over time and aligns TSMC with customer and government localisation demands.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Downside risks <span class="tag risk">Watch</span></h3>
+        <ul class="tight">
+          <li><strong>Taiwan geopolitics</strong> — the single largest risk and the reason sizing is capped at 3.5% despite a double Buy. It is a low-probability, portfolio-level event that no company fundamental can offset.</li>
+          <li><strong>US / China export controls</strong> — tightening rules can remove demand, complicate customer orders, and raise compliance cost.</li>
+          <li><strong>Capex cycle</strong> — $60–64B of 2026 capex must be absorbed even if AI demand pauses; overseas fabs dilute margin while they ramp.</li>
+          <li><strong>Customer inventory correction</strong> — with HPC at 68% of sales and a concentrated customer set, an AI-accelerator inventory digestion would hit utilisation fast.</li>
+          <li><strong>Single-supplier dependency</strong> — ASML EUV is the critical dependency; any disruption there caps TSMC’s expansion regardless of demand.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><span class="hint">All targets are modelled estimates</span></div>
+    <div class="card">
+      <h3>12–18-month targets (ADR)</h3>
+      <table>
+        <tr><th>Case</th><th class="num">Target</th><th class="num">vs $406.13</th><th>Read</th></tr>
+        <tr><td><strong>Bull</strong></td><td class="num">$580</td><td class="num">+42.8%</td><td>2nm + CoWoS ramp converts the order backlog; multiple holds at the top of the trailing range</td></tr>
+        <tr><td><strong>Base</strong></td><td class="num">$480</td><td class="num">+18.2%</td><td>Guide delivered, HPC mix sustained, overseas dilution contained</td></tr>
+        <tr><td><strong>Bear</strong></td><td class="num">$300</td><td class="num">−26.1%</td><td>Inventory correction or a geopolitical / export-control shock de-rates the ADR</td></tr>
+      </table>
+      <p class="small">Case prices are from the research pack. The pack does not state 12–18-month case weights, so no probability-weighted 12–18-month figure is asserted as a pack figure. For reference only, applying the same 25 / 50 / 25 weights used in the 5-year model gives $460 — labelled here as an arithmetic illustration, not a verified target.</p>
+
+      <h3 style="margin-top:20px">5-year projection — frozen-parameter format</h3>
+      <p>Starting point per the pack: revenue base <span class="mono">$175B</span> (annualising Q3 actuals and the Q4 guide), ADR shares <span class="mono">5.186B held frozen</span>. Only revenue growth, net margin, and the exit P/E vary by case — the same frozen-parameter method used across this research set. <strong>Every price in this table is a modelled estimate with methodology shown — not a verified fact</strong> (verification log: scenario weights were not supplied to the verifier for recomputation; the weights below are the pack’s stated 25 / 50 / 25).</p>
+      <table>
+        <tr><th>Case (likelihood)</th><th class="num">Rev. growth / yr</th><th class="num">Net margin</th><th class="num">2031 revenue</th><th class="num">2031 EPS (ADR)</th><th class="num">P/E</th><th class="num">2031 price</th></tr>
+        <tr><td><strong>Base (50%)</strong></td><td class="num">15%</td><td class="num">48%</td><td class="num">~$352B</td><td class="num">$32.59</td><td class="num">24×</td><td class="num"><strong>$782</strong></td></tr>
+        <tr><td><strong>Bull (25%)</strong></td><td class="num">20%</td><td class="num">52%</td><td class="num">~$435B</td><td class="num">~$43.60</td><td class="num">30×</td><td class="num"><strong>$1,308</strong></td></tr>
+        <tr><td><strong>Bear (25%)</strong></td><td class="num">8%</td><td class="num">42%</td><td class="num">~$257B</td><td class="num">~$20.83</td><td class="num">18×</td><td class="num"><strong>$375</strong></td></tr>
+      </table>
+      <div class="method"><strong>Check the maths:</strong> Base — $175B × 1.15⁵ ≈ $352B; × 48% ≈ $169B net income; ÷ 5.186B shares = $32.59 EPS; × 24 = <strong>$782</strong>. Bull — $175B × 1.20⁵ ≈ $435B; × 52% ≈ $226B; ÷ 5.186B ≈ $43.60; × 30 = <strong>$1,308</strong>. Bear — $175B × 1.08⁵ ≈ $257B; × 42% ≈ $108B; ÷ 5.186B ≈ $20.83; × 18 = <strong>$375</strong>. Probability-weighted (25 / 50 / 25): 0.25×$1,308 + 0.50×$782 + 0.25×$375 = <strong>~$812 per ADR</strong> — roughly double the $406.13 reference price. Read it as “if AI/HPC compounding holds near these rates, the maths points up” — not a prediction. The bear case is an 8% grower whose margin normalises to 42% and whose multiple de-rates to 18×; it still sits only ~8% below today’s price, which is the margin-of-safety argument for the Buy.</div>
+    </div>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section id="recommendation">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2><span class="hint">Mid-30s · risk 8/10</span></div>
+    <div class="card">
+      <div class="grid3">
+        <div><h3 style="font-size:16px">Short term (12–18 mo) — BUY</h3><p>Base target $480 (+18%). The near-term setup is a beat-and-raise quarter, a Q4 guide well above Q3, and demand stated to exceed supply. The pack rates the short term Buy outright (not merely hold-and-accumulate).</p></div>
+        <div><h3 style="font-size:16px">Long term (5 yr) — BUY</h3><p>Weighted modelled value ~$812 vs $406.13 today. The moat — process lead, yield, scale, ecosystem — is the longest-duration asset in the semiconductor set, and even the bear case ($375) implies limited permanent downside on fundamentals alone.</p></div>
+        <div><h3 style="font-size:16px">Position size — 3.5%</h3><p><strong>3.5% of the total portfolio.</strong> Deliberately below the largest single-name weights in this set despite the double Buy: the binding constraint is Taiwan concentration risk, which is uncorrelated with how well the company executes. Stage entries rather than filling the full 3.5% in one print if volatility offers better levels.</p></div>
+      </div>
+      <h3 style="margin-top:18px">Position-size calculator</h3>
+      <div class="calc">
+        <div>
+          <label for="pf">Your total portfolio value ($)</label>
+          <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+          <p class="small">In-page only — nothing is saved or sent anywhere. Default $500,000 shown as an illustration.</p>
+        </div>
+        <div class="out" id="calcOut" aria-live="polite"></div>
+      </div>
+      <div class="callout red"><strong>The one-line risk summary:</strong> you are not underwriting whether TSMC executes — Q3 says it does — you are underwriting Taiwan. If that tail risk is unacceptable at any size, the correct position is 0%, not a smaller Buy. At risk 8/10 in your mid-30s, 3.5% is the pack’s balance point between the strongest moat in semis and the least diversifiable risk in the portfolio.</div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <div class="sec-head"><span class="sec-num">§</span><h2>Sources &amp; Verification</h2></div>
+    <div class="card sources">
+      <p><strong>Research-pack sources:</strong></p>
+      <ul class="tight">
+        <li>Global Brands Magazine — TSMC Q3 2026 results analysis: <a href="https://www.globalbrandsmagazine.com/tsmc-q3-2026-results-analysis/">globalbrandsmagazine.com/tsmc-q3-2026-results-analysis</a></li>
+        <li>DC Market Insights — TSMC’s $46.7B quarter / AI chip demand: <a href="https://www.dcmarketinsights.com/news/tsmcs-46-7-billion-quarter-says-ai-chip-demand-still-beats-supply-big-tech-results-from-21-october-test-the-data-center-build">dcmarketinsights.com</a></li>
+        <li>Zacks — TSM earnings preview / AI demand: <a href="https://WWW.ZACKS.COM/stock/news/3007443/tsm-earnings-tomorrow-can-strong-ai-demand-boost-q3-results">zacks.com/stock/news/3007443</a></li>
+        <li>Mitrade — market-cap ranking (30 Oct 2026): <a href="https://www.mitrade.com/insights/news/live-news/article-8-2220136-20261031">mitrade.com/insights/news/live-news/article-8-2220136-20261031</a></li>
+      </ul>
+      <p><strong>Independent verification (second sources, checked 1 Nov 2026):</strong> Q3 revenue / net income / margins, Q4 guide and capex guide were independently confirmed via Converge Digest’s TSMC Q3 2026 coverage and the Motley Fool Q3 2026 earnings-call transcript. Market cap was <strong>corrected</strong> to ~$2.10–2.11T total (MarketBeat; Mitrade) — the pack’s $1.81T ADR figure was not found in any independent source and is not used; StockAnalysis’s $1.88T reflects a different share count.</p>
+      <p><strong>Open items, stated plainly:</strong> (1) No leverage / debt-to-equity, cash, free-cash-flow, or buyback figures for TSM are carried in the pack — none are asserted here. (2) All scenario prices (12–18-month and 5-year) are modelled estimates; the 5-year weights (25 / 50 / 25) are the pack’s, and the verifier could not recompute weighted prices where weights were not supplied — methodology is shown above so you can check the arithmetic yourself. (3) Segment residuals (11% “other” platforms; 38% / 21% node residuals) are arithmetic from stated totals, labelled as such.</p>
+    </div>
+  </section>
+
+  <div class="foot">Equity Research — TSM (Taiwan Semiconductor Manufacturing Co., NYSE: TSM ADR) · Information Technology sector set · Data as of 1 Nov 2026, prices at the 30 Oct 2026 close · Prepared for a mid-30s investor, risk score 8/10 · Research views only, not investment advice. Verify prices before acting — markets move after the reference close. — Blaze</div>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>TSM — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $406.13.</strong> <strong>DCF intrinsic: $335.</strong> Discount/premium vs DCF: <strong>+21.2%</strong> — i.e. the shares are trading 21.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$335</td><td>+21.2%</td></tr></table>
+<p><strong>Method 1 — DCF: $335.</strong> Base FCF $46.30B, constant growth g = 15% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $596.06B; Year-10 FCF = $187.31B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $1,062.60B. Equity value = PV of FCF + PV of terminal value + net cash ($79.20B) = $1,737.86B; divided by 5.186B diluted shares = $335. Base note: TTM FCF to Sep 2026 of TWD 1.48T (OCF TWD 3.13T less capex TWD 1.65T, InTickers) converted at ~TWD 32/USD (pack Q3: NT$1,494.24B = $46.72B) = $46.3B. ADR basis throughout: 1 ADR = 5 ordinary shares; 5.186B ADRs per pack.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://intickers.com/reports/tsm/ ; https://chartsview.co.uk/research/technology/taiwan-semiconductor-manufacturing-tsm-research ; research pack (Q3 2026, capex guide $60-64B)</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>TSM — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of TSM's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Apple</td><td>Leading-edge wafers — iPhone/Mac silicon</td><td></td><td>$204</td><td>+68.9%</td></tr><tr><td>Nvidia</td><td>Leading-edge wafers + CoWoS advanced packaging</td><td></td><td>$166</td><td>+23.3%</td></tr><tr><td>AMD</td><td>Leading-edge wafers + advanced packaging</td><td></td><td>$190</td><td>+165.7%</td></tr><tr><td>Qualcomm</td><td>Leading-edge wafers</td><td></td><td>$201</td><td>-18.0%</td></tr><tr><td>Broadcom</td><td>Leading-edge wafers + custom silicon</td><td></td><td>$288</td><td>+13.2%</td></tr><tr><td>Microsoft</td><td>Custom AI silicon / HPC wafers</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Alphabet (Google)</td><td>Custom AI silicon (TPU) / HPC wafers</td><td></td><td>$45</td><td>+521.9%</td></tr></table>
+<p><strong>Read-through:</strong> TSMC's customer set is the whole leading edge — Apple, Nvidia, AMD, Qualcomm, Broadcom and the hyperscalers' custom silicon — so the read-through is unusually broad: if the filled DCF intrinsics show those customers trading at discounts, that supports continued leading-edge orders and CoWoS demand, while premiums would warn of order softness. But an undervalued customer does not guarantee higher spending; each customer's wafer orders depend on its own product cycle, inventory and cash position, and TSMC's own constraint in the pack is capacity and advanced-packaging supply, not just demand. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>TSM — AI trade positioning</h2>
+<p><strong>Role: Enabler — the foundry bottleneck.</strong> TSMC makes the chips the AI trade runs on: Q3 2026 revenue NT$1,494.24B ($46.72B, +41.2% USD YoY), HPC 68% of revenue, 7nm-and-below 79% of wafer revenue, and the pack cites the chairman's statement that AI/HPC demand exceeds supply.</p>
+<p>While the AI trade runs, demand comes through leading-edge wafer orders and CoWoS advanced packaging, which the pack calls the constraint, with Q4 guided to $52.3–54.3B. On multiples, TSMC's ADR trades around 24.6–26.3x trailing earnings in the pack — rich for a manufacturer, but supported while demand exceeds supply and gross margin prints 66.4%.</p>
+<p>If the AI trade unwinds, demand breaks first through customer inventory correction and order cuts, hitting the most advanced nodes last but hitting CoWoS and mature-node utilisation first; the pack flags margin dilution from Arizona/Japan/Germany expansion as a second-order drag. Multiple compression follows toward a through-cycle foundry multiple, well below the current premium. The balance sheet is the mitigant: roughly $79B of net cash on the figures used here, against a $60–64B 2026 capex guide that can be flexed. Triggers to watch: Q4 delivery against guide, 2nm ramp yields, CoWoS capacity commentary, and any Taiwan-geopolitics or export-control escalation.</p>
+</div>
+</div>
+
+<script>
+(function(){
+  var PRICE = 406.13, WEIGHT = 0.035;
+  var pf = document.getElementById('pf');
+  var out = document.getElementById('calcOut');
+  function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function render(){
+    var v = parseFloat(pf.value);
+    if(!isFinite(v) || v < 0){ out.innerHTML = 'Enter a portfolio value to see the 3.5% position.'; return; }
+    var dollars = v * WEIGHT;
+    var shares = dollars / PRICE;
+    var base = dollars / PRICE * 480, bull = dollars / PRICE * 580, bear = dollars / PRICE * 300;
+    out.innerHTML = '<strong>3.5%</strong> of $' + fmt(v) + ' = <strong>$' + fmt(dollars) + '</strong><br>' +
+      '≈ <strong>' + shares.toFixed(1) + ' ADR shares</strong> at $406.13<br>' +
+      '<span style="font-size:13px">12–18 mo value at Bear $300: $' + fmt(bear) + ' · Base $480: $' + fmt(base) + ' · Bull $580: $' + fmt(bull) + ' (modelled estimates)</span>';
+  }
+  pf.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>

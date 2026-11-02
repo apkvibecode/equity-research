@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — D (Dominion Energy)</title>
+<style>
+  :root{
+    --bg:#f7f5f1; --surface:#fffdf9; --surface2:#efeadf; --ink:#1c2430; --ink2:#4a5568;
+    --muted:#6b7686; --line:#d8d2c4; --accent:#8a5a13; --accent-ink:#7a4e0d;
+    --good:#1e6b3c; --bad:#a02c22; --warn:#8a5a13; --chip:#efe7d6;
+    --table-head:#ece5d3; --row-alt:#faf7f0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12151a; --surface:#1a1e25; --surface2:#22272f; --ink:#e8e6df; --ink2:#b9c0cb;
+      --muted:#8d97a5; --line:#333a44; --accent:#d9a441; --accent-ink:#e3b354;
+      --good:#5cb87e; --bad:#e07a6d; --warn:#d9a441; --chip:#2a2f38;
+      --table-head:#262c35; --row-alt:#1e232b;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:15.5px;line-height:1.55;}
+  .wrap{max-width:1060px;margin:0 auto;padding:28px 20px 64px}
+  h1,h2,h3{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;font-weight:700;line-height:1.15;margin:0}
+  h2{font-size:1.45rem;margin:0 0 4px}
+  h3{font-size:1.05rem;margin:18px 0 6px}
+  p{margin:0 0 10px}
+  a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  .small{font-size:.83rem;color:var(--muted)}
+  .src{font-size:.78rem;color:var(--muted)}
+  .src a{color:var(--muted)}
+
+  /* Header */
+  .kicker{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:700;margin-bottom:8px}
+  .title-row{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;border-bottom:3px double var(--line);padding-bottom:14px}
+  h1{font-size:2.1rem}
+  .subtitle{color:var(--ink2);margin-top:6px;max-width:70ch}
+  .badge{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;
+    padding:2px 10px;font-size:.78rem;font-weight:600;color:var(--ink2);margin-right:6px;white-space:nowrap}
+  .badge.alert{border-color:var(--accent);color:var(--accent-ink)}
+
+  /* Stat strip */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:20px 0 6px}
+  .stat{background:var(--surface);padding:12px 14px}
+  .stat .lab{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .stat .val{font-size:1.35rem;font-weight:700;margin-top:2px}
+  .stat .sub{font-size:.8rem;color:var(--ink2)}
+
+  /* Verdict strip */
+  .verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:18px 0 4px}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:8px;padding:14px 16px}
+  .vcard .lab{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .vcard .call{font-family:Georgia,serif;font-size:1.5rem;font-weight:700;margin:2px 0 4px}
+  .vcard p{font-size:.9rem;color:var(--ink2);margin:0}
+
+  section{margin-top:34px}
+  .sec-head{border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:12px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .sec-num{font-family:Georgia,serif;font-size:1.45rem;color:var(--accent-ink);font-weight:700}
+  .sec-head .note{margin-left:auto}
+
+  /* Tables */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;margin:12px 0}
+  table{border-collapse:collapse;width:100%;min-width:560px;background:var(--surface)}
+  th,td{padding:8px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  th{background:var(--table-head);font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+  td.r,th.r{text-align:right}
+  tbody tr:nth-child(even){background:var(--row-alt)}
+  tbody tr:last-child td{border-bottom:none}
+  tr.total td{font-weight:700;border-top:2px solid var(--ink)}
+  .pos{color:var(--good);font-weight:600}
+  .neg{color:var(--bad);font-weight:600}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media (max-width:720px){.cols{grid-template-columns:1fr}}
+  ul{margin:6px 0 12px;padding-left:20px}
+  li{margin-bottom:6px}
+  .callout{background:var(--surface2);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:14px 0}
+  .callout .lab{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--accent-ink);margin-bottom:4px}
+  .callout p:last-child{margin-bottom:0}
+
+  /* Timeline */
+  .timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:12px 0}
+  .tl{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  .tl .when{font-weight:700;font-family:Georgia,serif}
+  .tl p{font-size:.9rem;color:var(--ink2);margin:4px 0 0}
+
+  /* Chart */
+  .chart-box{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;margin:12px 0}
+  .chart-box svg{width:100%;height:auto;display:block}
+  .axis-lab{font-size:11px;fill:var(--muted)}
+  .bar-lab{font-size:12.5px;font-weight:700;fill:var(--ink)}
+  .bar-sub{font-size:11px;fill:var(--muted)}
+
+  /* Calculator */
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;margin:12px 0}
+  .calc-row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .calc label{font-size:.8rem;font-weight:700;color:var(--ink2);display:block;margin-bottom:4px}
+  .calc input{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);width:190px}
+  .calc .out{font-size:1.05rem}
+  .calc .out b{font-size:1.3rem}
+
+  footer{margin-top:44px;border-top:2px solid var(--line);padding-top:14px}
+  .disc{font-size:.8rem;color:var(--muted)}
+  ol.sources{font-size:.85rem;color:var(--ink2);padding-left:20px}
+  ol.sources li{margin-bottom:5px;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="kicker">Institutional Equity Research · Utilities</div>
+  <div class="title-row">
+    <div>
+      <h1>Dominion Energy, Inc. (NYSE: D)</h1>
+      <p class="subtitle">A regulated Virginia electric and gas utility whose equity story is currently dominated by one event: the pending merger into NextEra Energy, approved by both companies' shareholders on 3 Sep 2026 and expected to close in H2 2027. Until close, D trades partly on merger arbitrage, not standalone fundamentals.</p>
+    </div>
+    <div>
+      <span class="badge">Report date: 1 Nov 2026</span>
+      <span class="badge">Price ref: 30 Oct 2026 close</span>
+      <span class="badge alert">Merger pending — NEE</span>
+    </div>
+  </div>
+
+  <div class="stats num">
+    <div class="stat"><div class="lab">Close (30 Oct 2026)</div><div class="val">$66.62</div><div class="sub">Regular-session close</div></div>
+    <div class="stat"><div class="lab">Market cap</div><div class="val">$58.59B</div><div class="sub">TipRanks basis — see ranking note</div></div>
+    <div class="stat"><div class="lab">Trailing P/E</div><div class="val">23.18×</div><div class="sub">Finnhub</div></div>
+    <div class="stat"><div class="lab">Dividend yield</div><div class="val">4.0%</div><div class="sub">Peer-table figure</div></div>
+    <div class="stat"><div class="lab">Operating margin</div><div class="val">22.5%</div><div class="sub">Peer-table figure</div></div>
+    <div class="stat"><div class="lab">Debt / Equity</div><div class="val">1.66×</div><div class="sub">Typical regulated-utility leverage</div></div>
+  </div>
+  <p class="src">Key figures: price and trailing P/E via <a href="https://finnhub.io/?q=%22D%22">Finnhub (D)</a>; market cap on the TipRanks basis from the XLU holdings table at <a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks</a>; yield, margin, ROE, sales growth and D/E from the utilities peer table at <a href="https://greeksoup.ai/stocks/us/ceg/">greeksoup.ai</a>. Full source list at the end.</p>
+
+  <div class="verdict">
+    <div class="vcard"><div class="lab">Short term (12–18 mo)</div><div class="call">HOLD</div><p>Merger arbitrage, not a fresh operating bet. The 12–18-month range is set by deal completion odds, not by earnings momentum.</p></div>
+    <div class="vcard"><div class="lab">Long term (5 yr)</div><div class="call">HOLD — via NEE</div><p>If the merger closes, holders will hold NextEra consideration instead of D. Long-term exposure to this asset base is better taken through NEE directly.</p></div>
+    <div class="vcard"><div class="lab">Suggested portfolio weight</div><div class="call">1.0%</div><p>Of total portfolio, for a mid-30s investor at risk score 8/10 — held only as merger exposure. Prefer NEE directly for a core utilities position.</p></div>
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">1</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+    <p>Dominion Energy is a regulated utility, and the business model is the classic rate-base compact: the company invests capital in electric generation, transmission and gas distribution assets in its service territory, regulators (principally in Virginia) allow those assets into the rate base, and Dominion earns an authorised return on them, recovered through customer bills. Revenue is therefore driven less by commodity prices and more by how much approved capital it can deploy and how constructively regulators treat recovery.</p>
+    <div class="cols">
+      <div>
+        <h3>Core revenue streams</h3>
+        <ul>
+          <li><b>Regulated electric — Virginia.</b> The core of the company: generation, transmission and distribution to Virginia customers under state regulation. This is the earnings engine and the segment where the data-centre load story (below) lands.</li>
+          <li><b>Gas distribution.</b> Regulated natural-gas distribution, a steadier, lower-growth complement to the electric business with the same rate-base economics.</li>
+          <li><b>Coastal Virginia Offshore Wind (CVOW).</b> The swing project. Offshore wind capacity that, once in service and in rate base, becomes a large, long-lived regulated asset — but it carries outsized construction and cost-recovery risk until then (Section 4).</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Structural pivot: the NextEra merger</h3>
+        <p>Dominion is a <b>pending acquisition target of NextEra Energy (NEE)</b>. Shareholders of both companies approved the deal on <b>3 Sep 2026</b>, and closing is expected in <b>H2 2027</b>. <span class="src">Source: <a href="https://www.power-technology.com/news/nextera-dominion-merger-shareholder-approval/">Power Technology</a>; <a href="https://WWW.FOOL.COM/earnings/takeaways/2026/10/22/nextera-energy-3-key-takeaways-for-long-term-investors/">Motley Fool earnings takeaways</a>.</span></p>
+        <p>That single fact reframes everything else in this note:</p>
+        <ul>
+          <li>Until close, D's share price embeds a <b>merger-arbitrage spread</b> — the gap between the market price and the value of the NEE consideration — rather than purely standalone fundamentals.</li>
+          <li>If the deal closes, <b>D ceases to exist as a standalone holding</b>; investors will hold NEE consideration instead. A standalone 2031 valuation of D is therefore a <i>proxy for the deal-fails world only</i> (Section 5).</li>
+          <li>The strategic logic runs the other way for the buyer: NEE acquires a regulated Virginia footprint sitting on top of the world's densest data-centre market.</li>
+        </ul>
+      </div>
+    </div>
+    <h3>Geographic distribution &amp; load driver</h3>
+    <p>Dominion's operations are concentrated in the US Southeast/Mid-Atlantic, with Virginia the centre of gravity. Northern Virginia is "Data Center Alley" — the largest concentration of data-centre capacity in the US — which gives Dominion's electric utility an unusually strong load-growth outlook for a regulated utility: hyperscale customers signing for large, durable blocks of power. That load growth is the main fundamental (non-merger) upside driver, and it also raises the political and regulatory stakes of rate cases, because data-centre demand is the reason bills and build plans are rising.</p>
+    <h3>Supply-chain and execution dependencies</h3>
+    <p>The critical dependency is CVOW: offshore wind depends on a thin global supply chain for turbines, foundations, installation vessels and subsea cable, where delays and cost inflation have hit the sector broadly. A regulated model softens the blow — approved costs can be recovered in rates — but recovery is a regulatory decision, not an entitlement, so cost overruns are a genuine risk to both earnings and the merger timeline narrative. The broader rate-base plan depends on the usual utility inputs: generation equipment, transmission hardware, and continued access to capital markets at reasonable rates (Section 2).</p>
+    <div class="timeline">
+      <div class="tl"><div class="when">3 Sep 2026</div><p>Shareholders of both Dominion and NextEra approve the merger.</p></div>
+      <div class="tl"><div class="when">30 Oct 2026</div><p>Reference close for this note: $66.62. D ranks #6 by market cap in the XLU utilities universe ($58.59B).</p></div>
+      <div class="tl"><div class="when">H2 2027 (expected)</div><p>Merger close. On completion, D holders receive NEE consideration and the standalone listing ends.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">2</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+    <p>Dominion screens like a mid-pack regulated utility: a full multiple for the sector, a ~4% dividend yield, high-single-digit returns on equity, and balance-sheet leverage that is normal for a rate-base business (utility debt is serviced from regulated cash flows, so D/E above 1.5× is structural, not distress). The standout figure is sales growth of 21.5% in the peer table — well above utility norms — which reflects rate-base and rate-case recovery flowing through revenue rather than volume growth alone. <span class="src">All peer-table figures: <a href="https://greeksoup.ai/stocks/us/ceg/">greeksoup.ai utilities peer table</a>; price/P/E: <a href="https://finnhub.io/?q=%22D%22">Finnhub</a>.</span></p>
+    <div class="tbl-wrap">
+      <table class="num">
+        <thead><tr><th>Metric</th><th class="r">Value</th><th>Diagnostic read</th></tr></thead>
+        <tbody>
+          <tr><td>Share price (30 Oct 2026 close)</td><td class="r">$66.62</td><td>Reference price for all targets in this note</td></tr>
+          <tr><td>Market capitalisation</td><td class="r">$58.59B</td><td>#6 in the XLU top 10 (TipRanks basis)</td></tr>
+          <tr><td>Trailing P/E</td><td class="r">23.18×</td><td>Full for a regulated utility — part merger premium, part data-centre load premium</td></tr>
+          <tr><td>Dividend yield</td><td class="r">4.0%</td><td>The carry while the merger completes; a core part of the hold case</td></tr>
+          <tr><td>Operating margin</td><td class="r">22.5%</td><td>Solid regulated margin; set by rate cases, not competition</td></tr>
+          <tr><td>Return on equity</td><td class="r">9.1%</td><td>In line with authorised utility returns — the regulated compact working as designed</td></tr>
+          <tr><td>Sales growth</td><td class="r">21.5%</td><td>Rate-base recovery and load growth; well above sector norms</td></tr>
+          <tr><td>Debt / equity</td><td class="r">1.66×</td><td>Normal for the sector; refinancing cost is the key sensitivity</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Cash flow, capital allocation and leverage</h3>
+    <p><b>Free cash flow:</b> utilities of Dominion's type are structurally free-cash-flow-light during heavy build cycles — rate-base capex (CVOW above all) is funded with a mix of operating cash flow, debt and the regulated return that follows once assets enter service. The investment case therefore rests on the regulator allowing recovery, not on near-term cash generation. Specific trailing free-cash-flow and capex figures were not independently verified for this note and are omitted rather than estimated.</p>
+    <p><b>Capital allocation:</b> the dividend (4.0% yield) is the primary shareholder return and is the anchor of the merger-period hold case. Buybacks are not a meaningful part of the story for a utility funding a large build programme, and capital allocation from here is effectively decided by the merger: post-close, Dominion's assets and capex plan sit inside NextEra's allocation framework.</p>
+    <p><b>Leverage:</b> at 1.66× debt-to-equity, Dominion carries typical regulated-utility leverage. The risk is not solvency — regulated cash flows are among the most predictable in the market — but the cost of refinancing into a higher-rate environment, which compresses the spread between authorised returns and funding costs, and any regulatory refusal to recover CVOW cost overruns, which would land directly on the equity.</p>
+    <div class="callout">
+      <div class="lab">Balance-sheet verdict</div>
+      <p>Adequate and unremarkable — deliberately so. Nothing in the verified diagnostics (1.66× D/E, 9.1% ROE, 22.5% operating margin) suggests financial stress, and nothing suggests the balance sheet is the reason to own the stock either. The merger, not the balance sheet, is the trade.</p>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">3</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <p>A regulated utility's moat is granted, not earned in the market: Dominion holds a <b>franchise monopoly</b> in its Virginia service territory — no competitor can legally sell distribution service to its customers. That makes the moat wide but politically conditional: the same regulators who grant the monopoly set the prices and the allowed return.</p>
+    <ul>
+      <li><b>Pricing power — real but capped.</b> Dominion can recover approved costs and earn an authorised return through rate cases, which is genuine pricing power against inflation in its cost base. But it cannot price like a software company: every increase is a public, contested regulatory process, and Virginia regulatory shifts are a named risk (Section 4).</li>
+      <li><b>Barriers to entry — statutory.</b> Entry barriers are as high as they come (a competing grid cannot be built inside the franchise), but the "competition" a utility actually faces is for capital and for regulatory goodwill, not for customers.</li>
+      <li><b>Positional advantage — Data Center Alley.</b> Dominion's territory contains the largest data-centre cluster in the US. In a sector where most utilities fight for 1–2% load growth, sitting under hyperscale demand is a structural advantage that few peers can replicate — and it is a central part of why NextEra wants the asset.</li>
+      <li><b>Offshore-wind first mover in-state.</b> CVOW makes Dominion the first mover in Virginia offshore wind. If delivered on budget and into rate base, it is a large, long-duration regulated asset; the first-mover position also means Dominion carries the sector's execution risk first.</li>
+    </ul>
+    <h3>Competitive set</h3>
+    <p>The relevant peer frame is the large-cap regulated/AI-power utility group: <b>NextEra Energy (NEE)</b> — soon the parent, and the sector's premium name; <b>Duke Energy (DUK)</b> and <b>Southern Company (SO)</b> — the Southeast regulated giants Dominion is compared against on allowed returns and load growth. Post-merger, competitive positioning is NextEra's question, not Dominion's: the combined company would pair NEE's renewables development machine with Dominion's data-centre-territory rate base.</p>
+    <div class="callout">
+      <div class="lab">Moat verdict</div>
+      <p>Wide, regulated and durable — but the equity no longer trades on the moat alone. The moat explains why NextEra is buying; the price you pay today is set by arbitrageurs' assessment of whether the deal closes, not by a fresh appraisal of the moat.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">4</span><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="cols">
+      <div>
+        <h3>Catalysts</h3>
+        <ul>
+          <li><b>Merger completion (H2 2027).</b> The dominant catalyst. Closing crystallises the NEE consideration; between now and close, any narrowing of the arb spread (regulatory approvals, financing clarity) lifts D toward the implied deal value — the base case in Section 5.</li>
+          <li><b>Virginia data-centre load growth.</b> Continued hyperscale signings in Data Center Alley support rate-base growth, constructive rate cases, and the strategic value NEE is paying for.</li>
+          <li><b>CVOW into rate base.</b> Offshore-wind milestones — completion stages, cost confirmation, regulatory approval of recovery — convert the swing project from risk to regulated earnings.</li>
+          <li><b>Dividend carry.</b> The 4.0% yield pays holders to wait through the merger timetable.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Downside risks</h3>
+        <ul>
+          <li><b>Merger blocked or delayed.</b> The single largest risk. If the deal fails, the arb premium unwinds and D re-rates to standalone fundamentals — closer to the bear cases in Section 5 — after an 18-month opportunity cost.</li>
+          <li><b>Offshore-wind cost overruns.</b> CVOW overruns that regulators decline to fully recover would hit earnings directly and could complicate the merger's regulatory path.</li>
+          <li><b>Virginia regulatory shifts.</b> A less constructive commission — on allowed returns, cost recovery, or data-centre cost allocation — compresses the regulated earnings model for whoever owns the assets.</li>
+          <li><b>Interest rates.</b> A 1.66× levered, capital-hungry utility is rate-sensitive twice over: funding costs rise, and the stock's bond-proxy valuation (4.0% yield) de-rates when risk-free yields climb.</li>
+          <li><b>Data-centre backlash.</b> Political resistance to data-centre-driven bill increases in Virginia could slow load approvals or shift costs onto the utility.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">5</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><span class="note small">All targets are modelled estimates — methodology shown, never verified facts</span></div>
+
+    <h3>12–18 month targets — a merger-arbitrage range, not an operating target</h3>
+    <p>Because D's price into H2 2027 is set mainly by deal-completion probability, the 12–18-month scenarios below are an <b>arb range</b>: the bull case is a clean close on the expected timetable, the base case is a close with modest spread narrowing and dividend carry, and the bear case is a delayed or troubled deal where part of the premium unwinds. <span class="src">Scenario prices are modelled estimates from the research pack.</span></p>
+    <div class="tbl-wrap">
+      <table class="num">
+        <thead><tr><th>Case</th><th class="r">Target</th><th class="r">vs $66.62 close</th><th>Underlying assumption</th></tr></thead>
+        <tbody>
+          <tr><td><b>Bull</b></td><td class="r">$78</td><td class="r pos">+17.1%</td><td>Approvals land cleanly, close stays on H2 2027 track, arb spread narrows toward deal value; CVOW and data-centre news supportive</td></tr>
+          <tr><td><b>Base</b></td><td class="r">$71</td><td class="r pos">+6.6%</td><td>Merger completes as expected; price drifts toward consideration value plus 4.0% dividend carry while waiting</td></tr>
+          <tr><td><b>Bear</b></td><td class="r">$58</td><td class="r neg">−12.9%</td><td>Deal delayed or challenged; arb premium partially unwinds toward standalone utility value; rate/regulatory disappointment compounds it</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-box">
+      <svg viewBox="0 0 720 218" role="img" aria-label="Bar chart of 12 to 18 month scenario targets versus the 66.62 dollar reference close">
+        <text x="0" y="14" class="bar-lab">12–18-month scenario targets vs reference close</text>
+        <!-- scale: $40..$85 -> x 150..690 -->
+        <line x1="150" y1="30" x2="150" y2="185" stroke="var(--line)"/>
+        <line x1="270" y1="30" x2="270" y2="185" stroke="var(--line)"/>
+        <line x1="390" y1="30" x2="390" y2="185" stroke="var(--line)"/>
+        <line x1="510" y1="30" x2="510" y2="185" stroke="var(--line)"/>
+        <line x1="630" y1="30" x2="630" y2="185" stroke="var(--line)"/>
+        <text x="150" y="200" class="axis-lab" text-anchor="middle">$40</text>
+        <text x="270" y="200" class="axis-lab" text-anchor="middle">$50</text>
+        <text x="390" y="200" class="axis-lab" text-anchor="middle">$60</text>
+        <text x="510" y="200" class="axis-lab" text-anchor="middle">$70</text>
+        <text x="630" y="200" class="axis-lab" text-anchor="middle">$80</text>
+        <!-- close marker at 66.62 -> x = 150 + (66.62-40)*12 = 469.4 -->
+        <line x1="469" y1="30" x2="469" y2="185" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="469" y="24" class="bar-sub" text-anchor="middle" fill="var(--accent-ink)">Close $66.62</text>
+        <!-- Bear 58 -> width (58-40)*12=216 -->
+        <text x="0" y="62" class="bar-lab">Bear</text>
+        <rect x="150" y="48" width="216" height="22" rx="4" fill="var(--bad)" opacity="0.75"/>
+        <text x="374" y="63" class="bar-lab">$58 · −12.9%</text>
+        <!-- Base 71 -> width 372 -->
+        <text x="0" y="102" class="bar-lab">Base</text>
+        <rect x="150" y="88" width="372" height="22" rx="4" fill="var(--accent)" opacity="0.8"/>
+        <text x="530" y="103" class="bar-lab">$71 · +6.6%</text>
+        <!-- Bull 78 -> width 456 -->
+        <text x="0" y="142" class="bar-lab">Bull</text>
+        <rect x="150" y="128" width="456" height="22" rx="4" fill="var(--good)" opacity="0.75"/>
+        <text x="614" y="143" class="bar-lab">$78</text>
+        <text x="150" y="178" class="bar-sub">Merger-arbitrage range (modelled estimates); percentage moves vs the $66.62 close are in the table above.</text>
+      </svg>
+    </div>
+
+    <h3>5-year projection — standalone proxy only (frozen-parameter format)</h3>
+    <div class="callout">
+      <div class="lab">Read this first — why this table is a proxy, not a forecast</div>
+      <p><b>Do not value D on a standalone 2031 price if the merger closes — holders will hold NEE consideration instead.</b> The table below exists only for the deal-fails world: it is the placeholder value of Dominion as an independent utility if the merger breaks. It uses the frozen-parameter format mandated for this series:</p>
+      <p class="num" style="text-align:center;font-size:1.02rem"><b>2031 price = (2031 revenue × net margin ÷ shares) × P/E</b></p>
+      <p>The bracketed term <i>is</i> 2031 EPS. <b>Adaptation, stated transparently:</b> the verified research pack models that earnings term directly — as a base EPS of <b>$3.51</b> grown at a per-case frozen rate <i>g</i> — because no verified split of Dominion's revenue, net margin and share count was supplied with the pack, and inventing one would violate this note's no-invented-figures rule. The frozen parameters per case are therefore the earnings-term growth rate <i>g</i> and the exit P/E, shown in the table; the implied share count (~879M, derived arithmetically from the $58.59B TipRanks market cap ÷ the $66.62 close) is a cross-check only, not a model input. Note also that the $3.51 base sits above the ~$2.87 trailing EPS implied by the 23.18× trailing P/E on the close, so the model is anchored on a forward/adjusted earnings base, not trailing GAAP EPS.</p>
+    </div>
+    <div class="tbl-wrap">
+      <table class="num">
+        <thead><tr><th>Case (standalone, deal fails)</th><th class="r">Earnings-term growth g / yr (frozen)</th><th class="r">2031 EPS = 2031 revenue × net margin ÷ shares</th><th class="r">Exit P/E (frozen)</th><th class="r">2031 price</th><th class="r">vs $66.62</th></tr></thead>
+        <tbody>
+          <tr><td><b>Bull</b></td><td class="r">6%</td><td class="r">$4.70</td><td class="r">21×</td><td class="r">$98.70</td><td class="r pos">+48.2%</td></tr>
+          <tr><td><b>Base</b></td><td class="r">5%</td><td class="r">$4.48</td><td class="r">19×</td><td class="r">$85.10</td><td class="r pos">+27.7%</td></tr>
+          <tr><td><b>Bear</b></td><td class="r">3%</td><td class="r">$4.07</td><td class="r">16×</td><td class="r">$65.10</td><td class="r neg">−2.3%</td></tr>
+          <tr class="total"><td>Probability-weighted (pack figure)</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r">$83.60</td><td class="r">+25.5%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small">Worked example (base): earnings term $3.51 × 1.05<sup>5</sup> = $4.48 — i.e. 2031 revenue × net margin ÷ shares = $4.48 per share under the frozen 5% growth; $4.48 × 19 = $85.10. Bull: $3.51 × 1.06<sup>5</sup> = $4.70; × 21 = $98.70. Bear: $3.51 × 1.03<sup>5</sup> = $4.07; × 16 = $65.10. The weighted $83.60 is the research pack's modelled estimate; the scenario weights behind it were not supplied to the independent verifier, so the weighted figure is labelled <b>modelled estimate — unverified</b>, and the individual case prices and assumptions above are the checkable content. Even the bull standalone proxy (+48% over five years) is a mediocre equity outcome — which is precisely why the recommendation is to hold the exposure through NEE rather than as a standalone D position.</p>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <div class="sec-head"><span class="sec-num">6</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Horizon</th><th>Call</th><th>Rationale</th></tr></thead>
+        <tbody>
+          <tr><td><b>Short term (12–18 mo)</b></td><td><b>HOLD</b></td><td>Merger arb, not a fresh operating bet. The base case (+6.6% to $71, plus a 4.0% yield) is a reasonable carry-and-close return, but it is capped by the deal terms and carries binary deal risk — not a profile that justifies fresh aggressive buying at $66.62.</td></tr>
+          <tr><td><b>Long term (5 yr)</b></td><td><b>HOLD — via NEE post-close</b></td><td>The standalone 5-yr proxy (weighted ~$83.60, unverified modelled estimate) only applies if the merger fails. If it closes — the expected path — the Dominion assets are owned through NextEra, which is the better vehicle for the data-centre-load and renewables story anyway.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><b>Suggested allocation: 1.0% of total portfolio</b>, for a mid-30s investor with risk score 8/10 — and only as merger exposure. That is deliberately small: a merger-arb position's return is capped, its risk is binary, and the same underlying assets can be owned without a position limit problem through NEE. An investor who wants a core utilities allocation should build it in NEE directly and treat any D holding as a tactical satellite that converts into NEE at close.</p>
+    <div class="calc">
+      <div class="calc-row">
+        <div>
+          <label for="pf">Your total portfolio ($)</label>
+          <input id="pf" type="number" inputmode="decimal" min="0" value="500000" />
+        </div>
+        <div>
+          <label for="pct">D weight (%)</label>
+          <input id="pct" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="1.0" />
+        </div>
+        <div class="out" id="calcOut" aria-live="polite"></div>
+      </div>
+      <p class="small" style="margin:10px 0 0">Position sizing at the $66.62 reference close. Whole shares rounded down; the remainder stays in cash. The calculator runs locally in this page — nothing is saved or sent anywhere.</p>
+    </div>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>D — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $66.62.</strong> <strong>DCF intrinsic: $72.64.</strong> Discount/premium vs DCF: <strong>-8.3%</strong> — i.e. the shares are trading 8.3% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$72.64</td><td>-8.3%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $3.51 per share — Pack EPS $3.51 - regulated earnings proxy; STANDALONE basis only (NextEra merger expected H2 2027, not treated as done). TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 5.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/D/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/d/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>D — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Dominion sells electricity and gas principally to households and small businesses through regulated Virginia tariffs, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack notes Virginia data-centre ('Data Center Alley') load but names no individual customer.</p><p><strong>Key demand drivers:</strong> Virginia rate-base growth, Coastal Virginia Offshore Wind execution and cost recovery, and — overriding everything — whether the NextEra merger closes in H2 2027, after which D holders hold NextEra consideration instead.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>D — AI trade positioning</h2>
+<p><strong>Role: Beneficiary (via NextEra merger).</strong> Dominion's Virginia territory includes 'Data Center Alley', and the pack names Virginia data-centre load as a catalyst — but the dominant fact is the pending merger into NextEra, approved by both sets of shareholders on 3 Sep 2026 and expected to close H2 2027.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Until close, AI-driven Virginia load growth supports Dominion's standalone rate base and offshore-wind story; after close, D holders participate in NextEra's data-centre and renewables exposure instead.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> D's price is increasingly a merger-arbitrage price (12–18mo range $58–$78 in the pack, not an operating target), so the AI multiple channel is muted: the market prices deal completion, not standalone AI upside.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: Virginia data-centre load disappoints or offshore-wind costs overrun, weakening the standalone case that underpins the merger's value. Second, multiple compression: limited on a standalone basis, since the arb spread already reflects deal risk rather than an AI premium. Third, balance sheet: the merger itself is the balance-sheet event — if regulators block or delay the deal past H2 2027, Dominion is left funding offshore wind alone with TTM FCF of -$6.30B and a 4.0% dividend to defend. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Regulatory approvals for the NextEra merger and any H2 2027 close slippage; Virginia data-centre load announcements; and Coastal Virginia Offshore Wind cost updates.</p>
+</div>
+<footer>
+    <h3 style="margin-top:0">Ranking basis &amp; methodology</h3>
+    <p class="disc">Dominion's place in this series comes from the XLU holdings universe as of 30 Oct 2026 (TipRanks): D ranks #6 among the top-10 US-listed utilities by market cap at $58.59B. XLU is 100% US geography, so a US-listed-only universe is defensible <i>as an XLU methodology</i> — but it is <b>not a global top 10</b>: globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the list and XEL/EXC would fall out. Market-cap figures use the TipRanks basis throughout; Finnhub's float-based values differ by up to ~$3B for some names in this sector, and the two vendors' figures are not mixed in any table here. MarketBeat "closing price 10/30 03:59pm" figures that circulate for this sector are a pre-close snapshot, not the official close, and were not used.</p>
+    <p class="disc">All scenario targets and 5-year prices are <b>modelled estimates</b> with their assumptions shown in Section 5 — they are research views, not verified facts and not guarantees. Figures the research could not verify are labelled estimates or omitted (notably, no trailing free-cash-flow figure is quoted for D). Recommendations are research views for a mid-30s investor with risk score 8/10, not personalised investment advice.</p>
+    <h3>Sources</h3>
+    <ol class="sources">
+      <li>Finnhub — Dominion Energy (D): price $66.62 and trailing P/E 23.18 (30 Oct 2026 close). <a href="https://finnhub.io/?q=%22D%22">https://finnhub.io/?q=%22D%22</a></li>
+      <li>TipRanks — XLU holdings as of 30 Oct 2026 (ranking universe; market cap $58.59B is on this TipRanks basis). <a href="https://www.tipranks.com/etf/xlu/holdings">https://www.tipranks.com/etf/xlu/holdings</a></li>
+      <li>greeksoup.ai — utilities peer table (CEG page): D dividend yield 4.0%, ROE 9.1%, operating margin 22.5%, sales growth 21.5%, D/E 1.66. <a href="https://greeksoup.ai/stocks/us/ceg/">https://greeksoup.ai/stocks/us/ceg/</a></li>
+      <li>Power Technology — NextEra/Dominion merger shareholder approvals (3 Sep 2026), expected close H2 2027. <a href="https://www.power-technology.com/news/nextera-dominion-merger-shareholder-approval/">https://www.power-technology.com/news/nextera-dominion-merger-shareholder-approval/</a></li>
+      <li>SEC filing (Dominion, via Cloudfront CIK archive) — merger documentation corroborating approval and H2 2027 expected close. <a href="https://d18rn0p25nwr6d.cloudfront.net/CIK-0000715957/bce5ff75-ec9a-4cc3-9dcc-d86b68cc4778.pdf">https://d18rn0p25nwr6d.cloudfront.net/CIK-0000715957/bce5ff75-ec9a-4cc3-9dcc-d86b68cc4778.pdf</a></li>
+      <li>Motley Fool — NextEra Energy Q3 takeaways for long-term investors (merger context). <a href="https://WWW.FOOL.COM/earnings/takeaways/2026/10/22/nextera-energy-3-key-takeaways-for-long-term-investors/">https://WWW.FOOL.COM/earnings/takeaways/2026/10/22/nextera-energy-3-key-takeaways-for-long-term-investors/</a></li>
+      <li>FinanceCharts — global utilities ranking at 30 Oct 2026 (Iberdrola, Enel, National Grid market caps behind the "not a global top 10" note). <a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf">https://www.financecharts.com/sectors/utilities?columns=custom-dcf</a></li>
+    </ol>
+    <p class="disc">Equity Research — D · Dominion Energy, Inc. · Prepared 1 Nov 2026 · Price reference: 30 Oct 2026 close · Research views only, not guarantees and not investment advice.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var PRICE = 66.62;
+  var pf = document.getElementById('pf');
+  var pct = document.getElementById('pct');
+  var out = document.getElementById('calcOut');
+  function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function calc(){
+    var total = parseFloat(pf.value) || 0;
+    var w = parseFloat(pct.value) || 0;
+    var dollars = total * w / 100;
+    var shares = Math.floor(dollars / PRICE);
+    var deployed = shares * PRICE;
+    out.innerHTML = 'Suggested position: <b>$' + fmt(dollars) + '</b><br>' +
+      '<span class="small">≈ ' + fmt(shares) + ' shares at $66.62 (deployed $' + fmt(deployed) + ')</span>';
+  }
+  pf.addEventListener('input', calc);
+  pct.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

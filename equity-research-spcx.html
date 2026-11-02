@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — SPCX (SpaceX)</title>
+<style>
+:root{
+  --bg:#f4f5f6; --surface:#ffffff; --surface2:#eef1f3; --ink:#101820; --muted:#5a6a7a; --line:#dde3e8;
+  --accent:#c2410c; --accent-ink:#fff; --teal:#0f766e; --amber:#b45309; --red:#b91c1c; --green:#15803d;
+  --chip:#fff7ed; --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1117; --surface:#141e28; --surface2:#1a2836; --ink:#eef2f5; --muted:#9fb0c0; --line:#2a3a4a; --chip:#2a1f16; }
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:20px 16px 48px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:Georgia, 'Times New Roman', serif;font-size:42px;line-height:.95;margin:8px 0 6px;letter-spacing:-.02em}
+h1 span{font-weight:400;font-size:22px;display:block;letter-spacing:0;margin-top:6px;color:var(--muted)}
+h2{font-family:Georgia,serif;font-size:26px;margin:0 0 8px;line-height:1.1}
+h3{font-size:15px;margin:18px 0 6px}
+p,li{font-size:15px} .small{font-size:13px;color:var(--muted)} .tiny{font-size:12px;color:var(--muted)}
+.hero{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px;margin-top:14px}
+.grid{display:grid;gap:14px} @media(min-width:720px){.grid2{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr 1fr 1fr}.grid4{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--surface2);border-radius:12px;padding:14px} .stat b{font-size:22px;display:block;line-height:1} .stat span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-top:16px}
+.callout{border-left:4px solid var(--accent);background:var(--chip);padding:14px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:14px} th{text-align:left;padding:10px 8px;border-bottom:2px solid var(--line);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)} td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top} td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em} .b-hold{background:#fef3c7;color:#92400e} .b-buy{background:#dcfce7;color:#166534} .b-model{background:#e0e7ff;color:#3730a3} .b-unv{background:#fee2e2;color:#991b1b}
+.bar{height:8px;background:var(--surface2);border-radius:999px;overflow:hidden} .bar i{display:block;height:100%;background:var(--accent)}
+.seg{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0} .seg div{flex:1;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:12px}
+.toggle{display:flex;gap:8px;margin:10px 0} .toggle button, .calc button{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;font-weight:600} .toggle button.active{background:var(--ink);color:var(--bg)}
+input[type=number]{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:16px}
+.sankey{background:var(--surface2);border-radius:12px;padding:16px;overflow:hidden}
+.flow{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center} @media(max-width:640px){.flow{grid-template-columns:1fr}}
+.flowbox{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px}
+.arrow{font-size:22px;color:var(--muted);text-align:center}
+ul{padding-left:18px} li{margin:6px 0}
+.footer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}
+.verdict{display:grid;gap:12px} @media(min-width:720px){.verdict{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Communication Services • Rank #2 in sector* • As of 1 Nov 2026</p>
+  <h1>SPCX — SpaceX <span>NASDAQ: SPCX • Class A • IPO 12 June 2026 at $135.00</span></h1>
+  <p class="small">*Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices = 30 Oct 2026 close. SPCX is <strong>listed</strong> on Nasdaq (and Nasdaq Texas). Research views only — not investment advice, not a guarantee. All modelled targets are labelled as estimates with methodology shown.</p>
+
+  <section class="hero">
+    <div class="grid grid4">
+      <div class="stat"><span>Close — 30 Oct 2026</span><b>$134.72</b><small>−$9.17 / −6.37% vs $143.89 prior close<br>Open $137.85 · High $140.20 · Low $134.50</small></div>
+      <div class="stat"><span>Market cap (calc.)</span><b>$1.83tn</b><small>$134.72 × 13.58bn shares<br>EV $1.78tn (StockAnalysis)</small></div>
+      <div class="stat"><span>52-week range</span><b>$104.83 – $225.64</b><small>50-day avg $149.56 · RSI ~37<br>Beta 4.78 — ESTIMATE, ~4.5 mo history</small></div>
+      <div class="stat"><span>IPO reference</span><b>$135.00</b><small>First-day open $150.00<br>First-day close $160.95 (+19.2%)</small></div>
+    </div>
+    <div class="callout"><strong>The one-line story:</strong> SpaceX stopped being just a launch company in 2026. In Q3, Super Intelligence (AI compute + X + Cursor) was 51.9% of revenue — bigger than Starlink — on $14.575bn revenue (+161% YoY). The stock closed just at its IPO price because the market is now pricing AI-capex execution, a single-customer concentration, and a December lockup, not just rockets.</div>
+    <p class="tiny">Volume ~122m on 30 Oct (122.7m vs 108.7m by vendor — definition varies; price does not). After-hours ~$136.03–$136.05. The day's proximate drivers reported in press — broad tech sell-off / Intel guidance and T-Mobile ruling out an MVNO — are correlation, <strong>causation UNVERIFIED</strong>. Joined Nasdaq-100 7 Jul 2026. Dual-class: Class A 1 vote, Class B 10 votes, mostly held by Elon Musk. Shares at 15 Oct 2026: 8,246,541,218 Class A + 5,334,522,491 Class B = 13.58bn.</p>
+  </section>
+
+  <!-- 1 BUSINESS -->
+  <section class="card">
+    <h2>1 &nbsp; Business model &amp; segment breakdown</h2>
+    <p>Three reported segments. Starshield / government work is <em>inside</em> Connectivity (Enterprise &amp; Government) and Space — it is <strong>not</strong> a separately reported segment, and any Starshield-only revenue figure is UNVERIFIED. Verified context: multi-year US government Starshield-related contracts exceed $6bn (mainly two Space Force LEO programmes); UK MoD has spent ~£13m on Starshield + £16.5m on Starlink (~$40m total).</p>
+
+    <h3>2025 — the last full year before the AI pivot</h3>
+    <div style="overflow-x:auto"><table>
+      <tr><th>Segment</th><th class="num">Revenue</th><th class="num">Share</th><th class="num">Operating income</th></tr>
+      <tr><td><strong>Space</strong> — Falcon / Starship launch + development<br><span class="small">Launch Services $2.576bn + Launch &amp; Development $1.510bn</span></td><td class="num">$4.086bn</td><td class="num">22%</td><td class="num">−$657m</td></tr>
+      <tr><td><strong>Connectivity</strong> — Starlink<br><span class="small">Consumer $7.208bn + Enterprise &amp; Government $4.179bn</span></td><td class="num">$11.387bn</td><td class="num">61%</td><td class="num">+$4.423bn — only profitable segment in 2025</td></tr>
+      <tr><td><strong>Super Intelligence</strong> — Grok, AI infra/cloud, X, Cursor (from 14 Aug 2026)<br><span class="small">Advertising (X) $1.844bn + SI Solutions &amp; Infrastructure $1.357bn</span></td><td class="num">$3.201bn</td><td class="num">17%</td><td class="num">−$6.355bn</td></tr>
+      <tr><td><strong>Total</strong> — +33% vs 2024 ($14.015bn)</td><td class="num"><strong>$18.674bn</strong></td><td class="num">100%</td><td class="num"><strong>−$2.589bn</strong></td></tr>
+    </table></div>
+
+    <h3>Q3 2026 — the quarter the mix flipped</h3>
+    <div style="overflow-x:auto"><table>
+      <tr><th>Segment</th><th class="num">Q3 revenue</th><th class="num">Share</th><th class="num">YoY</th><th class="num">Operating income</th></tr>
+      <tr><td>Space</td><td class="num">$1.767bn</td><td class="num">12.1%</td><td class="num">+6%</td><td class="num">−$7m</td></tr>
+      <tr><td>Connectivity</td><td class="num">$5.248bn</td><td class="num">36.0%</td><td class="num">+69%</td><td class="num">+$2.367bn</td></tr>
+      <tr><td>Super Intelligence</td><td class="num">$7.560bn</td><td class="num">51.9%</td><td class="num">+830% YoY, +195% QoQ</td><td class="num">+$431m reported</td></tr>
+      <tr><td><strong>Total</strong></td><td class="num"><strong>$14.575bn</strong></td><td class="num">100%</td><td class="num"><strong>+161% YoY, +87% QoQ</strong></td><td class="num"><strong>$2.791bn</strong></td></tr>
+    </table></div>
+    <p class="small">Inside SI: SI Solutions &amp; Infrastructure was $7.0bn in Q3 alone vs $359m a year earlier. Cursor contributed $608m in Q3 (14 Aug–30 Sep only, not a full quarter, inorganic). Excluding $1.217bn of Cursor stock-based compensation, SI operating profit would be ~$1.6bn ($431m + $1,217m = $1,648m), not $431m.</p>
+
+    <div class="toggle" role="group" aria-label="Profit view">
+      <button id="btnReported" class="active" onclick="setView('reported')">Reported Q3</button>
+      <button id="btnEx" onclick="setView('ex')">Ex-Cursor SBC</button>
+    </div>
+    <p id="viewText"><strong>Reported:</strong> Operating income $2.791bn (19.1% margin) — first operating profit as a public company. Net income $4.404bn ($0.35 diluted EPS, $0.37 basic) was flattered by $1.025bn net other income (incl. $561m from an unnamed related party), $198m net interest income ($873m earned on IPO cash vs $675m expense) and a $390m tax benefit — together $1.613bn above operating income.</p>
+
+    <h3>Starlink operating metrics</h3>
+    <ul>
+      <li><strong>Subscribers:</strong> 2.3m (Dec 2023) → 4.4m (2024) → 8.9m (end-2025) → 10.3m (Mar 2026, 164 countries/markets) → <strong>13.6m (Sep 2026, +89% YoY)</strong>. Counts service lines, not households; managed enterprise/government excluded.</li>
+      <li><strong>ARPU falling:</strong> $99/mo (2023) → $91 (2024) → $81 (2025) → <strong>$69/mo (Q3 2026)</strong>. Growth is volume-led; price/mix is falling. Residential plans from $55/mo.</li>
+      <li><strong>Constellation:</strong> ~9,600 Starlink satellites at end-Mar 2026. The ~650 V1 Mobile figure is a subset / first-generation fleet, <em>not</em> an addition to 9,600.</li>
+      <li><strong>Launches:</strong> 96 Falcon (2023) → 134 (2024) → 165 Falcon + 5 Starship tests (2025); of 2025 Falcon launches only 43 were for external customers, 122 internal (mostly Starlink). Q3 2026: 33 Falcon (−23% YoY), 12 for customers. Mass to orbit 2,213 tonnes in 2025.</li>
+      <li><strong>Backlog:</strong> $63.0bn contracted, not yet delivered (Sep 2026), $42bn within 12 months.</li>
+    </ul>
+
+    <h3>Geography — disclosure gap</h3>
+    <p><span class="badge b-unv">NOT DISCLOSED</span> &nbsp; No country/region revenue split was found in the prospectus/quarterly summaries reviewed. Do not invent a US/International split. What can be stated: Starlink operates in 160+ countries/markets (174 markets cited on Q3 call); HQ Starbase, Texas (founded Hawthorne, California 2002); government revenue is overwhelmingly US (NASA, Space Force, NRO). The $18bn NRO Starshield contract reported in 2023 is press-reported, not filing-confirmed — <strong>UNVERIFIED</strong>.</p>
+
+    <h3>Structural pivots in 2026</h3>
+    <ul>
+      <li><strong>Falcon peak → Starship transition:</strong> 2025–26 likely peak Falcon activity, shifting to Starship as it matures. Falcon is the cash cow funding the transition.</li>
+      <li><strong>xAI merger, 2 Feb 2026:</strong> All-stock combination; xAI became a wholly-owned subsidiary. The ~$1.25tn figure reported at the time is the <strong>combined-company</strong> figure, not a standalone xAI valuation (corrected per verification).</li>
+      <li><strong>Cursor acquisition:</strong> Agreement 16 Jun 2026 at $60.0bn <em>implied equity value</em>; GAAP purchase consideration was $42.5bn plus $23.4bn post-service equity awards. <strong>Completed 14 Aug 2026 — confirmed.</strong></li>
+      <li><strong>IPO war chest:</strong> Base offering 555,555,555 shares (~$75.0bn gross); with overallotment 638.9m shares, ~$85.7bn net proceeds — largest IPO on record; valuation at IPO ~$1.77tn.</li>
+    </ul>
+    <p class="small"><strong>Supply chain:</strong> Launch/satellites are highly vertically integrated (reuse — one booster at 37 flights — in-house satellite manufacture, internal launch cost modelled &lt;~$30m vs ~$62–74m listed price) — that is the moat, not a dependency. The new dependency is AI compute: SI capex was $12.7bn in 2025 (61% of total) and $16.4bn in Q3 2026 alone (84%). Supplier names, chip allocation and contract terms are <strong>NOT disclosed — UNVERIFIED</strong>; do not name a GPU supplier as fact. Regulatory “supply chain” — FAA launch licences, FCC spectrum, launch-site capacity — is gating.</p>
+  </section>
+
+  <!-- Sankey -->
+  <section class="card">
+    <h2>Q3 2026 income flow</h2>
+    <p class="small">How $14.575bn of revenue became $4.404bn of net income — and why net income exceeded operating income.</p>
+    <div class="sankey">
+      <div class="flow">
+        <div>
+          <div class="flowbox"><strong>Revenue $14.575bn</strong><br><span class="small">Space $1.767bn · Connectivity $5.248bn · SI $7.560bn</span><div class="bar" style="margin-top:8px"><i style="width:100%"></i></div></div>
+          <div class="flowbox" style="margin-top:8px"><strong>Operating income $2.791bn</strong> (19.1%)<br><span class="small">Connectivity +$2.367bn · SI +$0.431bn · Space −$0.007bn</span></div>
+        </div>
+        <div class="arrow">→</div>
+        <div>
+          <div class="flowbox"><strong>+ Other income $1.025bn</strong><br><span class="small">incl. $561m related-party gain</span></div>
+          <div class="flowbox" style="margin-top:8px"><strong>+ Net interest $0.198bn</strong> · <strong>+ Tax benefit $0.390bn</strong><br><span class="small">$873m interest earned − $675m expense</span></div>
+          <div class="flowbox" style="margin-top:8px;border-color:var(--accent)"><strong>Net income $4.404bn</strong><br><span class="small">EPS $0.35 diluted · $0.37 basic · Adj. EBITDA $8.809bn (60.4%, non-GAAP)</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="tiny">Quality warning: the profit is real but flattered by non-operating items. LTM picture is different — see §2.</p>
+  </section>
+
+  <!-- 2 FINANCIAL -->
+  <section class="card">
+    <h2>2 &nbsp; Financial health &amp; balance sheet</h2>
+    <div class="grid grid2">
+      <div>
+        <h3>LTM to Q3 2026 (StockAnalysis)</h3>
+        <table>
+          <tr><td>Revenue</td><td class="num">$32.04bn</td></tr>
+          <tr><td>Gross profit / margin</td><td class="num">$18.19bn / 56.75%</td></tr>
+          <tr><td>Operating income</td><td class="num">$0.575bn (1.79%)</td></tr>
+          <tr><td>Net loss</td><td class="num">−$3.43bn / −10.7% margin*</td></tr>
+          <tr><td>Loss per share</td><td class="num">−$0.55</td></tr>
+          <tr><td>EBITDA</td><td class="num">$11.74bn (36.63%)</td></tr>
+        </table>
+        <p class="tiny">*Corrected: StockAnalysis prints −8.61%, but its own −$3.43bn / $32.04bn = −10.71%. Calendar 2025: revenue $18.674bn, operating loss −$2.589bn, net loss −$4.937bn, OCF $6.785bn, capex $20.737bn, FCF −$13.952bn. 2024 net income +$791m; 2023 −$4.628bn — volatile, not a trend.</p>
+      </div>
+      <div>
+        <h3>Valuation multiples — handle with care</h3>
+        <table>
+          <tr><td>Trailing P/E</td><td class="num"><strong>Not meaningful (LTM loss)</strong></td></tr>
+          <tr><td>Forward P/E</td><td class="num">47.69 (StockAnalysis) · 52.53 (Coindataflow)</td></tr>
+          <tr><td>Trailing P/S</td><td class="num">57.10</td></tr>
+          <tr><td>Forward P/S</td><td class="num">12.42 → implies ~$147bn fwd revenue</td></tr>
+          <tr><td>EV / Sales · EV / EBITDA</td><td class="num">55.52 · 151.59</td></tr>
+          <tr><td>P/B · P/OCF · P/FCF</td><td class="num">10.35 · 116.08 · n/a (neg. FCF)</td></tr>
+        </table>
+        <p class="tiny">Forward EPS derivation: $134.72 ÷ 47.69 = $2.83 (modelled). EV/EBIT 3,093.92 is distorted by tiny trailing EBIT — not a primary anchor. Analyst consensus is vendor-specific: StockAnalysis 39 analysts, “Buy”, $257.11 (+90.85%); MarketBeat 46 analysts, “Moderate Buy”, $244.97. Neither is a house target.</p>
+      </div>
+    </div>
+
+    <h3>Cash, debt &amp; the cash-definition correction</h3>
+    <div class="callout" style="border-color:var(--teal)">
+      <strong>Filed (Sep 2026, 10-Q summary):</strong> Cash <strong>$51.294bn</strong> + marketable securities $38.561bn = liquidity <strong>$89.855bn</strong>. Debt + finance leases $38.844bn (of which $12.897bn related-party).<br>
+      <strong>Filed cash-only net cash = $12.45bn</strong> ($51.294bn − $38.844bn). Liquidity minus filed debt = $51.01bn. StockAnalysis’ “$89.86bn cash / net cash $50.64bn” uses cash+securities and vendor debt $39.22bn — and EV $1.78tn uses that vendor net-cash definition, not cash-only. Book value $176.77bn ($13.02/share), current ratio 3.08, Debt/Equity 0.22, Debt/EBITDA 3.05, interest coverage 0.23 (weak on low EBIT, not imminent distress given net cash).
+    </div>
+
+    <h3>Free cash flow &amp; capital allocation</h3>
+    <ul>
+      <li><strong>FCF LTM −$39.29bn</strong> (OCF $15.76bn − capex $55.05bn). Q3 alone: OCF ~$9.6bn − capex $19.593bn = <strong>FCF ~−$10.0bn (derived, not filed as FCF)</strong>.</li>
+      <li><strong>Call-only guidance — not a filed forecast:</strong> Q4 2026 capex $35–40bn and Q1 2027 revenue $33–37bn were CFO Bret Johnsen remarks on the 20 Oct 2026 call; they are <em>not</em> in the 8-K exhibit. Q4 capex guide is roughly double Q3 capex and more than double Q3 revenue.</li>
+      <li><strong>R&amp;D $8.643bn in 2025</strong> (~46% of revenue): Space $3.004bn, Connectivity $0.575bn, SI $5.064bn, up from $3.464bn in 2024.</li>
+      <li><strong>Dividends: none.</strong> <strong>Buybacks: none disclosed</strong> — no authorisation was found (UNVERIFIED if one exists). Share count is rising sharply (+117% YoY) from IPO + xAI + Cursor stock; “buyback yield −117.34%” is an issuance artefact.</li>
+      <li>Employees ~22,000; revenue/employee $1.46m.</li>
+    </ul>
+    <p><strong>Diagnostic verdict:</strong> Strong on liquidity (net cash), weak on earnings quality and cash conversion. Not levered to distress — levered to execution: $35–40bn/quarter capex must convert into contracted, durable SI revenue faster than depreciation and SBC consume it.</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section class="card">
+    <h2>3 &nbsp; Competitive moat &amp; positioning</h2>
+    <ul>
+      <li><strong>Launch cost &amp; cadence — strongest moat:</strong> 165 Falcon launches in 2025, reuse record 37 flights on one booster, vertical integration and internal Starlink demand create a cost loop rivals cannot match without equal cadence. Falcon 9 listed ~$74m/launch; internal cost modelled &lt;$30m. Market-share figures for cargo mass to orbit in the pack were <span class="badge b-unv">UNVERIFIED</span> in verification — treat share claims as estimates.</li>
+      <li><strong>Constellation scale:</strong> ~9,600+ satellites vs Amazon Leo/Kuiper at deployment stage, Eutelsat/OneWeb far smaller. First-mover spectrum, ground stations and terminal manufacturing help, but are not permanent.</li>
+      <li><strong>Government entrenchment:</strong> NASA crew/cargo, Space Force/NRO, $63bn backlog. High switching costs — and high political exposure.</li>
+      <li><strong>AI compute — UNPROVEN moat:</strong> Nameplate compute and “&lt;13 GW additions” guidance from the call were not fully verified in context — <strong>UNVERIFIED</strong>. If SI contracts are long-dated and high-margin, this becomes a second moat; if they are short-cancellable rentals, it is commodity rental at mega-cap prices.</li>
+    </ul>
+    <p><strong>Pricing power is mixed:</strong> Launch — price-setter. Starlink — ARPU $99 → $69 shows discounting to sustain volume. SI — pricing power UNVERIFIED (pricing per GW, renewal rates not disclosed).</p>
+    <p><strong>Competitors:</strong> Launch — Blue Origin, Rocket Lab (RKLB), ULA, Arianespace, Chinese programmes. Broadband — Amazon Leo, Eutelsat/OneWeb, AST SpaceMobile, GEO incumbents. AI compute — hyperscalers (MSFT, GOOGL, AMZN) and neoclouds, who have equal/greater capital and enterprise relationships. Social/AI models — X/Grok vs OpenAI, Anthropic, Meta, Google.</p>
+    <p class="small">Barriers: capital ($20bn+/yr capex), licences, physics of reuse, talent, launch-site scarcity. Those protect launch today; they do not protect SI.</p>
+  </section>
+
+  <!-- 4 CATALYSTS RISKS -->
+  <section class="card">
+    <h2>4 &nbsp; Catalysts &amp; downside risks</h2>
+    <div class="grid grid2">
+      <div>
+        <h3 style="color:var(--green)">Catalysts (12–18 months)</h3>
+        <ul>
+          <li><strong>Starship operationalisation:</strong> Flight 14 (28 Sep 2026) — first orbital flight, first operational payload (26 Starlink V3), booster splashdown (no catch planned), ship shortened to ~3h after an engine shutdown, North Pacific splashdown. No ship caught/reflown yet. Flight 15 — Ship 42 confirmed, double-catch aim confirmed, date TBD; booster number was UNVERIFIED in verification and is omitted here.</li>
+          <li><strong>SI guide delivery:</strong> Q1 2027 revenue $33–37bn (call-only) — if hit, annualises to $132–148bn and vindicates forward P/S. Single largest re-rating catalyst.</li>
+          <li><strong>Starlink stabilisation:</strong> If ARPU holds ~$69–75 while subs grow, Connectivity leverage returns.</li>
+          <li><strong>Lockup clearing</strong> after 8 Dec — relief if selling is absorbed.</li>
+          <li><strong>Tesla combination (speculative, no terms):</strong> Both boards formed special committees (20 Oct call), Musk recused, Tesla needs 50% of all outstanding shares, AGM 3 Dec 2026 has no merger vote. Premium talk (20–35%) is ESTIMATE / UNVERIFIED — not terms.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--red)">Downside risks</h3>
+        <ul>
+          <li><strong>Lockup (immediate):</strong> August tranche 911.5m shares (+6.1% to $114.92 on 6 Aug); October tranche up to 1.3bn shares (−9.1% to ~$144.75 on 22 Oct) — separate tranches, not a range. Main 180-day lockup ends <strong>8 Dec 2026, up to 797.6m shares</strong>. Musk ~6.4bn shares locked to 12 Jun 2027.</li>
+          <li><strong>Customer concentration (severe):</strong> Customer A (unnamed, all three segments): 25.2% (2023) → 24.2% (2024) → 20.9% (2025) → 16.6% (Q3 2026). Customer B (unnamed in filing, SI only): <strong>34.5% of Q3 revenue (~$5.0bn)</strong>.</li>
+          <li><strong>Customer B contract — corrected:</strong> Agreements have non-cancellable periods ending Jan and Mar 2027; <em>only after</em> each period ends can either side cancel on 90 days’ notice. It is not freely cancellable on 90 days before then. <em>Identity:</em> filing = unnamed. Bloomberg (30 Oct 2026) reported via an anonymous source that Customer B is Anthropic — <strong>unconfirmed press reporting, not a filing disclosure</strong>.</li>
+          <li><strong>Capex burn:</strong> Q4 capex $35–40bn (call-only) vs Q3 revenue $14.6bn.</li>
+          <li><strong>Starship, regulatory, geopolitical:</strong> No ship catch/reflight yet; FAA/FCC gating. Ukraine Starshield episode, rideshare-exit report, FCC 1m-satellite filing and LC-39A/Starbase cadence claims were UNVERIFIED in verification — do not treat as confirmed facts.</li>
+          <li><strong>Key-person / dual-class:</strong> Musk is controlling shareholder and CEO; public holders cannot remove him. Shotwell share gift (&gt;2m shares, ~$269m at $134.72) is not a sale signal.</li>
+          <li><strong>Valuation:</strong> At 57× trailing sales, a growth miss compresses growth <em>and</em> multiple — already seen in the −40% fall from $225.64 to $134.72. Beta ~4.8, no dividend — highly rate-sensitive.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section class="card">
+    <h2>5 &nbsp; Scenario valuation &amp; price targets <span class="badge b-model">MODELLED ESTIMATES</span></h2>
+    <p class="small">Method: Trailing P/E is meaningless (LTM loss), so the frozen-parameter format is anchored to the forward picture (Forward P/E 47.69, Forward P/S 12.42, StockAnalysis). 5-year formula: <strong>2031 Price = 2031 Revenue × Net Margin ÷ Shares × P/E</strong>, each case frozen. 12–18-month targets are separate modelled estimates driven by multiple + lockup + SI-guide delivery. Arithmetic was independently recomputed and verified; inputs and weights are modelled assumptions, not filings.</p>
+
+    <h3>12–18 months (from $134.72)</h3>
+    <div style="overflow-x:auto"><table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">Return</th><th>Core assumptions (modelled)</th></tr>
+      <tr><td><strong>Bull (25%)</strong></td><td class="num">$190</td><td class="num">+41%</td><td>Q1 2027 guide hit; Customer B renews/expands; Starship double-catch by mid-2027; Dec lockup absorbed; forward P/E holds ~45–50×</td></tr>
+      <tr><td><strong>Base (45%)</strong></td><td class="num">$155</td><td class="num">+15%</td><td>SI grows, guide met only partially; capex stays $30bn+/qtr; lockup dip then recovery; multiple ~40× forward</td></tr>
+      <tr><td><strong>Bear (30%)</strong></td><td class="num">$95</td><td class="num">−29%</td><td>Customer B pause/exit after non-cancellable window; guide missed; capex burns cash; lockup + de-rating to ~30× forward</td></tr>
+    </table></div>
+    <p><strong>Probability-weighted 12–18m price: $145.75</strong> — 0.25×190 + 0.45×155 + 0.30×95 — roughly flat to modestly up, with wide dispersion. That is deliberately below the vendor consensus ($257.11 StockAnalysis / $244.97 MarketBeat).</p>
+
+    <h3>5-year projection to 2031 — frozen parameters</h3>
+    <div style="overflow-x:auto"><table>
+      <tr><th>Case</th><th class="num">2031 Revenue</th><th class="num">Net margin</th><th class="num">Shares</th><th class="num">2031 EPS</th><th class="num">P/E</th><th class="num">2031 Price</th></tr>
+      <tr><td>Bear</td><td class="num">$180bn</td><td class="num">8%</td><td class="num">16.0bn</td><td class="num">$0.90</td><td class="num">25×</td><td class="num"><strong>$22.50</strong></td></tr>
+      <tr><td>Base</td><td class="num">$320bn</td><td class="num">18%</td><td class="num">15.0bn</td><td class="num">$3.84</td><td class="num">40×</td><td class="num"><strong>$153.60</strong></td></tr>
+      <tr><td>Bull</td><td class="num">$500bn</td><td class="num">25%</td><td class="num">14.5bn</td><td class="num">$8.62</td><td class="num">50×</td><td class="num"><strong>$431.03*</strong></td></tr>
+    </table></div>
+    <p class="small">*Verification recomputed Bull as $431.03 (pack rounded to $431.00). Base implies only ~2.7% annualised appreciation from $134.72 — even Base says the stock is fairly valued to modestly overvalued today; return must come from earnings delivery, not multiple expansion. Cross-check: 47.69× × Base EPS $3.84 = ~$183. Bull requires $500bn revenue = 3.4× the ~$147bn forward-implied revenue at 25% margin — heroic, as labelled. ±1bn shares or ±5pp margin moves Base by ~$25–40.</p>
+  </section>
+
+  <!-- 6 VERDICT -->
+  <section class="card">
+    <h2>6 &nbsp; Recommendation &amp; portfolio sizing</h2>
+    <p class="small">For a mid-30s investor, risk score 8/10 — but already ~70% tech / concentrated in mega-cap tech (per disclosed portfolio). That concentration is why the cap below is lower than a standalone 8/10 sizing.</p>
+    <div class="verdict">
+      <div style="border:1px solid var(--line);border-radius:12px;padding:16px">
+        <span class="badge b-hold">SHORT TERM 12–18M — HOLD</span>
+        <p><strong>Do not add on weakness yet; do not sell into the lockup dip blindly.</strong> Below/around IPO price, RSI ~37, 8 Dec lockup, Q4 capex guide and 34.5% single-customer SI concentration are all live. Weighted target $145.75 is balanced, not skewed to buying. Better entry triggers: (a) post-lockup absorption in Dec, (b) Q1 2027 print confirming $33–37bn, or (c) fall toward $110–120.</p>
+      </div>
+      <div style="border:1px solid var(--line);border-radius:12px;padding:16px">
+        <span class="badge b-buy">LONG TERM 5Y — BUY / HOLD (satellite)</span>
+        <p><strong>Capped satellite, not a core holding.</strong> Launch moat + Starlink scale + SI optionality is a genuine 5-year story <em>if</em> Starship reuse and SI contracts deliver. Size for volatility (beta ~4.8, −40% drawdown already seen) and for the Bear re-rating risk ($22.50 model).</p>
+      </div>
+    </div>
+    <h3>Suggested sizing: 3–4% target, hard cap 5–6%</h3>
+    <p>If already &gt;6% (e.g. IPO allocation), trim toward 4% on strength toward the $155 Base target, not on panic. If 0%, initiate at 2% now and add the second 2% only on a trigger above. No leverage / options overlay recommended given lockup + binary SI risk.</p>
+    <div class="grid grid2" style="align-items:end">
+      <div><label class="small" for="pf">Your total portfolio ($)</label><input type="number" id="pf" value="500000" min="0" step="1000" oninput="calc()"></div>
+      <div class="stat"><span>At 3.5% target (midpoint)</span><b id="calcOut">$17,500</b><small id="calcShares">≈ 130 shares at $134.72 · Cap 6% = $30,000</small></div>
+    </div>
+    <p class="small" style="margin-top:12px"><strong>What changes the call:</strong> Upgrade to short-term Buy — Q1 2027 revenue ≥$33bn with Customer B renewal disclosed + Starship double-catch. Downgrade to Sell — Customer B cancellation/exit, Q4 capex &gt;$40bn with quarterly FCF worse than −$20bn, materially dilutive Tesla-merger ratio, or a sustained move above $200 without SI revenue to support it.</p>
+  </section>
+
+  <section class="card">
+    <h2>Open questions — labelled, not filled</h2>
+    <ul>
+      <li>Geographic revenue split — NOT DISCLOSED.</li>
+      <li>Starshield-only revenue — NOT separately reported.</li>
+      <li>Customer A &amp; B names — NOT disclosed in filings (Customer B / Anthropic link is unconfirmed press reporting only).</li>
+      <li>SI contract pricing, renewal rates, GPU supplier terms — NOT disclosed.</li>
+      <li>Any buyback authorisation — NONE FOUND.</li>
+      <li>Primary filings were checked via secondary tabulations (Midgard, StockAnalysis, call summaries), not direct EDGAR retrieval in the verification pass — confirm cash-definition and Customer B items against the 10-Q before reuse beyond this labelled presentation.</li>
+    </ul>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — SPCX (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $134.72.</strong> <strong>DCF intrinsic: $23.</strong> Discount/premium vs DCF: <strong>+485.7%</strong> — i.e. the shares are trading 485.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$23</td><td>+485.7%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $10.0bn. HIGHLY UNCERTAIN forward-normalised FCF: LTM FCF was -$39.29bn (OCF $15.76bn - capex $55.05bn, pack). A negative base cannot be projected, so $10bn is used as a forward-normalised base (Q3 2026 first operating profit, $2.79bn in the quarter) — not a reported TTM figure. Growth g = 15% constant for years 1–10; discount rate r = 12% (high-risk 12%); terminal growth 3%. PV of projected FCF $115.98bn + PV of terminal value $149.07bn + net cash $50.0bn, divided by 13.58bn diluted shares = <strong>$23</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>pack §2: EV $1.78tn vs cap $1.83tn implies ~$50bn net cash</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — SPCX (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>US government — NASA and US Space Force / Starshield (government, via Connectivity Enterprise &amp; Government)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>T-Mobile US (TMUS) — Starlink direct-to-cell partner</td><td></td><td>$194 / -19.4%</td></tr><tr><td>Commercial launch customers — satellite operators and other launch buyers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Starlink enterprise customers — airlines, maritime, energy and remote-site operators (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Undisclosed large AI-compute customer ('Customer B' in the pack — identity not disclosed, concentration 34.5% in the pack's risk discussion)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Consumer Starlink subscribers (fragmented; shown for completeness, not a single customer)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr><tr><td>X / Cursor — internal Super Intelligence segment (not an external customer)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></tbody></table><p><strong>Read-through.</strong> The concentration point is the undisclosed AI-compute customer and the government Starlink/launch base: if those buyers are well-funded and expanding, that is a potential tailwind for SPCX's Super Intelligence and Connectivity segments, and TMUS's valuation read-through (see its placeholder) is one observable piece of that demand picture. But an undervalued customer does not guarantee higher spending — a government customer's spending follows budgets and programmes, and an AI customer's spending follows its own priorities and cash position — so a discount at any one customer, including TMUS, is a signal to watch, not a promise of orders.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — SPCX</h2>
+<p><strong>Role: Enabler.</strong> SpaceX sells the compute and connectivity the AI trade runs on: its Super Intelligence segment was 51.9% of Q3 2026 revenue ($7.56bn, +830% y/y) and Starlink is the only profitable segment in 2025, while Q4 capex is guided at $35–40bn.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through AI-compute contracts and Starlink enterprise/government growth; the multiple is supported by forward sales (12.42x forward P/S in the pack) pricing hyper-growth, not current earnings.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first with the undisclosed large AI customer pausing or cancelling (the pack's 34.5% concentration risk) and the Q1 2027 $33–37bn revenue guide being missed; then the multiple compresses violently from 57x trailing sales toward a launch/connectivity multiple; then the balance sheet — IPO cash funding $35–40bn quarterly capex against LTM FCF of -$39.3bn — forces a spending cut. Watch: any Customer B pause/cancellation, the December lockup absorption, and Q4 capex delivery against collections.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer class="footer">
+    <h3>Sources</h3>
+    <p class="small">
+      <a href="https://stockanalysis.com/stocks/spcx/statistics/">StockAnalysis — SPCX statistics</a> ·
+      <a href="https://www.midgardfinance.com/research/spacex/">Midgard — SpaceX research</a> ·
+      <a href="https://www.fool.com/earnings/call-transcripts/2026/10/20/spacex-spcx-q3-2026-earnings-call-transcript/">Motley Fool — Q3 2026 call transcript (20 Oct 2026)</a> ·
+      <a href="https://www.caelumleasing.com/spacex-ipo.html">Caelum — SpaceX IPO</a> ·
+      <a href="https://www.gessymorgan.com/spacex-stock-lockup-expiration/">Gessy Morgan — lockup expiration</a> ·
+      <a href="https://stockmarketwatch.com/ipo/spacex">StockMarketWatch — IPO</a> ·
+      <a href="https://www.monkeytrade.com/learn/investing/spacex-ipo-date-price-and-valuation-explained">MonkeyTrade — IPO explained</a> ·
+      <a href="https://www.ipo.club/deals/spacex">IPO Club — SpaceX deal</a> ·
+      <a href="https://public.com/stocks/spcx/after-hours">Public — SPCX after-hours</a> ·
+      <a href="https://spaceq.ca/spacex-q3-2026-ai-passes-starlink-profit/">SpaceQ — Q3 AI passes Starlink</a> ·
+      <a href="https://www.nextgcomm.com/financials-spacex-q3-earning-report-2026/">NextGComm — Q3 financials</a> ·
+      <a href="https://www.globalsecurity.org/space/systems/space-x-starship.htm">GlobalSecurity — Starship</a> ·
+      <a href="https://keeptrack.space/deep-dive/starship-launch-tracker">KeepTrack — Starship tracker</a>
+    </p>
+    <p class="tiny">All scenario prices are MODELLED ESTIMATES. Forward revenue ~$147bn is a guide-derived implication from Forward P/S, not a filed forecast. Q4 capex and Q1 revenue guides are call-only CFO remarks, not filed forecasts. This page is a research snapshot as of 1 Nov 2026 using the 30 Oct 2026 close; it does not update live.</p>
+  </footer>
+</div>
+<script>
+function setView(v){
+  var r=document.getElementById('btnReported'), e=document.getElementById('btnEx'), t=document.getElementById('viewText');
+  if(v==='reported'){ r.classList.add('active'); e.classList.remove('active');
+    t.innerHTML='<strong>Reported:</strong> Operating income $2.791bn (19.1% margin) — first operating profit as a public company. Net income $4.404bn ($0.35 diluted EPS, $0.37 basic) was flattered by $1.025bn net other income (incl. $561m from an unnamed related party), $198m net interest income ($873m earned on IPO cash vs $675m expense) and a $390m tax benefit — together $1.613bn above operating income.';
+  } else { e.classList.add('active'); r.classList.remove('active');
+    t.innerHTML='<strong>Ex-Cursor SBC:</strong> Add back $1.217bn of Cursor stock-based compensation in Q3 and SI operating profit rises from $431m to ~$1.6bn ($1,648m). Total operating income on that ex-SBC view would be ~$4.0bn. This is a non-GAAP lens — SBC is a real cost to shareholders via dilution (share count +117% YoY), so use it to judge underlying SI demand, not to dismiss the cost.';
+  }
+}
+function calc(){
+  var v=parseFloat(document.getElementById('pf').value)||0;
+  var target=v*0.035, cap=v*0.06, shares=target/134.72;
+  document.getElementById('calcOut').textContent='$'+target.toLocaleString('en-US',{maximumFractionDigits:0});
+  document.getElementById('calcShares').textContent='≈ '+shares.toFixed(0)+' shares at $134.72 · Cap 6% = $'+cap.toLocaleString('en-US',{maximumFractionDigits:0});
+}
+calc();
+</script>
+</body>
+</html>

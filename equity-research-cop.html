@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — COP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0c3a3e; --blue:#0b6b6e; --blue-soft:#e0efee;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#8fd0d2; --blue:#5cc0c2; --blue-soft:#17302f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 76px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#17302f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Upstream Oil &amp; Gas (E&amp;P)</span></div>
+  <h1>ConocoPhillips <span class="tick">(NYSE: COP)</span></h1>
+  <p class="lede">A pure upstream E&amp;P with no refining or downstream cushion: the investment case is unusually clean and unusually exposed. COP converts low-cost shale, Alaska and LNG-linked production directly into shareholder returns when oil cooperates — and takes the full force of the commodity price when it does not. At $154.03 the stock trades at 2.9× sales and a stated 19.7× trailing P/E (with an EPS cross-check caveat flagged in §2) — a commodity multiple for a business whose earnings are, in substance, a levered read on crude.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $154.03 close, Fri 30 Oct 2026*</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+    <span><b>Profile:</b> mid-30s investor, risk score 8/10</span>
+  </div>
+  <div class="callout warn"><div class="ct">Ranking basis &amp; verification status — read first</div>
+  <p><b>Ranking basis:</b> GLOBAL top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026, prices at 30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ. The sector list is not in strict market-cap order as printed.</p>
+  <p>* The 30 Oct close of $154.03 was confirmed in the independent verification pass via <b>Finnhub only</b> — the research pack's own price source — so it is corroborated, not yet second-feed verified. The trailing P/E of 19.7× carries the same single-source caveat. All scenario prices in §5 are <b>modelled estimates</b> with their assumptions shown, not verified facts.</p></div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close*</div><div class="vbig mono">$154.03</div><div class="vsub">NYSE: COP · Pure upstream E&amp;P</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$185.0B</div><div class="vsub">Motley Fool basis · Finnhub prints $182.6B — vendor difference, both shown</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM P/E / P/S</div><div class="vbig mono">19.7× / 2.9×</div><div class="vsub">P/E as stated — EPS $6.38 implies ≈24.1×; flagged in §2 · TTM revenue $63.4B</div></div>
+  <div class="vcell span3"><div class="vlabel">Modelled base target (12–18 mo)</div><div class="vbig mono">$170 <span class="up" style="font-size:16px">+10%</span></div><div class="vsub">Modelled estimate — see §5 · Bull $200 · Bear $125</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base case offers ~+10% to $170 with the bull case at $200; the bear case (−19%) is an oil-price event, not a company event.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Probability-weighted modelled value ≈ $169 — roughly flat to modestly up; the return case rests on capital discipline through the cycle, not on price appreciation alone.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">A satellite energy holding, sized for full oil-price beta. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">TTM</span><h2>The business in one view</h2></div>
+  <p>ConocoPhillips is a <b>pure upstream exploration &amp; production</b> company operating in <b>15 countries</b>, with <b>roughly half of production in the US</b>. There is no refining, chemicals or marketing segment to soften the cycle: revenue is production volume multiplied by realised oil and gas prices, minus the cost discipline that is COP's main claim on investors' attention.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Trailing-twelve-month figure</th><th class="n">Value</th><th>Source / read</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct 2026 close)</td><td class="n">$154.03</td><td>Finnhub — single-feed confirmed, see masthead note*</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$185.0B</td><td>Motley Fool basis; Finnhub prints $182.6B</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$63.4B</td><td>Motley Fool / research pack</td></tr>
+      <tr><td>Gross profit (TTM)</td><td class="n">$17.5B</td><td>Motley Fool — implies a ≈27.6% gross margin (arithmetic on the two sourced figures)</td></tr>
+      <tr><td>EPS (TTM)</td><td class="n">$6.38</td><td>Finnhub — see the reconciliation note in §2: this does not arithmetically reconcile with the stated P/E</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">19.7×</td><td>Finnhub — corroborated in verification, single-source*; implies EPS of ≈$7.82, not $6.38 (see §2)</td></tr>
+      <tr class="hl"><td>Price / Sales (TTM)</td><td class="n">2.9×</td><td>Consistent with $185.0B ÷ $63.4B ≈ 2.9×</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <svg viewBox="0 0 980 190" width="100%" role="img" aria-label="Flow of COP trailing revenue of 63.4 billion dollars into implied costs and gross profit of 17.5 billion dollars" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="62" width="200" height="66" fill="var(--navy)"/><text x="24" y="90" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="24" y="110" font-size="13" fill="#fff">$63.4B</text>
+      <line x1="208" y1="86" x2="392" y2="52" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <line x1="208" y1="106" x2="392" y2="128" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <rect x="396" y="26" width="250" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="410" y="48" font-size="13" font-weight="700" fill="var(--ink)">Production &amp; operating costs (implied)</text><text x="410" y="66" font-size="12" fill="var(--ink2)">≈ $45.9B · revenue less gross profit</text>
+      <rect x="396" y="104" width="250" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="410" y="126" font-size="13" font-weight="700" fill="var(--ink)">Gross profit</text><text x="410" y="144" font-size="12" fill="var(--ink2)">$17.5B · ≈27.6% of revenue</text>
+      <rect x="700" y="62" width="272" height="66" fill="var(--paper)" stroke="var(--line2)"/><text x="714" y="88" font-size="13" font-weight="700" fill="var(--ink)">What the margin is hostage to</text><text x="714" y="106" font-size="12" fill="var(--ink2)">Realised crude &amp; gas prices — not volume alone</text>
+    </svg>
+    <figcaption>Trailing twelve months per the research pack (Motley Fool figures). The cost line is implied arithmetic ($63.4B − $17.5B), not a reported segment figure. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+  <p class="small">A note on coverage depth: the verified research pack for COP carries the headline valuation and scale figures above. Detailed balance-sheet items (cash, debt, free cash flow, dividend and buyback amounts) were <b>not in the verified pack</b> and are therefore not stated as fact anywhere in this note — see §2 for exactly what can and cannot be diagnosed from the verified figures.</p>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>COP is the sector's cleanest structural bet: <b>upstream only</b>. Where integrated majors (Exxon Mobil, Chevron, Shell, TotalEnergies) dilute oil-price exposure with refining, chemicals and trading, ConocoPhillips explores for and produces hydrocarbons and sells them at market-linked prices. The P&amp;L therefore has essentially one revenue engine, and the "segment breakdown" is geographic and geological rather than industrial.</p>
+
+  <h3>How the money is made</h3>
+  <ul>
+    <li><b>Core revenue stream:</b> sale of crude oil, natural gas and natural gas liquids from operated and non-operated upstream assets. Realised prices track global benchmarks, so revenue growth is mostly a commodity-price outcome layered on a slowly growing (or deliberately held-flat) volume base.</li>
+    <li><b>Portfolio shape (per the pack):</b> low-cost US shale at the core, with Alaska and LNG-linked production providing longer-life, lower-decline barrels alongside faster-declining shale output.</li>
+    <li><b>No downstream drag — and no downstream cushion:</b> the pack's moat summary makes the point in both directions. Refining margins often rise when crude falls, cushioning integrated peers; COP has deliberately forgone that hedge in exchange for purity and capital efficiency.</li>
+  </ul>
+
+  <div class="geo">
+    <div>
+      <h3>Geographic footprint</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">United States</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">≈50% of production</span></div>
+        <div class="bar-row"><span class="bl">International (14 other countries)</span><div class="bar-track"><div class="bar-fill gold" style="width:100%"></div></div><span class="bv">≈50% of production</span></div>
+      </div>
+      <p class="small">Production split as stated in the research pack ("~half US production", operations in 15 countries). The pack does not carry a country-by-country split, so none is shown — inventing one would be exactly the kind of false precision this note avoids.</p>
+    </div>
+    <div>
+      <h3>Structural features that matter</h3>
+      <ul>
+        <li><b>Permian shale:</b> the US onshore engine — short-cycle, flexible capex, but subject to the shale decline rates flagged in §4.</li>
+        <li><b>Alaska:</b> long-life conventional production; the growth leg the pack names alongside the Permian.</li>
+        <li><b>LNG-linked exposure:</b> gas production linked to international LNG pricing rather than only US hub prices — a partial diversifier of realised-price risk inside an otherwise oil-led portfolio.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain &amp; input dependencies</h3>
+  <ul>
+    <li><b>Oilfield services &amp; rig capacity:</b> shale economics depend on drilling/completion costs set by the services market; service-cost inflation flows straight into COP's cost line because there is no downstream segment to absorb it.</li>
+    <li><b>Takeaway &amp; midstream capacity:</b> Permian and Alaska barrels are worth benchmark prices only if pipeline/transport capacity exists to move them; regional differentials are a recurring E&amp;P risk.</li>
+    <li><b>The commodity itself:</b> the dominant "input" is the output price — OPEC+ supply decisions, global demand and geopolitics set COP's revenue line more than any management action can.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>What the verified figures support is a <b>valuation and scale diagnosis</b> — with one internal inconsistency in the source data that has to be flagged before any multiple is used (see the reconciliation callout below). On the pack's stated P/E of 19.7× COP would sit below the integrated majors in this same verified pack (Exxon Mobil and Chevron both print 22.6×); on the EPS-implied multiple of ≈24.1× it would sit above them. The honest reading is that the peer gap is <b>unresolved</b>, not that COP is demonstrably cheaper. What is not in dispute: at 2.9× sales with a ≈27.6% implied gross margin, the market is paying for a mid-cycle earnings stream, not for peak oil.</p>
+  <div class="callout bad"><div class="ct">Reconciliation flag — P/E and EPS do not tie out</div>
+  <p>The pack carries two Finnhub figures that are arithmetically inconsistent with each other: a trailing P/E of <b>19.7×</b> and TTM EPS of <b>$6.38</b>. At the $154.03 reference price, 19.7× implies EPS of ≈<b>$7.82</b>, while $6.38 implies a P/E of ≈<b>24.1×</b>. The two most likely reflect different trailing windows or earnings bases in the vendor snapshot. This note changes neither sourced figure; instead it (a) shows both, labelled, (b) treats every peer-multiple comparison as unresolved, and (c) flags that §5's frozen-multiple model uses the pack's stated 19.7×, so its implied-EPS column inherits this caveat. Any reader re-checking COP should establish which earnings basis their own data source uses before relying on either number.</p></div>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $154.03 (30 Oct 2026 close, Finnhub*). TTM = trailing twelve months per the research pack.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (as stated in pack)</td><td class="n">19.7×</td><td>Would sit below XOM/CVX (22.6× each in the same verified pack) — but the EPS cross-check (≈24.1×) reverses that, so the peer gap is unresolved; see the reconciliation flag above</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.9×</td><td>Arithmetic-consistent with the sourced cap and revenue ($185.0B ÷ $63.4B)</td></tr>
+      <tr><td>EPS (TTM)</td><td class="n">$6.38</td><td>Finnhub figure as carried in the pack; implies ≈24.1× at $154.03 — inconsistent with the stated 19.7×, flagged above rather than silently reconciled</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$63.4B</td><td>Scale of a top-tier global E&amp;P; revenue direction is price-led, not volume-led</td></tr>
+      <tr><td>Gross profit (TTM) / implied margin</td><td class="n">$17.5B / ≈27.6%</td><td>Margin is the arithmetic of the two sourced figures; it expands and contracts with realised prices</td></tr>
+      <tr><td>Market cap</td><td class="n">$185.0B</td><td>Motley Fool basis; Finnhub $182.6B — a ~1.3% vendor difference, immaterial to the thesis</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">What is not diagnosed here — deliberately</div>
+  <p>Free cash flow, cash and debt balances, leverage ratios, dividend yield and buyback amounts for COP were <b>not present in the verified research pack</b> and were not re-checked in the independent verification pass. Rather than fill those rows from memory or unverified sources, this note omits them. The pack's qualitative characterisation — <b>capital discipline</b> as a stated pillar of the moat — is the only capital-allocation claim made, and it is labelled as the pack's characterisation, not a verified figure. Treat any COP leverage or payout number from elsewhere as unverified until it appears in a sourced update to this note.</p></div>
+
+  <h3>Reading the multiple honestly</h3>
+  <ul>
+    <li><b>E&amp;P earnings are not annuity earnings.</b> A ~20–24× P/E on earnings struck at today's oil price is not directly comparable to the same multiple on a consumer staple's earnings: if crude falls materially, the "E" falls with it and the effective multiple rises without the price moving.</li>
+    <li><b>Do not bank a "purity discount" that may not exist.</b> On the stated 19.7×, COP's gap to XOM/CVX at 22.6× could be read as the market charging for the missing refining cushion; on the EPS-implied ≈24.1×, there is no discount to explain. Until the earnings basis is pinned down, the multiple supports no cheapness claim in either direction.</li>
+    <li><b>Gross margin is the swing variable.</b> At ≈27.6% implied, even a few points of price-driven margin expansion or compression moves earnings far more than any plausible volume change — which is why §5's scenarios are wide.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: narrow-to-moderate, and cost-based rather than brand- or network-based.</b> In a commodity business there is no pricing power over the output — COP is a price-taker on every barrel. The moat, such as it is, sits entirely on the cost and portfolio side: owning acres and assets that remain profitable at oil prices where higher-cost producers do not.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths (per the pack)</h4><ul>
+      <li><b>Low-cost shale position:</b> the core US unconventional portfolio sits low on the industry cost curve — the only durable advantage an E&amp;P can own.</li>
+      <li><b>Portfolio diversification within upstream:</b> Alaska's long-life barrels and LNG-linked gas temper the decline profile and price exposure of pure shale.</li>
+      <li><b>Capital discipline:</b> the pack names this explicitly — a returns-first allocation culture is what converts a commodity stream into per-share value rather than volume for its own sake.</li>
+      <li><b>No downstream drag:</b> no capital trapped in low-return refining assets; every dollar of capex competes inside one business the management team understands deeply.</li>
+      <li><b>Scale:</b> at $185.0B market cap and $63.4B TTM revenue, COP is one of the largest pure E&amp;Ps globally — scale buys services-market leverage and portfolio optionality smaller E&amp;Ps lack.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Price-taker economics:</b> no barrier to entry protects the revenue line; OPEC+ decisions and macro demand set realised prices.</li>
+      <li><b>Integrated majors (XOM $748.5B, CVX $465.3B in this pack's universe)</b> out-scale COP, own the downstream cushion, and can outbid for assets and services through a downturn.</li>
+      <li><b>State-controlled giants</b> in the same global top-10 universe (Saudi Aramco, PetroChina, CNOOC) operate with sovereign cost of capital and reserve access no listed E&amp;P can match.</li>
+      <li><b>Shale decline rates:</b> unconventional wells decline steeply; standing still requires continuous reinvestment — the treadmill is structural, not a management choice.</li>
+      <li><b>Energy-transition overhang:</b> long-dated demand uncertainty caps the multiple investors will pay for reserve life, whatever the near-term cash generation.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> COP is the quality name within the pure-play E&amp;P peer set — its moat is a cost-curve position plus discipline, which is real but cyclical. It should be owned as a well-run commodity exposure, not mistaken for a compounder with pricing power.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Permian growth delivery</b> — continued low-cost shale execution is the volume leg of the pack's stated growth case.</li>
+        <li><b>Alaska growth</b> — long-life project progression adds lower-decline production and extends reserve life, the scarcest asset in shale-heavy portfolios.</li>
+        <li><b>LNG-linked realisations</b> — gas priced off international LNG benchmarks can out-earn US hub-priced gas and diversifies the realised-price mix.</li>
+        <li><b>Oil price itself</b> — with pure upstream beta, any sustained crude strength (supply discipline, demand surprise, geopolitical disruption) flows to COP earnings with no dilution from weaker downstream margins. For this stock, the commodity is the catalyst list's first item in practice.</li>
+        <li><b>Capital discipline made visible</b> — continued returns-focused allocation through the cycle is what would justify the multiple migrating toward the integrated majors' level.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Pure oil-price beta</b> — the pack's first-named risk. There is no internal hedge: a sustained crude drawdown hits revenue, margin and the multiple simultaneously.</li>
+        <li><b>No refining cushion</b> — the mirror image of the moat claim. In the quarters where integrated peers are rescued by downstream margins, COP takes the full decline.</li>
+        <li><b>Shale decline rates</b> — steep natural declines force continuous capex merely to hold production flat; a services-cost spike or productivity disappointment compounds quickly.</li>
+        <li><b>Macro &amp; OPEC+</b> — global demand slowdown or a supply-discipline breakdown are exogenous and unhedgeable at the company level.</li>
+        <li><b>Regulatory / transition pressure</b> — permitting, methane and disclosure rules, and long-horizon demand erosion all bear on a pure upstream portfolio more than on diversified peers.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained move to a structurally lower oil-price regime — not a single weak quarter — combined with evidence that shale reinvestment is no longer holding production flat at acceptable cost. Either alone is the known, priced risk of the E&amp;P model; together they convert the bear case in §5 from a scenario into the central expectation, and the position should be exited rather than averaged down.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: scenario price targets carried from the research pack, presented as <b>modelled estimates</b> — for an E&amp;P, any target is principally an oil-price assumption wearing a valuation costume, so the cases are framed that way. Scenario weights below (Bear 20% / Base 55% / Bull 25%) are this note's explicit modelling assumption, disclosed so the weighted figures can be re-computed and checked; the verification pass notes that the pack itself did not supply weights, so the weighted values are labelled modelled estimates throughout, never verified facts.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 20%</div><div class="price mono">$125</div><div class="ret down">−19% vs $154.03</div><p>A sustained crude downturn: realised prices compress the ≈27.6% gross margin, shale reinvestment earns less, and with no refining cushion the earnings line falls in full. The multiple offers no protection because the "E" itself is the casualty.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 55%</div><div class="price mono">$170</div><div class="ret up">+10% vs $154.03</div><p>Mid-cycle oil: Permian and Alaska volumes deliver, LNG-linked gas contributes, capital discipline holds. Earnings grow modestly and the multiple roughly holds — price appreciation does the work.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$200</div><div class="ret up">+30% vs $154.03</div><p>Firm crude with disciplined supply: operating leverage on a low-cost base turns price strength into disproportionate earnings growth, and the purity that discounts COP in weak markets becomes a premium — the full beta, working upward.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $169</div></div><p>0.20×$125 + 0.55×$170 + 0.25×$200 = $168.50 ≈ <b>$169</b>, or about <b>+10%</b> from $154.03. The skew is mildly positive: the bull case gains roughly 1.6× what the bear case loses, weighted at similar probability — acceptable asymmetry for a satellite energy position, not for a core holding.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Convention, matching the rest of this series: the <b>trailing P/E is frozen at 19.7×</b> and the share count is held constant; only the annual price-compounding rate implied by each case's earnings path varies. The pack anchors the base case explicitly — <b>2% per year: $154.03 × 1.02⁵ = $154.03 × 1.104 ≈ $170</b>. The implied EPS column is the price divided by the frozen 19.7× multiple (the pack's stated P/E — see the §2 reconciliation flag; on the EPS-implied ≈24.1× the same prices would require EPS of ~$4.36 / ~$7.05 / ~$9.13) — shown so the earnings each price requires is visible, not hidden. All figures are modelled estimates.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Price CAGR / yr</th><th class="n">5-yr price</th><th class="n">Implied EPS at frozen 19.7×</th><th class="n">Total return vs $154.03</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (20%)</td><td class="n">≈ −7.4%</td><td class="n">~$105</td><td class="n">~$5.33</td><td class="n">−32%</td></tr>
+      <tr class="hl"><td>Base (55%)</td><td class="n">+2.0%</td><td class="n">~$170</td><td class="n">~$8.63</td><td class="n">+10%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +7.4%</td><td class="n">~$220</td><td class="n">~$11.17</td><td class="n">+43%</td></tr>
+      <tr class="total"><td>Probability-weighted (modelled estimate)</td><td class="n">≈ +1.9%</td><td class="n">≈ $169</td><td class="n">~$8.60</td><td class="n">+10%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the weighted line: 0.20×$105 + 0.55×$170 + 0.25×$220 = $169.50 ≈ $169 — matching the pack's weighted figure of ~$169. Read the shape, not just the centre: the 5-year weighted value sits essentially on top of the 12–18-month base target, which is the honest signature of a cyclical E&amp;P — the expected path is roughly flat with wide dispersion (±30–40%), and the investment case depends on distributions and discipline through the cycle rather than on terminal price appreciation. A reader who needs the 5-year line to slope steeply upward should not own this stock.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations below are research views from the verified pack, not guarantees and not personalised investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Weighted modelled value ≈ $169 (+10%) with a $200 bull case against a $125 bear case. The position is an oil view as much as a stock view: size it as one, and do not add into a crude spike — the bear trigger is a sustained price-regime change, not a single down quarter.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy, as a satellite.</b> The 5-year weighted modelled value ≈ $169 is roughly flat versus today, so the long-term case is ownership of a disciplined, low-cost producer through a full cycle — held for what it distributes and how it behaves across the cycle, benchmarked honestly against the flat central price path.</td></tr>
+      <tr><td>Review / exit triggers</td><td><span class="pill trim">Review</span></td><td>Exit rather than average down if the §4 thesis-breaker appears (structurally lower price regime <i>plus</i> failing shale reinvestment economics). Re-underwrite the position at each cycle turn; E&amp;P holdings are rented exposure, not permanent core.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>COP target: 1.5% of total portfolio.</b> That is deliberately small — a satellite energy allocation, not a core holding — because the stock carries full, unhedged commodity beta.</li>
+    <li><b>Count the overlap:</b> COP also sits inside broad US index funds. A 1.5% direct position on top of index exposure is the intended total energy-tilt increment; if the portfolio already carries a dedicated energy fund, the direct line should be reduced or dropped.</li>
+    <li><b>Rebalance by rule, not by oil headlines:</b> trim back to 1.5% after commodity-driven runs (the bull case does the trimming signal's work), and only top up toward target after drawdowns that are price events, not thesis breaks.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: target position = 1.5% of the portfolio value entered, converted to shares at the $154.03 reference price. Illustrative only.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — ConocoPhillips (COP)</h2>
+<p><strong>Price (30 Oct 2026 close): $154.03.</strong> <strong>DCF intrinsic: $101.</strong> Discount/premium vs DCF: <strong>+52.5%</strong> — i.e. the shares are trading 52.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$101</td><td>+52.5%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; TipRanks https://www.tipranks.com/stocks/cop/statistics (via fastlystg mirror in search); TwelveData https://twelvedata.com/markets/849065/stock/nyse/cop/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — ConocoPhillips (COP)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: ConocoPhillips, as a pure upstream producer, sells crude, natural gas and NGLs to refiners, utilities and industrial buyers, with no single customer disclosed as a concentration — the classic price-taker position, with no refining cushion of its own.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Refiners (US and international)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Natural-gas utilities and industrial buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Traders and spot-market buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is refining and gas demand as a whole: undervalued refiners and utilities would be a potential tailwind to ConocoPhillips&#x27; realisations only if they run harder and buy more crude and gas, which depends on crack spreads and their own margins, not their valuation alone; overvalued, retrenching buyers would be a headwind through weaker benchmarks.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — ConocoPhillips (COP)</h2>
+<p><strong>Role: Beneficiary.</strong> As a pure upstream producer, ConocoPhillips benefits from AI-driven power demand only through the gas leg of its portfolio (Permian gas, LNG-linked volumes); its oil leg rides the general energy-demand cycle, not AI directly.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 19.7 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; Verification Notes</h2>
+  <p class="small">Figures are as of the 30 Oct 2026 close, report dated 1 Nov 2026 (a weekend). Ranking basis: GLOBAL top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026, prices at 30 Oct 2026 close), including state-controlled issuers; a NYSE/Nasdaq-only list would differ, and the list is not in strict market-cap order as printed.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22COP%22" target="_blank" rel="noopener">Finnhub — COP quote data: $154.03 close (30 Oct 2026), EPS $6.38, trailing P/E 19.7×, market cap $182.6B</a> — price and P/E confirmed in the independent verification pass via this feed only; a second feed had not been added at publication, hence the * caveats in this note.</li>
+    <li>Motley Fool — sector market-cap ranking and COP scale figures: market cap $185.0B, TTM revenue $63.4B, gross profit $17.5B; business characterisation: pure upstream E&amp;P, 15 countries, ~half US production. (Ranking metrics as of 2 Oct 2026; ranking and prices are date-stamped separately because they come from different dates.)</li>
+    <li>Independent verification log (Industrials / Energy / Materials pack, checked 1 Nov 2026) — COP price row: $154.03, CONFIRMED* (Finnhub only); trailing P/E 19.7×, CONFIRMED* as corroboration via the pack's own source; scenario weights not supplied to the verifier, so all §5 weighted values are labelled modelled estimates with weights disclosed.</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary prepared for information only. It is not investment advice, a solicitation, or a guarantee of any outcome. Scenario prices are modelled estimates built on the stated assumptions; actual prices will differ, principally with the oil price. Figures marked * rest on a single data feed (Finnhub) as disclosed. Balance-sheet items absent from the verified research pack (cash, debt, free cash flow, dividend and buyback amounts) have been omitted rather than estimated. Verify any figure independently before acting on it.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // TOC active-state highlighting
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s, i){ if (s.offsetTop <= y) cur = i; });
+    links.forEach(function(a, i){ a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Position-size calculator — 1.5% target weight at $154.03 reference price
+  var PRICE = 154.03, WEIGHT = 0.015;
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+  function render(){
+    var v = parseFloat(pf.value);
+    if (!isFinite(v) || v < 0){ out.innerHTML = 'Enter a portfolio value to see the target position.'; return; }
+    var target = v * WEIGHT, shares = target / PRICE;
+    out.innerHTML = 'Target COP position at <b>1.5%</b>: <b>$' + fmt(target) + '</b> &nbsp;·&nbsp; ≈ <b>' + fmt(shares) + ' shares</b> at $154.03';
+  }
+  pf.addEventListener('input', render); render();
+})();
+</script>
+</body>
+</html>

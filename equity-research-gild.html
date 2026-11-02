@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — GILD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:150px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 64px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Health Care</span><span>Biotechnology · NASDAQ: GILD</span></div>
+  <h1>Gilead Sciences <span class="tick">(NASDAQ: GILD)</span></h1>
+  <p class="lede">An HIV franchise printing ~88% non-GAAP gross margins just delivered its strongest base-business growth in more than a decade — and the market can finally see the shape of the second act: lenacapavir prevention. Against that sit three hard facts: HIV is ~75% of product sales, a Medicare price cap lands on Biktarvy in 2028, and a 2026 M&amp;A spree converted roughly $12B of the cash pile into acquired R&amp;D charges. The stock has already run +44% in a year; the question now is entry price, not quality.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $170.68 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026, reported 29 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">GILD — this report</span>
+    <span class="tab soon">Health Care top 10 · US-domiciled — see ranking basis in §1</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$170.68</div><div class="vsub up">+3.06% on the day · +44.0% in 52 wks · 52-wk $114.02–$175.65 · RSI 74.3 (overbought)</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$211.7B</div><div class="vsub">EV $230.0B · 1.24B shares (−1.6% YoY) · Beta 0.33</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Forward P/E</div><div class="vbig mono">20.8×</div><div class="vsub">Trailing P/E not meaningful — TTM GAAP net loss (see §2) · P/S 6.8× · EV/EBITDA 15.7×</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus (28 analysts)</div><div class="vbig mono">$173.56 <span class="up" style="font-size:16px">+1.7%</span></div><div class="vsub">Rated Buy · MarketBeat target $169.19 (Moderate Buy) — the run is already priced</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD — don't chase <span class="pill hold">Hold</span></div><div class="vsub">Accumulate on a pullback toward $155–160; trim into strength above $195 if overweight.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">No generic cliff until 2036, a differentiated prevention platform, and $13.8B of TTM free cash flow funding the pivot.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">3–4% of portfolio</div><div class="vsub">Quality-growth holding, not a core 8–10% position — single-franchise concentration caps the weight. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Sales flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Gilead beat on HIV strength and Trodelvy growth, and raised full-year guidance. Headline product sales grew <b>+13%</b>; strip out the fading COVID drug Veklury and the base business grew <b>+16%</b> — its strongest in more than a decade. The distortion to keep straight all through this report: 2026 GAAP earnings are buried under ~$12B of acquired in-process R&amp;D charges from the year's deal spree, so GAAP and non-GAAP tell opposite stories. Both are shown, always paired.</p>
+  <div class="toggle" role="group" aria-label="GAAP versus non-GAAP view">
+    <button id="btnEx" class="on" type="button">Non-GAAP (underlying)</button>
+    <button id="btnGaap" type="button">As reported (GAAP)</button>
+  </div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 (quarter ended 30 Sep)</th><th class="n">Actual</th><th class="n">Year ago</th><th class="n">Change</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Total revenue</td><td class="n">$8.30B</td><td class="n">$7.77B</td><td class="n">+6.8%</td><td>Product growth partly offset by royalty/contract revenue falling to $11m from $424m — last year's IP-sale revenue did not recur</td></tr>
+      <tr><td>Product sales</td><td class="n">$8.29B</td><td class="n">$7.35B</td><td class="n">+13%</td><td>Base business ex-Veklury $8.20B, +16% — strongest base growth in over a decade</td></tr>
+      <tr><td>Diluted EPS</td><td class="n" data-ex="$2.55" data-gaap="$1.94">$2.55</td><td class="n" data-ex="$2.47" data-gaap="$2.43">$2.47</td><td class="n" data-ex="+3%" data-gaap="−20%">+3%</td><td data-ex="Non-GAAP — excludes acquired IPR&amp;D and related items" data-gaap="GAAP — the gap to non-GAAP is dominated by acquired IPR&amp;D charges">Non-GAAP — excludes acquired IPR&amp;D and related items</td></tr>
+      <tr><td>Product gross margin</td><td class="n" data-ex="88.1%" data-gaap="81.0%">88.1%</td><td class="n">—</td><td class="n">—</td><td>Realised pricing power in the HIV franchise, on either basis</td></tr>
+      <tr><td>Operating margin</td><td class="n" data-ex="50.2%" data-gaap="n/a — see §2">50.2%</td><td class="n">50.5%</td><td class="n">≈ flat</td><td data-ex="Non-GAAP operating margin; 49% year-to-date excluding acquired IPR&amp;D" data-gaap="GAAP margins are not comparable this year — acquired IPR&amp;D runs through the P&amp;L (see §2)">Non-GAAP operating margin; 49% year-to-date excluding acquired IPR&amp;D</td></tr>
+      <tr><td>Operating cash flow</td><td class="n">$5.0B</td><td class="n">—</td><td class="n">—</td><td>Cash generation is intact regardless of the accounting charges</td></tr>
+      <tr class="hl"><td>FY2026 guidance (raised 29 Oct)</td><td class="n">Product sales $31.0–31.3B</td><td class="n">—</td><td class="n">Raised</td><td>Base ex-Veklury $30.7–31.0B; HIV growth ~12%; EPS guidance paired in §2 — the headline GAAP loss is entirely the IPR&amp;D</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Gilead Q3 2026 earnings release (Business Wire, 29 Oct 2026) and Zacks coverage of the print, linked in Sources.</p>
+</section>
+
+<!-- ================= FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 product sales — where the $8.29B came from</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow of Gilead Q3 2026 product sales by segment into total product sales and total revenue" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="18" width="200" height="56" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="41" font-size="13" font-weight="700" fill="var(--ink)">HIV</text><text x="20" y="59" font-size="12" fill="var(--ink2)">$6.25B · +18% YoY · ~75% of sales</text>
+      <rect x="8" y="88" width="200" height="44" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="108" font-size="13" font-weight="700" fill="var(--ink)">Liver Disease</text><text x="20" y="124" font-size="12" fill="var(--ink2)">$927m · +13% YoY</text>
+      <rect x="8" y="146" width="200" height="44" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="166" font-size="13" font-weight="700" fill="var(--ink)">Oncology</text><text x="20" y="182" font-size="12" fill="var(--ink2)">$860m · +9% YoY</text>
+      <rect x="8" y="204" width="200" height="40" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="223" font-size="13" font-weight="700" fill="var(--ink)">Other products</text><text x="20" y="238" font-size="12" fill="var(--ink2)">$167m</text>
+      <rect x="8" y="256" width="200" height="36" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="272" font-size="13" font-weight="700" fill="var(--ink)">Veklury (COVID)</text><text x="20" y="287" font-size="12" fill="var(--ink2)">$86m · −69% YoY</text>
+      <rect x="330" y="120" width="180" height="66" fill="var(--navy)"/><text x="346" y="148" font-size="14" font-weight="700" fill="#fff">Product sales</text><text x="346" y="168" font-size="13" fill="#fff">$8.29B · +13% YoY</text>
+      <line x1="208" y1="46" x2="326" y2="138" stroke="var(--muted)" stroke-width="12" opacity=".35"/>
+      <line x1="208" y1="110" x2="326" y2="146" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <line x1="208" y1="168" x2="326" y2="156" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <line x1="208" y1="224" x2="326" y2="166" stroke="var(--muted)" stroke-width="2" opacity=".35"/>
+      <line x1="208" y1="274" x2="326" y2="174" stroke="var(--muted)" stroke-width="2" opacity=".35"/>
+      <rect x="620" y="52" width="330" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="634" y="75" font-size="13" font-weight="700" fill="var(--ink)">Total revenue $8.30B · +6.8% YoY</text><text x="634" y="93" font-size="12" fill="var(--ink2)">Product sales + only $11m royalty/contract (was $424m)</text>
+      <rect x="620" y="128" width="330" height="56" fill="var(--paper)" stroke="var(--line2)"/><text x="634" y="151" font-size="13" font-weight="700" fill="var(--ink)">EPS: $2.55 non-GAAP · $1.94 GAAP</text><text x="634" y="169" font-size="12" fill="var(--ink2)">Non-GAAP operating margin 50.2% · gross margin 88.1%</text>
+      <rect x="620" y="204" width="330" height="56" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="634" y="227" font-size="13" font-weight="700" fill="var(--ink)">Operating cash flow $5.0B in Q3</text><text x="634" y="245" font-size="12" fill="var(--ink2)">TTM free cash flow $13.78B — the funding engine (§2)</text>
+      <line x1="510" y1="140" x2="616" y2="82" stroke="var(--muted)" stroke-width="5" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="510" y1="152" x2="616" y2="154" stroke="var(--muted)" stroke-width="4" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="510" y1="164" x2="616" y2="226" stroke="var(--muted)" stroke-width="4" opacity=".35" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>Segment figures are Gilead's Q3 2026 reported product sales; the five segments sum exactly to $8.289B. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Gilead is a Foster City, California biopharma operating in <b>more than 35 countries</b>, built on antivirals and now diversifying into oncology, liver disease and inflammation. Economically it remains one dominant franchise — HIV — with three smaller businesses at very different stages: liver disease growing fast off a new launch, oncology split between a rising antibody-drug conjugate and a shrinking cell-therapy unit, and a COVID product fading to irrelevance.</p>
+  <div class="callout"><div class="ct">Ranking basis for this series</div>
+  <p>GILD sits in the Health Care top 10 on a <b>US-domiciled-only</b> basis — the FinanceCharts global sector list (last updated 30 Oct 2026) filtered to US-domiciled names, where Gilead ranks <b>8th</b> (LLY, JNJ, ABBV, MRK, UNH, TMO, AMGN, GILD, ABT, PFE). Global ranks differ — Roche, Novartis, Genmab and AstraZeneca sit between US names globally — and Danaher (11th US) and Intuitive Surgical (12th US) are reserves, not top-10 members. Prices throughout are the 30 Oct 2026 close.</p></div>
+
+  <h3>Revenue architecture — Q3 2026 product sales</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment</th><th class="n">Q3 2026</th><th class="n">Share</th><th class="n">YoY</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>HIV</td><td class="n">$6.25B</td><td class="n">~75%</td><td class="n">+18%</td><td>Biktarvy $4.06B (+10%, a record 53% US treatment share); Descovy $1.05B (+49% on price, inventory and prevention demand); Yeztugo — twice-yearly lenacapavir PrEP — $305m, +31% sequentially, on track for ~$1B in 2026. Prevention sales nearly doubled YoY; Yeztugo + Descovy PrEP hold ~50% PrEP share at a ~$4B annualised run-rate</td></tr>
+      <tr><td>Liver Disease</td><td class="n">$927m</td><td class="n">11%</td><td class="n">+13%</td><td>Livdelzi $203m, +93% YoY, with &gt;50% of the US second-line PBC market; the balance is HCV/HBV, where price helped but HCV demand fell</td></tr>
+      <tr><td>Oncology</td><td class="n">$860m</td><td class="n">10%</td><td class="n">+9%</td><td>Trodelvy $506m, +42% YoY (~$2B annual run-rate; metastatic TNBC and HR+/HER2− breast cancer; EU first-line PD-L1+ approval with Keytruda in Q3). Cell Therapy $355m, <b>−18%</b> (Yescarta $294m, Tecartus $60m) on competitive pressure; full-year cell therapy guided down mid-teens %</td></tr>
+      <tr><td>Other products</td><td class="n">$167m</td><td class="n">2%</td><td class="n">—</td><td>Residual product lines outside the three named franchises</td></tr>
+      <tr><td>Veklury</td><td class="n">$86m</td><td class="n">1%</td><td class="n">−69%</td><td>Fewer COVID hospitalisations — now negligible, which is why "ex-Veklury" is the honest growth lens</td></tr>
+      <tr class="total"><td>Total product sales</td><td class="n">$8.29B</td><td class="n">100%</td><td class="n">+13%</td><td>Total revenue $8.30B (+6.8%) after $11m of royalty/contract revenue, down from $424m a year ago</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Segment mix (share of Q3 product sales)</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">HIV</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$6.25B · 75%</span></div>
+        <div class="bar-row"><span class="bl">Liver Disease</span><div class="bar-track"><div class="bar-fill" style="width:15%"></div></div><span class="bv">$0.93B · 11%</span></div>
+        <div class="bar-row"><span class="bl">Oncology</span><div class="bar-track"><div class="bar-fill" style="width:14%"></div></div><span class="bv">$0.86B · 10%</span></div>
+        <div class="bar-row"><span class="bl">Other</span><div class="bar-track"><div class="bar-fill gold" style="width:3%"></div></div><span class="bv">$0.17B · 2%</span></div>
+        <div class="bar-row"><span class="bl">Veklury</span><div class="bar-track"><div class="bar-fill neg" style="width:2%"></div></div><span class="bv">$0.09B · 1%</span></div>
+      </div>
+      <p class="small">The concentration is the story: three quarters of every sales dollar is HIV. Diversification is a 2027–28 story, not a 2026 fact — cell therapy, the most visible diversification attempt, shrank 18% in the quarter.</p>
+    </div>
+    <div>
+      <h3>Geography — what is and isn't verifiable</h3>
+      <ul>
+        <li>The Q3 release does not publish a total US/International revenue split, so <b>no precise total-company US % is quoted in this report</b>.</li>
+        <li>The best verifiable proxy is HIV: Zacks' Q3 metrics table puts <b>HIV–US at $5.26B against $6.25B of total HIV — roughly 84% US</b>. Treat the overall business as US-heavy on that evidence.</li>
+        <li>That US weight cuts both ways: it is where pricing and share are strongest, and it is where the 2028 Medicare price-setting (§4) and US policy risk land.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Structural pivots (2026)</h3>
+  <ul>
+    <li><b>HIV treatment → HIV prevention as a second engine:</b> the lenacapavir franchise now spans twice-yearly Yeztugo, a once-weekly oral in front of the FDA, and a once-yearly investigational version — backed by royalty-free licences covering 120 high-incidence countries and a PAHO access deal. Prevention nearly doubling in a year is the proof point.</li>
+    <li><b>A 2026 M&amp;A spree to diversify away from HIV:</b> Arcellx, Tubulis and Ouro Medicines acquired, plus the PepStar oral IL-23R deal (Q4 upfront expected) and a Vir T-cell-engager collaboration. The strategic logic is sound; the accounting cost is the ~$12B of acquired IPR&amp;D dissected in §2.</li>
+    <li><b>$32B of US R&amp;D/manufacturing investment through 2030,</b> with a new Research Center as the first of three projects — explicitly framed as de-risking US R&amp;D and manufacturing, which implies current ex-US exposure is material even though the Q3 release does not quantify it.</li>
+  </ul>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Small-molecule / antiviral manufacturing scale</b> — the HIV base business is a high-volume, high-margin chemistry operation; continuity of supply is the franchise.</li>
+    <li><b>Biologics and ADC capacity</b> — Trodelvy, and the Tubulis platform behind it, depend on antibody-drug-conjugate manufacturing that is scarce industry-wide.</li>
+    <li><b>Personalised cell-therapy cold chain</b> — Yescarta, Tecartus and the incoming anito-cel are made per-patient with vein-to-vein logistics; capacity and turnaround time are competitive variables, not back-office details.</li>
+  </ul>
+  <p class="small">Supply-chain dependencies are described qualitatively: the sources used do not quantify them, and no percentage exposure is asserted.</p>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Two Gileads coexist in the 2026 accounts. The GAAP one lost money — a TTM net loss of <b>−$3.86B</b> — because roughly $12B of acquisition value was expensed as acquired in-process R&amp;D. The cash one generated <b>$13.78B of free cash flow</b> in the same twelve months at a 44% FCF margin. Any screen, headline or multiple built on trailing GAAP earnings is measuring the deal spree, not the business. This section keeps the two apart, line by line.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $170.68 (30 Oct 2026 close). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">n/a</td><td>TTM net loss −$3.86B (−$3.12/share), profit margin −12.46%, driven by acquired IPR&amp;D. <b>Do not use</b> — use the forward P/E and non-GAAP EPS below</td></tr>
+      <tr><td>Forward P/E</td><td class="n">20.84×</td><td>The honest multiple: priced on underlying earnings power, roughly in line with quality large-cap biotech</td></tr>
+      <tr><td>Price / Sales (fwd)</td><td class="n">6.83× (6.49×)</td><td>EV/Sales 7.42× — a margin-rich multiple, defensible only while ~88% non-GAAP gross margins hold</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">15.69×</td><td>TTM EBITDA margin 47.31% — the multiple and the margin tell the same story: expensive per sales dollar, reasonable per cash-earnings dollar</td></tr>
+      <tr><td>Price / Book · PEG · P/FCF</td><td class="n">16.24× · 2.81 · 15.36×</td><td>P/B is inflated by a buyback-shrunk equity base; PEG 2.81 says the growth priced in is not cheap</td></tr>
+      <tr><td>Free cash flow (TTM)</td><td class="n">$13.78B</td><td>Operating cash flow $14.48B less capex of just $0.70B; $11.11/share; FCF margin 44.47%. Capex-light is a structural feature of the model</td></tr>
+      <tr><td>Cash + marketable debt securities</td><td class="n">$6.44B</td><td>Company-reported at 30 Sep 2026, down from $10.6B at 31 Dec 2025. Note: StockAnalysis shows cash of $7.95B on a different definition — net debt below uses the company figure</td></tr>
+      <tr><td>Total debt · Net debt</td><td class="n">$26.23B · ≈ $19.8B net</td><td>Total debt per StockAnalysis; net debt = $26.23B less the company-reported $6.44B cash + securities. (On StockAnalysis' $7.95B cash figure, net debt would be ≈ $18.3B.) This is a net-debt balance sheet, not a net-cash one</td></tr>
+      <tr><td>Leverage</td><td class="n">D/E 2.02 · Debt/EBITDA 1.77×</td><td>Interest coverage 11.72× and current ratio 1.38 — leverage is serviced ~12× over by earnings; the D/E looks high mainly because buybacks shrink the equity denominator</td></tr>
+      <tr><td>Dividend</td><td class="n">$0.82/qtr · $3.28/yr · 1.92%</td><td>10 consecutive years of dividend growth, +3.80% YoY; FCF payout ratio 29.52% — the dividend consumes under a third of free cash flow. $0.82 declared payable 30 Dec 2026 to holders of record 15 Dec 2026 (15 Dec is also the ex-dividend date shown by StockAnalysis)</td></tr>
+      <tr><td>Buybacks</td><td class="n">~$1.1B in 9M 2026</td><td>Q3 buybacks $370m alongside $1.0B of Q3 dividends; buyback yield 1.59%; shares outstanding −1.59% YoY. Buybacks slowed because acquisitions took the cash first</td></tr>
+      <tr><td>R&amp;D</td><td class="n">Q3 $1.61B · 9M $4.74B</td><td>Q3 R&amp;D +19% YoY; FY2026 R&amp;D guided to mid-to-high-single-digit % growth vs 2025. Acquired IPR&amp;D is separate — see the callout below</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">Read the IPR&amp;D as four separate numbers — they are not interchangeable</div>
+  <p><b>(i)</b> 9M 2026 acquired IPR&amp;D <i>expense</i>: <b>$11,307m</b>. <b>(ii)</b> 9M 2026 IPR&amp;D <i>impairments</i>: <b>$1,750m</b> — a separate line, not part of (i). <b>(iii)</b> The FY2026 guidance table carries ~<b>$12.4B</b> of acquired IPR&amp;D, ≈ <b>$9.88/share</b>. <b>(iv)</b> Management's call figure is ~<b>$12.9B gross</b> including ~$1.4B of expected Q4 PepStar/Vir upfronts, a ~$9.95/share illustrative exclusion. That is why FY2026 guidance reads as a <b>GAAP loss of −$4.40 to −$4.05/share</b> and a <b>non-GAAP loss of −$1.20 to −$0.85/share</b>, while the same guidance excluding acquired IPR&amp;D is <b>non-GAAP EPS of $8.75–$9.10</b> (raised $0.25 at Q3). Any EPS-based screen using the headline loss is misleading.</p></div>
+
+  <div class="callout"><div class="ct">Where the cash went — the decline is explained, not operational</div>
+  <p>Cash + securities fell $10.6B → $6.4B during 2026 because of deliberate outflows: <b>$11.3B of acquisitions, $2.8B of debt repaid, $3.1B of dividends and $1.1B of buybacks</b>, partly offset by $11.2B of operating cash flow and $4.1B of net debt financing. The business did not consume the cash pile; management spent it — on diversification whose returns are not yet in the numbers.</p></div>
+
+  <h3>Capital allocation, in order of current priority</h3>
+  <ul>
+    <li><b>1. M&amp;A for diversification</b> — Arcellx, Tubulis, Ouro and PepStar in a single year; the bet is that bought pipelines de-risk the post-2030 HIV story.</li>
+    <li><b>2. The dividend</b> — a decade of growth, covered ~3.4× by TTM free cash flow on a payout basis; the commitment device for income holders.</li>
+    <li><b>3. US capacity</b> — $32B of R&amp;D/manufacturing investment through 2030.</li>
+    <li><b>4. Buybacks</b> — continuing but throttled (~$1.1B in 9M); a re-acceleration would signal the deal phase is over.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide in HIV, narrow-to-building elsewhere.</b> Gilead's moat is the standard-of-care position of Biktarvy — a single-tablet regimen with a record <b>53% US treatment share</b> and high switching inertia once a patient is stable — now extended by the lenacapavir platform into prevention, where dosing convenience (an injection twice a year, against a daily pill) is itself the barrier. The ~88% non-GAAP gross margin is what realised pricing power looks like; the 2028 Medicare cap in §4 is the first hard limit placed on it.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Standard-of-care incumbency:</b> Biktarvy is the first-line default; clinicians switch stable patients reluctantly, which makes share sticky in both directions.</li>
+      <li><b>Lenacapavir platform:</b> twice-yearly PrEP approved, once-weekly oral and once-yearly versions in development — a dosing ladder no rival can replicate quickly; Yeztugo + Descovy already hold ~50% of PrEP.</li>
+      <li><b>Patent estate + settlements:</b> core Biktarvy patents run to ~2033, and generic settlements push the earliest US generic launch to <b>1 Apr 2036</b> — no major loss of exclusivity until 2036 (§4 keeps the two dates distinct).</li>
+      <li><b>Scale and pipeline depth:</b> 49 clinical programmes cited on the Q3 call, funded by $13.8B of annual free cash flow without touching the dividend.</li>
+      <li><b>Regulatory and manufacturing barriers:</b> FDA approval pathways plus ADC and cell-therapy capacity are slow, expensive moats for any challenger to cross.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>ViiV Healthcare (GSK/Pfizer/Shionogi)</b> — the direct HIV rival: dolutegravir regimens (Dovato, Triumeq) and long-acting cabotegravir (Cabenuva/Apretude) attack exactly the convenience ground lenacapavir defends.</li>
+      <li><b>Merck and Janssen</b> — doravirine and rilpivirine/darunavir regimens keep the treatment market contested at the margin.</li>
+      <li><b>Generic PrEP</b> — off-patent FTC/TDF costs a small fraction of branded prevention list prices, pressuring the prevention franchise's economics from below.</li>
+      <li><b>Oncology is someone else's moat:</b> AstraZeneca/Daiichi Sankyo's Datroway is a direct Trop-2 ADC rival to Trodelvy, with Enhertu and the Merck/BMS/J&amp;J immunotherapy franchises around it; in cell therapy, BMS and J&amp;J already out-position Gilead — the −18% quarter is the evidence.</li>
+      <li><b>Concentration is the anti-moat:</b> at ~75% of sales, one franchise's pricing, safety or share shock <i>is</i> the equity story; in HCV, AbbVie remains the reference competitor.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing-power verdict:</b> high, but now capped in one channel — realised margins near 88% (non-GAAP) prove the power, while the Medicare Maximum Fair Price (§4) proves it is no longer unlimited. <b>Barriers to entry:</b> patents, regulatory approval and manufacturing scale, in that order. <b>Technological edge:</b> long-acting antiviral chemistry — genuinely differentiated, and the reason the prevention pivot is credible rather than aspirational.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Anito-cel FDA decision — 23 Dec 2026</b> (Arcellx): 4th-line-plus relapsed/refractory multiple myeloma. The key near-term binary for a cell-therapy unit that just shrank 18%.</li>
+        <li><b>Once-weekly oral lenacapavir — FDA decision expected Feb 2027;</b> once-yearly lenacapavir Phase 3 (PURPOSE-365) ongoing; Bixlenvo (bictegravir/lenacapavir single tablet) already approved Aug 2026 for virologically suppressed switch patients.</li>
+        <li><b>Yeztugo ramp:</b> on track for ~$1B in 2026 with PrEP share still building — the clearest proof the prevention engine is real.</li>
+        <li><b>Pipeline breadth:</b> emvistegrast Phase 2 ulcerative-colitis success with Phase 3 planned 2027 (plus Crohn's exploration); PepStar oral IL-23R entering Phase 1; Trodelvy label expansion in first-line metastatic TNBC (US + EU now across PD-L1 status); Livdelzi momentum in PBC.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Medicare price-setting (IRA) — the largest quantified risk:</b> CMS set Biktarvy's Maximum Fair Price at <b>$2,600 per 30-day supply</b> — a Medicare price, ~38% below the <i>Medicare-channel</i> list price (not a 38% cut to all Biktarvy revenue) — effective <b>1 Jan 2028</b>. Gilead estimates a <b>~$1.5B net 2028 Biktarvy revenue impact</b>, including spillover to Medicaid, 340B and other US payers, primarily Medicare. Management still expects total HIV revenue, product sales and EPS to grow in 2028 vs 2027 — but that depends on Yeztugo, Trodelvy and Livdelzi offsetting it, and is not yet proven.</li>
+        <li><b>Patent cliff — distant but real:</b> core Biktarvy patents run to ~2033; settlements delay US generic entry to 1 Apr 2036. The 2028 price cut proves realised price can fall well before patent expiry. Generic oral PrEP and payer restrictions (e.g. Florida ADAP) already pressure gross-to-net — a 41% gross-to-net deduction rate was cited in a 10-Q-based analysis.</li>
+        <li><b>M&amp;A execution:</b> ~$12.4–12.9B of 2026 acquired IPR&amp;D (guidance-table vs call basis, §2) plus debt-funded deals consumed the cash pile; further deals could strain leverage or dilute focus.</li>
+        <li><b>MFN and tariffs:</b> Gilead <i>has</i> signed a US-government MFN agreement (19 Dec 2025) — Medicaid MFN discounts including HIV/HCV/HBV/COVID products, parity pricing on future launches, Epclusa sold direct-to-patient via TrumpRx, and a 3-year Section 232 tariff exemption conditional on further US manufacturing investment. The exemption mitigates tariff exposure, but <b>no quantified Gilead-specific tariff figure was found in the sources used — that narrow point is unverified, and zero impact should not be assumed</b>. Ex-US pricing (EU/UK health-technology assessments) and FX remain live exposures on a US-heavy but global business.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>The 2028 offset failing in public: if, during 2027, Yeztugo/Trodelvy/Livdelzi growth visibly cannot cover the ~$1.5B net Biktarvy MFP hit <i>while</i> cell therapy keeps shrinking, the market stops capitalising "diversification" and re-prices Gilead as a single-franchise HIV name heading into a price cut — the bear case in §5. Conversely, one clean anito-cel approval (23 Dec 2026) plus a weekly-oral lenacapavir approval (Feb 2027) would make the offset arithmetic much easier to believe.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: earnings-multiple scenarios anchored on underlying (non-GAAP, ex-IPR&amp;D) EPS — the only EPS that reflects the business this year. Anchor: FY2026 non-GAAP EPS ex-IPR&amp;D of <b>$8.75–$9.10 (midpoint $8.93)</b>. The 2027 EPS figures below are this report's modelled estimates, built from that anchor; every scenario price on this page is a <b>modelled estimate with its assumptions shown, not a verified fact and not a forecast</b>. Cross-check before the scenarios: analyst consensus sits at <b>$173.56 (+1.7%, 28 analysts, rated Buy)</b>, with MarketBeat at $169.19 (Moderate Buy) — both <i>below</i> this report's base case, because the base case assumes 2027 EPS growth the Street has not yet underwritten. That divergence is flagged deliberately: if 2027 disappoints, consensus is the safer anchor.</p>
+
+  <h3>12–18-month targets (to ~Apr–Jul 2028, just into the MFP year)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear</div><div class="price mono">$145</div><div class="ret down">−15% vs $170.68</div><p><b>16.0× × est. 2027 EPS $9.05.</b> MFP spillover feared larger than the ~$1.5B net estimate, cell therapy keeps falling, broader pharma multiple compression. The market prices the 2028 Biktarvy cut early and in full.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base</div><div class="price mono">$185</div><div class="ret up">+8% vs $170.68</div><p><b>19.5× × est. 2027 EPS $9.50.</b> Base-business growth ~10% in 2026 fading to mid-single digits in 2027; the MFP overhang stays contained; the forward multiple settles modestly below today's 20.84× as the overbought RSI and rate backdrop normalise.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull</div><div class="price mono">$205</div><div class="ret up">+20% vs $170.68</div><p><b>21.0× × est. 2027 EPS $9.75.</b> Anito-cel approved, Yeztugo beats its $1B run-rate, Trodelvy/Livdelzi momentum compounds, and no multiple compression — the diversification story gets believed a year early.</p></div>
+  </div>
+  <p class="small">Scenario arithmetic independently verified: 21.0 × $9.75 = $205; 19.5 × $9.50 = $185; 16.0 × $9.05 = $145. Note the honest tension: even the base case (+8%) beats consensus (+1.7%) only because of the 2027 EPS growth assumption stated above.</p>
+
+  <h3>5-year projection — frozen-parameter model (your standard format)</h3>
+  <p>2031 price = (2031 revenue × net margin ÷ shares) × P/E. Starting point: <b>2026 revenue $31.2B</b> (midpoint of the $31.0–31.3B product-sales guidance; royalty revenue is now negligible). "Net margin" is the underlying non-GAAP margin excluding acquired IPR&amp;D — the implied 2026 figure is $8.93 × 1.24B shares ÷ $31.2B = <b>35.5%</b>, haircut in every case below for the MFP and R&amp;D load. Share count varies only where a case says so (continued buybacks vs paused).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue CAGR</th><th class="n">2031 revenue</th><th class="n">Net margin</th><th class="n">Shares</th><th class="n">2031 EPS</th><th class="n">P/E</th><th class="n">2031 price</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">1.5%</td><td class="n">$33.62B</td><td class="n">26%</td><td class="n">1.24B</td><td class="n">$7.05</td><td class="n">15.0×</td><td class="n">$106</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">4.0%</td><td class="n">$37.96B</td><td class="n">33%</td><td class="n">1.20B</td><td class="n">$10.44</td><td class="n">19.0×</td><td class="n">$198</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6.0%</td><td class="n">$41.75B</td><td class="n">37%</td><td class="n">1.18B</td><td class="n">$13.11</td><td class="n">21.0×</td><td class="n">$275</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$194</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Bear case assumes MFP damage plus generic-PrEP pressure plus cell-therapy failure (margin 26%, buybacks paused). Weighted price = 0.50 × $198 + 0.25 × $275 + 0.25 × $106 = <b>$194</b> — a weighted value <i>including</i> bear cases, not a base-case forecast; here it sits above the $170.68 price, so the distinction does not flip the sign. Implied 5-year price CAGR on the weighted price is only ~2.6% p.a. before dividends, ~4.5% p.a. including the 1.92% yield (before reinvestment) — this is a quality compounder at a full price, not a bargain. All scenario figures are modelled estimates; the arithmetic was independently recomputed and verified.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Research views only — not guarantees, and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold — do not chase.</b> The stock is +44.03% over 52 weeks, +39.1% year-to-date, with RSI at 74.28 (overbought territory), and consensus ($173.56) already prices much of the Q3 beat. Accumulate on a pullback toward <b>$155–160</b>; trim into strength above <b>$195</b> if the position is overweight. The 2028 MFP overhang will cap multiple expansion until 2027 earnings prove the offset.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy and hold as a quality-growth position.</b> No generic cliff until 2036, a genuinely differentiated lenacapavir prevention platform, and $13.8B of TTM free cash flow funding both the dividend and diversification. Even the cautious 5-year weighted model ($194) plus the dividend implies a mid-single-digit annual total return from $170.68.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Watch</span></td><td>Re-underwrite on: the anito-cel decision (23 Dec 2026) and weekly-oral lenacapavir decision (Feb 2027); any guidance that the 2028 MFP impact exceeds ~$1.5B net; cell therapy declining faster than the guided mid-teens %; or a further debt-funded acquisition programme before the current one shows returns.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>GILD target: 3–4% of total portfolio.</b> Deliberately below core-position size: at beta 0.33 it is a low-volatility diversifier, but ~75% single-franchise concentration and a dated 2028 pricing event argue against an 8–10% weight.</li>
+    <li><b>Pair, don't duplicate:</b> within a health-care sleeve, Gilead is the quality-growth leg — pair it with a diversified large pharma rather than stacking a second single-franchise biotech on top.</li>
+    <li><b>Income note:</b> the 1.92% yield at a 29.52% FCF payout ratio is the sustainable kind — it does not depend on the GAAP earnings that the IPR&amp;D charges currently obscure.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the 3–4% target range above at the $170.68 reference price. In-session only; nothing is stored or sent anywhere.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>GILD — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $170.68.</strong> <strong>DCF intrinsic: $161.</strong> Discount/premium vs DCF: <strong>+6.0%</strong> — i.e. the shares are trading 6.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$161</td><td>+6.0%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$13.8B</strong>; constant growth g <strong>4%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$102.54B</strong>; PV of terminal value <strong>$115.72B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-18.28B</strong>; divided by <strong>1,240.00m</strong> diluted shares = <strong>$161</strong>. Base FCF $13.78B = OCF $14.48B − capex $0.699B (pack, TTM). Growth g 4% = pack 5-year base CAGR. Net debt $18.28B on StockAnalysis cash $7.95B / debt $26.23B (pack; company cash + securities $6.44B would give ~$19.8B — the StockAnalysis figure is used consistently). DPS $3.28 (pack). TTM GAAP loss reflects ~$12.4B acquired IPR&amp;D charges; FCF is the cleaner base.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $170.68. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>GILD — Top customers (B2B, intermediated channel)</h2>
+<p>GILD is classified <strong>B2B</strong>: the majority of its revenue reaches patients through businesses — wholesalers, pharmacy benefit managers (PBMs) and payers — rather than direct consumer sales. The research pack discloses no per-name customer ranking for this ticker, so the table below names the largest known channel customers without inventing shares or order.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum Rx (PBM & payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>CVS Health / Caremark (PBM & pharmacy)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government — Medicare / Medicaid and other federal purchasers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Hospitals, pharmacies and other providers (dispensing channel)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Because the three US wholesalers together intermediate the majority of US pharma distribution, their financial health matters more to this supplier than any single end-patient trend: if a covered customer in this table (UnitedHealth/Optum) trades at a discount to intrinsic once the coordinator fills in its figure, that would be a potential tailwind for volumes and contract stability, while a premium would be a potential headwind — but a wholesaler or PBM that looks cheap may simply be passing through payer price pressure, which is itself a headwind for drug pricing, so the read-through cuts both ways. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>Sources: research pack (channel description); for the wholesaler trio pattern, Lilly FY2025 10-K (McKesson, Cencora and Cardinal Health each a significant percentage of consolidated revenue, no other customer above 10%) — applied here only as the channel pattern, not as a per-name share for GILD, which was not re-sourced in this batch.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>GILD — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI-assisted antiviral and oncology discovery, plus trial efficiency for Yeztugo/Trodelvy/Livdelzi offsets to the 2028 Biktarvy Medicare price cut (~$1.5B impact, pack). Multiple channel: GILD's 20.84× forward P/E in the pack is an HIV-franchise multiple; the 2028 MFP cut, not AI sentiment, is the multiple risk.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a Biktarvy MFP spillover larger than the ~$1.5B estimate, or cell-therapy weakness, rather than AI spending.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Primary figures are from Gilead's Q3 2026 earnings release (29 Oct 2026); market data as of the 30 Oct 2026 close. Key figures were independently verified against a second source before publication; items the verification pass could not re-source (the Livdelzi geographic split, a TTM R&amp;D figure, two pipeline-timing claims, and any quantified Gilead tariff figure) are omitted or labelled unverified above rather than presented as fact. Scenario prices in §5 are this report's modelled estimates with assumptions shown.</p>
+  <ol class="refs">
+    <li><a href="https://www.businesswire.com/news/home/20261029068948/en/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results" target="_blank" rel="noopener">Gilead Q3 2026 earnings release — segments, EPS (GAAP &amp; non-GAAP), guidance, cash, MFN reference (Business Wire)</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3019881/gild-beats-q3-earnings-on-hiv-strength-trodelvy-sales-growth" target="_blank" rel="noopener">Zacks — Q3 beat on HIV strength and Trodelvy growth</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3019242/gilead-gild-q3-earnings-taking-a-look-at-key-metrics-versus-estimates" target="_blank" rel="noopener">Zacks — Q3 key metrics vs estimates (HIV–US $5.26B proxy)</a></li>
+    <li><a href="https://stockanalysis.com/stocks/gild/statistics/" target="_blank" rel="noopener">StockAnalysis — GILD statistics: price, valuation, FCF, dividend, consensus $173.56</a></li>
+    <li><a href="https://stockanalysis.com/stocks/gild/market-cap/" target="_blank" rel="noopener">StockAnalysis — GILD market cap history</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/GILD/?Vote=1" target="_blank" rel="noopener">MarketBeat — GILD price history, 52-week range, $169.19 target</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/gilead-gild-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">Motley Fool — Q3 2026 earnings call transcript (PrEP share, run-rate, margins)</a></li>
+    <li><a href="https://WWW.ZACKS.COM/stock/news/3019665/gild-q3-earnings-call-highlights-raised-outlook-and-pricing-risks" target="_blank" rel="noopener">Zacks — Q3 call highlights: raised outlook and pricing risks</a></li>
+    <li><a href="https://wncy.com/2026/10/29/gilead-hikes-full-year-sales-outlook-quarterly-hiv-sales-rise-18/" target="_blank" rel="noopener">Reuters via WNCY — Biktarvy Medicare price cut to $2,600 and ~$1.5B 2028 impact</a></li>
+    <li><a href="https://finance.biggo.com/news/US_GILD_2026-10-29" target="_blank" rel="noopener">BigGo Finance — Q3 coverage incl. MFP spillover detail</a></li>
+    <li><a href="https://www.barchart.com/story/news/36719428/gilead-and-u-s-government-enter-agreement-to-lower-costs-of-medicines-for-americans" target="_blank" rel="noopener">Barchart — Gilead's US-government MFN agreement (19 Dec 2025)</a></li>
+    <li><a href="https://www.gilead.com/news/news-details/2026/gilead-sciences-to-acquire-arcellx-to-maximize-long-term-potential-of-anito-cel" target="_blank" rel="noopener">Gilead — Arcellx acquisition / anito-cel (FDA decision 23 Dec 2026)</a></li>
+    <li><a href="https://WWW.ZACKS.COM/stock/news/3008864/can-gileads-deal-with-vir-boost-its-oncology-pipeline-and-growth" target="_blank" rel="noopener">Zacks — Vir collaboration and oncology pipeline</a></li>
+    <li><a href="https://sunnypharma.info/hiv-medications/biktarvy-generic/" target="_blank" rel="noopener">Biktarvy patent &amp; generic-settlement summary (US generic entry 1 Apr 2036)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield" target="_blank" rel="noopener">FinanceCharts — Health Care sector list (ranking basis, updated 30 Oct 2026)</a></li>
+    <li><a href="https://www.tradingkey.com/news/transcripts/262256117-tradingkey" target="_blank" rel="noopener">TradingKey — Q3 call transcript coverage (HIV detail)</a></li>
+  </ol>
+  <p class="disc">Disclaimer: This report is research and education, not investment advice and not a recommendation to any specific person. Prices are the 30 Oct 2026 close as reported by the sources above; the market was closed on 1 Nov 2026 (weekend). Forward-looking scenario prices are modelled estimates built on the stated assumptions — they are not forecasts, targets set by any bank, or guarantees of return. Verify figures against the primary filings (10-Q/10-K and the earnings release) before acting, and consider your own tax, concentration and liquidity position.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // GAAP / non-GAAP toggle for the snapshot table
+  var btnEx=document.getElementById('btnEx'), btnGaap=document.getElementById('btnGaap');
+  if(btnEx&&btnGaap){
+    function setView(gaap){
+      btnEx.classList.toggle('on',!gaap); btnGaap.classList.toggle('on',gaap);
+      var key=gaap?'gaap':'ex';
+      document.querySelectorAll('[data-ex]').forEach(function(el){ el.textContent=el.getAttribute('data-'+key); });
+    }
+    btnEx.addEventListener('click',function(){setView(false);});
+    btnGaap.addEventListener('click',function(){setView(true);});
+  }
+  // Position-size calculator (in-session only)
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=170.68;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function calc(){
+    if(!pf||!out) return;
+    var v=parseFloat(pf.value);
+    if(isNaN(v)||v<0){ out.innerHTML='Enter a portfolio value to see the 3–4% sizing.'; return; }
+    var lo=v*0.03, hi=v*0.04;
+    out.innerHTML='GILD at <b>3–4%</b> = <b>$'+fmt(lo)+' – $'+fmt(hi)+'</b> · ≈ <b>'+fmt(lo/PRICE)+' – '+fmt(hi/PRICE)+' shares</b> at $170.68';
+  }
+  if(pf){ pf.addEventListener('input',calc); calc(); }
+  // TOC scroll-spy
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=[];
+  links.forEach(function(a){ var t=document.querySelector(a.getAttribute('href')); if(t) secs.push([a,t]); });
+  function spy(){
+    var y=window.scrollY+90, cur=null;
+    secs.forEach(function(pair){ if(pair[1].offsetTop<=y) cur=pair[0]; });
+    links.forEach(function(a){ a.classList.toggle('on',a===cur); });
+  }
+  window.addEventListener('scroll',spy,{passive:true}); spy();
+})();
+</script>
+</body>
+</html>

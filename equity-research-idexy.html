@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — IDEXY · Inditex (ADR)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f3ee; --surface:#fffdfa; --surface2:#efe9e1; --ink:#1c1917; --muted:#6b6560; --line:#e3ddd3;
+  --accent:#8c2f1f; --accent-soft:#f3e2dc; --gold:#9a7b2d; --green:#1a6b4a; --green-bg:#e6f2eb; --red:#9b2c2c; --red-bg:#fbecec; --amber:#8a6d1b; --amber-bg:#fdf3d7;
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#131110; --surface:#1e1b19; --surface2:#2a2623; --ink:#f0ebe6; --muted:#a8a09a; --line:#38322e; --accent:#e08a76; --accent-soft:#3a2420; --green:#6fd3a3; --green-bg:#1c2f27; --red:#f09a9a; --red-bg:#332022; --amber:#e8c86a; --amber-bg:#2f2a1a; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55;font-size:15.5px}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px}
+.mono{font-family:"IBM Plex Mono",monospace}
+.topmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+.chip{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted)}
+.chip.hot{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h1{font-family:"Newsreader",Georgia,serif;font-size:clamp(34px,6vw,54px);line-height:.98;margin:6px 0 6px;letter-spacing:-.01em}
+h1 em{font-style:italic;font-weight:600}
+.sub{font-size:17px;color:var(--muted);max-width:640px;margin:0 0 4px}
+.asof{font-size:13px;color:var(--muted);margin-top:8px}
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-top:18px}
+@media(max-width:720px){.hero{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.price{font-family:"Newsreader",serif;font-size:52px;line-height:1}
+.down{color:var(--red);font-weight:700}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.stat{border-top:1px solid var(--line);padding-top:10px}
+.stat b{display:block;font-size:19px}
+.stat span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.verdict{border-left:4px solid var(--accent)}
+.verdict h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.pill{padding:7px 12px;border-radius:999px;font-weight:700;font-size:13px}
+.pill.hold{background:var(--amber-bg);color:var(--amber)}
+.pill.buy{background:var(--green-bg);color:var(--green)}
+.alloc{font-size:28px;font-weight:700}
+section{margin-top:28px}
+.sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--ink);color:var(--bg);padding:3px 7px;border-radius:6px}
+.sec-head h2{font-family:"Newsreader",serif;font-size:26px;margin:0;line-height:1.1}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.brands{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:540px){.brands{grid-template-columns:1fr}}
+.brand{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.brand b{display:block}
+.brand span{color:var(--muted);font-size:13.5px}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){
+  table{font-size:13px} th,td{padding:8px 8px}
+  .wide5 thead{display:none}
+  .wide5,.wide5 tbody,.wide5 tr,.wide5 td{display:block;width:100%}
+  .wide5 tr{border-bottom:2px solid var(--line);padding:6px 0}
+  .wide5 td{border-bottom:none;display:flex;justify-content:space-between;gap:14px;padding:5px 12px}
+  .wide5 td::before{content:attr(data-l);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left}
+  .wide5 td.num{white-space:normal}
+}
+.est{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 6px;border-radius:999px;background:var(--amber-bg);color:var(--amber);vertical-align:middle;margin-left:6px}
+.note{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:10px;padding:12px 14px;margin-top:12px}
+ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:5px 0}
+.moatbar{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden;margin:6px 0 12px}
+.moatbar i{display:block;height:100%;background:var(--accent)}
+.scen-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.scen-btns button{font:inherit;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.scen-btns button.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:12px}
+.calc label{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:5px}
+.calc input{font:inherit;font-size:18px;font-weight:600;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);width:190px}
+.calc-out{font-size:15px} .calc-out b{font-size:22px}
+.sources{font-size:13.5px} .sources li{margin:6px 0;word-break:break-all}
+.footer{margin-top:32px;border-top:1px solid var(--line);padding-top:14px;font-size:12.5px;color:var(--muted)}
+.tag{font-weight:700;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="topmeta">
+  <span class="chip hot">IDEXY · OTC ADR</span>
+  <span class="chip">Consumer Discretionary</span>
+  <span class="chip">Inditex — Spain</span>
+  <span class="chip">As of 1 Nov 2026</span>
+</div>
+
+<h1>Inditex <em>is the speed machine</em><br>behind Zara.</h1>
+<p class="sub">The world's defining fast-fashion operator — vertically integrated, store + online, built to turn a design into a rail in weeks. You are buying that supply chain, not just a clothing label.</p>
+<p class="asof">Price reference: <strong>30 Oct 2026 regular-session close</strong> (1 Nov 2026 was a weekend). Research views only — not guarantees, not investment advice. For a mid-30s investor, risk score 8/10.</p>
+
+<div class="hero">
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap">
+      <div><div class="price">$15.68</div><div style="color:var(--muted);font-size:13px">ADR · per share</div></div>
+      <div style="text-align:right"><div class="down">−1.87% on 30 Oct</div><div style="color:var(--muted);font-size:13px">MarketBeat / Finnhub</div></div>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><span>Market cap</span><b>$196.3B</b><span style="text-transform:none;letter-spacing:0">$195.48B on MarketBeat · $196.287B on FinanceCharts</span></div>
+      <div class="stat"><span>Trailing P/E</span><b>26.1 – 27.3×</b><span style="text-transform:none;letter-spacing:0">26.13 MarketBeat · 27.33 Finnhub — vendor EPS differs</span></div>
+      <div class="stat"><span>Dividend yield</span><b>1.98%</b><span style="text-transform:none;letter-spacing:0">MarketBeat</span></div>
+      <div class="stat"><span>Last earnings</span><b>9 Sep 2026</b><span style="text-transform:none;letter-spacing:0">Per MarketBeat</span></div>
+    </div>
+    <p class="note" style="margin-top:14px"><span class="tag">Ranking basis &amp; tie note:</span> FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Consumer Discretionary's #10 is a <strong>source-dependent tie</strong> — FinanceCharts ranks SONY #10 ($148.38B) and HESAY #11 ($148.079B), while StockAnalysis puts HESAY at $151.28B above SONY. Both are included in the sector set (top 11) with that tie footnoted; HESAY is not an unambiguous #10. IDEXY itself is well clear of that cutoff.</p>
+  </div>
+
+  <div class="card verdict">
+    <h3>Verdict</h3>
+    <div class="pills"><span class="pill hold">Short term · HOLD</span><span class="pill buy">Long term · BUY</span></div>
+    <div class="alloc">2% <span style="font-size:14px;font-weight:500;color:var(--muted)">of total portfolio</span></div>
+    <p style="margin:8px 0 0">A quality compounder at a full multiple — 26–27× earnings leaves little room for a fashion miss. Hold what you own; build the long-term position on weakness rather than chasing strength. Inside a diversified, risk-8/10 portfolio, 2% is a satellite consumer position, not a core holding.</p>
+    <div class="calc">
+      <div><label for="pf">Your portfolio ($)</label><input id="pf" type="number" value="500000" min="0" step="1000"></div>
+      <div class="calc-out">Target position<br><b id="pfOut">$10,000</b> <span style="color:var(--muted)">at 2%</span></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Calculator is arithmetic only — 2% × the value you type. It does not store anything.</p>
+  </div>
+</div>
+
+<section>
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business model &amp; segment breakdown</h2></div>
+  <p>Inditex is a Spain-based, vertically integrated fast-fashion group selling through a global store estate plus online. The model is proximity-led design, short production runs, and rapid replenishment — stores act as both shops and real-time demand sensors, so best-sellers get re-ordered and slow lines die fast. That loop, not low price alone, is the business.</p>
+  <div class="brands">
+    <div class="brand"><b>Zara</b><span>Flagship chain — the core brand and the name behind the ADR's investment case.</span></div>
+    <div class="brand"><b>Massimo Dutti</b><span>Premium-leaning chain — higher price architecture within the group.</span></div>
+    <div class="brand"><b>Pull&amp;Bear · Bershka</b><span>Youth and trend-led casual chains.</span></div>
+    <div class="brand"><b>Stradivarius · Oysho</b><span>Young women's fashion; lingerie / athleisure.</span></div>
+    <div class="brand"><b>Zara Home</b><span>Homewares — extends the design language beyond clothing.</span></div>
+    <div class="brand"><b>Online + stores, together</b><span>No separate “e-commerce business” — the pack frames growth as store optimisation plus online growth on one integrated estate.</span></div>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <strong>Recent structural pivots</strong>
+      <ul class="tight">
+        <li>Online growth as a primary channel, integrated with stores</li>
+        <li>Store optimisation — fewer, better-located, larger-format stores</li>
+        <li>Sustainability built into the offer</li>
+        <li>Logistics automation to protect the speed advantage</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>Supply-chain dependencies</strong>
+      <ul class="tight">
+        <li>Vertically integrated, proximity-heavy supply chain — speed depends on it staying tight</li>
+        <li>Exposed to wage and cotton costs (see Risks)</li>
+        <li>Euro reporting, global sales — FX moves flow straight into the ADR (see §2 note)</li>
+      </ul>
+      <p style="font-size:13px;color:var(--muted);margin:6px 0 0">No brand-by-brand or country-by-country revenue split was verified in the research pack, so none is shown — inventing one would be worse than leaving the shape qualitative.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial health &amp; balance sheet diagnostics</h2></div>
+  <div style="overflow-x:auto">
+  <table>
+    <tr><th>Metric</th><th class="num">Value</th><th>Basis / source</th></tr>
+    <tr><td>ADR price (30 Oct 2026 close)</td><td class="num"><strong>$15.68</strong></td><td>MarketBeat; Finnhub. −1.87% on the day.</td></tr>
+    <tr><td>Market capitalisation</td><td class="num"><strong>$196.3B</strong></td><td>$196.287B FinanceCharts · $195.48B MarketBeat — vendor / share-count vintage difference.</td></tr>
+    <tr><td>Trailing P/E</td><td class="num"><strong>26.13× / 27.33×</strong></td><td>MarketBeat / Finnhub — do not mix the two EPS definitions.</td></tr>
+    <tr><td>Dividend yield</td><td class="num"><strong>1.98%</strong></td><td>MarketBeat.</td></tr>
+    <tr><td>Revenue</td><td class="num"><strong>~€40B</strong><span class="est">Estimate</span></td><td>Not re-verified in the independent log — labelled estimate throughout this page, and used only as the 2026E modelling base in §5.</td></tr>
+    <tr><td>Operating margin</td><td class="num"><strong>~18–20%</strong><span class="est">Estimate</span></td><td>Not re-verified — estimate only. The §5 scenarios deliberately model a lower 15% base-case net margin.</td></tr>
+    <tr><td>Cash position</td><td class="num"><strong>Net cash</strong><span class="est">Estimate</span></td><td>Described as net cash in the pack; not re-verified — treat as a qualitative strength, not a checked balance-sheet figure.</td></tr>
+    <tr><td>ADR-equivalent shares (model)</td><td class="num"><strong>~12.5B</strong></td><td>Derived as market cap ÷ price, used only to convert group profit into a per-ADR figure in §5.</td></tr>
+  </table>
+  </div>
+  <p class="note"><span class="tag">How to read this:</span> the checked facts here are price, cap, P/E and yield. Revenue, margin and the net-cash description carry the pack's own <strong>ESTIMATE</strong> flag because the verification log did not re-verify them — they are never presented on this page as audited fact. Valuation is not cheap: at 26–27× you are paying for the moat in §3 upfront, which is exactly why the short-term call is HOLD rather than BUY. The 1.98% yield softens that — you are paid something while you wait — but it does not make the entry price low. P/S and EV/EBITDA were not in the verified pack for IDEXY, so they are omitted rather than estimated silently.</p>
+  <p class="note"><span class="tag">ADR / FX caution (verified):</span> IDEXY is an OTC ADR on a euro-reporting Spanish company. FinanceCharts' own price column for OTC ADRs on its 30 Oct table is stale by one day (it shows IDEXY at $15.98, the 29 Oct close) — the $15.68 figure here is the correct 30 Oct close per MarketBeat / Finnhub / StockAnalysis, while FinanceCharts' market-cap column does match. The §5 model ignores FX for the ADR price, as its methodology states — a euro move would shift the realised ADR outcome.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive moat &amp; industry positioning</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <strong>Speed-to-market supply chain</strong>
+      <div class="moatbar"><i style="width:92%"></i></div>
+      <strong>Store + online integration</strong>
+      <div class="moatbar"><i style="width:84%"></i></div>
+      <strong>Scale buying</strong>
+      <div class="moatbar"><i style="width:80%"></i></div>
+      <p style="font-size:13px;color:var(--muted);margin:4px 0 0">Bar widths are a visual summary of the pack's qualitative moat assessment — not measured scores.</p>
+    </div>
+    <div class="card">
+      <strong>Who it competes with</strong>
+      <ul class="tight">
+        <li><strong>H&amp;M</strong> — closest listed fast-fashion peer</li>
+        <li><strong>Shein</strong> (private) — ultra-fast, ultra-cheap, the disruptive threat (see §4)</li>
+        <li><strong>Primark</strong> — value-led, store-only model</li>
+        <li><strong>Uniqlo / Fast Retailing</strong> — basics-led, quality-positioned rival</li>
+      </ul>
+      <p style="margin:8px 0 0">Pricing power comes from scarcity-by-design: short runs create urgency and protect full-price sell-through, which is how a fashion retailer defends an ~18–20% operating margin <em>(estimate)</em> while rivals discount. The barrier to entry is the whole system — design, proximity production, logistics, store data — not any single piece a rival can copy.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; downside risks</h2></div>
+  <div class="grid2">
+    <div class="card" style="border-top:3px solid var(--green)">
+      <strong style="color:var(--green)">Catalysts</strong>
+      <ul class="tight">
+        <li><strong>Online growth</strong> — continued shift of sales into the integrated online channel</li>
+        <li><strong>Price architecture</strong> — premium chains (Massimo Dutti, Zara positioning) lifting average price without losing velocity</li>
+        <li><strong>Emerging markets</strong> — geographic expansion of the store + online estate</li>
+        <li><strong>Logistics automation</strong> — protecting speed while controlling cost</li>
+      </ul>
+    </div>
+    <div class="card" style="border-top:3px solid var(--red)">
+      <strong style="color:var(--red)">Downside risks</strong>
+      <ul class="tight">
+        <li><strong>Shein competition</strong> — a structurally cheaper, faster rival pressuring the youth chains hardest</li>
+        <li><strong>Wage &amp; cotton costs</strong> — input inflation squeezes the margin the valuation assumes</li>
+        <li><strong>FX</strong> — euro strength / weakness moves both translated earnings and the ADR</li>
+        <li><strong>Fashion misses</strong> — the model's core risk: a wrong season means markdowns, and at 26–27× the share has no cushion</li>
+        <li><strong>Spain / EU regulation</strong> — home-market and EU rules on fashion, waste and labour</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-based valuation &amp; price targets</h2></div>
+  <p style="margin-top:0">All prices below are <strong>modelled estimates, not verified facts</strong> — the independent log could not verify any modelled target, so each is shown with its full assumptions so you can re-run the maths yourself. ADR basis throughout; FX ignored for the ADR price, as in the underlying model.</p>
+
+  <h3 style="margin:16px 0 8px">12–18 month horizon</h3>
+  <div class="scen-btns" role="group" aria-label="Scenario detail">
+    <button data-s="bear">Bear · $13</button>
+    <button data-s="base" class="active">Base · $18</button>
+    <button data-s="bull">Bull · $22</button>
+  </div>
+  <p id="scenText" class="note" style="margin-top:0"><strong>Base — $18 (+15% vs $15.68).</strong> Steady execution: online and price architecture offset cost pressure; the multiple holds near today's level. An external 1-year target estimate of $18.70 (CoinDataFlow) sits just above this base case.</p>
+  <div style="overflow-x:auto">
+  <table>
+    <tr><th>12–18 mo case</th><th class="num">Target (ADR)</th><th class="num">vs $15.68</th><th>What has to happen</th></tr>
+    <tr><td>Bear</td><td class="num">$13</td><td class="num" style="color:var(--red)">−17%</td><td>Shein pressure + cost inflation + a fashion miss compress margin and multiple together.</td></tr>
+    <tr><td><strong>Base</strong></td><td class="num"><strong>$18</strong></td><td class="num" style="color:var(--green)">+15%</td><td>Online growth and price architecture carry the year; multiple broadly unchanged.</td></tr>
+    <tr><td>Bull</td><td class="num">$22</td><td class="num" style="color:var(--green)">+40%</td><td>Emerging-market and online upside re-rates the stock toward the top of its range.</td></tr>
+  </table>
+  </div>
+
+  <h3 style="margin:20px 0 8px">5-year projection — frozen-parameter format</h3>
+  <p style="font-size:14px;color:var(--muted);margin:0 0 10px">Method (exactly as modelled in the pack): start from 2026E revenue of €40B <em>(estimate)</em> and ~12.5B ADR-equivalent shares (cap ÷ price, held frozen). Only revenue growth, net margin and the exit P/E vary by case. Profit = revenue × margin; per-ADR earnings = profit ÷ 12.5B; price = earnings × P/E.</p>
+  <table class="wide5">
+    <thead><tr><th>5-yr case (weight)</th><th class="num">Rev. CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">Per-ADR earn.</th><th class="num">Exit P/E</th><th class="num">2031 price (inputs-consistent)</th></tr></thead>
+    <tbody>
+    <tr><td data-l="Case">Bear (25%)</td><td class="num" data-l="Rev. CAGR">3%</td><td class="num" data-l="2031 revenue">€46B</td><td class="num" data-l="Net margin">11%</td><td class="num" data-l="Per-ADR earn.">€0.40</td><td class="num" data-l="Exit P/E">17×</td><td class="num" data-l="2031 price"><strong>$6.80</strong></td></tr>
+    <tr><td data-l="Case"><strong>Base (50%)</strong></td><td class="num" data-l="Rev. CAGR">7%</td><td class="num" data-l="2031 revenue">€56B</td><td class="num" data-l="Net margin">15%</td><td class="num" data-l="Per-ADR earn.">€0.67</td><td class="num" data-l="Exit P/E">22×</td><td class="num" data-l="2031 price"><strong>$14.74</strong></td></tr>
+    <tr><td data-l="Case">Bull (25%)</td><td class="num" data-l="Rev. CAGR">10%</td><td class="num" data-l="2031 revenue">€64B</td><td class="num" data-l="Net margin">18%</td><td class="num" data-l="Per-ADR earn.">€0.92</td><td class="num" data-l="Exit P/E">26×</td><td class="num" data-l="2031 price"><strong>$24</strong></td></tr>
+    <tr><td data-l="Case"><strong>Probability-weighted (50 / 25 / 25)</strong></td><td class="num" data-l="Rev. CAGR">—</td><td class="num" data-l="2031 revenue">—</td><td class="num" data-l="Net margin">—</td><td class="num" data-l="Per-ADR earn.">—</td><td class="num" data-l="Exit P/E">—</td><td class="num" data-l="Weighted price"><strong>≈$15.05</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="note">Weighted maths, shown so it can be checked: 0.50 × $14.74 + 0.25 × $24 + 0.25 × $6.80 = <strong>≈$15.05</strong> — roughly <strong>flat (−4%)</strong> against the $15.68 reference price over five years, before dividends (1.98% yield). That is the honest read of this model: at 26–27× earnings with a base case that assumes margin <em>below</em> today's estimated 18–20% operating level once converted to net margin, the printed inputs support “durable compounder, fully priced,” not a multi-bagger setup. The long-term BUY in §6 rests on that durability plus the dividend — not on modelled price upside.</p>
+  <p class="note" style="border:1px solid var(--amber)"><span class="tag">⚠ Why these prices differ from the source pack's stated prices:</span> the research pack stated 5-year prices of Bear <strong>$10</strong> / Base <strong>$18.50</strong> / Bull <strong>$24</strong> (weighted $17.75), but its own printed inputs — per-ADR earnings × exit P/E, with FX stated as ignored — only reproduce the Bull case: Bear €0.40 × 17× = $6.80, not $10; Base €0.67 × 22× = $14.74, not $18.50. No documented conversion in the pack explains the gap (an unprinted ADR-ratio step is one possibility). Rather than publish prices the stated method cannot produce, the table above uses the <strong>inputs-consistent</strong> products ($6.80 / $14.74 / $24, weighted ≈$15.05), and the pack's stated figures are recorded here in full so nothing is hidden. If the pack's stated prices are later justified by its author, the weighted value would be $17.75 (+13%) — treat that as the optimistic reading, not the base one.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; portfolio fit</h2></div>
+  <div class="grid2">
+    <div class="card"><strong>Short term (12–18 mo) — HOLD</strong><p style="margin:6px 0 0">Base target $18 (+15%) against a bear of $13 (−17%) is a balanced, not compelling, risk/reward at 26–27× earnings. Hold existing shares; add only on weakness toward the bear zone.</p></div>
+    <div class="card"><strong>Long term (5 yr) — BUY</strong><p style="margin:6px 0 0">The supply-chain moat, integrated store + online model and net-cash profile <em>(estimate)</em> support owning it through a cycle — sized small, because on the model's own printed inputs the weighted 5-year price is roughly flat (≈$15.05 vs $15.68) before the 1.98% dividend; only the source pack's unreconciled stated prices imply +13% (see §5). The long-term case is durability and income, not price explosiveness.</p></div>
+  </div>
+  <p class="note"><span class="tag">Sizing — 2%:</span> for a mid-30s investor at risk 8/10, IDEXY belongs in the consumer-discretionary sleeve as a single 2% position. It is an OTC ADR on a foreign reporter — currency, liquidity and governance all differ from a US-listed name — which is a further reason to keep it satellite-sized rather than core. Rebalance back toward 2% if strength takes it materially above target weight.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="sec-num">07</span><h2>Sources</h2></div>
+  <ul class="sources">
+    <li>Price, P/E, yield, earnings date — MarketBeat, IDEXY: <a href="https://www.marketbeat.com/stocks/OTCMKTS/IDEXY/">marketbeat.com/stocks/OTCMKTS/IDEXY</a></li>
+    <li>Price / P/E cross-check — Finnhub, IDEXY: <a href="https://finnhub.io/?q=%22IDEXY%22">finnhub.io/?q="IDEXY"</a></li>
+    <li>Sector ranking &amp; market cap — FinanceCharts, Consumer Discretionary: <a href="https://www.financecharts.com/sectors/consumer_discretionary">financecharts.com/sectors/consumer_discretionary</a></li>
+    <li>External 1-year target estimate ($18.70) — CoinDataFlow, IDEXY: <a href="https://coindataflow.com/en/stock/IDEXY">coindataflow.com/en/stock/IDEXY</a></li>
+  </ul>
+  <p style="font-size:13px;color:var(--muted)">Verification note: price, market cap, P/E, yield and the ADR / ranking footnotes above were cross-checked in the independent verification log for Communication Services + Consumer Discretionary (1 Nov 2026). Revenue (~€40B), operating margin (~18–20%) and the net-cash description were <strong>not</strong> re-verified and are labelled ESTIMATE wherever they appear. All scenario prices are modelled estimates with methodology shown — never verified facts.</p>
+</section>
+
+<div class="footer">
+  Equity Research — IDEXY (Inditex ADR) · Sector: Consumer Discretionary · Prepared 1 Nov 2026 from the 30 Oct 2026 close ($15.68). This page is research and education, not personalised investment advice. Modelled targets depend entirely on the assumptions printed beside them; FX is ignored in the ADR model as stated, and a euro move would change the realised outcome.
+</div>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — IDEXY (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $15.68.</strong> <strong>DCF intrinsic: $11.05.</strong> Discount/premium vs DCF: <strong>+41.9%</strong> — i.e. the shares are trading 41.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$11.05</td><td>+41.9%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $7.25bn. TTM levered FCF (TwelveData $7.25bn; coindataflow $6.49bn is close). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $59.47bn + PV of terminal value $73.66bn + net cash $4.69bn, divided by 12.47bn diluted shares = <strong>$11.05</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/776347/stock/otc/idexy/statistics</li><li>TwelveData forward annual dividend rate $0.49 per ADR (trailing $0.50). MarketBeat yield 1.98% implies ~$0.31 on a different basis and is not used; the $0.49 rate is the forward rate.</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — IDEXY (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Revenue is fast-fashion purchases by individual consumers in stores and online, with no single business customer disclosed above 10%. Key demand drivers: European and global consumer spending, Zara's speed-to-market and store productivity, and online mix.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — IDEXY</h2>
+<p><strong>Role: Low exposure.</strong> Inditex's AI exposure is logistics automation and demand forecasting, not infrastructure: the pack's thesis is online growth, store optimisation and vertical integration, with net cash of about €10.4bn.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows modestly through better inventory allocation and online conversion; the multiple is supported by fast-fashion execution, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks little directly — apparel demand follows consumer spending, not AI sentiment; then the multiple compresses toward a through-cycle retail multiple; then the balance sheet — net cash — is a cushion. Watch: like-for-like sales, online mix, store productivity, and any tariff or sourcing-cost shock that compresses the gross margin.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function upd(){ var v=parseFloat(pf.value)||0; out.textContent='$'+Math.round(v*0.02).toLocaleString('en-US'); }
+  pf.addEventListener('input',upd); upd();
+  var texts={
+    bear:'<strong>Bear — $13 (−17% vs $15.68).</strong> Shein takes share in the youth chains, wage and cotton costs bite, and a fashion miss forces markdowns. Margin and multiple fall together — the classic full-multiple de-rating.',
+    base:'<strong>Base — $18 (+15% vs $15.68).</strong> Steady execution: online and price architecture offset cost pressure; the multiple holds near today\u2019s level. An external 1-year target estimate of $18.70 (CoinDataFlow) sits just above this base case.',
+    bull:'<strong>Bull — $22 (+40% vs $15.68).</strong> Online and emerging-market growth beat plan and the premium price architecture lands — the market re-rates Inditex toward the top of its historical range.'
+  };
+  var btns=document.querySelectorAll('.scen-btns button'), st=document.getElementById('scenText');
+  btns.forEach(function(b){ b.addEventListener('click',function(){ btns.forEach(function(x){x.classList.remove('active')}); b.classList.add('active'); st.innerHTML=texts[b.getAttribute('data-s')]; }); });
+})();
+</script>
+</body>
+</html>

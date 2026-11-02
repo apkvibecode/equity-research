@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — HD · Home Depot</title>
+<style>
+:root{
+  --bg:#f6f7f8; --card:#ffffff; --ink:#171a1e; --muted:#5b6470; --line:#dde1e6;
+  --orange:#e85d04; --orange-dark:#c24e02; --navy:#12263a; --green:#1a7a4c; --red:#b42318; --amber:#8a6d00;
+  --chip:#eef1f4; --table-head:#12263a;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1215; --card:#181d22; --ink:#eef1f4; --muted:#a8b2bc; --line:#2a323a; --chip:#232a31; --table-head:#0b1a29; --orange:#ff7a1a; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;line-height:1.55}
+a{color:var(--orange-dark)} @media(prefers-color-scheme:dark){a{color:#ff9a4d}}
+.wrap{max-width:960px;margin:0 auto;padding:20px 18px 48px}
+.top{border-top:6px solid var(--orange);background:var(--card);border:1px solid var(--line);border-top:6px solid var(--orange);padding:22px 22px 18px}
+.kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:34px;line-height:1.1;margin:6px 0 4px}
+.sub{color:var(--muted);font-size:15px;max-width:640px}
+.tickerline{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{background:var(--chip);border:1px solid var(--line);padding:8px 12px;font-size:14px}
+.chip b{font-size:18px}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+@media(max-width:640px){.verdict{grid-template-columns:1fr}}
+.vbox{padding:14px;border:1px solid var(--line)}
+.vbox .lab{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbox .val{font-size:22px;font-weight:800;margin-top:2px}
+.hold{color:var(--amber)} .buy{color:var(--green)}
+section{background:var(--card);border:1px solid var(--line);padding:22px;margin-top:14px}
+h2{font-family:Georgia,serif;font-size:22px;margin:0 0 4px;border-bottom:2px solid var(--orange);padding-bottom:8px}
+h3{font-size:16px;margin:18px 0 6px}
+p,li{font-size:15px}
+.muted{color:var(--muted);font-size:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px} @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+th{background:var(--table-head);color:#fff;text-align:left;padding:9px 10px;font-size:13px}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border:1px solid currentColor;border-radius:999px;vertical-align:middle}
+.tag.est{color:var(--amber)} .tag.mod{color:var(--orange-dark)} .tag.conf{color:var(--green)}
+@media(prefers-color-scheme:dark){.tag.mod{color:#ff9a4d}}
+.bar-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:13px}
+.bar-row .lbl{width:110px;flex:none;font-weight:600}
+.bar-track{flex:1;background:var(--chip);height:22px;position:relative}
+.bar-fill{height:100%}
+.bar-val{width:70px;flex:none;text-align:right;font-weight:700}
+input[type=number]{width:100%;padding:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:16px}
+.calc{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px} @media(max-width:640px){.calc{grid-template-columns:1fr}}
+.calc .out{border:1px solid var(--line);padding:12px} .calc .out b{font-size:20px;display:block}
+.note{border-left:4px solid var(--orange);padding:10px 14px;background:var(--chip);font-size:14px}
+ul{padding-left:20px} li{margin:4px 0}
+footer{color:var(--muted);font-size:13px;padding:18px 4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="top">
+  <div class="kicker">Consumer Discretionary · Home Improvement Retail · As of 1 Nov 2026</div>
+  <h1>Home Depot (HD)</h1>
+  <p class="sub">The largest U.S. home-improvement retailer, pivoting its growth engine from DIY shoppers to professional contractors. Priced off the 30 Oct 2026 close — 1 Nov was a weekend.</p>
+  <div class="tickerline">
+    <div class="chip">Price <b>$329.20</b> <span class="tag conf">Confirmed</span></div>
+    <div class="chip">Market cap <b>$328.4B</b></div>
+    <div class="chip">Trailing P/E <b>23.26×</b></div>
+    <div class="chip">EPS <b>$14.23</b></div>
+    <div class="chip">Sector rank basis: FinanceCharts, 30 Oct 2026</div>
+  </div>
+  <div class="verdict">
+    <div class="vbox"><div class="lab">Short term · 12–18 months</div><div class="val hold">HOLD</div><div class="muted">Housing turnover has not yet turned.</div></div>
+    <div class="vbox"><div class="lab">Long term · 5 years</div><div class="val buy">BUY</div><div class="muted">Pro scale + SRS platform compound through a housing cycle.</div></div>
+    <div class="vbox"><div class="lab">Suggested weight · risk 8/10, mid-30s</div><div class="val">3%</div><div class="muted">Of total portfolio — a quality compounder, not a high-beta driver.</div></div>
+  </div>
+  <p class="muted" style="margin-top:14px">Research views only — not investment advice, not a guarantee. Modelled prices are estimates with methodology shown, never verified facts. Figures marked <span class="tag est">Estimate</span> were not re-verified in the independent pass.</p>
+</div>
+
+<section>
+  <h2>1 &nbsp;Business Model &amp; Segment Breakdown</h2>
+  <p>Home Depot sells building materials, tools, appliances, décor and installation services to two customer groups: <strong>DIY homeowners</strong> and <strong>Pros</strong> — contractors, remodelers and tradespeople who buy in volume, return frequently, and need job-lot delivery, credit and dedicated service.</p>
+  <div class="grid2">
+    <div>
+      <h3>Where the money comes from</h3>
+      <ul>
+        <li><strong>Pro segment is the growth engine.</strong> Pros are a minority of customers but a disproportionate share of sales, and management has built the strategy around winning more of their wallet.</li>
+        <li><strong>SRS Distribution acquisition</strong> expanded the pro offer into roofing and specialty distribution — a deliberate pivot from pure retail toward serving contractors where the job happens.</li>
+        <li><strong>DIY remains the base:</strong> seasonal, project-driven spend tied to housing turnover, renovation cycles and weather events.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Geography &amp; supply chain</h3>
+      <ul>
+        <li><strong>Footprint:</strong> United States (core), Canada and Mexico.</li>
+        <li><strong>Sourcing:</strong> global sourcing with heavy exposure to lumber and commodity pricing — input costs can move faster than shelf prices.</li>
+        <li><strong>Private-label brands</strong> support margin and differentiation inside categories where national brands dominate.</li>
+        <li><strong>Distribution:</strong> a store network doubled as fulfilment — pro delivery and job-site logistics are part of the product, not an afterthought.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>2 &nbsp;Financial Health &amp; Balance Sheet</h2>
+  <table>
+    <tr><th>Metric</th><th class="num">Value</th><th>Basis</th></tr>
+    <tr><td>Share price (30 Oct 2026 close)</td><td class="num">$329.20</td><td>Finnhub / StockAnalysis history — independently confirmed</td></tr>
+    <tr><td>Market capitalisation</td><td class="num">$328.4B</td><td>FinanceCharts ($328.439B)</td></tr>
+    <tr><td>Trailing P/E</td><td class="num">23.26×</td><td>Finnhub</td></tr>
+    <tr><td>EPS</td><td class="num">$14.23</td><td>Finnhub</td></tr>
+    <tr><td>Revenue</td><td class="num">~$165B</td><td><span class="tag est">Estimate</span> Not re-verified — treat as approximate</td></tr>
+    <tr><td>Operating margin</td><td class="num">~13–14%</td><td><span class="tag est">Estimate</span> Not re-verified</td></tr>
+    <tr><td>Dividend yield</td><td class="num">~2.5%</td><td><span class="tag est">Estimate</span> Not re-verified</td></tr>
+  </table>
+  <p><strong>Capital allocation:</strong> buybacks are ongoing, alongside the dividend — the classic mature-retailer return profile. Debt is described in the research pack as moderate for a retailer of this scale; no verified leverage ratio was supplied, so none is published here rather than estimated silently.</p>
+  <p><strong>Reading the multiple:</strong> at 23.26× earnings, HD is not cheap for a retailer — the market is paying for durability: pro mix shift, SRS synergies and an eventual housing-turnover recovery. That leaves little room for a prolonged housing slump.</p>
+</section>
+
+<section>
+  <h2>3 &nbsp;Competitive Moat &amp; Positioning</h2>
+  <div class="grid2">
+    <div>
+      <h3>What protects it</h3>
+      <ul>
+        <li><strong>Scale:</strong> purchasing power, distribution density and store proximity that smaller rivals cannot replicate.</li>
+        <li><strong>Pro loyalty:</strong> credit, delivery, account management and now SRS specialty distribution deepen switching costs for contractors.</li>
+        <li><strong>Brand:</strong> the default first stop for both a homeowner's project and a pro's morning run.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Who it fights</h3>
+      <ul>
+        <li><strong>Lowe's</strong> — the direct national rival, chasing the same pro customer.</li>
+        <li><strong>Amazon</strong> — tools and consumables at the convenience end.</li>
+        <li><strong>Menards &amp; independent pro dealers</strong> — regional and specialty competition where relationships matter most.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="muted">Pricing power is real but bounded: lumber and commodity pass-through works both ways, and pro customers negotiate. The moat is logistics and relationships, not a patent.</p>
+</section>
+
+<section>
+  <h2>4 &nbsp;Catalysts &amp; Downside Risks</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="color:var(--green)">Catalysts</h3>
+      <ul>
+        <li>Housing turnover recovery — more home sales means more renovation, the single biggest demand lever.</li>
+        <li>Continued pro growth and deeper SRS integration / synergies.</li>
+        <li>Rate relief reviving big-ticket DIY projects deferred during the slowdown.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:var(--red)">Risks</h3>
+      <ul>
+        <li>Housing slowdown persists — turnover stays frozen and project demand stays soft.</li>
+        <li>Interest rates stay higher for longer, suppressing both DIY big-ticket and pro pipelines.</li>
+        <li>Lumber / commodity inflation squeezing margin or demand.</li>
+        <li>Consumer DIY softness if household budgets tighten.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>5 &nbsp;Scenario Valuation &amp; Price Targets <span class="tag mod">Modelled estimates</span></h2>
+  <p class="muted">All targets below are modelled estimates, not verified facts. 5-year method, in the frozen-parameter format: start from 2026E revenue ~$165B (estimate) and ~1.00B shares; grow revenue at the case CAGR for 5 years, apply the case net margin, divide by the case share count, then apply the case P/E.</p>
+
+  <h3>5-year projection (to ~2031)</h3>
+  <table>
+    <tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+    <tr><td>Bull (25%)</td><td class="num">8%</td><td class="num">$243B</td><td class="num">11%</td><td class="num">$27.8</td><td class="num">26×</td><td class="num"><b>$723</b></td></tr>
+    <tr><td>Base (50%)</td><td class="num">5%</td><td class="num">$210B</td><td class="num">9%</td><td class="num">$19.3</td><td class="num">22×</td><td class="num"><b>$425</b></td></tr>
+    <tr><td>Bear (25%)</td><td class="num">1%</td><td class="num">$173B</td><td class="num">7%</td><td class="num">$12.1</td><td class="num">17×</td><td class="num"><b>$206</b></td></tr>
+  </table>
+  <p>Probability-weighted 5-year price: <strong>$445</strong> (0.50×$425 + 0.25×$723 + 0.25×$206) vs. $329.20 today — about +35% over five years before dividends. The bull case needs a genuine housing cycle plus margin recovery; the bear case is a frozen housing market where the multiple de-rates to 17×.</p>
+
+  <div aria-hidden="true">
+    <div class="bar-row"><span class="lbl">Bear · $206</span><div class="bar-track"><div class="bar-fill" style="width:28%;background:var(--red)"></div></div><span class="bar-val">−37%</span></div>
+    <div class="bar-row"><span class="lbl">Today · $329</span><div class="bar-track"><div class="bar-fill" style="width:46%;background:var(--muted)"></div></div><span class="bar-val">—</span></div>
+    <div class="bar-row"><span class="lbl">Base · $425</span><div class="bar-track"><div class="bar-fill" style="width:59%;background:var(--navy)"></div></div><span class="bar-val">+29%</span></div>
+    <div class="bar-row"><span class="lbl">Weighted · $445</span><div class="bar-track"><div class="bar-fill" style="width:62%;background:var(--orange)"></div></div><span class="bar-val">+35%</span></div>
+    <div class="bar-row"><span class="lbl">Bull · $723</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green)"></div></div><span class="bar-val">+120%</span></div>
+  </div>
+
+  <h3>12–18 month scenarios</h3>
+  <table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">vs. $329.20</th><th>What has to happen</th></tr>
+    <tr><td>Bear</td><td class="num">$290</td><td class="num">−12%</td><td>Housing stays frozen; DIY softness deepens</td></tr>
+    <tr><td>Base</td><td class="num">$360</td><td class="num">+9%</td><td>Pro growth offsets flat DIY; early turnover recovery</td></tr>
+    <tr><td>Bull</td><td class="num">$420</td><td class="num">+28%</td><td>Turnover rebounds, SRS synergies show up in margins</td></tr>
+  </table>
+  <p class="muted">External reference point supplied in the research pack: TipRanks consensus target $384.52. Modelled estimates above are the pack's own, shown with their assumptions.</p>
+</section>
+
+<section>
+  <h2>6 &nbsp;Recommendation &amp; Position Size</h2>
+  <p><strong>Short term (12–18 months): HOLD.</strong> At 23× earnings with housing turnover still the swing factor, the near-term base case (+9%) does not compensate for the bear case (−12%) — wait for either a price dip or evidence the housing turn has started.</p>
+  <p><strong>Long term (5 years): BUY.</strong> The pro/SRS platform, scale moat and buyback-plus-dividend return profile make HD a steady compounder through a full housing cycle, sized at <strong>3% of the total portfolio</strong> for a mid-30s investor at risk 8/10 — meaningful, but a stabiliser rather than a portfolio driver.</p>
+  <h3>Position-size calculator</h3>
+  <div class="calc">
+    <div><label for="pv" class="muted">Your total portfolio ($)</label><input type="number" id="pv" value="500000" min="0" step="1000"></div>
+    <div class="out"><span class="muted">At 3% weight</span><b id="dollars">$15,000</b></div>
+    <div class="out"><span class="muted">Shares at $329.20</span><b id="shares">~46</b></div>
+  </div>
+  <p class="muted">Illustrative only — whole shares rounded down in practice; excludes dividends and price moves after 30 Oct 2026.</p>
+</section>
+
+<section>
+  <h2>Sources, Verification &amp; Ranking Note</h2>
+  <ul>
+    <li>Price $329.20 (30 Oct 2026): Finnhub via <a href="https://finnhub.io/?q=%22HD%22">finnhub.io</a>; independently confirmed against StockAnalysis history in the verification log.</li>
+    <li>Market cap $328.439B, P/E 23.26, EPS $14.23: FinanceCharts / Finnhub, as carried in the verified research pack.</li>
+    <li>TipRanks consensus target $384.52: as supplied in the research pack.</li>
+    <li>Revenue (~$165B), operating margin (~13–14%) and dividend yield (~2.5%) are labelled <strong>estimates</strong> — the verification log did not re-verify them.</li>
+    <li>All scenario prices are <strong>modelled estimates</strong> with weights (Base 50% / Bull 25% / Bear 25%) and assumptions shown in §5, per the coordinator correction that weighted prices must publish their inputs.</li>
+  </ul>
+  <div class="note"><strong>Ranking-basis footnote:</strong> Sector membership follows FinanceCharts biggest-companies pages, last updated 30 Oct 2026, prices at the 30 Oct 2026 close. At the Consumer Discretionary cutoff, #10 is a <strong>source-dependent tie</strong>: FinanceCharts ranks SONY #10 ($148.38B) and HESAY #11 ($148.079B), while StockAnalysis puts HESAY ($151.28B) above SONY. Both are included in the sector set (top 11) with this tie footnoted — HESAY is not presented as an unambiguous #10.</div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — HD (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $329.20.</strong> <strong>DCF intrinsic: $197.</strong> Discount/premium vs DCF: <strong>+67.1%</strong> — i.e. the shares are trading 67.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$197</td><td>+67.1%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $15.1bn. TTM FCF (Intickers: $15.1bn; OCF $18.78bn - capex ~$3.7bn). Levered FCF $10.76bn (TwelveData) is after interest and is not used. Growth g = 5% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $117.96bn + PV of terminal value $139.53bn + net cash $-61.11bn, divided by 0.998bn diluted shares = <strong>$197</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/647158/stock/nyse/hd/statistics</li><li>$2.33 quarterly x4 = $9.32 (pack/Intickers)</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — HD (B2C / mixed note)</h2>
+<p>Mixed trade-and-consumer, classified here as consumer-facing for this task: the pro-contractor segment is a large and growing buyer group, but the end demand is household home-improvement spending, and no single trade or consumer customer is disclosed above 10% of revenue, so no top-7 business-customer list is shown. Key demand drivers: housing turnover and repair/remodel activity, pro penetration (including SRS), and lumber/commodity costs passed through to ticket and margin.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — HD</h2>
+<p><strong>Role: Low exposure.</strong> Home Depot's AI exposure is operational — supply-chain, merchandising and pro-customer tools — not infrastructure: the pack's thesis is pro growth and housing-linked demand, with FCF of $15.1bn TTM.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows only indirectly, through pro contractors' digitisation and any AI-driven productivity in sourcing; the multiple is supported by housing and pro economics, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first only if the unwind becomes a housing or consumer downturn; then the multiple compresses toward a through-cycle retail multiple; then the balance sheet — debt $63.2bn against cash $2.1bn — is manageable at ~2.3x net debt/EBITDA. Watch: housing turnover, pro sales, and lumber/commodity costs.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>Equity Research — HD · Prepared 1 Nov 2026 from the verified research pack for Consumer Discretionary. Prices as of the 30 Oct 2026 close. This page is research commentary for a mid-30s, risk-8/10 profile — not personalised investment advice.</footer>
+</div>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), d=document.getElementById('dollars'), s=document.getElementById('shares');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function upd(){var v=parseFloat(pv.value)||0; var amt=v*0.03; d.textContent=fmt(amt); s.textContent='~'+Math.floor(amt/329.20).toLocaleString('en-US');}
+  pv.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

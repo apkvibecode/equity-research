@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — AT&amp;T (T)</title>
+<style>
+:root{
+  --bg:#f7f6f2; --surface:#fffdf9; --surface2:#eef2f5; --ink:#101820; --muted:#5b6b7a; --line:#d9dee3;
+  --accent:#0067b3; --accent2:#00a3d9; --gold:#b9975b; --green:#1a7a4c; --amber:#9a6b00; --red:#b42318;
+  --chip:#e8eff5;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0d1217; --surface:#141c23; --surface2:#1b2630; --ink:#eef2f5; --muted:#9fb0c0; --line:#2a3844; --accent:#4db6e8; --accent2:#6ecdf2; --chip:#1e2e3d; --gold:#d4b978; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family: ui-sans-system, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;line-height:1.55}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:20px 18px 48px}
+.top{border-top:4px solid var(--accent);padding-top:18px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family: Georgia, 'Times New Roman', serif;font-size:42px;line-height:1.05;margin:6px 0 4px;font-weight:700;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.sub{color:var(--muted);max-width:620px;font-size:15px}
+.pricebox{background:var(--surface);border:1px solid var(--line);padding:16px 18px;min-width:220px}
+.price{font-size:32px;font-weight:800;line-height:1}
+.price small{font-size:13px;color:var(--green);font-weight:700}
+.meta{font-size:12px;color:var(--muted);margin-top:6px}
+.verdict{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin:22px 0}
+.verdict div{background:var(--ink);color:#fff;padding:14px 16px}
+.verdict div.light{background:var(--surface);color:var(--ink)}
+.verdict b{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;display:block}
+.verdict strong{font-size:20px}
+.verdict p{margin:4px 0 0;font-size:13px;opacity:.9}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);padding:20px}
+.card h2{font-family:Georgia,serif;font-size:22px;margin:0 0 4px;line-height:1.2}
+.card h2 i{font-style:normal;color:var(--accent);font-size:13px;letter-spacing:.1em;text-transform:uppercase;display:block;font-family:ui-sans-system,sans-serif;font-weight:800;margin-bottom:6px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.kpis div{background:var(--surface);padding:12px}
+.kpis b{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);display:block}
+.kpis strong{font-size:18px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--ink);padding:8px 6px}
+td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right}
+.tag{display:inline-block;background:var(--chip);padding:2px 8px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.tag.est{background:#fff3cd;color:#664d03;border:1px dashed #b9975b}
+@media (prefers-color-scheme: dark){.tag.est{background:#2a2410;color:#e8c86a}}
+.note{font-size:13px;color:var(--muted);background:var(--surface2);padding:12px 14px;border-left:3px solid var(--gold)}
+ul{margin:8px 0 8px 18px;padding:0} li{margin:6px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin-top:10px}
+.calc label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.calc input{width:180px;padding:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px}
+.calc output{font-weight:800;font-size:18px}
+.bar-row{display:grid;grid-template-columns:90px 1fr 60px;gap:10px;align-items:center;margin:8px 0;font-size:13px}
+.bar{height:10px;background:var(--surface2)} .bar i{display:block;height:100%}
+footer{margin-top:28px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+.sources{font-size:13px}
+@media(max-width:700px){h1{font-size:32px}.verdict,.grid,.two,.kpis{grid-template-columns:1fr}.pricebox{width:100%}}
+@media print{.calc{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="eyebrow">Communication Services · Telecom · As of 1 Nov 2026</div>
+      <h1>AT&amp;T <span>(T)</span></h1>
+      <p class="sub">The post-media AT&amp;T: a U.S. wireless and fibre operator in a deliberate shrink-to-connectivity pivot — paying down debt, rebuilding the dividend on fibre and 5G cash flow, and trading at a value multiple for it.</p>
+      <p class="meta">Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. In this sector SPCX (SpaceX) is listed on NASDAQ (IPO 12 June 2026) and ranks #2; DTEGY is therefore #11 and retained as an 11th name. GOOGL counted once (GOOG excluded as a duplicate class).</p>
+    </div>
+    <div class="pricebox">
+      <div class="price">$21.41 <small>+2.34% on 30 Oct</small></div>
+      <div class="meta">NYSE: T · Market cap $144.2B (FinanceCharts)<br>P/E 10.98× and EPS $3.06 as reported by Finnhub — see basis note in §02</div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div><b>Verdict</b><strong>HOLD / HOLD</strong><p>Short term (12–18 mo) Hold · Long term (5 yr) Hold</p></div>
+    <div class="light"><b>Suggested weight</b><strong>1.5%</strong><p>of total portfolio — for a mid-30s investor, risk 8/10</p></div>
+    <div class="light"><b>12–18 mo base</b><strong>$24</strong><p>Modelled estimate — see §5</p></div>
+    <div class="light"><b>5-yr weighted</b><strong>$25</strong><p>Modelled estimate — see §5</p></div>
+  </div>
+
+  <div class="kpis">
+    <div><b>Price — 30 Oct close</b><strong>$21.41</strong></div>
+    <div><b>Market cap</b><strong>$144.2B</strong></div>
+    <div><b>P/E / EPS (Finnhub, as reported)</b><strong>10.98× / $3.06*</strong></div>
+    <div><b>Dividend yield</b><strong>~5–6% <span class="tag est">ESTIMATE</span></strong></div>
+  </div>
+  <p class="note"><strong>Verification note:</strong> Price and market cap were independently confirmed (see Sources). *P/E and EPS are shown exactly as reported in the research pack (Finnhub), but they do not reconcile at $21.41 — $21.41 ÷ $3.06 = 7.0×, while 10.98× implies EPS of ~$1.95 — so the two figures rest on different EPS bases (e.g. TTM vs adjusted) and must not be combined. Dividend yield (~5–6% historically) and debt-to-equity were <em>not</em> re-verified — the yield is labelled an estimate, and no D/E figure is presented as fact. All scenario prices in §5 are modelled estimates with methodology shown, never verified facts.</p>
+
+  <div class="grid" style="margin-top:16px">
+    <section class="card">
+      <h2><i>01 — Business model</i>Business Model &amp; Segment Breakdown</h2>
+      <p>AT&amp;T today is a U.S. connectivity business — consumer and business wireless plus fibre broadband — following the WarnerMedia spin-off. That structural pivot is the investment story: exit media, concentrate capital on fibre build and 5G, use the resulting free cash flow to pay down debt, and sustain a dividend that was rebased in 2022.</p>
+      <ul>
+        <li><strong>Core streams:</strong> U.S. wireless (consumer + business) and fibre broadband.</li>
+        <li><strong>Geography:</strong> Predominantly U.S. — no diversified international media footprint remains after the spin.</li>
+        <li><strong>Recent pivots:</strong> Fibre build-out, 5G deployment, debt paydown, and the 2022 dividend rebase.</li>
+        <li><strong>Dependencies:</strong> Spectrum holdings, fibre footprint and the capex cycle required to extend both; legacy copper network costs remain a drag to retire.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2><i>02 — Financial health</i>Financial Health &amp; Balance Sheet</h2>
+      <table>
+        <tr><th>Metric</th><th class="r">Value</th><th>Status</th></tr>
+        <tr><td>Price (30 Oct 2026)</td><td class="r">$21.41</td><td><span class="tag">Confirmed</span></td></tr>
+        <tr><td>Market cap</td><td class="r">$144.228B</td><td><span class="tag">Confirmed</span></td></tr>
+        <tr><td>P/E · EPS (Finnhub, as reported)</td><td class="r">10.98× · $3.06</td><td><span class="tag est">Bases differ — see note above</span></td></tr>
+        <tr><td>Dividend yield</td><td class="r">~5–6%</td><td><span class="tag est">Estimate — not re-verified</span></td></tr>
+        <tr><td>Debt / D/E</td><td class="r">High, falling</td><td><span class="tag est">D/E not verified — omitted</span></td></tr>
+        <tr><td>Model base revenue (2026E)</td><td class="r">$122B</td><td><span class="tag est">Model input</span></td></tr>
+      </table>
+      <p>On either reported basis T prices as a mature, ex-growth telecom — the multiple is low because the market expects low growth, not because earnings are depressed in the way a cyclical's are. The balance-sheet direction in the pack is consistent: debt still high, but falling as deleveraging remains the stated capital priority alongside the dividend. No leverage ratio is quoted here because it was not verified.</p>
+    </section>
+  </div>
+
+  <!-- Valuation visual -->
+  <section class="card" style="margin-top:16px">
+    <h2><i>Valuation at a glance</i>Where the modelled prices sit vs. today</h2>
+    <div class="bar-row"><span>Bear (5-yr)</span><div class="bar"><i style="width:32%;background:var(--red)"></i></div><b>$13</b></div>
+    <div class="bar-row"><span>Today</span><div class="bar"><i style="width:54%;background:var(--ink)"></i></div><b>$21.41</b></div>
+    <div class="bar-row"><span>Base (5-yr)</span><div class="bar"><i style="width:60%;background:var(--accent)"></i></div><b>$24</b></div>
+    <div class="bar-row"><span>Weighted</span><div class="bar"><i style="width:62%;background:var(--gold)"></i></div><b>$25</b></div>
+    <div class="bar-row"><span>Bull (5-yr)</span><div class="bar"><i style="width:100%;background:var(--green)"></i></div><b>$40</b></div>
+    <p class="meta">Bars scaled to the $40 bull case. All targets are modelled estimates — methodology in §5.</p>
+    <!-- Model flow -->
+    <svg viewBox="0 0 900 92" width="100%" height="92" role="img" aria-label="Model flow: 2026E revenue 122 billion dollars, at 11 percent net margin in the base case, to 2 dollars 21 EPS, at 11 times, to 24 dollars" style="margin-top:10px">
+      <rect x="0" y="18" width="180" height="56" fill="#0067b3"/><text x="90" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">2026E Revenue</text><text x="90" y="62" text-anchor="middle" fill="#fff" font-size="13">$122B (model)</text>
+      <text x="195" y="50" font-size="18" fill="#5b6b7a">→</text>
+      <rect x="225" y="18" width="180" height="56" fill="#101820"/><text x="315" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Base 2031 revenue</text><text x="315" y="62" text-anchor="middle" fill="#fff" font-size="13">$135B × 11% = $14.9B NI</text>
+      <text x="420" y="50" font-size="18" fill="#5b6b7a">→</text>
+      <rect x="450" y="18" width="180" height="56" fill="#101820"/><text x="540" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Base EPS</text><text x="540" y="62" text-anchor="middle" fill="#fff" font-size="13">$14.9B ÷ 6.73B = $2.21</text>
+      <text x="645" y="50" font-size="18" fill="#5b6b7a">→</text>
+      <rect x="675" y="18" width="180" height="56" fill="#b9975b"/><text x="765" y="42" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Base price</text><text x="765" y="62" text-anchor="middle" fill="#fff" font-size="13">$2.21 × 11× = $24</text>
+    </svg>
+  </section>
+
+  <div class="two" style="margin-top:16px">
+    <section class="card">
+      <h2><i>03 — Moat</i>Competitive Moat &amp; Positioning</h2>
+      <p><strong>Moat: narrow, asset-based.</strong> Spectrum and fibre footprint plus national scale are real barriers — a new entrant cannot replicate the network cheaply — but they do not confer strong pricing power. Connectivity is close to a commodity at the consumer end, and switching is easy.</p>
+      <ul>
+        <li><strong>Strengths:</strong> Spectrum depth, fibre footprint, scale.</li>
+        <li><strong>Pricing power:</strong> Low — promotions and churn discipline the market.</li>
+        <li><strong>Competitors:</strong> Verizon (VZ), T-Mobile US (TMUS), and cable broadband.</li>
+      </ul>
+    </section>
+    <section class="card">
+      <h2><i>04 — Catalysts &amp; risks</i>Catalysts &amp; Downside Risks</h2>
+      <p><strong>Catalysts</strong></p>
+      <ul><li>Fibre subscriber adds converting capex into recurring revenue</li><li>Free-cash-flow deleveraging</li><li>Dividend sustainability on the rebased payout</li></ul>
+      <p><strong>Risks</strong></p>
+      <ul><li>Fibre capex intensity before returns arrive</li><li>Wireless and broadband competition (VZ, TMUS, cable)</li><li>Legacy copper costs and retirement obligations</li><li>Still-high absolute debt if FCF disappoints</li></ul>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:16px">
+    <h2><i>05 — Valuation</i>Scenario-Based Valuation &amp; Price Targets <span class="tag est">All modelled estimates</span></h2>
+    <p>Method (frozen parameters, as in the META format): start from modelled 2026E revenue of $122B and ~6.73B shares; vary only revenue CAGR, net margin and exit P/E by case. Weights: Base 50% / Bull 25% / Bear 25%.</p>
+    <table>
+      <tr><th>5-year case</th><th>Rev CAGR</th><th>2031 revenue</th><th>Net margin</th><th>EPS</th><th>P/E</th><th class="r">Price</th><th class="r">vs $21.41</th></tr>
+      <tr><td><strong>Bear (25%)</strong></td><td>0%</td><td>$122B</td><td>8%</td><td>$1.45</td><td>9×</td><td class="r"><strong>$13</strong></td><td class="r">−39%</td></tr>
+      <tr><td><strong>Base (50%)</strong></td><td>2%</td><td>$135B</td><td>11%</td><td>$2.21</td><td>11×</td><td class="r"><strong>$24</strong></td><td class="r">+12%</td></tr>
+      <tr><td><strong>Bull (25%)</strong></td><td>4%</td><td>$148B</td><td>14%</td><td>$3.09*</td><td>13×</td><td class="r"><strong>$40</strong></td><td class="r">+87%</td></tr>
+      <tr><td colspan="6"><strong>Probability-weighted</strong></td><td class="r"><strong>$25</strong></td><td class="r">+17%</td></tr>
+    </table>
+    <p class="meta">*Bull EPS uses 6.70B shares in the pack model ($148B × 14% ÷ 6.70B = $3.09). Weighted: 0.50×$24 + 0.25×$40 + 0.25×$13 = $25.25 → $25.</p>
+    <table>
+      <tr><th>12–18 month horizon</th><th class="r">Bear</th><th class="r">Base</th><th class="r">Bull</th></tr>
+      <tr><td>Modelled price (estimate)</td><td class="r">$19</td><td class="r">$24</td><td class="r">$28</td></tr>
+      <tr><td>Implied move from $21.41</td><td class="r">−11%</td><td class="r">+12%</td><td class="r">+31%</td></tr>
+    </table>
+    <p>The shape is income-stock maths: the base case is only modestly above today (+12% over five years on price alone), so most of the expected return at the suggested weight has to come from the dividend — which is precisely why the yield is flagged as an estimate above and should be confirmed from AT&amp;T's own declarations before acting on it. The bull case requires both faster fibre-led growth <em>and</em> margin expansion to 14%; the bear case is a flat-revenue, margin-compressed grind.</p>
+  </section>
+
+  <section class="card" style="margin-top:16px">
+    <h2><i>06 — Recommendation</i>Buy / Sell / Hold &amp; Portfolio Sizing</h2>
+    <div class="two">
+      <div>
+        <p><strong>Short term (12–18 mo): HOLD.</strong> Base $24 offers limited price upside; hold for income if already owned, don't chase.</p>
+        <p><strong>Long term (5 yr): HOLD.</strong> Weighted $25 vs $21.41 today is a thin price cushion for an 8/10 risk portfolio — T's role here is ballast and income, not growth. That argues for a small, capped weight rather than a core position.</p>
+        <p><strong>Suggested: 1.5% of total portfolio</strong> for a mid-30s investor at risk 8/10.</p>
+      </div>
+      <div>
+        <p><strong>Position-size calculator</strong></p>
+        <div class="calc">
+          <div><label for="pv">Portfolio value ($)</label><br><input id="pv" type="number" value="250000" min="0" step="1000"></div>
+          <div><label>At 1.5%</label><br><output id="out">$3,750</output></div>
+        </div>
+        <p class="meta">≈ <span id="shares">175</span> shares at $21.41. In-memory only — nothing is saved.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card sources" style="margin-top:16px">
+    <h2><i>Sources</i>Resources &amp; Verification</h2>
+    <ul>
+      <li>Price / quote — Finnhub (T): <a href="https://finnhub.io/?q=%22T%22">finnhub.io/?q="T"</a> — price $21.41 confirmed in verification log (also StockAnalysis history).</li>
+      <li>Price history — StockAnalysis: <a href="https://stockanalysis.com/stocks/t/history/">stockanalysis.com/stocks/t/history</a></li>
+      <li>Sector ranking &amp; market cap — FinanceCharts, Communication Services (updated 30 Oct 2026): <a href="https://www.financecharts.com/sectors/communication_services">financecharts.com/sectors/communication_services</a></li>
+    </ul>
+    <p class="meta">Independent verification was performed 1 Nov 2026 against a second source for price and cap. Items marked ESTIMATE / MODEL were not verified as facts and are shown with their assumptions.</p>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — T (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $21.41.</strong> <strong>DCF intrinsic: $14.31.</strong> Discount/premium vs DCF: <strong>+49.6%</strong> — i.e. the shares are trading 49.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$14.31</td><td>+49.6%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $18.01bn. TTM standardised FCF (Intickers: $18.01bn; company-guided 2026 FCF $18bn+). FCF after fibre/5G capex, as reported. Growth g = 2% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $121.71bn + PV of terminal value $124.55bn + net cash $-149.8bn, divided by 6.74bn diluted shares = <strong>$14.31</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://intickers.com/reports/t/</li><li>$0.2775 quarterly x4 = $1.11 (pack/Tikr; management plans to hold it there)</li><li>https://www.financecharts.com/stocks/T/value/debt-to-equity-ratio</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — T (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>US government / public-safety — FirstNet public-safety network (government programme)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Large enterprise Advanced Connectivity customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Business fibre customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Wholesale / reseller partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Consumer subscribers (fragmented; shown for completeness, not a single customer)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr><tr><td>Latin America (Mexico) wireless customers — business held for sale (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Device and channel partners (not customers in the revenue sense)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></tbody></table><p><strong>Read-through.</strong> AT&T discloses no single business customer above 10% of revenue; FirstNet is the clearest concentrated public-sector relationship, and its spending follows government programmes rather than market valuations. More broadly, if AT&T's enterprise and government buyers were trading at a discount to intrinsic, that would be a potential tailwind for Advanced Connectivity and fibre demand — but an undervalued customer does not guarantee higher spending, which depends on that customer's own priorities and cash position.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — T</h2>
+<p><strong>Role: Low exposure.</strong> AT&T's AI exposure is connectivity for AI workloads and enterprise digitisation, not AI infrastructure: the pack's thesis is fibre build, 5G and deleveraging, with 2026 FCF guided at $18bn+.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through Advanced Connectivity and fibre adds as enterprises and households digitise; the multiple is supported by the dividend and FCF cover, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in fibre and business adds if enterprise spending stalls; then the multiple compresses only modestly, since little AI premium is embedded; then the balance sheet — net debt $149.8bn after the EchoStar spectrum purchase — is the binding constraint. Watch: fibre adds, the net-debt/EBITDA path back toward 2.5x, and any EchoStar integration cost.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+    Research views only — not investment advice, not a guarantee. As of 1 Nov 2026; price reference is the 30 Oct 2026 close (1 Nov was a weekend). Modelled targets are estimates derived from the stated assumptions; they will be wrong in detail. Confirm dividend, debt and segment figures from AT&amp;T's filings before any decision.
+  </footer>
+</div>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), out=document.getElementById('out'), sh=document.getElementById('shares');
+  function fmt(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+  function upd(){var v=parseFloat(pv.value)||0; var alloc=v*0.015; out.textContent=fmt(alloc); sh.textContent=Math.floor(alloc/21.41).toLocaleString('en-US');}
+  pv.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

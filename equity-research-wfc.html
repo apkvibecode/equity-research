@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — WFC</title>
+<style>
+  :root{
+    --bg:#f4f4f1; --surface:#ffffff; --surface2:#eceee9; --ink:#18201c; --muted:#5c665f;
+    --line:#d8dcd4; --accent:#8a1f1f; --accent-ink:#ffffff; --gold:#9a7b2d; --good:#1d6b4f;
+    --warn:#9a5b12; --bad:#9b2c2c; --chip:#eef0ea; --bar-track:#e3e6df;
+    --shadow:0 1px 3px rgba(20,30,25,.08),0 8px 24px rgba(20,30,25,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121613; --surface:#1b211d; --surface2:#232a25; --ink:#e8ece7; --muted:#a3aea5;
+      --line:#333c35; --accent:#d05555; --accent-ink:#ffffff; --gold:#c9a44e; --good:#4cb48c;
+      --warn:#d99a3d; --bad:#e07070; --chip:#262e28; --bar-track:#2c342d;
+      --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;font-size:16px}
+  .wrap{max-width:1060px;margin:0 auto;padding:20px 18px 64px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:700;line-height:1.15;margin:0}
+  h2{font-size:1.55rem;margin-bottom:6px}
+  h3{font-size:1.08rem}
+  p{margin:0 0 10px}
+  a{color:var(--accent);text-underline-offset:2px}
+  .small{font-size:.85rem;color:var(--muted)}
+  .tiny{font-size:.78rem;color:var(--muted)}
+
+  /* Header */
+  .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px}
+  .tag{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:.78rem;font-weight:600;letter-spacing:.02em}
+  .tag.red{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:26px 26px 20px}
+  .hero h1{font-size:2.3rem;letter-spacing:-.01em}
+  .hero h1 .ticker{color:var(--accent)}
+  .hero .sub{font-size:1.05rem;color:var(--muted);max-width:70ch;margin-top:6px}
+  .verdict-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+  .verdict{flex:1 1 200px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface2)}
+  .verdict .k{font-size:.74rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:700}
+  .verdict .v{font-size:1.35rem;font-weight:800;margin-top:2px}
+  .verdict .n{font-size:.85rem;color:var(--muted)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:13px 14px}
+  .stat .k{font-size:.74rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .stat .v{font-size:1.45rem;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+  .stat .n{font-size:.8rem;color:var(--muted)}
+  @media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:1.8rem}}
+
+  nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 4px}
+  nav.toc a{background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;border-radius:999px;padding:6px 13px;font-size:.86rem;font-weight:600}
+  nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+  section.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:24px 26px;margin-top:18px}
+  .secnum{font-size:.76rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .lead{color:var(--muted);max-width:75ch}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}
+  @media (max-width:720px){.grid2{grid-template-columns:1fr}}
+  ul.tight{margin:6px 0 10px;padding-left:20px}
+  ul.tight li{margin-bottom:6px}
+  .seg{border:1px solid var(--line);border-radius:10px;padding:14px 16px;background:var(--surface)}
+  .seg h3{margin-bottom:4px}
+  .seg p{font-size:.92rem;color:var(--muted);margin:0}
+
+  table{width:100%;border-collapse:collapse;font-size:.93rem;margin-top:10px}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .tablewrap{overflow-x:auto}
+  @media (max-width:640px){
+    .tablewrap{overflow-x:visible}
+    table.stack td.num{white-space:normal}
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-bottom:2px solid var(--line);padding:6px 0}
+    table.stack td{display:flex;justify-content:space-between;gap:14px;border-bottom:none;padding:5px 2px;text-align:right}
+    table.stack td::before{content:attr(data-l);font-weight:700;text-align:left;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+    table.stack td:first-child{font-weight:700;text-align:right}
+  }
+
+  .callout{border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:8px;padding:13px 16px;background:var(--surface2);margin-top:14px}
+  .callout.warn{border-left-color:var(--warn)}
+  .callout.bad{border-left-color:var(--bad)}
+  .callout p:last-child{margin-bottom:0}
+
+  /* Bars */
+  .bar-row{display:grid;grid-template-columns:110px 1fr 74px;gap:10px;align-items:center;margin:9px 0;font-size:.9rem}
+  .bar-track{background:var(--bar-track);border-radius:6px;height:20px;position:relative;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px}
+  .bar-fill.bear{background:var(--bad)} .bar-fill.base{background:var(--gold)} .bar-fill.bull{background:var(--good)} .bar-fill.now{background:var(--muted)}
+  .bar-val{font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+  @media (max-width:560px){.bar-row{grid-template-columns:86px 1fr 62px}}
+
+  /* Flow diagram */
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin-top:14px}
+  .flow .node{flex:1 1 150px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface2)}
+  .flow .node .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .flow .node .v{font-size:1.25rem;font-weight:800}
+  .flow .arrow{align-self:center;font-size:1.2rem;color:var(--muted)}
+  @media (max-width:640px){.flow .arrow{transform:rotate(90deg);margin:0 auto}}
+
+  .gauge{margin-top:12px}
+  .gauge .track{background:var(--bar-track);height:14px;border-radius:7px;position:relative}
+  .gauge .fill{height:100%;background:var(--good);border-radius:7px}
+  .gauge .target{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--accent)}
+  .gauge .labels{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-top:5px}
+
+  .calc{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-top:12px}
+  .calc label{font-size:.82rem;font-weight:700;display:block;margin-bottom:5px}
+  .calc input{font:inherit;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:190px}
+  .calc .out{font-size:1.05rem}
+  .calc .out b{font-size:1.3rem}
+
+  .pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:700}
+  .pill.hold{background:var(--chip);color:var(--warn);border:1px solid var(--warn)}
+  .src{font-size:.86rem}
+  .src li{margin-bottom:5px;word-break:break-word}
+  footer{margin-top:26px}
+  .disclaimer{font-size:.8rem;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="tag red">WFC · NYSE</span>
+    <span class="tag">Sector: Financials</span>
+    <span class="tag">As of 1 Nov 2026</span>
+    <span class="tag">Price ref: 30 Oct 2026 close</span>
+  </div>
+
+  <div class="hero">
+    <h1>Wells Fargo <span class="ticker">&amp; Co. (WFC)</span></h1>
+    <p class="sub">A diversified US money-centre bank in the middle of an efficiency and returns rebuild: Q3 2026 return on tangible common equity (ROTCE) of 16.3% is closing on its 17–18% medium-term target, but a 51% year-on-year jump in the credit provision and ongoing regulatory scrutiny are the counterweights. Research views only — not investment advice.</p>
+    <div class="verdict-row">
+      <div class="verdict"><div class="k">Short term · 12–18 mo</div><div class="v">Hold</div><div class="n">12–18m modelled base target $95 (+14% vs $83.40)</div></div>
+      <div class="verdict"><div class="k">Long term · 5 yr</div><div class="v">Hold</div><div class="n">5-yr modelled weighted estimate $102 — see §5 for assumptions</div></div>
+      <div class="verdict"><div class="k">Suggested portfolio weight</div><div class="v">1.5%</div><div class="n">For a mid-30s investor, risk score 8/10 (per research pack)</div></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Share price</div><div class="v">$83.40</div><div class="n">30 Oct 2026 close · Finnhub — confirmed</div></div>
+    <div class="stat"><div class="k">Market cap</div><div class="v">$253.78bn</div><div class="n">Finnhub — confirmed</div></div>
+    <div class="stat"><div class="k">Trailing P/E</div><div class="v">11.05×</div><div class="n">Finnhub — confirmed. Forward P/E not verified in this pass</div></div>
+    <div class="stat"><div class="k">Filed TTM revenue</div><div class="v">~$87.23bn</div><div class="n">Total revenues net of interest expense, TTM to 30 Sep 2026</div></div>
+  </div>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#s1">1 · Business model</a>
+    <a href="#s2">2 · Financial health</a>
+    <a href="#s3">3 · Moat</a>
+    <a href="#s4">4 · Catalysts &amp; risks</a>
+    <a href="#s5">5 · Valuation scenarios</a>
+    <a href="#s6">6 · Recommendation</a>
+    <a href="#sources">Sources &amp; verification</a>
+  </nav>
+
+  <section class="card" id="s1">
+    <div class="secnum">Section 1</div>
+    <h2>Business Model &amp; Segment Breakdown</h2>
+    <p class="lead">Wells Fargo earns money the way a large retail-and-commercial bank does: net interest income (NII) from loans funded by a very large, low-cost deposit base, plus fee income from cards, payments, capital markets and wealth management. It operates through four segments.</p>
+    <div class="grid2">
+      <div class="seg"><h3>Consumer Banking &amp; Lending</h3><p>Branch and digital banking for households and small businesses — deposits, cards, auto and home lending. This is the deposit engine that funds the rest of the bank.</p></div>
+      <div class="seg"><h3>Commercial Banking</h3><p>Lending and treasury services for middle-market companies — a core part of the loan growth story.</p></div>
+      <div class="seg"><h3>Corporate &amp; Investment Banking</h3><p>Markets, investment banking and corporate lending. Smaller than at the largest Wall Street rivals, but a deliberate growth area.</p></div>
+      <div class="seg"><h3>Wealth &amp; Investment Management</h3><p>Advisory, brokerage and asset management — steadier, fee-based revenue that is less sensitive to interest rates.</p></div>
+    </div>
+
+    <h3 style="margin-top:20px">Q3 2026 — what actually happened</h3>
+    <div class="tablewrap"><table class="stack">
+      <thead><tr><th>Metric</th><th class="num">Q3 2026</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Metric">Revenue</td><td class="num" data-l="Q3 2026">$21.87bn</td><td data-l="Read">+2% year on year; <b>missed</b> the $22.31bn consensus</td></tr>
+        <tr><td data-l="Metric">Net income</td><td class="num" data-l="Q3 2026">$5.95bn</td><td data-l="Read">+6% year on year — confirmed ($5.951bn precise)</td></tr>
+        <tr><td data-l="Metric">EPS</td><td class="num" data-l="Q3 2026">$1.87</td><td data-l="Read"><b>Beat</b> the $1.85 consensus</td></tr>
+        <tr><td data-l="Metric">Net interest income (NII)</td><td class="num" data-l="Q3 2026">~$12.52bn</td><td data-l="Read">+5% year on year</td></tr>
+        <tr><td data-l="Metric">ROTCE</td><td class="num" data-l="Q3 2026">16.3%</td><td data-l="Read">Approaching the 17–18% medium-term target</td></tr>
+        <tr><td data-l="Metric">CET1 ratio</td><td class="num" data-l="Q3 2026">10.0%</td><td data-l="Read">Core capital buffer against risk-weighted assets</td></tr>
+        <tr><td data-l="Metric">Average loans &amp; deposits</td><td class="num" data-l="Q3 2026">each +11%</td><td data-l="Read">Balance-sheet growth on both sides</td></tr>
+        <tr><td data-l="Metric">Credit provision</td><td class="num" data-l="Q3 2026">+51% y/y</td><td data-l="Read">The caution flag in the quarter — see §4</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="flow" aria-label="Q3 2026 income flow">
+      <div class="node"><div class="k">Q3 revenue</div><div class="v">$21.87bn</div><div class="tiny">Headline total</div></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="node"><div class="k">of which NII</div><div class="v">~$12.52bn</div><div class="tiny">+5% y/y; remainder (~$9.35bn, derived) is noninterest income</div></div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="node"><div class="k">Net income</div><div class="v">$5.95bn</div><div class="tiny">+6% y/y · EPS $1.87</div></div>
+    </div>
+    <p class="tiny" style="margin-top:8px">Flow built only from confirmed Q3 figures in the research pack; the noninterest remainder is simple subtraction of NII from revenue, shown as derived.</p>
+  </section>
+
+  <section class="card" id="s2">
+    <div class="secnum">Section 2</div>
+    <h2>Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <p class="lead">On filed numbers, Wells Fargo trades at a single-digit-to-low-double-digit earnings multiple — cheap next to the payment networks in the same sector — because the market is pricing bank-specific risks (credit, regulation, rates) rather than a broken business.</p>
+    <div class="tablewrap"><table class="stack">
+      <thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / status</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Metric">Price (30 Oct 2026 close)</td><td class="num" data-l="Value">$83.40</td><td data-l="Basis">Finnhub — <b>confirmed</b> by independent verification</td></tr>
+        <tr><td data-l="Metric">Market capitalisation</td><td class="num" data-l="Value">$253.78bn</td><td data-l="Basis">Finnhub — <b>confirmed</b> (pack rounded: $253.8bn)</td></tr>
+        <tr><td data-l="Metric">Trailing P/E</td><td class="num" data-l="Value">11.05×</td><td data-l="Basis">Finnhub — <b>confirmed</b></td></tr>
+        <tr><td data-l="Metric">Forward P/E</td><td class="num" data-l="Value">n.v.</td><td data-l="Basis">Not verified in this pass — not shown rather than guessed</td></tr>
+        <tr><td data-l="Metric">EV / EBITDA</td><td class="num" data-l="Value">—</td><td data-l="Basis">Not meaningful for a bank: deposits are both funding and product, so enterprise value maths misleads. P/E and ROTCE are the cleaner bank lenses.</td></tr>
+        <tr><td data-l="Metric">Filed TTM revenue</td><td class="num" data-l="Value">~$87.23bn</td><td data-l="Basis">Total revenues <b>net of interest expense</b>, TTM to 30 Sep 2026 (21.87 + 22.62 + 21.45 + 21.29). <b>Correction applied:</b> do not use the $83.11bn aggregator figure — it uses a different revenue definition.</td></tr>
+        <tr><td data-l="Metric">Dividend</td><td class="num" data-l="Value">Payer</td><td data-l="Basis">WFC is a dividend payer; the yield was not verified in this pass (n.v.), so no yield figure is presented.</td></tr>
+        <tr><td data-l="Metric">CET1 capital ratio</td><td class="num" data-l="Value">10.0%</td><td data-l="Basis">Q3 2026, per research pack</td></tr>
+        <tr><td data-l="Metric">ROTCE</td><td class="num" data-l="Value">16.3%</td><td data-l="Basis">Q3 2026 — confirmed; target range 17–18% medium term</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="gauge" aria-label="ROTCE versus target">
+      <div class="small" style="font-weight:700;color:var(--ink)">ROTCE: 16.3% now vs 17–18% medium-term target</div>
+      <div class="track" style="margin-top:6px"><div class="fill" style="width:81.5%"></div><div class="target" style="left:87.5%" title="Target midpoint 17.5%"></div></div>
+      <div class="labels"><span>0%</span><span>Target midpoint 17.5% (red tick)</span><span>20%</span></div>
+    </div>
+
+    <div class="callout warn">
+      <h3>Revenue definitions matter here</h3>
+      <p>Bank revenue is published two ways: gross (including gross interest income — one aggregator shows ~$130.5bn for WFC) and <b>net of interest expense</b> (the earnings-release headline, ~$87.23bn filed TTM). They are not interchangeable. Every revenue, margin and growth figure on this page uses the net-of-interest-expense definition, per the verification log.</p>
+    </div>
+    <div class="callout">
+      <h3>Capital allocation &amp; regulatory overhang</h3>
+      <p>The pack records WFC as a dividend payer with ROTCE — not buyback yield — as the headline capital-return story in this pass; no buyback figure was verified, so none is quoted. On regulation: the pack notes the historical asset-cap overhang has eased, but regulatory scrutiny remains a live risk. Any stronger claim that the cap has been fully lifted is <b>unverified in this pass</b> and is therefore not stated as fact here.</p>
+    </div>
+  </section>
+
+  <section class="card" id="s3">
+    <div class="secnum">Section 3</div>
+    <h2>Competitive Moat &amp; Industry Positioning</h2>
+    <ul class="tight">
+      <li><b>Deposit franchise at national scale.</b> A massive US branch and deposit base gives WFC low-cost funding that smaller rivals cannot replicate — deposits grew +11% on average in Q3 alongside loans.</li>
+      <li><b>Diversification across four segments.</b> Consumer, commercial, investment banking and wealth revenue streams do not all depend on the same cycle, which softens any single downturn.</li>
+      <li><b>Improving efficiency.</b> The ROTCE climb toward 17–18% is the market-visible proof point: each point of ROTCE gained at a ~11× P/E is worth more to the share price than the same gain at a growth multiple.</li>
+      <li><b>Pricing power is real but capped by competition.</b> Deposit pricing and card/lending rates are set in a fiercely competitive national market against JPMorgan, Bank of America and Citigroup — scale defends share more than it expands margins.</li>
+    </ul>
+    <p class="small">Positioning read: WFC is the “self-help” story among the big US banks — the return comes from its own efficiency and returns targets being met, not from industry growth. That makes execution, and the regulatory backdrop, the whole thesis.</p>
+  </section>
+
+  <section class="card" id="s4">
+    <div class="secnum">Section 4</div>
+    <h2>Catalysts &amp; Downside Risks</h2>
+    <div class="grid2">
+      <div>
+        <h3 style="color:var(--good)">Catalysts</h3>
+        <ul class="tight">
+          <li><b>ROTCE march to 17–18%:</b> hitting the medium-term target would support a re-rating from 11.05× earnings.</li>
+          <li><b>Loan and deposit growth:</b> both +11% on average in Q3 — if sustained, NII compounds from a bigger base.</li>
+          <li><b>Cost cuts:</b> efficiency gains flow almost directly to ROTCE in a bank of this scale.</li>
+          <li><b>NII momentum:</b> ~$12.52bn in Q3, +5% year on year.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--bad)">Downside risks</h3>
+        <ul class="tight">
+          <li><b>Provision jump:</b> credit provision rose +51% year on year in Q3 — the single clearest warning in the print.</li>
+          <li><b>Consumer credit:</b> deterioration in household borrowers hits the largest segment first.</li>
+          <li><b>Commercial real estate:</b> a standing exposure for US banks; losses here would lift provisions further.</li>
+          <li><b>Regulatory costs and scrutiny:</b> remains a live risk; the historical asset-cap overhang has eased per the pack, but no “fully cleared” claim is verified in this pass.</li>
+          <li><b>Revenue quality:</b> Q3 revenue missed consensus ($21.87bn vs $22.31bn) even as EPS beat — top-line softness limits how far cost cuts alone can carry the story.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="s5">
+    <div class="secnum">Section 5</div>
+    <h2>Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="lead">All scenario prices below are <b>modelled estimates</b> from the research pack, built on estimate revenue with the growth, margin and P/E assumptions shown. They are not verified facts, and the scenario weights behind the weighted figure were not supplied to the independent verifier — so the weighted number cannot be re-checked arithmetically and must be read as a modelled estimate, not verified maths.</p>
+
+    <h3 style="margin-top:16px">12–18 month horizon</h3>
+    <div class="bar-row"><span>Current</span><div class="bar-track"><div class="bar-fill now" style="width:55%"></div></div><span class="bar-val">$83.40</span></div>
+    <div class="bar-row"><span>Base target</span><div class="bar-track"><div class="bar-fill base" style="width:63%"></div></div><span class="bar-val">$95</span></div>
+    <p class="small">Modelled base case: <b>$95, +14%</b> vs the $83.40 close. No 12–18-month bull or bear price was provided in the pack, so none is invented here — that is an open item, marked plainly.</p>
+
+    <h3 style="margin-top:20px">5-year scenarios (modelled, on estimate revenue)</h3>
+    <div class="tablewrap"><table class="stack">
+      <thead><tr><th>Case</th><th class="num">Revenue growth / yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">Modelled price</th><th class="num">vs $83.40</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Case">Bear</td><td class="num" data-l="Growth">1%</td><td class="num" data-l="Margin">22%</td><td class="num" data-l="P/E">8.5×</td><td class="num" data-l="Price"><b>$59</b></td><td class="num" data-l="vs now">−29%</td></tr>
+        <tr><td data-l="Case">Base</td><td class="num" data-l="Growth">3%</td><td class="num" data-l="Margin">26.4%</td><td class="num" data-l="P/E">11.05×</td><td class="num" data-l="Price"><b>$102</b></td><td class="num" data-l="vs now">+22%</td></tr>
+        <tr><td data-l="Case">Bull</td><td class="num" data-l="Growth">5%</td><td class="num" data-l="Margin">29%</td><td class="num" data-l="P/E">13×</td><td class="num" data-l="Price"><b>$145</b></td><td class="num" data-l="vs now">+74%</td></tr>
+        <tr><td data-l="Case">Weighted (modelled)</td><td class="num" data-l="Growth">—</td><td class="num" data-l="Margin">—</td><td class="num" data-l="P/E">—</td><td class="num" data-l="Price"><b>$102</b></td><td class="num" data-l="vs now">+22%</td></tr>
+      </tbody>
+    </table></div>
+    <div class="bar-row"><span>Bear</span><div class="bar-track"><div class="bar-fill bear" style="width:39%"></div></div><span class="bar-val">$59</span></div>
+    <div class="bar-row"><span>Base</span><div class="bar-track"><div class="bar-fill base" style="width:68%"></div></div><span class="bar-val">$102</span></div>
+    <div class="bar-row"><span>Bull</span><div class="bar-track"><div class="bar-fill bull" style="width:97%"></div></div><span class="bar-val">$145</span></div>
+    <p class="small" style="margin-top:10px">How to read it: the base case holds today’s 11.05× multiple and assumes only 3% revenue growth with a 26.4% margin — the $102 outcome is mostly earnings compounding, not re-rating. The bull case needs both faster growth (5%) and a re-rating to 13×, which in practice means the ROTCE target is hit and the provision trend calms. The bear case (8.5×, 22% margin, $59) is the world where the +51% provision jump was the start of a credit cycle, not a blip.</p>
+  </section>
+
+  <section class="card" id="s6">
+    <div class="secnum">Section 6</div>
+    <h2>Recommendation &amp; Position Sizing</h2>
+    <p><span class="pill hold">SHORT TERM — HOLD</span> &nbsp;<span class="pill hold">LONG TERM — HOLD</span> &nbsp;<span class="pill hold">WEIGHT — 1.5% OF PORTFOLIO</span></p>
+    <p style="margin-top:12px">The research pack’s call is Hold on both horizons at a <b>1.5%</b> portfolio weight for a mid-30s investor with a risk score of 8/10. The logic the numbers support: at 11.05× earnings with ROTCE already at 16.3%, a good part of the recovery is priced; the 12–18-month base upside (+14% to $95) is real but modest, and the open questions — the provision trend and the regulatory backdrop — argue for holding an existing position rather than adding aggressively or exiting a quality franchise at a low multiple.</p>
+    <div class="calc">
+      <div>
+        <label for="pv">Your total portfolio value ($)</label>
+        <input id="pv" type="number" inputmode="decimal" min="0" value="500000" />
+      </div>
+      <div class="out">At 1.5% → <b id="alloc">$7,500</b><br /><span class="small" id="shares">≈ 90 shares at $83.40</span></div>
+    </div>
+    <p class="tiny" style="margin-top:8px">Calculator runs in this page only; nothing is saved or sent anywhere. Share count is illustrative at the 30 Oct 2026 close.</p>
+  </section>
+
+  <section class="card" id="sources">
+    <div class="secnum">Appendix</div>
+    <h2>Sources, Ranking Basis &amp; Verification Notes</h2>
+    <h3 style="margin-top:10px">Ranking basis</h3>
+    <p class="small">Sector ranking per FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company (BRK.A counted once as BRK.B; foreign-primary OTC names excluded). Prices are the 30 Oct 2026 close. (Note from the pack: HOOD is included in the Financials set as a named ticker at $76.6bn market cap, #74 globally — it is <i>not</i> a top-10 name; WFC’s own figures are unaffected.)</p>
+    <h3 style="margin-top:14px">Verification status</h3>
+    <ul class="tight small">
+      <li><b>Confirmed:</b> Q3 2026 revenue $21.87bn, net income $5.951bn, ROTCE 16.3%; price $83.40, market cap $253.78bn and trailing P/E 11.05× (all Finnhub basis).</li>
+      <li><b>Correction applied:</b> filed TTM revenue is ~$87.23bn net of interest expense — the $83.11bn figure circulating on one aggregator uses a different definition and was replaced.</li>
+      <li><b>Labelled as modelled estimates:</b> every scenario price ($59 / $95 / $102 / $145 and the $102 weighted figure). Scenario weights were not supplied to the verifier, so the weighted figure is unverified arithmetic — assumptions are shown in §5 so you can judge it yourself.</li>
+      <li><b>Not verified in this pass (marked n.v., not guessed):</b> forward P/E and dividend yield; any claim that the historical asset cap has been fully lifted.</li>
+      <li><b>Vendor note:</b> market-cap and P/E figures vary by vendor (Finnhub vs MarketBeat vs others). This page names Finnhub as its basis for WFC and does not mix vendors silently.</li>
+    </ul>
+    <h3 style="margin-top:14px">Sources</h3>
+    <ul class="src">
+      <li>Finnhub — WFC price, market cap, trailing P/E (30 Oct 2026): <a href="https://finnhub.io/?q=%22WFC%22" target="_blank" rel="noopener">finnhub.io/?q="WFC"</a></li>
+      <li>Q3 2026 results coverage — net income $5.95bn, EPS $1.87, 2026 NII guidance reaffirmed: <a href="https://www.minichart.com.sg/2026/10/13/wells-fargo-3q26-net-income-5-95b-eps-1-87-reaffirms-2026-nii-guidance/" target="_blank" rel="noopener">minichart.com.sg — Wells Fargo 3Q26</a></li>
+      <li>Filed TTM revenue series (net of interest expense): <a href="https://businessquant.com/metrics/wfc-pa/revenue" target="_blank" rel="noopener">businessquant.com — WFC revenue</a></li>
+      <li>Sector earnings roundup (big-bank Q3 2026, incl. WFC): <a href="https://my-passive-income.eu/big-bank-q3-2026-earnings-jpmorgan-goldman-wells-fargo-citi-bofa/" target="_blank" rel="noopener">my-passive-income.eu — Big-bank Q3 2026 earnings</a></li>
+    </ul>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Wells Fargo (WFC)</h2>
+<p><strong>Price (30 Oct 2026 close): $83.40.</strong> <strong>DCF intrinsic: $90.65.</strong> Discount/premium vs DCF: <strong>-8.0%</strong> — i.e. the shares are trading 8.0% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$90.65</td><td>-8.0%</td><td>Base Distributable proxy: EPS $7.55 x 3.002bn = $22.66bn, x 0.816 (1 - g/ROTCE; ROTCE 16.3% Q3 2026 reported, g 3%). Bank OCF NOT used. Growth g 3%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $131.12bn + PV of terminal value $141.00bn + net cash / excess capital $0.00bn, ÷ 3.002bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/WFC/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Wells Fargo (WFC)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No single customer exceeds a disclosed 10% concentration for Wells Fargo, and no ranked top-7 is disclosed — none is invented here. Revenue spans consumer banking households, commercial clients, corporate and investment banking, and wealth clients, with 150+ new financial centres planned by end-2027 (pack). The customer base is therefore a broad US consumer and commercial franchise, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: with no concentrated named customer, the thesis applies at franchise level — if Wells Fargo’s commercial and consumer clients are broadly undervalued, that supports loan growth and fee income, and vice versa — but an undervalued client does not guarantee higher borrowing or spending with Wells Fargo, which depends on that client’s own priorities and cash position.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Wells Fargo (WFC)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Wells Fargo’s exposure is indirect: commercial lending to AI suppliers and data-centre-adjacent borrowers, plus internal AI use for efficiency, but the pack’s thesis is a broad US consumer and commercial franchise, branch expansion and cost discipline — not AI revenue.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~11x trailing earnings there is no AI premium to lose; an unwind would move Wells Fargo with the general bank multiple and the credit cycle.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — commercial loan growth and fee income soften; (2) multiple — modest compression from an already low multiple; (3) balance sheet — credit normalisation in commercial and consumer books, plus lingering regulatory scrutiny (pack), matter more than direct AI-capex debt. Triggers to watch: commercial delinquencies, loan growth, and any new regulatory action.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+    <p class="disclaimer">Prepared 1 Nov 2026 from the WFC research pack and its independent verification log; where the two conflicted, the verification log was followed. Prices reference the 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Scenario prices are modelled estimates with assumptions shown, not forecasts or guarantees. This page is research and education for a mid-30s, risk-8/10 profile — it is not personalised investment advice. Verify figures against the linked sources before acting.</p>
+    <p class="tiny">— Blaze · Equity Research series · Financials</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var pv=document.getElementById('pv'), alloc=document.getElementById('alloc'), shares=document.getElementById('shares');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function update(){
+    var v=parseFloat(pv.value);
+    if(isNaN(v)||v<0){alloc.textContent='—';shares.textContent='Enter a portfolio value';return;}
+    var a=v*0.015;
+    alloc.textContent=fmt(a);
+    shares.textContent='≈ '+Math.floor(a/83.40).toLocaleString('en-US')+' shares at $83.40';
+  }
+  pv.addEventListener('input',update);
+  update();
+})();
+</script>
+</body>
+</html>

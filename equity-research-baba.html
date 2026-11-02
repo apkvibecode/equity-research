@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — BABA · Alibaba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,600;0,700;1,600&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f3; --surface:#ffffff; --surface2:#f0ede8; --ink:#171512; --muted:#6b6560; --line:#ddd8d0;
+  --accent:#e85d04; --accent-soft:#fff1e6; --teal:#0f766e; --teal-soft:#e6f4f1; --red:#b42318; --red-soft:#fef3f2; --amber:#b54708; --amber-soft:#fffaeb;
+  --gold:#9a6b1a;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121110; --surface:#1c1a18; --surface2:#262320; --ink:#f2efe9; --muted:#a8a099; --line:#33302c; --accent:#ff7a29; --accent-soft:#2e1e12; --teal:#2dd4bf; --teal-soft:#0f2e2a; --red:#f97066; --red-soft:#2e1512; --amber:#fdb022; --amber-soft:#2e2408; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.hero{padding:28px 0 8px;border-bottom:3px solid var(--ink)}
+.eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-family:"Spectral",serif;font-size:clamp(38px,6vw,58px);line-height:.95;margin:10px 0 6px;letter-spacing:-.02em}
+h1 span{color:var(--muted);font-weight:600}
+.sub{font-size:18px;color:var(--muted);max-width:680px;margin:0}
+.tickerline{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 18px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:132px;flex:1}
+.stat b{display:block;font-family:"IBM Plex Mono",monospace;font-size:20px;line-height:1.1}
+.stat span{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.stat.down b{color:var(--red)}
+.verdict{display:grid;grid-template-columns:1.3fr .7fr;gap:16px;margin:18px 0}
+@media(max-width:700px){.verdict{grid-template-columns:1fr}}
+.vcard{border-radius:16px;padding:20px}
+.vcard.main{background:var(--ink);color:var(--bg)}
+.vcard.main h3{margin:0 0 6px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+.vcard.main p{margin:0;font-size:17px;line-height:1.5}
+.vcard.alloc{background:var(--accent-soft);border:1px solid var(--line)}
+.vcard.alloc strong{font-family:"Spectral",serif;font-size:42px;line-height:1;display:block}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.04em}
+.pill.hold{background:#fef3c7;color:#92400e}.pill.buy{background:var(--teal-soft);color:var(--teal)}
+@media(prefers-color-scheme:dark){.pill.hold{background:#2e2408;color:var(--amber)}}
+section{padding:28px 0;border-bottom:1px solid var(--line)}
+.sec-head{display:flex;gap:14px;align-items:baseline;margin-bottom:14px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent);font-weight:600}
+h2{font-family:"Spectral",serif;font-size:28px;line-height:1.1;margin:0}
+h3{font-size:16px;margin:20px 0 8px}
+p{margin:0 0 12px} .muted{color:var(--muted)} .small{font-size:13px;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+@media(max-width:700px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h4{margin:0 0 6px;font-size:15px}
+.card p{font-size:14px;color:var(--muted);margin:0}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+th,td{padding:11px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.tablewrap{overflow-x:auto;border-radius:12px}
+.callout{border-radius:12px;padding:14px 16px;font-size:14px;margin:14px 0}
+.callout.warn{background:var(--amber-soft);border:1px solid var(--line)}
+.callout.info{background:var(--teal-soft);border:1px solid var(--line)}
+ul{margin:8px 0 12px;padding-left:20px} li{margin-bottom:6px}
+.tabs{display:flex;gap:8px;margin:16px 0}
+.tabs button{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:999px;font-weight:700;cursor:pointer;font-family:inherit}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.calc label{font-size:13px;font-weight:700;display:block;margin-bottom:6px}
+.calc input[type="number"]{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px;font-family:"IBM Plex Mono",monospace}
+.calc input[type="range"]{width:100%}
+.result{font-family:"IBM Plex Mono",monospace;font-size:15px;background:var(--surface2);border-radius:10px;padding:12px;margin-top:12px}
+.bars{margin:16px 0}
+.bar-row{display:grid;grid-template-columns:92px 1fr 64px;gap:10px;align-items:center;margin-bottom:10px;font-size:13px}
+.bar-track{height:12px;background:var(--surface2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar-fill{height:100%;border-radius:999px}
+.foot{font-size:13px;color:var(--muted)}
+details{border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:var(--surface);margin-top:12px}
+summary{font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Equity Research · Consumer Discretionary</span><span>As of 1 Nov 2026 · Price: 30 Oct 2026 close</span></div>
+
+  <header class="hero">
+    <div class="eyebrow">NYSE: BABA — ADR · China e-commerce &amp; cloud</div>
+    <h1>Alibaba <span>BABA</span></h1>
+    <p class="sub">China's marketplace scale, now priced as a value name while management pivots the growth story to AI and cloud — and returns cash. The question is not whether the core is cheap, but whether cloud and buybacks can outrun regulation, competition, and ADR risk.</p>
+    <div class="tickerline">
+      <div class="stat"><b>$98.04</b><span>Close · 30 Oct</span></div>
+      <div class="stat down"><b>−1.51%</b><span>On the day</span></div>
+      <div class="stat"><b>$243.7B</b><span>Market cap</span></div>
+      <div class="stat"><b>22.11×</b><span>Trailing P/E</span></div>
+      <div class="stat"><b>$5.51</b><span>EPS (Finnhub)</span></div>
+      <div class="stat"><b>~$140B est.</b><span>Revenue — estimate*</span></div>
+    </div>
+    <p class="small">*Revenue is labelled an <strong>estimate</strong> in the verified research pack — it was not re-verified. Do not treat it as a reported figure. Market cap source: FinanceCharts (30 Oct 2026). Price / P/E / EPS: Finnhub via the verification log. Sector ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="vcard main">
+      <h3>Verdict — for a mid-30s investor, risk 8/10</h3>
+      <p><span class="pill hold">SHORT TERM · HOLD</span> &nbsp;<span class="pill buy">LONG TERM · BUY (SELECTIVE)</span></p>
+      <p style="margin-top:10px;opacity:.92">Hold near $98 until cloud acceleration and buyback pace are confirmed in reported results. Long-term, buy selectively as a diversified China / cloud position — not as a core US compounder — because the ADR and regulatory discount can persist even when operations improve.</p>
+    </div>
+    <div class="vcard alloc">
+      <span class="small" style="font-weight:800;letter-spacing:.07em;text-transform:uppercase">Suggested portfolio weight</span>
+      <strong>2%</strong>
+      <p class="small" style="margin:6px 0 0">Of total portfolio, at risk 8/10. Deliberately small: single-country + ADR risk caps the size even though valuation looks undemanding. See calculator in §5.</p>
+    </div>
+  </div>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Business model &amp; segment breakdown</h2></div>
+    <p>Alibaba is a holding-company ecosystem built around commerce, with cloud and logistics monetising the same merchant and consumer base. It is <strong>China-heavy</strong>, expanding internationally — a geographic concentration that explains both the cash generation and the persistent valuation discount.</p>
+    <div class="grid3">
+      <div class="card"><h4>🛒 Core commerce — Taobao &amp; Tmall</h4><p>Marketplace commissions, advertising / customer-management revenue, and direct sales. The profit engine that funds everything else. Efficiency — not just GMV growth — is the current focus.</p></div>
+      <div class="card"><h4>☁️ Alibaba Cloud</h4><p>Cloud infrastructure and AI services. Identified in the pack as the growth engine, growing double-digits (rate not re-verified — treat as directional, not a reported %). This is the pivot investors are paying to see scale.</p></div>
+      <div class="card"><h4>🌏 International commerce</h4><p>AliExpress, Lazada, and Trendyol. Competes directly with Amazon and Temu outside China; higher growth potential, lower certainty than domestic commerce.</p></div>
+      <div class="card"><h4>🚚 Cainiao — logistics</h4><p>Warehousing and delivery network supporting commerce at home and cross-border. A dependency and a moat: fulfilment quality underpins conversion.</p></div>
+      <div class="card"><h4>📍 Local services</h4><p>Local consumer services tied to the app ecosystem. Strategically useful for frequency, not yet the valuation driver.</p></div>
+      <div class="card"><h4>💳 Ecosystem dependencies</h4><p>Payments adjacency, logistics, and cloud are interdependent. Disruption in any one — regulation, merchant churn, or cloud competition — transmits to the others.</p></div>
+    </div>
+    <div class="callout info"><strong>Structural pivot (per pack):</strong> AI / cloud as the growth engine, e-commerce run for efficiency, and shareholder returns (buybacks + dividend) now material. That is a shift from “grow every segment” to “fund cloud from commerce cash, return the rest.” Verify the buyback pace each quarter — it is part of the thesis, not a side note.</div>
+    <p class="small">No segment revenue split is published here: the verified pack does not carry a confirmed segment % breakdown for BABA, so none is invented. When segment figures are needed, use Alibaba's filed segment disclosure directly.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Financial health &amp; balance sheet diagnostics</h2></div>
+    <div class="tablewrap"><table>
+      <tr><th>Metric</th><th class="num">Value</th><th>Source / status</th></tr>
+      <tr><td>Share price (30 Oct 2026 close)</td><td class="num">$98.04</td><td>Finnhub — confirmed in verification log</td></tr>
+      <tr><td>Market capitalisation</td><td class="num">$243.70B</td><td>FinanceCharts — confirmed ($243.701B)</td></tr>
+      <tr><td>Trailing P/E</td><td class="num">22.11×</td><td>Finnhub (pack)</td></tr>
+      <tr><td>EPS</td><td class="num">$5.51</td><td>Finnhub (pack) — note: $98.04 ÷ $5.51 ≈ 17.8× on simple division; the 22.11× P/E uses the vendor's own EPS basis. Do not mix vendors — the log makes the same warning for NFLX/TSLA.</td></tr>
+      <tr><td>Revenue</td><td class="num">~$140B</td><td><strong>ESTIMATE — not re-verified.</strong> Used only as the modelled base in §5.</td></tr>
+      <tr><td>Implied shares (cap ÷ price)</td><td class="num">~2.49B</td><td>Derived in the pack's model — a modelling input, not a filed share count</td></tr>
+      <tr><td>Net cash / leverage</td><td class="num">—</td><td>Pack: “large net cash historically.” No current verified figure supplied, so no number is printed here.</td></tr>
+      <tr><td>Capital allocation</td><td class="num">—</td><td>Pack: buybacks + dividend “now material.” No verified $ amount supplied — check the latest filing for pace before sizing up.</td></tr>
+    </table></div>
+    <h3>How to read this</h3>
+    <p>At 22.11× trailing earnings BABA does not screen as distressed-cheap or as a growth premium — it screens as a mature cash generator with a China discount. The investment case therefore cannot rest on multiple expansion alone. It needs (a) cloud revenue compounding, (b) buybacks shrinking the share count (the 5-year model assumes 2.49B → 2.40B in base, 2.35B in bull), and (c) no new regulatory shock. If buybacks stall, the base-case maths in §5 weakens mechanically.</p>
+    <div class="callout warn"><strong>What is deliberately missing:</strong> P/S, EV/EBITDA, free cash flow, and debt-to-equity are <em>not</em> shown because the verified pack does not carry confirmed values for BABA. Publishing invented multiples would be worse than leaving the gap visible. Those should be pulled from the latest 20-F / earnings release before any trade.</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive moat &amp; industry positioning</h2></div>
+    <div class="grid2">
+      <div class="card"><h4>What protects it</h4><ul><li><strong>Marketplace scale:</strong> Taobao/Tmall network effects — merchants go where buyers are.</li><li><strong>Logistics + payments adjacency:</strong> Cainiao fulfilment and the broader ecosystem raise switching costs.</li><li><strong>Cloud scale in China:</strong> One of the few domestic providers able to fund AI infrastructure at scale.</li></ul></div>
+      <div class="card"><h4>Where it is contested</h4><ul><li><strong>JD</strong> — direct retail / logistics rival.</li><li><strong>Pinduoduo / Temu (PDD)</strong> — price-led competition at home and abroad; the pack's named pressure.</li><li><strong>Tencent &amp; ByteDance / Douyin commerce</strong> — attention and social commerce.</li><li><strong>Amazon</strong> — internationally.</li></ul></div>
+    </div>
+    <p>Pricing power is <strong>segment-dependent</strong>: strong where Alibaba controls discovery and fulfilment, weak where PDD competes purely on price and Douyin controls attention. The moat is real but not unassailable — and it does not protect against the non-competitive risks in §4 (regulation, ADR status), which is why position size stays at 2% despite the scale.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; downside risks</h2></div>
+    <div class="grid2">
+      <div class="card"><h4 style="color:var(--teal)">▲ Catalysts</h4><ul><li>Cloud / AI acceleration — re-rating if double-digit growth sustains and monetises</li><li>International commerce scaling (AliExpress / Trendyol)</li><li>Buybacks + dividend — visible cash return supporting the share count maths in §5</li><li>E-commerce efficiency gains lifting margins without heroic growth</li></ul></div>
+      <div class="card"><h4 style="color:var(--red)">▼ Risks</h4><ul><li><strong>China regulation</strong> — platform, data, and antitrust action can reprice the stock overnight</li><li><strong>Consumer weakness</strong> in China — hits core commerce first</li><li><strong>US–China / ADR risk</strong> — listing, audit, and geopolitical overhang specific to the ADR</li><li><strong>Competition from PDD</strong> and Douyin commerce compressing take rates</li></ul></div>
+    </div>
+    <p class="small">Risk note for sizing: these risks are correlated. A regulatory or geopolitical shock would likely hit price, multiple, and sentiment together — diversification inside China equities does not diversify this exposure.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Scenario valuation &amp; price targets</h2></div>
+    <p class="muted">All targets below are <strong>modelled estimates</strong> from the research pack — never verified facts. Methodology is shown so the arithmetic can be checked. Base revenue ($140B) is itself an estimate.</p>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" id="tab-near" onclick="showHorizon('near')">12–18 months</button>
+      <button role="tab" aria-selected="false" id="tab-five" onclick="showHorizon('five')">5-year projection</button>
+    </div>
+
+    <div id="panel-near">
+      <div class="tablewrap"><table>
+        <tr><th>Case</th><th class="num">Target</th><th class="num">vs $98.04</th><th>Reading</th></tr>
+        <tr><td><strong>Bear</strong></td><td class="num">$80</td><td class="num">−18%</td><td>Regulation / consumer softness dominates; no re-rating</td></tr>
+        <tr><td><strong>Base</strong></td><td class="num">$125</td><td class="num">+27%</td><td>Cloud grows, buybacks continue, discount narrows modestly</td></tr>
+        <tr><td><strong>Bull</strong></td><td class="num">$165</td><td class="num">+68%</td><td>Cloud/AI re-rating + international traction</td></tr>
+      </table></div>
+      <p class="small">Pack-supplied 12–18-month range. No weights were supplied for this horizon, so no weighted 12–18-month price is printed.</p>
+    </div>
+
+    <div id="panel-five" hidden>
+      <div class="tablewrap"><table>
+        <tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 rev</th><th class="num">Net margin</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+        <tr><td><strong>Base (50%)</strong></td><td class="num">8%</td><td class="num">$206B</td><td class="num">15%</td><td class="num">$12.88</td><td class="num">14×</td><td class="num"><strong>$180</strong></td></tr>
+        <tr><td><strong>Bull (25%)</strong></td><td class="num">13%</td><td class="num">$259B</td><td class="num">19%</td><td class="num">$20.90</td><td class="num">18×</td><td class="num"><strong>$377</strong></td></tr>
+        <tr><td><strong>Bear (25%)</strong></td><td class="num">2%</td><td class="num">$155B</td><td class="num">10%</td><td class="num">$6.22</td><td class="num">9×</td><td class="num"><strong>$56</strong></td></tr>
+      </table></div>
+      <p><strong>Probability-weighted 5-year price (modelled): $198</strong> — check: 0.50×$180 + 0.25×$377 + 0.25×$56 = $90 + $94.25 + $14 = <strong>$198.25 ≈ $198</strong>. Shares assumed: base 2.40B, bull 2.35B, bear 2.49B (buybacks shrink the count in base/bull only). Starting point: 2026E revenue $140B <em>estimate</em>, 2.49B shares.</p>
+      <div class="bars" aria-label="Scenario prices compared with current price">
+        <div class="bar-row"><span>Bear $56</span><div class="bar-track"><div class="bar-fill" style="width:15%;background:var(--red)"></div></div><span>−43%</span></div>
+        <div class="bar-row"><span>Today $98</span><div class="bar-track"><div class="bar-fill" style="width:26%;background:var(--muted)"></div></div><span>—</span></div>
+        <div class="bar-row"><span>Base $180</span><div class="bar-track"><div class="bar-fill" style="width:48%;background:var(--ink)"></div></div><span>+84%</span></div>
+        <div class="bar-row"><span>Weighted $198</span><div class="bar-track"><div class="bar-fill" style="width:53%;background:var(--teal)"></div></div><span>+102%</span></div>
+        <div class="bar-row"><span>Bull $377</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--accent)"></div></div><span>+285%</span></div>
+      </div>
+      <p class="small">The width of this range ($56–$377) is the honest story: BABA's 5-year outcome is dominated by whether the China/ADR discount narrows (bull) or widens (bear), not by small differences in commerce growth.</p>
+    </div>
+
+    <h3>Position-size calculator</h3>
+    <div class="calc">
+      <div class="grid2">
+        <div><label for="pf">Total portfolio ($)</label><input type="number" id="pf" value="250000" min="0" step="1000" oninput="calc()"></div>
+        <div><label for="alloc">BABA allocation — suggested 2% (<span id="allocVal">2.0</span>%)</label><input type="range" id="alloc" min="0" max="6" step="0.5" value="2" oninput="calc()"></div>
+      </div>
+      <div class="result" id="calcOut"></div>
+      <p class="small" style="margin:8px 0 0">Illustrative only, at $98.04. It does not account for ADR fees, FX, or tax.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Comparative context &amp; sector note</h2></div>
+    <div class="tablewrap"><table>
+      <tr><th>Ticker</th><th>Company</th><th class="num">Price</th><th class="num">Cap</th><th>Note</th></tr>
+      <tr><td><strong>BABA</strong></td><td>Alibaba</td><td class="num">$98.04</td><td class="num">$243.7B</td><td>This report — Consumer Discretionary (FinanceCharts classification in the pack)</td></tr>
+      <tr><td>AMZN</td><td>Amazon</td><td class="num">$240.35</td><td class="num">$2.59T</td><td>Sector peer &amp; international-commerce rival — see its own artifact</td></tr>
+      <tr><td>TSLA</td><td>Tesla</td><td class="num">$399.81</td><td class="num">$1.58T</td><td>Sector peer — see its own artifact</td></tr>
+      <tr><td>HD</td><td>Home Depot</td><td class="num">$329.20</td><td class="num">$328.4B</td><td>Sector peer — see its own artifact</td></tr>
+    </table></div>
+    <p class="small" style="margin-top:10px"><strong>Ranking footnote (required):</strong> The Consumer Discretionary top-10 cutoff is a <strong>source-dependent tie</strong>. FinanceCharts (30 Oct 2026) ranks SONY #10 ($148.38B) and HESAY #11 ($148.079B), while StockAnalysis puts HESAY at $151.28B above SONY. Both are included in the sector set (top 11) and HESAY must not be presented as an unambiguous #10. BABA's own position is not affected by that tie. BABA is a foreign ADR — prices are the US ADR line.</p>
+    <details><summary>Verification &amp; sources</summary>
+      <p class="small" style="margin-top:8px">Independent verification log (1 Nov 2026) confirmed: BABA market cap $243.701B (FinanceCharts). Price $98.04, −1.51% on 30 Oct: <a href="https://finnhub.io/?q=%22BABA%22">Finnhub — BABA</a> (URL as carried in the pack). Sector caps / ranking: <a href="https://www.financecharts.com/sectors/consumer_discretionary">FinanceCharts — Consumer Discretionary</a>. Revenue (~$140B) and all scenario prices are <strong>modelled estimates</strong> — labelled as such wherever they appear, per the coordinator correction that every modelled target must show its assumptions or weights. No value in this artifact comes from outside the verified pack and its verification log.</p>
+    </details>
+    <p class="foot" style="margin-top:16px">Research views only, not guarantees, not investment advice. As of 1 Nov 2026; price reference is the 30 Oct 2026 close (1 Nov was a weekend). For a mid-30s investor, risk score 8/10, as framed in the research pack. Past modelled scenarios are not predictions — re-check filed financials, buyback pace, and regulatory developments before acting.</p>
+  </section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — BABA (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $98.04.</strong> <strong>DCF intrinsic: $85.26.</strong> Discount/premium vs DCF: <strong>+15.0%</strong> — i.e. the shares are trading 15.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$85.26</td><td>+15.0%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $12.0bn. NORMALISED, HIGHLY UNCERTAIN: reported TTM FCF was negative (~-RMB 83bn, Walnut, on AI/quick-commerce spend). A negative base cannot be projected, so $12.0bn is used — roughly the prior-year FCF level (TipRanks table: ~RMB 78bn ≈ $11bn). This is a normalisation assumption, not a reported TTM figure. Growth g = 8% constant for years 1–10; discount rate r = 12% (high-risk 12% (China/ADR/VIE risk)); terminal growth 3%. PV of projected FCF $98.78bn + PV of terminal value $95.46bn + net cash $17.89bn, divided by 2.488bn diluted shares = <strong>$85.26</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://walnutinvest.com/stocks/baba/is-it-a-buy-or-sell</li><li>~$1.05 per ADS annually (Walnut; $1.05 paid 11 Jun 2026, Kinfo). Note: Kinfo forward rate $4.20 is inconsistent with the paid $1.05 and is not used.</li><li>https://kinfo.com/asset/BABA.US.USD</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — BABA (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>Taobao / Tmall merchants — Chinese domestic sellers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Alibaba Cloud enterprise customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>International merchants — AliExpress / Lazada / Trendyol sellers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Cainiao logistics customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Local-services merchants — food delivery and services partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Advertisers on Alibaba properties (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Consumers buying on the marketplaces (fragmented; shown for completeness)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr></tbody></table><p><strong>Read-through.</strong> Alibaba discloses no single merchant or Cloud customer above 10% of revenue, so the read-through is aggregate: if its merchant and Cloud-customer base were broadly trading at a discount to intrinsic, that would be a potential tailwind for commissions, advertising and Cloud spend, and broad cash pressure would be the reverse. But an undervalued customer does not guarantee higher spending, which depends on each merchant's own priorities and cash position, and for Alibaba the larger swing factor is Chinese consumer demand behind those merchants, not any one merchant's valuation.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — BABA</h2>
+<p><strong>Role: Beneficiary.</strong> Alibaba is an AI beneficiary through Cloud Intelligence (Qwen models) and AI-driven e-commerce efficiency: the pack's pivot is AI/cloud as the growth engine, funded — painfully — by the core marketplace, with TTM FCF turned negative on AI and quick-commerce spend.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through Cloud AI workloads and better marketplace conversion; the multiple is supported by the market treating Alibaba as a cheaper AI/cloud re-rating story (forward P/E ~12x in the pack's data).</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in Cloud AI orders and in quick-commerce spending that no longer pays; then the multiple compresses toward a slower-growth China e-commerce multiple; then the balance sheet — cash $57.9bn against debt $40.0bn — is a cushion, but the cash-burn pace is the constraint. Watch: Cloud growth, FCF returning to positive, and any China regulatory or VIE pressure.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+</div>
+<script>
+function showHorizon(h){
+  var near = h==='near';
+  document.getElementById('panel-near').hidden = !near;
+  document.getElementById('panel-five').hidden = near;
+  document.getElementById('tab-near').setAttribute('aria-selected', near?'true':'false');
+  document.getElementById('tab-five').setAttribute('aria-selected', near?'false':'true');
+}
+function calc(){
+  var pf = parseFloat(document.getElementById('pf').value)||0;
+  var a = parseFloat(document.getElementById('alloc').value)||0;
+  document.getElementById('allocVal').textContent = a.toFixed(1);
+  var dollars = pf * a/100;
+  var shares = dollars>0 ? dollars/98.04 : 0;
+  document.getElementById('calcOut').textContent = 'Position: $' + dollars.toLocaleString('en-US',{maximumFractionDigits:0}) + '  ·  ≈ ' + shares.toFixed(1) + ' shares at $98.04  ·  ' + a.toFixed(1) + '% of $' + pf.toLocaleString('en-US');
+}
+calc();
+</script>
+</body>
+</html>

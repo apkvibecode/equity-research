@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:, "/>
+<title>Equity Research — BTI | British American Tobacco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface2:#f0ede6; --ink:#1a1a18; --muted:#6b6a65; --line:#e2ddd2;
+  --accent:#8a5a1f; --accent2:#1e3a2f; --green:#1e6b4a; --red:#9e2b25; --amber:#8a5a1f; --chip:#ece8dd;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#121210; --surface:#1c1c19; --surface2:#23231f; --ink:#ece9e1; --muted:#a3a098; --line:#33322c; --chip:#2a2a24; --accent:#d4a35a; --accent2:#8fc0a8; }
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:960px;margin:0 auto;padding:20px 18px 56px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.topbar span{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pill{font-size:12px;background:var(--chip);padding:6px 10px;border-radius:999px;font-weight:600}
+.hero{padding:28px 0 8px}
+.hero h1{font-family:"IBM Plex Serif",serif;font-size:42px;line-height:.95;margin:0;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero-sub{margin-top:10px;font-size:18px;line-height:1.4;color:var(--muted);max-width:640px}
+.hero-sub strong{color:var(--ink)}
+.tickerline{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px;align-items:center}
+.verdict{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin:18px 0}
+@media(max-width:700px){.verdict{grid-template-columns:1fr}.hero h1{font-size:34px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 8px;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.bigprice{font-family:"IBM Plex Serif",serif;font-size:38px;line-height:1}
+.meta{font-size:13px;color:var(--muted);margin-top:6px}
+.holdbox{display:flex;gap:12px}
+.holditem{flex:1;background:var(--surface2);border-radius:10px;padding:12px;text-align:center}
+.holditem b{display:block;font-size:18px}
+.holditem span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+@media(max-width:700px){.metrics{grid-template-columns:repeat(2,1fr)}}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.metric label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.metric div{font-size:20px;font-weight:700;margin-top:4px;font-family:"IBM Plex Mono",monospace}
+.metric p{margin:2px 0 0;font-size:12px;color:var(--muted)}
+nav.toc{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
+nav.toc a{font-size:13px;font-weight:600;background:var(--surface);border:1px solid var(--line);padding:7px 11px;border-radius:999px;color:var(--ink)}
+section{margin:28px 0} section h2{font-family:"IBM Plex Serif",serif;font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+section h2 span{color:var(--accent);font-size:14px;font-family:"IBM Plex Sans",sans-serif;vertical-align:super;margin-right:6px}
+.lede{color:var(--muted);font-size:15px;margin-bottom:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+ul{margin:8px 0 0 18px;padding:0} li{margin:6px 0} li::marker{color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:14px} th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:10px 8px;border-bottom:2px solid var(--line)} td{padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top} td:nth-child(n+2){text-align:right;font-family:"IBM Plex Mono",monospace} th:nth-child(n+2){text-align:right}
+.flow{display:flex;align-items:stretch;gap:0;overflow:hidden;border-radius:12px;border:1px solid var(--line);margin:14px 0}
+.flow div{flex:1;padding:14px;background:var(--surface);text-align:center;border-right:1px solid var(--line)} .flow div:last-child{border-right:0;background:var(--accent2);color:#fff}
+.flow b{display:block;font-size:18px;font-family:"IBM Plex Mono",monospace} .flow span{font-size:12px;opacity:.85;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:600px){.flow{flex-direction:column}.flow div{border-right:0;border-bottom:1px solid var(--line)}}
+.note{font-size:13px;background:#fff8e6;border:1px solid #e8d9a8;color:#5c4710;padding:12px 14px;border-radius:10px}
+@media(prefers-color-scheme:dark){.note{background:#2a2412;color:#e8d9a8;border-color:#5c4710}}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.calc{grid-template-columns:1fr}}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px}
+.result{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:700}
+footer{border-top:1px solid var(--line);margin-top:36px;padding-top:18px;font-size:13px;color:var(--muted)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:var(--chip)}
+.tag.green{background:#dff2e6;color:#14532d} .tag.amber{background:#fef3c7;color:#92400e}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Consumer Staples • Equity Research</span><span>As of 1 Nov 2026 • Price ref: 30 Oct 2026 close</span><span class="pill">NYSE: BTI — ADR</span></div>
+
+  <div class="hero">
+    <h1>British American<br>Tobacco <em>BTI</em></h1>
+    <p class="hero-sub"><strong>An income holding, not a growth story.</strong> The investment case rests almost entirely on pricing power in a declining combustibles market, a 5.43% dividend yield, and whether reduced-risk products — led by Vuse — can offset volume decline fast enough. At $61.52* the market is pricing in that tension.</p>
+    <div class="tickerline"><span class="tag amber">Verification: Pack figures — see note*</span><span style="font-size:13px;color:var(--muted)">Ranking basis: FinanceCharts, last updated 30 Oct 2026. WMT is #1 in Consumer Staples.</span></div>
+  </div>
+
+  <div class="verdict">
+    <div class="card"><h3>Price &amp; Valuation Snapshot *</h3><div class="bigprice">$61.52 <span style="font-size:16px;color:var(--muted)">/ ADR</span></div><p class="meta">Market cap $131.0bn* • Trailing P/E 15.07×* • Dividend yield 5.43% • TTM revenue $34.53bn • Net margin 25.0%</p><p style="font-size:13px;margin-top:10px">* BTI price / cap / P/E were marked <strong>UNVERIFIED</strong> in the independent verification pass for this sector (outside the spot-check scope). They are shown here as research-pack estimates, not as independently verified facts. Forward P/E and exact debt/equity were not verified (n.v.) in the pack and are not presented as facts.</p></div>
+    <div class="card"><h3>Recommendation — Mid-30s, Risk 8/10</h3><div class="holdbox"><div class="holditem"><span>Short term<br>12–18 mo</span><b>HOLD</b></div><div class="holditem"><span>Long term<br>5 years</span><b>HOLD</b><span style="text-transform:none;letter-spacing:0">for income</span></div><div class="holditem"><span>Portfolio<br>weight</span><b>1%</b></div></div><p style="font-size:13px;color:var(--muted);margin-top:10px">Small, defensive income sleeve only. Size is capped because structural volume decline and regulatory risk offset the yield — this is not a core compounder in an 8/10 risk portfolio.</p></div>
+  </div>
+
+  <div class="metrics">
+    <div class="metric"><label>TTM Revenue</label><div>$34.53bn</div><p>Pack figure</p></div>
+    <div class="metric"><label>TTM Net Income</label><div>$8.63bn</div><p>Margin 25.0%</p></div>
+    <div class="metric"><label>Trailing P/E *</label><div>15.07×</div><p>Forward: n.v.</p></div>
+    <div class="metric"><label>Dividend Yield</label><div>5.43%</div><p>≈ $3.34 / ADR implied</p></div>
+  </div>
+
+  <div class="note"><strong>How to read this page:</strong> All modelled scenario prices are <strong>MODELLED ESTIMATES</strong> with methodology and weights shown — never verified facts. Where the pack said “n.v.” (not verified), this page says so rather than inventing a number.</div>
+
+  <nav class="toc"><a href="#business">1 Business</a><a href="#financials">2 Financials</a><a href="#moat">3 Moat</a><a href="#risks">4 Catalysts &amp; Risks</a><a href="#valuation">5 Valuation</a><a href="#portfolio">6 Portfolio Fit</a><a href="#sources">Sources</a></nav>
+
+  <section id="business"><h2><span>01</span>Business Model &amp; Segment Breakdown</h2><p class="lede">Two engines: a cash-generative combustibles business in structural decline, and a reduced-risk portfolio management hopes will replace it.</p>
+  <div class="grid2">
+    <div class="card"><h3>Combustibles — The Cash Engine</h3><ul><li><strong>Brands:</strong> Lucky Strike, Dunhill, Camel, Newport — plus Grizzly in US smokeless</li><li><strong>Economics:</strong> Revenue held up by repeated price increases offsetting falling stick volumes; excise-tax pass-through is central to pricing</li><li><strong>Geography:</strong> Global ex-US focus, with a major US presence via Reynolds</li></ul></div>
+    <div class="card"><h3>Reduced-Risk / New Category</h3><ul><li><strong>Vuse</strong> — described in the pack as the top global vaping brand</li><li><strong>glo</strong> — heated tobacco</li><li><strong>Velo</strong> — nicotine pouches</li><li><strong>Role:</strong> Growth and regulatory hedge; still the smaller part of the mix versus combustibles</li></ul></div>
+  </div>
+  <div class="card" style="margin-top:14px"><h3>Structure, Pivots &amp; Supply Chain</h3><p><strong>Pivot:</strong> Shift from pure combustibles toward reduced-risk — the key structural pivot in the pack. <strong>Supply chain dependencies:</strong> tobacco leaf sourcing, manufacturing footprint, and the ability to pass excise taxes through to consumers without accelerating volume loss. No further segment revenue split was provided in the verified pack, so none is invented here.</p></div>
+  </section>
+
+  <section id="financials"><h2><span>02</span>Financial Health &amp; Balance Sheet Diagnostics</h2><p class="lede">Profitable and cash-return focused, with leverage described in the pack as “high — typical” for the sector. Exact leverage was not verified.</p>
+  <div class="flow"><div><span>Revenue (TTM)</span><b>$34.53bn</b></div><div><span>Net Income (TTM)</span><b>$8.63bn</b></div><div><span>Net Margin</span><b>25.0%</b></div><div><span>Implied Earnings / ADR</span><b>~$4.08</b><span style="text-transform:none;letter-spacing:0;display:block">Price ÷ P/E (modelled)</span></div></div>
+  <div class="card"><table><thead><tr><th>Metric</th><th>Value</th><th>Note</th></tr></thead><tbody>
+  <tr><td>Price (30 Oct close) *</td><td>$61.52</td><td style="text-align:left;font-family:inherit">UNVERIFIED in log</td></tr>
+  <tr><td>Market cap *</td><td>$131.0bn</td><td style="text-align:left;font-family:inherit">UNVERIFIED in log</td></tr>
+  <tr><td>Trailing P/E *</td><td>15.07×</td><td style="text-align:left;font-family:inherit">UNVERIFIED in log</td></tr>
+  <tr><td>Forward P/E</td><td>n.v.</td><td style="text-align:left;font-family:inherit">Not verified — omitted</td></tr>
+  <tr><td>P/S (derived)</td><td>~3.8×</td><td style="text-align:left;font-family:inherit">Cap ÷ TTM revenue, modelled</td></tr>
+  <tr><td>EV/EBITDA</td><td>n.v.</td><td style="text-align:left;font-family:inherit">Not in pack — omitted</td></tr>
+  <tr><td>Debt / Equity</td><td>n.v.</td><td style="text-align:left;font-family:inherit">Pack: “high leverage typical” only</td></tr>
+  <tr><td>Dividend yield</td><td>5.43%</td><td style="text-align:left;font-family:inherit">Dividend is the thesis</td></tr>
+  </tbody></table><p style="font-size:13px;color:var(--muted)"><strong>Capital allocation:</strong> Dividend is primary; buybacks are secondary in the pack’s framing. Free-cash-flow detail beyond TTM net income was not provided in the pack, so no FCF figure is fabricated here. The investment question is sustainability: can pricing + reduced-risk growth fund the dividend while volumes fall?</p></div>
+  </section>
+
+  <section id="moat"><h2><span>03</span>Competitive Moat &amp; Industry Positioning</h2>
+  <div class="grid2"><div class="card"><h3>Where the moat is real</h3><ul><li><strong>Brand scale</strong> — global portfolio across price tiers</li><li><strong>Distribution</strong> — entrenched retail reach, especially via Reynolds in the US</li><li><strong>Pricing power</strong> — historically able to raise prices in declining volumes</li><li><strong>Vuse leadership</strong> — leading position in vaping gives a credible reduced-risk bridge</li></ul></div>
+  <div class="card"><h3>Where it is fragile</h3><ul><li>Moat protects cash flow, not growth — category volumes are in decline</li><li>Regulation can impair the moat overnight (flavour / menthol rules, plain packaging, tax)</li><li>ESG exclusion by many funds limits the buyer base and can keep the multiple low</li><li>Illicit trade and FX translation (global ex-US earnings) pressure reported results</li></ul><p style="font-size:13px;color:var(--muted)">Pack positioning: brand scale + distribution + pricing power + Vuse leadership. No market-share percentages were verified in the pack, so none are quoted.</p></div></div>
+  </section>
+
+  <section id="risks"><h2><span>04</span>Catalysts &amp; Downside Risks</h2>
+  <div class="grid2"><div class="card"><h3 style="color:var(--green)">Catalysts</h3><ul><li>Reduced-risk growth — Vuse / glo / Velo scaling faster than combustibles decline</li><li>Continued pricing in combustibles without volume acceleration to the downside</li><li>Cash return — dividend maintained / grown and buybacks as secondary support</li></ul></div>
+  <div class="card"><h3 style="color:var(--red)">Risks</h3><ul><li><strong>Regulation &amp; tax:</strong> excise rises, marketing restrictions</li><li><strong>Menthol bans</strong> — direct hit to Newport / US combustibles</li><li><strong>Litigation</strong> — ongoing tobacco liability overhang</li><li><strong>Volume decline</strong> accelerating beyond pricing power</li><li><strong>FX</strong> — global earnings translated back to reporting currency</li><li><strong>ESG / financing:</strong> higher cost of capital, excluded mandates</li></ul></div></div>
+  </section>
+
+  <section id="valuation"><h2><span>05</span>Scenario-Based Valuation &amp; Price Targets</h2><p class="lede">Modelled estimates only. Method in the pack: starting TTM margin 25.0% and trailing P/E 15.07×, varying revenue growth, margin and exit P/E over 5 years. Weights shown so the weighted figure can be checked.</p>
+  <div class="card"><table><thead><tr><th>5-Year Case</th><th>Weight</th><th>Rev Growth / yr</th><th>Margin</th><th>Exit P/E</th><th>Price</th><th>vs $61.52</th></tr></thead><tbody>
+  <tr><td><strong>Bull</strong></td><td>25%</td><td>+4%</td><td>27%</td><td>18×</td><td>$97</td><td style="color:var(--green)">+58%</td></tr>
+  <tr><td><strong>Base</strong></td><td>50%</td><td>+2%</td><td>25.0%</td><td>15.07×</td><td>$69</td><td style="color:var(--green)">+12%</td></tr>
+  <tr><td><strong>Bear</strong></td><td>25%</td><td>−1%</td><td>22%</td><td>12×</td><td>$43</td><td style="color:var(--red)">−30%</td></tr>
+  <tr><td colspan="5"><strong>Probability-weighted (0.25×97 + 0.50×69 + 0.25×43 = $69.50 → $70 rounded)</strong></td><td><strong>$70</strong></td><td><strong>+14%</strong></td></tr>
+  </tbody></table>
+  <p style="font-size:13px;color:var(--muted)">Check: 24.25 + 34.50 + 10.75 = 69.50. The pack rounds the weighted value to <strong>$70</strong>. This excludes dividends — with a 5.43% yield, total return in the base case would be materially higher than price return alone if the dividend is maintained, which is precisely the income thesis and its risk.</p></div>
+  <div class="grid2" style="margin-top:14px"><div class="card"><h3>12–18 Month Horizon</h3><p style="font-size:28px;font-family:'IBM Plex Serif',serif;margin:4px 0">Base target: $68</p><p style="font-size:13px;color:var(--muted)">+11% price upside from $61.52 per pack (68 ÷ 61.52 − 1 = +10.5%, rounded to +11% in pack). Plus ~5.4% yield if held for a full year and dividend maintained — the bulk of expected 12–18m return is income, not re-rating.</p></div>
+  <div class="card"><h3>What has to go right / wrong</h3><p style="font-size:14px"><strong>Bull ($97)</strong> needs 4% growth, margin expansion to 27% and a re-rating to 18× — i.e. the market deciding reduced-risk has fixed the growth problem.<br><strong>Bear ($43)</strong> is −1% growth, margin compression to 22% and de-rating to 12× — regulation or a menthol ban accelerating decline.</p></div></div>
+  </section>
+
+  <section id="portfolio"><h2><span>06</span>Recommendation &amp; Portfolio Allocation Framework</h2>
+  <div class="card"><p><strong>Short term (12–18m): HOLD.</strong> No catalyst in the pack justifies chasing; collect the yield if you already own it. <strong>Long term (5yr): HOLD for income.</strong> Weighted modelled price $70 is only +14% over 5 years on price alone — return depends on dividends being sustained, not on capital appreciation. That is why the pack sizes it at just <strong>1%</strong> even for a risk-8/10 investor in their mid-30s: it is a defensive income diversifier inside Consumer Staples, not a growth core alongside names like NVDA or META.</p>
+  <div class="calc" style="margin-top:14px"><div><label style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Your portfolio value ($)</label><input id="pf" type="number" value="250000" min="0" step="1000"><p style="font-size:13px;color:var(--muted)">At the pack’s 1% target weight for BTI.</p></div><div style="background:var(--surface2);border-radius:10px;padding:14px"><div style="font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700">Target position</div><div class="result" id="amt">$2,500</div><div id="shares" style="font-size:14px;color:var(--muted)">≈ 41 shares at $61.52*</div><div style="font-size:13px;margin-top:6px">Implied annual dividend at 5.43%: <strong id="divy">$136</strong> — if maintained.</div></div></div></div>
+
+  <div class="card" style="margin-top:14px"><h3>Comparative Matrix — BTI in Staples Context</h3><table><thead><tr><th>Ticker</th><th>Price *</th><th>Cap *</th><th>Trail P/E *</th><th>Yield</th><th>TTM Rev</th><th>Margin</th><th>5-Yr Wtd. *</th><th>Rec.</th></tr></thead><tbody><tr><td><strong>BTI</strong></td><td>$61.52</td><td>$131.0bn</td><td>15.07×</td><td>5.43%</td><td>$34.53bn</td><td>25.0%</td><td>$70 †</td><td>Hold / 1%</td></tr></tbody></table><p style="font-size:12px;color:var(--muted)">† Modelled estimate, weights shown in §5. Full cross-sector matrix lives in the index artifact; this page shows BTI’s own row only, to avoid copying unverified peer figures into a single-stock report. * BTI price/cap/P/E marked UNVERIFIED in the sector log.</p></div>
+  </section>
+
+  <section id="sources"><h2>Sources &amp; Verification Note</h2><div class="card"><ul>
+  <li>Research pack for BTI — Consumer Staples sector, FinanceCharts ranking (last updated 30 Oct 2026) via pack sources: <em>The Motley Fool</em>; FinanceCharts staples table</li>
+  <li>Finnhub lookup referenced in pack: <a href="https://finnhub.io/?q=%22BTI%22" target="_blank" rel="noopener">finnhub.io — BTI</a></li>
+  <li>Independent verification log — Financials &amp; Consumer Staples (price reference 30 Oct 2026, as of 1 Nov 2026): BTI price/cap/P/E listed as <strong>UNVERIFIED — not re-verified in this pass (outside item 6 scope)</strong>. This page labels them accordingly and shows no forward P/E, EV/EBITDA or debt/equity as fact where the pack said n.v.</li>
+  </ul><p style="font-size:13px;color:var(--muted)">This report is research views only, not guarantees and not investment advice — per the research pack header. Prices are the 30 Oct 2026 regular-session close reference (1 Nov 2026 was a weekend).</p></div></section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — British American Tobacco (BTI)</h2>
+<p><strong>Price (30 Oct 2026 close): $61.52.</strong> <strong>DCF intrinsic: $18.98.</strong> Discount/premium vs DCF: <strong>+224.1%</strong> — i.e. the shares are trading 224.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$18.98</td><td>+224.1%</td><td>Base Normal DCF: FCF derived as FCF/share $2.49 (TipRanks) x 2.155bn shares = $5.37bn - DERIVED, not a directly filed TTM figure; flag as estimate. Net cash = cash $2.53bn - debt $35.06bn = -$32.53bn. BTI price/cap UNVERIFIED in v1 log - see NOTES. Growth g 2%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $36.29bn + PV of terminal value $37.14bn + net cash / excess capital $-32.53bn, ÷ 2.155bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/BTI/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — British American Tobacco (BTI)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list. Demand is driven by combustible pricing in declining volumes, and the pace of conversion to vapour, heated tobacco and modern oral products (Vuse, glo, Velo). BTI price/cap are UNVERIFIED in the v1 log — see NOTES.md.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — British American Tobacco (BTI)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, British American Tobacco’s exposure is operational at best: AI can help manufacturing and commercial analytics, but the pack’s thesis is combustible pricing plus conversion to vapour, heated tobacco and modern oral products — not AI. BTI price/cap are UNVERIFIED in the v1 log.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~15x trailing earnings there is no AI premium to strip; an unwind would affect BTI mainly through general sentiment and sterling/dollar moves.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — nicotine demand is largely unrelated to AI capex; (2) multiple — limited compression; (3) balance sheet — net debt of $32.53bn against ~$5.37bn derived free cash flow is the constraint, alongside tobacco litigation and regulation — not AI-capex debt. Triggers to watch: new-category revenue growth, combustible volume declines, and any adverse litigation or regulatory outcome.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>Equity Research — BTI • Consumer Staples • Prepared 1 Nov 2026 from the verified research pack. Modelled targets are estimates with assumptions shown. Past yield is not a promise of future dividends; tobacco regulation and volume decline can impair both price and payout.</footer>
+</div>
+<script>
+function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0})}
+function recalc(){var v=parseFloat(document.getElementById('pf').value)||0;var amt=v*0.01;document.getElementById('amt').textContent='$'+fmt(amt);document.getElementById('shares').textContent='≈ '+fmt(amt/61.52)+' shares at $61.52*';document.getElementById('divy').textContent='$'+fmt(amt*0.0543);}
+document.getElementById('pf').addEventListener('input',recalc);recalc();
+</script>
+</body>
+</html>

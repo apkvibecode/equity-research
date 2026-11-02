@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MRK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Health Care</span><span>Pharmaceuticals + Animal Health</span></div>
+  <h1>Merck &amp; Co. <span class="tick">(NYSE: MRK)</span></h1>
+  <p class="lede">A strong quarter built almost entirely on one drug — and a known cliff behind it. Q3 2026 beat on Keytruda and Gardasil, yet the investment case is decided by 2028, when Keytruda's key US patents begin expiring. Everything until then — Qlex switching, Winrevair, and the pipeline Merck is buying — is a race to prove life after Keytruda before the market has to price its loss.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $149.52 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026, reported 29 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Sector context">
+    <span class="tab active">MRK — this report</span>
+    <span class="tab">Health Care · US top 10 by market cap</span>
+  </div>
+  <p class="small" style="margin-top:10px">Ranking basis: US-domiciled top 10 only — FinanceCharts global list, last updated 30 Oct 2026, filtered to US-domiciled names. Global ranks differ (Roche, Novartis, Genmab, AstraZeneca sit between US names globally). US top 10: LLY, JNJ, ABBV, MRK, UNH, TMO, AMGN, GILD, ABT, PFE. DHR (11th US) and ISRG (12th US) are reserves, not top-10 members. Prices = 30 Oct 2026 close.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$149.52</div><div class="vsub">Market cap $368.89B</div></div>
+  <div class="vcell span3"><div class="vlabel">Forward P/E — use this, not trailing</div><div class="vbig mono">17.46×</div><div class="vsub">Provider figure (StockAnalysis), as of 30 Oct — see §2. Trailing P/E 151.22× is meaningless on charges.</div></div>
+  <div class="vcell span3"><div class="vlabel">Dividend</div><div class="vbig mono">$3.40 · 2.27%</div><div class="vsub">Buyback yield 1.77% · P/S 5.47× · EV/EBITDA 26.04×</div></div>
+  <div class="vcell span3"><div class="vlabel">Analyst average · 12–18 mo</div><div class="vbig mono">$159.87 <span class="up" style="font-size:16px">+6.9%</span></div><div class="vsub">Modelled base case in §5: $165 (estimate)</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Q3 momentum is real, but do not chase into a known patent cliff without more Qlex proof.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD — sell bias into strength <span class="pill hold">Hold</span></div><div class="vsub">Modelled 5-yr weighted value $115 is below spot — explained in §5, not a base-case forecast.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Deliberately small. Do not overweight into the 2028 cliff.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Revenue flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Merck beat cleanly: <b>revenue $18.085B, +~5% year-over-year</b>, ahead of ~$17.3B consensus, and <b>adjusted EPS $2.49</b> vs ~$2.08 expected (Merck primary release; Reuters coverage, 29 Oct 2026 — independently verified). Two cautions sit inside the beat: about <b>$550m of Q3 sales was purchase / inventory timing expected to unwind in Q4 / 2027</b>, and the full-year EPS guidance needs careful reading — see the warning box in §2 before using it for any multiple.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th class="n">YoY / note</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Total revenue</td><td class="n">$18.085B</td><td class="n">+~5%</td><td>Beat ~$17.3B consensus</td></tr>
+      <tr><td>Adjusted EPS</td><td class="n">$2.49</td><td class="n">Beat ~$2.08</td><td>Clean operating beat in the quarter itself</td></tr>
+      <tr class="hl"><td>Keytruda (incl. Qlex)</td><td class="n">$8.601B</td><td class="n">+6%</td><td>Nearly half of all revenue — concentration is the story</td></tr>
+      <tr><td>Keytruda Qlex (subcutaneous)</td><td class="n">$830m</td><td class="n">From $463m in Q2</td><td>The lifecycle defence is scaling — the key 2028 variable</td></tr>
+      <tr><td>Gardasil</td><td class="n">Just under $2B</td><td class="n">+14%</td><td>Helped by early CDC purchases — partly timing, not pure demand</td></tr>
+      <tr><td>Winrevair</td><td class="n">$694m</td><td class="n">+94%</td><td>Pulmonary arterial hypertension — fastest-growing major line</td></tr>
+      <tr><td>Animal Health</td><td class="n">~$1.68B</td><td class="n">+4%</td><td>Steadier, lower-growth diversifier</td></tr>
+      <tr><td>FY26 guidance (narrowed / raised)</td><td class="n">$66.8–67.3B rev.</td><td class="n">See §2 for EPS</td><td>Revenue guide raised; EPS guide includes $6.05 of one-time charges</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Merck Q3 2026 release (29 Oct 2026) and Reuters coverage linked in Sources. Q3 revenue, Keytruda and guidance figures were independently verified against the primary release.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 revenue flow — where $18.1B came from</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow of Merck Q3 2026 revenue by product" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="22" width="190" height="56" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="44" font-size="13" font-weight="700" fill="var(--ink)">Keytruda + Qlex</text><text x="20" y="62" font-size="12" fill="var(--ink2)">$8.60B · 47.6% · +6%</text>
+      <rect x="8" y="92" width="190" height="48" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="112" font-size="13" font-weight="700" fill="var(--ink)">Gardasil</text><text x="20" y="129" font-size="12" fill="var(--ink2)">Just under $2B · +14%</text>
+      <rect x="8" y="154" width="190" height="48" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="174" font-size="13" font-weight="700" fill="var(--ink)">Animal Health</text><text x="20" y="191" font-size="12" fill="var(--ink2)">~$1.68B · +4%</text>
+      <rect x="8" y="216" width="190" height="48" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="236" font-size="13" font-weight="700" fill="var(--ink)">Winrevair + all other</text><text x="20" y="253" font-size="12" fill="var(--ink2)">Winrevair $0.69B · +94%</text>
+      <rect x="310" y="102" width="180" height="72" fill="var(--navy)"/><text x="326" y="132" font-size="14" font-weight="700" fill="#fff">Total revenue</text><text x="326" y="152" font-size="13" fill="#fff">$18.085B · +~5% YoY</text>
+      <line x1="198" y1="50" x2="306" y2="118" stroke="var(--muted)" stroke-width="14" opacity=".35"/>
+      <line x1="198" y1="116" x2="306" y2="132" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="198" y1="178" x2="306" y2="146" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="198" y1="240" x2="306" y2="158" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <rect x="590" y="36" width="360" height="64" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="606" y="60" font-size="13" font-weight="700" fill="var(--ink)">Timing inside the beat: ~$550m</text><text x="606" y="79" font-size="12" fill="var(--ink2)">Purchase / inventory timing expected to unwind in Q4 / 2027</text>
+      <rect x="590" y="118" width="360" height="64" fill="var(--green-soft)" stroke="var(--line2)"/><text x="606" y="142" font-size="13" font-weight="700" fill="var(--ink)">Qlex switching: $463m (Q2) → $830m (Q3)</text><text x="606" y="161" font-size="12" fill="var(--ink2)">Subcutaneous form is the main defence for the 2028 cliff</text>
+      <rect x="590" y="200" width="360" height="64" fill="var(--red-soft)" stroke="var(--line2)"/><text x="606" y="224" font-size="13" font-weight="700" fill="var(--ink)">The cliff: Keytruda US patents from 2028</text><text x="606" y="243" font-size="12" fill="var(--ink2)">Plus &gt;$2B 2027 generic hit on Bridion / Januvia / Adempas</text>
+    </svg>
+    <figcaption>Product figures are Q3 2026 as reported. “Winrevair + all other” groups the remainder of pharmaceutical revenue with Winrevair for layout; widths are indicative, not to scale. Gardasil is shown as reported — “just under $2B” — not as a precise figure.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Merck is <b>Pharmaceuticals plus Animal Health</b> — but economically it is, today, a Keytruda company with a portfolio being built around it. Keytruda alone was <b>$8.601B of $18.085B</b> in Q3, roughly 48% of revenue. That concentration explains both the quality of current cash flow and the severity of the 2028 question.</p>
+
+  <h3>Revenue architecture — Q3 2026</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">Keytruda (incl. Qlex)</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$8.60B · +6%</span></div>
+    <div class="bar-row"><span class="bl">Gardasil</span><div class="bar-track"><div class="bar-fill" style="width:23%"></div></div><span class="bv">&lt;$2B · +14%</span></div>
+    <div class="bar-row"><span class="bl">Animal Health</span><div class="bar-track"><div class="bar-fill gold" style="width:20%"></div></div><span class="bv">~$1.68B · +4%</span></div>
+    <div class="bar-row"><span class="bl">Winrevair</span><div class="bar-track"><div class="bar-fill green" style="width:8%"></div></div><span class="bv">$0.69B · +94%</span></div>
+  </div>
+  <ul>
+    <li><b>Keytruda / Keytruda Qlex:</b> immuno-oncology leadership is the core revenue stream. Qlex, the subcutaneous formulation, contributed <b>$830m in Q3, up from $463m in Q2</b> — switching patients to Qlex before loss of exclusivity is Merck's central lifecycle defence.</li>
+    <li><b>Gardasil:</b> HPV vaccine franchise, just under $2B in Q3 (+14%), helped by early CDC purchases. Historically, Gardasil has faced weakness in China — a demand risk to keep separate from the Q3 timing benefit.</li>
+    <li><b>Winrevair:</b> $694m, +94% — pulmonary arterial hypertension growth asset and one of the clearest non-Keytruda growth proofs in the current portfolio.</li>
+    <li><b>Animal Health:</b> ~$1.68B (+4%) — steadier and less patent-sensitive than human pharma, but too small to offset a Keytruda decline on its own.</li>
+    <li><b>Other pharma / generics exposure:</b> Bridion, Januvia and Adempas face a <b>&gt;$2B expected hit in 2027</b> from generics — erosion starts before the Keytruda cliff, not after it.</li>
+  </ul>
+
+  <h3>Structural pivots &amp; pipeline building</h3>
+  <ul>
+    <li><b>Terns Pharmaceuticals acquisition completed May 2026 ($6.7B, per Fool)</b> — oncology assets bought explicitly to deepen the post-Keytruda pipeline.</li>
+    <li><b>Emerging portfolio:</b> management says the mid-2030s emerging-portfolio forecast (<b>$70B, January view</b>) will be raised — that claim is the bull case in one line, and it still needs product-level proof.</li>
+    <li><b>Pipeline catalysts in the window:</b> sacituzumab tirumotecan FDA decision expected <b>mid-2027</b>, a PD-1 / VEGF bispecific, and continued Winrevair expansion.</li>
+    <li><b>German Keytruda pressure</b> was noted in coverage as a geographic headwind — a reminder that pricing / access pressure is not only a US patent story.</li>
+  </ul>
+  <p class="small">Geographic distribution beyond the items above was not broken out in the verified research pack for MRK, so no regional revenue split is presented here rather than estimated.</p>
+  <h3>Supply-chain &amp; structural dependencies</h3>
+  <ul>
+    <li><b>Single-product dependency</b> is the dominant “supply chain” risk in economic terms: manufacturing, access and patent protection for one molecule drive nearly half of revenue.</li>
+    <li><b>Formulation dependency:</b> the Qlex switch depends on clinician and payer acceptance of the subcutaneous form before 2028 — adoption pace, not invention, is the bottleneck now.</li>
+    <li><b>Policy dependency:</b> MFN (most-favoured-nation) pricing pressure and tariffs are listed risks in the pack — US drug-pricing policy can move realised prices independently of volume.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Read Merck on <b>normalised</b> numbers, not trailing GAAP. TTM GAAP net income is only <b>$2.45B (3.64% margin)</b> because charges have crushed reported EPS to $0.99 — while FY25, the cleanest normalised anchor in the pack, showed <b>revenue $65.01B, net income $18.25B and a 28.1% net margin</b> (MetaCap summary). The truth for valuation sits with underlying earnings, and §5's model deliberately uses a lower 20% base margin to allow for Keytruda erosion.</p>
+
+  <div class="callout bad"><div class="ct">Do not use the headline FY26 EPS guide as a P/E denominator — verified correction</div>
+  <p>FY26 non-GAAP EPS guidance <b>$2.77–$2.82 includes ~$6.05/share of one-time charges</b>: Cidara $3.62 + Terns $2.31 + SciBrunch $0.12 (Merck primary release, verbatim, independently verified). Ex-charges, underlying FY26 EPS is <b>~$8.82–$8.87 — derived, not a company disclosure</b>. Dividing $149.52 by $2.77–$2.82 gives a meaningless P/E of ~53–54×. The <b>17.46× forward P/E rests on underlying / forward earnings (~$8.56 implied)</b>, not on reported FY26 guidance.</p></div>
+
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price $149.52 (30 Oct 2026 close). TTM figures via StockAnalysis unless noted; forward P/E is a provider figure — the independent verification pass could not re-source the forward P/E dataset to a second provider, so treat it as a provider estimate, not a verified fact.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market cap</td><td class="n">$368.89B</td><td>FinanceCharts basis, 30 Oct 2026 — verified against that source</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">151.22×</td><td><b>Meaningless</b> — TTM EPS only $0.99 on charges. Do not use.</td></tr>
+      <tr class="hl"><td>Forward P/E (provider estimate)</td><td class="n">17.46×</td><td>Implies ~$8.56 EPS — consistent with underlying earnings, not the $2.77–$2.82 reported guide</td></tr>
+      <tr><td>Price / Sales</td><td class="n">5.47×</td><td>On TTM revenue $67.38B</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">26.04×</td><td>Provider figure (StockAnalysis) — elevated vs the forward earnings view because TTM earnings are charge-depressed</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$67.38B</td><td>FY25 revenue $65.01B for comparison</td></tr>
+      <tr><td>Margins — TTM GAAP</td><td class="n">Gross 76.91% · Op. 15.05% · Net 3.64%</td><td>Gross margin shows the underlying pharma economics; net margin shows the charges</td></tr>
+      <tr><td>Margins — FY25 normalised anchor</td><td class="n">Net 28.1%</td><td>Net income $18.25B on $65.01B revenue (MetaCap summary) — cleanest normalised anchor in the pack</td></tr>
+      <tr><td>Free cash flow (TTM)</td><td class="n">$16.06B · 24.13% margin</td><td>Cash generation remains strong despite GAAP earnings distortion</td></tr>
+      <tr><td>Cash / Debt / Net debt</td><td class="n">$7.14B / $53.91B / $46.77B</td><td>Net-debt position — Merck carries real leverage into the cliff years</td></tr>
+      <tr><td>Debt / Equity</td><td class="n">1.28×</td><td>Highest leverage framing in this report: refinancing and cash flow matter more as 2028 approaches</td></tr>
+      <tr><td>Dividend</td><td class="n">$3.40 · 2.27% yield</td><td>Income is a genuine part of the return while you wait</td></tr>
+      <tr><td>Buyback yield</td><td class="n">1.77%</td><td>Modest capital return alongside the dividend</td></tr>
+      <tr><td>R&amp;D</td><td class="n">Not in retrieved sources</td><td>Marked “NV” in the pack — no figure is presented rather than estimated</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Capital allocation read:</b> cash flow is funding three things at once — a 2.27% dividend, buybacks, and pipeline acquisition (Terns, $6.7B, plus the charges behind Cidara / SciBrunch in the EPS guide). That is rational if the acquired pipeline converts; it leaves less room for error because net debt is already $46.77B.</p>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: strong today, time-limited by patent law.</b> Merck's moat is not a network effect — it is regulatory exclusivity, clinical leadership in immuno-oncology, and a vaccine franchise. Those are powerful until the exclusivity clock runs out, which is exactly what 2028 represents for Keytruda.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Keytruda immuno-oncology leadership:</b> the defining PD-1 franchise, still growing +6% at $8.6B in a single quarter — scale and indication breadth competitors must displace, not just match.</li>
+      <li><b>Qlex as a lifecycle defence:</b> a subcutaneous formulation gives Merck a switch strategy — moving the installed base to a form with its own protection before IV Keytruda patents expire.</li>
+      <li><b>Gardasil vaccine franchise:</b> an established preventive franchise with public-health purchasing (CDC) — different demand drivers from oncology.</li>
+      <li><b>Winrevair in PAH:</b> +94% growth shows Merck can still launch / scale a non-oncology growth asset.</li>
+      <li><b>Pricing power while exclusivity lasts:</b> 76.91% TTM gross margin is the financial signature of patent-protected pricing.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Competitors named in the pack:</b> BMS (Opdivo), Roche, AstraZeneca, Pfizer, Regeneron — all with competing oncology / immunology assets.</li>
+      <li><b>Patent expiry is a hard edge:</b> unlike a brand moat, exclusivity ends on a date. Keytruda's key US patents begin expiring in <b>2028</b>.</li>
+      <li><b>Biosimilar / generic mechanics:</b> once exclusivity lapses, price and share erosion can be fast — the model in §5 assumes margin falls from FY25's 28.1% toward 20% (base) or 14% (bear) for this reason.</li>
+      <li><b>Concentration:</b> a moat around one product is still concentration — ~48% of Q3 revenue in Keytruda means the moat and the risk are the same asset.</li>
+    </ul></div>
+  </div>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Qlex switching pace</b> — Q2 $463m → Q3 $830m. Continued acceleration is the single most investable proof point before 2028.</li>
+        <li><b>Winrevair growth</b> — sustaining anything near +94% builds the non-Keytruda revenue base.</li>
+        <li><b>Sacituzumab tirumotecan FDA decision expected mid-2027</b> — a dated, binary pipeline catalyst inside the 12–18-month window.</li>
+        <li><b>PD-1 / VEGF bispecific</b> progress — a next-generation oncology asset that could extend the franchise logic beyond Keytruda itself.</li>
+        <li><b>Terns oncology assets</b> integrating after the May 2026 close.</li>
+        <li><b>Emerging-portfolio forecast raise</b> — management says the $70B mid-2030s view (January) will be raised; delivery would support the bull case.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>The 2028 Keytruda cliff (central risk):</b> key US patents begin expiring in 2028. This is known, dated, and large — the question is offset, not existence.</li>
+        <li><b>2027 generic erosion first:</b> &gt;$2B expected hit from generics on Bridion / Januvia / Adempas in 2027.</li>
+        <li><b>Timing unwind:</b> ~$550m of Q3 sales was purchase / inventory timing expected to unwind in Q4 / 2027; Gardasil's CDC benefit has the same flavour.</li>
+        <li><b>Gardasil China weakness (historical)</b> and <b>German Keytruda pressure</b> — geographic / access headwinds outside the US patent story.</li>
+        <li><b>MFN pricing &amp; tariffs</b> — policy can compress realised US prices independent of demand.</li>
+        <li><b>Leverage into the cliff:</b> $46.77B net debt and 1.28× D/E mean cash-flow disappointment has a balance-sheet amplifier.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Qlex switching stalling while Winrevair and the pipeline fail to scale — leaving 2028 to arrive with Keytruda still near half of revenue and no proven replacement. In that world the §5 bear case (flat revenue, 14% margin, $50 modelled price) stops being a stress case and becomes the base case.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p class="small" style="font-size:13px"><b>All targets and modelled prices in this section are estimates</b> with methodology shown — they are model outputs, not verified facts. The independent verification pass marked forward P/Es, 12–18-month targets and 5-year weighted prices <b>UNVERIFIED as a dataset</b> (no second provider / no supplied weights to recompute), so they are labelled as modelled estimates throughout.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear</div><div class="price mono">$125</div><div class="ret down">−16.4% vs $149.52</div><p>Qlex stalls, 2027 generic hit lands at the top of expectations, and the market starts pricing 2028 erosion early.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base</div><div class="price mono">$165</div><div class="ret up">+10.3% vs $149.52</div><p>Qlex keeps switching, Winrevair compounds, and guidance holds. For reference, the analyst average in the pack is $159.87.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull</div><div class="price mono">$185</div><div class="ret up">+23.7% vs $149.52</div><p>Pipeline proof (bispecific / sacituzumab tirumotecan) plus a raised emerging-portfolio outlook convinces the market the cliff is manageable.</p></div>
+  </div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimate)</h3>
+  <p>Starting point: <b>revenue $67.38B, shares held frozen at 2,470m</b>. Normalised margin is an <b>estimate</b>: base <b>20%</b> — deliberately below FY25's actual 28.1% and well above TTM GAAP's 3.64% — to allow for Keytruda erosion. Only growth, margin and exit P/E vary by case. Weights: <b>Bear 25% / Base 50% / Bull 25%</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Revenue CAGR</th><th class="n">Net margin (est.)</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">Modelled price</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">0%</td><td class="n">14%</td><td class="n">~$67.4B</td><td class="n">~$3.82</td><td class="n">13×</td><td class="n">$50</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">4%</td><td class="n">20%</td><td class="n">$82.0B</td><td class="n">$6.64</td><td class="n">17×</td><td class="n">$113</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">7%</td><td class="n">24%</td><td class="n">~$94.5B</td><td class="n">~$9.18</td><td class="n">20×</td><td class="n">$184</td></tr>
+      <tr class="total"><td>Probability-weighted (0.25×$50 + 0.50×$113 + 0.25×$184)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$115</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Why the 5-year weighted value ($115) sits below today's price ($149.52)</div><p>This is a <b>probability-weighted value including bear cases — not a base-case price forecast</b>. Even the base case ($113) sits below spot because the model forces 2028 Keytruda erosion into margins (20% vs FY25's 28.1%) and growth (4% CAGR). It is the weakest 5-year weighted outcome in the Health Care pack, and it is driven by the 2028 cliff, not by Q3 momentum — Q3 was strong. Read it as: at $149.52, the market is already paying for a smoother post-Keytruda transition than this deliberately cautious model assumes.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Research views only — not guarantees, not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> The pack's short-term call is HOLD / BUY (hold) — Q3 momentum and a $165 modelled base target support holding, but the $550m timing unwind and 2027 generic hit argue against adding aggressively here. Add only on Qlex-switching proof, not on headline beats.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold — sell bias</span></td><td><b>Hold with a sell bias into strength.</b> The pack's long-term call is SELL / HOLD. With a modelled weighted value of $115 below spot, strength toward the $165–185 modelled range is a trimming opportunity unless Qlex / bispecific evidence changes the 2028 maths.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Review</span></td><td>Upgrade the stance only on sustained Qlex acceleration + Winrevair scale + a concrete raised emerging-portfolio outlook. Downgrade on Qlex stall, a larger 2027 generic hit, or MFN pricing that cuts realised Keytruda prices.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>MRK target: 1.5% of total portfolio</b> — the pack's suggested sizing, and deliberately the kind of weight that lets you hold through the story without the 2028 cliff dominating portfolio outcomes.</li>
+    <li><b>Do not overweight</b> into a known 2028 cliff without Qlex / bispecific proof — that sentence is the sizing rule, not a footnote.</li>
+    <li>Within Health Care, MRK is a <b>value-and-income holder</b> (2.27% yield), not the sector's growth engine — growth exposure in this sector sits with other names in the top 10.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 1.5% target above. It is an illustration of the sizing rule, not a recommendation for any specific portfolio value.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>MRK — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $149.52.</strong> <strong>DCF intrinsic: $84.</strong> Discount/premium vs DCF: <strong>+78.0%</strong> — i.e. the shares are trading 78.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$84</td><td>+78.0%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$16.1B</strong>; constant growth g <strong>4%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$119.51B</strong>; PV of terminal value <strong>$134.86B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-46.77B</strong>; divided by <strong>2,470.00m</strong> diluted shares = <strong>$84</strong>. Base FCF $16.06B (pack, TTM). Growth g 4% = pack 5-year base CAGR, deliberately below FY25 margin to allow for the 2028 Keytruda cliff. Net debt $46.77B (cash $7.14B − debt $53.91B). Equity $42.12B derived from debt ÷ D/E 1.28. DPS $3.40 (pack). Coordinator correction applied: FY26 guidance $2.77–$2.82 includes ~$6.05/share of one-time charges; underlying ~$8.82–$8.87 — the $2.77–$2.82 figure is NOT used anywhere here.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack) + coordinator correction; price 30 Oct 2026 close $149.52. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MRK — Top customers (B2B, intermediated channel)</h2>
+<p>MRK is classified <strong>B2B</strong>: the majority of its revenue reaches patients through businesses — wholesalers, pharmacy benefit managers (PBMs) and payers — rather than direct consumer sales. The research pack discloses no per-name customer ranking for this ticker, so the table below names the largest known channel customers without inventing shares or order.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum Rx (PBM & payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>CVS Health / Caremark (PBM & pharmacy)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government — Medicare / Medicaid and other federal purchasers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Hospitals, pharmacies and other providers (dispensing channel)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Because the three US wholesalers together intermediate the majority of US pharma distribution, their financial health matters more to this supplier than any single end-patient trend: if a covered customer in this table (UnitedHealth/Optum) trades at a discount to intrinsic once the coordinator fills in its figure, that would be a potential tailwind for volumes and contract stability, while a premium would be a potential headwind — but a wholesaler or PBM that looks cheap may simply be passing through payer price pressure, which is itself a headwind for drug pricing, so the read-through cuts both ways. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>Sources: research pack (channel description); for the wholesaler trio pattern, Lilly FY2025 10-K (McKesson, Cencora and Cardinal Health each a significant percentage of consolidated revenue, no other customer above 10%) — applied here only as the channel pattern, not as a per-name share for MRK, which was not re-sourced in this batch.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MRK — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI-assisted discovery and Keytruda QLEX/subcutaneous development efficiency, small against the 2028 Keytruda patent cliff that dominates the pack thesis. Multiple channel: MRK's 17.46× forward P/E (on underlying earnings, per the coordinator correction) leaves little AI premium to compress.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a Keytruda LOE acceleration or a Gardasil demand reversal, not an AI unwind.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Primary figures are from Merck's Q3 2026 release (29 Oct 2026). Prices and market cap are the 30 Oct 2026 close (FinanceCharts / Finnhub basis as verified). Scenario targets in §5 are this report's modelled estimates, cross-checked against the analyst average carried in the pack ($159.87).</p>
+  <ol class="refs">
+    <li><a href="https://www.merck.com/news/merck-co-inc-rahway-n-j-usa-announces-third-quarter-2026-financial-results-highlights-multiple-milestones-advancing-broad-diverse-pipeline/" target="_blank" rel="noopener">Merck — Q3 2026 results (primary release, incl. $6.05 charges breakdown)</a></li>
+    <li><a href="https://q1019fm.com/2026/10/29/merck-tops-third-quarter-estimates-as-keytruda-gardasil-outperform/" target="_blank" rel="noopener">Reuters via Q101.9 — Merck tops Q3 estimates as Keytruda, Gardasil outperform</a></li>
+    <li><a href="https://935thelloyd.com/2026/10/29/merck-tops-third-quarter-estimates-as-keytruda-and-gardasil-drive-growth-ptP1vlNWnUScdus1kmxD9A" target="_blank" rel="noopener">Merck beats Q3 estimates — Keytruda and Gardasil drive growth</a></li>
+    <li><a href="https://quantli.com/news/merck-beats-q3-estimates-as-keytruda-and-gardasil-drive-growth-ptP1vlNWnUScdus1kmxD9A" target="_blank" rel="noopener">Quantli — Merck Q3 beat, growth drivers</a></li>
+    <li><a href="https://tickeron.com/earnings/MRK/" target="_blank" rel="noopener">TickerOn — MRK earnings</a></li>
+    <li><a href="https://stockanalysis.com/stocks/mrk/statistics/" target="_blank" rel="noopener">StockAnalysis — MRK statistics (TTM multiples, FCF, balance sheet)</a></li>
+    <li><a href="https://metacap.si/stocks/mrk/" target="_blank" rel="noopener">MetaCap — MRK summary (FY25 revenue / net income / margin anchor)</a></li>
+    <li><a href="https://www.fool.com/research/largest-healthcare-companies/" target="_blank" rel="noopener">Motley Fool — largest healthcare companies (universe / Terns note)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield" target="_blank" rel="noopener">FinanceCharts — Health Care sector ranking (updated 30 Oct 2026; ranking &amp; cap basis)</a></li>
+  </ol>
+  <p class="disc">Verification note: Q3 revenue ($18.085B), Keytruda ($8.601B incl. $830m Qlex), price ($149.52) and market cap ($368.89B) were independently re-checked against primary / second sources for this report. The FY26 EPS correction in §2 is from that verification pass and overrides any simpler reading of the $2.77–$2.82 guide. Forward P/E, 12–18-month targets and 5-year modelled prices could not be re-sourced as a dataset in that pass and are therefore labelled as provider / modelled estimates wherever they appear. This page is research for information only, as of 1 Nov 2026, and is not investment advice. Prices move; re-check before acting.</p>
+  <p class="disc">— Blaze</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function render(){
+    var v=parseFloat(input.value)||0;
+    var target=v*0.015;
+    var shares=v>0? (target/149.52):0;
+    out.innerHTML='At <b>1.5%</b>, MRK position ≈ <b>'+fmt(target)+'</b> · ≈ '+shares.toFixed(1)+' shares at $149.52. Keep it small until Qlex / pipeline proof changes the 2028 maths.';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

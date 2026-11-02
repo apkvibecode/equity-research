@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — EQIX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f7f5f0;--paper:#fffdf8;--ink:#131a24;--ink2:#3d4756;--muted:#6b7686;--line:#ddd6c8;--line2:#c9c0ab;--navy:#0d2b52;--blue:#0b5cad;--blue-soft:#e3edf7;--green:#0e6b3a;--green-soft:#e2f0e6;--red:#a4231c;--red-soft:#f7e4e1;--amber:#8a5a00;--amber-soft:#f6ecd2;--gold:#b8860b;--card:#fff;--chip:#efece3;--shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06)}
+@media (prefers-color-scheme: dark){:root{--bg:#0e1116;--paper:#141922;--ink:#e8e6df;--ink2:#b9c0cc;--muted:#8b94a3;--line:#2a3140;--line2:#3a4356;--navy:#9db9dd;--blue:#6aa8e8;--blue-soft:#1b2a3f;--green:#5fc98b;--green-soft:#17301f;--red:#e88a80;--red-soft:#3a1e1a;--amber:#e0aa4e;--amber-soft:#332a14;--gold:#d9a441;--card:#171d28;--chip:#1e2634;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}.up{color:var(--green)}.down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.warn .ct{color:var(--amber)}.bad .ct{color:var(--red)}.good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}tr.hl td{background:var(--blue-soft);color:var(--ink)}tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}.bar-row{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}.bar-track{height:16px;background:var(--chip);position:relative}.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)}.bar-fill.green{background:var(--green)}.bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.pc.bull h4{color:var(--green)}.pc.bear h4{color:var(--red)}.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)}.sc.base{border-top:4px solid var(--blue)}.sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}.calc .out b{color:var(--ink)}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}@media (max-width:760px){.refs{columns:1}}.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Data Centres · Specialised REITs</span></div>
+  <h1>Equinix <span class="tick">(NASDAQ: EQIX)</span></h1>
+  <p class="lede">Not a landlord — a network. Equinix sells the meeting place where clouds, carriers and enterprises interconnect, across 280+ AI-ready data centres in 70+ metros for 10,500+ customers. At $1,013.70 the question is not whether interconnection is valuable — it is whether AFFO growth can outrun a premium P/AFFO multiple and a power-constrained build race.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $1,013.70 close, Fri 30 Oct 2026</span>
+    <span><b>Ranking basis:</b> Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe — market-cap ranking, not VNQ-weight order (VNQ weight order differs only in swapping O ahead of PSA)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$1,013.70</div><div class="vsub">Confirmed 4:00 PM ET close · Source: MarketBeat / Finnhub</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$100.34B</div><div class="vsub">Third-largest in VNQ top-10 by market cap, after WELL and PLD</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Primary (REIT)</div><div class="vbig mono">26.5× P/AFFO</div><div class="vsub">$1,013.70 ÷ $38.23 AFFO/sh (analyst-basis proxy) · Trailing P/E 60.59× — shown for reference only, not used for valuation</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus</div><div class="vbig mono">$1,226.97 <span class="up" style="font-size:15px">+21.0%</span></div><div class="vsub">MarketBeat consensus target · Dividend yield 2.04%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base $1,200 (+18.4%). See §5 — all targets are modelled estimates.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value $1,481 (estimate) — see AFFO-proxy method in §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Specialised-REIT satellite inside Real Estate; see §6.</div></div>
+</div>
+
+<nav class="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The investment case in one view</h2></div>
+  <p>Equinix is the <b>interconnection REIT</b>. The pack description is precise: <b>280+ AI-ready data centres, 70+ metros, 10,500+ customers including Amazon, Apple and Meta</b> [<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>, <a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a>]. Space and power are the commodity layer; <b>Equinix Fabric and the interconnection ecosystem are the product</b> — clouds and carriers colocate where each other already are, and that density is what a new entrant cannot buy with concrete alone.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline figure (30 Oct 2026 reference)</th><th class="n">Value</th><th>Source / status</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (close)</td><td class="n">$1,013.70</td><td>Confirmed close — <a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a>; also via <a href="https://finnhub.io/?q=%22EQIX%22">Finnhub</a></td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$100.34B</td><td><a href="https://finnhub.io/?q=%22EQIX%22">Finnhub</a> basis in pack</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$9.8B</td><td><a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>, Oct 5 basis — carry this dating when citing</td></tr>
+      <tr><td>AFFO / share — current proxy</td><td class="n">$38.23</td><td>Pack AFFO proxy used for 5-yr model; forward expectation below is analyst estimate</td></tr>
+      <tr><td>AFFO / share — next year (analyst estimate)</td><td class="n">$42.48 (+11.12%)</td><td><a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat consensus</a> — <b>analyst estimate, not company guidance</b></td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.04%</td><td><a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a></td></tr>
+      <tr><td>Consensus price target</td><td class="n">$1,226.97</td><td><a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a> — street view, not this report's target</td></tr>
+      <tr class="hl"><td>Trailing P/E (reference only)</td><td class="n">60.59×</td><td><a href="https://finnhub.io/?q=%22EQIX%22">Finnhub</a> — for REITs this multiple is distorted by depreciation; <b>do not use it for valuation</b> (see §2)</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <svg viewBox="0 0 980 190" width="100%" role="img" aria-label="Bar comparison of current price versus modelled 12 to 18 month scenarios and consensus" style="font-family:'Archivo',sans-serif">
+      <text x="10" y="22" font-size="13" font-weight="700" fill="var(--ink)">Price vs. modelled scenarios — 12–18 months (all modelled estimates, §5)</text>
+      <rect x="10" y="38" width="620" height="22" fill="var(--red)" opacity=".85"/><text x="640" y="54" font-size="12" fill="var(--ink)">Bear $850 · −16.1%</text>
+      <rect x="10" y="70" width="716" height="22" fill="var(--chip)" stroke="var(--line2)"/><text x="736" y="86" font-size="12" fill="var(--ink)">Today $1,013.70</text>
+      <rect x="10" y="102" width="848" height="22" fill="var(--blue)"/><text x="868" y="118" font-size="12" fill="var(--ink)">Base $1,200 · +18.4%</text>
+      <rect x="10" y="134" width="868" height="22" fill="var(--gold)" opacity=".9"/><text x="888" y="150" font-size="12" fill="var(--ink)">Consensus $1,227</text>
+      <rect x="10" y="162" width="976" height="4" fill="var(--green)"/><text x="10" y="182" font-size="12" fill="var(--ink2)">Bull $1,380 · +36.1% (bar truncated to chart width) — full method and weights in §5</text>
+    </svg>
+    <figcaption>Scenario prices are modelled estimates from the research pack, not verified facts and not guarantees. Consensus is MarketBeat's published target.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Equinix operates as a <b>global colocation and interconnection platform structured as a REIT</b>. Customers rent cabinets, power and — critically — connections inside facilities where the major clouds, networks and enterprises are already present. Revenue is therefore best understood as <b>recurring rent-like colocation income plus interconnection income</b> that grows denser, and stickier, with every additional participant in a metro ecosystem.</p>
+  <h3>What the footprint tells you</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Dimension</th><th class="n">Scale (per pack)</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Data centres</td><td class="n">280+</td><td>Described as AI-ready — the installed base is positioned for inference and hybrid-cloud workloads, not just legacy enterprise hosting [<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>]</td></tr>
+      <tr><td>Metros</td><td class="n">70+</td><td>Metro breadth is the product: enterprises buy consistent interconnection in every market they operate in, which favours the largest global footprint</td></tr>
+      <tr><td>Customers</td><td class="n">10,500+</td><td>Including Amazon, Apple and Meta as named examples — hyperscalers are simultaneously customers, magnets for other tenants, and (see §3–§4) potential competitors via self-build</td></tr>
+      <tr class="total"><td>Revenue base (TTM)</td><td class="n">$9.8B</td><td>Fool, Oct 5 basis — the denominator for the P/S cross-check in §2</td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div>
+      <h3>Core revenue streams</h3>
+      <ul>
+        <li><b>Colocation:</b> space, power and cooling sold by the cabinet / cage / suite. This is the rent engine — long-lived, contractual, and priced on scarce powered capacity in constrained metros.</li>
+        <li><b>Interconnection (Equinix Fabric):</b> virtual and physical connections between customers, clouds and carriers <i>inside</i> the platform. The pack is explicit: <b>interconnection is the moat product, not just space/power</b>. It carries higher strategic value per unit than raw space because it is where switching costs live.</li>
+        <li><b>Adjacent platform services:</b> services that ride on the same footprint and customer relationships. The pack does not break out a separate revenue share for these — <b>no segment % is stated here because none was verified in the pack</b>; inventing a split would misstate the business.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Geographic &amp; structural notes</h3>
+      <ul>
+        <li><b>Global, metro-led:</b> 70+ metros means exposure is diversified by market, but value concentrates where network density and cloud on-ramps coincide. The pack does not provide a verified regional revenue split for EQIX, so none is presented — the honest gap is noted rather than filled.</li>
+        <li><b>Structural pivot — AI readiness:</b> the estate is marketed as AI-ready, aligning the colocation base to AI inference and enterprise hybrid-cloud demand (the catalyst in §4), plus the <b>Nvidia private-cloud partnership</b> cited in the pack.</li>
+        <li><b>Supply-chain dependency #1 — power:</b> new capacity is gated by <b>power availability and pricing</b> (see §4). For a data-centre REIT, grid connection and power cost are the supply chain.</li>
+        <li><b>Supply-chain dependency #2 — hyperscaler behaviour:</b> the largest customers can also build for themselves. Customer concentration at the ecosystem level is a feature for density and a risk for bargaining power.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><div class="ct">Reading EQIX correctly</div><p>If you model Equinix as generic square footage, you will undervalue the interconnection density and overvalue any single new building. The unit of value is the <b>metro ecosystem</b>: each additional cloud, carrier and enterprise in a facility raises the value of every other tenancy in it. That is why §3 scores the moat on network effects first and real estate second.</p></div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p><b>REIT accounting rule first:</b> for REITs, use <b>P/FFO and P/AFFO as the primary multiples</b>. Trailing P/E — 60.59× for EQIX [<a href="https://finnhub.io/?q=%22EQIX%22">Finnhub</a>] — is inflated by the heavy depreciation REITs charge against real estate that often holds or gains value, and the research pack instructs explicitly that it <b>must NOT be used for valuation</b>. Every valuation judgement in this note is therefore anchored on AFFO per share.</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $1,013.70 (30 Oct 2026 close). AFFO figures as labelled; forward AFFO is an analyst estimate, not guidance.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Price / AFFO (on $38.23 proxy)</td><td class="n">26.5×</td><td>Derived: $1,013.70 ÷ $38.23 = 26.52×. This is the multiple the 5-yr model in §5 flexes (22× bear / 26× base / 30× bull)</td></tr>
+      <tr><td>Price / forward AFFO (on $42.48 est.)</td><td class="n">23.9×</td><td>Derived: $1,013.70 ÷ $42.48 = 23.86×. Looks cheaper <i>only if</i> the +11.12% AFFO growth estimate is delivered — it is a MarketBeat consensus estimate, not company guidance</td></tr>
+      <tr><td>Trailing P/E (reference only)</td><td class="n">60.59×</td><td>Do not anchor on this for a REIT — see note above</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~10.2×</td><td>Derived: $100.34B mkt cap ÷ $9.8B TTM revenue (Fool, Oct 5 basis). A premium sales multiple consistent with a high-multiple, asset-heavy compounder — it demands AFFO growth to justify it</td></tr>
+      <tr><td>AFFO / share growth expected</td><td class="n">+11.12%</td><td>$38.23 → $42.48 next year, MarketBeat consensus — <b>analyst estimate</b>. This growth rate sits between the 5-yr model's base (8%) and bull (11%) AFFO growth assumptions, which §5 uses as a reasonableness anchor</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.04%</td><td><a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a> — income is a secondary return component here; total return is expected to come mainly from AFFO growth and the exit multiple</td></tr>
+      <tr><td>Market cap</td><td class="n">$100.34B</td><td>Scale supports index inclusion and liquidity; it also means EQIX must keep compounding AFFO at high-single-digits just to hold its multiple</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Balance-sheet diagnostics — what can and cannot be said</h3>
+  <ul>
+    <li><b>What the pack verifies:</b> market cap, price, yield, revenue TTM and the AFFO path above. Those are the figures carried in this note with sources.</li>
+    <li><b>What the pack does not verify:</b> a line-by-line debt, cash, leverage (net debt / EBITDA) or debt-to-equity breakdown for EQIX was <b>not in the verified pack</b>, so this note does not publish one rather than invent numbers. For a REIT, treat that as an <b>open diligence item</b>: check the latest 10-Q for total debt, weighted maturity and rate mix before sizing beyond the §6 weight.</li>
+    <li><b>Structural point that does not need a ratio:</b> data-centre REITs fund growth with continuous capital — new capacity is power-hungry and capex-intensive — so AFFO (which deducts recurring capex from FFO) is the honest earnings proxy, and it is the basis of both the dividend capacity and the §5 valuation. If AFFO growth stalls, both the income and the multiple compress together.</li>
+    <li><b>Capital allocation read:</b> a 2.04% yield alongside an AFFO-growth story signals a <b>growth-first REIT</b>: cash is retained and raised to build interconnection-dense capacity, with the dividend as a discipline device rather than the main return channel. That suits the risk-8/10 profile in §6 only at a satellite weight.</li>
+  </ul>
+  <div class="callout warn"><div class="ct">The premium is the risk</div><p>At 26.5× current AFFO, EQIX is priced for the base-to-bull AFFO path in §5. There is no multiple cushion: the bear case in §5 does not require a business collapse — only AFFO growth slowing to 5% and the market paying 22× for it — and it still produces $1,074 over five years (barely above today's price) and $850 over 12–18 months. Position size, not price hope, is the control for that asymmetry.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — network-effects interconnection.</b> The pack's moat statement is short and load-bearing: <i>clouds and carriers colocate where each other are; switching costs are high.</i> That is a classic two-sided density moat applied to physical infrastructure.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Network effects:</b> every additional participant in a facility raises the value of being in that facility. A rival can build a building; it cannot quickly replicate 10,500+ customers' worth of counterparties in 70+ metros.</li>
+      <li><b>Switching costs:</b> moving an interconnected deployment means re-wiring business relationships, not just moving servers. Interconnection (Equinix Fabric) embeds EQIX in the customer's network architecture.</li>
+      <li><b>Hyperscalers as magnets:</b> Amazon, Apple and Meta as customers anchor ecosystems that pull in enterprises who want low-latency access to those platforms — the biggest names validate the locations for everyone else.</li>
+      <li><b>Global consistency:</b> 280+ centres / 70+ metros let a multinational buy one standard in every market — a procurement advantage single-market rivals cannot match.</li>
+      <li><b>AI-ready estate:</b> positioning the installed base for AI inference and hybrid cloud puts the moat in the path of the current demand wave rather than behind it.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Competitors &amp; moat limits</h4><ul>
+      <li><b>Digital Realty (DLR):</b> the direct listed rival at scale. For context from the same verified sector pack: DLR Q3 core FFO was $2.10 (+11.1%), FY26 core FFO guidance was raised to $8.30–$8.35, and backlog was a record $2.5B at 100% share ($1.85B at DLR share) — DLR is executing, not standing still.</li>
+      <li><b>Hyperscaler self-build:</b> the largest customers are also the best-capitalised potential competitors. Every hyperscaler campus built for own use is demand that never reaches the colocation market.</li>
+      <li><b>CyrusOne (private)</b> and other private platforms compete for the same enterprise and cloud workloads without public-market disclosure — competitive intensity is partly invisible.</li>
+      <li><b>Power as a leveller:</b> where powered land is the binding constraint, whoever secures power wins the next building regardless of interconnection heritage. The moat protects existing ecosystems more than it guarantees the next site.</li>
+      <li><b>Pricing power is real but bounded:</b> interconnection supports premium pricing inside dense metros; commodity space/power outside them is contestable and price-sensitive.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> EQIX is the <b>interconnection leader</b> within a sector where the #3-by-market-cap slot ($100.34B) already reflects that leadership. The moat justifies a premium P/AFFO versus generic REITs; it does not justify any P/AFFO — §5's bull case (30×) is approximately the ceiling the moat alone can defend without faster AFFO growth.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>AI inference &amp; enterprise hybrid-cloud demand:</b> the pack's lead catalyst. Inference workloads are latency-sensitive and distributed — exactly the shape that favours interconnected metro facilities over remote mega-campuses.</li>
+        <li><b>Nvidia private-cloud partnership:</b> cited in the pack as a named catalyst — a channel for enterprises to deploy private AI infrastructure inside EQIX ecosystems, which would deepen both colocation and interconnection revenue per customer.</li>
+        <li><b>AFFO delivery vs. the +11.12% estimate:</b> if reported AFFO tracks the $42.48 consensus path, the forward P/AFFO compresses from 26.5× to ~23.9× on price alone — the de-rating happens through earnings, the healthy way.</li>
+        <li><b>Power-secured capacity coming online:</b> in a power-constrained market, each powered, interconnected expansion delivered into scarcity supports both occupancy pricing and interconnection attach.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Power availability &amp; pricing for new builds:</b> the pack's lead risk. Delays or cost spikes in securing power directly delay revenue and raise the capex per unit of AFFO.</li>
+        <li><b>Hyperscaler insourcing:</b> self-build by the largest customers removes the highest-volume demand from the addressable market and weakens the magnet effect over time.</li>
+        <li><b>Valuation risk — ~60× trailing P/E headline / 26.5× P/AFFO:</b> the pack flags the 60× trailing P/E explicitly. Even on the correct AFFO basis the multiple leaves no room for an AFFO miss (see §2 callout).</li>
+        <li><b>Data-centre power politics:</b> the same load debate flagged for Utilities — grid, community and regulatory pushback on large power loads can slow approvals and raise costs across the sector, EQIX included.</li>
+        <li><b>Rate sensitivity (REIT structural):</b> as a REIT trading on a cash-flow multiple, EQIX's exit P/AFFO is sensitive to long rates; a higher-for-longer regime pressures the multiple in §5's bear case (22×) even if operations hold.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Evidence that interconnection density is decoupling from value: AFFO growth slowing toward the bear-case 5% <i>while</i> hyperscalers visibly route new AI capacity to self-built sites. Either alone is a slowdown; together they would mean the network-effects moat is no longer compounding — and at 26.5× AFFO, the exit multiple, not just earnings, would do the damage.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p class="small"><b>Method note — read first.</b> All scenario prices below are <b>modelled estimates</b>, not verified facts. The brief's frozen-parameter format (2031 price = 2031 revenue × net margin ÷ shares × P/E) is <b>adapted transparently for a REIT</b>: trailing P/E is meaningless for valuation here (60.59×, depreciation-distorted), so the frozen parameters are <b>AFFO per share, AFFO growth (g) and the exit P/AFFO multiple</b> — the REIT equivalent of earnings, growth and P/E, with the AFFO base held frozen per case exactly as the format requires. Cross-check: the Street consensus target is $1,226.97 [<a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/">MarketBeat</a>], close to this report's 12–18-month base of $1,200.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$850</div><div class="ret down">−16.1% vs $1,013.70</div><p>Power delays and multiple compression dominate: AFFO growth disappoints versus the +11.12% consensus estimate and the market de-rates the shares toward the low-20s P/AFFO. No operational collapse assumed — this is a valuation-led downside.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · modelled</div><div class="price mono">$1,200</div><div class="ret up">+18.4% vs $1,013.70</div><p>AFFO compounds broadly in line with the path toward $42.48, AI / hybrid-cloud demand holds, and the P/AFFO multiple is broadly sustained. Sits just below the $1,226.97 consensus — a deliberate, small conservatism gap.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$1,380</div><div class="ret up">+36.1% vs $1,013.70</div><p>AI inference demand and the Nvidia private-cloud channel accelerate interconnection attach; AFFO beats the consensus path and the market pays a fuller scarcity premium for powered, interconnected capacity.</p></div>
+  </div>
+  <p class="small">The pack supplies these three 12–18-month prices as estimates without publishing scenario weights for this horizon, so <b>no probability-weighted 12–18-month figure is presented</b> — presenting one would require inventing weights. Weights <i>are</i> published and checkable for the 5-year model below.</p>
+
+  <h3>5-year projection — frozen-parameter AFFO model (to 2031, modelled estimates)</h3>
+  <p>Formula (frozen per case): <b>2031 price = $38.23 × (1 + g)<sup>5</sup> × exit P/AFFO</b>, where $38.23 is the current AFFO/share proxy, g is AFFO growth per year and the exit multiple is held frozen for the case. Worked base case: $38.23 × 1.08<sup>5</sup> = $56.18 AFFO in 2031; $56.18 × 26 = <b>$1,461</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">AFFO growth g / yr</th><th class="n">2031 AFFO / sh</th><th class="n">Exit P/AFFO</th><th class="n">2031 price</th><th class="n">Return vs $1,013.70</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">5%</td><td class="n">$48.79</td><td class="n">22×</td><td class="n">$1,074</td><td class="n">+5.9% total</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">8%</td><td class="n">$56.18</td><td class="n">26×</td><td class="n">$1,461</td><td class="n">+44.1% total</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">11%</td><td class="n">$64.30</td><td class="n">30×</td><td class="n">$1,929</td><td class="n">+90.3% total</td></tr>
+      <tr class="total"><td>Probability-weighted (25 / 50 / 25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$1,481</td><td class="n">+46.1% total</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the weighted figure yourself: 0.25 × $1,074 + 0.50 × $1,461 + 0.25 × $1,929 = $268.50 + $730.50 + $482.25 = <b>$1,481</b> (rounding). Label: <b>modelled estimate — the independent verification log marks all 5-year weighted prices UNVERIFIED because scenario weights were not supplied to the verifier</b>; the weights and arithmetic are published here precisely so the figure can be checked, not taken on trust. Reasonableness anchors: base g of 8% is <i>below</i> the +11.12% next-year consensus AFFO growth estimate (so the base case assumes deceleration, not acceleration); bull g of 11% simply sustains roughly that consensus pace for five years; the base exit multiple of 26× is today's 26.5× held flat — no multiple expansion is needed for the base case.</p>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">5-yr probability-weighted value (modelled estimate)</div><div class="wv mono">$1,481</div></div><p>Versus $1,013.70 today (+46.1% over five years). The shape matters more than the point estimate: even the bear case is modestly positive over five years because AFFO growth does the work, while the 12–18-month bear case (−16.1%) shows the near-term risk is the multiple, not the business. That combination — near-term multiple risk, long-term AFFO compounding — is why §6 pairs a Buy with a capped 2.0% weight.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b> — equity-heavy and able to tolerate single-name drawdowns, but EQIX is a premium-multiple specialised REIT, so conviction is expressed through a disciplined satellite weight rather than a core weight. <b>Recommendations are research views, not guarantees and not investment advice.</b></p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy (per pack recommendation).</b> Modelled base $1,200 (+18.4%) and consensus $1,226.97 (+21.0%) both sit above the price. Respect the modelled bear of $850 (−16.1%): stage entry rather than buying the full weight in one print, and re-underwrite if AFFO prints run materially below the $42.48 consensus path.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy (per pack recommendation).</b> Modelled weighted value $1,481 (+46.1%) with a positive bear case (+5.9%) — the AFFO-compounding shape suits a 5-year hold. The thesis-breaker to monitor is in §4: AFFO growth sliding to ~5% alongside visible hyperscaler insourcing.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>EQIX target: 2.0% of total portfolio</b> (pack suggestion for the mid-30s, risk-8/10 profile). That is a satellite position: large enough for the interconnection / AI-infrastructure theme to matter, small enough that a bear-case multiple de-rating (−16% near term) costs the total portfolio only ~0.3%.</li>
+    <li><b>Role in the portfolio:</b> Real Estate sleeve, specialised / data-centre exposure. Do not double-count it as a technology holding — it is a REIT whose multiple behaves like a REIT under rate stress, however technology-driven its tenants are.</li>
+    <li><b>Open item before adding beyond 2.0%:</b> the leverage detail flagged in §2 was not in the verified pack. Confirm debt, maturities and rate mix from the latest filing first — that gap, not the thesis, is what caps the weight here.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 2.0% target weight and the $1,013.70 reference price. Shares are rounded down to whole shares; the dollar figure is the exact 2.0% allocation.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>EQIX — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $1,013.70.</strong> <strong>DCF intrinsic: $901.</strong> Discount/premium vs DCF: <strong>+12.5%</strong> — i.e. the shares are trading 12.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$901</td><td>+12.5%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $43.91 per share — FY2026 AFFO/share guidance midpoint $43.91 (raised 28 Oct 2026, $43.71–$44.11); Q3 AFFO/share $11.64. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 8.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/EQIX/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/eqix/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EQIX — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Amazon (AWS)</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>AMZN — DCF intrinsic $25, discount/premium +861.4% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Microsoft (Azure)</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>MSFT — DCF intrinsic $236 discount/premium +121.1% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Google Cloud</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>GOOGL — DCF intrinsic $45, discount/premium +521.9% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Meta</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>META — DCF intrinsic $242 discount/premium +154.1% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Apple</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>AAPL — DCF intrinsic $204 discount/premium +68.9% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Cisco</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>CSCO — DCF intrinsic $56, discount/premium +86.6% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Netflix</td><td>Not disclosed (Equinix does not rank tenants by rent; 10,500+ customers per pack)</td><td>NFLX — DCF intrinsic $50.03, discount/premium +24.1% (filled in by the coordinator after all intrinsics are computed)</td></tr></table><p>Read-through: Equinix's customer base is the opposite of concentrated — 10,500+ customers with no disclosed single-tenant rent share — so the read-through runs through the hyperscaler complex as a group rather than any one name. If the filled-in intrinsics show Amazon, Microsoft, Google, Meta, Apple, Cisco and Netflix trading at discounts to intrinsic, that is a broad tailwind for Equinix's interconnection ecosystem (well-capitalised tenants with headroom to keep colocating and interconnecting), and premiums would be a broad headwind — but an undervalued hyperscaler does not guarantee more Equinix spend: hyperscalers also self-build, and their colocation budgets depend on their own AI and cloud priorities, not on their share price versus intrinsic value. Equinix's moat is the network effect of the ecosystem itself, which cushions any single tenant's choices.</p><p><em>Source: Research pack (10,500+ customers incl. Amazon, Apple, Meta) plus Nareit profile naming Amazon, Microsoft, Google, IBM and Cisco among tenants; no ranked rent shares are disclosed, so ranking is labelled not-disclosed and no share % is shown.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EQIX — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Equinix operates 280+ AI-ready data centres across 70+ metros with 10,500+ customers, and its moat product is interconnection (Equinix Fabric) — the network effect that makes AI and hybrid-cloud workloads colocate where networks and clouds already are.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> AI inference and enterprise hybrid-cloud demand drives colocation, power and interconnection revenue, with the Nvidia private-cloud partnership (pack) as a direct AI workload channel.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Equinix trades at a premium data-centre multiple (60.59x trailing P/E, AFFO growth +11.12% expected per pack), so the AI boom is already capitalised — the multiple channel is continued support while AI workloads grow, not fresh re-rating.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: hyperscalers insource AI capacity or delay enterprise AI deployments, slowing colocation and interconnection growth; diversification across 10,500+ customers cushions single-tenant loss but not a broad AI pause. Second, multiple compression: from a premium multiple toward a through-cycle data-centre multiple if AI growth disappoints — the shares have already drifted lower since the June-quarter guidance raise per reporting. Third, balance sheet: development for AI-ready capacity is power- and capital-intensive, and power availability/pricing for new builds (pack risk) is the bottleneck; leverage is material at $24.05B net debt. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Hyperscaler self-build announcements; enterprise AI deployment and interconnection growth data; and power availability/pricing for new builds in constrained metros.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Every key figure in this note is linked at the point of use and listed here. Prices are the 30 Oct 2026 regular-session close; 1 Nov 2026 was a weekend. Scenario prices in §5 are this series' modelled estimates with methodology shown — they are not sourced facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool — Largest real estate companies: EQIX footprint (280+ centres, 70+ metros, 10,500+ customers) and TTM revenue $9.8B (Oct 5 basis)</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/EQIX/" target="_blank" rel="noopener">MarketBeat — EQIX: price confirmation, dividend yield 2.04%, consensus target $1,226.97, AFFO/share $38.23 → $42.48 (+11.12%, analyst estimate)</a></li>
+    <li><a href="https://finnhub.io/?q=%22EQIX%22" target="_blank" rel="noopener">Finnhub — EQIX: market cap $100.34B, trailing P/E 60.59× (reference only)</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings: universe and weight context for the ranking-basis note (market-cap ranking, not VNQ-weight order)</a></li>
+  </ol>
+  <p class="disc"><b>Ranking &amp; verification notes.</b> Ranking basis: top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI / Real Estate index); globally the same 10 names are the top 10, but the US-only label is applied for consistency. The close for EQIX was independently confirmed in the sector verification log ($1,013.70, 4:00 PM ET, 30 Oct 2026). MarketBeat intraday “03:59pm” snapshots elsewhere in the sector are pre-close figures and were <i>not</i> used to override official closes. All 5-year weighted prices are labelled modelled estimates with weights and arithmetic shown in §5, per the coordinator correction.</p>
+  <p class="disc">This report is research for information only. It is not investment advice, not a solicitation, and not a guarantee of any outcome. Scenario targets are modelled estimates based on stated assumptions (AFFO growth and exit P/AFFO) that may not occur. Verify figures against primary filings before acting, and consider your own objectives and advice from a licensed adviser.</p>
+</footer>
+</div>
+<script>
+(function(){
+  var inp=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function upd(){
+    var v=parseFloat(inp.value)||0, alloc=v*0.02, shares=Math.floor(alloc/1013.70);
+    out.innerHTML='2.0% target = <b>$'+fmt(alloc)+'</b> · ≈ <b>'+fmt(shares)+' shares</b> at $1,013.70';
+  }
+  inp.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

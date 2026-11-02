@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — PEP (PepsiCo)</title>
+<style>
+:root{
+  --bg:#f6f5f1; --surface:#ffffff; --surface2:#eef2f4; --ink:#101820; --muted:#5b6b76; --line:#dbe2e6;
+  --navy:#0b2c4a; --blue:#005cb4; --red:#e32934; --teal:#0e7c6b; --amber:#b7791f; --gold:#c9a227;
+  --chip:#e8eef2;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0e1419; --surface:#16202a; --surface2:#1b2a37; --ink:#eef3f6; --muted:#9db0bc; --line:#2a3d4d; --chip:#223344; --navy:#7fb6e6; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family: "Source Sans 3", Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;line-height:1.55}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 18px 48px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.badge{font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.badge strong{color:var(--ink)}
+.hero{background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--navy);padding:26px 24px 20px}
+.hero-grid{display:grid;grid-template-columns:1.5fr .9fr;gap:24px}
+@media(max-width:760px){.hero-grid{grid-template-columns:1fr}}
+h1{font-family: Georgia, "Times New Roman", serif;font-size:44px;line-height:.95;margin:6px 0 8px;letter-spacing:-.02em}
+h1 span{color:var(--blue)}
+.sub{font-size:18px;color:var(--muted);max-width:58ch}
+.tickerline{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{border:1px solid var(--line);background:var(--surface2);padding:6px 10px;border-radius:999px;font-size:13px;font-weight:600}
+.pricebox{background:var(--navy);color:#fff;padding:18px;border-radius:6px}
+@media (prefers-color-scheme: dark){.pricebox{background:#132e4a}}
+.pricebox .lbl{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.85}
+.price{font-size:42px;font-weight:800;line-height:1;margin:6px 0}
+.pricebox small{opacity:.9}
+.verdict{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media(max-width:760px){.verdict{grid-template-columns:1fr}}
+.vcard{background:var(--surface);border:1px solid var(--line);padding:16px}
+.vcard b{font-size:22px} .vcard p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);padding:14px} .kpi .k{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700} .kpi .v{font-size:22px;font-weight:800;margin-top:4px} .kpi .n{font-size:13px;color:var(--muted)}
+section{background:var(--surface);border:1px solid var(--line);padding:22px 24px;margin:14px 0}
+h2{font-family:Georgia,serif;font-size:26px;margin:0 0 6px;line-height:1.1}
+h3{font-size:16px;margin:18px 0 8px}
+.lede{color:var(--muted);margin-top:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px} @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:14.5px} th,td{padding:10px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top} th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.num{text-align:right;font-variant-numeric:tabular-nums} .bull{color:var(--teal);font-weight:700} .bear{color:#c0392b;font-weight:700}
+ul{padding-left:18px} li{margin:6px 0}
+.callout{border-left:4px solid var(--gold);background:var(--surface2);padding:14px 16px;margin:14px 0}
+.flow{overflow:hidden} .flow svg{width:100%;height:auto;display:block}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:end} @media(max-width:760px){.calc{grid-template-columns:1fr}}
+label{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+input{width:100%;padding:12px;border:1px solid var(--line);border-radius:6px;font-size:18px;background:var(--bg);color:var(--ink);margin-top:6px}
+.result{font-size:28px;font-weight:800}
+.foot{font-size:13px;color:var(--muted)} .src{font-size:13.5px}
+.tag{display:inline-block;background:var(--chip);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><div class="badge">Equity Research &nbsp;•&nbsp; <strong>Consumer Staples</strong> &nbsp;•&nbsp; As of 1 Nov 2026</div><div class="badge">Price ref: 30 Oct 2026 close</div></div>
+
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="badge">NASDAQ: PEP — PepsiCo, Inc.</div>
+        <h1>PepsiCo <span>PEP</span></h1>
+        <p class="sub">The staples income-and-value name: a snacks-led giant trading at the cheapest trailing multiple among large staples in this set — bought for its 4.31% dividend and distribution scale, not for growth.</p>
+        <div class="tickerline">
+          <span class="pill">20+ brands over $1bn each</span><span class="pill">200+ countries</span><span class="pill">Frito-Lay + Beverages</span><span class="pill">Consensus: Hold</span>
+        </div>
+        <p class="foot" style="margin-top:14px">Ranking basis: FinanceCharts, last updated 30 Oct 2026. WMT is #1 in Consumer Staples in this universe. Sector list includes WMT as required; PEP is covered here on its own merits. Research views only — not investment advice, not a guarantee.</p>
+      </div>
+      <div class="pricebox">
+        <div class="lbl">30 Oct 2026 close</div><div class="price">$137.34</div>
+        <div>Market cap <strong>$187.2bn</strong> &nbsp;•&nbsp; $187.16bn verified</div>
+        <div style="margin-top:10px">YTD <strong>−4.3%</strong> &nbsp;•&nbsp; 1-yr <strong>−6.0%</strong> <span style="opacity:.85">(Finnhub)</span></div>
+        <div style="margin-top:10px;border-top:1px solid rgba(255,255,255,.25);padding-top:10px"><small>12–18m consensus target (MarketBeat via pack): <strong>$143.28</strong> — +4.3% price upside before dividends. Verification log confirms price/cap/P/E; see footnotes on vendor variance.</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="vcard"><div class="badge">Short term · 12–18 months</div><b>HOLD</b><p>Hold for income. The $143.28 consensus implies only modest price upside; the case rests on collecting the dividend while valuation stays undemanding.</p></div>
+    <div class="vcard"><div class="badge">Long term · 5 years</div><b>HOLD</b><p>Hold, not a core growth compounder. Modelled 5-yr weighted value $166 (estimate — see §5) offers moderate upside, driven by steady — not fast — compounding.</p></div>
+    <div class="vcard"><div class="badge">Portfolio weight · Mid-30s, risk 8/10</div><b>1.5% of portfolio</b><p>Income + value diversifier inside Staples. Deliberately small: low growth means it should ballast, not lead, an 8/10-risk portfolio.</p></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Trailing P/E</div><div class="v">17.30×</div><div class="n">Pack figure; verification: 17.25× MarketBeat-derived — vendor variance, see note †</div></div>
+    <div class="kpi"><div class="k">Forward P/E</div><div class="v">14.86×</div><div class="n">Cheapest large staples name on P/E in this set</div></div>
+    <div class="kpi"><div class="k">Dividend yield</div><div class="v">4.31%</div><div class="n">The central attraction of the holding</div></div>
+    <div class="kpi"><div class="k">Net margin (TTM)</div><div class="v">11.1%</div><div class="n">$10.90bn net income on $98.24bn revenue</div></div>
+    <div class="kpi"><div class="k">TTM Revenue</div><div class="v">$98.24bn</div><div class="n">Filed TTM basis as in pack</div></div>
+    <div class="kpi"><div class="k">P/S (derived)</div><div class="v">1.91×</div><div class="n">Derived: $187.2bn ÷ $98.24bn — arithmetic, not a vendor multiple</div></div>
+    <div class="kpi"><div class="k">Implied TTM EPS (derived)</div><div class="v">~$7.94</div><div class="n">Derived: $137.34 ÷ 17.30</div></div>
+    <div class="kpi"><div class="k">Q3 2026 EPS</div><div class="v">$2.34 — beat</div><div class="n">vs $2.29 consensus · reported 7 Oct</div></div>
+  </div>
+  <p class="foot">† Caps and P/Es vary by vendor (Finnhub vs MarketBeat share-count and EPS treatment). This page names its basis where the verification log does, and does not silently mix vendors. Where the log marked a figure UNVERIFIED it is omitted or labelled estimate. Exact FCF and debt figures for PEP were <strong>not verified (n.v.)</strong> in the pack — so no FCF yield, EV/EBITDA, or leverage ratio is presented as fact here.</p>
+
+  <section>
+    <h2>1 &nbsp; Business Model &amp; Segment Breakdown</h2>
+    <p class="lede">PepsiCo is two businesses stapled together: a world-class snacks distribution machine (Frito-Lay) and a global beverages system that shares trucks, shelf space, and customers with it. That bundling is the model.</p>
+    <div class="grid2">
+      <div>
+        <h3>Operating segments (as reported)</h3>
+        <table><tr><th>Segment</th><th>What it is</th></tr>
+        <tr><td><strong>Frito-Lay North America</strong></td><td>Core profit engine — Lay's, Doritos and the salty-snacks portfolio; direct-store delivery.</td></tr>
+        <tr><td><strong>PepsiCo Beverages North America</strong></td><td>Pepsi, Gatorade and North America beverages.</td></tr>
+        <tr><td><strong>Quaker Foods</strong></td><td>Quaker oats and foods.</td></tr>
+        <tr><td><strong>Latin America</strong></td><td>Beverages + snacks, LatAm.</td></tr>
+        <tr><td><strong>Europe</strong></td><td>Beverages + snacks, Europe.</td></tr>
+        <tr><td><strong>Africa, Middle East &amp; South Asia</strong></td><td>AMESA region.</td></tr>
+        <tr><td><strong>Asia Pacific</strong></td><td>APAC including Australia/NZ/China region reporting.</td></tr></table>
+        <p class="foot">Segment revenue split % was not in the verified pack and is therefore not invented here. The pack's structural facts are the segment list, 20+ billion-dollar brands, and 200+ country reach (Fool).</p>
+      </div>
+      <div>
+        <h3>How it makes money</h3>
+        <ul>
+          <li><strong>Snacks first:</strong> Frito-Lay's route-to-market lets PepsiCo place high-margin snacks alongside beverages in the same drop — pricing and shelf leverage competitors struggle to copy.</li>
+          <li><strong>Billion-dollar brands:</strong> Doritos, Gatorade, Quaker, Lay's, Pepsi headline 20+ brands each above $1bn (pack / Fool).</li>
+          <li><strong>Geography:</strong> Truly global — 200+ countries — with North America as the anchor and Latin America / Europe / AMESA / APAC providing the international leg cited as a catalyst.</li>
+          <li><strong>Recent print:</strong> Q3 2026 EPS <strong>$2.34 vs $2.29 consensus</strong> (7 Oct) — a modest beat, consistent with a low-growth, execution-led story rather than a re-acceleration.</li>
+          <li><strong>Structural pivot to watch:</strong> The pack flags a <em>healthier portfolio shift</em> as a catalyst — reformulation and better-for-you innovation matter as beverage volumes face pressure (see §4).</li>
+          <li><strong>Supply-chain dependency:</strong> Input costs (pack-flagged risk) — agricultural commodities, sweeteners, packaging and freight — flow straight into a thin 11.1% net margin, so cost inflation is the key operating sensitivity.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow">
+    <h2>Income flow — TTM (for scale, not a filing Sankey)</h2>
+    <p class="lede">Built only from verified pack figures: TTM revenue $98.24bn and net income $10.90bn (11.1% margin). The residual $87.34bn is revenue minus net income — all operating costs, interest and tax combined, labelled as such. No finer split was verified, so none is shown.</p>
+    <svg viewBox="0 0 900 170" role="img" aria-label="TTM revenue 98.24 billion flowing to 10.90 billion net income and 87.34 billion combined costs">
+      <rect x="10" y="45" width="200" height="80" rx="6" fill="#0b2c4a"/><text x="110" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Revenue (TTM)</text><text x="110" y="102" text-anchor="middle" fill="#fff" font-size="18" font-weight="800">$98.24bn</text>
+      <path d="M210 70 C 320 70, 340 55, 450 55" stroke="#0e7c6b" stroke-width="18" fill="none" opacity=".85"/><path d="M210 105 C 320 105, 340 125, 450 125" stroke="#b7791f" stroke-width="42" fill="none" opacity=".35"/>
+      <rect x="450" y="25" width="200" height="60" rx="6" fill="#0e7c6b"/><text x="550" y="50" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Net income</text><text x="550" y="72" text-anchor="middle" fill="#fff" font-size="17" font-weight="800">$10.90bn · 11.1%</text>
+      <rect x="450" y="100" width="290" height="60" rx="6" fill="#5b6b76"/><text x="595" y="125" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">All other costs, interest &amp; tax (combined residual)</text><text x="595" y="147" text-anchor="middle" fill="#fff" font-size="16" font-weight="800">$87.34bn</text>
+      <text x="760" y="55" font-size="12" fill="currentColor">Dividend yield 4.31%</text><text x="760" y="75" font-size="12" fill="currentColor">is the cash return</text><text x="760" y="95" font-size="12" fill="currentColor">centrepiece.</text>
+    </svg>
+  </section>
+
+  <section>
+    <h2>2 &nbsp; Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <p class="lede">Valuation is the story: at 17.30× trailing and 14.86× forward, PEP is the cheapest large staples name on P/E in this sector set — you are paid 4.31% to hold a slow grower. What cannot be claimed is just as important: the pack did not verify exact free-cash-flow or debt figures, so this section does not fabricate them.</p>
+    <div class="grid2">
+      <div>
+        <table>
+          <tr><th>Metric</th><th class="num">Value</th></tr>
+          <tr><td>Price (30 Oct close)</td><td class="num">$137.34</td></tr>
+          <tr><td>Market cap</td><td class="num">$187.2bn</td></tr>
+          <tr><td>Trailing P/E</td><td class="num">17.30× †</td></tr>
+          <tr><td>Forward P/E</td><td class="num">14.86×</td></tr>
+          <tr><td>TTM revenue / net income</td><td class="num">$98.24bn / $10.90bn</td></tr>
+          <tr><td>Net margin</td><td class="num">11.1%</td></tr>
+          <tr><td>Dividend yield</td><td class="num">4.31%</td></tr>
+          <tr><td>Performance</td><td class="num">YTD −4.3% · 1-yr −6.0%</td></tr>
+          <tr><td>EV/EBITDA · FCF yield · D/E</td><td class="num"><span class="tag">Not verified — omitted</span></td></tr>
+        </table>
+        <p class="foot">† Verification log: PEP price/cap CONFIRMED ($137.34 / $187.16bn); P/E 17.25× on a MarketBeat-derived basis vs 17.30× in the pack — difference is vendor EPS treatment, flagged rather than hidden.</p>
+      </div>
+      <div>
+        <h3>Capital allocation — what the pack supports</h3>
+        <ul>
+          <li><strong>Dividend is the attraction</strong> (pack, verbatim thesis): 4.31% yield at $137.34 is well above staples peers in this set and is the reason to own PEP at a Hold rather than avoid it.</li>
+          <li><strong>Buybacks modest</strong> (pack): do not model PEP as a shrink-the-float compounder; per-share growth must come mainly from earnings, not count reduction.</li>
+          <li><strong>FCF / debt: exact figures n.v.</strong> The pack explicitly leaves free cash flow and debt unverified. Any leverage or FCF-conversion claim would be invented — so the honest read is: <em>balance-sheet diagnostics beyond margin and multiples require the filing, and are not asserted here.</em></li>
+          <li><strong>Margin thinness matters:</strong> At 11.1% net margin, a 1-point margin swing (the bear case uses 10%, bull 12% in §5) moves earnings by ~9% — operating leverage cuts both ways.</li>
+        </ul>
+        <div class="callout"><strong>Reading the discount:</strong> A forward P/E of 14.86× against a trailing 17.30× implies the market already expects earnings to grow into the price — yet the shares are still down 6.0% over one year. That is a value/income setup, not a momentum one.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 &nbsp; Competitive Moat &amp; Industry Positioning</h2>
+    <div class="grid2">
+      <div><h3>Moat</h3><ul>
+        <li><strong>Frito-Lay distribution:</strong> Named in the pack as the core moat — direct distribution at national scale is expensive and slow to replicate.</li>
+        <li><strong>Brand + bundling:</strong> Pepsi brand plus snack/beverage bundling — one relationship sells both categories to the same retailer.</li>
+        <li><strong>Scale:</strong> $98.24bn TTM revenue across 200+ countries gives procurement, media and shelf-negotiation leverage.</li>
+      </ul></div>
+      <div><h3>Limits to the moat</h3><ul>
+        <li>Beverage volumes are under structural pressure (health trends, GLP-1 era consumption shifts are the sector context — the pack itself flags <em>beverage volume pressure</em> and a needed <em>healthier portfolio shift</em>).</li>
+        <li>Snacks face private-label and insurgent-brand competition; pricing power has been tested by US consumer softness (pack risk).</li>
+        <li>Pricing power is real but finite: PEP has historically relied on price/mix as volumes softened — that lever weakens if the consumer pushes back.</li>
+      </ul></div>
+    </div>
+    <p class="foot">Competitors are the global beverages/snacks complex (Coca-Cola system in beverages; Mondelez / Nestlé / private label in snacks) — named here as industry context; no competitor figures are asserted, as none were in the verified pack for PEP.</p>
+  </section>
+
+  <section>
+    <h2>4 &nbsp; Catalysts &amp; Downside Risks</h2>
+    <div class="grid2">
+      <div><h3 style="color:var(--teal)">Catalysts</h3><ul>
+        <li><strong>Frito-Lay pricing / innovation</strong> — pack catalyst: new products and price/mix in the profit engine.</li>
+        <li><strong>International growth</strong> — LatAm, Europe, AMESA, APAC as the faster leg.</li>
+        <li><strong>Healthier portfolio shift</strong> — better-for-you reformulation defending beverage relevance.</li>
+        <li><strong>Valuation re-rating optionality:</strong> cheapest large staples P/E in the set leaves room if execution steadies — the Q3 beat ($2.34 vs $2.29) is a small step that way.</li>
+      </ul></div>
+      <div><h3 style="color:#c0392b">Risks</h3><ul>
+        <li><strong>Beverage volume pressure</strong> (pack) — the secular headwind.</li>
+        <li><strong>Snack competition</strong> (pack) — share defence costs margin.</li>
+        <li><strong>Input costs</strong> (pack) — commodities/packaging against an 11.1% margin.</li>
+        <li><strong>Activist / strategic-review overhang, historically</strong> (pack wording preserved) — headline and portfolio-breakup speculation can dominate the narrative.</li>
+        <li><strong>US consumer softness</strong> (pack) — North America is the anchor market; a soft consumer hits both segments at once.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5 &nbsp; Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="lede"><span class="tag">MODELLED ESTIMATES</span> &nbsp; All scenario prices below are modelled estimates from the research pack — never verified facts. Methodology: 5-year model applies the stated annual revenue growth, net margin and exit P/E to the TTM base ($98.24bn revenue, 11.1% margin, $137.34 price). Weights were not supplied to the independent verifier, so the weighted figure is labelled a modelled estimate with its inputs shown, per the coordinator instruction.</p>
+    <h3>12–18 month horizon</h3>
+    <table>
+      <tr><th>Anchor</th><th class="num">Price</th><th class="num">vs $137.34</th><th>Basis</th></tr>
+      <tr><td><strong>Base — consensus target</strong></td><td class="num">$143.28</td><td class="num">+4.3%</td><td>Analyst consensus in pack; consensus rating <strong>Hold</strong>. Add the 4.31% dividend yield for a ~8.6% illustrative total-return anchor (price + yield, arithmetic only).</td></tr>
+    </table>
+    <p class="foot">No separate 12–18m bull/bear prices were in the verified pack for PEP, so none are invented. Use the 5-year distribution below for the range of outcomes.</p>
+    <h3>5-year projection (frozen-parameter format, as in prior briefings)</h3>
+    <table>
+      <tr><th>Case</th><th class="num">Revenue growth / yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">5-yr price (modelled)</th></tr>
+      <tr><td class="bull">Bull</td><td class="num">5%</td><td class="num">12.0%</td><td class="num">20×</td><td class="num"><strong>$232</strong></td></tr>
+      <tr><td><strong>Base</strong></td><td class="num">3%</td><td class="num">11.1%</td><td class="num">17.30×</td><td class="num"><strong>$161</strong></td></tr>
+      <tr><td class="bear">Bear</td><td class="num">0%</td><td class="num">10.0%</td><td class="num">14×</td><td class="num"><strong>$106</strong></td></tr>
+      <tr><td colspan="4"><strong>Probability-weighted (pack modelled output)</strong> — label: modelled estimate, weights not verifier-supplied</td><td class="num"><strong>$166</strong></td></tr>
+    </table>
+    <div class="callout"><strong>How to read it:</strong> Base $161 is +17% over five years on price alone (~3.2%/yr) before the 4.31% dividend — a bond-like equity profile. Bull $232 needs all three levers at once (5% growth, margin expansion to 12%, re-rating to 20×). Bear $106 is a no-growth, margin-slip, de-rating world — down 23%, cushioned only by dividends collected along the way. The weighted $166 (+21% over 5 years) confirms the Hold: fair compensation for low risk, not an 8/10-risk portfolio's return engine.</div>
+  </section>
+
+  <section>
+    <h2>6 &nbsp; Recommendation &amp; Portfolio Sizing</h2>
+    <div class="grid2">
+      <div>
+        <table>
+          <tr><th>Horizon</th><th>Call</th><th>Rationale in one line</th></tr>
+          <tr><td>Short term (12–18m)</td><td><strong>Hold</strong></td><td>Consensus $143.28 = +4.3%; own it for the 4.31% yield, don't chase it.</td></tr>
+          <tr><td>Long term (5 yr)</td><td><strong>Hold</strong></td><td>Weighted modelled $166; steady, low-beta compounding at a fair price.</td></tr>
+          <tr><td>Weight (mid-30s, risk 8/10)</td><td><strong>1.5%</strong></td><td>Pack recommendation: “income + value, not growth.”</td></tr>
+        </table>
+        <p>For an 8/10 risk score, PEP's job is defensive ballast inside Consumer Staples — it dampens drawdowns and pays cash while growth names (elsewhere in this series) do the heavy lifting. Sizing it larger would dilute the portfolio's growth tilt without adding return; sizing it at zero would lose the cheapest staples multiple and a 4.31% payer. 1.5% is the pack's calibrated middle.</p>
+      </div>
+      <div>
+        <h3>Position-size calculator</h3>
+        <div class="calc">
+          <div><label for="pv">Total portfolio value ($)</label><input id="pv" type="number" value="500000" min="0" step="1000"></div>
+          <div><div class="badge">PEP at 1.5%</div><div class="result" id="out">$7,500</div><div class="foot" id="shares">≈ 55 shares at $137.34</div></div>
+        </div>
+        <p class="foot">Illustrative only. Shares rounded down to whole shares. Rebalance if PEP drifts materially from 1.5% or if the dividend thesis (yield + payout sustainability, to be checked in filings) changes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sources &amp; Verification</h2>
+    <ul class="src">
+      <li>Research pack — PEP entry (Consumer Staples): segment list, brands, Q3 EPS beat, multiples, TTM figures, consensus, scenarios, 1.5% recommendation. Sources cited in pack: <em>The Motley Fool</em>; FinanceCharts staples table; FinanceCharts compare page.</li>
+      <li>MarketBeat — PEP: <a href="https://www.marketbeat.com/stocks/NASDAQ/PEP/?utm_source=MarketBeatPopup&utm_campaign=MarketBeatPopup&utm_medium=MarketBeatPopup&RegistrationCode=ModernMarketsPopup-Enterprise+Leader">marketbeat.com/stocks/NASDAQ/PEP</a></li>
+      <li>FinanceCharts — PEP vs MNST compare: <a href="https://www.financecharts.com/compare/PEP,MNST">financecharts.com/compare/PEP,MNST</a></li>
+      <li>Independent verification log (Financials &amp; Consumer Staples, price ref 30 Oct 2026): PEP price $137.34 / cap $187.16bn <strong>CONFIRMED</strong>; P/E 17.25× MarketBeat-derived vs 17.30× pack — vendor variance flagged on this page. No PEP figure in the log was marked CORRECTED. FCF/debt exact figures: <strong>not verified</strong> in pack — omitted as facts above.</li>
+      <li>Coordinator corrections applied: (1) all 5-year weighted prices labelled modelled estimates with assumptions shown; (2) caps/P/Es vendor-named, not silently mixed; (3) MNST/WMT/UL corrections in the log concern other tickers in this sector and do not change PEP figures — WMT #1 ranking basis is stated in the header as required.</li>
+    </ul>
+    <p class="foot">Prepared 1 Nov 2026 from the verified research pack and verification log for this sector. Prices are the 30 Oct 2026 close (1 Nov was a weekend). Modelled prices are estimates, not predictions. This is research information, not personalised investment advice.</p>
+  </section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — PepsiCo (PEP)</h2>
+<p><strong>Price (30 Oct 2026 close): $137.34.</strong> <strong>DCF intrinsic: $83.</strong> Discount/premium vs DCF: <strong>+65.5%</strong> — i.e. the shares are trading 65.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$83</td><td>+65.5%</td><td>Base Normal DCF: TTM FCF $10.5bn (StockOracle, OCF $14.6bn). Net cash -$40.7bn at 5 Sep 2026 (cash $10,675m + ST investments $488m = $11,163m; debt $51,881m). Omitting net debt OVERSTATES value — the earlier $0 label as 'conservative' was backwards; including the debt lowers the DCF. Growth g 3%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $74.45bn + PV of terminal value $80.05bn + net cash / excess capital $-40.70bn, ÷ 1.363bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/PEP/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — PepsiCo (PEP)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list (retailers are distribution channels). Demand is driven by snacks and beverages volumes, pricing, and the Frito-Lay / PepsiCo Beverages split between at-home and away-from-home consumption.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — PepsiCo (PEP)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, PepsiCo’s exposure is operational: AI can improve snacks and beverages forecasting, marketing and logistics, but the pack’s thesis is value/income at the cheapest large-staples P/E (~17x) — not AI revenue.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~17x trailing earnings there is little premium to strip, so an AI unwind would affect PepsiCo mainly through general market sentiment, not an AI-specific de-rating.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — snacks and beverages volumes are defensive and break last; (2) multiple — limited compression from an already low multiple; (3) balance sheet — the dividend absorbs ~75% of TTM free cash flow ($10.5bn), so a cash-flow shortfall, not AI-capex debt, is the balance-sheet watch item. Triggers to watch: organic growth, Frito-Lay volumes, and free-cash-flow coverage of the dividend.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+</div>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), out=document.getElementById('out'), sh=document.getElementById('shares');
+  function fmt(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+  function upd(){var v=parseFloat(pv.value)||0; var amt=v*0.015; out.textContent=fmt(amt); sh.textContent='≈ '+Math.floor(amt/137.34).toLocaleString('en-US')+' shares at $137.34';}
+  pv.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

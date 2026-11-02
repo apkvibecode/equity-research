@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — LLY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:150px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 64px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Health Care</span><span>Incretin Pharma · US Top 10</span></div>
+  <h1>Eli Lilly and Company <span class="tick">(NYSE: LLY)</span></h1>
+  <p class="lede">Two drugs now drive two-thirds of a $1.3 trillion company. Q3 2026 revenue rose 39% to $24.40B as Mounjaro and Zepbound scaled worldwide, FY26 guidance was raised to $91–92B, and retatrutide beat Ozempic head-to-head — but volume (+53%) is being partly bought with price (−15%), and the whole valuation rests on incretin durability.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $1,417.54 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026, reported 29 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$1,417.54</div><div class="vsub">Official close — Finnhub snapshot, confirmed in verification</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$1.334T</div><div class="vsub">FinanceCharts basis, 30 Oct 2026 · ~$1.26T on StockAnalysis share count — vendor / share-count timing</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM / Forward P/E</div><div class="vbig mono">46.0× / 30.5×</div><div class="vsub">P/S 14.60× · EV/EBITDA 28.10× · StockAnalysis, TTM to 30 Sep 2026 — forward P/E is a provider figure, see note in §2</div></div>
+  <div class="vcell span3"><div class="vlabel">Analyst average target</div><div class="vbig mono">$1,403.64 <span class="down" style="font-size:16px">−1.0%</span></div><div class="vsub">StockAnalysis average — essentially at the price; this report's $1,550 base sits above it on the guidance raise</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base $1,550 (+9%). Growth is verified; entry discipline still matters at 30.5× forward.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted value $2,070. Size reflects growth, not safety — concentration is the cap.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">4.0% of portfolio</div><div class="vsub">Largest single health-care weight in this series. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#sankey">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<div class="callout" style="margin-top:16px"><div class="ct">Ranking basis &amp; verification</div>
+<p><b>Universe:</b> US-domiciled top 10 only — FinanceCharts global health-care list, last updated 30 Oct 2026, filtered to US-domiciled names. Global ranks differ (Roche, Novartis, Genmab and AstraZeneca sit between US names globally). DHR (11th US) and ISRG (12th US) are <b>reserves, not top-10 members</b>. Q3 revenue, Mounjaro, Zepbound and the FY26 guidance raise were <b>confirmed</b> against independent sources in the verification pass. Forward P/E, 12–18-month targets and all 5-year prices are <b>modelled estimates</b> — methodology is shown wherever they appear, never presented as verified facts.</p></div>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Lilly did the rare thing a premium multiple demands: it <b>beat and raised</b>. Revenue of <b>$24.40B, +39% year-over-year</b>, was powered by incretin volume, and management lifted the full-year revenue guide to <b>$91–92B from $85–87B</b> with non-GAAP margin guided to <b>52–52.5%</b>. Read the quarter with two cautions attached in the research pack: about <b>$900M of Q3 revenue was non-recurring</b> milestones / rebate adjustments, and growth was <b>volume +53% with realised prices −15%</b> — demand is extraordinary, pricing is already conceding ground.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 (reported 29 Oct 2026)</th><th class="n">Actual</th><th class="n">YoY / detail</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Total revenue</td><td class="n">$24.40B</td><td class="n">+39%</td><td>Confirmed — $24.397B in the Lilly release via TradingView / Zacks</td></tr>
+      <tr><td>Mounjaro (tirzepatide, diabetes)</td><td class="n">$10.72B</td><td class="n">+65%</td><td>US $5.0B (+41%), ex-US $5.7B (+93%) — the ex-US leg is now the larger one</td></tr>
+      <tr><td>Zepbound (tirzepatide, obesity)</td><td class="n">$5.35B</td><td class="n">+49% worldwide</td><td>US-only growth was +48%; the +49% is the worldwide figure — do not mix the two</td></tr>
+      <tr class="hl"><td>Mounjaro + Zepbound combined</td><td class="n">~$16.1B</td><td class="n">~66% of revenue</td><td>The franchise <i>is</i> the company right now — see concentration risk in §4</td></tr>
+      <tr><td>Foundayo (oral GLP-1, orforglipron)</td><td class="n">$184M</td><td class="n">New</td><td>FDA-approved Apr 2026 per the Fool transcript — small today, strategically the pill-form bridge</td></tr>
+      <tr><td>Key products incl. Ebglyss, Jaypirca, Kisunla, Omvoh, Verzenio</td><td class="n">$17.1B</td><td class="n">Q3 total</td><td>As reported in Q3 coverage; the non-incretin tail is real but dwarfed by tirzepatide</td></tr>
+      <tr><td>FY26 revenue guidance</td><td class="n">$91–92B</td><td class="n">Raised from $85–87B</td><td>Non-GAAP margin guided 52–52.5% alongside it</td></tr>
+      <tr><td>Price / mix in the quarter</td><td class="n">Vol +53% · Price −15%</td><td class="n">Per Q3 coverage</td><td>Access is expanding faster than pricing power — the central long-term debate</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Zacks Q3 highlights; Fool Q3 2026 earnings-call transcript (29 Oct 2026); Lilly release via TradingView. All three Q3 lines above were marked CONFIRMED in the independent verification log.</p>
+</section>
+
+<section id="sankey">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 revenue flow — where $24.40B came from</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow of Lilly Q3 2026 revenue from Mounjaro, Zepbound and other products into total revenue and profitability" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="26" width="190" height="56" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="48" font-size="13" font-weight="700" fill="var(--ink)">Mounjaro</text><text x="20" y="66" font-size="12" fill="var(--ink2)">$10.72B · +65% · 43.9%</text>
+      <rect x="8" y="100" width="190" height="52" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="121" font-size="13" font-weight="700" fill="var(--ink)">Zepbound</text><text x="20" y="139" font-size="12" fill="var(--ink2)">$5.35B · +49% worldwide</text>
+      <rect x="8" y="170" width="190" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="191" font-size="13" font-weight="700" fill="var(--ink)">All other products</text><text x="20" y="209" font-size="12" fill="var(--ink2)">$8.33B · residual of total</text>
+      <rect x="300" y="86" width="175" height="66" fill="var(--navy)"/><text x="316" y="114" font-size="14" font-weight="700" fill="#fff">Total revenue</text><text x="316" y="134" font-size="13" fill="#fff">$24.40B · +39%</text>
+      <line x1="198" y1="54" x2="296" y2="104" stroke="var(--muted)" stroke-width="11" opacity=".35"/>
+      <line x1="198" y1="126" x2="296" y2="118" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="198" y1="196" x2="296" y2="134" stroke="var(--muted)" stroke-width="7" opacity=".35"/>
+      <rect x="580" y="26" width="200" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="594" y="48" font-size="13" font-weight="700" fill="var(--ink)">Incretin franchise</text><text x="594" y="66" font-size="12" fill="var(--ink2)">~$16.1B · ~66% of revenue</text>
+      <rect x="580" y="100" width="200" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="594" y="121" font-size="13" font-weight="700" fill="var(--ink)">TTM profitability (context)</text><text x="594" y="139" font-size="12" fill="var(--ink2)">Gross 83.6% · Operating 51.3%</text>
+      <rect x="580" y="170" width="200" height="52" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="594" y="191" font-size="13" font-weight="700" fill="var(--ink)">Non-recurring in Q3</text><text x="594" y="209" font-size="12" fill="var(--ink2)">~$900M milestones / rebates</text>
+      <line x1="475" y1="104" x2="576" y2="58" stroke="var(--muted)" stroke-width="6" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="475" y1="122" x2="576" y2="122" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="475" y1="138" x2="576" y2="188" stroke="var(--muted)" stroke-width="4" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="580" y="238" width="392" height="48" fill="var(--paper)" stroke="var(--line2)"/><text x="594" y="259" font-size="13" font-weight="700" fill="var(--ink)">FY26 guide raised: revenue $91–92B · non-GAAP margin 52–52.5%</text><text x="594" y="277" font-size="12" fill="var(--ink2)">TTM revenue $86.46B (+45.5%) · net margin 31.9% · StockAnalysis</text>
+    </svg>
+    <figcaption>“All other products” is the arithmetic residual ($24.40B − $16.07B incretin), not a reported segment. Profitability boxes show TTM margins to 30 Sep 2026 for context, not Q3 segment profit. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Lilly is an <b>incretin-led pharmaceutical company</b> in the middle of the steepest large-cap growth ramp in modern pharma. One molecule — tirzepatide, sold as Mounjaro for type-2 diabetes and Zepbound for obesity — generated roughly <b>two dollars in every three</b> of Q3 revenue. Around it sits a diversified tail (oncology with Verzenio and Jaypirca, immunology with Ebglyss and Omvoh, neuroscience with Kisunla) that would be a respectable pharma business on its own, and an oral follow-on, Foundayo, that extends the franchise from injections toward pills.</p>
+
+  <h3>Revenue architecture — Q3 2026</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th class="n">Q3 2026</th><th class="n">Share</th><th class="n">YoY</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Mounjaro</td><td class="n">$10.72B</td><td class="n">43.9%</td><td class="n">+65%</td><td>US $5.0B (+41%) and ex-US $5.7B (+93%) — international rollout is now outgrowing the home market, which de-risks single-payer exposure but adds MFN / reference-pricing politics</td></tr>
+      <tr><td>Zepbound</td><td class="n">$5.35B</td><td class="n">21.9%</td><td class="n">+49% worldwide</td><td>Obesity is the larger end-market and the more price-sensitive one — this is where the −15% realised-price signal matters most</td></tr>
+      <tr><td>Foundayo (orforglipron)</td><td class="n">$184M</td><td class="n">0.8%</td><td class="n">New</td><td>Oral GLP-1, FDA-approved Apr 2026 per the Fool transcript. Trivial revenue today; if pill convenience holds efficacy, it widens the funnel to needle-averse patients and primary-care channels</td></tr>
+      <tr><td>Everything else</td><td class="n">~$8.15B*</td><td class="n">~33%</td><td class="n">—</td><td>Verzenio, Ebglyss, Jaypirca, Kisunla, Omvoh and the legacy book. Key products in total were $17.1B in Q3 per the pack — *residual here nets Foundayo out of the non-incretin remainder; treat as approximate</td></tr>
+      <tr class="total"><td>Total</td><td class="n">$24.40B</td><td class="n">100%</td><td class="n">+39%</td><td>FY26 guide $91–92B implies Q4 stays on this trajectory</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Mounjaro split — US vs ex-US (Q3)</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">Ex-US</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bv">$5.7B · +93%</span></div>
+        <div class="bar-row"><span class="bl">United States</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="bv">$5.0B · +41%</span></div>
+      </div>
+      <p class="small">Only the Mounjaro geographic split is verified in the pack — no full-company geographic revenue split was supplied, so none is shown. The pattern still matters: the fastest growth is now outside the US, even as US policy (MFN pricing, the Medicare GLP-1 Bridge at $50/month cited in §4) sets the pricing weather for everyone.</p>
+    </div>
+    <div>
+      <h3>Structural pivots</h3>
+      <ul>
+        <li><b>From injectable to franchise platform:</b> tirzepatide (injectable) → orforglipron / Foundayo (oral) → retatrutide (next-generation, §4). Each step defends the installed base against a different attack — convenience, then efficacy.</li>
+        <li><b>Capacity as strategy:</b> heavy US onshoring investment in peptide / biologics manufacturing under MFN and tariff pressure. The pack verifies the direction and the pressure; <b>no single-site figure was verified</b>, so none is quoted here.</li>
+        <li><b>Volume-led growth model:</b> +53% volume at −15% realised price is a deliberate access trade — fill the market before competitors and compounders normalise lower prices.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Peptide manufacturing at unprecedented scale:</b> tirzepatide is a complex peptide; global biologics / peptide capacity — and Lilly's own build-out — is the binding constraint on how fast +53% volume can repeat.</li>
+    <li><b>US onshoring exposure:</b> the same investment that hedges tariffs concentrates execution risk in new US sites coming online on schedule.</li>
+    <li><b>Policy-linked supply:</b> MFN / tariff pressure is explicitly named in the pack as the driver of the onshoring push — supply chain and pricing policy are now the same conversation for Lilly.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The financial profile is <b>hyper-growth at pharma margins</b>: TTM revenue of $86.46B growing 45.5%, an 83.6% gross margin, and $19.66B of free cash flow — funded growth, not borrowed growth. The price for it is the multiple and a balance sheet that has quietly levered up to build capacity: <b>$49.50B of debt against $4.89B of cash, with net debt reported at $43.86B by StockAnalysis (D/E 1.23)</b>. Note on reconciliation: simple debt-minus-cash is $44.61B — the source's $43.86B net-debt figure is its own reported calculation (it nets more than the headline cash line), so both the cash/debt lines and the reported net debt are shown exactly as sourced rather than forcing them to tie. That leverage is comfortable at today's cash generation; it is not trivial if incretin pricing compresses faster than volume grows.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $1,417.54 (30 Oct 2026 close). TTM = trailing twelve months to 30 Sep 2026, StockAnalysis unless noted.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (TTM EPS $30.81)</td><td class="n">46.01×</td><td>Rich on trailing earnings — the market is paying for the forward ramp, not the trailing year</td></tr>
+      <tr><td>Forward P/E</td><td class="n">30.50×</td><td>Provider figure (StockAnalysis basis in the pack). Verification could not re-source the forward P/E dataset to a second provider — treat as a <b>provider estimate, not a verified fact</b>. Implied forward EPS ≈ $46.48</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">14.60×</td><td>The highest-quality growth in US health care, priced like it</td></tr>
+      <tr><td>EV / EBITDA (TTM)</td><td class="n">28.10×</td><td>Even on EBITDA the scarcity premium is large; there is no cheap entry in this name, only less-extended ones</td></tr>
+      <tr><td>Revenue — TTM / FY25</td><td class="n">$86.46B / $65.18B</td><td>TTM growth +45.51%; FY25 growth +44.70% — two consecutive ~45% years at this scale</td></tr>
+      <tr><td>Margins — gross / operating / net</td><td class="n">83.63% / 51.25% / 31.90%</td><td>Net income $27.58B on $86.46B of revenue. Non-GAAP FY26 margin guided 52–52.5% at the operating level</td></tr>
+      <tr><td>Free cash flow (TTM)</td><td class="n">$19.66B</td><td>OCF $30.65B − capex $10.98B; FCF margin 22.74%. Capex is the manufacturing build — it should convert to capacity, then to volume</td></tr>
+      <tr><td>Cash / Debt / Net debt (reported)</td><td class="n">$4.89B / $49.50B / $43.86B</td><td>Net debt is StockAnalysis's reported figure — it does not equal simple debt-minus-cash ($44.61B) because the source nets more than the headline cash line. Thin cash buffer by design — cash is being deployed into plants, not held</td></tr>
+      <tr><td>Debt / Equity</td><td class="n">1.23×</td><td>Levered for a pharma major. Watch this ratio if realised prices fall faster than volume rises</td></tr>
+      <tr><td>Dividend</td><td class="n">$6.92 · 0.49% yield</td><td>Payout 22.46% of earnings — a growth stock's dividend: symbolic, well-covered, not the reason to own it</td></tr>
+      <tr><td>Buyback yield</td><td class="n">0.58%</td><td>Modest — capital priority is capacity first, returns second</td></tr>
+      <tr><td>R&amp;D</td><td class="n">$15.38B TTM</td><td>FY25 $13.34B = 20% of revenue (YCharts TTM series for the current figure). This spend <i>is</i> the moat-maintenance budget — retatrutide comes from here</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">How to hold the valuation honestly</div>
+  <p>At <b>46× trailing / 30.5× forward</b>, LLY does not need things to go right once — it needs them to go right <i>repeatedly</i>: volume holding, retatrutide landing, pricing conceding slowly. The bull maths in §5 works because 45% TTM growth annualises even a high starting multiple down quickly. The bear maths works just as fast in reverse if growth halves. Position size (§6), not price timing, is the honest control for that.</p></div>
+
+  <h3>Capital allocation, in order of observed priority</h3>
+  <ul>
+    <li><b>1. Manufacturing capacity</b> — $10.98B of TTM capex, US-weighted, is the growth bottleneck being bought away.</li>
+    <li><b>2. R&amp;D</b> — ~20% of revenue, defending the franchise across three generations of molecules.</li>
+    <li><b>3. Balance-sheet funded expansion</b> — net debt $43.86B says Lilly chose leverage over dilution to fund the ramp.</li>
+    <li><b>4. Shareholder returns</b> — dividend (22.46% payout) plus a 0.58% buyback yield: present, disciplined, and deliberately last.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — patent + scale + pipeline depth, with a dated expiry.</b> Tirzepatide's composition-of-matter patent runs to <b>~2036</b>, with secondary patents to <b>~2039</b> (secondary source — treat as indicative, not a legal opinion). Inside that window, Lilly's defence is manufacturing scale nobody else has built, a brand physicians default to, and a pipeline that aims to obsolete its own drug before rivals can.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Patent estate:</b> composition-of-matter to ~2036, secondaries to ~2039 (indicative, secondary source) — a decade-plus of protected economics if the estate holds.</li>
+      <li><b>Manufacturing scale:</b> peptide capacity at Lilly's volume is itself a barrier — a rival with an equal molecule still needs years and billions to match supply.</li>
+      <li><b>Three-generation pipeline:</b> tirzepatide → orforglipron (oral) → retatrutide. Competitors must beat not today's drug, but the next two as well.</li>
+      <li><b>Efficacy leadership:</b> retatrutide's Phase 3 readouts (§4) suggest the efficacy frontier is still Lilly's to lose.</li>
+      <li><b>Distribution &amp; brand:</b> Mounjaro / Zepbound are the names patients ask for by name — direct demand pull few pharma products ever achieve.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Novo Nordisk</b> — semaglutide (Ozempic / Wegovy) is the entrenched rival, and <b>oral Wegovy launched Jan 2026</b> contests the convenience flank Lilly wants Foundayo to own.</li>
+      <li><b>Amgen (MariTide)</b> — a credible large-cap challenger with a differentiated dosing profile in development.</li>
+      <li><b>Compounding &amp; biosimilar pressure</b> — at the margin today, structural after patent cliffs; compounded GLP-1s already train patients and payers to expect lower prices.</li>
+      <li><b>Concentration cuts both ways:</b> a moat around two brands is deep but narrow — any incretin-class safety signal hits 66% of revenue at once.</li>
+      <li><b>Payer power:</b> −15% realised prices in a +53% volume quarter shows who else sits at the table. The moat is scientific; pricing is negotiated.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> mixed by design — Lilly is trading price for installed base while patents are strong, which is rational, but it means revenue growth will structurally run <i>below</i> volume growth. <b>Barriers to entry:</b> very high (patents + peptide scale + clinical data), falling over time as oral and next-gen rivals read out. <b>Regulatory advantage:</b> none structural — MFN and Medicare pricing pressure (§4) point the other way.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Retatrutide Phase 3 momentum</b> — TRANSCEND-T2D-2 (28 Oct 2026): A1C <b>−2.2% vs −1.8% for Ozempic</b>; weight <b>−19.5% (9 mg) / −20.9% (12 mg) vs −9.4% Ozempic</b> at 80 weeks. TRIUMPH-1 showed <b>~28.3% weight loss</b> (efficacy estimand). A clean path to filing extends the franchise a full generation.</li>
+        <li><b>Foundayo (oral) ramp</b> — any quarter where the $184M base visibly inflects proves the pill funnel and pressures Novo's oral Wegovy head start.</li>
+        <li><b>Guidance delivery</b> — hitting $91–92B with the 52–52.5% non-GAAP margin guide, after raising, is the credibility engine for the forward multiple.</li>
+        <li><b>Ex-US Mounjaro compounding</b> — +93% ex-US growth annualising against a still-early international rollout.</li>
+        <li><b>Capacity coming online</b> — US onshoring sites converting capex into shippable volume relieves the supply ceiling directly.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Concentration:</b> two brands = ~66% of sales. There is no diversification story inside the next two years if tirzepatide stumbles.</li>
+        <li><b>Price / mix erosion:</b> realised prices already −15%. MFN pressure and the <b>Medicare GLP-1 $50/month Bridge pricing</b> named in the pack sketch a world where US net prices step down structurally, not cyclically.</li>
+        <li><b>Non-recurring flattery:</b> ~$900M of Q3 revenue was milestones / rebate adjustments — underlying run-rate growth is a touch below the +39% headline.</li>
+        <li><b>Competitive readouts:</b> any MariTide or Novo next-gen data that closes the efficacy gap attacks the single assumption the multiple rests on.</li>
+        <li><b>Safety / supply shocks:</b> an incretin-class safety signal, or a peptide-capacity failure, moves the stock by multiple, not by earnings — at 30.5× forward there is no cushion priced in.</li>
+        <li><b>Leverage into a pricing fight:</b> net debt $43.86B is fine at 45% growth; it narrows options precisely in the scenario (price war) where flexibility would matter most.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Evidence that the efficacy frontier has changed hands — a rival readout beating retatrutide — <i>combined with</i> US net-price steps beyond the current −15% trend. Either alone compresses the multiple; together they unwind both the growth rate and the terminal margin in the §5 model at once, which is exactly the bear case ($894 over five years).</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All prices in this section are <b>modelled estimates</b> — the verification pass could not confirm targets or forward multiples as a dataset, so each case shows its full arithmetic and you can re-run it with your own weights. Cross-check: the analyst average is <b>$1,403.64</b> (StockAnalysis) — just below the $1,417.54 price. This report's base sits above consensus deliberately, on one stated reason: the FY26 guidance raise to $91–92B landed after much of that average was set.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$1,100</div><div class="ret down">−22.4% vs $1,417.54</div><p>Price erosion accelerates (MFN / Bridge pricing bites), a rival readout closes the efficacy gap, growth halves from the TTM pace. The forward multiple compresses toward the high-teens and even strong absolute earnings disappoint a priced-for-perfection stock.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$1,550</div><div class="ret up">+9.3% vs $1,417.54</div><p>Guidance is delivered, volume keeps compounding ex-US, retatrutide progresses without a safety surprise, and price concedes at roughly the current pace. Earnings growth does the work; the multiple roughly holds.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$1,750</div><div class="ret up">+23.5% vs $1,417.54</div><p>Foundayo inflects, retatrutide's filing path clears early, and capacity unlocks volume faster than price falls — revenue growth re-accelerates toward the TTM 45% and the scarcity premium re-expands.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $1,488</div></div><p>0.25×$1,100 + 0.50×$1,550 + 0.25×$1,750 = $1,487.50, or <b>+4.9%</b> from $1,417.54. Note the shape honestly: near-term upside is <i>thin</i> against a −22% bear case — the buy case here is a 5-year case (§ below), not a 12-month trade.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Starting point: <b>TTM revenue $86.46B</b>; share count <b>held frozen at 890.75M</b>. Only revenue CAGR, 2031 net margin and the exit P/E vary by case — the same convention as the META sample, so names in this series compare directly. Weights: Bear 25% / Base 50% / Bull 25%.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue CAGR</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">CAGR from $1,417.54</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">10%</td><td class="n">26%</td><td class="n">~$139.2B</td><td class="n">~$40.65</td><td class="n">22×</td><td class="n">$894</td><td class="n">−8.8%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">18%</td><td class="n">32%</td><td class="n">$197.8B</td><td class="n">$71.06</td><td class="n">30×</td><td class="n">$2,132</td><td class="n">+8.5%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">22%</td><td class="n">34%</td><td class="n">~$233.7B</td><td class="n">~$89.19</td><td class="n">35×</td><td class="n">$3,122</td><td class="n">+17.1%</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$2,070</td><td class="n">+7.9%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Arithmetic, base case: $86.46B × 1.18⁵ = $197.8B × 32% = $63.3B net income ÷ 890.75M shares = $71.06 EPS × 30 = $2,132. Weighted: 0.25×$894 + 0.50×$2,132 + 0.25×$3,122 = $2,070. Sanity anchors: even the bear case assumes 10% annual growth for five years — a genuine franchise break sits below it; the base 18% CAGR is well below the current 45.5% TTM pace, i.e. it already assumes heavy deceleration and continued price concession. Illustrative model, not a forecast.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Research views only — not guarantees, not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — staged, not chased.</b> The weighted 12–18-month value ($1,488) is only +5% above the price, so build in tranches and let any multiple-compression dip do part of the work. The guidance raise and retatrutide data justify owning it now rather than waiting for a perfect entry that a 45%-growth stock rarely offers.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — the core health-care growth holding.</b> Weighted 5-year value $2,070 (+7.9%/yr) on deliberately decelerated assumptions, with the bull case ($3,122) live as long as the efficacy frontier holds. The patent window to ~2036 covers the entire horizon.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the position drifts above ~6% on price alone (rebalance into the rest of the health-care sleeve); hard-review on a rival readout beating retatrutide, an incretin-class safety signal, or US net-price steps materially beyond the −15% trend without offsetting volume.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>LLY target: 4.0% of total portfolio</b> — the largest single health-care weight in this series. The size reflects <b>growth, not safety</b>: at 30.5× forward with two drugs at 66% of sales, 4% is conviction with a hard ceiling, not a starter position.</li>
+    <li><b>Why not larger:</b> the 12–18-month weighted upside (+5%) is the thinnest in the quality-growth set — the return case is duration (5-year compounding inside a patent window), and duration risk is managed by capping the weight, not by timing.</li>
+    <li><b>Look-through note:</b> LLY is a top S&amp;P 500 constituent — index core already carries some exposure. Count it before adding the full 4% direct.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Within the index artifact's framework, LLY anchors the health-care sleeve at this 4.0% — the sector's growth engine, balanced by the defensive names (JNJ, ABBV, UNH and peers) covered in their own reports.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>LLY — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $1,417.54.</strong> <strong>DCF intrinsic: $456.</strong> Discount/premium vs DCF: <strong>+210.9%</strong> — i.e. the shares are trading 210.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$456</td><td>+210.9%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$19.7B</strong>; constant growth g <strong>9%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$187.03B</strong>; PV of terminal value <strong>$264.03B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-44.61B</strong>; divided by <strong>890.75m</strong> diluted shares = <strong>$456</strong>. Base FCF $19.66B = OCF $30.65B − capex $10.98B (pack, TTM to Sep 2026). Growth g 9%: the pack's 5-year base case is 18% revenue CAGR, which cannot be used in this DCF because g must be &lt; r (10%); 9% is therefore a methodology ceiling, not a forecast, and the DCF understates Lilly if incretin growth stays near the pack case. Net cash −$44.61B (cash $4.89B − debt $49.50B; the pack states net debt $43.86B, a $0.75B difference likely from other debt-like items — the arithmetic figure is used so the fragment reproduces). Equity $40.24B derived from pack debt $49.50B ÷ D/E 1.23. DPS $6.92 (pack).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $1,417.54. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>LLY — Top customers (B2B, intermediated channel)</h2>
+<p>Lilly is classified <strong>B2B</strong>: most US product is distributed through wholesalers serving pharmacies, physicians and hospitals, with payers/PBMs negotiating net prices after rebates.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (wholesaler)</td><td>16–24% of consolidated revenue (sourced rough range, see note)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (wholesaler)</td><td>16–24% of consolidated revenue (sourced rough range, see note)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (wholesaler)</td><td>16–24% of consolidated revenue (sourced rough range, see note)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum Rx (PBM & payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>CVS Health / Caremark (PBM & pharmacy)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government — Medicare / Medicaid and other federal purchasers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>LillyDirect (direct-to-patient channel)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><small>Note on the 16–24% range: Lilly's FY2025 10-K states only that each of the three wholesalers accounted for a “significant percentage” of consolidated revenue and no other customer exceeded 10%; the 16–24% band is a secondary-source (Drillr) characterisation of that disclosure, labelled here as a sourced rough range, not a company-disclosed share.</small></p>
+<p><strong>Read-through (with caveat).</strong> With each wholesaler in the 16–24% band, no single distributor can be lost without a material revenue shock, but equally no single distributor's valuation drives Lilly's demand: end-demand is set by prescriptions for Mounjaro/Zepbound, which were ~66% of Q3 2026 revenue in the pack. If the covered customer in this table (UnitedHealth/Optum) trades at a discount to intrinsic once filled in, that is a potential tailwind for PBM contracting stability, and a premium a potential headwind — subject to the caveat above, and to the fact that payer pressure on GLP-1 prices (pack: Q3 realised prices −15%) can hurt Lilly even when a payer looks cheap. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>LLY — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: drug discovery and trial efficiency for the incretin pipeline (including retatrutide Phase 3 readouts in the pack), plus AI-assisted manufacturing scale-up for Mounjaro/Zepbound supply. Multiple channel: Lilly's 30.5× forward P/E in the pack already embeds exceptional growth expectations, but those are incretin expectations, not AI expectations.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a GLP-1 safety, supply or competitive readout, or Medicare/MFN pricing action — those move Lilly far more than any AI headline.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Q3 2026 figures are from Lilly's release and call coverage below, cross-checked in the independent verification pass (Q3 revenue, Mounjaro, Zepbound worldwide +49%, and the $91–92B guidance raise all CONFIRMED). Market and TTM data: StockAnalysis and FinanceCharts as dated. Forward P/E is a provider figure the verification pass could not re-source to a second provider — labelled as an estimate in §2. All scenario prices are this report's modelled estimates with methodology in §5.</p>
+  <ol class="refs">
+    <li><a href="https://www.tradingview.com/news/prnewswire:9aa6dc6999d18:0-lilly-reports-third-quarter-2026-financial-results-raises-full-year-guidance-and-highlights-regulatory-progress-across-the-portfolio/" target="_blank" rel="noopener">TradingView / PR Newswire — Lilly Q3 2026 release: results, raised guidance, regulatory progress</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3019672/lly-q3-earnings-call-highlights-raised-outlook-and-obesity-drug-growth" target="_blank" rel="noopener">Zacks — Q3 call highlights: raised outlook and obesity-drug growth</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3018734/lly-stock-jumps-as-q3-earnings-beat-estimates-2026-sales-view-raised" target="_blank" rel="noopener">Zacks — Q3 beat and raised 2026 sales view</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/29/eli-lilly-lly-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">Motley Fool — LLY Q3 2026 earnings-call transcript (Foundayo approval detail)</a></li>
+    <li><a href="https://www.fool.com/research/largest-healthcare-companies/" target="_blank" rel="noopener">Motley Fool — largest health-care companies (universe corroboration)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield" target="_blank" rel="noopener">FinanceCharts — health-care sector list, last updated 30 Oct 2026 (market-cap basis, US top-10 filter)</a></li>
+    <li><a href="https://stockanalysis.com/stocks/lly/statistics/" target="_blank" rel="noopener">StockAnalysis — LLY statistics: P/E, P/S, EV/EBITDA, margins, dividend, balance sheet</a></li>
+    <li><a href="https://stockanalysis.com/stocks/lly/revenue/" target="_blank" rel="noopener">StockAnalysis — LLY revenue history (TTM $86.46B, FY25 $65.18B) and $1,403.64 analyst average</a></li>
+    <li><a href="https://ycharts.com/companies/LLY/r_and_d_expense_ttm" target="_blank" rel="noopener">YCharts — LLY R&amp;D expense, TTM ($15.38B)</a></li>
+    <li><a href="https://www.securities.io/lilly-retatrutide-beats-ozempic-on-a1c-and-weight-loss-in-phase-3-trial/" target="_blank" rel="noopener">Securities.io — retatrutide Phase 3 vs Ozempic: A1C and weight-loss data</a></li>
+    <li><a href="https://antoncoop.com/news/story/4890575/eli-lilly-vs-novo-the-hidden-battle-behind-the-weight-loss-platform-reshaping-industries" target="_blank" rel="noopener">AntonCoop — Lilly vs Novo: tirzepatide patent horizon (~2036 / ~2039, secondary source, indicative)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> Research snapshot as of 1 Nov 2026 (1 Nov was a weekend; prices are the 30 Oct 2026 close). Prices, multiples and analyst targets move daily and will stale quickly. Scenario prices in §5 are modelled estimates with stated assumptions — the verification pass marks all forward P/E values, 12–18-month targets and 5-year prices as unverified model outputs, not facts. Patent dates are from a secondary source and are indicative only. This is research for the stated profile (mid-30s, risk 8/10), not personalised financial advice; re-check sizing against your actual portfolio, including index-fund look-through, before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v = parseFloat(pf.value) || 0;
+    var target = v*0.04, price = 1417.54;
+    out.innerHTML = 'LLY at <b>4.0%</b> = <b>' + fmt(target) + '</b> (≈ ' + Math.floor(target/price) + ' shares at $1,417.54). Rebalance-review level ~6% = <b>' + fmt(v*0.06) + '</b>. Count any S&P 500 index look-through on top of this direct weight.';
+  }
+  pf.addEventListener('input', calc); calc();
+  var links = document.querySelectorAll('#toc a');
+  var secs = [];
+  links.forEach(function(a){ var el = document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a, el:el}); });
+  function spy(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s){ if (s.el.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, {passive:true}); spy();
+})();
+</script>
+</body>
+</html>

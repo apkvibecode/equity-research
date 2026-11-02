@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — TCEHY · Tencent Holdings ADR</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f5f7; --surface:#ffffff; --surface2:#eef1f4; --ink:#0f1e2e; --muted:#5b6b7d; --line:#dbe1e8;
+  --navy:#0f2040; --teal:#0e7c5b; --teal-soft:#e6f4ef; --gold:#8a6d2b; --gold-soft:#fdf6e0;
+  --red:#b42318; --red-soft:#fef3f2; --green:#067647; --green-soft:#ecfdf3; --amber:#b54708; --amber-soft:#fffaeb;
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0b1118; --surface:#131d2a; --surface2:#1a283b; --ink:#e8eef5; --muted:#9db0c3; --line:#24344a; --navy:#0a1626; --teal:#2dd4a8; --teal-soft:#0f2e26; --gold-soft:#2a2410; --red-soft:#2e1512; --green-soft:#0e2a1e; --amber-soft:#2a1f0a; }
+}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55}
+a{color:var(--teal)} .wrap{max-width:1080px;margin:0 auto;padding:20px 18px 56px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:600;font-size:12px}
+.hero{background:var(--navy);color:#fff;border-radius:20px;padding:28px 26px 22px;margin-top:14px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-40px;top:-40px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(45,212,168,.35),transparent 65%)}
+.hero h1{font-family:"Fraunces",serif;font-size:clamp(30px,5vw,46px);line-height:1.05;margin:10px 0 6px;font-weight:700}
+.hero h1 span{color:#7ee8c7}
+.sub{color:#cbd6e3;max-width:680px;font-size:15.5px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7ee8c7;font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;position:relative;z-index:1}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:14px}
+.stat b{font-size:22px;display:block;line-height:1.1}
+.stat small{color:#a8b8ca;font-size:12px}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}
+@media(max-width:700px){.verdict{grid-template-columns:1fr}}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.vcard h3{margin:0 0 6px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.badge{display:inline-block;padding:4px 10px;border-radius:999px;font-weight:700;font-size:13px}
+.b-hold{background:var(--amber-soft);color:var(--amber);border:1px solid #f5d48b}
+.b-buy{background:var(--green-soft);color:var(--green);border:1px solid #8ce0b8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:14px}
+section h2{font-family:"Fraunces",serif;font-size:24px;margin:0 0 4px;line-height:1.2}
+section h2 em{color:var(--teal);font-style:normal}
+.lede{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+h3{font-size:15px;margin:18px 0 8px}
+p,li{font-size:14.8px}
+ul{padding-left:18px} li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:13.8px;margin:12px 0}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.note{border-radius:12px;padding:13px 14px;font-size:13.8px;margin:12px 0}
+.note.warn{background:var(--amber-soft);border:1px solid #ecd28a}
+.note.info{background:var(--teal-soft);border:1px solid #a7dcc8}
+.note.risk{background:var(--red-soft);border:1px solid #f0b8b0}
+.segTabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.segTabs button{border:1px solid var(--line);background:var(--surface2);padding:8px 13px;border-radius:999px;cursor:pointer;font-weight:600;font-size:13px;color:var(--ink)}
+.segTabs button.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.segPanel{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--bg)}
+.barTrack{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden;margin:6px 0 2px}
+.barFill{height:100%;border-radius:999px}
+.toggle{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:3px}
+.toggle button{border:0;background:transparent;padding:7px 14px;border-radius:999px;font-weight:700;cursor:pointer;color:var(--muted)}
+.toggle button.active{background:var(--navy);color:#fff}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.calc{grid-template-columns:1fr}}
+input[type=number]{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px}
+.resultBox{background:var(--navy);color:#fff;border-radius:14px;padding:16px}
+.resultBox b{font-size:26px}
+.sources{font-size:13.5px} .sources li{margin:7px 0}
+.footer{color:var(--muted);font-size:12.5px;text-align:center;margin-top:22px;line-height:1.6}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:999px;vertical-align:middle}
+.tag.est{background:var(--gold-soft);color:var(--gold);border:1px solid #d9c073}
+.tag.mod{background:#eef2ff;color:#3538cd;border:1px solid #b8c2ff}
+@media(prefers-color-scheme:dark){.tag.mod{background:#1e2340;color:#a5b4fc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>EQUITY RESEARCH &nbsp;·&nbsp; COMMUNICATION SERVICES &nbsp;·&nbsp; AS OF 1 NOV 2026</span><span>Price ref: 30 Oct 2026 close</span></div>
+
+  <div class="hero">
+    <div class="kicker">Tencent Holdings Ltd — ADR (OTC) · TCEHY</div>
+    <h1>Tencent: the WeChat<br><span>distribution monopoly</span><br>at a single-digit-to-low-teens multiple</h1>
+    <p class="sub">China's super-app, games and payments giant. The investment case is not growth at any price — it is a cash-generative ecosystem priced with an ADR / geopolitical discount. That discount is why the long-term stance is selective, sized small, and conditional on regulation staying manageable.</p>
+    <div class="stats">
+      <div class="stat"><small>ADR CLOSE — 30 OCT 2026</small><b>$49.04</b><small>Finnhub · OTC ADR</small></div>
+      <div class="stat"><small>COMPANY MARKET CAP</small><b>$510.7B</b><small>FinanceCharts — company level</small></div>
+      <div class="stat"><small>TRAILING P/E — ADR, INDICATIVE</small><b>12.25×</b><small>Finnhub ADR · ratio effects apply</small></div>
+      <div class="stat"><small>SUGGESTED WEIGHT — RISK 8/10</small><b>2.0%</b><small>Selective China exposure sleeve</small></div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div class="vcard"><h3>Short term · 12–18 months</h3><span class="badge b-hold">HOLD</span><p style="margin:8px 0 0">No chase into regulatory or ADR headlines. Modelled base $58 (+18% vs $49.04) needs game approvals and ad momentum to hold.</p></div>
+    <div class="vcard"><h3>Long term · 5 years</h3><span class="badge b-buy">BUY — SELECTIVE</span><p style="margin:8px 0 0">Buy for the ecosystem and cash returns, not as a core US holding. Modelled weighted $61 — modest re-rating, not a moonshot.</p></div>
+    <div class="vcard"><h3>Position discipline</h3><b style="font-size:20px">Cap at 2%</b><p style="margin:6px 0 0">For a mid-30s investor at risk 8/10. The cap is the risk control: Beijing policy and ADR structure can gap the price in ways earnings cannot offset.</p></div>
+  </div>
+
+  <div class="note warn"><strong>How to read the numbers on this page — please read first.</strong> ADR price ($49.04) and company market cap ($510.746B) are verified for 30 Oct 2026 (see Sources). The P/E of 12.25× is <em>indicative only</em> — ADR ratio effects apply, so do not compare it tick-for-tick with a US-listed P/E. Detailed revenue, margin, free-cash-flow, cash and debt lines were <strong>not verified in this research run</strong> and are therefore shown only as labelled <span class="tag est">ESTIMATE</span> ranges or omitted — never as precise facts. All scenario prices are <span class="tag mod">MODELLED ESTIMATES</span> with assumptions shown. Research views only — not investment advice, not a guarantee.</div>
+
+  <section>
+    <h2>1 &nbsp; Business Model &amp; <em>Segment Breakdown</em></h2>
+    <p class="lede">Three engines inside one ecosystem. WeChat and QQ are not just apps — they are the distribution, identity and payments layer through which the other two engines are sold.</p>
+    <div class="segTabs" role="tablist">
+      <button class="active" data-seg="vas">Value-Added Services</button>
+      <button data-seg="ads">Marketing Services</button>
+      <button data-seg="fin">Fintech &amp; Business Services</button>
+    </div>
+    <div class="segPanel" id="segPanel">
+      <h3 style="margin-top:0" id="segTitle">Value-Added Services — games + social / video subscriptions</h3>
+      <p id="segBody">The historic profit core: domestic and international games, plus social-network and video/music subscriptions. Tencent is one of the world's largest games publishers by revenue, with owned studios and stakes in overseas studios. Economics benefit from owned IP, long-lived titles, and distribution through WeChat/QQ — Tencent does not have to buy its audience anew for each launch. Key sensitivity: Beijing game-licence approvals and content rules set the domestic launch cadence.</p>
+      <p style="color:var(--muted);font-size:13.5px" id="segNote">Watch: licence approvals, overseas title performance, subscription retention.</p>
+    </div>
+
+    <h3>Geography &amp; structural pivots</h3>
+    <div class="grid2">
+      <div><strong>Geographic distribution</strong><ul><li><strong>Overwhelmingly China</strong> — domestic games, ads, payments and cloud are the centre of gravity.</li><li><strong>Overseas games</strong> — the main non-China growth leg, via owned and invested studios.</li><li><strong>SEA / LatAm fintech</strong> — payments and financial-services exposure outside China, smaller than the domestic core.</li></ul></div>
+      <div><strong>Recent pivots</strong><ul><li><strong>AI models &amp; enterprise cloud</strong> — building models and selling cloud/AI to enterprises, rather than only consumer AI features.</li><li><strong>Overseas game studios</strong> — shifting growth mix toward markets not gated by domestic licences.</li><li><strong>Shareholder returns</strong> — buybacks and dividends as a stated capital-return channel alongside reinvestment.</li></ul></div>
+    </div>
+    <h3>Supply-chain &amp; platform dependencies</h3>
+    <p>Tencent is less hardware-exposed than a device maker, but it is not dependency-free: cloud and AI growth require data-centre capacity and advanced accelerators (subject to export controls), games distribution on mobile still passes through app-store economics outside WeChat, and the entire domestic model operates under Chinese data, content and anti-monopoly rules. The moat is distribution inside China; the dependency is permission to operate that distribution.</p>
+  </section>
+
+  <section>
+    <h2>2 &nbsp; Financial Health &amp; <em>Balance Sheet Diagnostics</em></h2>
+    <p class="lede">What is verified, what is indicative, and what is deliberately not stated precisely — because it was not verified in this run.</p>
+    <table>
+      <tr><th>Metric</th><th>Value</th><th>Basis / caveat</th></tr>
+      <tr><td>ADR price — 30 Oct 2026 close</td><td class="num">$49.04</td><td>Finnhub — verified. Note: FinanceCharts' price column for OTC ADRs was one day stale (29 Oct) on its 30 Oct table; its market-cap column is the one used here.</td></tr>
+      <tr><td>Company market capitalisation</td><td class="num">$510.746B</td><td>FinanceCharts, company level — verified. Do <em>not</em> use Finnhub's ADR-level cap for company size.</td></tr>
+      <tr><td>Trailing P/E (ADR)</td><td class="num">12.25×</td><td>Finnhub ADR — <strong>indicative only</strong>. ADR ratio effects apply; treat as “low-teens / discount multiple”, not a precise cross-stock comparator.</td></tr>
+      <tr><td>Net margin — historical range <span class="tag est">ESTIMATE</span></td><td class="num">~20–30%</td><td>Historical characterisation only, not a verified trailing figure for this run. Do not quote a single-point margin for TCEHY from this page.</td></tr>
+      <tr><td>Balance-sheet character <span class="tag est">ESTIMATE</span></td><td class="num">Large net cash ex-fintech</td><td>Qualitative, historically observed. Fintech balances are client-related and should not be read as freely available corporate cash — hence “ex-fintech”. No precise cash/debt figure is published here because none was verified.</td></tr>
+      <tr><td>Dividend yield <span class="tag est">ESTIMATE</span></td><td class="num">~1%</td><td>Approximate, historical. The return story is buybacks + dividend together, not yield alone.</td></tr>
+      <tr><td>Revenue / FCF — precise trailing</td><td class="num">— omitted —</td><td>Not verified in this run. Omitted rather than invented. See the modelled 2026E revenue estimate in §5, labelled as an estimate.</td></tr>
+    </table>
+    <div class="grid2">
+      <div><h3>Capital allocation</h3><p>The pack records a pivot toward shareholder returns via <strong>buybacks and dividends</strong>, funded by the games/ads cash engine while AI and cloud capex rises. For an ADR holder the practical read is: returns are real, but they are set in Hong Kong-listed (0700) terms and translated through the ADR — currency (yuan / HKD / USD) and withholding mechanics matter to the realised return, even when the company-level policy is shareholder-friendly.</p></div>
+      <div><h3>Leverage read</h3><p>No verified debt-to-equity figure is published on this page. The qualitative, historically grounded read is a <strong>net-cash ex-fintech</strong> profile rather than a levered one — the financial risk in TCEHY has historically been regulatory and geopolitical, not balance-sheet solvency. If you need a current D/E for a position decision, pull it from Tencent's latest filed interim/annual report before acting; do not substitute the estimate above.</p></div>
+    </div>
+    <div class="note info"><strong>Valuation context.</strong> At an indicative ~12× ADR P/E, Tencent is priced well below US mega-cap communication peers on headline multiple. That gap is the market pricing China regulation, ADR structure and currency — not necessarily pricing the WeChat ecosystem as broken. The scenario work in §5 therefore assumes only a <em>partial</em> re-rating (to 14× base, 16× bull), not a full US-peer multiple.</div>
+  </section>
+
+  <section>
+    <h2>3 &nbsp; Competitive Moat &amp; <em>Industry Positioning</em></h2>
+    <p class="lede">A super-app network effect is the strongest kind of consumer moat in China — and the most politically visible one.</p>
+    <div class="grid2">
+      <div><h3>Where the moat is real</h3><ul><li><strong>WeChat super-app network effects:</strong> messaging, social, payments, mini-programs and services in one identity — leaving means leaving the network, not just an app.</li><li><strong>Payment rails (WeChat Pay):</strong> embedded in daily transactions, reinforcing frequency and data on consumer behaviour inside the ecosystem.</li><li><strong>Games IP &amp; pipeline:</strong> owned titles, publishing scale and overseas studio stakes diversify hit risk.</li><li><strong>Distribution without bought traffic:</strong> new services can be surfaced to an existing logged-in base — a structural customer-acquisition advantage.</li></ul></div>
+      <div><h3>Limits &amp; competitors</h3><ul><li><strong>Competitors:</strong> Alibaba (commerce / cloud / payments), ByteDance (attention / short video / ads), NetEase (games), Baidu (search / AI), plus global game publishers overseas.</li><li><strong>Pricing power is capped by regulation:</strong> games monetisation, fintech fees and ad/data practices are all policy-sensitive — pricing power exists commercially but can be limited by rule changes.</li><li><strong>Attention is contested:</strong> short-video has already shown that time spent inside WeChat is not guaranteed.</li></ul></div>
+    </div>
+    <p><strong>Positioning verdict:</strong> Wide moat domestically, narrower internationally. In China, WeChat is infrastructure. Outside China, Tencent is a strong games owner/publisher and a minority fintech player — competitive, but without the same distribution lock-in. That asymmetry is why overseas growth is a catalyst, not yet a second moat.</p>
+  </section>
+
+  <section>
+    <h2>4 &nbsp; Catalysts &amp; <em>Downside Risks</em></h2>
+    <div class="grid2">
+      <div><h3 style="color:var(--green)">Catalysts</h3><ul><li><strong>Game approvals:</strong> a smoother licence cadence unlocks domestic launches already built.</li><li><strong>AI monetisation:</strong> enterprise cloud/AI contracts and ad-targeting gains from models — revenue, not just demos.</li><li><strong>Overseas growth:</strong> international games and SEA/LatAm fintech scaling beyond the domestic regulatory perimeter.</li><li><strong>Capital returns:</strong> continued buybacks/dividends supporting per-share value while the multiple stays discounted.</li></ul></div>
+      <div><h3 style="color:var(--red)">Downside risks</h3><ul><li><strong>Beijing regulation:</strong> gaming, data, anti-monopoly and fintech rules can change economics faster than earnings can adapt.</li><li><strong>Game-licence cycles:</strong> approval pauses directly delay revenue.</li><li><strong>US ADR / delisting rhetoric:</strong> the ADR wrapper itself carries headline risk independent of the Hong Kong listing.</li><li><strong>Currency &amp; consumer:</strong> yuan moves translate earnings; weak China consumer spending hits ads, games and payments together.</li></ul></div>
+    </div>
+    <div class="note risk"><strong>The risk that dominates all others:</strong> policy. Tencent can execute well and still de-rate if Beijing tightens games/fintech/data rules or if US–China financial decoupling rhetoric escalates. That is a gap risk, not a gradual earnings risk — and it is the direct reason for the 2% sizing cap in §6, even at risk 8/10.</div>
+  </section>
+
+  <section>
+    <h2>5 &nbsp; Scenario-Based Valuation &amp; <em>Price Targets</em> <span class="tag mod">MODELLED ESTIMATES</span></h2>
+    <p class="lede">ADR basis. 5-year prices are derived on company earnings power (growth × margin × exit P/E), not a share-count formula — the ADR share-count equivalent was not disclosed in this pack, and inventing one would be false precision.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between">
+      <div class="toggle" role="tablist"><button class="active" id="btn12">12–18 months</button><button id="btn5y">5 years</button></div>
+      <div style="font-size:13px;color:var(--muted)">Current ADR: <strong style="color:var(--ink)">$49.04</strong> · Weights: Base 50% / Bull 25% / Bear 25%</div>
+    </div>
+
+    <div id="panel12">
+      <table><tr><th>Case</th><th>Weight</th><th class="num">ADR target</th><th class="num">vs $49.04</th><th>What has to happen</th></tr>
+      <tr><td><strong>Bear</strong></td><td>25%</td><td class="num">$44</td><td class="num">−10.3%</td><td>Licence / regulatory friction, soft ads, ADR headline pressure.</td></tr>
+      <tr><td><strong>Base</strong></td><td>50%</td><td class="num">$58</td><td class="num">+18.3%</td><td>Steady games + ads, early AI revenue, returns continue.</td></tr>
+      <tr><td><strong>Bull</strong></td><td>25%</td><td class="num">$70</td><td class="num">+42.7%</td><td>Strong approvals, overseas breakout, visible AI monetisation.</td></tr>
+      <tr><td colspan="2"><strong>Probability-weighted</strong></td><td class="num"><strong>$57.50</strong></td><td class="num">+17.2%</td><td>0.50×$58 + 0.25×$70 + 0.25×$44 = $57.50. Modelled estimate — use the base case, not false precision.</td></tr></table>
+      <p style="font-size:13px;color:var(--muted)">Note on bears: the 12–18-month bear is $44; the 5-year bear in the next tab is $42 — different horizons, different cases. They are not the same number.</p>
+    </div>
+    <div id="panel5y" style="display:none">
+      <div class="note warn"><strong>Model inputs — read before the prices.</strong> Base 2026E company revenue <span class="tag est">ESTIMATE</span> <strong>$105B</strong> (RMB ~770B equivalent, <em>unverified</em>). Earnings growth and exit P/E below are modelling assumptions, not forecasts from the company.</div>
+      <table><tr><th>Case</th><th>Weight</th><th>Earnings CAGR</th><th>Margin / Exit P/E</th><th class="num">ADR price</th><th class="num">vs $49.04</th></tr>
+      <tr><td><strong>Bear</strong></td><td>25%</td><td>4%</td><td>10×</td><td class="num">$42</td><td class="num">−14%</td></tr>
+      <tr><td><strong>Base</strong></td><td>50%</td><td>9%</td><td>28% margin · 14×</td><td class="num">$62</td><td class="num">+26%</td></tr>
+      <tr><td><strong>Bull</strong></td><td>25%</td><td>13%</td><td>16×</td><td class="num">$78</td><td class="num">+59%</td></tr>
+      <tr><td colspan="4"><strong>Probability-weighted (50/25/25)</strong></td><td class="num"><strong>$61</strong></td><td class="num">+24%</td></tr></table>
+      <p style="color:var(--muted);font-size:13.5px">Check: 0.50×$62 + 0.25×$78 + 0.25×$42 = $31 + $19.50 + $10.50 = <strong>$61</strong>. The uplift is deliberately modest — a partial re-rating from ~12× indicative to 14× base, on 9% earnings compounding. If you believe no re-rating is warranted, the honest 5-year value is closer to the low-$50s; if you believe a full re-rating is warranted, you are underwriting a political change, not just a business one.</p>
+      <!-- visual -->
+      <div style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted)"><span>Bear $42</span><span>Current $49.04</span><span>Base $62</span><span>Bull $78</span></div>
+        <div class="barTrack" style="height:14px"><div class="barFill" style="width:79%;background:linear-gradient(90deg,#b42318 0 53%,#e8a838 53% 63%,#0e7c5b 63% 79%,#0f2040 79% 100%)"></div></div>
+        <div style="font-size:12px;color:var(--muted)">Bar scaled to $100. Weighted $61 sits just below base — the bear case drags, by design.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>6 &nbsp; Recommendation &amp; <em>Portfolio Sizing</em></h2>
+    <p class="lede">For a mid-30s investor, risk score 8/10. Tencent belongs in the portfolio as selective diversification — not as a substitute for a US core holding.</p>
+    <table><tr><th>Horizon</th><th>Stance</th><th>Rationale in one line</th></tr>
+      <tr><td>Short term (12–18 mo)</td><td><span class="badge b-hold">HOLD</span></td><td>Modelled upside (+18% base) is real but hostage to licence and ADR headlines — accumulate on weakness, don't chase.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="badge b-buy">BUY — SELECTIVE</span></td><td>Ecosystem cash generation + returns at a discount multiple; weighted +24% modelled, with the discount as compensation for policy risk.</td></tr>
+    </table>
+    <div class="calc">
+      <div>
+        <label for="portVal" style="font-weight:600;font-size:13.5px">Your total portfolio value (USD)</label>
+        <input type="number" id="portVal" value="250000" min="0" step="1000">
+        <p style="font-size:13px;color:var(--muted)">Suggested weight for TCEHY: <strong>2.0%</strong> of total portfolio. At $49.04, that is the ADR count on the right. Treat 2% as a cap, not a target to exceed — increase only if you consciously accept concentrated China-policy exposure and can hold the Hong Kong line (0700) as an alternative wrapper.</p>
+        <p style="font-size:13px;color:var(--muted)"><strong>Sector context:</strong> TCEHY sits in Communication Services. In the full multi-sector framework, Communication Services is one sleeve among many — Tencent should be funded from that sleeve's China/ADR sub-allocation, not by trimming a US core name like a domestic telecom or platform holding.</p>
+      </div>
+      <div class="resultBox"><small style="color:#a8b8ca;letter-spacing:.08em">AT 2.0% WEIGHT</small><div><b id="allocAmt">$5,000</b></div><div style="color:#cbd6e3;font-size:14px"><span id="shareCount">~102</span> ADRs at $49.04</div><hr style="border-color:rgba(255,255,255,.2);margin:14px 0"><div style="font-size:13.5px;color:#cbd6e3">If the ADR fell to the <strong style="color:#fff">5-year bear case ($42, −14.4% vs $49.04)</strong> — distinct from the 12–18-month bear of $44 (−10.3%) in §5 — this position loses about <strong style="color:#fff" id="bearLoss">$718</strong> — painful, not portfolio-breaking. That is exactly what the 2% cap is for.</div></div>
+    </div>
+    <h3>Ranking basis &amp; universe note</h3>
+    <p style="font-size:13.8px;color:var(--muted)">Universe ranking uses FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. GOOGL is counted once (GOOG excluded as a duplicate share class). SpaceX (SPCX) <strong>is listed</strong> on NASDAQ — IPO 12 June 2026 — and ranks #2 in Communication Services; Deutsche Telekom ADR (DTEGY) is therefore #11 and is retained as an 11th name in the sector set. TCEHY is an OTC ADR for Tencent Holdings (0700 in Hong Kong) — ADR ratio, currency and US–China headline risks apply in addition to company risk.</p>
+  </section>
+
+  <section>
+    <h2>Sources &amp; <em>Verification</em></h2>
+    <ul class="sources">
+      <li><strong>ADR price — Finnhub (TCEHY):</strong> $49.04, 30 Oct 2026 close. <a href="https://finnhub.io/?q=%22TCEHY%22" target="_blank" rel="noopener">finnhub.io — TCEHY</a> — also the source for the indicative ADR P/E of 12.25×.</li>
+      <li><strong>Company market cap &amp; sector ranking — FinanceCharts:</strong> $510.746B, Communication Services biggest-companies table, last updated 30 Oct 2026. <a href="https://www.financecharts.com/sectors/communication_services" target="_blank" rel="noopener">financecharts.com/sectors/communication_services</a></li>
+      <li><strong>Verification note:</strong> Prices and caps above were independently cross-checked in the verification log for this sector (1 Nov 2026). Items the log marked unverified — detailed revenue, margin, FCF, cash and debt — are labelled ESTIMATE or omitted on this page, per that log. Modelled scenario prices were not verified as facts; they are estimates with methodology shown in §5.</li>
+      <li><strong>For primary filings:</strong> refer to Tencent Holdings' Hong Kong Exchange (0700) interim and annual reports for audited revenue, segment, cash and debt figures before making a position decision — those filings supersede any estimate range on this page.</li>
+    </ul>
+  </section>
+
+  <p class="footer">Equity Research — TCEHY (Tencent Holdings ADR) · Communication Services · As of 1 Nov 2026 · Price reference 30 Oct 2026 close ($49.04)<br>Research views for a mid-30s investor at risk 8/10. Modelled prices are estimates, not predictions. Not investment advice.</p>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TCEHY (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $49.04.</strong> <strong>DCF intrinsic: $54.00.</strong> Discount/premium vs DCF: <strong>-9.2%</strong> — i.e. the shares are trading 9.2% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$54.00</td><td>-9.2%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $26.5bn. Company-reported conservative FCF measure (~RMB-equivalent $26.5bn; ttm.financial: FY25 FCF $32bn, conservative measure $26.5bn). ADR-equivalent shares used (see below). Growth g = 8% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $239.89bn + PV of terminal value $324.56bn + net cash $-1.94bn, divided by 10.416bn diluted shares = <strong>$54.00</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://ttm.financial/post/550940905988640</li><li>TipRanks ADR dividend per share $0.675</li><li>https://twelvedata.com/markets/790071/stock/otc/tcehy/statistics</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — TCEHY (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Tencent's revenue is dominated by consumer-paid value-added services (games and social/video subscriptions) alongside advertising and fintech/cloud services sold to businesses; no single business customer is disclosed above 10% of revenue. Key demand drivers: WeChat/QQ user engagement and game-pipeline approvals in China, plus the pace of AI and Cloud monetisation with enterprises.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TCEHY</h2>
+<p><strong>Role: Beneficiary.</strong> Tencent is monetising AI inside an existing super-app rather than selling AI infrastructure: the pack's pivot is AI models and cloud for enterprises, funded from games and WeChat economics, with AI capex expected to roughly double in 2026.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through AI-enhanced games, advertising and enterprise Cloud; the multiple is supported by the market treating Tencent as a cheaper AI beneficiary (P/E ~13x) than Western AI names.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in enterprise Cloud and advertising as Chinese businesses cut AI budgets, then in games if consumer spending softens; then the multiple compresses toward a slower-growth China-internet multiple; then the balance sheet is the least of the worries — large net cash ex-fintech in the pack's history — with regulation and ADR risk the bigger constraint. Watch: game-licence approvals, Cloud growth versus the AI capex ramp, and any Beijing data or anti-monopoly action.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+</div>
+<script>
+var segs={
+ vas:{t:"Value-Added Services — games + social / video subscriptions",b:"The historic profit core: domestic and international games, plus social-network and video/music subscriptions. Tencent is one of the world's largest games publishers by revenue, with owned studios and stakes in overseas studios. Economics benefit from owned IP, long-lived titles, and distribution through WeChat/QQ — Tencent does not have to buy its audience anew for each launch. Key sensitivity: Beijing game-licence approvals and content rules set the domestic launch cadence.",n:"Watch: licence approvals, overseas title performance, subscription retention."},
+ ads:{t:"Marketing Services — WeChat advertising",b:"Advertising sold inside the WeChat ecosystem and Tencent's media properties. The inventory is valuable because it sits inside a logged-in, high-frequency super-app rather than open-web traffic — targeting and measurement benefit from first-party ecosystem signals, subject to data rules. Growth levers are ad load discipline, video-account inventory, and AI-improved targeting. Sensitivity: China consumer and advertiser budgets — when domestic consumption softens, ad growth is the first line to feel it.",n:"Watch: ad growth vs China consumption, video-account monetisation, data-rule changes."},
+ fin:{t:"Fintech & Business Services — WeChat Pay + Cloud",b:"WeChat Pay payment rails, wealth/fintech services, and Tencent Cloud for enterprises. Payments give frequency and ecosystem lock-in more than high take-rates — fees are policy-sensitive and competition with Alipay is structural. Cloud is the enterprise growth bet, now tied to AI models and infrastructure. Fintech client balances sit inside this segment's economics and must not be confused with freely available corporate cash (see §2, ex-fintech).",n:"Watch: payment regulation, cloud/AI enterprise wins, fintech fee rules."}
+};
+document.querySelectorAll('.segTabs button').forEach(function(btn){
+ btn.addEventListener('click',function(){
+   document.querySelectorAll('.segTabs button').forEach(function(b){b.classList.remove('active')});
+   btn.classList.add('active');
+   var d=segs[btn.getAttribute('data-seg')];
+   document.getElementById('segTitle').textContent=d.t;
+   document.getElementById('segBody').textContent=d.b;
+   document.getElementById('segNote').textContent=d.n;
+ });
+});
+var b12=document.getElementById('btn12'), b5=document.getElementById('btn5y');
+function show12(){b12.classList.add('active');b5.classList.remove('active');document.getElementById('panel12').style.display='';document.getElementById('panel5y').style.display='none'}
+function show5(){b5.classList.add('active');b12.classList.remove('active');document.getElementById('panel5y').style.display='';document.getElementById('panel12').style.display='none'}
+b12.addEventListener('click',show12); b5.addEventListener('click',show5);
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-US')}
+function calc(){
+ var v=parseFloat(document.getElementById('portVal').value)||0;
+ var alloc=v*0.02; var shares=alloc/49.04; var bearLoss=alloc*(1-42/49.04);
+ document.getElementById('allocAmt').textContent=fmt(alloc);
+ document.getElementById('shareCount').textContent='~'+Math.floor(shares).toLocaleString('en-US');
+ document.getElementById('bearLoss').textContent=fmt(bearLoss);
+}
+document.getElementById('portVal').addEventListener('input',calc); calc();
+</script>
+</body>
+</html>

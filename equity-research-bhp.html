@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — BHP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#161a20; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#1a2e2a; --accent:#8a4b1f; --accent2:#0b5cad; --soft:#e8efe9; --soft2:#f3e8dc;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#9a6b1f;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#c8ddd2; --accent:#e0a06a; --accent2:#6aa8e8; --soft:#1b2a24; --soft2:#2f2318;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--accent2);text-decoration:none} a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--accent)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)} p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)} li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--accent);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 7px;border-radius:999px;vertical-align:middle}
+.badge.unv{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+.badge.mod{background:var(--soft2);color:var(--accent);border:1px solid var(--line2)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--accent)}
+.bar-fill.alt{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--accent2)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a24;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)} .calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Global Top 10 by Market Cap*</span></div>
+  <h1>BHP Group <span class="tick">(NYSE: BHP)</span></h1>
+  <p class="lede">The Melbourne miner just crossed a line it has been building toward for a decade: in FY26 copper produced <b>more than half of underlying EBITDA for the first time</b> — over $18B at a 70% margin — while iron ore still funds one of mining's strongest balance sheets. BHP is no longer an iron-ore story with copper attached; it is a copper growth story that still pays like an iron-ore major.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $79.16 close, Fri 30 Oct 2026 <span class="badge unv">Unverified</span></span>
+    <span><b>Latest print:</b> FY26 — year ended 30 Jun 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage">
+    <span class="tab active">BHP — this report</span>
+    <span class="tab">Materials · Diversified Mining</span>
+    <span class="tab">ADR — NYSE</span>
+  </div>
+  <p class="small" style="margin-top:10px">*Ranking basis: <b>Global top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names.</b> The list is not in strict market-cap order as printed — BHP at $292.4B appears after LIN at $237.1B — so treat the ranking as a universe definition, not a league table. A NYSE/Nasdaq-only list would differ. See Sources.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close <span class="badge unv">Unverified</span></div><div class="vbig mono">$79.16</div><div class="vsub">ADR (NYSE: BHP). Not re-checked in the independent verification pass — see note below.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="badge unv">Unverified</span></div><div class="vbig mono">$292.4B</div><div class="vsub">FinanceCharts figure carried in the research pack; not re-checked in verification.</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E <span class="badge unv">Unverified</span></div><div class="vbig mono">20.9×</div><div class="vsub">Pack P/E (Finnhub), not re-checked. The pack's EPS $1.93 does not reconcile with it — see §2 note. Do not combine the two.</div></div>
+  <div class="vcell span3"><div class="vlabel">FY26 underlying EBITDA</div><div class="vbig mono">~$33B</div><div class="vsub">Copper &gt;$18B · &gt;50% of total · 70% copper margin</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base $88 (+11%). Copper mix shift + deleveraged balance sheet + largest final dividend in 4 years.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ~$95. Jansen potash + Resolution Copper are the second leg.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.5% of portfolio</div><div class="vsub">Diversified-miner satellite inside Materials — commodity beta, not a core compounder. See §6.</div></div>
+</div>
+
+<div class="callout warn"><div class="ct">Verification status — read before using any number</div>
+<p>The independent verification log for this sector <b>did not re-check BHP's price, market cap or P/E</b>. Those three figures are therefore labelled <span class="badge unv">Unverified</span> wherever they appear and are carried only as the research pack reported them (price / cap via FinanceCharts, EPS / P/E via Finnhub). FY26 operating figures (EBITDA, net debt, free cash flow, dividend, underlying profit) are the pack's verified FY26 set — year to 30 Jun 2026, sourced to the ASX filing and Motley Fool coverage linked in Sources. <b>Every price target in §5 is a modelled estimate</b> with its assumptions and weights shown — never a verified fact.</p></div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">EBITDA flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">FY26</span><h2>The year in one view</h2></div>
+  <p>FY26 (year ended 30 Jun 2026) is the year BHP's portfolio pivot became visible in the P&amp;L. Copper passed iron ore as the earnings engine, group leverage fell by a third, and shareholders got the <b>largest final dividend in four years</b> — all in the same year. That combination (mix shift + deleveraging + rising payout) is why the call in §6 is Buy on both horizons despite a full-looking headline multiple.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>FY26 — year ended 30 Jun 2026</th><th class="n">Actual</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Underlying EBITDA</td><td class="n">~$33B</td><td>Group earnings power held at scale while the mix underneath it changed</td></tr>
+      <tr class="hl"><td>Copper EBITDA</td><td class="n">&gt;$18B · &gt;50%</td><td><b>First time copper exceeded half of group EBITDA</b> — at a 70% margin, the highest-quality earnings in the portfolio</td></tr>
+      <tr><td>Attributable underlying profit</td><td class="n">&gt;$13B · +30%</td><td>Profit growth well ahead of what a flat commodity tape would normally deliver — mix and cost, not just price</td></tr>
+      <tr><td>Free cash flow</td><td class="n">~$10B</td><td>After funding growth capex including Jansen — the dividend and the deleveraging were both paid for internally</td></tr>
+      <tr><td>Net debt</td><td class="n">$8.7B</td><td>Down from $12.9B — a $4.2B reduction in one year; ≈0.26× underlying EBITDA (calculated: 8.7 ÷ 33)</td></tr>
+      <tr><td>Final dividend</td><td class="n">99 US cents</td><td>Largest final dividend in 4 years — management signalling confidence in through-cycle cash, not a one-off windfall return</td></tr>
+      <tr><td>TTM revenue (pack figure)</td><td class="n">$58.8B</td><td>Motley Fool trailing figure carried in the pack; use EBITDA, not revenue, to judge a miner — revenue moves with price, margin is the business</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: FY26 set via ASX filing and Motley Fool coverage — full links in Sources. Net-debt/EBITDA is simple arithmetic on the two verified figures above.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>FY26 EBITDA flow — the copper crossover</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 260" width="100%" role="img" aria-label="Flow showing BHP FY26 underlying EBITDA of about 33 billion dollars, with copper contributing over 18 billion" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="36" width="210" height="62" fill="var(--soft2)" stroke="var(--line2)"/><text x="20" y="60" font-size="13" font-weight="700" fill="var(--ink)">Copper</text><text x="20" y="79" font-size="12" fill="var(--ink2)">&gt;$18B · 70% margin · Escondida-led</text>
+      <rect x="8" y="118" width="210" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="141" font-size="13" font-weight="700" fill="var(--ink)">Iron ore + other divisions</text><text x="20" y="159" font-size="12" fill="var(--ink2)">Balance of group · &lt;~$15B implied</text>
+      <rect x="330" y="72" width="190" height="66" fill="var(--navy)"/><text x="346" y="100" font-size="14" font-weight="700" fill="#fff">Underlying EBITDA</text><text x="346" y="120" font-size="13" fill="#fff">~$33B · FY26</text>
+      <line x1="218" y1="67" x2="326" y2="92" stroke="var(--muted)" stroke-width="12" opacity=".35"/>
+      <line x1="218" y1="146" x2="326" y2="118" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <rect x="620" y="30" width="340" height="52" fill="var(--green-soft)" stroke="var(--line2)"/><text x="634" y="52" font-size="13" font-weight="700" fill="var(--ink)">Free cash flow ~$10B</text><text x="634" y="70" font-size="12" fill="var(--ink2)">After growth capex — internally funded</text>
+      <rect x="620" y="98" width="340" height="52" fill="var(--paper)" stroke="var(--line2)"/><text x="634" y="120" font-size="13" font-weight="700" fill="var(--ink)">Net debt $8.7B (from $12.9B)</text><text x="634" y="138" font-size="12" fill="var(--ink2)">Deleveraging + dividend paid simultaneously</text>
+      <rect x="620" y="166" width="340" height="52" fill="var(--paper)" stroke="var(--line2)"/><text x="634" y="188" font-size="13" font-weight="700" fill="var(--ink)">Final dividend 99¢ · largest in 4 years</text><text x="634" y="206" font-size="12" fill="var(--ink2)">Underlying attributable profit &gt;$13B, +30%</text>
+      <line x1="520" y1="92" x2="616" y2="60" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="520" y1="108" x2="616" y2="122" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <line x1="520" y1="122" x2="616" y2="188" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+    </svg>
+    <figcaption>The “iron ore + other” bar is the arithmetic remainder (~$33B total less &gt;$18B copper), not a separately disclosed segment figure — the pack does not break out the other divisions' EBITDA, so none is invented here. Flow widths are indicative, not to scale. FY26, year ended 30 Jun 2026.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>BHP is a <b>portfolio of tier-1, long-life resource assets</b> run from Melbourne across <b>90+ locations</b>. The model is deliberately simple: own the lowest-cost large deposits in commodities with structural demand, operate them at scale, and return the surplus. What changed in FY26 is <i>which</i> commodity sits on top. For decades the answer was Pilbara iron ore. Now it is copper — and the growth pipeline (Jansen potash, Resolution Copper) points the portfolio further toward future-facing commodities and away from pure iron-ore/China beta.</p>
+
+  <h3>Portfolio by commodity</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Division</th><th>Role in the portfolio</th><th>What the pack establishes</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Copper</td><td>The new earnings engine — electrification, grid and data-centre demand</td><td>&gt;$18B EBITDA, &gt;50% of group, 70% margin; anchored by Escondida (Chile), the world's flagship copper asset in the pack's moat assessment</td></tr>
+      <tr><td>Iron ore</td><td>The historic cash cow — Pilbara scale, lowest-quartile costs</td><td>Still a tier-1, lowest-quartile-cost business (see §3); now second to copper in EBITDA share for the first time</td></tr>
+      <tr><td>Metallurgical coal</td><td>Steel-linked cash generation</td><td>Part of the core portfolio in the pack's model description; no separate FY26 EBITDA figure is carried, so none is shown</td></tr>
+      <tr><td>Nickel</td><td>Battery-metals optionality</td><td>Listed in the core portfolio; the pack carries no FY26 divisional figure — treat as optionality, not a priced earnings stream</td></tr>
+      <tr><td>Potash — Jansen</td><td>The diversification leg — fertiliser, food security, non-China demand</td><td>Named growth project (Canada); a catalyst, not yet a material earnings contributor in the figures carried</td></tr>
+      <tr><td>Resolution Copper (US)</td><td>Long-dated US copper option</td><td>Resource of <b>1.86Bt at 1.52%</b> grade (pack figure) — exceptional grade by modern standards; development/permitting timeline is the open question, stated plainly in §4</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>EBITDA mix — FY26</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">Copper</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">&gt;$18B · &gt;50%</span></div>
+        <div class="bar-row"><span class="bl">All other divisions</span><div class="bar-track"><div class="bar-fill alt" style="width:82%"></div></div><span class="bv">&lt;~$15B implied</span></div>
+        <div class="bar-row"><span class="bl">Group total</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bv">~$33B</span></div>
+      </div>
+      <p class="small">“All other” is the remainder after copper — the pack does not publish the iron ore / coal / nickel split, so this report does not allocate it. The investment point does not need the split: the highest-margin division is now also the largest.</p>
+    </div>
+    <div>
+      <h3>Geography &amp; structural pivots</h3>
+      <ul>
+        <li><b>Footprint:</b> 90+ locations, headquartered in Melbourne. Earnings gravity sits in Australia (iron ore, coal) and Chile (Escondida copper); growth gravity sits in Canada (Jansen) and the US (Resolution).</li>
+        <li><b>Pivot 1 — copper first:</b> capital and management attention have followed the FY26 maths. Copper at a 70% margin growing past 50% of EBITDA re-rates the whole group's through-cycle margin.</li>
+        <li><b>Pivot 2 — potash as the third pillar:</b> Jansen diversifies BHP away from steel-linked demand (iron ore + met coal) toward agriculture — a different cycle, a different buyer, a different geopolitics.</li>
+        <li><b>Supply-chain dependencies:</b> for a miner the “supply chain” runs in reverse — the dependencies are <i>inputs and permissions</i>: energy and water in Chile (see §4), rail/port capacity out of the Pilbara, and royalties/permitting in every host jurisdiction. Chilean water and royalty terms are the single most asset-specific dependency, because they attach to Escondida itself.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Judge BHP like a miner, not a manufacturer: revenue is a commodity-price pass-through, so the diagnostics that matter are <b>margin, cash conversion, leverage and payout discipline</b>. On all four, FY26 is a strong print — 70% copper margins, ~$10B of free cash flow after growth spending, net debt cut to $8.7B, and a rising final dividend paid at the same time. The balance sheet is not a constraint on the strategy; it is the strategy's funding source.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price reference $79.16 (30 Oct 2026 close). Figures marked Unverified were not re-checked in the independent verification pass.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E <span class="badge unv">Unverified</span></td><td class="n">20.9×</td><td>Pack figure (Finnhub), not re-checked. Treat with care: miner P/Es invert the usual logic — a high P/E often means trough earnings, a low one peak earnings. EV/EBITDA and cash yield are the better lenses here, and the pack does not carry a verified EV/EBITDA, so none is presented as fact. <b>Consistency warning:</b> the pack also carries EPS of $1.93, but $79.16 ÷ $1.93 = 41.0×, not 20.9× — a 20.9× multiple at $79.16 implies EPS of ≈$3.79. The two pack figures therefore sit on different bases or periods and <b>must not be combined</b>; both are unverified, and this report's valuation (§5) is price-path based precisely so it does not depend on either.</td></tr>
+      <tr><td>EPS (Finnhub, as carried) <span class="badge unv">Unverified</span></td><td class="n">$1.93</td><td>Quoted in the pack as ADR EPS, but irreconcilable with the pack's own P/E at the reference price (see warning above) — most plausibly a different share basis or period. Do not use it to derive a multiple. The FY26 underlying profit line (&gt;$13B, +30%, verified set) is the reliable earnings signal.</td></tr>
+      <tr><td>Price / Sales (calculated)</td><td class="n">~5.0×</td><td>Arithmetic only: $292.4B cap (unverified) ÷ $58.8B TTM revenue (pack). Shown for comparability with the series template; both inputs carry the caveats above</td></tr>
+      <tr><td>TTM revenue (Fool)</td><td class="n">$58.8B</td><td>Trailing figure in the pack; FY revenue is price-driven — focus on the $33B EBITDA underneath it</td></tr>
+      <tr><td>Underlying EBITDA / margin quality</td><td class="n">~$33B</td><td>Copper at 70% margin is now the majority of EBITDA — group margin quality is structurally higher than when iron ore dominated</td></tr>
+      <tr><td>Free cash flow</td><td class="n">~$10B</td><td>≈30% of EBITDA converted to FCF after capex (calculated: 10 ÷ 33) while Jansen is still being built — strong conversion for a miner in a growth phase</td></tr>
+      <tr><td>Net debt</td><td class="n">$8.7B</td><td>From $12.9B a year earlier. ≈0.26× EBITDA (calculated) — investment-grade comfort with substantial headroom; leverage is a non-issue in the bear case, which is precisely what you want from a cyclical</td></tr>
+      <tr><td>Capital allocation — dividend</td><td class="n">99¢ final</td><td>Largest final in 4 years, paid <i>while</i> cutting net debt by $4.2B — the clearest evidence FY26 cash was surplus, not borrowed</td></tr>
+      <tr><td>Capital allocation — growth</td><td class="n">Jansen + Resolution</td><td>Spend is concentrated in potash and copper optionality rather than iron-ore volume — capital is following the margin, not the legacy asset base</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good"><div class="ct">Balance-sheet verdict</div>
+  <p>Net debt of $8.7B against ~$33B of EBITDA means BHP enters any commodity downturn with roughly a quarter-turn of leverage. In practical terms: the dividend can be defended, Jansen can be finished, and a copper-price drawdown hurts the share price long before it hurts the company. That asymmetry is the core of the long-term Buy — you are paid (99¢ final, largest in four years) to hold a cyclical whose downside is cushioned by its own balance sheet.</p></div>
+  <p class="small">Open gap, stated plainly: the pack carries no verified forward P/E, EV/EBITDA, dividend yield for the full year (only the 99¢ final), or buyback figure for BHP. Rather than estimate them silently, this report omits them — the FY26 cash and leverage figures above are sufficient for the §5 framework, which is price-based and fully disclosed.</p>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — geological, not technological.</b> BHP's advantage cannot be coded, marketed or legislated into existence by a competitor: it is tier-1 orebodies, at lowest-quartile cost, at a scale no new entrant can replicate inside a decade. In mining, position on the cost curve <i>is</i> the moat — the lowest-cost producer earns money at prices where rivals merely survive.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Tier-1 iron ore:</b> Pilbara scale and infrastructure keep BHP in the lowest cost quartile — the last tonnes a steel downturn would ever force out of the market.</li>
+      <li><b>Escondida:</b> the flagship copper asset behind the 70% copper margin and the &gt;$18B FY26 copper EBITDA. Grade + scale + incumbency in Chile is a combination with no close substitute.</li>
+      <li><b>Cost-curve pricing power:</b> BHP is a price-taker on exchanges but a margin-maker on the cost curve — at almost any plausible copper or iron-ore price, its margin spread over the marginal producer is the widest in the peer set.</li>
+      <li><b>Portfolio breadth:</b> copper, iron ore, met coal, nickel and (soon) potash means no single commodity decides the year — FY26 proved it, with copper carrying the group.</li>
+      <li><b>Balance-sheet moat:</b> 0.26× leverage lets BHP buy, build or hold through downturns that force leveraged rivals to sell — in mining, the strong balance sheet compounds across cycles.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Rio Tinto</b> — the closest peer: comparable Pilbara iron ore, growing copper (Oyu Tolgoi). The BHP/RIO choice is about mix and pipeline, not quality.</li>
+      <li><b>Freeport-McMoRan / Southern Copper</b> — purer copper exposure. An investor who wants <i>only</i> the copper cycle will find more torque there — and more single-commodity risk.</li>
+      <li><b>Vale and Chinese state miners</b> — iron-ore competition and, on the demand side, Chinese steel policy together set the price BHP's second division lives on.</li>
+      <li><b>No pricing power at the top line:</b> every BHP product sells at a market price. The moat defends margin, never revenue — a sustained commodity bear market compresses earnings regardless of asset quality.</li>
+      <li><b>Resource nationalism:</b> royalties, water rights and permitting in Chile and Australia are recurring negotiations, not settled facts (see §4).</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> within the global Materials top-10 universe (Motley Fool ranking basis, §Sources), BHP at $292.4B <span class="badge unv">Unverified cap</span> is the largest diversified miner in the set — the default “own the sector without picking the commodity” vehicle. Its FY26 copper crossover strengthens that claim: the diversified option now also happens to be majority-exposed to the commodity with the strongest structural demand story.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months and beyond)</h3>
+      <ul>
+        <li><b>Copper super-cycle:</b> the pack's central driver. Electrification, grids and data centres demand copper faster than new mines can be permitted and built. BHP is now &gt;50% copper by EBITDA, so a copper price leg-up flows through the group's highest-margin (70%) division first.</li>
+        <li><b>Jansen potash:</b> first production and ramp milestones convert a construction project into a third earnings pillar — and into a commodity whose demand (food) does not correlate with steel or construction.</li>
+        <li><b>Resolution Copper:</b> a 1.86Bt resource at 1.52% grade in the US. Any permitting or development progress re-prices a long-dated option the market currently has little reason to pay for.</li>
+        <li><b>Capital returns:</b> with net debt at $8.7B and FCF ~$10B, the path from the 99¢ final dividend — the largest in four years — to further returns is arithmetic, not hope — subject to commodity prices holding.</li>
+        <li><b>Mix re-rating:</b> if FY27 confirms copper above half of EBITDA for a second year, the market's mental model shifts from “iron-ore major” to “copper major” — and copper majors have historically carried richer multiples than iron-ore majors at mid-cycle.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Iron ore / China:</b> still the second engine. A Chinese property or steel downturn hits iron-ore price and volume expectations together — and met coal shares the same steel exposure, so two divisions correlate in exactly the wrong scenario.</li>
+        <li><b>Copper price reversal:</b> the super-cycle is a demand story priced partly in advance. A global growth scare compresses copper first and fastest among BHP's commodities — the new mix raises torque in both directions.</li>
+        <li><b>Chile — royalties &amp; water:</b> Escondida operates under Chilean royalty terms and in one of the driest mining regions on earth. Adverse royalty changes or water constraints attach directly to the group's best asset and its 70% margin.</li>
+        <li><b>Execution &amp; timelines:</b> Jansen ramp and Resolution permitting are multi-year, politically exposed projects. Slippage does not break the thesis, but it pushes the second leg of §5's bull case beyond the horizon.</li>
+        <li><b>Currency &amp; listing:</b> earnings are US-dollar commodity revenues against Australian and Chilean cost bases, held via a NYSE ADR — FX moves flow into both earnings translation and the ADR price.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A simultaneous iron-ore <i>and</i> copper drawdown — the scenario where diversification fails because a global downturn takes steel and electrification spending down together — combined with an adverse Chilean royalty or water outcome at Escondida. Either leg alone is a bear-case year; both together would push earnings toward the §5 bear path and force the dividend question the balance sheet currently makes unnecessary.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><span class="badge mod">Modelled estimates — methodology shown</span> &nbsp;All targets below are <b>modelled estimates from the research pack, not verified facts and not analyst consensus</b>. Method: scenario prices are set directly against the $79.16 reference close <span class="badge unv">Unverified price</span>, driven by the commodity paths described in each case. Probability weights used for every weighted figure in this section are <b>Bear 25% / Base 50% / Bull 25%</b> — the same convention as the META sample — and are shown so the arithmetic can be checked line by line.</p>
+
+  <h3>12–18-month targets <span class="badge mod">Modelled</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$65</div><div class="ret down">−17.9% vs $79.16</div><p>China/iron-ore softness plus a copper correction. EBITDA falls back below the FY26 level, the mix story stalls, and the market prices BHP as a pure iron-ore cyclical again. The 0.26× balance sheet limits — but does not prevent — this drawdown.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--accent2)">Base · 50%</div><div class="price mono">$88</div><div class="ret up">+11.2% vs $79.16</div><p>Copper holds its FY26 share of earnings, Jansen progresses on plan, iron ore stays range-bound. Earnings roughly repeat FY26 with modest growth; the dividend (following a 99¢ final) does part of the total-return work on top of the +11% price path.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$105</div><div class="ret up">+32.6% vs $79.16</div><p>The copper super-cycle tightens: price strength lands on a 70%-margin division that is now the majority of EBITDA, Resolution/Jansen milestones land early, and the “copper major” re-rating begins. Operating leverage does the work — no heroic multiple is required.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · Modelled</div><div class="wv mono">≈ $86.50</div></div><p>0.25×$65 + 0.50×$88 + 0.25×$105 = <b>$86.50</b>, or +9.3% from $79.16, before dividends. Modest expected price upside with a fat right tail — the classic shape for a low-leverage cyclical bought after a mix-shift year rather than at a commodity peak.</p></div>
+
+  <h3>5-year projection — frozen-parameter model <span class="badge mod">Modelled</span></h3>
+  <p>Frozen-parameter convention, matching the rest of this series: the starting price ($79.16), the FY26 earnings base (~$33B EBITDA, copper &gt;50%), the balance-sheet starting point (net debt $8.7B) and the share/ADR structure are <b>held frozen</b>; only the annual price path (CAGR) varies by case. The base case is the pack's own arithmetic, reproduced exactly: <span class="mono">$79.16 × 1.04⁵ = $79.16 × 1.217 ≈ $96</span>. Bull and bear CAGRs below are the rates implied by the pack's bull (~$125) and bear (~$62) prices — derived by calculation, labelled as such.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Implied price CAGR / yr</th><th class="n">5-yr price</th><th class="n">Total vs $79.16</th><th>Underlying assumption</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −4.8% (derived)</td><td class="n">$62</td><td class="n">−21.7%</td><td>A full commodity down-cycle: iron ore and copper fall together, Jansen contributes late, earnings sit below FY26 for most of the window. Dividends cushion total return but are not counted in the price path.</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+4.0% (pack)</td><td class="n">$96</td><td class="n">+21.3%</td><td>Mid-cycle commodities: copper share of EBITDA holds above half, Jansen becomes a real third pillar, iron ore range-bound. A deliberately unheroic 4% — miners are bought for cash return plus modest growth, not compounding.</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +9.6% (derived)</td><td class="n">$125</td><td class="n">+57.9%</td><td>Structural copper deficit pricing persists, Resolution advances toward development value, potash ramps cleanly, and the group is re-rated as a copper-majority miner.</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">≈ +3.8% / yr</td><td class="n">~$95</td><td class="n">+20.0%</td><td>0.25×$62 + 0.50×$96 + 0.25×$125 = $94.75 ≈ <b>$95</b> — the pack's weighted figure, reproduced and checked.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Read the 5-year table correctly: for BHP, <b>price is only part of total return</b>. A miner paying a 99¢ final dividend (largest in four years) returns a meaningful slice of value in cash each year, which this frozen <i>price</i> model excludes by construction — the same exclusion applied across this series, so cross-stock comparisons remain like-for-like. Illustrative modelled estimates, not forecasts.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Modelled weighted value $86.50 (+9.3% before dividends) with a +33% bull case against a −18% bear case, entered <i>after</i> the copper crossover is proven in FY26 actuals rather than hoped for. The final dividend — the largest in four years — pays you while the Jansen/Resolution catalysts mature. Revisit if copper and iron ore fall together (the §4 thesis-breaker).</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — as a satellite, sized accordingly.</b> Modelled weighted 5-yr price ~$95 (+20%) <i>plus</i> five years of dividends the price model excludes. The case rests on asset quality (tier-1, lowest-quartile) and 0.26× leverage surviving any single down-cycle — the two things that have to be true for a cyclical to be a long-term hold at all.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill hold">Review</span></td><td>Review on: an adverse Chilean royalty/water outcome at Escondida; two consecutive halves of copper falling back below iron ore in EBITDA share (the crossover reversing); net debt rising back above ~$15B without a Jansen/Resolution milestone to show for it; or the position drifting well above target weight on a copper spike — cyclical gains are harvested, not admired.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 2.5% of total portfolio</h3>
+  <ul>
+    <li><b>Target weight: 2.5%</b> — the pack's suggested weight for this profile, and the right order of magnitude for what BHP is in a growth-tilted portfolio: a <b>Materials satellite</b>, not a core compounder. It diversifies a tech-heavy book (its earnings drivers — copper, iron ore, potash — share almost nothing with ad or cloud cycles) without letting commodity beta set the portfolio's return.</li>
+    <li><b>Why not larger at risk 8/10?</b> Risk tolerance is not the binding constraint — correlation is. BHP's upside cases all load on the same global-growth factor; above ~3% the position stops diversifying and starts duplicating the cycle exposure already embedded in equities generally.</li>
+    <li><b>Why not smaller?</b> Below ~1.5% the dividend stream and the copper torque are immaterial to outcomes, and the position becomes monitoring cost without portfolio effect. 2.5% is the size at which the FY26 story — copper-majority EBITDA at 70% margins — actually shows up in returns.</li>
+    <li><b>Rebalance rule:</b> trim back to 2.5% after any run that takes it above ~3.5% on price alone (the bull-case harvest), and top up toward 2.5% on bear-case drawdowns toward $65 only if the §4 thesis-breaker has not triggered.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator is illustrative only: 2.5% target weight applied to the value you enter, at the $79.16 reference price (unverified — see header note). Nothing you enter is saved or sent anywhere.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — BHP Group (ADR) (BHP)</h2>
+<p><strong>Price (30 Oct 2026 close): $79.16.</strong> <strong>DCF intrinsic: $48.70.</strong> Discount/premium vs DCF: <strong>+62.5%</strong> — i.e. the shares are trading 62.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$48.70</td><td>+62.5%</td><td>g 3.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack FY26 verified figures; MarketBeat ADR book value/shares https://www.marketbeat.com/stocks/NYSE/BHP/ ; TwelveData ADR https://twelvedata.com/markets/801192/stock/nyse/bhp/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — BHP Group (ADR) (BHP)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: BHP sells iron ore, copper, nickel, met coal and potash overwhelmingly to steel mills, smelters and traders, with no single customer disclosed as a concentration. The important 2026 development is buyer concentration at the country level: China&#x27;s state-backed buyer CMRG now centralises purchasing for more than half of China&#x27;s iron-ore imports, and in Aug–Sep 2026 it directed mills to pause Rio Tinto (and, in earlier episodes, BHP) shipment talks during annual negotiations.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>China Mineral Resources Group (CMRG) — centralised buyer for &gt;50% of China&#x27;s iron-ore imports</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>China Baowu Steel Group (world&#x27;s largest steelmaker; BHP/Jimblebar stake explored, unconfirmed)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Chinese, Japanese and Korean steel mills and copper smelters</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Global traders and spot-market buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed — CMRG and Baowu are not in coverage — so the read-through is Chinese steel demand and CMRG&#x27;s bargaining stance rather than any single share price: undervalued steel mills would be a tailwind only if they run harder and buy more ore and copper, which depends on Chinese construction and steel margins rather than their valuation; CMRG-directed pauses, as seen in 2026, are a concrete headwind mechanism that a customer-valuation read-through would miss entirely.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — BHP Group (ADR) (BHP)</h2>
+<p><strong>Role: Beneficiary.</strong> Copper is the electrification metal: data centres, grid build-out and renewable connections all consume copper at scale, and copper was already &gt;50% of BHP&#x27;s EBITDA in FY26 — iron ore, its other leg, has no AI channel.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through electrification: data centres need grid connections, transformers and wiring, all copper-intensive, and the grid build-out behind AI is a multi-year copper demand leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the AI premium here is really a copper premium (trailing P/E 20.9 in the pack where verified): an unwind would compress it toward a through-cycle mining multiple as copper prices fall.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is growth capex committed at peak copper prices that becomes uneconomic if copper falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: copper-price reversal, Chinese construction/property weakness, hyperscaler capex cuts or delays, and mine-permit or social-licence setbacks. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Every key figure in this report traces to one of the sources below, as carried in the research pack. Price, market cap and P/E are marked Unverified throughout because the sector's independent verification pass explicitly did not re-check them for BHP.</p>
+  <ol class="refs">
+    <li><a href="https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03122137-3A698999&v=undefined" target="_blank" rel="noopener">ASX — BHP FY26 results filing (year to 30 Jun 2026): underlying EBITDA, copper share, net debt, FCF, dividend, underlying profit</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/05/2-mining-stocks-that-are-quietly-becoming-the/" target="_blank" rel="noopener">Motley Fool (5 Oct 2026) — mining stocks / copper transition coverage; TTM revenue $58.8B; 90+ locations</a></li>
+    <li><a href="https://finnhub.io/?q=%22BHP%22" target="_blank" rel="noopener">Finnhub — BHP quote page: EPS $1.93 and P/E 20.9 as carried in the pack (not re-checked in verification; the two do not reconcile with each other — see §2)</a></li>
+  </ol>
+  <p class="small">Ranking basis: Global top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names; not in strict market-cap order as printed (e.g. BHP $292.4B printed after LIN $237.1B). Market cap $292.4B is the FinanceCharts figure carried in the pack (unverified). Scenario prices and weighted values in §5 are modelled estimates with weights and arithmetic shown in full.</p>
+  <p class="disc">Disclaimer: This is a research note prepared for information only, as of 1 Nov 2026, using the 30 Oct 2026 close as its price reference. It is not investment advice, not a solicitation, and not a guarantee of any outcome. Commodity equities are cyclical and can fall sharply; dividends are not guaranteed. Figures marked “Unverified” were not re-checked in the independent verification pass and should be confirmed against a live quote before any decision. Modelled targets rest on the assumptions stated beside them and will be wrong in detail even if right in direction. Verify current prices, filings and your own circumstances — and consider regulated advice — before investing.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  var PRICE=79.16, W=0.025;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function fmt2(n){return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.5% position size.';return;}
+    var amt=v*W, shares=amt/PRICE;
+    out.innerHTML='Target BHP position (2.5%): <b>$'+fmt(amt)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(shares)+' ADR shares</b> at $'+fmt2(PRICE)+' &nbsp;·&nbsp; leaves <b>$'+fmt(v-amt)+'</b> for the rest of the portfolio.';
+  }
+  input.addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>

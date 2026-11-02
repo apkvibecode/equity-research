@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — KO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fdfaf6; --surface:#ffffff; --surface2:#f7f1ea; --ink:#1c1713; --muted:#6f655c; --line:#e8ddd2;
+  --red:#c4122e; --red-dark:#9e0e25; --red-soft:#fdf0f2; --green:#1a7a4c; --amber:#9a6b12; --amber-bg:#fdf6e0;
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#141110; --surface:#1e1a17; --surface2:#25201c; --ink:#f3ede6; --muted:#a99e94; --line:#332c27; --red:#ff4d67; --red-soft:#2b181c; --amber-bg:#2a2210; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--red);text-decoration:underline;text-underline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:18px 0 0;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.topbar span{border:1px solid var(--line);background:var(--surface);padding:6px 10px;border-radius:999px}
+.hero{padding:28px 0 8px;border-bottom:2px solid var(--ink)}
+.hero h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:clamp(38px,6vw,62px);line-height:.95;margin:0;letter-spacing:-.02em}
+.hero h1 em{font-style:normal;color:var(--red)}
+.sub{font-size:18px;color:var(--muted);max-width:680px;margin:14px 0 0}
+.price-row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;margin-top:22px}
+.price{font-size:44px;font-weight:700;line-height:1;letter-spacing:-.03em}
+.price small{font-size:14px;font-weight:500;color:var(--muted);letter-spacing:0}
+.verdict{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 6px}
+.pill{padding:8px 13px;border-radius:999px;font-weight:700;font-size:13.5px}
+.pill.buy{background:var(--red);color:#fff}
+.pill.hold{background:var(--surface2);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi b{display:block;font-size:22px;line-height:1.1;letter-spacing:-.02em}
+.kpi span{display:block;font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.4}
+.note{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:10px;padding:12px 14px;margin:14px 0}
+.warn{background:var(--amber-bg);border:1px solid #e6d48a;color:var(--ink);padding:12px 14px;border-radius:10px;font-size:13.5px}
+h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:28px;line-height:1.1;margin:42px 0 6px;letter-spacing:-.01em}
+h2 .num{color:var(--red);font-family:"IBM Plex Sans",sans-serif;font-size:13px;letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:8px}
+h3{font-size:17px;margin:22px 0 8px}
+p{margin:8px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h4{margin:0 0 8px;font-size:15px}
+.card ul{margin:8px 0 0;padding-left:18px}
+.card li{margin:6px 0}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+th,td{padding:11px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.hl td{background:var(--red-soft);font-weight:600}
+.segments{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+.seg{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:12px;padding:14px}
+.seg b{font-size:13.5px;line-height:1.3;display:block}
+.seg span{font-size:12.5px;color:var(--muted)}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:16px 0}
+.bar-row{display:grid;grid-template-columns:86px 1fr 64px;gap:10px;align-items:center;margin:10px 0;font-size:13.5px}
+.bar{height:14px;background:var(--surface2);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px}
+.calc{background:var(--ink);color:var(--bg);border-radius:18px;padding:22px;margin:20px 0}
+.calc h3{color:var(--bg);margin-top:0}
+.calc input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:inherit;font-size:16px;margin:8px 0}
+.calc .out{font-size:28px;font-weight:700;line-height:1.2}
+.calc .out small{font-size:14px;font-weight:400;opacity:.75}
+.sources{font-size:13.5px;color:var(--muted)}
+.sources li{margin:6px 0}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:var(--muted)}
+@media(max-width:760px){
+  .kpis{grid-template-columns:1fr 1fr}
+  .segments{grid-template-columns:1fr 1fr}
+  .grid2{grid-template-columns:1fr}
+  .price{font-size:36px}
+  table{font-size:13.5px}
+  th,td{padding:9px 6px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Consumer Staples · Beverages</span><span>As of 1 Nov 2026</span><span>Price ref: 30 Oct 2026 close</span></div>
+
+  <header class="hero">
+    <h1>Coca-Cola <em>KO</em></h1>
+    <p class="sub">The asset-light concentrate compounder inside a high-risk portfolio — not the growth engine, the ballast that still grows. Priced for perfection on headline multiples, steadier underneath.</p>
+    <div class="price-row">
+      <div class="price">$94.08 <small>30 Oct close</small></div>
+      <div style="padding-bottom:6px;color:var(--muted);font-size:14px">Market cap $404.7bn in pack / $407.5bn Finnhub — vendor-divergent, see note below · Yield 2.25%</div>
+    </div>
+    <div class="verdict">
+      <span class="pill buy">Short term (12–18m): BUY</span>
+      <span class="pill buy">Long term (5y): BUY</span>
+      <span class="pill hold">Target weight: 2.5% of portfolio</span>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);max-width:720px">For a mid-30s investor, risk 8/10. Research views only — not guarantees, not investment advice. Ranking basis: FinanceCharts, last updated 30 Oct 2026. WMT is #1 in Consumer Staples; KO sits in the sector's top tier on that table.</p>
+  </header>
+
+  <section class="kpis" aria-label="Key figures">
+    <div class="kpi"><b>27.86×</b><span>Trailing P/E — Finnhub, confirmed in verification log</span></div>
+    <div class="kpi"><b>25.32×</b><span>Forward P/E (pack figure)</span></div>
+    <div class="kpi"><b>$51.05bn</b><span>TTM revenue</span></div>
+    <div class="kpi"><b>$14.63bn</b><span>TTM net income · 28.7% net margin*</span></div>
+  </section>
+  <div class="note">* 28.7% margin is <strong>flattered</strong> — it includes non-operating items; operating margin is lower. Do not read it as pure bottling/concentrate profitability. Market cap: pack $404.7bn vs Finnhub $407.50bn in the verification log — a ~0.7% vendor difference from share-count treatment. Price and trailing P/E are confirmed on Finnhub basis. Name your vendor; do not mix vendors silently.</div>
+
+  <h2><span class="num">01 — Business model</span>Business Model &amp; Segment Breakdown</h2>
+  <p>Coca-Cola does not primarily sell finished drinks to shoppers. It sells <strong>concentrate and syrup</strong> to a franchised bottler network that manufactures, packages and distributes — an asset-light model that keeps capital intensity low and returns high, while shifting plant, fleet and local execution risk to bottlers.</p>
+  <p>Scale is the model: <strong>200+ brands</strong> — Coca-Cola, Sprite, Minute Maid, Dasani, Powerade among them — sold in <strong>200+ countries</strong>, at roughly <strong>2.2 billion servings per day</strong> (Fool, via research pack). That breadth is why a single flavour trend rarely breaks the thesis, and why emerging-market penetration still matters more than any one US category.</p>
+
+  <div class="segments">
+    <div class="seg"><b>North America</b><span>Home market, pricing &amp; premium mix</span></div>
+    <div class="seg"><b>EMEA</b><span>Europe, Middle East &amp; Africa</span></div>
+    <div class="seg"><b>Latin America</b><span>High per-capita consumption, FX-sensitive</span></div>
+    <div class="seg"><b>Asia-Pacific</b><span>Growth &amp; emerging-market volume</span></div>
+    <div class="seg"><b>Global Ventures</b><span>Costa, emerging &amp; venture brands</span></div>
+  </div>
+  <div class="warn"><strong>What was not verified this pass:</strong> segment profit split was marked “n.v.” (not verified) in the research pack, so this page does not invent a % split by segment. The segment names above are the reported structure; the economics by segment need a filed 10-K/10-Q check before you quote them elsewhere.</div>
+  <h3>Structural pivots &amp; dependencies</h3>
+  <p><strong>Pivot:</strong> away from owning bottlers toward refranchised, asset-light concentrate economics, and toward zero-sugar, water, sports and energy mix as carbonated soft-drink volumes mature. <strong>Dependency:</strong> the bottler system itself — Coca-Cola's distribution moat is also its single point of friction. Refranchising noise, bottler execution, and concentrate-vs-finished-goods pricing negotiations flow straight into reported results. Other dependencies: sweetener and packaging costs, water access, and FX translation across 200+ markets.</p>
+
+  <h2><span class="num">02 — Financial health</span>Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <table>
+    <thead><tr><th>Metric</th><th class="num">Value</th><th>Reading</th></tr></thead>
+    <tbody>
+      <tr><td>Price (30 Oct 2026)</td><td class="num">$94.08</td><td>Confirmed — Finnhub, verification log</td></tr>
+      <tr><td>Market cap</td><td class="num">$404.7–407.5bn</td><td>Pack vs Finnhub; vendor-divergent ~0.7%</td></tr>
+      <tr><td>Trailing P/E</td><td class="num">27.86×</td><td>Finnhub, confirmed</td></tr>
+      <tr><td>Forward P/E</td><td class="num">25.32×</td><td>Pack figure — premium to staples average</td></tr>
+      <tr><td>Dividend yield</td><td class="num">2.25%</td><td>Dividend Aristocrat-type payer (pack)</td></tr>
+      <tr><td>TTM revenue</td><td class="num">$51.05bn</td><td>Pack figure</td></tr>
+      <tr><td>TTM net income</td><td class="num">$14.63bn</td><td>Pack figure</td></tr>
+      <tr><td>Net margin</td><td class="num">28.7%*</td><td>*Flattered by non-operating items</td></tr>
+      <tr><td>Free cash flow (TTM, exact)</td><td class="num">Not verified</td><td>Described as “strong FCF generator in principle” — exact TTM FCF was n.v. this pass, so no figure is presented as fact</td></tr>
+      <tr><td>Buybacks</td><td class="num">Ongoing</td><td>Amounts n.v. this pass</td></tr>
+    </tbody>
+  </table>
+  <p><strong>Valuation read:</strong> at 27.9× trailing and 25.3× forward, KO is not cheap — you pay a staples premium for durability. That premium is defensible only if pricing power holds without volume collapse. <strong>Capital allocation:</strong> the pack characterises KO as a consistent dividend payer with ongoing buybacks, but neither the exact TTM free cash flow nor buyback amounts were verified in this pass — treat any precise FCF or buyback number you see elsewhere as needing a filing check. <strong>Leverage:</strong> no debt-to-equity figure was verified in this pack, so none is quoted here rather than guessed.</p>
+  <p>P/S on the pack figures is roughly 7.9× ($404.7bn ÷ $51.05bn) — derived from the two pack numbers above, shown for context, not as a vendor-published multiple. EV/EBITDA was not in the verified pack and is omitted rather than estimated.</p>
+
+  <h2><span class="num">03 — Moat</span>Competitive Moat &amp; Industry Positioning</h2>
+  <div class="grid2">
+    <div class="card"><h4>Why the moat is real</h4><ul><li><strong>Brand:</strong> one of the most recognised trademarks in the world, across 200+ brands, not a single product</li><li><strong>Distribution:</strong> bottler system reaching 200+ countries — a shelf-space and cold-drink network rivals cannot rebuild quickly</li><li><strong>Pricing power:</strong> repeated ability to take price (see catalysts) — the core reason the premium multiple persists</li><li><strong>Emerging-market penetration:</strong> per-capita consumption still has headroom outside mature markets</li></ul></div>
+    <div class="card"><h4>Where it is contested</h4><ul><li>PepsiCo (PEP) — the direct global rival, with a stronger snacks/food hedge KO lacks</li><li>Private label and local brands on price, especially if consumers trade down</li><li>Health-driven category shift — zero-sugar helps, but does not eliminate the sugar narrative</li><li>No food/snacks diversification: KO is a purer beverage bet, for better and worse</li></ul></div>
+  </div>
+  <p>Barriers to entry are not technological — they are <em>distribution + brand + scale</em>. A new drink can be formulated in weeks; getting it cold, everywhere, every day, in 200 countries, cannot.</p>
+
+  <h2><span class="num">04 — Catalysts &amp; risks</span>Catalysts &amp; Downside Risks</h2>
+  <div class="grid2">
+    <div class="card"><h4 style="color:var(--green)">▲ Catalysts</h4><ul><li>Pricing — continued price/mix gains without volume loss</li><li>Mix shift to zero-sugar, energy and water — higher growth, better health positioning</li><li>Emerging markets — volume growth where per-capita intake is still low</li><li>Margin steadiness if concentrate mix and refranchising settle</li></ul></div>
+    <div class="card"><h4 style="color:var(--red)">▼ Risks</h4><ul><li><strong>Sugar taxes &amp; regulation</strong> — expanding globally, directly on the core product</li><li><strong>Health trends &amp; GLP-1 narrative</strong> — the pack flags “GLP-1 / volume pressure narrative”: appetite-suppressing drugs as a sentiment and potential volume headwind for calories</li><li><strong>FX</strong> — earnings translated from 200+ currencies; a strong dollar mechanically drags reported growth</li><li><strong>Bottler refranchising noise</strong> — reported results can look messier than underlying demand during transitions</li><li><strong>Valuation risk itself</strong> — at ~28×, disappointment is punished more than at a discount multiple</li></ul></div>
+  </div>
+
+  <h2><span class="num">05 — Valuation</span>Scenario-Based Valuation &amp; Price Targets</h2>
+  <p style="color:var(--muted);font-size:14px">All scenario prices below are <strong>modelled estimates</strong> from the research pack — not verified facts, not analyst consensus. Assumptions are shown so you can check the maths. Scenario weights were not supplied to the independent verifier for this pack, so the weighted figure is labelled modelled and unverified as a calculation (see verification note).</p>
+
+  <h3>12–18 month horizon</h3>
+  <table>
+    <thead><tr><th>Case</th><th class="num">Target</th><th class="num">vs $94.08</th><th>Basis</th></tr></thead>
+    <tbody><tr class="hl"><td>Base</td><td class="num">$102</td><td class="num">+8%</td><td>Pack 12–18m base case</td></tr></tbody>
+  </table>
+  <p style="font-size:14px;color:var(--muted)">Only a base case was modelled for 12–18 months in the pack — no bull/bear pair was provided for this horizon, so none is invented here.</p>
+
+  <h3>5-year projection — frozen-parameter format</h3>
+  <table>
+    <thead><tr><th>Case</th><th class="num">Growth / yr</th><th class="num">Margin</th><th class="num">Exit P/E</th><th class="num">5y price</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td class="num">2%</td><td class="num">26%</td><td class="num">22×</td><td class="num">$79</td></tr>
+      <tr class="hl"><td>Base</td><td class="num">4%</td><td class="num">28.7%</td><td class="num">27.86×</td><td class="num">$115</td></tr>
+      <tr><td>Bull</td><td class="num">6%</td><td class="num">30%</td><td class="num">31×</td><td class="num">$155</td></tr>
+      <tr><td><strong>Weighted (modelled)</strong></td><td class="num" colspan="3">Weights not supplied to verifier — treat as estimate</td><td class="num"><strong>$117</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="chart" aria-label="5-year scenario chart">
+    <div style="font-weight:700;font-size:14px;margin-bottom:6px">5-year modelled prices vs today ($94.08)</div>
+    <div class="bar-row"><span>Bear $79</span><div class="bar"><i style="width:51%;background:#b7791f"></i></div><span>-16%</span></div>
+    <div class="bar-row"><span>Today $94</span><div class="bar"><i style="width:61%;background:#8a7f76"></i></div><span>—</span></div>
+    <div class="bar-row"><span>Base $115</span><div class="bar"><i style="width:74%;background:var(--red)"></i></div><span>+22%</span></div>
+    <div class="bar-row"><span>Weighted $117</span><div class="bar"><i style="width:75%;background:var(--ink)"></i></div><span>+24%</span></div>
+    <div class="bar-row"><span>Bull $155</span><div class="bar"><i style="width:100%;background:var(--green)"></i></div><span>+65%</span></div>
+    <p style="font-size:12.5px;color:var(--muted);margin:8px 0 0">Bars scaled to bull case = 100%. Modelled estimates only.</p>
+  </div>
+
+  <p><strong>How to read it:</strong> even the base case is modest — +22% over five years on price alone, plus the 2.25% dividend yield along the way. That is the point of KO in an 8/10-risk portfolio: it is not there to beat NVDA. It is there so that when growth names fall 30%, something in the book is still compounding at 4% with pricing power. The bear case (-16% on price) is a valuation-compression story (22×) more than a business-collapse story — growth slowing to 2% and margin slipping to 26%.</p>
+
+  <h2><span class="num">06 — Recommendation</span>Buy / Hold / Sell &amp; Portfolio Sizing</h2>
+  <div class="grid2">
+    <div class="card"><h4>Short term — 12–18 months: BUY</h4><p>Pack recommendation: <strong>Buy</strong>, base target $102 (+8% from $94.08) plus dividend. A defensive name with a clear, if unspectacular, path — useful while the rest of an 8/10 book carries the volatility.</p></div>
+    <div class="card"><h4>Long term — 5 years: BUY</h4><p>Pack recommendation: <strong>Buy</strong>, weighted modelled price $117. The moat, pricing power and emerging-market runway support holding through cycles — sized small (see below), not as a core growth position.</p></div>
+  </div>
+
+  <div class="calc">
+    <h3>Position sizer — 2.5% target weight</h3>
+    <p style="opacity:.85;font-size:14px;margin:0">Pack allocation for a mid-30s, risk 8/10 portfolio: <strong>2.5%</strong> in KO. Enter your total portfolio value to see the dollar size and share count at $94.08.</p>
+    <label for="pf" style="font-size:13px;font-weight:600">Total portfolio ($)</label>
+    <input id="pf" type="number" value="100000" min="0" step="1000" inputmode="numeric"/>
+    <div class="out" id="out">$2,500 <small>· ~27 shares at $94.08</small></div>
+    <p style="font-size:12.5px;opacity:.7;margin:10px 0 0">Illustrative only, before fees/taxes. 2.5% is deliberately small: in an 8/10 portfolio the staples sleeve stabilises, it does not drive returns. If you want more ballast, the decision is to raise the whole staples sleeve — not to overweight a single name at 28× earnings.</p>
+  </div>
+
+  <h2><span class="num">Sources &amp; verification</span>Sources</h2>
+  <ul class="sources">
+    <li>Motley Fool (Fool) — brand/servings and business description, via research pack.</li>
+    <li>FinanceCharts — Consumer Staples ranking table (last updated 30 Oct 2026) and comparison page: <a href="https://www.financecharts.com/compare/KO,BTI">financecharts.com/compare/KO,BTI</a></li>
+    <li>Finnhub — price / P/E / market-cap verification: <a href="https://finnhub.io/?q=%22KO%22">finnhub.io/?q="KO"</a> — verification log confirms $94.08 and 27.86×, cap $407.50bn (vs pack $404.7bn).</li>
+  </ul>
+  <div class="note"><strong>Verification status:</strong> Price and trailing P/E confirmed by the independent verification log for Financials &amp; Consumer Staples (30 Oct 2026 reference). Market cap is vendor-divergent and labelled as a range. Segment profit split, exact TTM FCF, buyback amounts, debt-to-equity and EV/EBITDA were marked not verified (n.v.) in the pack and are therefore omitted or flagged above — never presented as fact. All 5-year and 12–18m prices are modelled estimates with assumptions shown; scenario weights were not supplied to the verifier, so the weighted $117 cannot be recomputed from the pack alone.</div>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Coca-Cola (KO)</h2>
+<p><strong>Price (30 Oct 2026 close): $94.08.</strong> <strong>DCF intrinsic: $46.78.</strong> Discount/premium vs DCF: <strong>+101.1%</strong> — i.e. the shares are trading 101.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$46.78</td><td>+101.1%</td><td>Base Normal DCF: TTM FCF $14.28bn (OCF $16.23bn - capex $1.95bn, TipRanks). Pack TTM net income $14.63bn is flattered by non-operating items - NOT used as FCF. Net cash = cash $16.59bn - debt $41.62bn = -$25.02bn. Growth g 4%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $106.26bn + PV of terminal value $119.92bn + net cash / excess capital $-25.02bn, ÷ 4.3bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/KO/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Coca-Cola (KO)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list (bottlers are partners, not end customers). Demand is driven by global away-from-home consumption, pricing, and the concentrate system’s volume through ~33m customer outlets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Coca-Cola (KO)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Coca-Cola’s exposure is operational: AI can improve marketing, revenue-growth management and bottler logistics across its ~33m outlets, but the pack gives no AI revenue line, and the thesis is concentrate pricing and volume, not technology.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is moderate: at ~28x trailing earnings Coke carries a quality-staples premium, so an AI-driven de-rating of defensives would compress it modestly, not strip an AI premium.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — away-from-home consumption softens only if the unwind becomes a consumer downturn; (2) multiple — modest compression toward a through-cycle staples multiple; (3) balance sheet — net debt of $25.02bn is manageable against $14.28bn TTM free cash flow, and there is no AI-capex debt. Triggers to watch: organic revenue growth, concentrate volume, and the IRS tax-dispute outcome flagged in the pack context.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>Equity Research — KO · Consumer Staples · As of 1 Nov 2026, price reference 30 Oct 2026 close ($94.08). Research views only, not investment advice. Verify figures against filings before acting — multiples and caps vary by vendor (Finnhub vs FinanceCharts vs MarketBeat).</footer>
+</div>
+<script>
+(function(){
+  var inp=document.getElementById('pf'), out=document.getElementById('out');
+  function render(){
+    var v=parseFloat(inp.value)||0;
+    var alloc=v*0.025;
+    var shares=alloc/94.08;
+    out.innerHTML='$'+alloc.toLocaleString('en-US',{maximumFractionDigits:0})+' <small>· ~'+shares.toFixed(1)+' shares at $94.08</small>';
+  }
+  inp.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

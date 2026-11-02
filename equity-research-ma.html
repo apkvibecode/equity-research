@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MA · Mastercard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f6f4; --surface:#ffffff; --surface2:#efefec; --ink:#16181d; --muted:#5b6068; --faint:#8a8f98;
+    --line:#e2e2dc; --red:#c8102e; --red-soft:#fdeef0; --orange:#e8590c; --orange-soft:#fdf1e7;
+    --green:#177245; --green-soft:#e7f4ec; --amber:#9a6a00; --amber-soft:#faf1d7;
+    --navy:#14213d; --shadow:0 1px 3px rgba(20,20,20,.06),0 8px 24px rgba(20,20,20,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101114; --surface:#181a1f; --surface2:#202228; --ink:#eceef1; --muted:#a7acb5; --faint:#7c828d;
+      --line:#2a2d34; --red:#ff5a72; --red-soft:#2c1a1f; --orange:#ffa25e; --orange-soft:#2c2117;
+      --green:#4cc38a; --green-soft:#16281f; --amber:#e3b341; --amber-soft:#2a2410;
+      --navy:#0d1526; --shadow:0 1px 3px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important} }
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Libre Franklin",system-ui,-apple-system,sans-serif;font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:0 18px 72px}
+  a{color:var(--red);text-decoration:none}
+  a:hover{text-decoration:underline}
+  h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.15;margin:0}
+  .num{font-variant-numeric:tabular-nums lining-nums}
+
+  /* Masthead */
+  .masthead{background:var(--navy);color:#f2f3f5;margin:0 -18px;padding:26px 18px 22px}
+  @media(min-width:956px){.masthead{border-radius:0 0 14px 14px}}
+  .mast-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#b9c2d4;font-weight:600}
+  .mast-top .sector{color:#ffb59e}
+  .masthead h1{font-size:clamp(30px,5.5vw,46px);font-weight:700;color:#fff;margin:14px 0 4px}
+  .masthead h1 .ticker{color:#ff7a59}
+  .mast-sub{color:#c8cfdd;font-size:15px;max-width:640px}
+  .brand-mark{display:inline-flex;align-items:center;gap:10px;margin-top:16px;font-size:13px;color:#c8cfdd}
+  .circles{position:relative;width:34px;height:20px;flex:none}
+  .circles i{position:absolute;top:0;width:20px;height:20px;border-radius:50%}
+  .circles i:first-child{left:0;background:#eb001b}
+  .circles i:last-child{right:0;background:#f79e1b;mix-blend-mode:screen;opacity:.92}
+
+  /* Verdict strip */
+  .verdict{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:18px 0 0}
+  @media(min-width:680px){.verdict{grid-template-columns:repeat(4,1fr)}}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+  .vcard .k{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .vcard .v{font-size:24px;font-weight:800;margin-top:2px}
+  .vcard .s{font-size:12.5px;color:var(--muted)}
+  .pill{display:inline-block;font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px;vertical-align:2px}
+  .pill.buy{background:var(--green-soft);color:var(--green)}
+  .price-v{font-family:"Source Serif 4",Georgia,serif}
+
+  /* Sections */
+  section{margin-top:40px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+  .sec-head .no{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--red)}
+  .sec-head h2{font-size:24px;font-weight:700}
+  .sec-head .tag{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+  p{margin:0 0 12px}
+  .muted{color:var(--muted)} .small{font-size:13px}
+  strong{font-weight:700}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:var(--shadow)}
+  .grid2{display:grid;gap:12px}
+  @media(min-width:680px){.grid2{grid-template-columns:1fr 1fr}}
+  .grid3{display:grid;gap:12px}
+  @media(min-width:680px){.grid3{grid-template-columns:repeat(3,1fr)}}
+
+  /* KPI tiles */
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media(min-width:680px){.kpis{grid-template-columns:repeat(4,1fr)}}
+  .kpi{background:var(--surface2);border-radius:10px;padding:14px 16px}
+  .kpi .k{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .kpi .v{font-size:22px;font-weight:800;margin-top:2px}
+  .kpi .s{font-size:12.5px;color:var(--muted)}
+
+  /* Segment bar */
+  .segbar{display:flex;height:52px;border-radius:8px;overflow:hidden;margin:6px 0 8px}
+  .segbar .a{background:var(--red);color:#fff;display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:13.5px;min-width:0}
+  .segbar .b{background:var(--orange);color:#fff;display:flex;align-items:center;padding:0 14px;font-weight:700;font-size:13.5px;min-width:0}
+  .segbar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  @media(max-width:520px){.segbar .a,.segbar .b{font-size:10.5px;padding:0 7px}.segbar{height:44px}}
+  @media(max-width:620px){table{min-width:0;font-size:12.5px}th,td{padding:8px}th{font-size:10.5px}}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:13px;color:var(--muted)}
+  .legend b{color:var(--ink)}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:0}
+  .dot.r{background:var(--red)} .dot.o{background:var(--orange)}
+
+  /* Tables */
+  .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);box-shadow:var(--shadow)}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+  th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface2);font-weight:700}
+  tr:last-child td{border-bottom:none}
+  td.r,th.r{text-align:right}
+  .pos{color:var(--green);font-weight:700}
+  .neg{color:var(--red);font-weight:700}
+  tr.hl td{background:var(--green-soft);font-weight:700}
+
+  /* Scenario bars */
+  .scen{display:grid;gap:10px}
+  .srow{display:grid;grid-template-columns:86px 1fr 92px;gap:12px;align-items:center;font-size:13.5px}
+  .srow .name{font-weight:700}
+  .srow .track{height:14px;background:var(--surface2);border-radius:7px;position:relative}
+  .srow .fill{position:absolute;inset:0 auto 0 0;border-radius:7px}
+  .srow .fill.bear{background:var(--faint)} .srow .fill.base{background:var(--green)} .srow .fill.bull{background:var(--orange)} .srow .fill.wtd{background:var(--navy)}
+  @media (prefers-color-scheme: dark){.srow .fill.wtd{background:#7ea0e0}}
+  .srow .val{text-align:right;font-weight:800}
+  .srow .val small{display:block;font-weight:500;color:var(--muted);font-size:11.5px}
+
+  ul.tight{margin:0;padding-left:18px}
+  ul.tight li{margin-bottom:8px}
+  .risk h3,.cat h3{font-size:17px;margin-bottom:10px}
+  .cat{border-top:3px solid var(--green)}
+  .risk{border-top:3px solid var(--red)}
+
+  .callout{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:13.5px}
+  .callout b{color:var(--amber)}
+  .note{font-size:12.5px;color:var(--muted)}
+  .src{font-size:13px}
+  .src li{margin-bottom:6px;word-break:break-word}
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--muted)}
+
+  /* Calculator */
+  .calc{display:grid;gap:12px}
+  @media(min-width:680px){.calc{grid-template-columns:1fr 1fr 1fr;align-items:end}}
+  .calc label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+  .calc input{width:100%;font:inherit;font-size:17px;font-weight:700;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+  .calc .out{background:var(--surface2);border-radius:8px;padding:10px 12px}
+  .calc .out .k{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .calc .out .v{font-size:19px;font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="mast-top">
+      <span class="sector">Financials · Payment Networks</span>
+      <span>As of 1 Nov 2026 · Prices: 30 Oct 2026 close</span>
+    </div>
+    <h1>Mastercard <span class="ticker">(MA)</span></h1>
+    <p class="mast-sub">The second rail of the global card duopoly — and the more international one. Q3 2026 showed the model at full stretch: network revenue growing double digits while value-added services grow nearly twice as fast.</p>
+    <div class="brand-mark"><span class="circles" aria-hidden="true"><i></i><i></i></span> Standalone equity research · Research views only — not investment advice, not a guarantee.</div>
+  </header>
+
+  <div class="verdict" role="group" aria-label="Headline verdict">
+    <div class="vcard"><div class="k">Price · 30 Oct close</div><div class="v price-v num">$638.01</div><div class="s">Market cap ~$559.2bn (Finnhub: $559.77bn)</div></div>
+    <div class="vcard"><div class="k">Short term · 12–18 mo</div><div class="v"><span class="pill buy">BUY</span></div><div class="s">Base target $720 (+13%) — modelled estimate</div></div>
+    <div class="vcard"><div class="k">Long term · 5 yr</div><div class="v"><span class="pill buy">BUY</span></div><div class="s">Weighted $1,083 — modelled estimate</div></div>
+    <div class="vcard"><div class="k">Portfolio sizing</div><div class="v num">3%</div><div class="s">Of total portfolio · mid-30s, risk 8/10 profile</div></div>
+  </div>
+
+  <!-- 1 Business model -->
+  <section id="business">
+    <div class="sec-head"><span class="no">01</span><h2>Business Model &amp; Segment Breakdown</h2><span class="tag">Q3 2026 reported 29 Oct</span></div>
+    <p>Mastercard runs two engines. The <strong>payment network</strong> takes a small cut of every transaction switched across its rails in <strong>210+ countries</strong> — 210 billion transactions in 2025. Layered on top, <strong>value-added services</strong> (fraud prevention, data, security and related services) monetise the same merchant and issuer relationships a second time, at faster growth and without depending purely on spending volumes.</p>
+    <div class="card" style="margin-bottom:12px">
+      <div class="small" style="font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Q3 2026 revenue mix — $9.8bn total, +14% year on year</div>
+      <div class="segbar" role="img" aria-label="Payment network revenue 5.7 billion dollars, 58 percent; value-added services 4.1 billion dollars, 42 percent">
+        <div class="a" style="width:58%"><span>Network $5.7bn · +11%</span></div>
+        <div class="b" style="width:42%"><span>Services $4.1bn · +19%</span></div>
+      </div>
+      <div class="legend"><span><span class="dot r"></span><b>Payment network</b> — $5.7bn, +11%</span><span><span class="dot o"></span><b>Value-added services</b> — $4.1bn, +19%</span></div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><div class="k">Gross dollar volume</div><div class="v num">$3.0tn</div><div class="s">Q3, +7.5% in local currency</div></div>
+      <div class="kpi"><div class="k">Switched transactions</div><div class="v num">49.3bn</div><div class="s">Q3, +9%</div></div>
+      <div class="kpi"><div class="k">Cross-border volume</div><div class="v num">+11%</div><div class="s">Q3 growth — see the deceleration risk in §4</div></div>
+      <div class="kpi"><div class="k">TTM revenue</div><div class="v num">$35.1bn</div><div class="s">Gross profit $27.4bn (Fool)</div></div>
+    </div>
+    <p style="margin-top:14px">The structural pivot is the services mix: services already supply <strong>42% of revenue</strong> and are growing at +19% against the network's +11% — roughly twice as fast. Each point of mix shift toward services makes the revenue base less dependent on consumer spending volume and more dependent on Mastercard being embedded in how merchants and issuers manage fraud, data and security. The key supply-chain dependency is not physical: it is the issuer and merchant relationships on both sides of the network, and the regulatory permission to operate the rails at current interchange economics (see §4).</p>
+  </section>
+
+  <!-- 2 Financial health -->
+  <section id="health">
+    <div class="sec-head"><span class="no">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2><span class="tag">Multiples: Finnhub basis</span></div>
+    <div class="tblwrap" style="margin-bottom:12px">
+      <table>
+        <thead><tr><th>Metric</th><th class="r">Value</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>Share price (30 Oct 2026 close)</td><td class="r num"><strong>$638.01</strong></td><td>Confirmed against Finnhub / MarketBeat / StockAnalysis in verification</td></tr>
+          <tr><td>Market capitalisation</td><td class="r num">~$559.2bn</td><td>Vendor range $555.8–559.8bn — Finnhub $559.77bn, MarketBeat $559.33bn; named-vendor figures, not vendor-free facts</td></tr>
+          <tr><td>Trailing P/E</td><td class="r num">34.43×</td><td>Finnhub basis. A premium multiple — the market pays for the margin and the moat</td></tr>
+          <tr><td>Forward P/E</td><td class="r num">n.v.</td><td>Not verified in the research pack — not presented as fact</td></tr>
+          <tr><td>Adjusted operating margin (Q3)</td><td class="r num">60.5%</td><td>Elite even by network standards; the core of the investment case</td></tr>
+          <tr><td>Adjusted EPS (Q3)</td><td class="r num">$5.31</td><td>+21.2% year on year, beating the $5.17 consensus</td></tr>
+          <tr><td>EV / EBITDA</td><td class="r num">—</td><td>Less useful than P/E + margin for an asset-light network; not carried in the pack</td></tr>
+          <tr><td>Free cash flow (TTM)</td><td class="r num">n.v.</td><td>Described as strong in the pack; the exact TTM figure was not verified — labelled, not estimated here</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:8px">Capital allocation: buybacks doing the work</h3>
+        <p class="small" style="margin:0">Mastercard repurchased <strong>5.3 million shares for $3.0bn in Q3 2026</strong>, then a further <strong>~1.1 million shares for ~$0.6bn between 1–26 Oct</strong> (Zacks; the verification pass confirms ~$0.65bn through 26 Oct). At a 34× trailing multiple, persistent buybacks steadily shrink the share count and compound EPS — Q3 adjusted EPS grew +21.2% on revenue growth of +14%, which is that compounding plus margin at work.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:8px">How to read the balance sheet</h3>
+        <p class="small" style="margin:0">For a payment network, leverage diagnostics matter less than for a lender: Mastercard does not hold cardholder credit risk — issuing banks do. The pack therefore frames health through <strong>P/E, the 60.5% adjusted operating margin, and cash generation</strong> rather than debt-to-equity or EV/EBITDA. The honest gaps: forward multiples and an exact TTM free-cash-flow figure were <strong>not verified (n.v.)</strong> and are shown as such rather than filled in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 Moat -->
+  <section id="moat">
+    <div class="sec-head"><span class="no">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:8px">Where the moat is real</h3>
+        <ul class="tight small">
+          <li><strong>Network duopoly with Visa.</strong> Two global card networks at scale; merchants and issuers multi-home, but a credible third global rail would take decades and regulatory goodwill to build.</li>
+          <li><strong>Stronger non-US mix.</strong> ~70% of total payment volume sits outside the US, versus ~55% for Visa (per Webull summary cited in the pack) — more exposure to faster-growing, still-cash-heavy markets, and less dependence on US interchange politics.</li>
+          <li><strong>Services flywheel.</strong> Fraud, data and security services deepen issuer/merchant lock-in beyond the transaction itself — and grow ~2× the network rate.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:8px">Pricing power &amp; the tokenisation pivot</h3>
+        <p class="small">Mastercard has repeatedly taken pricing on network and services — Q3's result was explicitly helped by pricing (Zacks). The strategic hedge against account-to-account rails is <strong>tokenisation</strong>: Mastercard plans to remove 16-digit card numbers by 2030, moving credentials into tokens that keep the network relevant even as the payment front-end changes. Pricing power is real but bounded — it is exactly what the interchange settlement in §4 is negotiating over.</p>
+        <p class="small" style="margin:0"><strong>Primary competitors:</strong> Visa (the duopoly peer), domestic/local payment rails, and account-to-account systems that bypass card economics entirely.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 Catalysts & risks -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="no">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="grid2">
+      <div class="card cat">
+        <h3>Catalysts</h3>
+        <ul class="tight small">
+          <li><strong>Services compounding:</strong> value-added services at +19% and 42% of revenue — mix shift alone lifts blended growth and margin durability.</li>
+          <li><strong>Cross-border travel &amp; commerce:</strong> still growing +11%; any re-acceleration is high-margin volume.</li>
+          <li><strong>Pricing:</strong> demonstrated in Q3; a recurring, under-modelled contributor to the +14% revenue print.</li>
+          <li><strong>Buyback compounding:</strong> ~$3.6bn returned in and just after Q3 keeps EPS growth ahead of revenue growth.</li>
+        </ul>
+      </div>
+      <div class="card risk">
+        <h3>Risks</h3>
+        <ul class="tight small">
+          <li><strong>Interchange settlement — 16 Nov 2026.</strong> Final-approval hearing before Judge Brian Cogan on the Visa/Mastercard settlement that would let merchants decline premium/commercial cards, cut credit interchange by 10bp for 5 years, and cap standard cards at 1.25% for 8 years. Approval reshapes US network economics; rejection reopens litigation.</li>
+          <li><strong>Cross-border deceleration:</strong> growth has slowed from ~20% at end-2024 to +11% now — the highest-margin volume line is cooling.</li>
+          <li><strong>Incentives creep:</strong> client incentives rose +18% in Q3 — rebates paid to win/keep volume are a quiet margin leak to watch.</li>
+          <li><strong>Regulation &amp; local rails:</strong> interchange caps, domestic schemes and account-to-account systems chip at the duopoly market by market.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Valuation -->
+  <section id="valuation">
+    <div class="sec-head"><span class="no">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><span class="tag">All targets are modelled estimates</span></div>
+    <div class="callout" style="margin-bottom:14px"><b>Method — read first.</b> Every price in this section is a <b>modelled estimate</b>, not a verified fact and not a forecast guarantee. The 5-year model compounds the stated revenue-growth assumption for five years, applies the stated net-margin assumption, and values the result at the stated exit P/E. The 12–18-month base target is the pack's modelled $720. Scenario weights for the weighted figure are shown so the arithmetic can be checked: Bear 25% · Base 50% · Bull 25%.</div>
+
+    <div class="grid2" style="margin-bottom:12px">
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:6px">12–18-month horizon</h3>
+        <p class="small muted">From $638.01 (30 Oct close)</p>
+        <div class="scen" style="margin-top:10px">
+          <div class="srow"><span class="name">Base target</span><div class="track"><div class="fill base" style="width:47%"></div></div><span class="val num">$720<small>+13% modelled</small></span></div>
+        </div>
+        <p class="small" style="margin-top:12px">The pack models a single 12–18-month base case: +13% to <strong>$720</strong>. That is a deliberately modest mark — roughly earnings growth at a steady multiple, with no re-rating assumed while the interchange hearing is pending.</p>
+      </div>
+      <div class="card">
+        <h3 style="font-size:17px;margin-bottom:6px">5-year scenario spread</h3>
+        <p class="small muted">Scenario prices vs $638.01 today</p>
+        <div class="scen" style="margin-top:10px">
+          <div class="srow"><span class="name">Bear</span><div class="track"><div class="fill bear" style="width:42%"></div></div><span class="val num">$645<small>+1% over 5 yrs</small></span></div>
+          <div class="srow"><span class="name">Base</span><div class="track"><div class="fill base" style="width:70%"></div></div><span class="val num">$1,074<small>+68% over 5 yrs</small></span></div>
+          <div class="srow"><span class="name">Bull</span><div class="track"><div class="fill bull" style="width:100%"></div></div><span class="val num">$1,539<small>+141% over 5 yrs</small></span></div>
+          <div class="srow"><span class="name">Weighted</span><div class="track"><div class="fill wtd" style="width:70%"></div></div><span class="val num">$1,083<small>+70% over 5 yrs</small></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tblwrap">
+      <table>
+        <thead><tr><th>5-year case (weight)</th><th class="r">Revenue growth / yr</th><th class="r">Net margin</th><th class="r">Exit P/E</th><th class="r">Modelled price</th><th class="r">Vs $638.01</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Bear</strong> (25%)</td><td class="r num">7%</td><td class="r num">42%</td><td class="r num">26×</td><td class="r num">$645</td><td class="r num">+1%</td></tr>
+          <tr><td><strong>Base</strong> (50%)</td><td class="r num">11%</td><td class="r num">46.3%</td><td class="r num">34.43×</td><td class="r num">$1,074</td><td class="r num pos">+68%</td></tr>
+          <tr><td><strong>Bull</strong> (25%)</td><td class="r num">14%</td><td class="r num">50%</td><td class="r num">38×</td><td class="r num">$1,539</td><td class="r num pos">+141%</td></tr>
+          <tr class="hl"><td>Probability-weighted (25 / 50 / 25)</td><td class="r">—</td><td class="r">—</td><td class="r">—</td><td class="r num">$1,083</td><td class="r num">+70%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:10px">Check the weighted arithmetic yourself: 0.25 × $645 + 0.50 × $1,074 + 0.25 × $1,539 = $1,083. The bear case is the tell in this model: even at 7% growth, a 42% margin and a de-rated 26× multiple, the modelled price ($645) sits essentially at today's price — the downside protection comes from the margin structure, not from the multiple. The bull case needs services-led growth at 14% <em>and</em> a 38× exit multiple; treat it as the ceiling, not the plan.</p>
+  </section>
+
+  <!-- 6 Recommendation -->
+  <section id="recommendation">
+    <div class="sec-head"><span class="no">06</span><h2>Recommendation &amp; Portfolio Sizing</h2><span class="tag">Mid-30s · risk score 8/10</span></div>
+    <div class="grid3" style="margin-bottom:12px">
+      <div class="card" style="text-align:center"><div class="k" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700">Short term · 12–18 mo</div><div style="font-size:30px;font-weight:800;color:var(--green);margin:4px 0">BUY</div><p class="small muted" style="margin:0">Modelled base $720 (+13%). The 16 Nov hearing is the near-term swing factor — a buyer is being paid to hold through it, not before it resolves.</p></div>
+      <div class="card" style="text-align:center"><div class="k" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700">Long term · 5 yr</div><div style="font-size:30px;font-weight:800;color:var(--green);margin:4px 0">BUY</div><p class="small muted" style="margin:0">Weighted modelled value $1,083 (+70%). The case rests on the services mix shift and buyback compounding, not on multiple expansion.</p></div>
+      <div class="card" style="text-align:center"><div class="k" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700">Position size</div><div style="font-size:30px;font-weight:800;margin:4px 0" class="num">3%</div><p class="small muted" style="margin:0">Of the total portfolio, for the stated profile. A quality compounder's weight — meaningful, not dominant.</p></div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:17px;margin-bottom:10px">Position-size calculator</h3>
+      <div class="calc">
+        <div><label for="pf">Total portfolio ($)</label><input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="500000"></div>
+        <div class="out"><div class="k">MA allocation at 3%</div><div class="v num" id="alloc">$15,000</div></div>
+        <div class="out"><div class="k">Shares at $638.01</div><div class="v num" id="shares">23.5</div></div>
+      </div>
+      <p class="note" style="margin-top:10px">Illustrative only — fractional shares rounded to one decimal. Sizing uses the pack's 3% recommendation and the 30 Oct close; it is not a trade instruction.</p>
+    </div>
+    <p style="margin-top:14px"><strong>The one-line case:</strong> you are paying 34× trailing earnings for a 60.5%-margin duopoly whose fastest-growing business (services, +19%) is also its stickiest — and the modelled bear case roughly defends today's price. The risks are regulatory and multiple-based, not business-model-based, which is why both horizons rate Buy while the position stays at a disciplined 3%.</p>
+  </section>
+
+  <!-- Sources -->
+  <section id="sources">
+    <div class="sec-head"><span class="no">07</span><h2>Sources &amp; Verification Notes</h2></div>
+    <ul class="src">
+      <li>Zacks — Mastercard beats Q3 earnings on cross-border volumes &amp; pricing: <a href="https://www.zacks.com/stock/news/3018925/mastercard-beats-q3-earnings-on-higher-cross-border-volumes-pricing" target="_blank" rel="noopener">zacks.com/stock/news/3018925</a></li>
+      <li>HaiPay — Visa/Mastercard cross-border growth tracker, Q3 2026: <a href="https://www.haipay.net/news/visa-mastercard-cross-border-growth-tracker-q3-2026" target="_blank" rel="noopener">haipay.net/news/visa-mastercard-cross-border-growth-tracker-q3-2026</a></li>
+      <li>The Lincolnian Online (verification source) — MA Q3 revenue +14%, EPS, buybacks: <a href="https://www.thelincolnianonline.com/2026/10/30/mastercard-nyse-ma-revenue-jumps-14-and-earnings-per-share-grow-faster.html" target="_blank" rel="noopener">thelincolnianonline.com/2026/10/30</a></li>
+      <li>Finnhub (verification source for price / cap / P/E): <a href="https://finnhub.io/?q=%22MA%22" target="_blank" rel="noopener">finnhub.io/?q=%22MA%22</a> · StockAnalysis: <a href="https://stockanalysis.com/stocks/ma/" target="_blank" rel="noopener">stockanalysis.com/stocks/ma</a></li>
+      <li>The Inference (verification source) — 16 Nov 2026 final-approval hearing, Judge Cogan: <a href="https://theinference.org/article/mastercard-and-visa-would-let-12-million-us-merchants-refuse-premium-cards-a-judge-hears-it-november-16" target="_blank" rel="noopener">theinference.org</a></li>
+      <li>The Motley Fool — TTM revenue $35.1bn, gross profit $27.4bn, 210+ countries, 210bn transactions in 2025 (as cited in the research pack; no URL carried).</li>
+    </ul>
+    <div class="callout" style="margin-top:12px"><b>Verification &amp; ranking basis.</b> Key figures were independently verified against second sources before publication; where the verification log corrected the pack, the log wins — for MA, price ($638.01), trailing P/E (34.43×, Finnhub) and Q3 results were <b>confirmed</b>, and market cap is shown with its vendor range because vendors differ ($555.8–559.8bn). Forward P/E and exact TTM free cash flow were <b>not verified (n.v.)</b> and are labelled as such. Sector ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company (BRK.A counted once as BRK.B; foreign-primary OTC names excluded). HOOD is included in the Financials set as a named ticker ($76.6bn, #74 globally) — not top-10 — per instruction. All scenario prices are modelled estimates with assumptions shown in §5.</div>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Mastercard (MA)</h2>
+<p><strong>Price (30 Oct 2026 close): $638.01.</strong> <strong>DCF intrinsic: $476.</strong> Discount/premium vs DCF: <strong>+34.0%</strong> — i.e. the shares are trading 34.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$476</td><td>+34.0%</td><td>Base Normal FCF: TTM FCF ~$16.1bn (OCF $16.86bn; Jun-2026 TTM $15.975bn = OCF $17.437bn - capex $1.462bn). Net cash = cash $10.5bn - debt $22.2bn = -$11.7bn (30 Sep 2026; a Forbes total-debt definition gives -$13.48bn — VARIANCE, not a hard correction). Growth g 11%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $169.27bn + PV of terminal value $259.34bn + net cash / excess capital $-11.70bn, ÷ 0.876bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/MA/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Mastercard (MA)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> Mastercard does not sell to consumers; its clients are financial institutions, merchants, processors and governments, and it discloses no ranked top-7 customer list — none is invented here. Revenue splits between payment-network revenue ($5.7bn in Q3 2026, +11%) and value-added services ($4.1bn, +19%), on gross dollar volume of $3.0tn (+7.5% local currency). Client incentives rose 18% in Q3, which is the main visible cost of keeping large issuers and merchants on the network. The revenue base is therefore the global issuer/merchant network, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: the thesis applies to Mastercard’s issuer and merchant base as a group — if those banks and merchants trade at a discount to intrinsic, that is a potential tailwind for network volume and services uptake, and vice versa — but an undervalued issuer does not guarantee higher Mastercard volumes, which depend on that issuer’s own strategy and on consumer spending.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Mastercard (MA)</h2>
+<p><strong>Role: Enabler / Beneficiary.</strong> While the AI trade runs, Mastercard is an enabler: its network plus fast-growing value-added services (fraud, data, security, +19% in Q3 2026) are sold into AI-driven commerce, tokenisation (removing 16-digit numbers by 2030, pack) and real-time payments, while cross-border volume (+11% in Q3) benefits from AI-era travel and trade.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is material: at ~34x trailing earnings Mastercard carries a premium network multiple, so an AI-driven de-rating of growth stocks would compress it even though the network itself is not an AI stock.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — cross-border deceleration (already down from ~20% at end-2024 to 11%, pack) worsens and services growth slows; (2) multiple — compression from the mid-30s toward a through-cycle level; (3) balance sheet — low direct risk (no card credit risk), with client incentives (+18% in Q3) the main margin pressure to watch. Triggers to watch: cross-border volume, services growth versus network growth, and the interchange case/hearing shared with Visa.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+    Equity Research — MA (Mastercard) · Financials sector · As of 1 Nov 2026, price reference 30 Oct 2026 close ($638.01). Prepared for a mid-30s investor profile with risk score 8/10. Research views only — not guarantees, not investment advice. Modelled targets are estimates built on the assumptions shown; actual outcomes will differ.
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var pf = document.getElementById('pf');
+    var alloc = document.getElementById('alloc');
+    var shares = document.getElementById('shares');
+    var PRICE = 638.01, PCT = 0.03;
+    function fmt(n){ return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+    function update(){
+      var v = parseFloat(pf.value);
+      if (isNaN(v) || v < 0) v = 0;
+      var a = v * PCT;
+      alloc.textContent = fmt(a);
+      shares.textContent = (a / PRICE).toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:1});
+    }
+    pf.addEventListener('input', update);
+    update();
+  })();
+</script>
+</body>
+</html>

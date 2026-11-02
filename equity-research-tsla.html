@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TSLA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F4EF; --surface:#FFFFFF; --surface2:#EFECE4; --ink:#171A21; --muted:#5C625E; --line:#DDD8CB;
+  --accent:#C8102E; --accent-ink:#fff; --green:#1B7A4D; --amber:#9A6B00; --red:#B42318; --chip:#171A21;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101216; --surface:#181B20; --surface2:#1F232A; --ink:#EDEAE3; --muted:#9AA0A6; --line:#2C313A; --chip:#EDEAE3; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.6}
+a{color:var(--accent)}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+.topbar{border-bottom:1px solid var(--line);padding:14px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.hero{padding:32px 0 8px}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+h1{font-family:"Newsreader",Georgia,serif;font-size:clamp(34px,6vw,54px);line-height:1.02;margin:8px 0 6px}
+h1 span{color:var(--accent)}
+.sub{font-size:17px;color:var(--muted);max-width:720px;margin:0}
+.price-row{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:12px;margin:24px 0}
+@media(max-width:720px){.price-row{grid-template-columns:1fr 1fr}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.stat b{font-size:26px;display:block;line-height:1.1}
+.stat small{color:var(--muted)}
+.verdict{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 8px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font-weight:700;font-size:14px;border:1px solid var(--line);background:var(--surface)}
+.pill.hold{background:#FFF3D6;color:#6B4E00;border-color:#E8C96A}
+@media(prefers-color-scheme:dark){.pill.hold{background:#2A2410;color:#F2C94C}}
+.alert{border:1px solid #E8C96A;background:#FFF8DC;color:#3D3200;border-radius:12px;padding:16px 18px;margin:18px 0}
+@media(prefers-color-scheme:dark){.alert{background:#232008;color:#F5E6A8;border-color:#5A4D12}}
+.alert strong{display:block;margin-bottom:4px}
+nav.toc{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 6px;position:sticky;top:0;background:var(--bg);padding:10px 0;z-index:5;border-bottom:1px solid var(--line)}
+nav.toc a{font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);padding:6px 11px;border-radius:999px}
+section{padding:28px 0 6px;border-bottom:1px solid var(--line)}
+h2{font-family:"Newsreader",Georgia,serif;font-size:28px;margin:0 0 4px}
+h2 .n{color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:15px;vertical-align:middle;margin-right:8px}
+h3{font-size:17px;margin:20px 0 6px}
+p{margin:8px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h3{margin-top:0}
+ul{margin:8px 0;padding-left:20px} li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0;background:var(--surface)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace}
+tr.hl td{font-weight:700;background:var(--surface2)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:999px;background:var(--surface2);border:1px solid var(--line)}
+.tag.est{color:var(--amber);border-color:#E8C96A}
+.bars{margin:16px 0}
+.bar-row{display:grid;grid-template-columns:110px 1fr 70px;align-items:center;gap:10px;margin:8px 0;font-size:13px}
+.bar-track{height:22px;background:var(--surface2);border-radius:6px;overflow:hidden;position:relative}
+.bar-fill{height:100%;border-radius:6px}
+.spotline{font-size:12px;color:var(--muted)}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}
+.calc input{width:180px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:16px}
+.calc button{background:var(--accent);color:#fff;border:0;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer}
+details{margin:10px 0} summary{cursor:pointer;font-weight:600}
+.foot{font-size:13px;color:var(--muted)}
+.sources{font-size:13px} .sources li{margin:6px 0;word-break:break-all}
+.kpi{display:flex;gap:18px;flex-wrap:wrap;margin:10px 0}
+.kpi div b{font-size:20px;display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Consumer Discretionary · NASDAQ: TSLA</span><span>As of 1 Nov 2026 · Price ref: 30 Oct 2026 close</span><span>Mid-30s · Risk 8/10</span></div>
+
+  <div class="hero">
+    <div class="eyebrow">Equity Research — Single Name</div>
+    <h1>Tesla <span>TSLA</span></h1>
+    <p class="sub">The car business funds the story; the share price is already paying for the autonomy story. At $399.81 the question is not whether robotaxis and robots <em>could</em> be worth a lot — it is whether you are being paid enough to underwrite that they will.</p>
+    <div class="price-row">
+      <div class="stat"><small>Close — 30 Oct 2026</small><b>$399.81</b><small>−0.87% on the day</small></div>
+      <div class="stat"><small>Market cap</small><b>$1.58T</b><small>EV $1.55T · 3.95bn shares</small></div>
+      <div class="stat"><small>5-yr weighted value*</small><b style="color:var(--red)">$249</b><small>−38% vs spot — see §5</small></div>
+      <div class="stat"><small>Street reference</small><b>$414.51</b><small>MarketBeat target</small></div>
+    </div>
+    <div class="verdict">
+      <span class="pill hold">Short term (12–18 mo): HOLD</span>
+      <span class="pill hold">Long term (5 yr): HOLD — do not add at $400</span>
+      <span class="pill">Size: max 3% of portfolio · satellite only</span>
+    </div>
+    <p class="foot">* Modelled estimate, not a verified fact. Full assumptions and weights are shown in §5 so the arithmetic can be checked. Research views only — not investment advice, not a guarantee.</p>
+  </div>
+
+  <div class="alert">
+    <strong>⚠ Read this before any multiple on this page: trailing P/E is not usable here</strong>
+    Vendors print 439× (MarketBeat) to 491× (Finnhub). Both are arithmetic on the same depressed base — TTM net income of about $3.22bn (FinanceCharts), implying EPS of roughly $0.81–$0.91 depending on vendor definition. A multiple built on trough earnings tells you earnings are depressed, not what the business is worth. That is why §5 values Tesla on revenue × a <em>mature</em> margin × a mature P/E instead of on trailing earnings.
+  </div>
+
+  <nav class="toc">
+    <a href="#s1">1 Business</a><a href="#s2">2 Financials</a><a href="#s3">3 Moat</a><a href="#s4">4 Catalysts &amp; risks</a><a href="#s5">5 Valuation</a><a href="#s6">6 Verdict &amp; sizing</a><a href="#sources">Sources</a>
+  </nav>
+
+  <section id="s1">
+    <h2><span class="n">01</span>Business Model &amp; Segment Breakdown</h2>
+    <p>Tesla today is three businesses wearing one ticker, plus an option on a fourth:</p>
+    <div class="grid2">
+      <div class="card"><h3>Vehicles — the revenue engine</h3><p>Model 3/Y are the volume core, with Cybertruck and Semi extending the range. Manufacturing spans the US, China and Europe, which diversifies plant risk but concentrates exposure to US–China trade and European demand at the same time. Recent price cuts have defended volume at the cost of auto gross margin — the pack flags that compression explicitly, and it is the single most important operating fact in the near-term story.</p></div>
+      <div class="card"><h3>Energy, services &amp; the option</h3><p><strong>Energy generation &amp; storage</strong> is growing and integrates with the vehicle and charging ecosystem. <strong>Services</strong> (including the charging network) monetise the installed fleet. Layered on top is the <strong>autonomy / robotics optionality</strong> — FSD, Robotaxi and Optimus — which is not yet the revenue base but is, per the research pack, what the investment case now rests on.</p></div>
+    </div>
+    <h3>The structural pivot</h3>
+    <p>The pivot is from car-maker to AI / robotics company. That sentence does real work in the valuation: a car-maker is priced on units and auto margins; an autonomy platform is priced on fleet miles, take-rate and software margins. Tesla's current price only makes sense in the second frame — §5 quantifies how much of today's $400 that frame has to deliver.</p>
+    <h3>Supply-chain dependencies</h3>
+    <ul>
+      <li><strong>Batteries:</strong> lithium and nickel exposure, plus Tesla's own 4680 cell programme — cost and energy-density progress here flows straight into vehicle margin.</li>
+      <li><strong>Semiconductors:</strong> shared with the entire auto and AI complex; no Tesla-specific verified figure is carried in the pack, so none is asserted here.</li>
+      <li><strong>China supply base:</strong> both a cost advantage and a geopolitical single point of failure — see §4.</li>
+    </ul>
+    <p class="foot">Open question, stated plainly: the research pack does not carry a verified segment-by-segment revenue split or geographic revenue split for Tesla. Rather than fill that gap with unverified figures, this report works from the verified totals and labels the one revenue figure it uses — ~$100bn — as an estimate wherever it appears.</p>
+  </section>
+
+  <section id="s2">
+    <h2><span class="n">02</span>Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <div class="kpi">
+      <div><small class="foot">Price</small><b>$399.81</b></div>
+      <div><small class="foot">Market cap</small><b>$1.58T</b></div>
+      <div><small class="foot">Enterprise value</small><b>$1.55T</b></div>
+      <div><small class="foot">Shares out</small><b>3,952,760,000</b></div>
+      <div><small class="foot">Dividend</small><b>None</b></div>
+    </div>
+    <table>
+      <tr><th>Metric</th><th>Value</th><th>How to read it</th></tr>
+      <tr><td>Trailing P/E — Finnhub</td><td class="num">490.79×</td><td>Implied EPS ≈ $0.81 on depressed TTM earnings</td></tr>
+      <tr><td>Trailing P/E — MarketBeat</td><td class="num">439.36×</td><td>Implied EPS ≈ $0.91 — same price, different EPS definition</td></tr>
+      <tr><td>TTM net income (FinanceCharts)</td><td class="num">~$3.22bn</td><td>The depressed base both multiples above are dividing into $1.58T</td></tr>
+      <tr><td>Revenue — 2026E base used in §5</td><td class="num">~$100bn <span class="tag est">ESTIMATE</span></td><td>Not re-verified in the pack; used only as the modelling starting point, labelled as an estimate throughout</td></tr>
+      <tr><td>Auto gross margin</td><td>Compressed</td><td>Direction verified in the pack (price cuts); no precise % is carried, so none is printed</td></tr>
+    </table>
+    <h3>Cash, capital allocation &amp; leverage</h3>
+    <p>The pack's verified characterisation is deliberately narrow, and this report keeps it that way: Tesla has been <strong>cash-positive historically</strong>, pays <strong>no dividend</strong>, and its growth capex story today sits in energy/storage expansion and the autonomy build-out rather than in returning cash. No debt-to-equity or free-cash-flow figure for Tesla was carried in the verified pack, so this section does not invent one — treat any precise leverage or FCF number you see elsewhere as unverified against this report's sources.</p>
+    <p><strong>Dilution matters in the model:</strong> §5 grows the share count from 3.95bn to 4.00–4.10bn across cases (compensation dilution). At a $1.58T cap, each 1% of extra shares is roughly $16bn of value that has to be created just to stand still per share.</p>
+  </section>
+
+  <section id="s3">
+    <h2><span class="n">03</span>Competitive Moat &amp; Industry Positioning</h2>
+    <div class="grid2">
+      <div class="card"><h3>Where the moat is real</h3><ul>
+        <li><strong>Brand</strong> — still the default name in EVs for most buyers.</li>
+        <li><strong>Charging network (NACS)</strong> — the standard others have adopted; a genuine infrastructure advantage.</li>
+        <li><strong>Manufacturing scale</strong> — cost position built over a decade of gigafactory learning.</li>
+        <li><strong>Software &amp; data for FSD</strong> — fleet data is the raw material autonomy is trained on.</li>
+        <li><strong>Energy integration</strong> — car, storage, charging and software under one roof.</li>
+      </ul></div>
+      <div class="card"><h3>Where it is not</h3><ul>
+        <li><strong>Pricing power in EVs is weak</strong> — the pack says this directly, and repeated price cuts prove it. A moat that requires cutting price to hold volume is a scale moat, not a pricing moat.</li>
+        <li><strong>Autonomy leadership is contested</strong> — Waymo competes from the other direction (geofenced, sensor-heavy), and regulators, not just engineers, set the pace.</li>
+      </ul></div>
+    </div>
+    <p><strong>Competitors named in the pack:</strong> BYD and Chinese EV makers on cost and volume, legacy OEMs on distribution and balance sheets, Rivian in the US EV niche, and Waymo in autonomy. The honest summary: Tesla leads on integration and brand, is challenged on price in China, and has not yet converted its autonomy lead into verified, scaled robotaxi economics — which is exactly the gap the share price assumes away.</p>
+  </section>
+
+  <section id="s4">
+    <h2><span class="n">04</span>Catalysts &amp; Downside Risks</h2>
+    <div class="grid2">
+      <div class="card"><h3>Catalysts</h3><ul>
+        <li>Robotaxi scaling — the first hard evidence that autonomy revenue is real and repeatable</li>
+        <li>FSD licensing to other OEMs — high-margin revenue with no extra factories</li>
+        <li>Optimus progress from demo to deployable product</li>
+        <li>Energy margins as storage scale compounds</li>
+        <li>Lower-cost models reopening the mass-market volume story</li>
+      </ul></div>
+      <div class="card"><h3>Risks</h3><ul>
+        <li>Auto demand and an EV price war compressing margins further</li>
+        <li>Autonomy regulation and safety events — a single serious incident can reset timelines</li>
+        <li>China competition and geopolitical exposure on both demand and supply</li>
+        <li>Key-person concentration — the story, the compensation and the valuation are unusually tied to one individual</li>
+        <li>Valuation itself: at $400 the price <em>requires</em> autonomy success; disappointment has no cushion</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <h2><span class="n">05</span>Scenario-Based Valuation &amp; Price Targets</h2>
+    <p>Because trailing earnings are depressed (§2), Tesla is valued here the adapted way: <strong>revenue × mature net margin × mature P/E, per share on a diluted share count</strong>. Every figure below is a <span class="tag est">MODELLED ESTIMATE</span> — the method and weights are shown so you can re-run it, and disagree with it, yourself.</p>
+
+    <h3>5-year scenarios (2031) — starting point: 2026E revenue ~$100bn <span class="tag est">ESTIMATE</span>, 3.95bn shares</h3>
+    <table>
+      <tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 revenue</th><th class="num">Mature net margin</th><th class="num">Net income</th><th class="num">Shares</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+      <tr><td>Bull (25%)</td><td class="num">22%</td><td class="num">$270bn</td><td class="num">18%</td><td class="num">$48.6bn</td><td class="num">4.00bn</td><td class="num">$12.15</td><td class="num">45×</td><td class="num"><b>$547</b></td></tr>
+      <tr><td>Base (50%)</td><td class="num">15%</td><td class="num">$201bn</td><td class="num">12%</td><td class="num">$24.1bn</td><td class="num">4.05bn</td><td class="num">$5.95</td><td class="num">35×</td><td class="num"><b>$208</b></td></tr>
+      <tr><td>Bear (25%)</td><td class="num">5%</td><td class="num">$128bn</td><td class="num">5%</td><td class="num">$6.4bn</td><td class="num">4.10bn</td><td class="num">$1.56</td><td class="num">20×</td><td class="num"><b>$31</b></td></tr>
+      <tr class="hl"><td>Probability-weighted</td><td colspan="7">0.50 × $208 + 0.25 × $547 + 0.25 × $31</td><td class="num">$249</td></tr>
+    </table>
+
+    <div class="bars" aria-label="Five year scenario prices versus spot">
+      <div class="bar-row"><span>Bear $31</span><div class="bar-track"><div class="bar-fill" style="width:6%;background:#B42318"></div></div><span class="mono">−92%</span></div>
+      <div class="bar-row"><span>Base $208</span><div class="bar-track"><div class="bar-fill" style="width:38%;background:#9A6B00"></div></div><span class="mono">−48%</span></div>
+      <div class="bar-row"><span>Weighted $249</span><div class="bar-track"><div class="bar-fill" style="width:46%;background:var(--ink)"></div></div><span class="mono">−38%</span></div>
+      <div class="bar-row"><span>Spot $399.81</span><div class="bar-track"><div class="bar-fill" style="width:73%;background:var(--muted)"></div></div><span class="mono">—</span></div>
+      <div class="bar-row"><span>Bull $547</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#1B7A4D"></div></div><span class="mono">+37%</span></div>
+    </div>
+    <p><strong>Why the weighted value sits 38% below the price — disclosed, not hidden:</strong> even the <em>base</em> case, which grants Tesla a 15% five-year revenue CAGR, a 12% mature net margin and a rich 35× mature P/E (the autonomy premium), only supports $208. Today's $400 has therefore already capitalised a large part of the bull case. That asymmetry — +37% if autonomy delivers bull economics, −48% on base, −92% on bear — <em>is</em> the investment conclusion, and it is why the verdict below is Hold rather than Buy. Reasonable people can weight the bull case higher; if you put bull at 50% the weighted value rises to roughly $323 — still below spot. You need bull-case conviction above ~65% before $400 clears on this method.</p>
+
+    <h3>12–18-month price targets <span class="tag est">MODELLED ESTIMATES</span></h3>
+    <table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">Vs $399.81</th><th>What has to happen</th></tr>
+      <tr><td>Bear</td><td class="num">$280</td><td class="num">−30%</td><td>Margin pressure persists, robotaxi timelines slip</td></tr>
+      <tr><td>Base</td><td class="num">$400</td><td class="num">~0%</td><td>Deliveries and energy hold; autonomy stays a promise, not yet a P&amp;L</td></tr>
+      <tr><td>Bull</td><td class="num">$520</td><td class="num">+30%</td><td>Visible robotaxi scaling or an FSD licensing deal re-rates the story</td></tr>
+    </table>
+    <p class="foot">Cross-check: MarketBeat's consensus-style target carried in the pack is $414.51 — close to this report's flat base case, and a useful reminder that the Street, too, sees roughly fair value here rather than a bargain.</p>
+  </section>
+
+  <section id="s6">
+    <h2><span class="n">06</span>Verdict &amp; Portfolio Sizing</h2>
+    <div class="grid2">
+      <div class="card"><h3>Short term — HOLD</h3><p>Flat base case ($400), wide cone ($280–$520). There is no edge in chasing a stock whose 12–18-month expected value is its current price and whose downside case is −30%.</p></div>
+      <div class="card"><h3>Long term — HOLD, do not add at $400</h3><p>The bull case is real — autonomy at scale would justify well above today's price — but at $400 you are paying for it in advance with no margin of safety. The pack's instruction is explicit: hold an existing position, do not add here. Revisit on either a materially lower price or verified robotaxi unit economics.</p></div>
+    </div>
+    <div class="calc">
+      <h3 style="margin-top:0">Position sizer — 3% maximum, satellite only</h3>
+      <p>For a mid-30s investor at risk 8/10, Tesla belongs in the high-risk satellite sleeve, capped at <strong>3% of the total portfolio</strong> — sized so the bear case (−92% on the name) costs the portfolio under 3 points, while the bull case still matters.</p>
+      <label>Portfolio value ($) <input id="pv" type="number" value="500000" min="0" /></label>
+      <button id="calcBtn" type="button">Calculate</button>
+      <p id="calcOut" class="mono" style="margin-top:12px"></p>
+    </div>
+    <details><summary>Sector ranking note — why this report covers a top-11, not a clean top-10</summary>
+      <p class="foot">Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026, prices at the 30 Oct 2026 close. The Consumer Discretionary cutoff is a <strong>source-dependent tie</strong>: FinanceCharts ranks SONY #10 ($148.38bn) and HESAY #11 ($148.079bn), while StockAnalysis puts HESAY at $151.28bn, above SONY. Both are included in the sector set (top 11) with the tie footnoted; HESAY is not presented as an unambiguous #10. Tesla's own position at $1.58T is not affected by the tie.</p>
+    </details>
+  </section>
+
+  <section id="sources">
+    <h2><span class="n">07</span>Sources &amp; Verification</h2>
+    <p class="foot">Values in this report were independently verified against a second source before publication, per your instruction. Where the verification log corrected the research pack, the log's value is the one used — for Tesla, that meant showing the EPS basis behind the 439–491× P/E range rather than printing the range alone. Modelled scenario prices are estimates with methodology shown in §5, never verified facts.</p>
+    <ul class="sources">
+      <li>Price, P/E (Finnhub) — <a href="https://finnhub.io/?q=%22TSLA%22">finnhub.io — TSLA</a></li>
+      <li>Market cap — <a href="https://stockanalysis.com/stocks/tsla/market-cap/">stockanalysis.com/stocks/tsla/market-cap</a></li>
+      <li>Price, cap, P/E cross-check (439.36×) — <a href="https://www.marketbeat.com/stocks/NASDAQ/TSLA/">marketbeat.com/stocks/NASDAQ/TSLA</a></li>
+      <li>Sector ranking &amp; tie (FinanceCharts) — <a href="https://www.financecharts.com/sectors/consumer_discretionary">financecharts.com/sectors/consumer_discretionary</a></li>
+    </ul>
+    <p class="foot">As of 1 Nov 2026; price reference is the 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Revenue ~$100bn is labelled ESTIMATE wherever used. Research views only, not investment advice.</p>
+  </section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TSLA (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $399.81.</strong> <strong>DCF intrinsic: $23.</strong> Discount/premium vs DCF: <strong>+1638.3%</strong> — i.e. the shares are trading 1638.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$23</td><td>+1638.3%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $3.3bn. TTM FCF (Intickers: OCF $18.71bn - capex $15.41bn = $3.30bn; TwelveData levered FCF $4.74bn is close). Growth g = 10% constant for years 1–10; discount rate r = 12% (high-risk 12%); terminal growth 3%. PV of projected FCF $29.93bn + PV of terminal value $31.54bn + net cash $29.0bn, divided by 3.953bn diluted shares = <strong>$23</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://intickers.com/reports/tsla/</li><li>https://twelvedata.com/markets/192184/stock/nasdaq/tsla/statistics</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — TSLA (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Vehicles are sold to individual buyers (plus fleet buyers in aggregate), and energy/storage is sold to households and businesses in aggregate; no single business customer is disclosed above 10% of revenue in the pack. Key demand drivers: vehicle deliveries and pricing, energy-storage growth, and whether autonomy/robotics (FSD, Robotaxi, Optimus) converts from optionality into paid revenue.</p>
+</div>
+
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TSLA</h2>
+<p><strong>Role: Beneficiary / At-risk.</strong> Tesla's investment case now rests on AI/robotics optionality (FSD, Robotaxi, Optimus) rather than vehicle volume, per the pack — but that optionality is not yet paid revenue, and TTM net income is only $3.22bn on $103.6bn of revenue.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through autonomy licensing, Robotaxi deployment and energy/AI compute narratives; the multiple is supported by the market capitalising autonomy at a premium (the pack's bull case needs a 45x multiple on 18% margins).</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in autonomy timelines and Robotaxi milestones slipping, then in vehicle pricing as the AI premium is stripped out; then the multiple compresses violently from ~440x trailing earnings toward an auto multiple (the pack itself calls the trailing P/E meaningless and shows a $31 bear case on mature margins); then the balance sheet — net cash $29.0bn — is a cushion, not a defence of the multiple. Watch: FSD/Robotaxi regulatory milestones, vehicle deliveries and price cuts, and capex above the $25bn guide.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+</div>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), out=document.getElementById('calcOut');
+  function calc(){
+    var v=parseFloat(pv.value)||0;
+    var max=v*0.03, shares=max/399.81;
+    out.textContent='Max position (3%): $'+max.toLocaleString('en-US',{maximumFractionDigits:0})+'  ≈  '+shares.toFixed(1)+' shares at $399.81  ·  Bear-case ($31) value of that position: $'+(shares*31).toLocaleString('en-US',{maximumFractionDigits:0});
+  }
+  document.getElementById('calcBtn').addEventListener('click',calc);
+  pv.addEventListener('input',calc);
+  calc();
+})();
+</script>
+</body>
+</html>

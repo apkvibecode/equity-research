@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Equity Research — C (Citigroup)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+    <style>
+      :root{
+        --bg:#f7f5f0; --surface:#fffdf8; --surface2:#efece3; --ink:#1c2420; --ink2:#4c564f;
+        --line:#d8d2c2; --accent:#0d5c46; --accent-ink:#0a4636; --gold:#9a7414;
+        --up:#0d5c46; --down:#a33327; --warn-bg:#fbf3d9; --warn-line:#d9b94a;
+        --chip:#e7efe9; --shadow:0 1px 2px rgba(28,36,32,.06),0 8px 24px rgba(28,36,32,.05);
+      }
+      @media (prefers-color-scheme: dark){
+        :root{
+          --bg:#121613; --surface:#1a1f1c; --surface2:#232923; --ink:#ece9df; --ink2:#a9b3a9;
+          --line:#39413a; --accent:#4cc79c; --accent-ink:#7fdcba; --gold:#d9b45c;
+          --up:#4cc79c; --down:#e07a6a; --warn-bg:#2e2a18; --warn-line:#8a7326;
+          --chip:#223129; --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
+        }
+      }
+      *{box-sizing:border-box}
+      html{scroll-behavior:smooth}
+      body{margin:0;background:var(--bg);color:var(--ink);
+        font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;}
+      .wrap{max-width:1060px;margin:0 auto;padding:0 20px 72px}
+      .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+      h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.15;margin:0}
+      h2{font-size:clamp(22px,3.4vw,29px);font-weight:600}
+      h3{font-size:18px;font-weight:600}
+      p{margin:0 0 12px}
+      a{color:var(--accent-ink);text-underline-offset:2px}
+      .small{font-size:13px;color:var(--ink2)}
+      .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+      /* Masthead */
+      .masthead{padding:34px 0 0}
+      .crumb{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:14px}
+      .crumb b{color:var(--accent-ink);font-weight:600}
+      .title-row{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 26px}
+      h1{font-size:clamp(34px,6vw,54px);font-weight:700;letter-spacing:-.01em}
+      .ticker-badge{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;
+        border:1.5px solid var(--ink);border-radius:6px;padding:5px 12px;margin-bottom:8px}
+      .dek{font-size:clamp(17px,2.4vw,20px);color:var(--ink2);max-width:46em;margin-top:12px}
+      .asof{margin-top:14px;font-size:13.5px;color:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:9px 0}
+
+      /* Snapshot strip */
+      .snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:22px 0 8px;box-shadow:var(--shadow)}
+      .snap>div{background:var(--surface);padding:14px 16px}
+      .snap .k{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:4px}
+      .snap .v{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600}
+      .snap .s{font-size:12px;color:var(--ink2);margin-top:2px}
+
+      /* Verdict */
+      .verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:20px 0 6px}
+      .vcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:var(--shadow)}
+      .vcard .k{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+      .vcard .call{font-family:"Source Serif 4",serif;font-size:30px;font-weight:700;margin:4px 0 6px}
+      .call.buy{color:var(--up)} .call.hold{color:var(--gold)}
+      .vcard p{font-size:14px;color:var(--ink2);margin:0}
+
+      section{margin-top:44px}
+      .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
+      .sec-head .no{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent-ink);font-weight:600}
+      .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+      @media (max-width:760px){.grid2{grid-template-columns:1fr}}
+      .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+      .card h3{margin-bottom:10px}
+      ul.tight{margin:0;padding-left:18px}
+      ul.tight li{margin-bottom:7px}
+      ul.tight li::marker{color:var(--accent)}
+
+      table{width:100%;border-collapse:collapse;font-size:14.5px}
+      th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+      th{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+      td.r,th.r{text-align:right;font-variant-numeric:tabular-nums}
+      tr:last-child td{border-bottom:none}
+      .tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow)}
+      .tablewrap table th,.tablewrap table td{white-space:nowrap}
+      .tablewrap table td:first-child{white-space:normal;min-width:150px}
+      @media (max-width:640px){
+        .tablewrap table th,.tablewrap table td{white-space:normal;padding:8px 8px}
+        .tablewrap table{font-size:13px}
+        .tablewrap table td:first-child{min-width:104px}
+        #valuation .opt{display:none}
+        #valuation table td:first-child{min-width:96px}
+      }
+
+      .seg{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0}
+      .seg>div{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:8px;padding:14px 16px}
+      .seg .nm{font-weight:600;font-size:15px}
+      .seg .ds{font-size:13px;color:var(--ink2);margin-top:3px}
+      .seg .gr{font-family:"IBM Plex Mono",monospace;font-size:14px;margin-top:8px;color:var(--up);font-weight:600}
+
+      .note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:8px;padding:13px 16px;font-size:14px;margin:16px 0}
+      .note b{font-weight:600}
+      .fnote{font-size:12.5px;color:var(--ink2);margin-top:10px}
+
+      .flow{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:var(--shadow);margin-top:16px}
+      .flow h3{margin-bottom:4px}
+      .flow svg{width:100%;height:auto;display:block;margin-top:10px}
+      .flow .fl{font-family:"IBM Plex Mono",monospace;font-size:12.5px;fill:var(--ink)}
+      .flow .fl2{font-family:"IBM Plex Mono",monospace;font-size:11px;fill:var(--ink2)}
+
+      .bars{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+      .bar-row{display:grid;grid-template-columns:110px 1fr 74px;align-items:center;gap:12px;font-size:14px}
+      .bar-track{background:var(--surface2);border-radius:5px;height:26px;position:relative}
+      .bar-fill{height:100%;border-radius:5px}
+      .bar-cur{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+      .bar-cur span{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-size:10.5px;color:var(--ink2);white-space:nowrap}
+
+      .calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;box-shadow:var(--shadow)}
+      .calc-row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+      .calc label{font-size:13px;color:var(--ink2);display:block;margin-bottom:5px}
+      .calc input{font-family:"IBM Plex Mono",monospace;font-size:17px;padding:9px 12px;border:1px solid var(--line);
+        border-radius:7px;background:var(--bg);color:var(--ink);width:190px}
+      .calc .out{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+      .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+      .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 13px;font-size:13px}
+
+      .src{font-size:13.5px}
+      .src li{margin-bottom:8px;overflow-wrap:anywhere}
+      footer{margin-top:52px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--ink2)}
+      @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <header class="masthead">
+        <div class="crumb">Equity Research · <b>Financials sector</b> · Single-stock report</div>
+        <div class="title-row">
+          <h1>Citigroup</h1>
+          <span class="ticker-badge">NYSE: C</span>
+        </div>
+        <p class="dek">The turnaround bank of the big-bank set: a genuinely differentiated global Services franchise carrying a group whose return on capital still trails every major peer. The investment case is not the franchise — it is whether ROTCE keeps closing the gap.</p>
+        <p class="asof"><b>As of 1 Nov 2026.</b> Prices are the <b>30 Oct 2026</b> regular-session close (1 Nov was a weekend). Figures independently verified against a second source before publication; where vendors disagree, the vendor is named. Research views only — not guarantees, not investment advice. Profile assumed throughout: mid-30s investor, risk score 8/10.</p>
+      </header>
+
+      <div class="snap" role="table" aria-label="Key figures at 30 Oct 2026 close">
+        <div><div class="k">Share price</div><div class="v">$122.62</div><div class="s">MarketBeat basis · Finnhub: $122.64</div></div>
+        <div><div class="k">Market cap</div><div class="v">$209.1bn</div><div class="s">MarketBeat · Finnhub: $204.6bn — vendor-divergent</div></div>
+        <div><div class="k">Trailing P/E</div><div class="v">11.96×</div><div class="s">MarketBeat · Finnhub: 10.58× — vendor-divergent</div></div>
+        <div><div class="k">Dividend yield</div><div class="v">2.19%</div><div class="s">Per research pack</div></div>
+        <div><div class="k">Q3 ROTCE</div><div class="v">11.5%</div><div class="s">Up from 8.0% a year earlier</div></div>
+        <div><div class="k">CET1 ratio</div><div class="v">12.8%</div><div class="s">Q3 2026</div></div>
+      </div>
+      <p class="fnote">Caps and P/Es in this report name their vendor because the two sources differ by more than rounding for C — do not read any single figure as vendor-free. EV/EBITDA is not meaningful for a bank and is not shown.</p>
+
+      <div class="verdict">
+        <div class="vcard">
+          <div class="k">Short term · 12–18 months</div>
+          <div class="call buy">Buy</div>
+          <p>Turnaround momentum: Q3 profit up 40%, ROTCE up 3.5 points year over year, and the stock still trades at a peer discount. MarketBeat consensus target $150.87 is ~23% above the close.</p>
+        </div>
+        <div class="vcard">
+          <div class="k">Long term · 5 years</div>
+          <div class="call hold">Hold</div>
+          <p>ROTCE is still the lowest in the big-bank set and has to be proven over more quarters before C earns a core long-term slot. Modelled 5-year weighted value: $170 (estimate — assumptions in §5).</p>
+        </div>
+        <div class="vcard">
+          <div class="k">Suggested position</div>
+          <div class="call">1.5%</div>
+          <p>Of total portfolio, for the mid-30s, risk-8/10 profile. A satellite turnaround position, not a core bank holding — size it so a stalled restructuring cannot dominate the outcome.</p>
+        </div>
+      </div>
+
+      <!-- 1 -->
+      <section id="business">
+        <div class="sec-head"><span class="no">§1</span><h2>Business model &amp; segment breakdown</h2></div>
+        <p>Citigroup runs five segments. The centre of gravity is <b>Services</b> — treasury and trade solutions for corporates and institutions — which the research pack identifies as the group's growth engine, sitting alongside Markets, Banking, US Personal Banking and Wealth.</p>
+        <div class="seg">
+          <div><div class="nm">Services</div><div class="ds">Treasury &amp; trade solutions; the growth engine, built on Citi's global payments and cash-management network.</div><div class="gr">+15% in Q3</div></div>
+          <div><div class="nm">Markets</div><div class="ds">Trading across rates, currencies, credit and equities. Q3 revenue $6.11bn.</div><div class="gr">+6% · equities +14%</div></div>
+          <div><div class="nm">Banking</div><div class="ds">Investment banking and corporate lending.</div><div class="ds" style="margin-top:8px">Segment growth not broken out in the verified pack.</div></div>
+          <div><div class="nm">US Personal Banking</div><div class="ds">US cards, retail banking and lending.</div><div class="ds" style="margin-top:8px">Segment growth not broken out in the verified pack.</div></div>
+          <div><div class="nm">Wealth</div><div class="ds">Wealth management across client segments.</div><div class="ds" style="margin-top:8px">Segment growth not broken out in the verified pack.</div></div>
+        </div>
+        <p><b>Q3 2026 (verified).</b> Revenue <span class="num">$23.85bn</span>, up 8% year over year; net income <span class="num">$5.25bn</span>, up 40%; EPS <span class="num">$2.85</span>, up 53%. ROTCE reached <span class="num">11.5%</span>, up from 8.0% — the single most important number in the quarter, because the whole equity case rests on that ratio converging toward peers. Services grew 15% and Markets 6% (equities +14%), so the growth came from the two segments where Citi's network advantage is strongest rather than from balance-sheet expansion.</p>
+        <div class="flow">
+          <h3>Q3 2026 income flow</h3>
+          <p class="small" style="margin:0">Only revenue and net income are verified for the quarter, so everything between them is shown as one combined residual — expenses, credit costs and tax are not broken out in the verified pack and are not estimated here.</p>
+          <svg viewBox="0 0 720 190" role="img" aria-label="Flow diagram: Q3 revenue of 23.85 billion dollars splits into a combined residual of 18.60 billion and net income of 5.25 billion">
+            <rect x="10" y="55" width="180" height="80" rx="8" fill="var(--chip)" stroke="var(--line)"/>
+            <text class="fl" x="26" y="86">Revenue</text>
+            <text class="fl" x="26" y="110" font-weight="600">$23.85bn</text>
+            <text class="fl2" x="26" y="128">+8% YoY</text>
+            <path d="M190 80 C 300 70, 330 55, 430 52" stroke="var(--ink2)" stroke-width="16" fill="none" opacity=".35"/>
+            <path d="M190 112 C 300 118, 330 128, 430 130" stroke="var(--accent)" stroke-width="10" fill="none" opacity=".55"/>
+            <rect x="430" y="18" width="280" height="66" rx="8" fill="var(--surface2)" stroke="var(--line)"/>
+            <text class="fl" x="446" y="46">Expenses, credit costs &amp; tax</text>
+            <text class="fl2" x="446" y="66">(combined residual — not broken out)</text>
+            <text class="fl" x="446" y="80" font-weight="600">$18.60bn</text>
+            <rect x="430" y="104" width="280" height="66" rx="8" fill="var(--chip)" stroke="var(--accent)"/>
+            <text class="fl" x="446" y="132">Net income</text>
+            <text class="fl" x="446" y="156" font-weight="600">$5.25bn (+40%) · EPS $2.85 (+53%)</text>
+          </svg>
+        </div>
+        <p class="fnote">Structural picture from the pack: the recent pivot is simplification — exiting and streamlining underperforming businesses while capital and management attention concentrate on Services. The dependency that matters most is the global transaction-banking network itself: it is both the moat (§3) and a concentration, since Services growth is the engine the ROTCE story depends on.</p>
+      </section>
+
+      <!-- 2 -->
+      <section id="health">
+        <div class="sec-head"><span class="no">§2</span><h2>Financial health &amp; balance-sheet diagnostics</h2></div>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>Metric</th><th class="r">Value</th><th>Basis / note</th></tr></thead>
+            <tbody>
+              <tr><td>Share price (30 Oct 2026 close)</td><td class="r num">$122.62</td><td>MarketBeat; Finnhub prints $122.64</td></tr>
+              <tr><td>Market capitalisation</td><td class="r num">$209.14bn / $204.59bn</td><td>MarketBeat / Finnhub — vendor-divergent, both shown</td></tr>
+              <tr><td>Trailing P/E</td><td class="r num">11.96× / 10.58×</td><td>MarketBeat / Finnhub — vendor-divergent, both shown</td></tr>
+              <tr><td>TTM revenue (filed)</td><td class="r num">~$90.6–91.2bn</td><td>Total revenues <i>net of interest expense</i>, TTM to 30 Sep 2026 (BusinessQuant ~$90.57bn; other aggregators $91.19bn)</td></tr>
+              <tr><td>Dividend yield</td><td class="r num">2.19%</td><td>Research pack</td></tr>
+              <tr><td>CET1 capital ratio</td><td class="r num">12.8%</td><td>Q3 2026 — capital position underpinning buyback capacity</td></tr>
+              <tr><td>ROTCE</td><td class="r num">11.5%</td><td>Q3 2026, vs 8.0% a year earlier — still the big-bank set's lowest</td></tr>
+              <tr><td>EV/EBITDA</td><td class="r num">n/m</td><td>Not meaningful for a bank balance sheet</td></tr>
+              <tr><td>Consensus target (MarketBeat)</td><td class="r num">$150.87</td><td>~23% above the 30 Oct close; JPMorgan raised its target to $148.50 on 30 Oct 2026</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note"><b>Verification correction applied:</b> an earlier draft carried TTM revenue of ~$95.4bn, produced by annualising the Q3 quarter. The verifier replaced it with the filed figure — <b>~$90.6–91.2bn</b> of total revenues net of interest expense, TTM to 30 Sep 2026. Annualising a single quarter overstates Citi by ~5%. Gross-interest-inclusive aggregator figures (which run far higher for banks) are a different definition and are not used anywhere in this report.</div>
+        <div class="grid2">
+          <div class="card">
+            <h3>Capital allocation</h3>
+            <p>Per the pack, buybacks resume as capital builds — the CET1 ratio of 12.8% is the buffer that funds them. The dividend yields 2.19%. The pack does not break out a buyback quantum or R&amp;D-style spend (not a meaningful line for a bank), so none is stated here.</p>
+          </div>
+          <div class="card">
+            <h3>Why the discount?</h3>
+            <p>Citi trades at ~11–12× trailing earnings (vendor-dependent) against higher-rated peers because its ROTCE — 11.5%, even after a 3.5-point jump — remains the lowest in the big-bank set. The valuation question is purely whether that gap closes: each point of ROTCE convergence supports a higher multiple on the same earnings base.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section id="moat">
+        <div class="sec-head"><span class="no">§3</span><h2>Competitive moat &amp; industry positioning</h2></div>
+        <div class="grid2">
+          <div class="card">
+            <h3>Where the moat is real</h3>
+            <ul class="tight">
+              <li><b>Global Services network.</b> A treasury, trade and cash-management footprint that corporates cannot easily replicate or switch away from — the pack calls it unique among US banks.</li>
+              <li><b>Emerging-market footprint.</b> Presence in markets most US peers exited, feeding the Services and Markets franchises.</li>
+              <li><b>Scale in trade &amp; cash management.</b> Volume-driven, sticky, fee-based revenue — the highest-quality earnings stream in the group, growing 15% in Q3.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Where it is not</h3>
+            <ul class="tight">
+              <li><b>Returns, not reach, are the weakness.</b> The lowest ROTCE in the big-bank set means the network earns less per unit of capital than peers' narrower franchises.</li>
+              <li><b>US consumer.</b> US Personal Banking competes against larger, higher-return domestic card and retail franchises.</li>
+              <li><b>Complexity.</b> The global footprint that creates the moat also creates the regulatory and restructuring burden listed in §4 — the moat and the discount have the same root.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section id="risks">
+        <div class="sec-head"><span class="no">§4</span><h2>Catalysts &amp; downside risks</h2></div>
+        <div class="grid2">
+          <div class="card">
+            <h3>Catalysts</h3>
+            <ul class="tight">
+              <li><b>Services growth compounding</b> — +15% in Q3; the fee engine is already delivering.</li>
+              <li><b>Simplification &amp; exits</b> — continued streamlining frees capital and management attention.</li>
+              <li><b>ROTCE expansion</b> — 8.0% → 11.5% in a year; further convergence toward peers re-rates the multiple.</li>
+              <li><b>Buybacks as capital builds</b> on the 12.8% CET1 base.</li>
+              <li><b>Analyst momentum</b> — JPMorgan raised its target to $148.50 on 30 Oct 2026; MarketBeat consensus sits at $150.87.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Downside risks</h3>
+            <ul class="tight">
+              <li><b>Lowest ROTCE in the set</b> — if convergence stalls, the discount is justified and permanent.</li>
+              <li><b>Restructuring execution</b> — the turnaround is multi-year and operationally complex.</li>
+              <li><b>Emerging-market / geopolitical exposure</b> — the same footprint that differentiates Citi exposes it to shocks peers avoid.</li>
+              <li><b>Regulatory costs</b> — a global systemically important bank carries ongoing remediation and compliance spend.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section id="valuation">
+        <div class="sec-head"><span class="no">§5</span><h2>Scenario-based valuation &amp; price targets</h2></div>
+        <p><b>12–18-month horizon.</b> The anchor is the MarketBeat consensus target of <span class="num">$150.87</span> (~23% above the $122.62 close), corroborated by JPMorgan's 30 Oct raise to $148.50. The pack supplies no separate 12–18-month bull/bear range, so none is invented here.</p>
+        <p><b>5-year scenarios (modelled estimates).</b> Built on the pack's estimate revenue base with the growth, net-margin and exit-P/E assumptions shown. These are modelled estimates, not verified facts — the verifier could not re-check the weighted figure from the pack alone because scenario weights were not supplied to it, so the weights used here (50% base / 25% bull / 25% bear, the series' standard) are printed for full checkability: 0.50 × $157 + 0.25 × $281 + 0.25 × $85 = <b>$170</b>.</p>
+        <div class="tablewrap">
+          <table>
+            <thead><tr><th>5-year case</th><th class="r">Revenue growth/yr</th><th class="r">Net margin</th><th class="r">Exit P/E</th><th class="r opt">Implied EPS*</th><th class="r">Price</th><th class="r opt">Weight</th></tr></thead>
+            <tbody>
+              <tr><td><b>Bull</b> — ROTCE converges, Services compounds</td><td class="r num">7%</td><td class="r num">21%</td><td class="r num">14×</td><td class="r num opt">$20.07</td><td class="r num"><b>$281</b></td><td class="r num opt">25%</td></tr>
+              <tr><td><b>Base</b> — steady convergence, discount narrows slowly</td><td class="r num">4%</td><td class="r num">18.1%</td><td class="r num">11.96×</td><td class="r num opt">$13.13</td><td class="r num"><b>$157</b></td><td class="r num opt">50%</td></tr>
+              <tr><td><b>Bear</b> — restructuring stalls, ROTCE gap persists</td><td class="r num">1%</td><td class="r num">15%</td><td class="r num">9×</td><td class="r num opt">$9.44</td><td class="r num"><b>$85</b></td><td class="r num opt">25%</td></tr>
+              <tr><td colspan="5"><b>Probability-weighted 5-year value (modelled estimate)</b></td><td class="r num"><b>$170</b></td><td class="r num">—</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fnote">*Implied EPS is arithmetic from the pack's own outputs (price ÷ exit P/E), shown so the model can be followed. Scenario prices and the weighted $170 are modelled estimates with the methodology shown — never verified facts. The model's revenue base is an estimate; filed TTM revenue (~$90.6–91.2bn, §2) is the verified starting reference.</p>
+        <div class="bars" aria-label="Scenario prices versus current price">
+          <div class="bar-row"><span>Bear · $85</span><div class="bar-track"><div class="bar-fill" style="width:30.2%;background:var(--down)"></div><div class="bar-cur" style="left:43.6%"><span>Now $122.62</span></div></div><span class="num">−31%</span></div>
+          <div class="bar-row"><span>Base · $157</span><div class="bar-track"><div class="bar-fill" style="width:55.9%;background:var(--gold)"></div><div class="bar-cur" style="left:43.6%"></div></div><span class="num">+28%</span></div>
+          <div class="bar-row"><span>Bull · $281</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--up)"></div><div class="bar-cur" style="left:43.6%"></div></div><span class="num">+129%</span></div>
+          <div class="bar-row"><span>Weighted · $170</span><div class="bar-track"><div class="bar-fill" style="width:60.5%;background:var(--accent);opacity:.55"></div><div class="bar-cur" style="left:43.6%"></div></div><span class="num">+39%</span></div>
+        </div>
+        <p class="fnote">Percentages are versus the 30 Oct 2026 close of $122.62, over a 5-year horizon, before the 2.19% dividend yield.</p>
+      </section>
+
+      <!-- 6 -->
+      <section id="recommendation">
+        <div class="sec-head"><span class="no">§6</span><h2>Recommendation &amp; position sizing</h2></div>
+        <div class="grid2">
+          <div class="card">
+            <h3>The call</h3>
+            <ul class="tight">
+              <li><b>Short term (12–18m): Buy.</b> Turnaround momentum is in the numbers — profit +40%, ROTCE +3.5pts, Services +15% — and the entry multiple still prices in failure. Consensus $150.87 frames the near-term path.</li>
+              <li><b>Long term (5y): Hold.</b> The modelled weighted value ($170) sits ~39% above the price, but the entire case rests on ROTCE convergence that is one strong year old. Prove it for longer before this becomes a core holding.</li>
+              <li><b>Size: 1.5% of portfolio</b> for the mid-30s, risk-8/10 profile — a satellite position alongside higher-conviction financials.</li>
+            </ul>
+          </div>
+          <div class="calc">
+            <h3 style="margin-bottom:12px">Position-size calculator</h3>
+            <div class="calc-row">
+              <div>
+                <label for="pv">Total portfolio value (USD)</label>
+                <input id="pv" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+              </div>
+              <div>
+                <div class="small" style="margin-bottom:5px">Citi at 1.5%</div>
+                <div class="out" id="alloc">$7,500</div>
+              </div>
+              <div>
+                <div class="small" style="margin-bottom:5px">≈ shares at $122.62</div>
+                <div class="out" id="shares">61</div>
+              </div>
+            </div>
+            <div class="chips">
+              <span class="chip">Horizon split: momentum now, proof later</span>
+              <span class="chip">Re-check trigger: ROTCE stalls two straight quarters</span>
+            </div>
+            <p class="fnote" style="margin-top:12px">Runs entirely on this page; nothing you type is stored or sent anywhere.</p>
+          </div>
+        </div>
+        <div class="note"><b>Open questions, stated plainly:</b> (1) Banking, US Personal Banking and Wealth segment growth rates were not broken out in the verified pack — §1 says so rather than estimating them. (2) Market cap and P/E could not be verified as single figures because MarketBeat and Finnhub diverge; both are shown, labelled. (3) The 5-year scenario weights were not supplied to the verifier; the weights printed in §5 reproduce the pack's weighted $170 exactly and are shown so the arithmetic can be checked.</div>
+      </section>
+
+      <!-- Sources -->
+      <section id="sources">
+        <div class="sec-head"><span class="no">§7</span><h2>Sources &amp; verification</h2></div>
+        <p class="small" style="margin-bottom:12px">Ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company. Prices throughout are the 30 Oct 2026 close. Every Q3 2026 figure in §1 was confirmed by the independent verifier against a second source; corrections from that log (filed TTM revenue, vendor-labelled cap/P/E) are applied above and override the original research pack where they conflict.</p>
+        <ul class="src">
+          <li>MarketBeat — Citigroup (C) price, market cap, P/E, consensus target $150.87: <a href="https://www.marketbeat.com/stocks/NYSE/C/?utm_source=MarketBeatPopup&utm_campaign=MarketBeatPopup&utm_medium=MarketBeatPopup&RegistrationCode=ModernMarketsPopup-Dispatch+Tribunal" target="_blank" rel="noopener">marketbeat.com/stocks/NYSE/C</a></li>
+          <li>BeInsure — “Citigroup Q3 profit jumps, beating Wall Street estimates” (Q3 revenue, net income +40%, ROTCE): <a href="https://beinsure.com/news/citigroup-q3-profit-jumps-beating-wall-street-estimates/" target="_blank" rel="noopener">beinsure.com</a></li>
+          <li>Citigroup — investor quarterly earnings FAQs (Q3 confirmation): <a href="https://www.citigroup.com/global/investors/quarterly-earnings/faqs" target="_blank" rel="noopener">citigroup.com</a></li>
+          <li>BusinessQuant — C TTM revenue, net of interest expense (~$90.57bn): <a href="https://businessquant.com/metrics/c/revenue" target="_blank" rel="noopener">businessquant.com/metrics/c/revenue</a></li>
+          <li>Finnhub — C price/cap/P/E cross-check ($122.64 / $204.59bn / 10.58×): <a href="https://finnhub.io/?q=%22C%22" target="_blank" rel="noopener">finnhub.io</a></li>
+        </ul>
+      </section>
+
+      
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Citigroup (C)</h2>
+<p><strong>Price (30 Oct 2026 close): $122.62.</strong> <strong>DCF intrinsic: $106.</strong> Discount/premium vs DCF: <strong>+15.7%</strong> — i.e. the shares are trading 15.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$106</td><td>+15.7%</td><td>Base Distributable proxy: EPS $10.25 x 1.70558bn = $17.48bn, x 0.652 (1 - g/ROTCE, ROTCE 11.5% Q3, g 4%). Bank OCF NOT used. Growth g 4%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $85.05bn + PV of terminal value $95.98bn + net cash / excess capital $0.00bn, ÷ 1.70558bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/C/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Citigroup (C)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No single customer exceeds a disclosed 10% concentration for Citigroup, and no ranked top-7 is disclosed — none is invented here. Revenue spans Services (transaction banking for multinationals), Markets, Banking, Wealth and US consumer cards, on Q3 2026 revenue of $23.8bn (+8%) and ROTCE of 11.5%. The ‘customers’ that matter are multinational corporates using Citi’s services network and US cardholders, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: with no concentrated named customer, the thesis applies at franchise level — if Citi’s multinational and wealth clients are broadly undervalued, that is a potential tailwind for services, banking and wealth flows, and vice versa — but an undervalued client does not guarantee higher Citi volumes, which depend on that client’s own trade, treasury and investment priorities.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Citigroup (C)</h2>
+<p><strong>Role: Low exposure (beneficiary at the margin).</strong> While the AI trade runs, Citigroup benefits at the margin: its Services business banks multinationals building AI capacity, and its Markets and Banking arms earn from AI-related flows and deals — Q3 2026 revenue rose 8% to $23.8bn with ROTCE at 11.5% (pack) — but the pack gives no AI revenue line, and the thesis is closing the ROTCE gap, not AI.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~12x trailing earnings and near book value there is no AI premium to strip; an unwind would affect Citi through the general bank multiple.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — multinational services and markets volumes soften; (2) multiple — modest compression from an already low multiple, which would stall the ROTCE-gap-closing re-rating; (3) balance sheet — credit costs (Q3 provision $2.59bn, pack context) and regulatory remediation spend matter more than direct AI-capex debt. Triggers to watch: Services revenue growth, ROTCE versus the 11–13% target range, and credit-loss provisions.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+        Equity Research — C (Citigroup) · Financials sector · As of 1 Nov 2026, prices at the 30 Oct 2026 close. Prepared for a mid-30s investor with a risk score of 8/10. Scenario prices are modelled estimates with assumptions shown; verified figures carry their source vendor. This is research commentary, not investment advice and not a guarantee of any outcome.
+      </footer>
+
+    </div>
+    <script>
+      (function(){
+        var pv=document.getElementById('pv'), alloc=document.getElementById('alloc'), shares=document.getElementById('shares');
+        var PRICE=122.62, PCT=0.015;
+        function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+        function upd(){
+          var v=parseFloat(pv.value);
+          if(isNaN(v)||v<0){alloc.textContent='—';shares.textContent='—';return;}
+          var a=v*PCT;
+          alloc.textContent='$'+fmt(a);
+          shares.textContent=fmt(a/PRICE);
+        }
+        pv.addEventListener('input',upd); upd();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — AIQUF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0f3a4d; --blue:#0b6b7a; --blue-soft:#e0eef0;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#9a7b1a;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#8fc3cf; --blue:#6fc3cf; --blue-soft:#1a2f38;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.unv{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:4px;background:var(--amber-soft);color:var(--amber);vertical-align:middle}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Industrial Gases · Air Liquide</span></div>
+  <h1>Air Liquide <span class="tick">(OTC: AIQUF)</span></h1>
+  <p class="lede">The world's #2 industrial-gases company — a toll-road on oxygen, nitrogen, hydrogen and the air-separation plants that make them. It sells molecules no factory, hospital or chip fab can run without, under long-term contracts in 59 countries to more than 4 million customers and patients. The investment question is not whether the oligopoly holds — it is whether a 31.9× earnings multiple, paid through a thin US OTC line, leaves enough return for the slow, steady compounding underneath.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $199.50 — 30 Oct 2026 close <span class="unv">Unverified · thin OTC print</span></span>
+    <span><b>Ranking basis:</b> Global top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names. Not in strict market-cap order as printed.</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">AIQUF — this report</span>
+    <span class="tab soon">Materials peers: LIN · BHP · RIO · NEM · AEM · SCCO · FCX — separate reports</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$199.50</div><div class="vsub"><span class="unv">Unverified</span> Thin OTC print — indicative, not a liquid exchange close. See verification note in §2.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$127.0B</div><div class="vsub"><span class="unv">Unverified</span> Fool basis; Finnhub shows $113.0B on an ADR basis — the gap is basis, not error. See §2.</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/E / P/S</div><div class="vbig mono">31.9× / 4.2×</div><div class="vsub"><span class="unv">Unverified</span> EPS $5.54 (Finnhub). Premium multiple for a defensive compounder.</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / Gross profit</div><div class="vbig mono">$30.2B / $19.4B</div><div class="vsub">Fool, EUR-converted. Implied gross margin ≈ 64% — see flow diagram.</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled base $218 (+9%). Full multiple + OTC friction argue against chasing; add on weakness.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — small, staged <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $250. Oligopoly compounding, not a momentum trade.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Satellite defensive holding inside Materials. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>Air Liquide in one view</h2></div>
+  <p>Air Liquide is the <b>second leg of a global industrial-gases oligopoly</b> alongside Linde. The model is deliberately boring — and that is the point. Build or buy air-separation capacity next to the customer, sign a long-term take-or-pay style contract, pass energy costs through, and collect for a decade or more. Healthcare (home care, medical gases) adds a second, less cyclical leg serving patients as well as plants. The newest leg is Asia: the <b>DIG Airgas acquisition in South Korea — $3.3B, announced Aug 2025 and completed Jan 2026</b> — deepens the electronics and industrial base in the market where chip fabs are expanding fastest.</p>
+  <div class="callout warn"><div class="ct">Read this first — verification status</div>
+  <p>AIQUF's price, market cap and P/E were <b>not re-checked in the independent verification pass</b> for this sector. Every such figure on this page is labelled <span class="unv">Unverified</span> and must be treated as an indicative estimate, not a verified fact. AIQUF trades over-the-counter in the US; its primary listing is in Paris. OTC prints are thin and can differ from the underlying Euronext price once FX and ADR basis are accounted for — which is also why two reputable vendors show two different market caps ($127.0B vs $113.0B). All scenario prices in §5 are <b>modelled estimates</b> with methodology shown, never verified facts.</p></div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline figure</th><th class="n">Value</th><th>Status / source</th></tr></thead>
+    <tbody>
+      <tr><td>OTC price — 30 Oct 2026 close</td><td class="n">$199.50</td><td><span class="unv">Unverified</span> Thin OTC print; research pack / Fool basis</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$127.0B</td><td><span class="unv">Unverified</span> Fool; Finnhub $113.0B on ADR basis — see §2</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">31.9×</td><td><span class="unv">Unverified</span> Research pack</td></tr>
+      <tr><td>EPS (TTM basis in pack)</td><td class="n">$5.54</td><td>Finnhub — <a href="https://finnhub.io/?q=%22AIQUF%22" target="_blank" rel="noopener">Finnhub: AIQUF</a></td></tr>
+      <tr><td>TTM revenue</td><td class="n">$30.2B</td><td>Fool, EUR-converted</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$19.4B</td><td>Fool, EUR-converted; implies ≈64% gross margin and ≈$10.8B cost of sales</td></tr>
+      <tr><td>Price / Sales</td><td class="n">4.2×</td><td><span class="unv">Unverified</span> Research pack (cap ÷ TTM revenue, Fool basis)</td></tr>
+      <tr class="hl"><td>Footprint</td><td class="n">59 countries · 4M+</td><td>Countries / customers &amp; patients — Fool, via research pack</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Ranking basis, stated in full: GLOBAL top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names. The printed sector list is not in strict market-cap order (for example, BHP at $292.4B is printed after LIN at $237.1B). A NYSE/Nasdaq-only list would look materially different.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Income flow — what $30.2B of revenue becomes</h2></div>
+  <p>Only figures carried in the research pack are drawn below. Net income is shown as an <b>estimate</b> derived transparently from the pack's own EPS ($5.54) and the share count implied by its ADR-basis market cap — it is not a reported figure in the pack, and it is labelled as such.</p>
+  <figure>
+    <svg viewBox="0 0 980 280" width="100%" role="img" aria-label="Flow of Air Liquide TTM revenue into gross profit and estimated net income" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="90" width="190" height="64" fill="var(--navy)"/><text x="22" y="116" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="22" y="136" font-size="13" fill="#fff">$30.2B · Fool, EUR-conv.</text>
+      <rect x="310" y="30" width="210" height="60" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="324" y="54" font-size="13" font-weight="700" fill="var(--ink)">Gross profit $19.4B</text><text x="324" y="72" font-size="12" fill="var(--ink2)">≈64% gross margin</text>
+      <rect x="310" y="160" width="210" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="324" y="183" font-size="13" font-weight="700" fill="var(--ink)">Cost of sales ≈ $10.8B</text><text x="324" y="200" font-size="12" fill="var(--ink2)">Implied: $30.2B − $19.4B</text>
+      <line x1="198" y1="108" x2="306" y2="66" stroke="var(--muted)" stroke-width="10" opacity=".35"/>
+      <line x1="198" y1="136" x2="306" y2="182" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <rect x="620" y="30" width="330" height="72" fill="var(--paper)" stroke="var(--line2)"/><text x="634" y="54" font-size="13" font-weight="700" fill="var(--ink)">Operating costs, D&amp;A, interest &amp; tax</text><text x="634" y="74" font-size="12" fill="var(--ink2)">Not broken out in the research pack — not estimated here</text><text x="634" y="90" font-size="12" fill="var(--ink2)">Energy is the swing input; see §2 and §4</text>
+      <rect x="620" y="140" width="330" height="64" fill="var(--green-soft)" stroke="var(--line2)"/><text x="634" y="164" font-size="13" font-weight="700" fill="var(--ink)">Net income ≈ $3.2B — ESTIMATE</text><text x="634" y="182" font-size="12" fill="var(--ink2)">EPS $5.54 × ~0.57B implied shares (ADR basis)</text><text x="634" y="197" font-size="12" fill="var(--ink2)">Implied net margin ≈ 10–11% on TTM revenue</text>
+      <line x1="520" y1="60" x2="616" y2="64" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="520" y1="74" x2="616" y2="162" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+    </svg>
+    <figcaption>Widths are indicative, not to scale. Revenue and gross profit: Motley Fool via research pack (EUR-converted). EPS: Finnhub. Implied share count (~0.57B) is derived from the Finnhub ADR-basis market cap ($113.0B ÷ $199.50); on the Fool cap basis ($127.0B) the implied count is ~0.64B. The pack does not carry a reported net-income, operating-income, cash-flow or debt figure for AIQUF — those gaps are left open on this page rather than filled.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Industrial gases are a <b>density business</b>. Oxygen, nitrogen, argon and hydrogen are expensive to ship far and cheap to make on site — so the winner in any industrial basin is whoever already has the plant, the pipeline network and the contract. Air Liquide's revenue therefore behaves less like a commodity chemical's and more like a utility's: volumes follow industrial production, but pricing, contract duration and on-site plant economics smooth the cycle.</p>
+
+  <h3>How the money is made</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Leg (as framed in the research pack)</th><th>What it sells</th><th>Why it recurs</th></tr></thead>
+    <tbody>
+      <tr><td>Large industries / on-site gases</td><td>Oxygen, nitrogen, hydrogen and CO supplied by on-site plants and pipelines to steel, chemicals, refining and energy customers</td><td>Plants are built at or beside the customer under long-term contracts; switching means rebuilding supply, not just changing a vendor</td></tr>
+      <tr><td>Industrial merchant</td><td>Liquid and packaged gases to smaller factories, fabricators and laboratories</td><td>Local density — route and cylinder economics favour the incumbent network in each basin</td></tr>
+      <tr><td>Electronics</td><td>Ultra-pure carrier and specialty gases for semiconductor fabs</td><td>Qualification is slow and failure is catastrophic for the fab — purity and reliability outrank price; the DIG Airgas deal is aimed squarely here</td></tr>
+      <tr><td>Healthcare</td><td>Medical gases and home healthcare for patients — part of the 4M+ customers/patients base</td><td>Demand follows demographics and chronic-care need, not the industrial cycle — the portfolio's defensive ballast</td></tr>
+      <tr><td>Hydrogen &amp; energy transition</td><td>Hydrogen production, liquefaction and fuelling / decarbonisation projects</td><td>Option value today, contracted backlog tomorrow; also the leg most exposed to subsidy and energy-price politics — see §4</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Segment revenue splits, geographic revenue splits and segment margins for AIQUF are <b>not carried in the research pack</b> and are therefore not presented here as figures. Inventing a percentage split would violate the no-fabrication rule for this series; the qualitative structure above is what the pack supports (world #2 gases, 59 countries, 4M+ customers/patients, healthcare as a named leg).</p>
+
+  <div class="geo">
+    <div>
+      <h3>Scale markers (pack figures)</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bl">TTM revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$30.2B</span></div>
+        <div class="bar-row"><span class="bl">TTM gross profit</span><div class="bar-track"><div class="bar-fill green" style="width:64%"></div></div><span class="bv">$19.4B · 64%</span></div>
+        <div class="bar-row"><span class="bl">Market cap (Fool)</span><div class="bar-track"><div class="bar-fill gold" style="width:100%"></div></div><span class="bv">$127.0B *</span></div>
+        <div class="bar-row"><span class="bl">Market cap (ADR basis)</span><div class="bar-track"><div class="bar-fill gold" style="width:89%"></div></div><span class="bv">$113.0B *</span></div>
+      </div>
+      <p class="small">* <span class="unv">Unverified</span> — not re-checked in the verification pass. The two caps differ by listing/FX basis (Paris primary vs US ADR), a normal feature of dual-basis OTC names and a reason to size this position small — see §6.</p>
+    </div>
+    <div>
+      <h3>Structural pivot — Korea</h3>
+      <ul>
+        <li><b>DIG Airgas (South Korea): $3.3B acquisition</b>, announced Aug 2025, completed Jan 2026 (Fool, via pack). At roughly 11% of one year's TTM revenue, this is a material bolt-on, not a tuck-in.</li>
+        <li><b>Strategic read:</b> it buys density in the world's most electronics-intensive gas market — exactly where fab construction concentrates demand for ultra-pure gases — rather than spreading capital thinly across greenfield plants.</li>
+        <li><b>Integration question:</b> the pack carries no synergy, leverage or returns figure for the deal. Treat any claimed synergy number from elsewhere as unverified until it appears in company disclosure.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Energy — the master input.</b> Air separation is electricity-intensive and hydrogen production is gas-intensive. The model's defence is contractual pass-through, but pass-through has lags and caps; an energy spike compresses margin before it is recovered in price — the single most important operating dependency.</li>
+    <li><b>Plant &amp; equipment:</b> air-separation units, liquefiers and cryogenic logistics are specialised, long-lead capital goods. Execution risk sits in project delivery (including new Korean capacity), not in sourcing a commodity input.</li>
+    <li><b>Customer capex cycles:</b> electronics and large-industry revenue ultimately rides customers' own build decisions — fabs, steel and chemicals capacity. Air Liquide does not control its demand pipeline; it underwrites it with contracts.</li>
+    <li><b>Listing supply chain (for US holders):</b> AIQUF liquidity itself is a dependency. Thin OTC volume means entry and exit prices for a US buyer can differ meaningfully from the Paris underlying — a structural cost, addressed by small sizing and limit orders in practice.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Start with the honest limit of this note: <b>the research pack carries valuation and top-line figures for AIQUF, but no balance-sheet, cash-flow, dividend, buyback or leverage figures</b> — and the headline valuation figures it does carry were explicitly <b>not re-checked</b> in verification. This section therefore diagnoses what can be diagnosed, and names the gaps as open questions instead of filling them. That is a weaker §2 than the NYSE-listed peers in this series get, and the sizing in §6 reflects it.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price reference $199.50, 30 Oct 2026 close (thin OTC print). Every market-derived figure below is UNVERIFIED per the sector verification log.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">31.9× *</td><td>Full for a low-single-digit organic grower — the market pays for durability and oligopoly structure, not growth. Leaves little room for an industrial downturn</td></tr>
+      <tr><td>EPS (TTM basis)</td><td class="n">$5.54</td><td>Finnhub. $199.50 ÷ $5.54 ≈ 36× on simple division vs the pack's 31.9× P/E — the difference is basis (EUR earnings / ADR ratio / FX timing). Treat the multiple as approximate, which is precisely why it is flagged unverified</td></tr>
+      <tr><td>Price / Sales</td><td class="n">4.2× *</td><td>Consistent with $127.0B cap ÷ $30.2B TTM revenue on the Fool basis; on the $113.0B ADR basis it would be ≈3.7×. Basis matters more than the second decimal</td></tr>
+      <tr><td>Gross margin (implied)</td><td class="n">≈64%</td><td>$19.4B gross profit ÷ $30.2B revenue (Fool, EUR-converted). High for “industrial” — reflects on-site contract economics and healthcare mix, before the heavy D&amp;A and energy pass-through timing below the gross line</td></tr>
+      <tr><td>Implied net margin (estimate)</td><td class="n">≈10–11%</td><td>Modelled from EPS × implied shares ÷ revenue (see flow diagram). An estimate, not a reported figure in the pack</td></tr>
+      <tr><td>EV / EBITDA · Forward P/E</td><td class="n">—</td><td><b>Not carried in the pack — omitted, not estimated.</b> Both need debt/cash and consensus inputs the pack does not supply for AIQUF</td></tr>
+      <tr><td>Free cash flow · Leverage · Debt/Equity</td><td class="n">—</td><td><b>Not carried in the pack — open question.</b> Industrial-gas peers typically run capital-intensive, moderately levered balance sheets, but no AIQUF-specific figure is asserted here without a source</td></tr>
+      <tr><td>Capital allocation (dividends / buybacks / R&amp;D)</td><td class="n">—</td><td><b>Not carried in the pack — open question,</b> apart from the one allocation fact the pack does carry: $3.3B deployed to DIG Airgas (completed Jan 2026)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">* UNVERIFIED — price, market cap and P/E for AIQUF were listed in the verification log under “Not re-checked in this pass (mark UNVERIFIED in the artifact, do not present as verified)”, alongside BHP, SCCO, RIO, ZIJMF, FCX and GMBXF.</p>
+
+  <div class="callout"><div class="ct">What the numbers do support</div>
+  <p>Even on unverified inputs, the <i>shape</i> is clear and internally consistent: ~$30B of revenue at a ~64% gross margin, a low-double-digit implied net margin, and a ~32× earnings / ~4× sales valuation. That is the classic <b>quality-compounder-at-a-full-price</b> profile — the return case rests on earnings compounding for many years at a steady rate, not on multiple expansion. At 31.9×, multiple <i>contraction</i> is the base-case headwind every scenario in §5 has to overcome.</p></div>
+
+  <h3>Balance-sheet questions to resolve before sizing up</h3>
+  <ul>
+    <li><b>Post-DIG leverage:</b> what did the $3.3B Korea deal do to net debt, and on what terms was it funded? Not in the pack — the first item to verify from company filings before increasing the 1.5% weight.</li>
+    <li><b>Capex intensity through the hydrogen build:</b> transition projects are capital-hungry and return-dilutive early. Without a pack FCF figure, cash conversion is asserted by neither side of this note.</li>
+    <li><b>FX translation:</b> earnings are earned and reported in euros; a US OTC holder's dollar return is EUR/USD plus the share price. Neither the pack nor this note hedges that — it is part of the position, for better or worse.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — the same gas oligopoly as Linde, with long-term contracts and healthcare as the two reinforcing walls (pack framing, endorsed here).</b> Industrial gases are one of the cleanest oligopolies in global industry: a handful of majors divide most of the world's large-scale gas supply, compete basin by basin on density and reliability, and rarely compete a contracted on-site customer away on price alone.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Oligopoly structure:</b> Air Liquide as world #2 alongside Linde — rational capacity discipline and pricing behaviour are industry features, not company hopes.</li>
+      <li><b>Long-term contracts:</b> on-site supply agreements lock in volumes and energy pass-through for years; revenue visibility is unusually high for a Materials name.</li>
+      <li><b>Density &amp; switching costs:</b> a rival cannot serve your plant without building plant. Incumbency in a basin compounds — each new customer lowers the unit cost of serving the next.</li>
+      <li><b>Healthcare diversification:</b> medical gases and home care answer to demographics, not steel output — a second moat with different demand drivers inside the same molecule-handling competence.</li>
+      <li><b>Electronics qualification:</b> ultra-pure gases are qualified, not bought. Once inside a fab's process, displacement risk is minimal — and DIG Airgas extends exactly this position in Korea.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Linde is #1 for a reason:</b> the same moat, at larger scale, with a US listing and deeper liquidity. AIQUF must justify its OTC friction against simply owning the leader — the honest competitor to this position is LIN itself.</li>
+      <li><b>Regional &amp; local players</b> cap pricing in merchant gases basin by basin; the moat is strongest on-site and in electronics, thinnest in commodity packaged gas.</li>
+      <li><b>Customer concentration in cyclicals:</b> steel, chemicals and refining volumes fall in industrial recessions regardless of contract quality — contracts protect price and share, not the customer's own output.</li>
+      <li><b>Energy-cost pass-through is not instant:</b> caps and lags mean the moat defends margin over a cycle, not in every quarter.</li>
+      <li><b>No pricing power over the multiple:</b> at ~32× earnings the moat is already in the price. A wide moat bought too expensively still produces a mediocre return.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> structural and demonstrated at industry level — pass-through clauses and oligopoly discipline are the mechanism. <b>Barriers to entry:</b> capital, density, safety record and qualification history; effectively absolute at the on-site/electronics end. <b>Technological / regulatory position:</b> process know-how in cryogenics, liquefaction and hydrogen handling, plus the regulatory licences healthcare gas supply requires — competence moats that take decades, not product cycles, to replicate.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Electronics demand (pack catalyst):</b> new fab capacity — especially in Korea post-DIG — converts directly into high-purity gas volumes under the stickiest contracts in the industry.</li>
+        <li><b>Korea expansion bedding in:</b> DIG Airgas was completed in Jan 2026; the first full periods of consolidated contribution, and any disclosed cross-selling into Air Liquide's global electronics accounts, are the proof points to watch.</li>
+        <li><b>Hydrogen project conversion:</b> announced transition projects moving to contracted, revenue-producing assets would re-rate the leg from “option” to “earnings”.</li>
+        <li><b>Healthcare growth:</b> ageing-population demand for home care and medical gases is the steadiest volume line in the portfolio — unglamorous, compounding, and largely multiple-supportive.</li>
+        <li><b>Multiple relief via access:</b> any improvement in US access/liquidity for the underlying (or a holder decision to buy the Paris line instead) removes part of the OTC discount/friction embedded in AIQUF specifically.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Industrial demand (pack risk):</b> a global manufacturing downturn cuts merchant and on-site volumes; at 31.9× earnings there is no valuation cushion for a cyclical earnings dip.</li>
+        <li><b>Energy costs (pack risk):</b> electricity and natural-gas spikes hit air-separation and hydrogen economics first and are recovered through pass-through only with a lag — margin air-pocket risk in any energy shock.</li>
+        <li><b>OTC liquidity (pack risk):</b> thin US volume, wide effective spreads and FX-basis drift vs Paris. The risk is not theoretical: it is paid on entry, on exit, and in every “price” quoted in between — including the $199.50 reference on this page.</li>
+        <li><b>Execution / integration:</b> a $3.3B cross-border acquisition (DIG Airgas) carries the standard risks — retention, systems, and paying full price at a cyclical high for Korean industrial assets.</li>
+        <li><b>Hydrogen economics &amp; policy:</b> if subsidy regimes retreat or green-hydrogen costs stay uncompetitive, capital already committed to transition projects earns utility-like or worse returns.</li>
+        <li><b>FX:</b> EUR/USD moves flow straight into a US holder's return and into every EUR-converted figure in the pack.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A combination of (a) industrial volumes rolling over, (b) energy costs spiking faster than pass-through recovers them, and (c) the multiple de-rating from ~32× toward the low-20s that cyclical Materials names normally carry in a downturn. Any one alone is survivable — the moat sees to that. All three together is the bear case in §5, and it is why the long-term Buy is sized at 1.5%, not 5%.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method, stated plainly because the coordinator correction for this series requires it: <b>every price in this section is a MODELLED ESTIMATE, not a verified fact and not a Street consensus figure.</b> The 12–18-month cases are the research pack's own estimates. The 5-year cases are shown two ways that reconcile: (i) the pack's price-CAGR method, and (ii) the frozen-parameter format used across this series — <b>2031 price = 2031 revenue × net margin ÷ shares × P/E</b> — with every parameter frozen per case and shown, so the arithmetic can be checked. Trailing P/E is <i>not</i> meaningless here (earnings are positive and stable), so no normalisation adaptation is needed — unlike the loss-making names in this series, AIQUF can be valued directly off earnings, which is itself a quality signal.</p>
+
+  <h3>12–18-month targets — MODELLED ESTIMATES (pack)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$170</div><div class="ret down">−15% vs $199.50</div><p>Industrial downturn + energy squeeze; earnings dip and the multiple compresses toward the low-20s. Pack bear estimate for the 5-year window is similar (~$165) — in a de-rating, time does not rescue price.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · modelled</div><div class="price mono">$218</div><div class="ret up">+9% vs $199.50</div><p>Steady oligopoly compounding: modest volume growth, healthcare ballast, DIG contribution building, multiple roughly held. +9% over 12–18 months is a <i>bond-plus</i> equity return — honest, not exciting.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$255</div><div class="ret up">+28% vs $199.50</div><p>Electronics cycle upswing + hydrogen contracts landing + multiple sustained at the top of its range on quality scarcity. Note the pack's bull for 12–18 months equals its 5-year base — the bull case is the base case, sooner.</p></div>
+  </div>
+  <p class="small">Scenario weights were not supplied to the independent verifier, so no 12–18-month probability-weighted price is asserted as checked. For illustration with this series' standard 25/50/25 weights, the weighted value would be ≈ $215 (0.25×$170 + 0.50×$218 + 0.25×$255) — a modelled estimate only.</p>
+
+  <h3>5-year projection — frozen-parameter model — MODELLED ESTIMATES</h3>
+  <p>Starting point: <b>TTM revenue $30.2B</b> (Fool, EUR-converted). Share count <b>frozen at ~0.57B</b> — <i>derived, not reported</i>: Finnhub ADR-basis cap $113.0B ÷ $199.50. (On the Fool cap basis the count would be ~0.64B and every price below would fall ~11%; the pack's own 5-year prices sit closer to the ADR-basis maths, which is why that basis is used — the sensitivity is disclosed rather than hidden.) Only revenue growth, net margin and exit P/E vary by case. Net-margin parameters are set around the ~10–11% implied margin derived in the flow diagram.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">vs $199.50</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">+1%</td><td class="n">12%</td><td class="n">~$31.7B</td><td class="n">~$6.68</td><td class="n">25×</td><td class="n">~$165</td><td class="n">−17%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+4%</td><td class="n">14%</td><td class="n">~$36.7B</td><td class="n">~$9.02</td><td class="n">28×</td><td class="n">~$255</td><td class="n">+28%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">+7%</td><td class="n">16%</td><td class="n">~$42.3B</td><td class="n">~$11.88</td><td class="n">28×</td><td class="n">~$330</td><td class="n">+65%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $250</td><td class="n">≈ +25% over 5 yrs</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Cross-check against the pack's own method:</b> the pack's 5-year base is a 5% price CAGR — $199.50 × 1.05⁵ = $199.50 × 1.276 ≈ <b>$255</b> — which matches the frozen-parameter base above by construction of the parameters (4% revenue growth + 3pts of margin recovery, at a slightly lower exit multiple than today's 31.9×). Bull ≈ $330 and Bear ≈ $165 are the pack's figures, reproduced by the parameter sets shown. Weighted: 0.25×$165 + 0.50×$255 + 0.25×$330 ≈ <b>$250</b> — a modelled estimate, ≈ +4.6% per year from $199.50. That is the honest centre of this investment: mid-single-digit annualised return in the weighted case, with the bear case negative over five full years because the starting multiple does so much work.</p>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Modelled weighted 5-yr value — ESTIMATE</div><div class="wv mono">≈ $250</div></div><p>Built only from the pack's scenario prices and the standard 25/50/25 weights shown in the table, so it can be re-checked arithmetically. It was <b>not</b> independently verified — the verification log states no 5-year weighted price in this sector could be re-checked from the summary supplied, because scenario prices/weights were not provided to the verifier. Treat $250 as this note's model output, nothing more.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b> — equity-heavy and drawdown-tolerant. Even for that profile, AIQUF is a <b>satellite</b>, not a core: the business quality is core-grade, but the access route (thin OTC), the unverified data status in this series, and the full starting multiple all argue for a small, patient position. Research views only — not guarantees, not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not chase.</b> Modelled base upside is only +9% ($218) against −15% bear downside ($170) — a poor near-term trade at $199.50. Prefer adding on weakness toward the bear zone, where the same business is offered at a de-rated multiple.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — small and staged.</b> The oligopoly, contracts and healthcare leg justify owning the compounder; the weighted modelled return (~+25% over 5 years) is defensive ballast return, not growth return. Stage entry to average through OTC illiquidity rather than crossing a wide spread in one order.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Review</span></td><td>Re-underwrite if: DIG Airgas disclosure shows materially higher leverage than peers; energy pass-through visibly fails for two consecutive periods; or the Paris-line price de-rates to the low-20s P/E — at which point the correct action is more likely <i>add</i> than exit, absent a moat break.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 1.5% of total portfolio</h3>
+  <ul>
+    <li><b>Target weight: 1.5%</b> (pack recommendation, endorsed). Inside a Materials sleeve, Air Liquide is the quality/defensive leg alongside Linde as the core gases holding — LIN/BHP are the core holdings in this pack's framing; AIQUF complements rather than anchors.</li>
+    <li><b>Why so small for an 8/10 risk profile:</b> risk budget should be spent where return per unit of friction is highest. Here the frictions are real — OTC spreads, FX, unverified US-line data — while the weighted modelled return is mid-single-digit. 1.5% buys the diversification and the healthcare/gases ballast without letting an illiquid line become a portfolio event.</li>
+    <li><b>Access note:</b> holders with Euronext access should compare the all-in cost of the Paris line against AIQUF before trading; this note prices AIQUF because that is the ticker requested, not because it is necessarily the cheapest door into the same company.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: target position = 1.5% of the portfolio value entered; share count uses the $199.50 unverified OTC reference price and is therefore indicative only — actual OTC fills will differ.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Air Liquide (AIQUF)</h2>
+<p><strong>Price (30 Oct 2026 close): $199.50.</strong> <strong>DCF intrinsic: $93.</strong> Discount/premium vs DCF: <strong>+114.5%</strong> — i.e. the shares are trading 114.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$93</td><td>+114.5%</td><td>g 4.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; Fool https://WWW.FOOL.COM/quote/otc/aiquf/ ; Roic equity $30.80bn / 635.74m shares at 31 Dec 2025 via https://www.roic.ai/quote/AIQUF/statistics ; Finnhub https://finnhub.io/?q=%22AIQUF%22</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Air Liquide (AIQUF)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Air Liquide serves 4m+ customers/patients in 59 countries — industrial, electronics, healthcare and energy buyers under long-term contracts — with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Electronics / semiconductor fabs (incl. Korea after the DIG Airgas acquisition)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Chemicals, metals and refining manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Healthcare systems and hospitals</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Energy and hydrogen projects</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is fab investment and industrial production as a whole: undervalued electronics and chemicals buyers would be a potential tailwind to Air Liquide&#x27;s on-site volumes only if they build and run more fabs and plants, which depends on their own capex cycles rather than their valuation alone; overvalued buyers deferring capacity would be a headwind through slower signings.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Air Liquide (AIQUF)</h2>
+<p><strong>Role: Enabler.</strong> Air Liquide&#x27;s gases are a direct fab input, and its Korea expansion (DIG Airgas, $3.3bn, completed Jan 2026) puts it inside the semiconductor supply chain that AI chip demand is expanding.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through fab construction and utilisation: new AI-chip fabs need long-term on-site gas contracts, plus hydrogen projects as a second leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the gas oligopoly already trades at a premium (trailing P/E 31.9 in the pack) — an unwind would compress it toward a through-cycle industrial multiple.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: capex is contracted project spend and contracts are take-or-pay, so the risk is deferred signings, not stranded inventory.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: fab capex cuts or delays by major chipmakers, a pause in hydrogen project FIDs, and industrial-production downturns in chemicals and electronics. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources, verification status &amp; further reading</h2>
+  <p class="small">Key figures are from the AIQUF research pack (Motley Fool ranking and company data; Finnhub market data), independently reviewed in the sector verification log dated 1 Nov 2026. Where the pack and the log conflict, the log wins — and for AIQUF the log's instruction is explicit: price, market cap and P/E were <b>not re-checked</b> and are marked UNVERIFIED throughout this page. Ranking basis: GLOBAL top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names; the printed list is not in strict market-cap order.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22AIQUF%22" target="_blank" rel="noopener">Finnhub — AIQUF quote &amp; fundamentals (EPS $5.54; ADR-basis market cap $113.0B)</a></li>
+    <li>Motley Fool — largest Materials companies ranking &amp; Air Liquide company data (59 countries, 4M+ customers/patients, TTM revenue $30.2B, gross profit $19.4B EUR-converted, market cap $127.0B, DIG Airgas $3.3B deal: announced Aug 2025, completed Jan 2026). Metrics as of 6 Oct 2026; cited via the research pack — no direct URL was carried in the pack, so none is fabricated here.</li>
+    <li>Independent verification log — Industrials, Energy &amp; Materials pack (checked 1 Nov 2026): AIQUF listed under “Not re-checked in this pass” for price / market cap / P/E and all 12–18-month base targets; OTC prices characterised as thin and indicative; 5-year weighted prices not re-checkable without scenario prices/weights (supplied in §5 of this note for that reason).</li>
+    <li>Coordinator corrections applied: (1) all modelled targets labelled MODELLED ESTIMATE with assumptions shown; (2) AIQUF price/cap/P/E marked UNVERIFIED; (3) global (not US) ranking framing with the not-in-strict-order caveat. AEM-specific corrections in the same memo do not concern this ticker and are not applied here.</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary for information only — not investment advice, not a recommendation to any other person, and not a guarantee of any outcome. Scenario prices are modelled estimates built from the stated assumptions; actual results will differ. OTC securities carry additional liquidity and pricing risks. Verify any figure independently — starting with the company's own Euronext filings — before acting on it. Past sector structure (an oligopoly that has held for decades) is not a promise that it holds for the next one.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=199.50, W=0.015;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value)||0;
+    var pos=v*W, shares=pos/PRICE;
+    out.innerHTML='Target AIQUF position at <b>1.5%</b>: <b>$'+fmt(pos)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(shares)+' shares</b> at the $199.50 reference (unverified OTC print — fills will differ).';
+  }
+  input.addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>

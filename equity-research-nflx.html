@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Equity Research — NFLX</title>
+    <style>
+      :root {
+        --bg: #f7f5f1;
+        --paper: #fffdfa;
+        --ink: #1a1815;
+        --ink-2: #4c463f;
+        --ink-3: #7d766b;
+        --line: #ddd6ca;
+        --line-soft: #e9e4d9;
+        --accent: #b00610;
+        --accent-soft: #fbeeee;
+        --good: #1d6b3c;
+        --good-soft: #e9f4ec;
+        --bad: #a02c1d;
+        --bad-soft: #f9ece8;
+        --amber: #8a5a00;
+        --amber-soft: #f7efdb;
+        --chip: #efe9dd;
+        --table-head: #efe9dd;
+        --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+        --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #141210;
+          --paper: #1d1a17;
+          --ink: #ece7dd;
+          --ink-2: #bdb4a4;
+          --ink-3: #8d8474;
+          --line: #3a352d;
+          --line-soft: #2c2822;
+          --accent: #ff5a52;
+          --accent-soft: #3a1d1c;
+          --good: #6fc98d;
+          --good-soft: #1e3325;
+          --bad: #ef8a76;
+          --bad-soft: #3a231e;
+          --amber: #e0aa4e;
+          --amber-soft: #38300f;
+          --chip: #2c2822;
+          --table-head: #2c2822;
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        font-size: 15px;
+        line-height: 1.55;
+      }
+      .wrap { max-width: 880px; margin: 0 auto; padding: 28px 20px 56px; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      sup a { font-size: 0.72em; }
+
+      /* ---------- masthead ---------- */
+      .kicker {
+        display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline;
+        font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+        color: var(--ink-3); border-bottom: 2px solid var(--ink); padding-bottom: 8px;
+      }
+      .kicker .sector { margin-left: auto; letter-spacing: 0.08em; }
+      h1 {
+        font-family: var(--serif); font-weight: 600;
+        font-size: clamp(30px, 5.4vw, 44px); line-height: 1.08;
+        margin: 16px 0 4px; letter-spacing: -0.01em;
+      }
+      h1 .ticker { color: var(--accent); white-space: nowrap; }
+      .subline { font-family: var(--serif); font-size: 17px; color: var(--ink-2); margin: 0 0 6px; font-style: italic; }
+      .dateline { font-size: 12.5px; color: var(--ink-3); margin: 0 0 18px; }
+
+      /* ---------- snapshot ---------- */
+      .snap {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        border: 1px solid var(--line); background: var(--paper);
+      }
+      .snap .cell { padding: 12px 14px; border-right: 1px solid var(--line-soft); }
+      .snap .cell:last-child { border-right: none; }
+      .snap .lab { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+      .snap .val { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; margin-top: 2px; }
+      .snap .note { font-size: 11.5px; color: var(--ink-2); }
+      .up { color: var(--good); } .down { color: var(--bad); }
+
+      .verdict {
+        display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0;
+        border: 1px solid var(--line); border-top: none; background: var(--paper);
+      }
+      .verdict .v { padding: 12px 14px; border-right: 1px solid var(--line-soft); }
+      .verdict .v:last-child { border-right: none; }
+      .verdict .lab { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+      .verdict .call { font-family: var(--serif); font-size: 21px; font-weight: 700; margin-top: 2px; }
+      .buy { color: var(--good); }
+      .verdict .why { font-size: 12px; color: var(--ink-2); margin-top: 2px; }
+
+      .thesis {
+        margin: 18px 0 4px; padding: 14px 16px;
+        background: var(--accent-soft); border-left: 3px solid var(--accent);
+        font-size: 14.5px;
+      }
+      .thesis strong { font-family: var(--serif); }
+
+      /* ---------- range bar ---------- */
+      .rangebox { margin: 16px 0 4px; padding: 12px 14px; border: 1px solid var(--line); background: var(--paper); }
+      .rangebox .lab { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+      .track { position: relative; height: 10px; background: var(--chip); border-radius: 5px; margin: 4px 2px 6px; }
+      .track .fill { position: absolute; left: 0; top: 0; bottom: 0; width: 1.3%; background: var(--accent); border-radius: 5px; min-width: 6px; }
+      .track .dot { position: absolute; left: 1.3%; top: 50%; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 2.5px solid var(--paper); transform: translate(-50%, -50%); box-shadow: 0 0 0 1px var(--line); }
+      .scale { display: flex; justify-content: space-between; font-size: 11.5px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+      .scale .mid { text-align: center; }
+
+      /* ---------- sections ---------- */
+      section { margin-top: 30px; }
+      h2 {
+        font-family: var(--serif); font-size: 21px; font-weight: 650;
+        margin: 0 0 4px; padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+        display: flex; align-items: baseline; gap: 10px;
+      }
+      h2 .no { font-size: 13px; color: var(--accent); font-family: var(--sans); font-weight: 700; letter-spacing: 0.06em; }
+      h3 { font-family: var(--serif); font-size: 16.5px; margin: 16px 0 4px; font-weight: 650; }
+      p { margin: 7px 0; color: var(--ink); }
+      p.dim, li.dim { color: var(--ink-2); }
+      ul { margin: 6px 0 10px; padding-left: 20px; }
+      li { margin: 4px 0; }
+      .small { font-size: 12.5px; color: var(--ink-2); }
+      .est {
+        display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+        padding: 1px 6px; border-radius: 3px; background: var(--amber-soft); color: var(--amber);
+        vertical-align: 2px; margin-left: 4px; white-space: nowrap;
+      }
+      .modelled {
+        display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+        padding: 1px 6px; border-radius: 3px; background: var(--chip); color: var(--ink-2);
+        vertical-align: 2px; margin-left: 4px; white-space: nowrap;
+      }
+
+      /* ---------- stats table ---------- */
+      .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; margin-top: 8px; }
+      .stat { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; }
+      .stat .k { color: var(--ink-2); }
+      .stat .v { font-weight: 600; font-variant-numeric: tabular-nums; text-align: right; }
+
+      /* ---------- tables ---------- */
+      .tblwrap { overflow-x: auto; }
+      table { border-collapse: collapse; width: 100%; font-size: 13.5px; margin: 10px 0 4px; }
+      th, td { padding: 7px 10px; text-align: right; font-variant-numeric: tabular-nums; border-bottom: 1px solid var(--line-soft); }
+      th { background: var(--table-head); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); }
+      td:first-child, th:first-child { text-align: left; }
+      tr.total td { font-weight: 700; border-top: 1.5px solid var(--ink); border-bottom: none; }
+      .pos { color: var(--good); } .neg { color: var(--bad); }
+
+      .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+      .riskbox { border: 1px solid var(--line); background: var(--paper); padding: 4px 16px 10px; margin-top: 10px; }
+      .riskbox.cat { border-top: 3px solid var(--good); }
+      .riskbox.risk { border-top: 3px solid var(--bad); }
+      .riskbox h3 { margin-top: 10px; }
+
+      /* ---------- calculator ---------- */
+      .calc { border: 1px solid var(--line); background: var(--paper); padding: 14px 16px; margin-top: 12px; }
+      .calc .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+      .calc label { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); display: block; margin-bottom: 4px; }
+      .calc input {
+        font: inherit; font-size: 16px; padding: 7px 10px; width: 170px;
+        border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .calc .out { font-size: 15px; }
+      .calc .out strong { font-variant-numeric: tabular-nums; }
+
+      /* ---------- sources / footer ---------- */
+      .sources { font-size: 12.5px; color: var(--ink-2); }
+      .sources li { margin: 3px 0; word-break: break-word; }
+      footer { margin-top: 34px; border-top: 2px solid var(--ink); padding-top: 12px; }
+      .disc { font-size: 11.5px; color: var(--ink-3); line-height: 1.5; }
+
+      @media (max-width: 640px) {
+        .snap { grid-template-columns: 1fr 1fr; }
+        .snap .cell { border-bottom: 1px solid var(--line-soft); }
+        .verdict { grid-template-columns: 1fr; }
+        .verdict .v { border-right: none; border-bottom: 1px solid var(--line-soft); }
+        .verdict .v:last-child { border-bottom: none; }
+        .stats, .twocol { grid-template-columns: 1fr; }
+        .wrap { padding: 20px 14px 44px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+
+      <div class="kicker">
+        <span>Equity Research Note</span>
+        <span>1 Nov 2026</span>
+        <span class="sector">Communication Services · Streaming</span>
+      </div>
+
+      <h1>Netflix, Inc. <span class="ticker">(NASDAQ: NFLX)</span></h1>
+      <p class="subline">The compounder at the bottom of its range — a de-rated multiple on a still-compounding subscription and advertising engine.</p>
+      <p class="dateline">Price reference: regular-session close, Friday 30 Oct 2026 (1 Nov 2026 was a weekend). All figures USD. Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026, prices at the 30 Oct 2026 close.</p>
+
+      <div class="snap">
+        <div class="cell">
+          <div class="lab">Close · 30 Oct 2026</div>
+          <div class="val">$62.08</div>
+          <div class="note"><span class="up">+0.05%</span> on the day <a href="https://stockanalysis.com/stocks/nflx/statistics/">[StockAnalysis]</a></div>
+        </div>
+        <div class="cell">
+          <div class="lab">Market cap</div>
+          <div class="val">$254.9B</div>
+          <div class="note">Enterprise value $264.23B <a href="https://stockanalysis.com/stocks/nflx/statistics/">[StockAnalysis]</a></div>
+        </div>
+        <div class="cell">
+          <div class="lab">Trailing / Forward P/E</div>
+          <div class="val">18.0× / 17.3×</div>
+          <div class="note">17.97 trailing · 17.29 forward <a href="https://stockanalysis.com/stocks/nflx/statistics/">[StockAnalysis]</a></div>
+        </div>
+        <div class="cell">
+          <div class="lab">52-week range</div>
+          <div class="val">$61.39–$116.73</div>
+          <div class="note"><span class="down">−33.8% YTD · −43% over 1 yr</span></div>
+        </div>
+      </div>
+
+      <div class="verdict">
+        <div class="v">
+          <div class="lab">Short term · 12–18 months</div>
+          <div class="call buy">BUY</div>
+          <div class="why">Oversold at the range low; low-teens-to-high-teens forward P/E for a double-digit compounder.</div>
+        </div>
+        <div class="v">
+          <div class="lab">Long term · 5 years</div>
+          <div class="call buy">BUY</div>
+          <div class="why">Modelled probability-weighted 2031 value ≈ $102 vs $62.08 today. <span class="modelled">Modelled estimate</span></div>
+        </div>
+        <div class="v">
+          <div class="lab">Suggested portfolio weight</div>
+          <div class="call">3%</div>
+          <div class="why">Of total portfolio — mid-30s investor, risk score 8/10. A satellite compounder, not a core anchor.</div>
+        </div>
+      </div>
+
+      <div class="rangebox">
+        <div class="lab">Where the price sits in its 52-week range</div>
+        <div class="track"><div class="fill"></div><div class="dot"></div></div>
+        <div class="scale"><span>Low $61.39</span><span class="mid">Now $62.08 — 1.2% above the low</span><span>High $116.73</span></div>
+      </div>
+
+      <div class="thesis">
+        <strong>The thesis in one paragraph.</strong>
+        Netflix has been de-rated hard — down 33.8% year-to-date and 43% over one year, sitting essentially on its 52-week low — while the underlying business kept compounding: trailing-twelve-month revenue reached $49.74B to 30 Sep 2026. At 17.3× forward earnings, the market is pricing Netflix like a maturing utility, not like a business adding an advertising second engine and live events on top of the world's largest paid streaming base. That gap between price and trajectory is the opportunity; the bear case below shows how much room there is if the de-rating was in fact the market seeing slower growth first.
+      </div>
+
+      <p class="small" style="margin-top:12px"><strong>Note on the share price:</strong> Netflix announced a 10-for-1 stock split on 30 Oct 2025, with split-adjusted trading from 17 Nov 2025 (roughly $1,100 → ~$110 at the time). The $62.08 reference price is post-split — do not compare it with pre-split prices near $620–$1,100. <a href="https://www.marketbeat.com/stocks/NASDAQ/NFLX/">[MarketBeat]</a></p>
+
+      <!-- ================= 1 ================= -->
+      <section>
+        <h2><span class="no">01</span> Business Model &amp; Segment Breakdown</h2>
+        <p>Netflix sells one product — attention, packaged as a subscription — in two tiers that are converging into a single hybrid model:</p>
+        <ul>
+          <li><strong>Ad-free subscription tiers.</strong> The historical core: monthly plans priced by video quality and concurrent streams. Revenue is essentially all subscription plus advertising; there is no hardware, no box office, no licensing-out of the library at scale.</li>
+          <li><strong>Advertising-supported tier.</strong> The structural pivot of the last cycle: a cheaper plan where the member pays partly in attention. This converts price-sensitive households that would otherwise churn or share accounts, and gives Netflix a second revenue line — ad inventory — that scales with engagement rather than membership count alone.</li>
+          <li><strong>Games and live events (emerging).</strong> Mobile games bundled into the subscription, and live sports/entertainment specials. Neither is yet a reported revenue segment; both are retention and acquisition tools that raise the perceived value of the bundle and support future price rises.</li>
+        </ul>
+        <h3>Geography and ARPU shape</h3>
+        <p>Membership is global, but the money is not evenly spread. The US/Canada region carries the highest average revenue per membership; EMEA is the middle; Latin America and APAC are where membership growth is fastest and ARPU lowest. That mix matters for reading revenue growth: member growth in APAC adds less revenue per head than the same growth in North America, so reported revenue growth increasingly depends on price rises and ad-tier monetisation in mature markets rather than raw member adds.</p>
+        <h3>Recent structural pivots</h3>
+        <ul>
+          <li><strong>Password crackdown — completed.</strong> Paid sharing converted borrowers into members or extra-member fees; the one-off conversion tailwind is now in the base, so forward growth must come from pricing, ads and engagement.</li>
+          <li><strong>Ad tier as second engine.</strong> Advertising shifts Netflix's growth algorithm: even with flat membership, revenue can grow if ad ARPU per member rises.</li>
+          <li><strong>Live events.</strong> Live sports and entertainment create appointment viewing, premium ad inventory, and a reason to stay subscribed between series drops.</li>
+          <li><strong>Recurring price rises.</strong> Pricing power (Section 3) is exercised in small, frequent steps rather than rare large ones.</li>
+        </ul>
+        <h3>Supply chain</h3>
+        <p>Netflix has no hardware supply chain. Its "supply chain" is content: owned studios, commissioned productions and licensed titles, paid for largely in cash ahead of amortisation. The dependency to watch is therefore content-cost inflation and access to creative talent, not semiconductors or logistics.</p>
+      </section>
+
+      <!-- ================= 2 ================= -->
+      <section>
+        <h2><span class="no">02</span> Financial Health &amp; Balance Sheet Diagnostics</h2>
+        <div class="stats">
+          <div class="stat"><span class="k">Share price (30 Oct 2026)</span><span class="v">$62.08</span></div>
+          <div class="stat"><span class="k">Market capitalisation</span><span class="v">$254.92B</span></div>
+          <div class="stat"><span class="k">Enterprise value</span><span class="v">$264.23B</span></div>
+          <div class="stat"><span class="k">Shares outstanding</span><span class="v">~4.16B (post-split)</span></div>
+          <div class="stat"><span class="k">Trailing P/E</span><span class="v">17.97×</span></div>
+          <div class="stat"><span class="k">Forward P/E</span><span class="v">17.29×</span></div>
+          <div class="stat"><span class="k">Revenue, TTM to 30 Sep 2026</span><span class="v">$49.74B</span></div>
+          <div class="stat"><span class="k">Revenue, FY2025 (for reference)</span><span class="v">$45.18B</span></div>
+          <div class="stat"><span class="k">Cash (30 Sep 2026)</span><span class="v">~$8.2B</span></div>
+          <div class="stat"><span class="k">Total assets</span><span class="v">$58.68B</span></div>
+          <div class="stat"><span class="k">Total liabilities</span><span class="v">$14.46B</span></div>
+          <div class="stat"><span class="k">Dividend</span><span class="v">None</span></div>
+        </div>
+        <p class="small">Sources: valuation and price — <a href="https://stockanalysis.com/stocks/nflx/statistics/">StockAnalysis</a>, cross-checked on <a href="https://finnhub.io/?q=%22NFLX%22">Finnhub</a>; TTM revenue — <a href="https://stockanalysis.com/stocks/nflx/financials/?p=trailing">StockAnalysis trailing financials</a> (Q3 2026 revenue $12.874B within the TTM total); cash — <a href="https://greeksoup.ai/stocks/us/nflx/">GreekSoup</a>; assets/liabilities — <a href="https://stocknear.com/stocks/NFLX/statistics">StockNear</a>. Market cap cross-checks at $253.96B–$254.92B across vendors — a share-count vintage difference, immaterial.</p>
+
+        <h3>Reading the diagnostics</h3>
+        <p><strong>Valuation has compressed to utility-like levels.</strong> At 17.97× trailing and 17.29× forward earnings, Netflix trades at roughly 5.1× trailing sales ($254.9B cap on $49.74B TTM revenue) — a multiple the market normally reserves for businesses whose growth is nearly over. The de-rating, not the business, is what changed in 2026: the same company traded as high as $116.73 within the last 52 weeks.</p>
+        <p><strong>Leverage is modest.</strong> Enterprise value exceeds market cap by only ~$9.3B, implying net debt of roughly that order against ~$8.2B of cash — small next to a ~$50B revenue base. Total liabilities of $14.46B against total assets of $58.68B is a conservative balance sheet by media-sector standards; Netflix is not dependent on capital markets to fund content.</p>
+        <p><strong>Capital allocation is buyback-only.</strong> There is no dividend; shareholder return comes through repurchases, which is why the scenario model below can assume a slowly shrinking share count (4.16B → 4.05B in the base case) without heroic assumptions. No split-driven distortion: the share count is post the Nov 2025 10-for-1 split.</p>
+        <p><strong>Profitability — labelled estimate.</strong> Latest segment profit and free cash flow were <em>not</em> independently re-verified for this note. Operating margin is estimated at ~25–29% <span class="est">Estimate — not re-verified</span> and free cash flow has been strongly positive historically <span class="est">Estimate — not re-verified</span>. Treat both as orientation, not fact; the valuation below is built on the verified revenue and multiple figures, with margins shown as explicit model assumptions.</p>
+      </section>
+
+      <!-- ================= 3 ================= -->
+      <section>
+        <h2><span class="no">03</span> Competitive Moat &amp; Industry Positioning</h2>
+        <p>Netflix's moat is a scale flywheel, and each element reinforces the next:</p>
+        <ul>
+          <li><strong>Content spend amortised over the largest base.</strong> A fixed content budget spread across a global membership costs Netflix less per viewer-hour than any rival spending the same amount over a smaller base. That is a structural cost advantage competitors cannot close without first matching the subscriber scale the spending itself creates.</li>
+          <li><strong>Recommendation and viewing data.</strong> Two decades of per-member viewing data drive personalisation, which raises engagement per dollar of content — and informs which content to commission in the first place.</li>
+          <li><strong>Brand as the default.</strong> "Streaming" and "Netflix" remain near-synonyms in most markets; the default choice wins the marginal subscriber and reduces acquisition cost.</li>
+          <li><strong>Ad-tier inventory.</strong> A scaled, brand-safe, logged-in audience is premium inventory for advertisers — a second monetisation of the same engagement, and one rivals with smaller or free (lower-intent) audiences cannot replicate at the same price.</li>
+          <li><strong>Pricing power, demonstrated.</strong> Repeated price rises absorbed with the business still growing TTM revenue to $49.74B is the empirical test of a moat: customers complain, then stay.</li>
+        </ul>
+        <h3>Competitive set</h3>
+        <p>Disney+/Hulu (franchise libraries, bundling with parks and broadcast), Amazon Prime Video (video as a retention feature of a retail subscription — it does not need video itself to be maximally profitable), YouTube (free, creator-led, dominant in raw viewing time, competing for attention rather than subscription dollars), HBO Max (prestige catalogue, smaller scale) and Apple TV+ (a prestige side-business of a hardware company). Netflix is the only scaled pure-play that must win on streaming economics alone — which is both the moat's proof and its discipline: it cannot subsidise streaming losses from another business line indefinitely, and structurally does not need to.</p>
+        <p class="dim">Positioning summary: the moat is real but it is an efficiency moat, not a lock-in moat. Members can cancel in one click; what they cannot easily find elsewhere is the same breadth of content at the same cost-per-hour. Barriers to entry at Netflix's scale are now effectively closed for new entrants — the contest is among incumbents for share of attention.</p>
+      </section>
+
+      <!-- ================= 4 ================= -->
+      <section>
+        <h2><span class="no">04</span> Catalysts &amp; Downside Risks</h2>
+        <div class="twocol">
+          <div class="riskbox cat">
+            <h3>Catalysts</h3>
+            <ul>
+              <li><strong>Ad-tier ARPU build-out.</strong> Advertising revenue per member is the highest-visibility growth lever: it needs no new members, only better ad load, targeting and pricing.</li>
+              <li><strong>Live events.</strong> Marquee live sports/entertainment drives acquisition spikes and premium ad rates, and differentiates the bundle from on-demand-only rivals.</li>
+              <li><strong>Price elasticity still untested at the top.</strong> Each absorbed price rise re-rates the revenue line without content-cost growth to match — near-pure margin.</li>
+              <li><strong>Margin expansion.</strong> Content growth slower than revenue growth drops directly to operating leverage — the engine behind the bull case's 30% net margin assumption.</li>
+              <li><strong>Sentiment mean-reversion.</strong> At the 52-week low with a 17.3× forward P/E, the stock does not need good news to re-rate — it needs the absence of bad news.</li>
+            </ul>
+          </div>
+          <div class="riskbox risk">
+            <h3>Downside risks</h3>
+            <ul>
+              <li><strong>Content-cost inflation.</strong> Talent, sports rights and production costs bid up by deep-pocketed rivals (Amazon, Apple) compress the scale advantage from the cost side.</li>
+              <li><strong>Churn in the mature US market.</strong> US/Canada is the ARPU engine; if price rises finally bite there, the highest-value revenue line stalls first.</li>
+              <li><strong>Competition for attention.</strong> YouTube and short-form video compete for the same evening hours without needing a subscription decision at all.</li>
+              <li><strong>FX exposure.</strong> A large and growing share of revenue is earned in EMEA, LatAm and APAC currencies but reported in dollars; dollar strength is a recurring translation headwind.</li>
+              <li><strong>The de-rating may be information, not error.</strong> −33.8% YTD and −43% over one year is a large move for a large-cap: the bear case is that the market is pricing a growth deceleration the TTM figures have not yet shown.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5 ================= -->
+      <section>
+        <h2><span class="no">05</span> Scenario-Based Valuation &amp; Price Targets</h2>
+        <p>All scenario prices are <strong>modelled estimates</strong> — they were not verified as facts and cannot be; their assumptions are shown in full so the arithmetic can be checked. Scenario weights throughout: Base 50% / Bull 25% / Bear 25%.</p>
+
+        <h3>12–18-month targets</h3>
+        <div class="tblwrap">
+          <table>
+            <tr><th>Case</th><th>Weight</th><th>Target</th><th>vs $62.08</th><th>What has to happen</th></tr>
+            <tr><td>Bear</td><td>25%</td><td>$55</td><td class="neg">−11%</td><td style="text-align:left">Growth scare validates; multiple compresses further toward ~15×</td></tr>
+            <tr><td>Base</td><td>50%</td><td>$80</td><td class="pos">+29%</td><td style="text-align:left">Steady compounding; partial re-rating as ad revenue scales</td></tr>
+            <tr><td>Bull</td><td>25%</td><td>$105</td><td class="pos">+69%</td><td style="text-align:left">Ad tier + live events re-accelerate growth; multiple back toward the low-20s</td></tr>
+            <tr class="total"><td>Probability-weighted</td><td>100%</td><td>$80</td><td class="pos">+29%</td><td style="text-align:left">0.50×80 + 0.25×105 + 0.25×55</td></tr>
+          </table>
+        </div>
+        <p class="small">Reference point: the MarketBeat consensus analyst target is $89.14 — above this note's base case, i.e. the Street is, on average, slightly more optimistic than the base case here. <a href="https://www.marketbeat.com/stocks/NASDAQ/NFLX/">[MarketBeat]</a> <span class="modelled">Modelled estimate</span></p>
+
+        <h3>5-year projection — frozen-parameter format (to 2031)</h3>
+        <p class="small">Method: <strong>2031 price = 2031 revenue × net margin ÷ shares × P/E</strong>. Within each case, net margin, share count and P/E are frozen at the stated values; only revenue growth varies the outcome. Starting point: 2026E revenue $46B <span class="modelled">Model assumption</span> and 4.16B shares. No adaptation of the multiple is needed: unlike deep-loss turnarounds, Netflix's trailing P/E (17.97×) is meaningful, so case P/Es are set around it — 14× bear (further de-rating), 20× base (mild re-rating), 24× bull (growth multiple restored).</p>
+        <div class="tblwrap">
+          <table>
+            <tr><th>Case (likelihood)</th><th>Revenue growth/yr</th><th>2031 revenue</th><th>Net margin</th><th>Shares</th><th>2031 EPS</th><th>P/E</th><th>2031 price</th></tr>
+            <tr><td>Bear (25%)</td><td>6%</td><td>$62B</td><td>20%</td><td>4.16B</td><td>$2.98</td><td>14×</td><td><strong>$42</strong></td></tr>
+            <tr><td>Base (50%)</td><td>11%</td><td>$77B</td><td>26%</td><td>4.05B</td><td>$4.94</td><td>20×</td><td><strong>$99</strong></td></tr>
+            <tr><td>Bull (25%)</td><td>15%</td><td>$93B</td><td>30%</td><td>3.95B</td><td>$7.06</td><td>24×</td><td><strong>$169</strong></td></tr>
+            <tr class="total"><td>Probability-weighted</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>$102</td></tr>
+          </table>
+        </div>
+        <p class="small">Check the arithmetic: Base — $77B × 26% = $20.0B net income ÷ 4.05B shares = $4.94 EPS × 20 = $99. Bull — $93B × 30% = $27.9B ÷ 3.95B = $7.06 × 24 = $169. Bear — $62B × 20% = $12.4B ÷ 4.16B = $2.98 × 14 = $42. Weighted — 0.50×$99 + 0.25×$169 + 0.25×$42 = $102, i.e. +64% over five years from $62.08, roughly a 10.5% annualised return in the weighted case. <span class="modelled">Modelled estimate</span></p>
+        <p>How to read it: the bear case (−32% over five years) is a world where growth halves to 6%, margins give back a fifth of their level and the market never re-rates the stock. The base case does not require heroics — 11% revenue growth is <em>below</em> the trajectory implied by TTM revenue reaching $49.74B in 2026 — it requires only that the de-rating stops. The bull case is the ad business becoming a genuine second engine: 15% growth with 30% net margins is what operating leverage looks like when content costs grow slower than a two-sided revenue base.</p>
+      </section>
+
+      <!-- ================= 6 ================= -->
+      <section>
+        <h2><span class="no">06</span> Recommendation &amp; Portfolio Sizing</h2>
+        <ul>
+          <li><strong>Short term (12–18 months): BUY.</strong> The stock is oversold — 1.2% above its 52-week low after a −43% one-year fall — at 17.3× forward earnings, with a probability-weighted 12–18-month value of ~$80 (+29%) and a Street consensus target of $89.14 above that. The risk is real but it is priced.</li>
+          <li><strong>Long term (5 years): BUY.</strong> The frozen-parameter model gives a weighted 2031 value of ~$102 (+64%) with the base case assuming slower growth than the current TTM trajectory. The moat is an efficiency moat that widens with scale, and capital returns via buybacks compound per-share value on a shrinking count.</li>
+          <li><strong>Suggested weight: 3% of total portfolio</strong> for a mid-30s investor with risk score 8/10. Netflix is a high-quality compounder but a single-content-slate business with genuine attention competition; 3% makes it meaningful without letting one company's content cycle steer the portfolio. Build toward the full weight in tranches while it sits near the range low rather than in one purchase, and revisit if the ad-tier growth evidence contradicts the base case.</li>
+        </ul>
+        <div class="calc">
+          <div class="row">
+            <div>
+              <label for="pf">Your total portfolio ($)</label>
+              <input id="pf" type="number" inputmode="decimal" min="0" value="250000" />
+            </div>
+            <div class="out" id="calcOut" aria-live="polite"></div>
+          </div>
+          <p class="small" style="margin-bottom:0">At the suggested 3% weight. Runs entirely on this page; nothing is saved or sent anywhere.</p>
+        </div>
+      </section>
+
+      <!-- ================= sources ================= -->
+      <section>
+        <h2><span class="no">§</span> Sources</h2>
+        <ol class="sources">
+          <li>StockAnalysis — NFLX statistics (price $62.08, +0.05% on 30 Oct; market cap $254.92B; EV $264.23B; trailing P/E 17.97; forward P/E 17.29): <a href="https://stockanalysis.com/stocks/nflx/statistics/">stockanalysis.com/stocks/nflx/statistics</a></li>
+          <li>StockAnalysis — NFLX trailing financials (TTM revenue $49.735B to 30 Sep 2026; Q3 2026 revenue $12.874B; FY2025 revenue $45.183B): <a href="https://stockanalysis.com/stocks/nflx/financials/?p=trailing">stockanalysis.com/stocks/nflx/financials/?p=trailing</a></li>
+          <li>MarketBeat — NFLX (price and market cap cross-check; 10-for-1 split announced 30 Oct 2025, split-adjusted trading from 17 Nov 2025; consensus target $89.14): <a href="https://www.marketbeat.com/stocks/NASDAQ/NFLX/">marketbeat.com/stocks/NASDAQ/NFLX</a></li>
+          <li>Finnhub — NFLX quote cross-check (price, multiples): <a href="https://finnhub.io/?q=%22NFLX%22">finnhub.io</a></li>
+          <li>StockNear — NFLX statistics (total assets $58.68B; total liabilities $14.46B; FY2025 revenue $45.18B as originally snippet-sourced): <a href="https://stocknear.com/stocks/NFLX/statistics">stocknear.com/stocks/NFLX/statistics</a></li>
+          <li>GreekSoup — NFLX (cash ~$8.2B at 30 Sep 2026): <a href="https://greeksoup.ai/stocks/us/nflx/">greeksoup.ai/stocks/us/nflx</a></li>
+          <li>FinanceCharts — Communication Services biggest companies (sector ranking basis; prices = 30 Oct 2026 close, last updated 30 Oct 2026): <a href="https://www.financecharts.com/sectors/communication_services">financecharts.com/sectors/communication_services</a></li>
+        </ol>
+        <p class="small"><strong>Verification note.</strong> Key figures in this note were independently cross-checked against a second source before publication. Two pack figures were corrected on verification: TTM revenue is $49.74B to 30 Sep 2026 ($45.18B is FY2025, not TTM), and cash is ~$8.2B at 30 Sep 2026 (an earlier $9.03B figure was stale). Operating margin (~25–29%) and free-cash-flow characterisation were not re-verified and are labelled estimates where used. All scenario prices are modelled estimates with assumptions shown, not verified facts.</p>
+      </section>
+
+      
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — NFLX (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $62.08.</strong> <strong>DCF intrinsic: $50.03.</strong> Discount/premium vs DCF: <strong>+24.1%</strong> — i.e. the shares are trading 24.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$50.03</td><td>+24.1%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $8.6bn (ex-fee normalised). Reported TTM FCF to Q3 2026 was $11.4bn (sec-api.io: 22.9% of revenue; FY2026 guide ~$12.0bn), but that includes the $2.8bn one-time Warner Bros. Discovery walk-away fee (Q1 2026); the fee is excluded here as non-recurring, giving an ex-fee run-rate base of ~$8.6bn. Growth g = 10% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $86.00bn + PV of terminal value $126.54bn + net cash $-6.9bn, divided by 4.11bn diluted shares = <strong>$50.03</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://sec-api.io/insights/financial-analysis-of-netflix-nflx-q3-2026-earnings</li><li>Q3 2026: equity $29.29bn, shares 4.11bn (simianx 10-Q table; pack shares ~4.16bn)</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — NFLX (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Revenue is subscription and advertising paid by households and advertisers in aggregate, not by a small set of business customers. Key demand drivers: membership growth and pricing power, advertising-tier scale, and content spend converting into viewing and retention.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — NFLX</h2>
+<p><strong>Role: Low exposure.</strong> Netflix's AI exposure is operational (recommendation, advertising targeting, production tools), not a capex story: the pack's thesis is ad-tier ARPU and margin expansion, with FCF of $11.4bn TTM and no AI-infrastructure build.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows modestly through better recommendations and ad targeting lifting retention and ad revenue; the multiple is supported by margin expansion (Q3 operating margin 34.6%) rather than any AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks little directly — churn and ad budgets soften only if a broader consumer or advertising downturn follows; then the multiple compresses toward a through-cycle streaming multiple (the pack already shows a -34% YTD fall to a low-teens forward P/E); then the balance sheet — net debt $7.1bn on the company's definition — is manageable. Watch: ad-tier revenue growth and any content-cost inflation that AI tools were supposed to contain.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+        <p class="disc">Research note dated 1 Nov 2026, priced off the 30 Oct 2026 close. Prepared as research views for a mid-30s investor profile with risk score 8/10 — not investment advice, not a guarantee of future returns, and not a solicitation to buy or sell any security. Scenario prices are modelled estimates built on the stated frozen parameters; actual outcomes will differ. Verify figures against the linked sources before acting.</p>
+        <p class="disc">— Blaze</p>
+      </footer>
+
+    </div>
+
+    <script>
+      (function () {
+        var input = document.getElementById('pf');
+        var out = document.getElementById('calcOut');
+        function fmt(n) {
+          return n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+        }
+        function render() {
+          var pf = parseFloat(input.value);
+          if (!isFinite(pf) || pf < 0) { out.innerHTML = 'Enter a portfolio value to see the 3% position size.'; return; }
+          var pos = pf * 0.03;
+          var shares = pos / 62.08;
+          out.innerHTML = '<strong>' + fmt(pos) + '</strong> in NFLX at 3% &asymp; <strong>' + shares.toLocaleString('en-US', { maximumFractionDigits: 0 }) + ' shares</strong> at $62.08';
+        }
+        input.addEventListener('input', render);
+        render();
+      })();
+    </script>
+  </body>
+</html>

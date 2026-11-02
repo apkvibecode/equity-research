@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MO · Altria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f3ec; --surface:#fffdf8; --surface2:#efe8da; --ink:#1c1a16; --muted:#6b655a;
+    --line:#ddd3c0; --accent:#7a3b1e; --accent-ink:#fff7ed; --gold:#9a741f; --good:#1f6b4a; --bad:#9b2c2c; --warn:#8a5a12;
+    --chip:#efe6d3; --table-head:#ece3d0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141210; --surface:#1e1b18; --surface2:#26221e; --ink:#efe9dd; --muted:#a89f90; --line:#3a352e; --accent:#c97a4a; --accent-ink:#1a120b; --gold:#c9a44a; --good:#5cb98c; --bad:#e07a7a; --warn:#d9a94e; --chip:#2c2721; --table-head:#2a2620; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55}
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 56px}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  /* header */
+  .mast{padding:28px 0 0;border-bottom:3px double var(--line)}
+  .kicker{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;flex-wrap:wrap;gap:8px 16px}
+  .kicker b{color:var(--accent)}
+  h1{font-family:"Fraunces",Georgia,serif;font-size:clamp(34px,6vw,54px);line-height:1.02;margin:10px 0 4px;font-weight:700}
+  h1 .tick{color:var(--accent)}
+  .sub{font-size:17px;color:var(--muted);max-width:720px;margin:0 0 18px}
+  .nav{display:flex;flex-wrap:wrap;gap:6px;padding:12px 0 16px}
+  .nav a{font-size:13px;font-weight:600;color:var(--ink);background:var(--chip);border:1px solid var(--line);padding:6px 11px;border-radius:999px;text-decoration:none}
+  .nav a:hover{border-color:var(--accent)}
+  /* snapshot */
+  .snap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0 8px}
+  .snap div{background:var(--surface);padding:14px 16px}
+  .snap .lab{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .snap .val{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600;margin-top:2px}
+  .snap .note{font-size:12.5px;color:var(--muted)}
+  .up{color:var(--bad)} /* price fell vs target context uses bad for downside; YTD gain uses good below */
+  .gain{color:var(--good)}
+  .srcnote{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+  /* verdict banner */
+  .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:18px 0 6px}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);padding:14px 16px}
+  .vcard .lab{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .vcard .big{font-family:"Fraunces",serif;font-size:26px;font-weight:700;margin:2px 0}
+  .vcard p{margin:0;font-size:14px;color:var(--muted)}
+  /* sections */
+  section{margin-top:36px}
+  h2{font-family:"Fraunces",serif;font-size:27px;margin:0 0 4px;display:flex;align-items:baseline;gap:10px}
+  h2 .no{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--accent);font-weight:600}
+  .lede{color:var(--muted);margin:0 0 14px;max-width:760px}
+  h3{font-size:16px;margin:20px 0 8px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .panel{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+  .panel h3{margin-top:0}
+  ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:5px 0}
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .seg .panel{border-top:4px solid var(--gold)}
+  .seg .brand{font-family:"Fraunces",serif;font-size:19px;font-weight:700}
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:14.5px}
+  th{background:var(--table-head);text-align:left;padding:9px 12px;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+  td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:14px}
+  tr.hl td{background:color-mix(in srgb, var(--accent) 7%, var(--surface));font-weight:600}
+  .callout{border:1px solid var(--line);border-left:5px solid var(--warn);background:var(--surface);padding:12px 16px;font-size:14.5px;margin:14px 0}
+  .callout b{color:var(--warn)}
+  .gap{border:1px dashed var(--line);background:transparent;padding:12px 16px;font-size:14.5px;color:var(--muted);margin:14px 0}
+  /* flow */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:14px 0}
+  .fbox{background:var(--surface);border:1px solid var(--line);padding:12px 16px;flex:1 1 180px}
+  .fbox .lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .fbox .v{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:600}
+  .farrow{display:flex;align-items:center;padding:0 8px;color:var(--muted);font-size:20px}
+  /* scenario chart */
+  .chartbox{background:var(--surface);border:1px solid var(--line);padding:16px 18px}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 74px;align-items:center;gap:10px;margin:10px 0;font-size:14px}
+  .bar-track{height:22px;background:var(--surface2);position:relative}
+  .bar-fill{height:100%}
+  .bar-cur{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+  .bar-val{font-family:"IBM Plex Mono",monospace;text-align:right;font-weight:600}
+  /* calc */
+  .calc{background:var(--surface);border:1px solid var(--line);padding:18px}
+  .calc label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{width:100%;max-width:280px;font-family:"IBM Plex Mono",monospace;font-size:18px;padding:10px 12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px}
+  .calc .out{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .calc .out div{background:var(--surface2);padding:12px 14px}
+  .calc .out .lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700}
+  .calc .out .v{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600}
+  .disc{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);margin-top:40px;padding-top:14px}
+  .sources{font-size:14px} .sources li{margin:6px 0}
+  @media (max-width:760px){
+    .snap{grid-template-columns:1fr 1fr}
+    .verdict,.cols,.seg,.calc .out{grid-template-columns:1fr}
+    .bar-row{grid-template-columns:84px 1fr 62px}
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-top:1px solid var(--line)}
+    table.stack td{display:flex;justify-content:space-between;gap:14px;border-top:none;padding:7px 12px}
+    table.stack td::before{content:attr(data-l);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+    td.num{text-align:right}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker"><span><b>Consumer Staples</b> · Equity Research</span><span>As of 1 Nov 2026</span><span>Price ref: 30 Oct 2026 close</span></div>
+    <h1>Altria Group <span class="tick">— MO</span></h1>
+    <p class="sub">The US nicotine cash machine after a +35% re-rating year. The investment question is no longer whether Marlboro prints cash — it does — but whether you should chase a 5.7%-yielding stock after the market has already paid up for it.</p>
+    <nav class="nav">
+      <a href="#business">1 · Business</a><a href="#health">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#risks">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation</a><a href="#verdict">6 · Verdict &amp; sizing</a><a href="#sources">Sources</a>
+    </nav>
+  </header>
+
+  <div class="snap" role="table" aria-label="Key figures">
+    <div><div class="lab">Price · 30 Oct close</div><div class="val">$78.03</div><div class="note">Finnhub basis — confirmed</div></div>
+    <div><div class="lab">Market cap</div><div class="val">$130.1bn</div><div class="note">Finnhub $130.12bn · MarketBeat $130.29bn</div></div>
+    <div><div class="lab">Trailing P/E</div><div class="val">16.32×</div><div class="note">Finnhub — confirmed. Forward P/E not in pack</div></div>
+    <div><div class="lab">Dividend yield</div><div class="val">5.69%</div><div class="note">$4.44 annual dividend · YTD <span class="gain">+35.33%</span> (Finnhub)</div></div>
+  </div>
+  <p class="srcnote">Sector ranking basis: FinanceCharts Consumer Staples table, last updated 30 Oct 2026. Walmart (WMT) is #1 in this sector and is covered in its own artifact. Vendor note: caps and P/Es differ by vendor — this page names its vendor for each figure rather than mixing them silently.</p>
+
+  <div class="verdict">
+    <div class="vcard"><div class="lab">Short term · 12–18 mo</div><div class="big">Hold</div><p>MarketBeat consensus target $71.00 sits <b>below</b> the $78.03 price. Do not chase after +35.3% YTD.</p></div>
+    <div class="vcard"><div class="lab">Long term · 5 yr</div><div class="big">Hold — income</div><p>Hold for the dividend and buyback engine, not for multiple expansion. Modelled 5-yr weighted value $86 (estimate — see §5).</p></div>
+    <div class="vcard"><div class="lab">Portfolio weight</div><div class="big">1%</div><p>Suggested weight for a mid-30s investor, risk score 8/10. An income sleeve holding, not a growth core.</p></div>
+  </div>
+
+  <section id="business">
+    <h2><span class="no">01</span> Business Model &amp; Segment Breakdown</h2>
+    <p class="lede">Altria is a US-only tobacco and nicotine company. Essentially all of the economics run through three product families, sold through Philip Morris USA and its oral / vapour subsidiaries.</p>
+    <div class="seg">
+      <div class="panel"><div class="brand">Smokeable</div><p style="margin:6px 0 0">Cigarettes, led by <b>Marlboro</b> via Philip Morris USA. The historic profit engine — in structural volume decline across the US industry, sustained by pricing.</p></div>
+      <div class="panel"><div class="brand">Oral tobacco</div><p style="margin:6px 0 0"><b>Copenhagen</b> and <b>Skoal</b> (moist smokeless) plus <b>on!</b> nicotine pouches — the growth leg inside oral, riding the pouch category's expansion.</p></div>
+      <div class="panel"><div class="brand">E-vapour</div><p style="margin:6px 0 0"><b>NJOY</b> — Altria's re-entry into vapour after the JUUL write-down era. Small today; its growth is listed as a catalyst, not yet a pillar.</p></div>
+    </div>
+    <h3>Latest quarter — Q3 2026 (reported 29 Oct)</h3>
+    <table class="stack">
+      <thead><tr><th>Item</th><th class="num">Result</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Item">EPS</td><td class="num" data-l="Result">$1.52</td><td data-l="Read">Beat the $1.51 consensus — a one-cent beat; steady, not spectacular</td></tr>
+        <tr><td data-l="Item">Buyback</td><td class="num" data-l="Result">$2bn authorised</td><td data-l="Read">Authorised 30 Oct 2025 (per MarketBeat / EventVestor summary in the pack)</td></tr>
+        <tr><td data-l="Item">Geography</td><td class="num" data-l="Result">US</td><td data-l="Read">US tobacco / nicotine only — no international segment in the pack; geographic split beyond “US” was not provided</td></tr>
+      </tbody>
+    </table>
+    <div class="gap"><b>Open questions the pack does not answer:</b> segment-level revenue and operating income by smokeable / oral / e-vapour, Marlboro's current US retail share, and NJOY / on! unit volumes. Those were not in the verified research pack, so they are not estimated here.</div>
+  </section>
+
+  <section id="health">
+    <h2><span class="no">02</span> Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <p class="lede">A high-margin, high-payout cash generator. Read the 34.4% net margin with care — the pack flags it as flattered by investment and other items; the underlying operating margin is lower.</p>
+    <div class="flow" aria-label="TTM income flow">
+      <div class="fbox"><div class="lab">TTM revenue</div><div class="v">$23.52bn</div></div>
+      <div class="farrow">→</div>
+      <div class="fbox"><div class="lab">TTM net income</div><div class="v">$8.10bn</div></div>
+      <div class="farrow">→</div>
+      <div class="fbox"><div class="lab">Net margin</div><div class="v">34.4%</div><div style="font-size:12.5px;color:var(--muted)">Flattered — includes investment / other items</div></div>
+    </div>
+    <table class="stack">
+      <thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / caveat</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Metric">Price (30 Oct 2026 close)</td><td class="num" data-l="Value">$78.03</td><td data-l="Basis">Finnhub — confirmed in verification</td></tr>
+        <tr><td data-l="Metric">Market cap</td><td class="num" data-l="Value">$130.12bn</td><td data-l="Basis">Finnhub. MarketBeat shows $130.29bn — vendor difference, not an error</td></tr>
+        <tr><td data-l="Metric">Trailing P/E</td><td class="num" data-l="Value">16.32×</td><td data-l="Basis">Finnhub — confirmed</td></tr>
+        <tr><td data-l="Metric">Forward P/E</td><td class="num" data-l="Value">n.v.</td><td data-l="Basis">Not verified in the pack — not presented as a fact</td></tr>
+        <tr><td data-l="Metric">TTM revenue</td><td class="num" data-l="Value">$23.52bn</td><td data-l="Basis">Pack figure</td></tr>
+        <tr><td data-l="Metric">TTM net income</td><td class="num" data-l="Value">$8.10bn</td><td data-l="Basis">Pack figure; includes investment / other items</td></tr>
+        <tr><td data-l="Metric">Dividend yield</td><td class="num" data-l="Value">5.69%</td><td data-l="Basis">$4.44 annual dividend — confirmed (MarketBeat / Finnhub)</td></tr>
+        <tr><td data-l="Metric">Year-to-date return</td><td class="num" data-l="Value">+35.33%</td><td data-l="Basis">Finnhub — confirmed. A strong re-rating year</td></tr>
+        <tr><td data-l="Metric">Capital return</td><td class="num" data-l="Value">$2bn buyback</td><td data-l="Basis">Authorised 30 Oct 2025, plus the dividend. High payout ratio is also listed as a risk (§4)</td></tr>
+      </tbody>
+    </table>
+    <div class="gap"><b>Not in the verified pack — left blank rather than filled in:</b> P/S, EV/EBITDA, free cash flow, debt-to-equity / leverage, and R&amp;D spend. The pack's balance-sheet coverage for MO is limited to the figures above; treat any MO leverage or FCF number from elsewhere as unverified against this report.</div>
+    <div class="callout"><b>Why the re-rating matters:</b> after +35.3% YTD, the pack's read is that forward return from here is <b>yield + buyback-driven, not multiple expansion</b>. At 16.32× trailing earnings with a consensus target below the price, the easy re-rating money has already been made.</div>
+  </section>
+
+  <section id="moat">
+    <h2><span class="no">03</span> Competitive Moat &amp; Industry Positioning</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3>Where the moat is</h3>
+        <ul class="tight">
+          <li><b>Marlboro dominance in the US</b> — the pack's core moat claim: brand, shelf presence and smoker loyalty in the largest profit pool in US tobacco.</li>
+          <li><b>Pricing power</b> — the ability to raise cigarette prices to offset industry volume decline is the engine behind the margin and dividend record.</li>
+          <li><b>Distribution</b> — nationwide retail distribution across smokeable, oral and vapour.</li>
+          <li><b>Cash generation</b> — the business converts to cash at a rate that funds both a 5.69% yield and buybacks simultaneously.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3>The honest limits</h3>
+        <ul class="tight">
+          <li>The moat defends a <b>shrinking</b> category — US cigarette volumes decline structurally; pricing must outrun volume every year.</li>
+          <li>The moat is <b>US-only</b> in this pack's framing — no international diversification leg is presented.</li>
+          <li>Regulation can impair the moat directly (menthol / flavour rules) in a way ordinary competition cannot — see §4.</li>
+          <li>ESG-driven exclusion by some investors is a persistent ownership headwind listed in the pack's risks.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="risks">
+    <h2><span class="no">04</span> Catalysts &amp; Downside Risks</h2>
+    <div class="cols">
+      <div class="panel">
+        <h3 style="color:var(--good)">Catalysts</h3>
+        <ul class="tight">
+          <li><b>NJOY growth</b> — scaling the e-vapour leg.</li>
+          <li><b>on! pouch growth</b> — continued expansion in oral nicotine pouches.</li>
+          <li><b>Pricing</b> — further smokeable price increases offsetting volume decline.</li>
+          <li><b>Buybacks</b> — the $2bn authorisation supporting per-share earnings and the dividend.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h3 style="color:var(--bad)">Downside risks</h3>
+        <ul class="tight">
+          <li><b>US volume decline</b> — the structural headwind everything else must outrun.</li>
+          <li><b>Menthol / flavour regulation</b> — a direct regulatory hit to the smokeable profit pool.</li>
+          <li><b>Litigation</b> — the standing tobacco litigation overhang.</li>
+          <li><b>JUUL-related legacy overhang</b> — residual exposure from the JUUL era.</li>
+          <li><b>High payout ratio</b> — leaves less buffer if earnings soften; the dividend is the thesis, so a payout squeeze hurts twice.</li>
+          <li><b>ESG exclusion</b> — a narrower willing-buyer base for the shares.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="valuation">
+    <h2><span class="no">05</span> Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="lede">Two horizons, kept separate because they say different things: the Street's 12–18-month target sits <i>below</i> today's price, while the 5-year modelled value sits above it — and only because of the bull case. Both are shown with their workings.</p>
+
+    <h3>12–18 months — consensus anchor</h3>
+    <table class="stack">
+      <thead><tr><th>Anchor</th><th class="num">Target</th><th class="num">Price return vs $78.03</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td data-l="Anchor">MarketBeat consensus</td><td class="num" data-l="Target">$71.00</td><td class="num" data-l="Price return">−9.0%</td><td data-l="Note">Consensus rating in the pack: <b>Hold</b>. Total return over the period depends on collecting the 5.69% yield</td></tr>
+        <tr><td data-l="Anchor">Second vendor (for contrast)</td><td class="num" data-l="Target">$59.80</td><td class="num" data-l="Price return">−23.4%</td><td data-l="Note">Refinitiv via Nemo, per the verification log — shown so the $71.00 is not read as unanimous. Vendors disagree materially</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:14px;color:var(--muted)">Arithmetic check: $71.00 ÷ $78.03 − 1 = −9.0% price return. Add roughly one year of the 5.69% yield and the 12-month total return is still modestly negative on the MarketBeat anchor — which is exactly why the short-term call is Hold, not Buy.</p>
+
+    <h3>5 years — modelled scenarios (estimates, not verified facts)</h3>
+    <p style="font-size:14.5px">Method, as supplied in the pack: hold the framework steady and vary revenue growth, net margin and the exit P/E. All three scenario prices and the weighted figure below are <b>modelled estimates</b>. The verification log could not recompute the weighted figure because scenario weights were not supplied to the verifier — so treat $86 as the pack's modelled output, with the bull case shown explicitly because the weighted value sits above the 12–18-month base.</p>
+    <div class="chartbox" aria-label="5-year scenario prices versus current price">
+      <div class="bar-row"><span>Bear</span><div class="bar-track"><div class="bar-fill" style="width:47%;background:var(--bad)"></div><div class="bar-cur" style="left:66%"></div></div><span class="bar-val">$56</span></div>
+      <div class="bar-row"><span>Base</span><div class="bar-track"><div class="bar-fill" style="width:71%;background:var(--gold)"></div><div class="bar-cur" style="left:66%"></div></div><span class="bar-val">$84</span></div>
+      <div class="bar-row"><span>Weighted</span><div class="bar-track"><div class="bar-fill" style="width:73%;background:var(--accent)"></div><div class="bar-cur" style="left:66%"></div></div><span class="bar-val">$86</span></div>
+      <div class="bar-row"><span>Bull</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--good)"></div><div class="bar-cur" style="left:66%"></div></div><span class="bar-val">$118</span></div>
+      <p class="srcnote">Black tick = current price, $78.03. Bar scale: $118 = 100%.</p>
+    </div>
+    <table class="stack" style="margin-top:14px">
+      <thead><tr><th>Case</th><th class="num">Revenue growth / yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">Modelled price</th><th class="num">vs $78.03</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Case">Bear</td><td class="num" data-l="Growth">−2%</td><td class="num" data-l="Margin">32%</td><td class="num" data-l="P/E">13×</td><td class="num" data-l="Price">$56</td><td class="num" data-l="vs">−28%</td></tr>
+        <tr class="hl"><td data-l="Case">Base</td><td class="num" data-l="Growth">+1%</td><td class="num" data-l="Margin">34.4%</td><td class="num" data-l="P/E">16.32×</td><td class="num" data-l="Price">$84</td><td class="num" data-l="vs">+8%</td></tr>
+        <tr><td data-l="Case">Bull</td><td class="num" data-l="Growth">+3%</td><td class="num" data-l="Margin">36%</td><td class="num" data-l="P/E">19×</td><td class="num" data-l="Price">$118</td><td class="num" data-l="vs">+51%</td></tr>
+        <tr><td data-l="Case"><b>Weighted (modelled)</b></td><td class="num" data-l="Growth">—</td><td class="num" data-l="Margin">—</td><td class="num" data-l="P/E">—</td><td class="num" data-l="Price"><b>$86</b></td><td class="num" data-l="vs">+10%</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><b>Read the gap honestly:</b> the 5-year weighted $86 is only ~10% above today's price <i>before</i> dividends — over five years, the dividend (5.69% a year at today's price, if maintained) is the larger part of the expected return. And the weighted figure leans on the $118 bull case (growth +3%, margin 36%, P/E re-rating to 19×) to clear the $71 near-term consensus. If you don't believe the bull case, the 5-year price case is roughly flat — the income is the investment.</div>
+  </section>
+
+  <section id="verdict">
+    <h2><span class="no">06</span> Verdict, Sizing &amp; Portfolio Fit</h2>
+    <table class="stack">
+      <thead><tr><th>Horizon</th><th>Call</th><th>Reasoning in one line</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Horizon">Short term (12–18 mo)</td><td data-l="Call"><b>Hold</b></td><td data-l="Reasoning">Consensus target below price after a +35% year — no chase</td></tr>
+        <tr><td data-l="Horizon">Long term (5 yr)</td><td data-l="Call"><b>Hold — income</b></td><td data-l="Reasoning">Own it for yield + buybacks; price appreciation case is bull-dependent</td></tr>
+        <tr class="hl"><td data-l="Horizon">Suggested weight</td><td data-l="Call"><b>1% of portfolio</b></td><td data-l="Reasoning">Mid-30s, risk 8/10 profile — a small defensive income sleeve inside Consumer Staples, not a core growth holding</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Position-size calculator</h3>
+    <div class="calc">
+      <label for="pf">Your total portfolio value (USD)</label>
+      <input id="pf" type="number" inputmode="decimal" min="0" value="500000" />
+      <div class="out">
+        <div><div class="lab">MO at 1% target</div><div class="v" id="oAmt">$5,000</div></div>
+        <div><div class="lab">≈ Shares at $78.03</div><div class="v" id="oSh">64</div></div>
+        <div><div class="lab">Indicated annual dividend*</div><div class="v" id="oDiv">$285</div></div>
+      </div>
+      <p class="srcnote">*Indicated dividend = position × 5.69% yield at the 30 Oct price ($4.44/share annual dividend). Arithmetic only — the dividend is not guaranteed, and the pack lists the high payout ratio as a risk. Calculator runs in this page only; nothing is saved.</p>
+    </div>
+
+    <h3>Where MO sits in the staples set</h3>
+    <p style="font-size:14.5px">Within this Consumer Staples coverage (FinanceCharts ranking, 30 Oct 2026), WMT is the sector's #1 name. MO's role in a risk-8/10 portfolio is different from WMT's: WMT is the growth-at-a-premium staples anchor; MO is the high-yield, low-growth income holding whose return is mostly the dividend. The full top-5-per-sector comparison and the 12–18-month / 5-year sector allocation spreads live in the index artifact for this research set.</p>
+  </section>
+
+  <section id="sources">
+    <h2><span class="no">07</span> Sources &amp; Verification</h2>
+    <ul class="sources">
+      <li>FinanceCharts — Consumer Staples table (ranking basis; last updated 30 Oct 2026).</li>
+      <li>MarketBeat — MO stock page (consensus target $71.00, Hold; $2bn buyback summary): <a href="https://www.marketbeat.com/stocks/NYSE/MO/?utm-source=404Redirect&utm-medium=404Redirect&RegistrationCode=404Redirect">marketbeat.com/stocks/NYSE/MO</a></li>
+      <li>Finnhub — MO quote (price $78.03, cap $130.12bn, P/E 16.32, YTD +35.33%): <a href="https://finnhub.io/?q=%22MO%22">finnhub.io/?q="MO"</a></li>
+      <li>StockAnalysis — MO dividend ($4.44 annual, 5.69% yield): <a href="https://stockanalysis.com/stocks/mo/dividend/">stockanalysis.com/stocks/mo/dividend</a></li>
+    </ul>
+    <p style="font-size:14px;color:var(--muted)">Verification note: every price, cap, P/E, yield and YTD figure on this page was checked in the independent verification log for the Financials &amp; Consumer Staples sector (price reference 30 Oct 2026 close). MO's figures were <b>confirmed</b> on the vendor bases named above. The 5-year scenario prices are labelled modelled estimates throughout — the verifier could not recompute the weighted $86 because scenario weights were not supplied, and the second-vendor consensus of $59.80 is shown in §5 so the MarketBeat $71.00 is not mistaken for unanimity.</p>
+  </section>
+
+  <p class="disc">Research views only — not investment advice and not a guarantee of future results. Prepared as of 1 Nov 2026 (1 Nov 2026 was a weekend; prices are the 30 Oct 2026 regular-session close). Scenario prices are modelled estimates with the assumptions shown in §5. Dividends can be cut; the high payout ratio is a named risk. Verify figures against the linked sources before acting.</p>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Altria (MO)</h2>
+<p><strong>Price (30 Oct 2026 close): $78.03.</strong> <strong>DCF intrinsic: $55.93.</strong> Discount/premium vs DCF: <strong>+39.5%</strong> — i.e. the shares are trading 39.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$55.93</td><td>+39.5%</td><td>Base Normal DCF: TTM FCF ~$9.07bn (InTickers; OCF ~$9.42bn). Pack net income $8.10bn is flattered by investment/other items - NOT used. Net cash = cash ~$2.71bn ($1.62/share x 1.67bn) - debt $24.58bn = -$21.87bn. Growth g 1%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $58.44bn + PV of terminal value $56.84bn + net cash / excess capital $-21.87bn, ÷ 1.67bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/MO/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Altria (MO)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list. Demand is driven by Marlboro pricing in a declining US cigarette market, smokeless/oral growth (Copenhagen, Skoal, on!), and the cash available after its ~89–93% dividend payout for buybacks and smoke-free investment.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Altria (MO)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Altria’s exposure is operational at best: AI can help marketing and logistics, but the pack’s thesis is Marlboro pricing in a declining US cigarette market plus smokeless/oral growth — not AI.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~16x trailing earnings and a 5.7% yield, Altria is priced as an income stock, not a growth/AI stock, so an AI unwind would move it mainly through rates and income-stock sentiment.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — cigarette volumes continue their structural decline regardless of AI; (2) multiple — limited compression, though a rates shock would hurt an income stock; (3) balance sheet — the constraint is negative book equity and a ~89–93% dividend payout, leaving about $1bn of excess cash (pack context) for buybacks and smoke-free investment — not AI-capex debt. Triggers to watch: cigarette shipment trends, on! PLUS progress, and free-cash-flow coverage of the $4.44 dividend.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+</div>
+<script>
+(function(){
+  var PRICE=78.03, W=0.01, YIELD=0.0569;
+  var pf=document.getElementById('pf'), oA=document.getElementById('oAmt'), oS=document.getElementById('oSh'), oD=document.getElementById('oDiv');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function run(){
+    var v=parseFloat(pf.value); if(!isFinite(v)||v<0) v=0;
+    var amt=v*W;
+    oA.textContent=fmt(amt);
+    oS.textContent=Math.floor(amt/PRICE).toLocaleString('en-US');
+    oD.textContent=fmt(amt*YIELD);
+  }
+  pf.addEventListener('input',run); run();
+})();
+</script>
+</body>
+</html>

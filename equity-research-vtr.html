@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — VTR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{ text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 72px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Healthcare REIT · Senior Housing / Medical</span></div>
+  <h1>Ventas <span class="tick">(NYSE: VTR)</span></h1>
+  <p class="lede">A 1,400+-property healthcare landlord levered to the same ageing-population tailwind as Welltower — senior housing, outpatient medical and research real estate across the US, Canada and the UK — but trading as the cheaper, more diversified alternative. Q3 2026 exposed the central trap in the name: revenue grew 23% year-on-year, yet the GAAP EPS headline missed badly. For REITs, GAAP EPS is the wrong scoreboard. FFO is.</p>
+  <div class="byline">
+    <span><b>As of:</b> 1 Nov 2026</span>
+    <span><b>Price reference:</b> $84.80 close, 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe"><span class="tab active">VTR — this report</span><span class="tab">Real Estate · #10 by US market cap</span></div>
+  <p class="small" style="margin-top:10px">Ranking basis: Top 10 US-listed real estate names <b>by market cap</b> at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI / Real Estate index). This is a market-cap ranking, <b>not VNQ-weight order</b> — by VNQ weight, O (3.34%) ranks ahead of PSA (3.11%). Globally the same 10 names are also the top 10; Sun Hung Kai Properties is #11 globally at ~$40.22B, below VTR. Next US name by market cap is Crown Castle (CCI, ~$37.7–38.3B), #11 behind VTR (#10) — not behind VMRK (#9). US-only label applies for consistency. Sources: <a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks VNQ holdings</a>, <a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/" target="_blank" rel="noopener">CompaniesMarketCap</a>.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$84.80</div><div class="vsub">Official regular-session close — Finnhub. MarketBeat pre-close snapshots differ and are not the close.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$45.81B</div><div class="vsub">TipRanks basis. Finnhub shows $43.35B — vendor / float-method gap, not a price error. Do not mix vendors.</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · REIT lens</div><div class="vbig mono">Fwd P/E 21.77×</div><div class="vsub">For completeness only. Use P/FFO / P/AFFO for REITs. Trailing P/E 165.0× is distorted — see §2.</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus</div><div class="vbig mono">$98.59 <span class="up" style="font-size:16px">+16.3%</span></div><div class="vsub">Consensus target vs $84.80 · Dividend yield 2.46%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Base target $95 (+12.0%). GAAP/FFO headline volatility argues against chasing after the Q3 print.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Cheaper demographic play than WELL. Modelled weighted 5-yr value $120.60 — estimate, see §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Satellite REIT holding inside a ~17.5% max Real Estate sleeve. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view — read FFO, not GAAP EPS</h2></div>
+  <p>Ventas printed the quarter that confuses screens: <b>revenue +23.0% year-on-year</b> alongside a <b>GAAP EPS of $0.13 vs ~$0.98 consensus</b> — a headline “miss” that should <b>not be annualised</b>. GAAP net income for a REIT is depressed by large non-cash real-estate depreciation and can swing with gains, impairments and deal costs that Funds From Operations (FFO) strips out precisely to show recurring rental cash earnings. The research pack marks <b>FFO for VTR as NOT VERIFIED</b> in this pass, so this note does not invent an FFO print — it flags the gap plainly and uses an explicitly labelled <b>estimate FFO base of $3.90</b> only inside the 5-year model in §5, with methodology shown.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 / TTM snapshot</th><th class="n">Figure</th><th>Read &amp; source</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue — TTM</td><td class="n">$6.4B</td><td>Trailing revenue. <a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool research</a></td></tr>
+      <tr><td>Revenue growth — Q3 2026</td><td class="n">+23.0% YoY</td><td>Strong top-line growth in the quarter. <a href="https://www.marketbeat.com/stocks/NYSE/VTR/?Vote=0" target="_blank" rel="noopener">MarketBeat VTR</a></td></tr>
+      <tr class="hl"><td>GAAP EPS — Q3 2026</td><td class="n">$0.13 vs $0.98 cons.</td><td>Headline miss is a GAAP ≠ FFO artefact. Do not value VTR off this line.</td></tr>
+      <tr><td>Trailing EPS (for P/E calc)</td><td class="n">$0.54</td><td>Reported alongside the vendor 165.0× trailing P/E — economically meaningless for a REIT either way (see §2 note on vendor rounding).</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.46%</td><td>Verified in this pass. Income is a supporting feature, not the thesis.</td></tr>
+      <tr><td>Consensus price target</td><td class="n">$98.59</td><td>+16.3% vs $84.80 close. <a href="https://www.marketbeat.com/stocks/NYSE/VTR/?Vote=0" target="_blank" rel="noopener">MarketBeat</a></td></tr>
+      <tr><td>FFO / AFFO — verified</td><td class="n">Not verified</td><td>Marked n/v in the verification log. Any FFO figure in §5 is a modelled estimate, labelled as such.</td></tr>
+      <tr><td>Net debt / leverage — verified</td><td class="n">Not verified</td><td>n/v in this pass — omitted as a table rather than guessed. See §2.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Coordinator correction applied</div><p>For REITs, <b>P/FFO and P/AFFO are the primary multiples</b>. Trailing P/E (here 165×) must <b>not</b> be used for valuation, and forward P/E (21.77×) is shown for completeness only. Every 5-year price in §5 is a <b>modelled estimate</b> with its FFO base, growth, multiple and weights published so the arithmetic can be checked — per the verification log, scenario weights were not supplied to the verifier, so no weighted price is presented as verified.</p></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Ventas is a <b>healthcare real estate investment trust</b>: it owns the buildings that care happens in, and collects rent — either directly from operators under leases, or via operating partnerships in senior housing where it shares in the economics — rather than delivering care itself. Scale is the model: <b>1,400+ properties</b> across the <b>US, Canada and the UK</b>. <span class="small">Source: <a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Fool — largest real estate companies</a>.</span></p>
+
+  <h3>Portfolio — four property families</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Family</th><th>What Ventas owns</th><th>Revenue mechanics</th><th>Demand driver</th></tr></thead>
+    <tbody>
+      <tr><td>Senior housing</td><td>Assisted-living and independent-living communities</td><td>Operating / SHOP-style economics plus leased communities — most exposed to occupancy and rate, most leveraged to demographics</td><td>80+ population growth; limited new supply after the post-Covid construction pause</td></tr>
+      <tr><td>Outpatient medical / medical office</td><td>Clinics and medical office buildings, typically anchored to health systems</td><td>Longer leases to health-system and physician tenants; steadier, bond-like rent</td><td>Care shifting out of hospitals into lower-cost outpatient settings</td></tr>
+      <tr><td>Research &amp; innovation</td><td>Life-science / university-linked research real estate</td><td>Leases to universities, research institutions and life-science tenants</td><td>Research funding and life-science tenancy — higher quality, lumpier leasing</td></tr>
+      <tr><td>Triple-net healthcare</td><td>Healthcare facilities leased triple-net (tenant pays taxes, insurance, maintenance)</td><td>Contractual rent with escalators; operator credit is the risk, not day-to-day operations</td><td>Operator solvency and lease coverage; diversification across operators matters most here</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">The pack does not carry a verified % split of revenue or NOI by family, so no split is invented here. The investable point is the <i>mix itself</i>: senior housing gives Ventas torque to the demographic cycle, while outpatient medical, research and triple-net leases dampen that torque with contractual rent.</p>
+
+  <div class="geo">
+    <div>
+      <h3>Geography</h3>
+      <ul>
+        <li><b>United States</b> — the core market; senior-housing and medical demand is domestic and demographic.</li>
+        <li><b>Canada</b> — senior-housing extension of the same thesis in a similarly ageing market.</li>
+        <li><b>United Kingdom</b> — smaller footprint; adds currency and regulatory diversification, not a separate growth engine.</li>
+      </ul>
+      <p>No verified geographic revenue split was carried in the pack, so none is shown. For a healthcare REIT this matters less than for a global landlord: reimbursement, regulation and operator quality are jurisdiction-specific even when the demographic trend is shared.</p>
+    </div>
+    <div>
+      <h3>How a healthcare REIT actually makes money</h3>
+      <ul>
+        <li><b>Rent + escalators</b> on leased assets — contractual, inflation-linked in part.</li>
+        <li><b>Senior-housing operating income</b> — occupancy × rate minus operating cost, via operators. This is where the +23% revenue quarter is won or lost operationally.</li>
+        <li><b>Capital recycling</b> — buying senior-housing / medical assets where demographics and supply favour the owner, selling slower assets. Execution here compounds FFO per share, or dilutes it.</li>
+        <li><b>Cost of capital as product</b> — a REIT trading above net asset value can issue equity accretively; below it, growth must be debt- or recycling-funded. Share price <i>is</i> a business input, not just an output.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Structural points for the thesis</h3>
+  <ul>
+    <li><b>Demographics over cycles:</b> senior-housing demand is driven by the 80+ cohort, which grows regardless of GDP. That makes VTR defensive in a way a mall or office REIT is not — but operator execution still decides how much of that demand becomes rent.</li>
+    <li><b>Operator model vs owner-operator:</b> Ventas leans on operator diversification (see §3) rather than concentrating operating risk in one platform — steadier, with less single-operator upside torque than Welltower's SHOP concentration.</li>
+    <li><b>Supply-chain dependencies (REIT sense):</b> not chips, but (1) <b>operators</b> — their staffing, wage costs and solvency are Ventas's effective supply chain; labour shortages hit occupancy and margins before they hit rent coverage; (2) <b>capital markets</b> — debt refinancing cost and equity price gate growth; (3) <b>healthcare reimbursement &amp; regulation</b> — policy changes flow through operator economics into lease coverage; (4) <b>construction costs</b> — high build costs suppress competing new supply (good for incumbents) while raising development costs (bad for growth capex).</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Read Ventas like a landlord, not like a manufacturer. Earnings quality is <b>recurring rent and senior-housing operating income converted to FFO/AFFO per share</b>, after interest and maintenance capex — not GAAP net income, which for any equity REIT is structurally depressed by depreciation on appreciating assets. That single adjustment explains almost every “weird” multiple on this page.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; diagnostics — price $84.80 (30 Oct 2026 close). Market cap on a TipRanks basis; do not mix with Finnhub float-based caps in the same table.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Price / Market cap</td><td class="n">$84.80 / $45.81B</td><td>TipRanks cap $45.81B; Finnhub $43.35B — vendor gap disclosed, pack uses TipRanks consistently. Prices confirmed on Finnhub / StockAnalysis official close. <a href="https://finnhub.io/?q=%22VTR%22" target="_blank" rel="noopener">Finnhub VTR</a></td></tr>
+      <tr><td>Trailing P/E</td><td class="n">165.0×</td><td><b>Do not use.</b> Vendor-reported (Finnhub) on a $0.54 trailing GAAP EPS basis — the two as-reported figures do not reconcile exactly on simple division (~157×) due to vendor rounding / EPS basis, but the conclusion is identical: the denominator is depreciation-depressed GAAP earnings, not cash earnings, so the multiple is an artefact.</td></tr>
+      <tr><td>Forward P/E</td><td class="n">21.77×</td><td>Shown for completeness only (‡ in the sector table). REIT valuation belongs on P/FFO — see below.</td></tr>
+      <tr><td>P/FFO (primary)</td><td class="n">On est. FFO $3.90: ~21.7×</td><td><b>Estimate only</b> — FFO base $3.90 is NOT VERIFIED in this pass (§5). $84.80 ÷ $3.90 ≈ 21.7× gives a sense of level vs peers, not a verified multiple. Verified peer anchors: PLD P/FFO 18.80 in the pack; WELL trades on a far higher forward P/E (78.40×, completeness only) reflecting its premium.</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$6.4B</td><td>With Q3 revenue +23.0% YoY — growth is real at the top line; the debate is conversion to FFO per share after operator costs and interest.</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.46%</td><td>Verified. Below the “income REIT” names (O, PSA in the sector set) — VTR is priced as a growth-demographics REIT, not a yield vehicle. Payout sustainability must be judged on AFFO, which is n/v here — so no payout-ratio claim is made.</td></tr>
+      <tr><td>FFO / AFFO (verified)</td><td class="n">Not verified</td><td>Explicit gap. The verification pass verified FFO <i>guidance</i> for peers (e.g. WELL $6.47–6.53, PLD $6.25–6.29, DLR $8.30–8.35) but carries no verified VTR FFO — hence the estimate flag throughout §5.</td></tr>
+      <tr><td>Debt / EV / EBITDA</td><td class="n">Not verified</td><td>Coordinator gap note: debt/cash/EV was only partially verified across the sector. No leverage ratio is published for VTR rather than presenting an unchecked figure as fact. Rate sensitivity (§4) is therefore discussed qualitatively.</td></tr>
+      <tr><td>Consensus target</td><td class="n">$98.59</td><td>+16.3% implied upside — the Street, like this note's base case ($95), sees re-rating from FFO growth, not a yield grab.</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure>
+    <div class="bars" aria-label="Valuation context bars">
+      <div class="bar-row"><span class="bl">VTR — forward P/E (completeness)</span><div class="bar-track"><div class="bar-fill" style="width:28%"></div></div><span class="bv">21.77×</span></div>
+      <div class="bar-row"><span class="bl">VTR — trailing P/E (distorted)</span><div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div><span class="bv">165.0×</span></div>
+      <div class="bar-row"><span class="bl">WELL — forward P/E (completeness)</span><div class="bar-track"><div class="bar-fill gold" style="width:48%"></div></div><span class="bv">78.40×</span></div>
+      <div class="bar-row"><span class="bl">PLD — P/FFO (verified anchor)</span><div class="bar-track"><div class="bar-fill green" style="width:24%"></div></div><span class="bv">18.80×</span></div>
+    </div>
+    <figcaption>The chart's point is the distortion, not precision: VTR's trailing P/E (165×) and WELL's forward P/E (78×) are both GAAP-earnings artefacts. Compare REITs on P/FFO. WELL and PLD figures are pack peers for context; VTR P/FFO on the $3.90 estimate FFO would be ~21.7×.</figcaption>
+  </figure>
+
+  <h3>Capital allocation — what can be said honestly</h3>
+  <ul>
+    <li><b>Dividend:</b> yield 2.46% at $84.80. For a healthcare REIT, the question is AFFO coverage — <b>not verified in this pass</b>, so this note makes no coverage claim and treats the dividend as a return component, not a safety proof.</li>
+    <li><b>Growth funding:</b> as with all equity REITs, growth is funded from retained cash flow, debt, asset recycling and — when the shares trade favourably — equity issuance. No verified VTR buyback, issuance or capex figure was carried in the pack, so none is stated.</li>
+    <li><b>Free cash flow framing:</b> for REITs, “FCF” is best read as AFFO after maintenance capex and leasing costs. With AFFO n/v, any FCF yield printed here would be invented — it is omitted, deliberately.</li>
+  </ul>
+  <div class="callout"><div class="ct">Balance-sheet verdict</div><p><b>Incomplete by verification, not by concern.</b> The verified facts support a large, liquid, institutionally held REIT ($45.81B cap, $6.4B TTM revenue, +23% Q3 revenue growth). Leverage, liquidity and maturity detail were <b>not verified</b> in this pass and are flagged as an open question for a follow-up check against the 10-Q / StockAnalysis balance-sheet page before any leverage-based sizing increase. Do not treat absence of a debt table here as absence of debt risk — REITs are levered by design and rate-sensitive (§4).</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: moderate-wide, built on scale, asset scarcity and operator diversification — not on pricing power over tenants in the consumer sense.</b> A healthcare landlord's moat is that well-located senior-housing and medical assets near ageing, affluent populations cannot be replicated quickly (zoning, construction cost, operator know-how), and that a diversified operator roster turns single-operator failure from an existential event into a re-leasing exercise.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Scale in healthcare real estate:</b> 1,400+ properties across three countries — sourcing, operator relationships and capital access that sub-scale healthcare landlords cannot match.</li>
+      <li><b>Operator diversification:</b> the pack's explicit contrast — vs <b>Welltower's SHOP concentration</b>, Ventas spreads operator exposure, reducing single-operator beta while keeping senior-housing torque.</li>
+      <li><b>Asset mix as a moat:</b> senior housing (growth) + outpatient medical + research + triple-net (contractual rent) — no single healthcare sub-sector decides the year.</li>
+      <li><b>Demographic moat:</b> demand is cohort-driven, not fashion-driven. The 80+ population tailwind is shared with WELL, but it is durable in a way discretionary property demand is not.</li>
+      <li><b>Supply constraint:</b> elevated construction costs and tighter lending suppress new competing senior-housing supply — incumbency is worth more when replacement is expensive.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Welltower (WELL) — primary competitor:</b> $172.10B cap, the sector's premium name; Q3 normalised FFO $1.67 (+24.6%), revenue $3.72B (+38.4%), FY26 normalised FFO guidance raised to $6.47–6.53 (all confirmed in verification). WELL sets the valuation bar VTR is discounted against — VTR's case is “similar tailwind, cheaper entry,” not “better operator.”</li>
+      <li><b>Omega Healthcare (OHI)</b> — skilled-nursing / triple-net overlap; competes for the same operator-credit assets.</li>
+      <li><b>Healthpeak (DOC)</b> — outpatient medical and life-science overlap; competes directly for medical-office and research tenancy.</li>
+      <li><b>No tenant pricing power in a downturn:</b> rent is only as good as operator coverage. If operators' labour costs spike, the landlord feels it — with a lag, then suddenly.</li>
+      <li><b>Capital is contestable:</b> any REIT can bid for the same acquisition. Ventas's edge is cost of capital and relationships, both of which compress when its shares de-rate.</li>
+    </ul></div>
+  </div>
+  <h3>Positioning within the Real Estate top 10 (30 Oct 2026, market-cap ranking)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Peer (context)</th><th class="n">Price</th><th class="n">Mkt cap</th><th class="n">Base target (est.)</th><th>Why it matters to VTR</th></tr></thead>
+    <tbody>
+      <tr><td>WELL — Welltower</td><td class="n">$234.60</td><td class="n">$172.10B</td><td class="n">$255</td><td>The demographic comp and premium benchmark; VTR is the value alternative to WELL</td></tr>
+      <tr><td>PLD — Prologis</td><td class="n">$127.98</td><td class="n">$124.13B</td><td class="n">$148</td><td>Logistics leader; different cycle, same REIT multiple discipline (P/FFO)</td></tr>
+      <tr><td>EQIX — Equinix</td><td class="n">$1,013.70</td><td class="n">$100.34B</td><td class="n">$1,200</td><td>Data-centre REIT; shows how far P/FFO can stretch for scarce digital assets</td></tr>
+      <tr class="hl"><td>VTR — Ventas (this report)</td><td class="n">$84.80</td><td class="n">$45.81B</td><td class="n">$95</td><td>#10 by US market cap; smallest of the top 10, healthcare-pure</td></tr>
+      <tr><td>CCI — Crown Castle (next, #11)</td><td class="n">$88.69</td><td class="n">~$37.7–38.3B</td><td class="n">—</td><td>Just outside the top 10, behind VTR — included only to fix the ranking boundary</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Pricing-power verdict:</b> moderate. Ventas can push senior-housing rate where occupancy and local supply allow, and can enforce escalators on leased assets — but ultimate pricing power sits with operators facing residents and payers. <b>Barriers to entry:</b> capital, zoning, operator networks and healthcare know-how are real barriers at scale; no technological moat is claimed. <b>Regulatory position:</b> healthcare regulation is a double-edged moat — it deters casual entrants and simultaneously caps operator economics (§4).</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Senior-housing demographic tailwind — same as WELL:</b> 80+ cohort growth meeting constrained new supply is the sector's central catalyst; occupancy and rate leverage flow disproportionately to operating income.</li>
+        <li><b>Medical-office / outpatient demand:</b> continued shift of care out of hospitals supports outpatient medical occupancy and health-system tenancy.</li>
+        <li><b>Research real estate demand:</b> university- and institution-anchored research assets offer a differentiated, less cyclical leasing backdrop within the portfolio.</li>
+        <li><b>FFO clarity:</b> any quarter where reported FFO cleanly confirms the revenue growth (+23% in Q3) would repair the GAAP-headline damage and support re-rating toward the $98.59 consensus / $95 base.</li>
+        <li><b>Rate relief (sector-wide):</b> as a levered, yield-bearing REIT, VTR re-rates mechanically if long rates fall — the mirror image of its main macro risk.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Operator credit:</b> the pack's headline risk. A major operator failure hits rent coverage, occupancy and re-leasing costs simultaneously — diversification dampens, does not eliminate, this.</li>
+        <li><b>Healthcare regulation:</b> reimbursement, staffing-mandate or senior-housing regulation changes flow through operators into lease economics.</li>
+        <li><b>GAAP / FFO confusion volatility:</b> demonstrated in Q3 — a $0.13 GAAP EPS print vs $0.98 consensus can trigger indiscriminate selling by screen-driven holders even when revenue grows 23%. Expect headline volatility around every print.</li>
+        <li><b>Interest-rate exposure:</b> REIT multiples and refinancing costs are rate-sensitive; leverage detail is n/v here, so the exposure is flagged qualitatively — a sustained higher-for-longer regime compresses both P/FFO and acquisition economics.</li>
+        <li><b>Labour &amp; operator costs:</b> wage pressure in care settings squeezes operator margins first, landlord coverage second.</li>
+        <li><b>Concentration vs WELL execution gap:</b> if Welltower's SHOP concentration keeps out-executing, the market may keep paying WELL's premium and leaving VTR as a permanent “cheap for a reason” name.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Evidence that the +23% revenue growth is <b>not</b> converting to FFO per share — e.g. operator failures or cost absorption that leave FFO flat while revenue rises — or a regulatory change that structurally impairs operator lease coverage. Either would invalidate the “cheaper demographic play” logic: cheap only matters if the cash earnings grow into the multiple.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b>modelled estimates</b>, never verified facts. Method is stated in full so the arithmetic can be checked — as the coordinator correction requires, because scenario weights were not supplied to the independent verifier.</p>
+  <p><b>Transparent adaptation of the frozen-parameter format:</b> the standard format in this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>. For a REIT that format is meaningless — trailing P/E is 165× on depreciation-depressed GAAP EPS of $0.54. The adaptation, used consistently for REITs in this series, replaces (revenue × margin ÷ shares) with <b>FFO per share</b> and P/E with <b>P/FFO</b>: <i>2031 price = FFO<sub>base</sub> × (1+g)<sup>5</sup> × P/FFO</i>, with FFO<sub>base</sub>, g and P/FFO frozen per case. The FFO base of <b>$3.90 is an ESTIMATE — FFO was NOT VERIFIED in this pass</b> — and every 5-year price inherits that flag.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$72</div><div class="ret down">−15.1% vs $84.80</div><p>Operator stress or a higher-for-longer rate regime compresses P/FFO; senior-housing leverage works in reverse and headline GAAP volatility spooks holders. Dividend (2.46%) cushions only part of the fall.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$95</div><div class="ret up">+12.0% vs $84.80</div><p>Revenue growth converts to steady FFO growth; senior-housing occupancy/rate and medical-office demand deliver as guided by the demographic setup. Sits just below the $98.59 Street consensus — deliberately, until verified FFO confirms the conversion.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$108</div><div class="ret up">+27.4% vs $84.80</div><p>Senior-housing operating leverage inflects (occupancy × rate), research/medical leasing stays firm, and a friendlier rate backdrop re-rates P/FFO toward the premium healthcare names.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $92.50</div></div><p>0.25×$72 + 0.50×$95 + 0.25×$108 = $92.50, or <b>+9.1%</b> price upside, plus the 2.46% dividend yield if held. Modest skew — this is a steady compounder case, not a torque case. Weights: Bear 25% / Base 50% / Bull 25%, published here so the weighted figure can be recomputed.</p></div>
+
+  <h3>5-year projection — frozen-parameter model, REIT adaptation (FFO-based)</h3>
+  <p>Starting point: <b>estimate FFO per share $3.90</b> (flag: estimate, not verified). Only FFO growth (g) and the exit P/FFO vary by case; the base is frozen. Formula per case: <i>2031 FFO = $3.90 × (1+g)<sup>5</sup>; 2031 price = 2031 FFO × P/FFO</i>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">FFO growth / yr (g)</th><th class="n">2031 FFO / share</th><th class="n">Exit P/FFO</th><th class="n">2031 price</th><th class="n">Price CAGR from $84.80</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">5%</td><td class="n">~$4.98</td><td class="n">17×</td><td class="n">$84.50</td><td class="n">~0.0%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">9%</td><td class="n">~$6.00</td><td class="n">20×</td><td class="n">$120.00</td><td class="n">+7.2%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">12%</td><td class="n">~$6.87</td><td class="n">23×</td><td class="n">$158.00</td><td class="n">+13.2%</td></tr>
+      <tr class="total"><td>Probability-weighted (modelled estimate)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$120.60</td><td class="n">+7.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check: Base $3.90×1.09<sup>5</sup> = $3.90×1.539 ≈ $6.00 ×20 = $120.00. Bull $3.90×1.12<sup>5</sup> ≈ $6.87 ×23 ≈ $158. Bear $3.90×1.05<sup>5</sup> ≈ $4.98 ×17 ≈ $84.62 unrounded; the pack's $84.50 reflects the FFO truncated to ~$4.97 before applying the multiple ($4.97×17 ≈ $84.50), and the weighted value uses the pack figure. Weighted: 0.25×$84.50 + 0.50×$120.00 + 0.25×$158.00 = $120.63 ≈ <b>$120.60</b>. Price CAGRs exclude dividends; adding the current 2.46% yield (if maintained — coverage n/v) lifts total-return CAGRs by roughly that amount. Because the $3.90 FFO base is an estimate, treat the whole table as a sensitivity frame: if verified FFO prints materially below $3.90, scale every price down proportionally. Illustrative model, not a forecast.</p>
+  <div class="callout good"><div class="ct">How to read VTR vs WELL in this model</div><p>WELL's modelled 5-year weighted price is $319.50 vs $234.60 today (+36%); VTR's is $120.60 vs $84.80 (+42%) — similar demographic engine, slightly larger modelled upside for VTR because the entry multiple is lower. That is the entire long-term case in one line: <b>you are not paid to believe Ventas is better than Welltower, only that it is cheaper exposure to the same tailwind.</b> Both 5-year figures are modelled estimates on the same FFO methodology; WELL's FFO guidance ($6.47–6.53) is verified, VTR's FFO base is not — an asymmetry that argues for VTR's smaller sizing (§6).</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> Weighted 12–18mo value ≈ $92.50 (+9.1%) plus 2.46% yield is a fair, not compelling, near-term proposition, and GAAP-headline volatility around prints (Q3: $0.13 vs $0.98) can offer better entries. Add on headline-driven dips toward the $72 bear zone if FFO conversion is intact; do not chase strength toward $98–108 without verified FFO support.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — as the cheaper demographic play than WELL.</b> Modelled weighted 5-yr value $120.60 (+42% price, ~7.3% CAGR before dividends) on an estimate FFO base. Build in tranches and re-underwrite the position the moment a verified FFO base is available: if it confirms ~$3.90, the case stands; if it is materially lower, resize using the §5 sensitivity.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill hold">Review</span></td><td>Review on: (1) a major operator failure impairing lease coverage; (2) two consecutive periods where revenue growth fails to convert to FFO growth; (3) a regulatory change structurally impairing operator economics; (4) price above the $108 bull target with no FFO upgrade — multiple doing all the work.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>VTR target: 1.5% of total portfolio.</b> A satellite single-name REIT position — large enough to matter if the demographic thesis compounds, small enough that operator or rate shocks cannot dominate the portfolio outcome.</li>
+    <li><b>Within Real Estate:</b> the sector set's suggested sizing totals 17.5% across the top 10 (WELL 2.5 + PLD 2.5 + EQIX 2.0 + DLR 2.0 + AMT 1.5 + PSA 1.5 + O 1.5 + VMRK 1.5 + VTR 1.5 + SPG 1.0 = 17.5). Treat 17.5% Real Estate and ~17.5% Utilities (~35.0% combined) as <i>maximum</i> sleeves for a risk-8 mid-30s investor — prefer the BUY-rated core over holding all 20 equally.</li>
+    <li><b>Pairing note:</b> if WELL (2.5% suggested, long-term BUY) is also held, combined senior-housing-demographic exposure is 4.0% — intentional overlap on the same tailwind at two price points, not diversification. Count it as one thematic bet for risk purposes.</li>
+    <li><b>Verification discount:</b> VTR is sized at 1.5% rather than WELL's 2.5% in part because its FFO base here is an estimate while WELL's guidance is verified. Close that gap — with verified FFO and AFFO coverage — before arguing for a larger weight.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 1.5% target weight and the $84.80 reference price for an indicative share count. Indicative only — it does not execute anything and does not account for look-through REIT exposure inside index funds (VNQ and broad funds already hold VTR).</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>VTR — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $84.80.</strong> <strong>DCF intrinsic: $78.22.</strong> Discount/premium vs DCF: <strong>+8.4%</strong> — i.e. the shares are trading 8.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$78.22</td><td>+8.4%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $3.90 per share — FFO ESTIMATE $3.90 (pack - flagged estimate, not verified); AFFO not disclosed. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 8.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/VTR/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/vtr/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>VTR — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Brookdale Senior Living</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Sunrise Senior Living</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Discovery Senior Living</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>LCS</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Atria Senior Living</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Erickson Senior Living</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Greystar Real Estate Partners</td><td>Not disclosed (ranking not disclosed; operators, not a ranked rent table)</td><td>not in coverage — no intrinsic on file</td></tr></table><p>Read-through: neither this REIT nor its peers disclose a ranked operator rent table, so the tenant thesis can only be applied at portfolio level — and in any case none of these operators is in the 124-ticker coverage universe, so no filled-in intrinsics apply. The real read-through is operational, not valuation-based: senior-housing demand is demographic (occupancy and rate recovery, as in Welltower's Q3 same-store NOI +15.8% and Ventas's SHOP growth), and operator health shows up as occupancy, labour costs and lease renewals — for example Brookdale buying 30 communities it operated from Welltower and extending 39 more, or renewing 65 Ventas communities at a 38% cash-rent increase. An operator's financial strength helps, but it does not guarantee higher rent: operators expand, buy assets or renegotiate depending on their own strategy and capital, not on a valuation signal.</p><p><em>Source: Ventas names Atria, Brookdale, Sunrise and Kindred among its tenants/managers and reports 100+ tenants/managers, with no ranked rent share disclosed per operator.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>VTR — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> Ventas owns 1,400+ senior housing, outpatient medical, research and triple-net healthcare properties; its growth driver is the same demographic tailwind as Welltower's, and the pack names no AI or data-centre exposure (research tenants are life-science, not AI-compute, tenants).</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Essentially none directly: AI does not drive senior-housing occupancy, and any indirect channel (AI tools in care delivery, or life-science research demand) is second-order and unquantified in the pack.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Ventas's multiple is a healthcare-demographic multiple, not an AI multiple, so there is no AI premium to compress; the shares move on SHOP occupancy/rate and operator execution.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: nothing AI-specific breaks; the demand risks are operator credit, healthcare regulation and labour costs. Second, multiple compression: indirect only, via a general rate-driven REIT de-rating, with GAAP/FFO confusion (the Q3 headline GAAP miss per pack) adding volatility around prints. Third, balance sheet: moderate at $12.47B net debt, with operator transitions (e.g. the Brookdale portfolio moves) as the operational swing factor. No quantified sensitivity is claimed, and the FFO base used here is a pack estimate.</p>
+<p><strong>Trigger(s) to watch:</strong> SHOP occupancy and rate data; operator transition execution; and broad REIT/rate moves rather than any AI-specific trigger.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are taken from the verified research pack for VTR (Real Estate sector, as of 1 Nov 2026; price reference 30 Oct 2026 close), with coordinator corrections applied: REIT valuation on P/FFO, FFO base flagged as an estimate, market caps on a TipRanks basis, and all modelled targets labelled as estimates with weights and methodology shown. MarketBeat “closing price 10/30 03:59pm” figures are a pre-close snapshot, not the official close, and were not used.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22VTR%22" target="_blank" rel="noopener">Finnhub — VTR price ($84.80, 30 Oct 2026 close), trailing P/E 165.0, forward P/E 21.77</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NYSE/VTR/?Vote=0" target="_blank" rel="noopener">MarketBeat — VTR Q3 2026 (revenue +23.0%, GAAP EPS $0.13 vs $0.98 consensus), consensus target $98.59</a></li>
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool Research — VTR model (1,400+ properties; senior housing, outpatient medical, research, triple-net; US/Canada/UK), TTM revenue $6.4B</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings / market-cap basis ($45.81B for VTR); VNQ weight order (O 3.34% ahead of PSA 3.11%)</a></li>
+    <li><a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/" target="_blank" rel="noopener">CompaniesMarketCap — global real estate ranking (Sun Hung Kai #11 globally, ~$40.22B, below VTR)</a></li>
+    <li><a href="https://stockanalysis.com/etf/vnq/holdings/" target="_blank" rel="noopener">StockAnalysis — VNQ holdings by weight (CCI context: CBRE and Iron Mountain ahead of CCI by weight)</a></li>
+  </ol>
+  <p class="small" style="margin-top:10px"><b>Open questions (explicit):</b> (1) VTR FFO / AFFO — not verified in this pass; the $3.90 base in §5 is an estimate. (2) VTR leverage, net debt, EV/EBITDA and dividend AFFO coverage — not verified; omitted rather than guessed. (3) Verified revenue/NOI split by property family and geography — not carried in the pack; omitted. Each should be closed against the 10-Q and company releases before any sizing increase.</p>
+  <p class="disc">Disclaimer: This note is institutional-style research for information only. It is not investment advice, an offer, or a guarantee of future results. Scenario prices are modelled estimates based on the assumptions stated (including an unverified, estimated FFO base for the 5-year REIT model); actual outcomes will differ. Prices are as of the 30 Oct 2026 close; figures should be re-checked against primary filings before acting. Consider your own circumstances and, if needed, a licensed adviser.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function upd(){
+    var v=parseFloat(pf.value)||0;
+    var alloc=v*0.015;
+    var shares=alloc/84.80;
+    out.innerHTML='At <b>1.5%</b>, VTR allocation ≈ <b>$'+fmt(alloc)+'</b> · ≈ <b>'+fmt(shares)+' shares</b> at $84.80. Real Estate top-10 sleeve at 17.5% ≈ $'+fmt(v*0.175)+' on this portfolio.';
+  }
+  pf.addEventListener('input',upd); upd();
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    var secs=[];
+    links.forEach(function(a){var id=a.getAttribute('href'); if(id&&id.charAt(0)==='#'){var el=document.querySelector(id); if(el) secs.push({a:a,el:el});}});
+    window.addEventListener('scroll',function(){
+      var y=window.scrollY+80, cur=null;
+      secs.forEach(function(s){ if(s.el.offsetTop<=y) cur=s; });
+      links.forEach(function(a){a.classList.remove('on');});
+      if(cur) cur.a.classList.add('on');
+    },{passive:true});
+  }
+})();
+</script>
+</body>
+</html>

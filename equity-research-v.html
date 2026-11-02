@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — V (Visa)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f5f1; --surface:#ffffff; --surface2:#eef0f4; --ink:#101828; --muted:#5b6675;
+    --line:#d9dce2; --navy:#1a1f71; --navy2:#0d1440; --gold:#c9a227; --gold-soft:#f3e9c8;
+    --green:#14743c; --green-bg:#e3f1e7; --red:#b42318; --red-bg:#fbeae8; --amber:#8a5a00; --amber-bg:#fbf0d3;
+    --bar:#1a1f71; --bar2:#7a86c9; --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0c0f1a; --surface:#141926; --surface2:#1b2233; --ink:#eef0f6; --muted:#a3adc0;
+      --line:#2a3247; --navy:#8f9bf0; --navy2:#c3c9f5; --gold:#d9b64a; --gold-soft:#2c2716;
+      --green:#5ec98a; --green-bg:#14301f; --red:#ff9a8f; --red-bg:#3a1c19; --amber:#f0bd55; --amber-bg:#33270e;
+      --bar:#8f9bf0; --bar2:#4b587f; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:28px 20px 64px}
+  a{color:var(--navy);text-underline-offset:3px}
+  @media (prefers-color-scheme: dark){a{color:var(--gold)}}
+
+  .dateline{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .dateline strong{color:var(--ink)}
+  h1{font-family:"Newsreader",Georgia,serif;font-weight:600;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;margin:22px 0 6px;letter-spacing:-.01em}
+  h1 .ticker{color:var(--navy);font-style:italic}
+  .lede{font-family:"Newsreader",Georgia,serif;font-size:clamp(1.12rem,2.4vw,1.35rem);line-height:1.5;max-width:46em;margin:10px 0 0}
+  .lede em{color:var(--navy)}
+  .subnote{color:var(--muted);font-size:.9rem;margin-top:10px;max-width:62em}
+
+  .verdict{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0 6px}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);padding:16px 16px 14px;box-shadow:var(--shadow)}
+  .vcard .k{font-size:.74rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .vcard .v{font-size:1.55rem;font-weight:800;margin:4px 0 2px;line-height:1.1}
+  .vcard .d{font-size:.86rem;color:var(--muted)}
+  .pill{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:999px;background:var(--green-bg);color:var(--green);vertical-align:middle}
+  .pill.est{background:var(--amber-bg);color:var(--amber)}
+
+  h2{font-family:"Newsreader",Georgia,serif;font-weight:600;font-size:clamp(1.5rem,3.4vw,1.95rem);margin:44px 0 4px;line-height:1.15}
+  h2 .no{color:var(--gold);font-style:italic;margin-right:.35em}
+  .secintro{color:var(--muted);max-width:60em;margin:0 0 16px}
+  h3{font-size:1.02rem;font-weight:700;margin:22px 0 8px}
+  p{margin:0 0 12px;max-width:66em}
+  ul{margin:0 0 12px;padding-left:1.25em;max-width:64em}
+  li{margin-bottom:6px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line);padding:18px;box-shadow:var(--shadow)}
+  .card h3{margin-top:0}
+  .card p:last-child,.card ul:last-child{margin-bottom:0}
+  .flag{border:1px dashed var(--gold);background:var(--gold-soft);padding:12px 14px;font-size:.92rem;margin:14px 0}
+  .flag strong{letter-spacing:.02em}
+
+  .statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
+  .stat{background:var(--surface2);padding:14px 16px}
+  .stat .k{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .stat .v{font-size:1.4rem;font-weight:800;margin-top:3px;line-height:1.15}
+  .stat .d{font-size:.83rem;color:var(--muted);margin-top:2px}
+
+  table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);font-size:.95rem}
+  th,td{padding:11px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+  th{font-size:.76rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+  .tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 7px;border-radius:999px;background:var(--amber-bg);color:var(--amber);white-space:nowrap}
+  .tag.ok{background:var(--green-bg);color:var(--green)}
+  .foot{font-size:.84rem;color:var(--muted);margin-top:8px;max-width:66em}
+
+  /* bars */
+  .bars{margin:8px 0 4px}
+  .brow{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}
+  .brow:last-child{border-bottom:none}
+  .brow .bl{font-weight:600;font-size:.92rem}
+  .brow .bl span{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+  .track{height:22px;background:var(--surface2);position:relative}
+  .fill{position:absolute;inset:0 auto 0 0;background:var(--bar)}
+  .fill.bear{background:var(--red)}.fill.bull{background:var(--green)}.fill.base{background:var(--bar)}.fill.wtd{background:var(--gold)}.fill.cur{background:var(--bar2)}
+  .brow .bv{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+  .brow .bv span{display:block;font-weight:500;color:var(--muted);font-size:.78rem}
+
+  /* calculator */
+  .calc{background:var(--navy2);color:#eef0f6;padding:22px;margin-top:18px}
+  @media (prefers-color-scheme: dark){.calc{background:#1b2233;border:1px solid var(--line);color:var(--ink)}}
+  .calc h3{color:#fff;margin:0 0 6px;font-size:1.1rem}
+  @media (prefers-color-scheme: dark){.calc h3{color:var(--ink)}}
+  .calc p{color:#c3c9f5;font-size:.92rem}
+  @media (prefers-color-scheme: dark){.calc p{color:var(--muted)}}
+  .calcrow{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;margin-top:12px}
+  .calc label{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;display:block;margin-bottom:6px;color:#c3c9f5}
+  @media (prefers-color-scheme: dark){.calc label{color:var(--muted)}}
+  .calc input{font:inherit;font-size:1.15rem;font-weight:700;padding:10px 12px;border:none;border-radius:0;width:210px;background:#fff;color:#101828}
+  .calc .out{font-size:1.05rem}
+  .calc .out strong{font-size:1.5rem;display:block;line-height:1.2}
+  .calc .out span{font-size:.85rem;color:#c3c9f5}
+  @media (prefers-color-scheme: dark){.calc .out span{color:var(--muted)}}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .risk h3{color:var(--red)} .cat h3{color:var(--green)}
+  .sources{font-size:.92rem}
+  .sources li{margin-bottom:8px;word-break:break-word}
+  footer{border-top:2px solid var(--ink);margin-top:48px;padding-top:14px;font-size:.85rem;color:var(--muted)}
+  footer p{max-width:none}
+
+  @media (max-width:760px){
+    .verdict{grid-template-columns:1fr 1fr}
+    .statgrid{grid-template-columns:1fr 1fr}
+    .cols,.twocol{grid-template-columns:1fr}
+    .brow{grid-template-columns:118px 1fr 74px;gap:8px}
+    table,thead,tbody,tr,th,td{display:block}
+    thead{display:none}
+    tr{border-bottom:2px solid var(--line);padding:8px 0}
+    td{border-bottom:none;padding:5px 13px}
+    td.num{text-align:left}
+    td::before{content:attr(data-k);display:block;font-size:.7rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+    td:first-child::before{content:none}
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .fill{transition:width .5s ease}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="dateline">
+    <span><strong>Equity Research</strong> · Financials — Payment Networks</span>
+    <span>As of <strong>1 Nov 2026</strong></span>
+    <span>Price reference: <strong>30 Oct 2026 close</strong> (1 Nov was a weekend)</span>
+  </div>
+
+  <h1>Visa <span class="ticker">(V)</span></h1>
+  <p class="lede">A payment network, <em>not a lender</em> — Visa takes no credit risk on card balances. It earns a toll on money moving through a two-sided network accepted in 200+ countries, and the investment question is how durable that toll is against interchange regulation, local payment rails, and a court settlement that could let merchants refuse its premium cards.</p>
+  <p class="subnote">Ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company. Figures below are the independently verified values from the research pack; where a figure could not be verified it is labelled an estimate or omitted — never presented as fact. Research views only, not guarantees, not investment advice. Profile assumed throughout: mid-30s investor, risk score 8/10.</p>
+
+  <section class="verdict" aria-label="Verdict summary">
+    <div class="vcard"><div class="k">Price · 30 Oct close</div><div class="v">$413.59</div><div class="d">Trailing P/E 33.82 (Finnhub)</div></div>
+    <div class="vcard"><div class="k">Short term · 12–18 mo</div><div class="v"><span class="pill">Buy</span></div><div class="d">Modelled base target $460 (+11%) — estimate</div></div>
+    <div class="vcard"><div class="k">Long term · 5 years</div><div class="v"><span class="pill">Buy</span></div><div class="d">Modelled weighted value $662 — estimate, see §5</div></div>
+    <div class="vcard"><div class="k">Suggested weight</div><div class="v">4%</div><div class="d">Of total portfolio, mid-30s / risk 8 of 10</div></div>
+  </section>
+
+  <div class="statgrid">
+    <div class="stat"><div class="k">Market cap</div><div class="v">$738–773bn</div><div class="d">Vendor range — see note in §2</div></div>
+    <div class="stat"><div class="k">TTM revenue</div><div class="v">$44.5bn</div><div class="d">Gross profit $35.7bn (Fool)</div></div>
+    <div class="stat"><div class="k">Fiscal Q4 2026 revenue</div><div class="v">$12.14bn</div><div class="d"><span class="pos">+13%</span> · adj. EPS $3.48, +17%</div></div>
+    <div class="stat"><div class="k">Transactions</div><div class="v">258bn</div><div class="d">FY2025 total (Fool); 74.2bn in fiscal Q4 alone</div></div>
+  </div>
+
+  <h2><span class="no">1.</span>Business model &amp; segment breakdown</h2>
+  <p class="secintro">Visa sells the rails, not the loans. Issuing banks carry the credit risk on card balances; Visa's economics come from connecting those banks, merchants, and cardholders — and charging for each leg of the connection.</p>
+
+  <div class="cols">
+    <div class="card">
+      <h3>How the money is made</h3>
+      <ul>
+        <li><strong>Service revenues</strong> — fees tied to payments volume on Visa-branded cards.</li>
+        <li><strong>Data-processing revenues</strong> — per-transaction fees for authorisation, clearing and settlement.</li>
+        <li><strong>International-transaction revenues</strong> — cross-border and currency-conversion fees; the highest-value leg, and the one growing fastest (below).</li>
+        <li><strong>Client incentives</strong> — payments back to banks and partners to win and keep volume. This is the counterweight to watch: incentives were <strong>$4.68bn in fiscal Q3 2026</strong>, and Q3 operating expenses rose 19%, outpacing revenue growth.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Scale &amp; reach</h3>
+      <ul>
+        <li>Accepted in <strong>200+ countries</strong>; <strong>258bn transactions in FY2025</strong> (Fool).</li>
+        <li>TTM revenue <strong>$44.5bn</strong> with gross profit of <strong>$35.7bn</strong> (Fool) — a gross margin of roughly 80%.</li>
+        <li>Fiscal Q4 2026 (reported 27 Oct 2026): <strong>74.2bn transactions, +10%</strong>.</li>
+      </ul>
+      <h3>Dependencies</h3>
+      <ul>
+        <li><strong>Clients:</strong> banks and fintechs issue the cards and bring the volume — Visa depends on keeping them incentivised.</li>
+        <li><strong>Regulators:</strong> interchange fees are politically and legally contested (see §4).</li>
+        <li><strong>Travel:</strong> cross-border volume leans on international travel and spending.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Most recent quarters — growth is volume plus cross-border</h3>
+  <table>
+    <thead><tr><th>Quarter</th><th class="num">Net revenue</th><th class="num">Adj. EPS</th><th>Volume detail</th></tr></thead>
+    <tbody>
+      <tr><td data-k=""><strong>Fiscal Q3 2026</strong></td><td class="num" data-k="Net revenue">$11.63bn (+14%)</td><td class="num" data-k="Adj. EPS">$3.32 (+11%)</td><td data-k="Volume detail">Payments volume +10% in constant currency; cross-border volume +13%</td></tr>
+      <tr><td data-k=""><strong>Fiscal Q4 2026</strong> · 27 Oct 2026</td><td class="num" data-k="Net revenue">$12.14bn (+13%)</td><td class="num" data-k="Adj. EPS">$3.48 (+17%)</td><td data-k="Volume detail">74.2bn transactions (+10%); cross-border volume +14%</td></tr>
+    </tbody>
+  </table>
+  <p class="foot">Fiscal Q4 figures confirmed against Visa's official Q4 2026 earnings release in the independent verification pass. Note the one soft spot inside an otherwise clean print: in fiscal Q3, operating expenses grew 19% — faster than the 14% revenue growth — with client incentives the item to watch.</p>
+
+  <h2><span class="no">2.</span>Financial health &amp; balance-sheet diagnostics</h2>
+  <p class="secintro">A very high-margin toll business priced like one. The verified pack is deliberately narrow here: several standard diagnostics were not verified, and they are flagged as open questions rather than filled in.</p>
+
+  <table>
+    <thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / status</th></tr></thead>
+    <tbody>
+      <tr><td data-k=""><strong>Share price</strong></td><td class="num" data-k="Value">$413.59</td><td data-k="Basis">30 Oct 2026 close — <span class="tag ok">Confirmed</span></td></tr>
+      <tr><td data-k=""><strong>Trailing P/E</strong></td><td class="num" data-k="Value">33.82</td><td data-k="Basis">Finnhub — <span class="tag ok">Confirmed</span></td></tr>
+      <tr><td data-k=""><strong>EPS (derived)</strong></td><td class="num" data-k="Value">~$12.23</td><td data-k="Basis">Derived from price ÷ trailing P/E in the pack</td></tr>
+      <tr><td data-k=""><strong>Forward P/E</strong></td><td class="num" data-k="Value">—</td><td data-k="Basis"><span class="tag">Not verified</span> Not quoted in the pack — omitted rather than estimated</td></tr>
+      <tr><td data-k=""><strong>Market cap</strong></td><td class="num" data-k="Value">$738–773bn</td><td data-k="Basis"><span class="tag">Unverified as a single figure</span> $764.09bn (Finnhub) · $773bn (Massive) · $738.20bn (MarketBeat) — vendors differ by share-count treatment</td></tr>
+      <tr><td data-k=""><strong>TTM revenue / gross profit</strong></td><td class="num" data-k="Value">$44.5bn / $35.7bn</td><td data-k="Basis">Fool — gross margin ≈ 80%</td></tr>
+      <tr><td data-k=""><strong>Free cash flow (TTM)</strong></td><td class="num" data-k="Value">—</td><td data-k="Basis"><span class="tag">Not verified</span> Visa is a strong FCF generator in principle; the pack verified no exact TTM figure, so none is quoted</td></tr>
+      <tr><td data-k=""><strong>Dividend yield</strong></td><td class="num" data-k="Value">&lt;1%</td><td data-k="Basis"><span class="tag">Estimate</span> Small dividend per the pack; buybacks are the material return channel, amount not verified</td></tr>
+      <tr><td data-k=""><strong>Leverage / debt-to-equity</strong></td><td class="num" data-k="Value">—</td><td data-k="Basis"><span class="tag">Open question</span> Not covered in the verified pack — no figure is presented</td></tr>
+    </tbody>
+  </table>
+
+  <div class="flag"><strong>Read the valuation honestly:</strong> at 33.82× trailing earnings you are paying full price for the moat in §3. The bull case in §5 needs both double-digit growth <em>and</em> a higher multiple (38×); the bear case is mostly a multiple case — growth of 6% at 26× takes the modelled price below today's.</div>
+
+  <p><strong>Capital allocation, as far as the pack verifies it:</strong> a small dividend (estimate: under 1% yield), with share buybacks described as material but not quantified in the verified material. R&amp;D intensity and an exact buyback total are open questions — they were not verified, so no numbers are attached to them here.</p>
+
+  <h2><span class="no">3.</span>Competitive moat &amp; industry positioning</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>What protects the toll</h3>
+      <ul>
+        <li><strong>Two-sided network:</strong> cardholders go where merchants accept, merchants accept what cardholders carry — a self-reinforcing loop across 200+ countries.</li>
+        <li><strong>Brand and trust:</strong> acceptance is the product; a failed or declined transaction is the one outcome the network sells protection against.</li>
+        <li><strong>Fraud, AI and tokenisation investment:</strong> security tooling and tokenised credentials raise the cost for a rival rail to be seen as equally safe.</li>
+        <li><strong>Pricing power:</strong> evidenced by the model itself — roughly 80% gross margin on TTM figures, sustained at enormous transaction scale.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Who is trying to route around it</h3>
+      <ul>
+        <li><strong>Mastercard</strong> — the direct global-network rival, facing the same interchange settlement (§4).</li>
+        <li><strong>American Express</strong> — a closed-loop competitor with its own issuing economics.</li>
+        <li><strong>PayPal</strong> — a digital-wallet layer that can sit on top of, or steer volume away from, card rails.</li>
+        <li><strong>Local rails</strong> — UPI, Pix and similar national real-time systems, which move money account-to-account without a card network in the middle.</li>
+        <li><strong>Stablecoin rails</strong> — an emerging cross-border alternative aimed at Visa's most profitable leg.</li>
+      </ul>
+    </div>
+  </div>
+  <p>The moat is real but it is a <em>regulatory</em> moat as much as a technological one: acceptance and trust are hard to replicate, yet the price of the toll — interchange — is set in courtrooms and legislatures as much as in the market. That is why §4 leads with litigation.</p>
+
+  <h2><span class="no">4.</span>Catalysts &amp; downside risks</h2>
+  <div class="twocol">
+    <div class="card cat">
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>Cross-border &amp; travel:</strong> cross-border volume grew +13% (fiscal Q3) and +14% (fiscal Q4) — the richest revenue leg is also the fastest-growing.</li>
+        <li><strong>Value-added services:</strong> selling fraud, data and advisory services on top of the rails.</li>
+        <li><strong>Tokenisation:</strong> deeper token adoption embeds Visa credentials inside phones, wallets and checkouts.</li>
+        <li><strong>Real-time payments:</strong> participation in instant-payment flows rather than ceding them entirely to local rails.</li>
+      </ul>
+    </div>
+    <div class="card risk">
+      <h3>Risks</h3>
+      <ul>
+        <li><strong>Interchange litigation:</strong> Visa booked a <strong>$469m provision in fiscal Q4</strong> for the interchange (MDL) case — confirmed in its earnings release.</li>
+        <li><strong>The settlement hearing — 16 Nov 2026:</strong> a <strong>final-approval hearing before Judge Cogan</strong> on a settlement that <em>would</em> let ~12 million US merchants decline premium/commercial cards, cut credit interchange by 10bp for 5 years, and cap standard cards at 1.25% for 8 years.</li>
+        <li><strong>Regulation</strong> of interchange and network rules more broadly.</li>
+        <li><strong>Disintermediation:</strong> CBDCs and local rails (UPI, Pix) routing volume off card networks.</li>
+        <li><strong>Consumer-spending slowdown:</strong> a toll on spending falls when spending does.</li>
+        <li><strong>Cost creep:</strong> fiscal Q3 opex +19% vs revenue +14%, with client incentives at $4.68bn in the quarter.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="foot">Wording matters on the hearing: it is a final-approval hearing for the settlement — not a standalone ruling “on refusal” — and the merchant-refusal right only exists if the settlement is approved on those terms.</p>
+
+  <h2><span class="no">5.</span>Scenario valuation &amp; price targets</h2>
+  <p class="secintro">All scenario prices below are <strong>modelled estimates</strong> from the research pack — not verified facts and not analyst targets. Each case shows its own assumptions (revenue growth, net margin, exit P/E) so the maths can be inspected. One honesty note: the scenario <em>weights</em> behind the weighted figure were not supplied to the independent verifier, so the weighted $662 is labelled unverified as a calculation.</p>
+
+  <h3>5-year scenarios (modelled estimates)</h3>
+  <div class="bars" role="img" aria-label="Bar chart of modelled 5-year scenario prices: bear $391, current price $413.59, base $666, weighted $662, bull $923">
+    <div class="brow"><div class="bl">Bear<span>g 6% · margin 47% · P/E 26</span></div><div class="track"><div class="fill bear" style="width:42%"></div></div><div class="bv">$391<span>−5% vs today</span></div></div>
+    <div class="brow"><div class="bl">Today<span>30 Oct 2026 close</span></div><div class="track"><div class="fill cur" style="width:45%"></div></div><div class="bv">$413.59<span>—</span></div></div>
+    <div class="brow"><div class="bl">Weighted<span>Weights not supplied to verifier</span></div><div class="track"><div class="fill wtd" style="width:72%"></div></div><div class="bv">$662<span class="pos">+60%</span></div></div>
+    <div class="brow"><div class="bl">Base<span>g 10% · margin 51.2% · P/E 33.82</span></div><div class="track"><div class="fill base" style="width:72%"></div></div><div class="bv">$666<span class="pos">+61%</span></div></div>
+    <div class="brow"><div class="bl">Bull<span>g 13% · margin 55% · P/E 38</span></div><div class="track"><div class="fill bull" style="width:100%"></div></div><div class="bv">$923<span class="pos">+123%</span></div></div>
+  </div>
+
+  <table>
+    <thead><tr><th>Case</th><th class="num">Revenue growth</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">Modelled price</th></tr></thead>
+    <tbody>
+      <tr><td data-k=""><strong>Bear</strong></td><td class="num" data-k="Revenue growth">6%</td><td class="num" data-k="Net margin">47%</td><td class="num" data-k="Exit P/E">26</td><td class="num" data-k="Modelled price"><strong>$391</strong></td></tr>
+      <tr><td data-k=""><strong>Base</strong></td><td class="num" data-k="Revenue growth">10%</td><td class="num" data-k="Net margin">51.2%</td><td class="num" data-k="Exit P/E">33.82</td><td class="num" data-k="Modelled price"><strong>$666</strong></td></tr>
+      <tr><td data-k=""><strong>Bull</strong></td><td class="num" data-k="Revenue growth">13%</td><td class="num" data-k="Net margin">55%</td><td class="num" data-k="Exit P/E">38</td><td class="num" data-k="Modelled price"><strong>$923</strong></td></tr>
+      <tr><td data-k=""><strong>Weighted</strong></td><td class="num" data-k="Revenue growth">—</td><td class="num" data-k="Net margin">—</td><td class="num" data-k="Exit P/E">—</td><td class="num" data-k="Modelled price"><strong>$662</strong> <span class="tag">Modelled · weights unverified</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>12–18-month horizon (modelled estimate)</h3>
+  <p>The pack supplies a single 12–18-month figure: a <strong>base target of $460, +11% from $413.59</strong>. No bull or bear targets for this horizon were supplied, so none are shown — the honest read is that the near-term modelled upside (+11%) is modest next to the 5-year base case (+61%), because the model holds the multiple roughly flat near term. The 16 Nov 2026 settlement hearing falls inside this window and is the clearest near-term swing factor in either direction.</p>
+
+  <h2><span class="no">6.</span>Recommendation &amp; position sizing</h2>
+  <div class="cols">
+    <div class="card">
+      <h3>Short term (12–18 mo) — Buy</h3>
+      <p>The pack's call is <strong>Buy</strong>, anchored on the modelled $460 base target. The supporting evidence in the verified figures: two consecutive quarters of double-digit revenue and cross-border growth (fiscal Q3 +14% revenue, fiscal Q4 +13%). The counterweight is event risk — the final-approval hearing on 16 Nov 2026 and the $469m provision already booked — plus a full 33.82× multiple that leaves little room for a spending slowdown.</p>
+    </div>
+    <div class="card">
+      <h3>Long term (5 yr) — Buy</h3>
+      <p>Also <strong>Buy</strong> in the pack. The 5-year base case ($666, modelled) rests on 10% revenue growth at a 51.2% net margin with the multiple held at today's 33.82× — demanding, but the model's engine is the network in §3 rather than multiple expansion. The bear case ($391) is only 5% below today's price, which is what a de-rating to 26× does even with growth intact.</p>
+    </div>
+  </div>
+
+  <div class="calc">
+    <h3>Position-size calculator — 4% target weight</h3>
+    <p>Suggested allocation for a mid-30s investor at risk 8/10: <strong>4% of the total portfolio</strong> in Visa. Enter your portfolio value to see what that means in dollars and approximate shares at the 30 Oct close of $413.59.</p>
+    <div class="calcrow">
+      <div>
+        <label for="pf">Total portfolio ($)</label>
+        <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="250000" />
+      </div>
+      <div class="out">Visa allocation (4%)<strong id="alloc">$10,000</strong><span id="shares">≈ 24.2 shares at $413.59</span></div>
+    </div>
+  </div>
+  <p class="foot" style="margin-top:12px">Calculator maths only — it uses the pack's 4% suggestion and the verified $413.59 close. It is not a recommendation to transact; sizing within a full portfolio belongs to the index artifact's allocation framework.</p>
+
+  <h2><span class="no">7.</span>Sources &amp; verification notes</h2>
+  <ul class="sources">
+    <li><strong>Visa fiscal Q4 2026 earnings release</strong> (revenue $12.14bn, adj. EPS $3.48, $469m MDL litigation provision — confirmed in verification): <a href="https://s1.q4cdn.com/050606653/files/content_files/4Q26-Earnings-Release_vFINAL.pdf">s1.q4cdn.com — 4Q26 Earnings Release (PDF)</a></li>
+    <li><strong>Finnhub</strong> (price $413.59 and trailing P/E 33.82; market cap $764.09bn on Finnhub's share count): <a href="https://finnhub.io/?q=%22V%22">finnhub.io/?q=%22V%22</a></li>
+    <li><strong>Zacks</strong> (Visa fiscal Q4 reported inside Mastercard Q3 coverage): <a href="https://www.zacks.com/stock/news/3018925/mastercard-beats-q3-earnings-on-higher-cross-border-volumes-pricing">zacks.com — Mastercard beats Q3 earnings on higher cross-border volumes</a></li>
+    <li><strong>The Inference</strong> (settlement and the 16 Nov 2026 final-approval hearing before Judge Cogan): <a href="https://theinference.org/article/mastercard-and-visa-would-let-12-million-us-merchants-refuse-premium-cards-a-judge-hears-it-november-16">theinference.org — Mastercard and Visa would let 12 million US merchants refuse premium cards</a></li>
+    <li><strong>HaiPay</strong> (Visa/Mastercard cross-border growth tracker, Q3 2026): <a href="https://www.haipay.net/news/visa-mastercard-cross-border-growth-tracker-q3-2026">haipay.net — Visa Mastercard cross-border growth tracker Q3 2026</a></li>
+    <li><strong>The Motley Fool</strong> — TTM revenue $44.5bn, gross profit $35.7bn, 200+ countries, 258bn FY2025 transactions (as cited in the research pack; no direct link carried in the pack).</li>
+  </ul>
+  <div class="flag"><strong>Open questions, stated plainly:</strong> forward P/E — not verified, omitted. Exact TTM free cash flow — not verified, omitted. Buyback amount — described as material, not quantified. Leverage / debt-to-equity and P/S / EV/EBITDA — not covered in the verified pack, omitted rather than estimated. Market cap — vendor-dependent ($738–773bn); no single figure is presented as fact. 5-year weighted price ($662) — a modelled estimate whose scenario weights were not supplied to the verifier.</div>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Visa (V)</h2>
+<p><strong>Price (30 Oct 2026 close): $413.59.</strong> <strong>DCF intrinsic: $287.</strong> Discount/premium vs DCF: <strong>+44.1%</strong> — i.e. the shares are trading 44.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$287</td><td>+44.1%</td><td>Base Normal FCF: FY2026 FCF $22.06bn (OCF $23.728bn - capex $1.671bn). Net cash = cash $12.4bn - debt $23.9bn = -$11.5bn (30 Jun 2026, pack/greeksoup; VARIANCE: 30 Sep 2026 deck figures give -$7.9bn on a different debt definition — not a hard correction). Growth g 10%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $220.60bn + PV of terminal value $324.60bn + net cash / excess capital $-11.50bn, ÷ 1.86bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/V/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Visa (V)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> Visa does not sell to consumers; its clients are banks, fintechs, merchants and governments, and it discloses no ranked top-7 customer list — none is invented here, and no revenue share is stated for any issuer. Revenue is driven by payments volume (258bn transactions in FY2025, pack), cross-border volume (+14% in fiscal Q4 2026) and value-added services, less client incentives ($4.68bn in fiscal Q3). The largest known issuer partners are the big US banks that issue Visa cards, but Visa does not rank them by revenue, so they are not presented as a top-7 table.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: the thesis applies to Visa’s issuer and merchant base as a group — if the banks and retailers that issue and accept Visa trade at a discount to intrinsic, that is a potential tailwind for card issuance, acceptance and cross-border spend, and vice versa — but an undervalued issuer does not guarantee higher Visa volumes, which depend on that issuer’s own card strategy, credit appetite and consumer demand.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Visa (V)</h2>
+<p><strong>Role: Enabler / Beneficiary.</strong> While the AI trade runs, Visa is an enabler of the AI economy: payments, tokenisation and value-added services (fraud, data, security) ride on AI-driven commerce, including agentic and cross-border transactions — cross-border volume rose 14% in fiscal Q4 2026 (pack) — and AI helps Visa’s own fraud and authorisation tools.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is real but not purely AI: Visa trades at ~34x trailing earnings on a high-margin network model, so part of that multiple reflects durable network growth rather than an AI premium; an AI unwind would still compress it toward a through-cycle network multiple.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — consumer and cross-border spending slows and AI-commerce volumes disappoint; (2) multiple — compression from the mid-30s toward a lower through-cycle level; (3) balance sheet — low direct risk, since Visa takes no card credit risk, though the $469m interchange provision and the November 2026 merchant-refusal hearing (pack) are separate overhangs. Triggers to watch: cross-border volume deceleration, incentive costs rising faster than revenue, and an adverse interchange outcome.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+    <p>Equity Research — V (Visa) · Financials sector · Data as of 1 Nov 2026, prices at the 30 Oct 2026 close. Modelled scenario prices are estimates with assumptions shown in §5, never verified facts. Research views only — not guarantees, not investment advice.</p>
+  </footer>
+</main>
+<script>
+  (function(){
+    var pf=document.getElementById('pf'), alloc=document.getElementById('alloc'), shares=document.getElementById('shares');
+    var PRICE=413.59, WEIGHT=0.04;
+    function fmt(n){return '$'+n.toLocaleString('en-US',{maximumFractionDigits:0});}
+    function update(){
+      var v=parseFloat(pf.value);
+      if(isNaN(v)||v<0){alloc.textContent='—';shares.textContent='Enter a portfolio value';return;}
+      var a=v*WEIGHT;
+      alloc.textContent=fmt(a);
+      shares.textContent='≈ '+(a/PRICE).toLocaleString('en-US',{maximumFractionDigits:1})+' shares at $413.59';
+    }
+    pf.addEventListener('input',update);
+    update();
+  })();
+</script>
+</body>
+</html>

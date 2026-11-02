@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,">
+<title>Equity Research — SONY</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f5f2;--surface:#fff;--surface2:#f0ede6;--ink:#16130f;--muted:#6f6a63;--line:#e3ddd2;--navy:#0f2f4a;--gold:#b9975b;--gold2:#fff7e6;--green:#166b4a;--red:#9b2c2c;--amber:#8a5a12;--radius:16px}
+@media(prefers-color-scheme:dark){ :root{--bg:#0f1115;--surface:#171b21;--surface2:#1e232c;--ink:#ece8df;--muted:#a8a29a;--line:#2a2f38;--navy:#7fb0d6;--gold:#d4b06a;--gold2:#2a2416;}}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.6}
+a{color:var(--navy);text-decoration:underline;text-underline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px 48px}
+.top{padding:28px 0 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-family:Fraunces,serif;font-size:52px;line-height:.95;margin:8px 0 6px;letter-spacing:-.02em}
+h1 span{font-weight:400;font-size:28px;display:block;letter-spacing:0;margin-top:6px;color:var(--muted)}
+h2{font-family:Fraunces,serif;font-size:28px;line-height:1.1;margin:0 0 8px}
+h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+p{margin:0 0 12px} .small{font-size:13px;color:var(--muted)} .mono{font-family:"JetBrains Mono",monospace}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 10px;font-size:12px;font-weight:600}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.price{font-size:52px;font-weight:800;letter-spacing:-.03em;line-height:1} .down{color:var(--red);font-weight:700}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi{background:var(--surface2);border-radius:12px;padding:14px} .kpi b{font-size:20px;display:block;line-height:1.1} .kpi span{font-size:12px;color:var(--muted)}
+.warn{background:#fff3cd;border:1px solid #e8c86a;color:#5c4300;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:14px}
+@media(prefers-color-scheme:dark){.warn{background:#2b2210;color:#f5d98a;border-color:#5a4715}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px} .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:820px){.hero,.grid2,.grid3{grid-template-columns:1fr} h1{font-size:40px} .price{font-size:42px}}
+section{margin-top:28px}
+table{width:100%;border-collapse:collapse;font-size:14px} th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 8px;border-bottom:1px solid var(--line)} td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top} tr:last-child td{border-bottom:none}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap} .bar{height:8px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:6px} .bar i{display:block;height:100%;background:var(--navy)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 7px;border-radius:999px;display:inline-block} .tag-hold{background:#fef3c7;color:#92400e} .tag-buy{background:#dcfce7;color:#14532d} .tag-est{background:var(--gold2);color:var(--amber);border:1px solid #e8d9a8}
+.callout{border-left:4px solid var(--gold);background:var(--surface);padding:16px 18px;border-radius:0 12px 12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px}
+.btn{background:var(--navy);color:#fff;border:none;padding:11px 16px;border-radius:999px;font-weight:700;cursor:pointer;width:100%}
+.sources{font-size:13px} .sources li{margin-bottom:6px;word-break:break-word}
+footer{margin-top:32px;padding-top:16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+.verdict{display:flex;gap:12px;flex-wrap:wrap} .verdict div{flex:1;min-width:200px;background:var(--surface2);padding:16px;border-radius:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+<div>
+<div class="eyebrow">Consumer Discretionary • NYSE: SONY ADR • Tokyo: 6758</div>
+<h1>SONY <span>Sony Group Corporation — Entertainment, PlayStation &amp; Sensors</span></h1>
+<p class="small">As of <strong>1 Nov 2026</strong> • Price reference: <strong>30 Oct 2026 close</strong> (1 Nov was a weekend) • ADR basis throughout unless labelled Tokyo 6758 • For a mid-30s investor, risk 8/10 • Research views only — not investment advice, not guarantees.</p>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><span class="pill">Sector: Consumer Discretionary</span><span class="pill">Ranking basis: FinanceCharts, 30 Oct 2026</span><span class="pill">Verification: independent log applied</span></div>
+</div>
+<div class="card" style="max-width:340px;width:100%">
+<div class="eyebrow">30 Oct 2026 close</div>
+<div class="price">$25.30</div>
+<p><span class="down">−$0.17 (−0.67%)</span> &nbsp; Day $25.06–$25.45 • Vol 7.02m<br><span class="small">52-week ADR: $19.32 (25 Jun 2026) to $30.34 (12 Nov 2025) — −16.6% below high, +31.0% above low. Do <em>not</em> mix this with the Tokyo ¥3,043–¥4,776 yen range.</span></p>
+<p class="small">Market cap: <strong>~$148B ± $1B</strong> — see tie note below.</p>
+</div>
+</header>
+
+<div class="warn"><strong>Fiscal-year warning — read first:</strong> Sony's own label is used here: <strong>FY2025 = year ended 31 Mar 2026; FY2026 = year ending 31 Mar 2027; Q1 FY2026 = Apr–Jun 2026.</strong> Several databases relabel FY2025 as “FY2026” (e.g. StockAnalysis' column headed “FY2026” is the period ended Mar 2026). That relabelling, plus the Oct 2025 Financial Services spin-off, is why databases disagree violently on Sony's P/E and net income. Never compare a consolidated figure that includes the discontinued financial business with a continuing-operations figure. Sony's filed operating income ¥1,447.5B for FY2025 is authoritative — database variants (StockAnalysis ¥1,608.4B, FT ¥1,455.0B for the same column) must not be substituted.</div>
+
+<div class="hero">
+<div class="card">
+<h3>At a glance — why the headline P/E lies</h3>
+<p>Trailing consolidated P/E is <strong>meaningless: −105.24× (FinanceCharts) / n/a (StockAnalysis)</strong> because TTM net income includes the discontinued Financial Services loss. On a <strong>continuing-operations basis</strong> the trailing band is <strong>~19.9–22.6×</strong> (MarketBeat 22.61× confirmed; recomputed ~21.7×). Zacks' 19.86× is an <em>adjusted / continuing-basis</em> multiple — not a plain reported TTM P/E, since reported consolidated TTM EPS is −$0.24. Forward P/E is <strong>~18–19× central</strong> (StockAnalysis 18.52×, Stocknear 18.05×, FinanceCharts 15.97× — spread reflects different forecasts).</p>
+<p><strong>The ranking tie:</strong> #10 in Consumer Discretionary is <strong>source-dependent</strong>. FinanceCharts (30 Oct 2026): SONY $148.38B vs Hermes (HESAY) $148.452B — gap $0.072B, effectively tied. StockAnalysis: HESAY $151.28B ahead of SONY $147.56B (Hermes +$3.72B). Both are included as top 11 with this footnote; neither is an unambiguous #10. Use $148B ± $1B, not a point estimate.</p>
+</div>
+<div class="kpis">
+<div class="kpi"><span>Forward P/E</span><b>18–19×</b><span>18.52× StockAnalysis</span></div>
+<div class="kpi"><span>P/S • EV/EBITDA</span><b>1.89× • 11.59×</b><span>StockAnalysis</span></div>
+<div class="kpi"><span>TTM Free Cash Flow</span><b>$10.09B</b><span>Yield 6.82% • −19.25% YoY</span></div>
+<div class="kpi"><span>P/FCF • P/B</span><b>14.62× • 2.73×</b><span>StockAnalysis</span></div>
+</div>
+</div>
+
+<section class="card">
+<h2>1 &nbsp; Business Model &amp; Segment Breakdown</h2>
+<p>Sony is a Tokyo-headquartered entertainment-and-technology group reporting in yen under IFRS (year ends 31 Mar). Management frames entertainment, IP and creation technology as <strong>67% of consolidated sales</strong> — <span class="tag tag-est">Estimate / unverified framing</span> per May 2026 strategy presentation via MarketBeat. The structural pivot is clear even without that exact share: <strong>entertainment-first, finance-out</strong>.</p>
+<p><strong>FY2025 (ended 31 Mar 2026), continuing operations — the clean base year:</strong> Sales <strong>¥12,479.6B (+4%)</strong>, operating income <strong>¥1,447.5B (+13%)</strong> — both record highs; continuing net income <strong>¥1,030.9B (−3%, tax-base effect)</strong>.</p>
+<div style="overflow-x:auto"><table><thead><tr><th>Segment (FY2025)</th><th class="num">Sales ¥B</th><th class="num">Op. income ¥B</th><th class="num">Margin</th><th>What it sells</th></tr></thead><tbody>
+<tr><td><strong>Game &amp; Network Services</strong><br><span class="small">36.8% of segment sales</span><div class="bar"><i style="width:37%"></i></div></td><td class="num">4,685.7</td><td class="num">463.3 (+12%)</td><td class="num">9.9%</td><td>PS5 hardware, PlayStation Store (30% platform take — industry standard, <em>estimate, not Sony-disclosed</em>), first-party games, PS Plus</td></tr>
+<tr><td><strong>Music</strong><br><span class="small">16.7%</span><div class="bar"><i style="width:17%"></i></div></td><td class="num">2,120.1 (+15%)</td><td class="num">447.0 (+25%)</td><td class="num">21.1%</td><td>Recorded (Columbia, Epic, RCA), publishing (largest catalogue), Aniplex anime + mobile</td></tr>
+<tr><td><strong>Pictures</strong><br><span class="small">11.8%</span><div class="bar"><i style="width:12%"></i></div></td><td class="num">1,499.3 (flat)</td><td class="num">104.9 (−11%)</td><td class="num">7.0%</td><td>Columbia / TriStar, TV production, Crunchyroll (&gt;21m paid subs at Mar 2026), SonyLIV</td></tr>
+<tr><td><strong>ET&amp;S</strong> — TVs, audio, cameras, phones<br><span class="small">17.8%</span><div class="bar"><i style="width:18%"></i></div></td><td class="num">2,260.5 (−6%)</td><td class="num">158.6 (−17%)</td><td class="num">7.0%</td><td>BRAVIA, headphones, Alpha cameras, Xperia — structurally weakest, most memory/tariff exposed</td></tr>
+<tr><td><strong>Imaging &amp; Sensing (I&amp;SS)</strong><br><span class="small">16.9%</span><div class="bar"><i style="width:17%"></i></div></td><td class="num">2,151.5 (+20%)</td><td class="num">357.3 (+37%)</td><td class="num">16.6%</td><td>CMOS image sensors — world #1; ASP + unit growth drove FY2025</td></tr>
+<tr><td colspan="5" class="small">Segment sales sum ¥12,717.1B; difference to consolidated ¥12,479.6B is intersegment elimination. All Other / Corporate OI −¥83.5B is arithmetic-consistent within rounding, not directly sourced. FY2024 OI comparatives: G&amp;NS ¥414.8B, Music ¥357.3B, Pictures ¥117.3B, ET&amp;S ¥190.9B, I&amp;SS ¥261.1B.</td></tr>
+</tbody></table></div>
+
+<h3 style="margin-top:18px">Financial Services — now discontinued</h3>
+<p>Effective <strong>1 Oct 2025</strong> Sony spun off Sony Financial Group (SFGI), distributing 1 SFGI share per Sony share and retaining <strong>16.40% at spin-off</strong> (a later ~17.4% voting figure is <span class="tag tag-est">Unverified</span>). It is a discontinued operation from Q1 FY2025 and equity-method from Q3 FY2025; by Q1 FY2026 it no longer met equity-affiliate criteria. Total assets fell ¥35,293.2B (Mar 2025, incl. finance) → ¥15,683.5B (Mar 2026) — a deconsolidation, not a sale. Including discontinued ops, FY2025 attributable result was a <strong>loss of ¥326.9B</strong> — never read that as “Sony lost money” operationally. A ¥43.9B land gain was crystallised on the spin-off.</p>
+
+<h3 style="margin-top:18px">Latest quarter — Q1 FY2026 (Apr–Jun 2026)</h3>
+<p>Sales <strong>¥2,837.8B (+8.2%)</strong>, operating income <strong>¥476.5B (+40.2%, 16.8% margin)</strong>, net income <strong>¥342.2B (+32.1%)</strong>, diluted EPS <strong>¥57.82 (+35%)</strong>. Constant-currency sales were <strong>down ~1%</strong> — headline growth is substantially yen flattery (avg ¥159.3/$ vs ¥144.6/$ a year earlier; ¥19.1B of G&amp;NS OI was FX alone).</p>
+<div style="overflow-x:auto"><table><thead><tr><th>Q1 FY2026</th><th class="num">Sales ¥B</th><th class="num">Op. income ¥B</th><th class="num">Margin</th></tr></thead><tbody>
+<tr><td>G&amp;NS</td><td class="num">937.1 (+0.6%)</td><td class="num">202.0 (+37%)</td><td class="num">21.6%</td></tr>
+<tr><td>Music</td><td class="num">562.0 (+21%)</td><td class="num">105.9 (+14%)</td><td class="num">18.8%</td></tr>
+<tr><td>Pictures</td><td class="num">315.1 (−4%)</td><td class="num">24.8 (+33%)</td><td class="num">7.9%</td></tr>
+<tr><td>ET&amp;S</td><td class="num">543.9 (+2%)</td><td class="num">42.6 (−1%)</td><td class="num">7.8%</td></tr>
+<tr><td>I&amp;SS</td><td class="num">512.7 (+26%)</td><td class="num">122.2 (+125%)</td><td class="num">23.8%</td></tr>
+</tbody></table></div>
+<p class="small" style="margin-top:10px"><strong>Geography (FY2025 continuing, 20-F):</strong> US 32.6% (¥4,064.4B), Europe 22.7% (¥2,826.8B), Japan 10.6% (¥1,333.2B), China + Asia-Pacific + Other 34.1% combined. ~90% of sales are outside Japan while many costs are yen-denominated — a structurally long-USD/EUR, short-JPY operating position. <strong>Platform over box:</strong> PS5 shipments 20.8m (FY2023, corrected) → 18.5m → 16.0m (FY2025) while G&amp;NS OI rose ¥290.2B → ¥414.7B → ¥463.3B. Cumulative PS5: <strong>95.3m</strong> (93.7m at 31 Mar 2026 + 1.6m in Q1 FY2026, corrected from 95.6m). PSN MAU 125m in Jun 2026 (June record, +2%).</p>
+<p class="small"><strong>Supply chain:</strong> Kumamoto / Koshi / Nagasaki / Oita / Kagoshima sensor fabs; TSMC / logic-wafer supply; DRAM/NAND memory (binding 2026 constraint); smartphone OEM design wins; third-party publishers incl. Rockstar/Take-Two for GTA VI; Spotify/Apple/YouTube/TikTok for music distribution. Sony–TSMC next-gen sensor JV (~¥1T, ~60/40, Koshi, from 2029) is <strong>REPORTED–UNCONFIRMED</strong> — Sony declined to confirm amount/share/timing. Tamron proposal was confirmed on the Q1 call.</p>
+</section>
+
+<section class="card">
+<h2>2 &nbsp; Financial Health &amp; Balance Sheet</h2>
+<div class="grid2">
+<div>
+<h3>Valuation (ADR, $25.30, 30 Oct 2026)</h3>
+<table>
+<tr><td>Market cap</td><td class="num"><strong>~$148B ± $1B</strong></td></tr>
+<tr><td>Enterprise value</td><td class="num">$148.24B *</td></tr>
+<tr><td>Trailing P/E (consolidated)</td><td class="num">−105× / n/a — meaningless</td></tr>
+<tr><td>Trailing P/E (continuing)</td><td class="num">~22× band (19.9–22.6×)</td></tr>
+<tr><td>Forward P/E</td><td class="num">18.05–18.52× (FC 15.97×)</td></tr>
+<tr><td>P/S / EV/EBITDA / P/B</td><td class="num">1.89× / 11.59× / 2.73×</td></tr>
+<tr><td>Beta</td><td class="num">0.60–0.99 — unreconciled</td></tr>
+</table>
+<p class="small">* EV so close to market cap implies near-zero net debt only on an ex-financial-services definition — do not use EV without that qualifier. Beta range is Finnhub 0.60 to MarketBeat 0.99; do not quote a single beta.</p>
+<h3 style="margin-top:16px">Dividend — quote both bases</h3>
+<p>FY2026 forecast <strong>¥35/share (¥17.5 + ¥17.5)</strong>, up from ¥25. Yield: <strong>MarketBeat ADR 0.43%</strong> vs <strong>Tokyo-6758 0.88% / ¥35-at-¥155 estimate 0.89%</strong>. The gap's cause is <strong>unverified</strong> (likely timing / FX / ADR-fee basis) — never quote either figure alone without its basis.</p>
+</div>
+<div>
+<h3>Cash flow &amp; leverage</h3>
+<p>TTM FCF to 30 Jun 2026: <strong>$10.09B</strong> (OCF $13.11B − capex $3.02B), down 19.25% YoY; FCF/share $1.75 (FinanceCharts; $1.72 on StockAnalysis share count), yield <strong>6.82%</strong> — the valuation support. Sony's own “without Financial Services” OCF forecast for FY2026 is <strong>¥1,500B</strong>, below FY2025's ¥1,966.3B. Q1 continuing OCF fell to ¥197.4B as inventories and content assets absorbed cash.</p>
+<p>Capex was ¥804.9B in FY2025, planned ¥760.0B in FY2026 — <span class="tag tag-est">Detail unverified</span>. R&amp;D ~¥762B for FY2025 is an <strong>estimate, unit-ambiguous</strong> — never quote “$762B of R&amp;D.” Post-spin-off (Mar 2026) Sony ex-finance is indicatively <strong>net cash</strong> before leases/content liabilities on Zacks' USD conversion (cash $14.58B vs debt ~$6.88B — indicative, not audited, for a Japanese IFRS filer). Moody's A2 / positive outlook action is <span class="tag tag-est">Unverified</span> in the verification pass — not relied on here.</p>
+<h3 style="margin-top:14px">Capital allocation</h3>
+<p><strong>Buyback:</strong> Authorised 8 May 2026 — up to <strong>230m shares / ¥500B</strong> (11 May 2026–10 May 2027). By 30 Sep 2026: <strong>74,473,700 shares for ¥263.4B (52.7% of yen limit)</strong>; ¥236.6B remained. Issued shares 5,965,316,326 at 30 Jun 2026. The 184,494,319 treasury-cancellation count is <span class="tag tag-est">Unverified</span>. <strong>M&amp;A:</strong> Recognition Music Group consolidation (~¥260B cash / ~¥550B catalogue assets) is <span class="tag tag-est">Unverified amounts</span> — direction (buying Music catalogue) is reported, exact amounts are not verified.</p>
+</div>
+</div>
+</section>
+
+<section class="card">
+<h2>3 &nbsp; Competitive Moat &amp; Positioning</h2>
+<p>Sony's moat is a <strong>portfolio, not a single moat</strong> — the strength and the reason for a conglomerate discount vs pure-plays.</p>
+<div style="overflow-x:auto"><table><thead><tr><th>Segment</th><th>Moat / pricing power</th><th>Competitors</th><th>Verdict</th></tr></thead><tbody>
+<tr><td><strong>G&amp;NS</strong></td><td>93.7m PS5 installed base + 125m PSN MAU = network effects + platform toll. Hardware pricing power is negative at the margin at ~$650 / Pro $899.99 price points.</td><td>Microsoft/Xbox + Game Pass, Nintendo Switch 2, Steam/PC</td><td><strong>Strong but maturing</strong></td></tr>
+<tr><td><strong>Music</strong></td><td>Big-3 label + world's largest publishing catalogue; streaming annuity, low marginal cost. Pricing shared with Spotify/Apple.</td><td>Universal, Warner</td><td><strong>Strong — most annuity-like</strong></td></tr>
+<tr><td><strong>Pictures</strong></td><td>Library/franchises + Crunchyroll anime vertical. No general DTC platform at Netflix/Disney scale — an arms dealer to streamers.</td><td>Disney, WBD, Universal, Netflix/Amazon</td><td><strong>Moderate</strong></td></tr>
+<tr><td><strong>ET&amp;S</strong></td><td>Brand + Alpha colour science/autofocus + premium audio. No cost moat.</td><td>Samsung, LG, Canon, Nikon, Apple</td><td><strong>Weak–moderate</strong></td></tr>
+<tr><td><strong>I&amp;SS</strong></td><td>World #1 CMOS, stacked-sensor know-how, multi-year OEM qualification, scarce capacity. ASP uplift is the pricing lever.</td><td>Samsung ISOCELL, OmniVision</td><td><strong>Strong — deepest tech moat</strong></td></tr>
+</tbody></table></div>
+<p class="small" style="margin-top:10px">Barriers: catalogue scale (tens of billions to replicate), sensor fab capex, 125m-MAU network effects, licensing thickets. Why ~18–19× forward, not 25×+: (i) ET&amp;S + Pictures drag, (ii) yen/ADR + spin-off accounting fog, (iii) hardware cyclicality. PS5 is only ~1% ahead of PS4 in US sell-through at month 71 despite far higher prices.</p>
+</section>
+
+<section>
+<div class="grid2">
+<div class="card">
+<h2>4a &nbsp; Catalysts — next 12–18 months</h2>
+<ol style="margin:0;padding-left:18px">
+<li><strong>Q2 FY2026 results — 5 Nov 2026</strong> (4 days after as-of date). The immediate binary. Pre-print consensus: <strong>$0.38 EPS on both sources; revenue $20.14B (Drillr) vs $19.93B (Zacks) — source-dependent, label it.</strong> Tokyo line ¥63.67 on ¥3,193.9B (Drillr). Must answer: did Q1's 16.8% margin survive Kumamoto + memory costs, and is the raised FY2026 guide (sales ¥12.5T, OI ¥1.72T, net ¥1.21T) still credible? <em>Q2 outcome was unverified at as-of date.</em></li>
+<li><strong>GTA VI — 19 Nov 2026</strong> (PlayStation + Xbox). September US PS5 strength and Pro scarcity are reported but Circana detail and Pro pricing/scarcity claims are <span class="tag tag-est">Unverified</span> in this pass — treat the launch date as confirmed, the pre-sales colour as indicative. If Pro supply is tight, the windfall accrues to software/Store take, not hardware margin.</li>
+<li><strong>First-party slate:</strong> Marvel Tokon (Aug 2026), Marvel's Wolverine (Sep 2026 per Q1 call), God of War: Laufey (Feb 2027), Saros (Apr 2026). Live-service reset (Marathon) is an execution test, not a guaranteed driver.</li>
+<li><strong>Buyback exhaustion / renewal + dividend step-up</strong> — ¥236.6B remained at 30 Sep 2026; a larger May 2027 programme would be a direct re-rating lever.</li>
+<li><strong>Sensor recovery + Tamron integration;</strong> any definitive Sony–TSMC JV (terms currently unconfirmed).</li>
+<li><strong>Analyst anchor (Tokyo basis):</strong> Japanese firm Buy, target cut ¥4,900 → <strong>¥4,700 (7 Oct 2026, confirmed)</strong>. Macquarie ¥4,700 is <span class="tag tag-est">Unverified</span>. At ~¥155/$ ¥4,700 implies ~$30/ADR — do not convert without stating the FX assumption.</li>
+</ol>
+</div>
+<div class="card">
+<h2>4b &nbsp; Downside Risks</h2>
+<ul style="margin:0;padding-left:18px">
+<li><strong>PlayStation cycle cliff:</strong> PS5 is 6 years old; cumulative 95.3m. PS6 timing is <strong>unverified</strong> (rumours of late 2027/early 2028 are not guidance). 2027–28 is the classic air-pocket.</li>
+<li><strong>Memory-price shock:</strong> Management flags “continued surge in memory prices” for ET&amp;S/G&amp;NS — hits PS5 BOM, cameras and TVs at once.</li>
+<li><strong>Kumamoto earthquake, 28 Jul 2026 (M7.1):</strong> Kumamoto Tech Center halted; gradual restart from 4 Aug, pre-quake output by mid-Aug. Sony <strong>excluded the impact from its raised FY2026 forecast</strong> because it could not reasonably estimate it — an open liability until Q2 quantifies it. Sensor lead times of 10–20 weeks are <span class="tag tag-est">Unverified</span>.</li>
+<li><strong>FX — ADR double exposure:</strong> Weak yen flatters yen results but a snap-back to ~¥140/$ would cut reported USD earnings ~10%+ with no business change — <em>modelled sensitivity, not a forecast.</em></li>
+<li><strong>US tariffs:</strong> Q1 G&amp;NS was helped by tariff refunds (amount undisclosed); PS5 prices were raised in Aug 2025 / Apr 2026. Reversal hits hardware first.</li>
+<li><strong>Regulatory / geopolitical:</strong> Music royalty &amp; catalogue scrutiny, games platform-fee/content rules, AI-training-data rules, China (~11%+ of sales) + Taiwan-Strait / Kyushu concentration. No Sony-specific fine is asserted — these are sector headwinds.</li>
+<li><strong>Execution:</strong> Bungie (¥138.4B of FY2025 one-offs incl. Bungie) and Pixomondo show M&amp;A/content bets can destroy capital.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="card">
+<h2>5 &nbsp; Scenario Valuation &amp; Price Targets <span class="tag tag-est">All modelled estimates</span></h2>
+<p class="small">Method: 12–18m targets = assumed FY2026 net income ÷ assumed diluted shares, converted at assumed FX, × assumed P/E. 5-year targets use the frozen-parameter formula <strong>2031 price = 2031 revenue × net margin ÷ shares × P/E</strong>. Base revenue $82.81B (¥12,479.6B at ¥150.7/$), shares frozen at 5.87B, continuing margin 8.26%. Trailing consolidated P/E is meaningless, so P/E is anchored on the continuing band (19.9–22.6×) and forward band (18–19×). Targets verified arithmetically in the independent log.</p>
+<h3>12–18 months (to ~Q2 FY2027, ADR)</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Case</th><th>Assumptions</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Target</th><th class="num">vs $25.30</th></tr></thead><tbody>
+<tr><td><strong>Bear (25%)</strong></td><td>Net ¥1,150B, 5.80B sh, ¥150/$</td><td class="num">$1.32</td><td class="num">16×</td><td class="num"><strong>$21</strong></td><td class="num">−17%</td></tr>
+<tr><td><strong>Base (50%)</strong></td><td>Net ¥1,210B (guidance), 5.75B sh, ¥153/$</td><td class="num">$1.38</td><td class="num">21×</td><td class="num"><strong>$29</strong></td><td class="num">+15%</td></tr>
+<tr><td><strong>Bull (25%)</strong></td><td>Net ¥1,300B, 5.70B sh, ¥153/$</td><td class="num">$1.49</td><td class="num">24×</td><td class="num"><strong>$36</strong></td><td class="num">+42%</td></tr>
+</tbody></table></div>
+<p><strong>Probability-weighted: ~$28.75</strong> (from rounded targets; $28.67 unrounded). FinanceCharts' FCF fair price $25.62 implies the stock is fairly valued on FCF alone — Base upside is earnings-driven, not multiple-expansion-driven. Flip triggers: Q2 margin &lt;14% / Kumamoto charge → Bear; margin ≥16% + GTA availability + buyback renewal → Bull.</p>
+<h3 style="margin-top:18px">5-year frozen-parameter projection (FY2031)</h3>
+<div style="overflow-x:auto"><table><thead><tr><th>Case</th><th class="num">Rev CAGR</th><th class="num">2031 Revenue</th><th class="num">Margin</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">2031 Price</th></tr></thead><tbody>
+<tr><td><strong>Bear</strong></td><td class="num">1.0%</td><td class="num">$87.03B</td><td class="num">6.0%</td><td class="num">$0.89</td><td class="num">14×</td><td class="num"><strong>$12.45</strong></td></tr>
+<tr><td><strong>Base</strong></td><td class="num">4.0%</td><td class="num">$100.75B</td><td class="num">8.26%</td><td class="num">$1.42</td><td class="num">20×</td><td class="num"><strong>$28.35</strong></td></tr>
+<tr><td><strong>Bull</strong></td><td class="num">6.0%</td><td class="num">$110.82B</td><td class="num">10.0%</td><td class="num">$1.89</td><td class="num">24×</td><td class="num"><strong>$45.30</strong></td></tr>
+</tbody></table></div>
+<p class="small">Caveats: (i) Base 5-year ($28.35) sits <em>below</em> the 12–18m Base ($29) because the 5-year formula freezes P/E/margin and ignores buyback shrinkage and the FY2026 step-up — a methodological artefact, not a price path; do not interpolate. Bull recomputes to $45.31 (1¢ rounding). (ii) Bear implies a halving if the entertainment mix stalls — a stress case, not a forecast. (iii) No dividend included; ¥35 (~0.9% Tokyo-basis estimate) would add ~4–5% cumulative over 5 years if maintained. (iv) FX held constant in USD terms.</p>
+</section>
+
+<section class="card">
+<h2>6 &nbsp; Recommendation &amp; Portfolio Sizing</h2>
+<div class="verdict">
+<div><span class="tag tag-hold">Short term — Hold</span><h3 style="margin-top:10px">12–18 months: HOLD, buy on weakness</h3><p>+15% Base upside is real but the 5 Nov print is a genuine binary and the stock is fairly valued on FCF. Hold existing; <strong>add only below ~$23.50</strong>, trim into strength above ~$32 if GTA euphoria overshoots.</p></div>
+<div><span class="tag tag-buy">Long term — Buy</span><h3 style="margin-top:10px">5 years: BUY</h3><p>Rotation toward Music annuity (21% margin), sensor moat, PlayStation toll and Crunchyroll; finance drag removed; 6.8% FCF yield; buyback shrinking the count. The conglomerate discount is the re-rating lever if ET&amp;S keeps shrinking as a share of profit.</p></div>
+<div><h3>Sizing — mid-30s, risk 8/10</h3><p style="font-size:28px;font-weight:800;line-height:1">4% <span style="font-size:14px;font-weight:600;color:var(--muted)">target • range 3–5%</span></p><p class="small">Satellite, not core. Starter: 2% now, +2% only on a Q2-confirmed margin print or a dip below $23.50. Stay at 3% if already concentrated in mega-cap tech/entertainment; do not exceed 5% without an explicit concentration decision. Trim to 3% if it grows past 6%; exit review if I&amp;SS margin &lt;12% for two quarters, buyback not renewed by mid-2027, or PS6 delay beyond 2028 is confirmed.</p></div>
+</div>
+<div class="grid2" style="margin-top:16px">
+<div class="callout"><strong>Position-size calculator</strong><p class="small">Enter total portfolio value to see the 4% target and the 3–5% range in dollars. In-memory only — nothing is saved.</p>
+<label class="small" for="pf">Total portfolio ($)</label><input id="pf" type="number" value="250000" min="0" step="1000">
+<div id="calcOut" style="margin-top:12px;font-weight:700"></div></div>
+<div><h3>What the sizing means</h3><p class="small">At 4%: Base (+15%) adds ~+0.6pp to the portfolio, Bull (+42%) ~+1.7pp, Bear 5-year stress (−51%) costs ~−2.0pp — painful but not plan-breaking. That asymmetry is why Sony earns a satellite slot at risk 8/10, not a core slot: five businesses, but one management team, one yen, one Kyushu fab cluster.</p><p class="small"><strong>Key risks in one line each:</strong> Q2 margin miss; Kumamoto cost still unquantified; memory inflation; yen snap-back; PS6 air-pocket; catalogue-M&amp;A overpay; China/Taiwan escalation.</p></div>
+</div>
+</section>
+
+<section class="card">
+<h2>Sources</h2>
+<ul class="sources">
+<li>Price / history — FinanceCharts: <a href="https://www.FinanceCharts.com/stocks/SONY/summary/price">financecharts.com/stocks/SONY/summary/price</a> • StockAnalysis: <a href="https://stockanalysis.com/stocks/sony/history/">stockanalysis.com/stocks/sony/history</a> • TipRanks historical prices</li>
+<li>Market cap — FinanceCharts: <a href="https://www.FinanceCharts.com/stocks/SONY/summary/market-cap">financecharts.com/stocks/SONY/summary/market-cap</a> • Sector page (HESAY tie): <a href="https://www.financecharts.com/sectors/consumer_discretionary?columns=epsdilutedcagr3y&sort=epsdilutedcagr3y">financecharts.com/sectors/consumer_discretionary</a> • StockAnalysis: <a href="https://stockanalysis.com/stocks/sony/market-cap/">stockanalysis.com/stocks/sony/market-cap</a> and <a href="https://Stockanalysis.com/quote/otc/HESAY/market-cap/">HESAY market cap</a></li>
+<li>FY2025 filing summary (6-K, 8 May 2026): <a href="https://files.sec2pdf.com/Sony%20Group%20Corp%20(SONY)/SEC_Filings_PDF/6-K/20260508-6-K-Sony%20Group%20Corp-0001104659-26-057451.pdf">SEC 6-K PDF</a> • MarketBeat FY2025 report: <a href="https://www.marketbeat.com/earnings/reports/2026-5-8-sony-group-co-stock/">marketbeat.com</a></li>
+<li>Q1 FY2026: <a href="https://files.quartr.com/reports/658168d0fd9239859f65057d9c0513ca-2026-07-31-03-00-53.pdf?ref=TWFya2V0QmVhdCBNZWRpYSBMTEM=">Quartr Q1 summary PDF</a> • Zacks Q1: <a href="https://www.zacks.com/stock/news/2965798/sony-q1-earnings-sales-rise-on-gaming-sensors-fy26-view-lifted?cid=CS-STOCKTWITS-HL-analyst_blog|earnings_article-2965798&adid=SYND_STOCKTWITS_HEADLINE_ANALYSTBLOG_210_2965798">zacks.com</a> • Drillr Q2 preview: <a href="https://drillr.ai/article/sony-q2-fy2026-earnings-playstation-sensors-weak-yen-2026">drillr.ai</a></li>
+<li>Valuation / FCF — StockAnalysis statistics: <a href="https://stockanalysis.com/stocks/sony/statistics/">stockanalysis.com/stocks/sony/statistics</a> • FinanceCharts P/E &amp; FCF: <a href="https://www.financecharts.com/stocks/SONY/value/pe-ratio-averages">pe-ratio-averages</a>, <a href="https://www.FinanceCharts.com/stocks/SONY/growth/free-cash-flow">free-cash-flow</a> • Zacks P/E (adjusted basis): <a href="https://www.zacks.com/stock/chart/SONY/fundamental/pe-ratio-ttm">zacks.com</a></li>
+<li>Buyback — TipRanks: <a href="https://www.tipranks.com/news/company-announcements/sony-details-progress-of-ongoing-share-buyback-program-in-september-2026">tipranks.com</a> • Dividend forecast: <a href="https://www.ad-hoc-news.de/boerse/corporate-news/sony-forecasts-jpy-35-dividend-per-sony-group-stock/70421397">ad-hoc-news.de</a> • Tokyo dividend: <a href="https://StockAnalysis.com/quote/tyo/6758/dividend/">stockanalysis.com/quote/tyo/6758/dividend</a></li>
+<li>Spin-off filing: <a href="https://www.otcmarkets.com/filing/html?id=18910428&guid=7eb-kHVz5Dz_dth">otcmarkets.com filing</a> • Kumamoto / Q1 results: <a href="https://www.cined.com/sony-q1-fy2026-financial-results-image-sensors-shine-outlook-raised-and-tamron-bid-confirmed/">cined.com</a> • Analyst target ¥4,700: <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/sony-group-stock-target-falls-to-jpy-4-700-while-buy-rating-stays/70399175">ad-hoc-news.de</a></li>
+</ul>
+<p class="small">Every figure above was checked in an independent verification log; where the log corrected the research pack, the corrected value is used and noted. Items the log marked UNVERIFIED are labelled Estimate / Unverified above and never presented as fact. All scenario prices are modelled estimates with methodology shown.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — SONY (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $25.30.</strong> <strong>DCF intrinsic: $27.12.</strong> Discount/premium vs DCF: <strong>-6.7%</strong> — i.e. the shares are trading 6.7% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$27.12</td><td>-6.7%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $10.09bn. TTM FCF to 30 Jun 2026 (pack §2: OCF $13.11bn - capex $3.02bn = $10.09bn, down 19.25% y/y). Growth g = 4% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $75.08bn + PV of terminal value $84.73bn + net cash $-0.64bn, divided by 5.87bn diluted shares = <strong>$27.12</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>UNVERIFIED reconciliation: pack notes Tokyo forecast ¥35 (~$0.23 at ¥155/$) vs MarketBeat ADR yield 0.43% (~$0.11). $0.22 (the ~0.9% basis) is used and labelled UNVERIFIED.</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — SONY (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. The majority of sales are to consumers (PlayStation hardware/software, music, pictures), although image sensors are sold to business customers (notably phone makers) in aggregate; no single customer is disclosed above 10% of group revenue in the pack. Key demand drivers: PlayStation cycle and software attach, sensor demand from smartphone makers, and music/pictures content performance.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — SONY</h2>
+<p><strong>Role: Beneficiary.</strong> Sony is an AI beneficiary at one remove: image sensors feed AI vision systems, PlayStation and content benefit from AI tools, and the pack's pivot is entertainment/IP at 67% of sales — but Sony does not sell AI infrastructure itself.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through sensor orders from smartphone makers and through content/IP monetisation; the multiple is supported by the entertainment mix, not an AI-infrastructure premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in sensors if phone makers cut orders, and in content spending; then the multiple compresses toward a through-cycle conglomerate multiple (the pack's continuing-operations band is ~20–23x); then the balance sheet — near-zero net debt on StockAnalysis' ex-finance definition — is a cushion. Watch: sensor lead times and pricing, the Q2 FY2026 print's margin, and any Kumamoto/memory disruption.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>Equity Research — SONY • Consumer Discretionary • Prepared 1 Nov 2026 from the 30 Oct 2026 close. This page is research information only, not investment advice and not a guarantee of future returns. Verify prices and filings before acting. — Blaze</footer>
+</div>
+<script>
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+function calc(){var v=parseFloat(document.getElementById('pf').value)||0;document.getElementById('calcOut').textContent='Target 4%: '+fmt(v*0.04)+'  •  Range 3–5%: '+fmt(v*0.03)+' – '+fmt(v*0.05)+'  •  Starter 2%: '+fmt(v*0.02);}
+document.getElementById('pf').addEventListener('input',calc);calc();
+</script>
+</body>
+</html>

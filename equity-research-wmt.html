@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — WMT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 86px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Consumer Staples</span><span>Retail · Grocery · E-commerce &amp; Advertising</span></div>
+  <h1>Walmart <span class="tick">(NYSE: WMT)</span></h1>
+  <p class="lede">The world's largest retailer is quietly rewriting its own margin story. The stores still run on a 3.0% net margin — but the growth is now coming from the high-margin layers on top of them: global e-commerce was 23% of net sales in FY2026 Q4, global advertising grew 37% (Walmart Connect +41%), and membership income rose 17% in the latest quarter. The debate is not the business; it is the price: at 44.07× trailing earnings (Finnhub), Walmart trades like a platform, not a grocer.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $123.51 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print in pack:</b> Q2 FY2027 (reported Aug 2026)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+    <span><b>Profile:</b> mid-30s, risk 8/10</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$123.51</div><div class="vsub">Confirmed in the independent verification pass (Finnhub / StockAnalysis)</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$972.82B</div><div class="vsub">Finnhub basis — MarketBeat shows $979.90B; vendor difference is share-count treatment, see §2</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">44.07×</div><div class="vsub">Finnhub (MarketBeat: 44.59×) · P/S ~1.32× · Dividend yield 0.80%</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / net income</div><div class="vbig mono">$735.84B</div><div class="vsub">Net income $22.08B — a 3.0% net margin on the largest revenue base in US retail</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">12–18-month base target $132 (MarketBeat consensus $132.41, Buy) — +6.9% from the close, before the 0.80% yield.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled 5-year weighted value ~$164 (+33%) — the case rests on advertising, marketplace and membership mix lifting margin, not on store growth.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">4.0% of portfolio</div><div class="vsub">Research-pack recommendation for this profile — core staples holding. See §6 for the calculator.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q2 FY27</span><h2>The latest quarter in one view</h2></div>
+  <p>Q2 FY2027 (reported August 2026) is the most recent print in the verified research pack. Read it in two halves: the top line and the adjacencies are compounding nicely — revenue +5.9%, e-commerce +23%, advertising +38%, membership +17% — while the cash statement shows what that growth currently costs to build.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q2 FY2027 / H1 FY2027</th><th class="n">Actual</th><th class="n">YoY / note</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Q2 revenue</td><td class="n">$187.9B</td><td class="n">+5.9%</td><td>Mid-single-digit growth on an enormous base — the guide (below) says management expects a slower second half</td></tr>
+      <tr><td>Q2 global e-commerce</td><td class="n">—</td><td class="n">+23%</td><td>Still growing at more than 4× the rate of total revenue; 23% of net sales in FY2026 Q4</td></tr>
+      <tr class="hl"><td>Q2 global advertising</td><td class="n">—</td><td class="n">+38%</td><td>The highest-margin growth line in the company — the mix-shift engine behind the bull case</td></tr>
+      <tr><td>Q2 membership income</td><td class="n">—</td><td class="n">+17%</td><td>Walmart+ and Sam's Club membership — recurring, high-retention revenue layered on the store base</td></tr>
+      <tr><td>H1 operating cash flow</td><td class="n">$19.71B</td><td class="n">H1 FY27</td><td>The cash engine is intact</td></tr>
+      <tr><td>H1 capital expenditure</td><td class="n">$14.18B</td><td class="n">H1 FY27</td><td>Fulfilment and automation build-out — capex is consuming 72% of H1 operating cash flow</td></tr>
+      <tr><td>H1 free cash flow</td><td class="n">$5.53B</td><td class="n">down from $6.94B</td><td>$19.71B − $14.18B = $5.53B. The cash bill of fulfilment/automation is real, and FCF fell year-on-year despite revenue growth</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Context — FY2026 Q4 and the FY2027 guide.</b> The quarter that closed FY2026 showed the same pattern: revenue +5.6%, adjusted EPS $0.74 (+12%+), US comparable sales +4.6%, global e-commerce +24% (23% of net sales) and global advertising +37% (Walmart Connect +41%). For FY2027, management guided <b>net sales +3.5–4.5%</b> and <b>operating income +6–8%</b> — operating income guided to grow roughly twice as fast as sales, which is the mix-shift thesis stated in management's own numbers. One caution from the pack: <b>tariff-refund benefits flattered recent operating-income growth — do not annualise that piece.</b></p>
+  <p class="small">Sources: research pack §1–§2 (Fool, FinanceCharts, InsiderMonkey — linked in Sources), independently verified 1 Nov 2026. Segment-level dollar splits for Q2 were not carried in the verified pack and are not estimated here.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Trailing income flow — $735.84B in, $22.08B kept</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow diagram of Walmart segments into trailing revenue, then net income and all other costs" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="20" width="200" height="52" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="42" font-size="13" font-weight="700" fill="var(--ink)">Walmart U.S.</text><text x="20" y="60" font-size="12" fill="var(--ink2)">Core stores + e-commerce</text>
+      <rect x="8" y="86" width="200" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="108" font-size="13" font-weight="700" fill="var(--ink)">Walmart International</text><text x="20" y="126" font-size="12" fill="var(--ink2)">incl. Walmex · 19 countries</text>
+      <rect x="8" y="152" width="200" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="174" font-size="13" font-weight="700" fill="var(--ink)">Sam's Club U.S.</text><text x="20" y="192" font-size="12" fill="var(--ink2)">Warehouse membership clubs</text>
+      <rect x="8" y="218" width="200" height="52" fill="var(--green-soft)" stroke="var(--line2)"/><text x="20" y="240" font-size="13" font-weight="700" fill="var(--ink)">Adjacencies</text><text x="20" y="258" font-size="12" fill="var(--ink2)">Connect ads · marketplace · membership</text>
+      <rect x="318" y="102" width="182" height="66" fill="var(--navy)"/><text x="334" y="130" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="334" y="150" font-size="13" fill="#fff">$735.84B</text>
+      <line x1="208" y1="46" x2="314" y2="112" stroke="var(--muted)" stroke-width="10" opacity=".35"/>
+      <line x1="208" y1="112" x2="314" y2="124" stroke="var(--muted)" stroke-width="7" opacity=".35"/>
+      <line x1="208" y1="178" x2="314" y2="140" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="208" y1="244" x2="314" y2="154" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <rect x="606" y="56" width="240" height="58" fill="var(--green-soft)" stroke="var(--line2)"/><text x="620" y="79" font-size="13" font-weight="700" fill="var(--ink)">Net income</text><text x="620" y="97" font-size="12" fill="var(--ink2)">$22.08B · 3.0% net margin</text>
+      <rect x="606" y="146" width="240" height="58" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="620" y="169" font-size="13" font-weight="700" fill="var(--ink)">All other costs*</text><text x="620" y="187" font-size="12" fill="var(--ink2)">$713.76B · 97.0% of revenue</text>
+      <line x1="500" y1="118" x2="602" y2="90" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="500" y1="152" x2="602" y2="170" stroke="var(--muted)" stroke-width="12" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="606" y="238" width="366" height="44" fill="var(--paper)" stroke="var(--line2)"/><text x="620" y="258" font-size="12.5" font-weight="700" fill="var(--ink)">H1 FY27 cash flow: $19.71B operating − $14.18B capex</text><text x="620" y="274" font-size="12" fill="var(--ink2)">= $5.53B free cash flow, down from $6.94B a year earlier</text>
+    </svg>
+    <figcaption>*“All other costs” is a combined residual ($735.84B revenue − $22.08B net income = $713.76B): merchandise, wages, logistics, operating expenses, interest and tax together — the verified pack does not split them, so they are not split here. Segment revenue dollars are likewise not in the pack; segment boxes are unweighted. Flow widths are indicative, not to scale. TTM = trailing twelve months to the pack's reference date.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Walmart sells <b>necessities at the lowest sustainable cost, at unmatched scale</b> — and increasingly rents that scale to others. Three reporting segments run the stores and clubs; on top of them sit the adjacencies (e-commerce marketplace, Walmart Connect advertising, and membership) that grow at 17–41% and carry margins the store base never will. The investment case is the second business growing inside the first.</p>
+
+  <h3>The three segments, plus the adjacency layer</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>What it contains</th><th>Mechanics &amp; latest signal</th></tr></thead>
+    <tbody>
+      <tr><td>Walmart U.S.</td><td>Supercentres, discount stores, neighbourhood markets and walmart.com</td><td>The core engine: US comparable sales +4.6% in FY2026 Q4; grocery scale is the traffic driver that everything else monetises</td></tr>
+      <tr><td>Walmart International</td><td>Operations across 19 countries in total, including Walmex (Mexico &amp; Central America)</td><td>The diversification leg — different consumer cycles, currencies and formats on the same supply-chain playbook</td></tr>
+      <tr><td>Sam's Club U.S.</td><td>Warehouse membership clubs</td><td>Membership-fee economics: members pay to access bulk pricing, giving Walmart a Costco-style recurring layer inside its own P&amp;L</td></tr>
+      <tr class="hl"><td>Adjacencies — e-commerce, advertising, membership</td><td>Global e-commerce and marketplace, Walmart Connect advertising, Walmart+ / club membership</td><td>Global e-commerce +23% in Q2 FY27 and 23% of net sales in FY26 Q4; global advertising +38% in Q2 (+37% in FY26 Q4; Connect +41%); membership +17% in Q2. Small beside $735.84B of revenue, decisive for the margin direction</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Scale &amp; footprint</h3>
+      <ul>
+        <li><b>10,900+ locations in 19 countries</b>, with ~<b>2.1 million associates</b> (Fool, cited in the pack).</li>
+        <li><b>Ownership:</b> the Walton family holds ~45% — a controlling-family structure that supports long-horizon capital decisions (the automation build-out is one) and limits outside influence on strategy.</li>
+        <li><b>Geographic split:</b> the verified pack confirms the 19-country footprint and the Walmex anchor for International, but does not carry a revenue-by-region table — none is shown rather than an estimated one.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural pivot</h3>
+      <ul>
+        <li><b>From store margin to mix margin:</b> FY2027 guidance — sales +3.5–4.5%, operating income +6–8% — embeds operating leverage coming from advertising, marketplace and membership mix, not from selling more groceries per store.</li>
+        <li><b>Automation as the cost leg:</b> H1 capex of $14.18B is the fulfilment/automation bill. It depresses FCF today ($5.53B, down from $6.94B) in exchange for a lower cost-to-serve on e-commerce tomorrow — the pivot only pays if that exchange completes.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Merchandise sourcing &amp; tariffs:</b> a general-merchandise assortment sourced globally means tariff and input-cost changes land directly in cost of goods — and the pack flags that tariff-<i>refund</i> benefits recently flattered operating-income growth, a tailwind that should not be annualised.</li>
+    <li><b>Labour at scale:</b> ~2.1 million associates makes wage pressure a first-order P&amp;L variable, not a footnote — every broad wage move is multiplied by the largest private workforce in the US.</li>
+    <li><b>Fulfilment network:</b> the omni-channel model depends on the store network doubling as fulfilment nodes plus the automated centres now being built — execution and capex discipline here decide whether e-commerce growth is profitable growth.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Walmart's financial signature is <b>thin margin, enormous throughput, modest cash yield at today's price</b>. A 3.0% net margin on $735.84B still produces $22.08B of net income — but at a $972.82B market cap, the trailing free-cash-flow yield is only ~1.4%, and the 44× earnings multiple prices in the mix-shift future rather than the grocery present.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $123.51 (30 Oct 2026 close). Vendor basis named per line, per the verification log: Finnhub and MarketBeat differ on cap and P/E by share-count treatment — do not mix them silently.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market capitalisation</td><td class="n">$972.82B</td><td>Finnhub basis (verification log). MarketBeat shows $979.90B — same company, different share-count treatment</td></tr>
+      <tr><td>Implied shares outstanding</td><td class="n">~7.88B</td><td>Derived: $972.82B ÷ $123.51. Used as the frozen share count in the §5 model</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">44.07×</td><td>Finnhub basis, confirmed in verification. MarketBeat shows 44.59×. Either way: a platform multiple on a 3%-margin retailer — the central valuation tension (§4, §5)</td></tr>
+      <tr><td>Forward P/E</td><td class="n">not verified</td><td>Not carried as a verified figure in the pack (marked n.v.) — not estimated here</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~1.32×</td><td>$972.82B ÷ $735.84B TTM revenue — low in absolute terms, high for a retailer, reflecting the margin-mix story</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">not verified</td><td>Not carried in the pack (marked n.v.) — omitted rather than estimated; P/E and FCF yield are the pack's cash cross-checks</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$735.84B</td><td>Confirmed in the verification pass</td></tr>
+      <tr><td>TTM net income / net margin</td><td class="n">$22.08B / 3.0%</td><td>Confirmed. $22.08B ÷ $735.84B = 3.0% — every 10bp of margin is worth ~$0.74B of net income at this revenue base, which is why mix shift matters so much</td></tr>
+      <tr><td>Trailing FCF yield</td><td class="n">~1.4%</td><td>On trailing operating cash flow minus capex of ~$13.5B (InsiderMonkey, cited in the pack): $13.5B ÷ $972.82B ≈ 1.4%. Thin — the price assumes FCF recovers as the automation capex wave passes</td></tr>
+      <tr><td>H1 FY27 FCF</td><td class="n">$5.53B</td><td>Operating cash flow $19.71B − capex $14.18B; down from $6.94B in H1 FY26</td></tr>
+      <tr><td>Dividend yield</td><td class="n">0.80%</td><td>Walmart is a dividend payer; the pack does not carry verified dividend or buyback amounts (marked n.v.), so no payout totals are shown</td></tr>
+      <tr><td>FY2027 guidance</td><td class="n">Sales +3.5–4.5%</td><td>Operating income guided +6–8% — profit growing ~2× sales on mix. Caution: tariff-refund benefits flattered recent operating-income growth; do not annualise that piece</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">Vendor note — read the basis, not just the number</div>
+  <p>The verification pass confirmed WMT's price ($123.51), TTM revenue ($735.84B) and net income ($22.08B), and confirmed the P/E and market cap <b>on a Finnhub basis</b>: cap $972.82B and P/E 44.07×. MarketBeat's $979.90B cap and 44.59× P/E are not errors — they are a different share-count treatment. This report uses Finnhub throughout and names the vendor wherever the figure appears, rather than blending the two.</p></div>
+
+  <h3>Capital allocation, as evidenced in the pack</h3>
+  <ul>
+    <li><b>1. Reinvestment first, heavily:</b> $14.18B of capex in H1 FY27 alone, directed at fulfilment and automation — the dominant use of cash right now, and the reason FCF fell year-on-year despite profit growth.</li>
+    <li><b>2. Dividend maintained:</b> a payer at a 0.80% yield — income is a secondary feature of this holding, not the proposition.</li>
+    <li><b>3. Buybacks:</b> Walmart is a buyer of its own stock per the pack, but verified amounts were not carried (marked n.v.) — no buyback total is asserted here, and the §5 model conservatively freezes the share count at ~7.88B.</li>
+  </ul>
+  <p class="small">Open items: the verified pack does not carry a forward P/E, an EV/EBITDA multiple, a debt / leverage schedule, or verified dividend and buyback amounts for WMT. Those lines are flagged here rather than filled with estimates — they are the first additions to make when the pack is extended.</p>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — a cost-and-scale moat, now with a data layer on top.</b> Walmart is ranked <b>#1 in Consumer Staples</b> in the series' ranking basis (FinanceCharts, last updated 30 Oct 2026). No competitor can match its US grocery scale, and the advertising business converts that scale — shopper traffic and transaction data — into a second, high-margin moat that pure grocers cannot replicate.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Unmatched US grocery scale:</b> the largest store and grocery footprint in the US, spread across 10,900+ locations in 19 countries — purchasing leverage and distribution density rivals cannot buy their way into.</li>
+      <li><b>Supply chain as a weapon:</b> decades of logistics investment plus the current automation wave lower cost-to-serve structurally; cost leadership is what funds the everyday-low-price promise competitors must match at worse margins.</li>
+      <li><b>Private labels:</b> own-brand ranges capture manufacturer margin and build store loyalty that national brands cannot follow to a rival shelf.</li>
+      <li><b>Omni-channel fulfilment:</b> stores double as pickup and delivery nodes, letting Walmart fulfil e-commerce orders from inventory already near the customer — an asset pure online rivals have to build from scratch.</li>
+      <li><b>Advertising data flywheel:</b> Walmart Connect (+41% in FY26 Q4) sells advertisers access to verified shopper data; more traffic → better ad targeting → more ad revenue → more investment in price and fulfilment → more traffic.</li>
+      <li><b>Sam's Club:</b> a membership warehouse format inside the group — fee income and an affluent-member funnel that hedges the core banner's trade-down exposure.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Costco</b> — the membership-warehouse benchmark; the pack's cited comparison (Fool / InsiderMonkey) frames the pair directly: Walmart is the cheaper stock on earnings, Costco the richer one on cash flow — which is another way of saying Walmart's multiple already borrows some of Costco's quality premium.</li>
+      <li><b>Amazon</b> — the e-commerce and advertising rival: Walmart's +23–38% adjacency growth is being earned against the strongest possible incumbent on both lines.</li>
+      <li><b>Target and the grocers</b> — compete for the same weekly shop; none matches Walmart's scale, but each can pressure price locally and regionally.</li>
+      <li><b>A 3% margin is a thin shield:</b> the moat produces volume and data superbly, but the P&amp;L keeps only 3 cents per dollar — cost shocks (tariffs, wages) reach net income fast (§4).</li>
+      <li><b>No pricing power in the classic sense:</b> Walmart's promise is to be cheapest; it wins by costing less, not by charging more — so margin expansion must come from mix (ads, marketplace, membership), never from shelf prices.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> #1 in the sector by scale, with the moat widening where it matters — each point of advertising and membership growth is revenue a grocery rival cannot contest. The moat is real; §5 asks the separate question of how much of it the 44× price has already paid for.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Advertising / marketplace mix shift:</b> global advertising +38% in Q2 FY27 (Connect +41% in FY26 Q4) — every quarter this outgrows total revenue by ~30 points, blended margin mechanically rises, and with it the earnings the 44× multiple is applied to.</li>
+        <li><b>Membership compounding:</b> +17% in Q2 — Walmart+ and Sam's Club fees are recurring, high-retention, and pull higher-spending households into the ecosystem.</li>
+        <li><b>Delivery and omni-channel depth:</b> e-commerce at +23% with stores as fulfilment nodes — if automation lowers cost-to-serve as capex completes, today's FCF drag becomes tomorrow's margin.</li>
+        <li><b>International:</b> the 19-country base, anchored by Walmex, adds growth and diversification the US store base alone cannot.</li>
+        <li><b>Guide delivery:</b> FY27 operating income guided +6–8% on sales +3.5–4.5% — simply hitting it confirms the mix thesis in management's own framework.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Valuation at 44× for a 3%-margin retailer:</b> the pack's headline risk. There is no multiple cushion — ordinary disappointment in mix or comps is enough to de-rate the stock toward the bear case.</li>
+        <li><b>Tariffs / input costs:</b> sourced merchandise exposes cost of goods directly; note the mirror-image risk too — recent operating-income growth was flattered by tariff-<i>refund</i> benefits that will not repeat.</li>
+        <li><b>Wage pressure:</b> ~2.1 million associates — broad wage inflation is a leveraged hit to a 3% net margin.</li>
+        <li><b>Capex intensity:</b> H1 capex of $14.18B cut FCF to $5.53B (from $6.94B). If the automation wave extends or returns disappoint, the ~1.4% FCF yield stays thin for longer than the price assumes.</li>
+        <li><b>Consumer trade-down limits:</b> Walmart gains when shoppers trade down — but a weaker consumer eventually spends less per basket even at Walmart, and a stronger consumer may trade back up to rivals. The tailwind has a ceiling in both directions.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>The adjacency engine stalling — advertising and membership growth converging to the rate of total sales — while capex stays at the current intensity. Walmart would then be a 3%-margin grocer priced at 44× earnings with a 1.4% FCF yield, and the bear case in §5 (34× on a 2.6% margin) would be generous rather than harsh.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All scenario prices on this page are <b>modelled estimates</b> — built from the stated assumptions, shown so the arithmetic can be checked, and not verified facts. The verification pass confirmed the inputs carried in §1–§2 (price, Finnhub cap and P/E, TTM revenue and net income); it did not verify scenario arithmetic, so every target below carries its full methodology.</p>
+
+  <h3>12–18-month target (modelled / street-anchored)</h3>
+  <div class="scen">
+    <div class="sc base" style="grid-column:span 1"><div class="tag" style="color:var(--blue)">Base · 12–18 mo</div><div class="price mono">$132</div><div class="ret up">+6.9% vs $123.51</div><p>Anchored to the MarketBeat consensus target of <b>$132.41 (Buy)</b> carried in the pack. Add the 0.80% dividend yield for a total-return view. The pack carries no separate 12–18-month bear/bull pair for WMT, so none is invented here — the scenario spread lives in the 5-year model below.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">What beats it</div><div class="price mono" style="font-size:22px;line-height:1.3">Mix delivers early</div><p>Advertising and membership sustain Q2's growth rates, FY27 operating income lands at or above the +6–8% guide without the tariff-refund tailwind, and the market keeps paying a platform multiple.</p></div>
+    <div class="sc bear"><div class="tag" style="color:var(--red)">What misses it</div><div class="price mono" style="font-size:22px;line-height:1.3">Multiple does the damage</div><p>No crisis is required: comps or mix a few points light at 44× trailing is enough for the price to fall toward the 5-year bear path long before the business itself deteriorates.</p></div>
+  </div>
+
+  <h3>5-year projection — frozen-parameter model (your standard format)</h3>
+  <p>Starting point: <b>forward revenue base ~$775B</b> (the base implied by the pack's scenario maths — TTM revenue is $735.84B; the model's base sits ~5% above it, consistent with a forward year), <b>share count held frozen at ~7.88B</b> (Finnhub cap ÷ price), and only revenue growth, net margin and the exit P/E varying by case — the same convention as the other reports in this series, so they are directly comparable. Freezing the share count is conservative if buybacks shrink it.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Return vs $123.51</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">3%</td><td class="n">2.6%</td><td class="n">~$898B</td><td class="n">$2.97</td><td class="n">34×</td><td class="n">$101</td><td class="n">−18.2%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">5%</td><td class="n">3.0%</td><td class="n">~$989B</td><td class="n">$3.77</td><td class="n">44.07×</td><td class="n">$166</td><td class="n">+34.4%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">7%</td><td class="n">3.4%</td><td class="n">~$1,087B</td><td class="n">$4.69</td><td class="n">48×</td><td class="n">$225</td><td class="n">+82.2%</td></tr>
+      <tr class="total"><td>Probability-weighted (modelled estimate)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">~$164</td><td class="n">+32.8%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Check the base case by hand: $775B × 1.05<sup>5</sup> = ~$989B revenue; × 3.0% = ~$29.7B net income; ÷ 7.88B shares = $3.77 EPS; × 44.07 = <b>$166</b>. Bull and bear check the same way ($775B grown at 7% / 3%, at 3.4% / 2.6% margins, × 48 / 34). Weighted: 0.25×$101 + 0.50×$166 + 0.25×$225 = $164.50, carried in the pack as <b>~$164</b>.</p>
+  <div class="callout"><div class="ct">Read the base case honestly</div><p>The base case holds the exit multiple at <b>today's 44.07×</b> — it assumes the market still pays a platform price for Walmart in 2031. The return (+34% over five years, ~6% a year) is therefore mostly <i>earnings growth at a held multiple</i>, not a bargain being corrected. The bear case is what multiple normalisation looks like (34×, 2.6% margin: −18%); the bull case is what happens if the mix shift genuinely re-rates the margin structure (3.4% and 48×: +82%). Your return is decided less by whether Walmart grows — it grows in all three cases — than by which margin-and-multiple pair 2031 believes in.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendation as carried in the verified research pack.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Base target $132 (MarketBeat consensus $132.41, Buy) is +6.9% above the close, with a 0.80% yield on top — a modest but positive near-term skew for a defensive name, supported by the FY27 operating-income guide of +6–8%. Size it as a staples position, not a trade: the 44× multiple can compress faster than the fundamentals can grow.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — core staples holding, despite the premium multiple, because the mix shift is real.</b> Advertising +38%, membership +17% and e-commerce +23% are measured growth rates, not projections, and the modelled weighted value of ~$164 (+33%) already assumes the multiple merely holds rather than expands. Build in tranches if the multiple offers a better entry.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill trim">Trim</span></td><td>Review if advertising or membership growth converges to total-sales growth for two consecutive quarters (the mix thesis stalling), if FCF yield stays at ~1.4% because the capex wave extends without margin payoff, or if tariff/input-cost or wage pressure pushes the net margin below the bear case's 2.6%.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>WMT target: 4.0% of total portfolio</b> (research-pack recommendation for a mid-30s, risk-8/10 investor).</li>
+    <li><b>Role in the portfolio:</b> the Consumer Staples anchor — defensive ballast whose return driver (mix shift) is largely uncorrelated with the AI-capex cycle dominating the growth sleeves. It is held for steadiness plus a real, measured margin story, not for income (0.80%) or torque.</li>
+    <li><b>Count the overlap:</b> Walmart is a top holding in broad US index funds — a direct 4.0% on top of an index-heavy core makes total Walmart exposure larger than 4.0%. That is tolerable for a #1 staples name, but know the true number before adding.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Ranking basis for this series: FinanceCharts Consumer Staples ranking, last updated 30 Oct 2026, prices at the 30 Oct 2026 close. WMT is #1 in this sector — already included in the top-10 list, so no expansion of the list was needed to include it.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Walmart (WMT)</h2>
+<p><strong>Price (30 Oct 2026 close): $123.51.</strong> <strong>DCF intrinsic: $21.</strong> Discount/premium vs DCF: <strong>+488.1%</strong> — i.e. the shares are trading 488.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$21</td><td>+488.1%</td><td>Base Normal DCF: TTM FCF (OCF-capex) ~$13.5bn per pack (InsiderMonkey). No normalisation beyond pack figure; tariff-refund flattery flagged in pack, not quantified. Net cash = cash $11.53bn - debt $75.09bn = -$63.56bn. Growth g 5%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $105.46bn + PV of terminal value $124.75bn + net cash / excess capital $-63.56bn, ÷ 7.934bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/WMT/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Walmart (WMT)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list. Demand is driven by US consumer spending, grocery and general-merchandise share gains, e-commerce and advertising growth, and price competitiveness against discount and club rivals.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Walmart (WMT)</h2>
+<p><strong>Role: Beneficiary.</strong> While the AI trade runs, Walmart benefits as an applier, not a builder: AI improves supply-chain forecasting, automation, e-commerce search and advertising targeting, supporting the mix shift the pack cites as its quality edge — while AI-capex by others also lifts the general economy Walmart sells into.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is the risk: at ~44x trailing earnings Walmart already carries a premium multiple for a retailer, so an AI-driven market de-rating would compress it even though Walmart itself is not an AI stock.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — consumer spending softens, though grocery staples cushion the fall better than discretionary; (2) multiple — compression from the mid-40s toward a through-cycle retailer multiple, the main value risk here; (3) balance sheet — automation and store capex already depress free cash flow ($13.5bn TTM, pack), so a spending downturn would test that investment pace rather than AI-capex debt. Triggers to watch: US consumer spending, e-commerce growth, and any pullback in automation capex.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Figures are from the WMT research pack (as of 1 Nov 2026, price reference 30 Oct 2026 close), independently verified 1 Nov 2026 against a second set of sources — price, TTM revenue and net income confirmed; market cap and P/E confirmed on the Finnhub basis named in §2. Scenario prices are modelled estimates with methodology shown in §5, not verified facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.financecharts.com/keyword/consumer_staples" target="_blank" rel="noopener">FinanceCharts — Consumer Staples ranking (sector ranking basis, updated 30 Oct 2026)</a></li>
+    <li><a href="https://finnhub.io/?q=%22WMT%22" target="_blank" rel="noopener">Finnhub — WMT price, market cap ($972.82B) and trailing P/E (44.07×) basis</a></li>
+    <li><a href="https://stockanalysis.com/stocks/wmt/" target="_blank" rel="noopener">StockAnalysis — WMT price and financials cross-check</a></li>
+    <li><a href="https://www.insidermonkey.com/news/walmart-vs-costco-why-the-cheaper-earnings-stock-costs-more-for-cash-flow-1850847/" target="_blank" rel="noopener">InsiderMonkey — Walmart vs Costco: earnings vs cash-flow comparison (trailing FCF basis)</a></li>
+    <li><a href="https://www.fool.com/investing/2026/03/09/walmart-vs-costco-which-stock-is-the-better-buy/" target="_blank" rel="noopener">Motley Fool — Walmart vs Costco: which stock is the better buy</a></li>
+    <li>Fool Consumer Staples coverage (sector page, cited in the pack) — footprint, associates and segment context</li>
+  </ol>
+  <p class="disc">Research views only, as of 1 Nov 2026 — not guarantees and not investment advice. Scenario targets are modelled estimates built from the assumptions stated in §5; they are not analyst consensus (except the 12–18-month base, which is anchored to the MarketBeat consensus of $132.41 as carried in the pack) and were not presented to the verifier as facts. Figures the verified pack did not carry (forward P/E, EV/EBITDA, leverage schedule, verified dividend/buyback amounts, segment and regional revenue splits) are flagged as open items in the text rather than estimated.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=123.51, TARGET=0.04;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(pf.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the 4.0% sizing.';return;}
+    var amt=v*TARGET;
+    var shares=amt/PRICE;
+    out.innerHTML='At the <b>4.0%</b> target: <b>$'+fmt(amt)+'</b> in WMT ≈ <b>'+fmt(shares)+' shares</b> at $123.51.';
+  }
+  pf.addEventListener('input',render);
+  render();
+  var toc=document.getElementById('toc');
+  if(toc){toc.addEventListener('click',function(e){if(e.target.tagName==='A'){var links=toc.querySelectorAll('a');for(var i=0;i<links.length;i++)links[i].style.color='';e.target.style.color='var(--blue)';}});}
+})();
+</script>
+</body>
+</html>

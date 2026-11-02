@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CAT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f4ee; --paper:#fffdf6; --ink:#171a1e; --ink2:#3f4652; --muted:#6e7684;
+  --line:#ddd6c4; --line2:#c6bb9d;
+  --navy:#1c2430; --blue:#7a5c00; --blue-soft:#f3e9c8;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#c79a00; --cat:#e8b400;
+  --card:#ffffff; --chip:#efece1;
+  --shadow:0 1px 2px rgba(23,26,30,.06),0 8px 24px rgba(23,26,30,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#101114; --paper:#17181c; --ink:#ece9df; --ink2:#b9bec9; --muted:#8b919e;
+    --line:#2c2e35; --line2:#3d404a;
+    --navy:#e8c84a; --blue:#e8c84a; --blue-soft:#2c2814;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#191a1f; --chip:#23242a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--gold)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#101114}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--gold)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#23242a;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Industrials</span><span>Machinery · Construction &amp; Mining Equipment</span></div>
+  <h1>Caterpillar <span class="tick">(NYSE: CAT)</span></h1>
+  <p class="lede">The world&rsquo;s benchmark heavy-equipment franchise — construction and mining machines, off-highway engines, industrial gas turbines and diesel-electric locomotives, sold and serviced through a global dealer network with Cat Financial attached. Q3 2026 triggered a sharp derating, from about $863 on 6 Oct to $622.75 at the 30 Oct close. The question now is whether that reset over-discounts a cyclical slowdown, or correctly prices tariffs, softer construction and the end of peak pricing power.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $622.75 close, Fri 30 Oct 2026</span>
+    <span><b>Sector frame:</b> Industrials — global top-10 universe (see Basis)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage">
+    <span class="tab active">CAT — this report</span>
+    <span class="tab">Industrials peers covered separately</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$622.75</div><div class="vsub down">−3.81% on the day · −27.8% from ~$863 on 6 Oct</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$286.3B</div><div class="vsub">FinanceCharts basis · ~460M shares implied</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">26.8×</div><div class="vsub">P/S 3.8× (derived) · EPS $18.81 — vendor windows differ, see §2</div></div>
+  <div class="vcell span3"><div class="vlabel">Street reference</div><div class="vbig mono">$1,000 <span class="up" style="font-size:16px">+61%</span></div><div class="vsub">J.P. Morgan Overweight; target cut $1,100 → $1,000 post-Q3</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD / Buy on weakness <span class="pill hold">Hold</span></div><div class="vsub">Modelled base $680 (+9%). Let the post-earnings reset settle; add in tranches, not all at once.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $737 (+18%). Dealer network + installed base compound through cycles.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Cyclical single-name slot inside Industrials. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">OCT 2026</span><h2>The derating in one view</h2></div>
+  <p>Caterpillar did not drift lower — it <b>re-priced in three weeks</b>. From about <b>$863 on 6 Oct</b> the shares fell to <b>$647.39 on 29 Oct</b> after Q3 and then to <b>$622.75 on 30 Oct (−3.81% on the day)</b>. J.P. Morgan kept its <b>Overweight</b> rating but cut its target from <b>$1,100 to $1,000</b> — the classic &ldquo;story intact, near-term maths reset&rdquo; signal. At $622.75 the stock carries a sourced <b>trailing P/E of 26.8×</b> (Finnhub; the pack&rsquo;s separately-sourced EPS is <b>$18.81</b> — the two use different vendor TTM windows, reconciled explicitly in §2 rather than forced into one figure), well below where the bank — and the pre-Q3 price — thought fair value sat.</p>
+  <figure>
+    <svg viewBox="0 0 980 260" width="100%" role="img" aria-label="Caterpillar share price derating from about 863 dollars on 6 October to 647 dollars on 29 October and 622 dollars 75 cents on 30 October 2026" style="font-family:'Archivo',sans-serif">
+      <line x1="70" y1="210" x2="930" y2="210" stroke="var(--line2)" stroke-width="1"/>
+      <line x1="70" y1="60" x2="930" y2="60" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 4"/>
+      <polyline points="110,60 500,168 860,188" fill="none" stroke="var(--red)" stroke-width="3"/>
+      <circle cx="110" cy="60" r="6" fill="var(--card)" stroke="var(--red)" stroke-width="3"/>
+      <circle cx="500" cy="168" r="6" fill="var(--card)" stroke="var(--red)" stroke-width="3"/>
+      <circle cx="860" cy="188" r="6" fill="var(--card)" stroke="var(--red)" stroke-width="3"/>
+      <text x="110" y="36" font-size="14" font-weight="700" fill="var(--ink)" text-anchor="middle">~$863</text>
+      <text x="110" y="232" font-size="12" fill="var(--muted)" text-anchor="middle">6 Oct 2026</text>
+      <text x="500" y="144" font-size="14" font-weight="700" fill="var(--ink)" text-anchor="middle">$647.39</text>
+      <text x="500" y="232" font-size="12" fill="var(--muted)" text-anchor="middle">29 Oct — post-Q3</text>
+      <text x="860" y="164" font-size="14" font-weight="700" fill="var(--ink)" text-anchor="middle">$622.75</text>
+      <text x="860" y="232" font-size="12" fill="var(--muted)" text-anchor="middle">30 Oct close · −3.81%</text>
+      <text x="500" y="100" font-size="13" fill="var(--red)" font-weight="600" text-anchor="middle">−27.8% in 24 days</text>
+    </svg>
+    <figcaption>Only the three sourced prints are plotted — 6 Oct (~$863), 29 Oct ($647.39) and the verified 30 Oct close ($622.75). No intervening prices are interpolated as fact. Sources: Intickers CAT report; StockAnalysis price history (see Sources).</figcaption>
+  </figure>
+  <div class="callout warn"><div class="ct">Ranking basis — read this first</div>
+  <p><b>Global</b> top-10 by market cap (Motley Fool sector pages; rankings and metrics as of <b>5 Oct 2026</b>, with live quote cards updating; prices in this note at the <b>30 Oct 2026 close</b>), <b>including OTC ADRs and state-controlled issuers</b>. The Industrials list runs to <b>11 names</b> because Bloom Energy (BE), a named ticker in the brief, is added. The list is <b>not in strict market-cap order</b> as printed — ranking date (5 Oct) and price date (30 Oct) differ, and CAT vs GE ordering flipped between them. A NYSE/Nasdaq-only list would be different (e.g. Boeing, Uber and Honeywell would enter). Do not read the sector ordering as a live league table.</p></div>
+  <div class="callout"><div class="ct">What is verified here — and what is deliberately omitted</div>
+  <p>Price, market cap, trailing P/E, EPS, TTM revenue and gross profit below were independently checked in the verification pass (see Sources). <b>Dividend, buyback, free-cash-flow and debt detail were not verified in this pass and are omitted rather than assumed.</b> All scenario prices in §5 are <b>modelled estimates</b> with methodology shown — never verified facts.</p></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Caterpillar is best understood as <b>three linked economics</b>: (1) selling big, long-lived machines and engines, (2) servicing and financing the installed base for decades afterwards, and (3) renting pricing power when commodity and construction cycles are strong — and giving some of it back when they turn. The Motley Fool description is precise: Caterpillar <i>&ldquo;manufactures construction and mining equipment, off-highway diesel and natural gas engines, industrial gas turbines, and diesel-electric locomotives&rdquo;</i> via a <b>global dealer network</b>. Cat Financial sits alongside the industrial business, financing machines and dealers.</p>
+
+  <h3>Core revenue streams</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>What it sells</th><th>Demand driver</th></tr></thead>
+    <tbody>
+      <tr><td>Construction equipment</td><td>Excavators, loaders, dozers and compact machines for building, road and infrastructure work</td><td>Construction activity, infrastructure spending, dealer inventories</td></tr>
+      <tr><td>Mining equipment</td><td>Large mining trucks, shovels and underground equipment; parts and services on a vast installed base</td><td>Miner capex, commodity prices, fleet replacement cycles</td></tr>
+      <tr><td>Energy &amp; power — engines &amp; turbines</td><td>Off-highway diesel and natural-gas engines; industrial gas turbines</td><td>Oil &amp; gas, power generation incl. data-centre backup/prime power demand</td></tr>
+      <tr><td>Rail — diesel-electric locomotives</td><td>Locomotives and rail services</td><td>Railroad capex and fleet renewal</td></tr>
+      <tr><td>Parts, services &amp; Cat Financial</td><td>Aftermarket parts, maintenance, rebuilds; customer and dealer financing</td><td>Installed-base size and utilisation — the stabiliser across cycles</td></tr>
+      <tr class="total"><td>Group (TTM)</td><td>Revenue $74.7B · Gross profit $24.3B</td><td>Implied gross margin ≈ 32.5% (24.3 ÷ 74.7, derived)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Group TTM revenue and gross profit: Motley Fool (see Sources). Segment revenue splits were not verified in this pass and are therefore not stated as figures — the table describes the model, not invented percentages.</p>
+
+  <h3>Geography, structure and dependencies</h3>
+  <ul>
+    <li><b>Global by design:</b> the dealer network is the distribution system — independent dealers hold inventory, provide parts availability and service uptime locally, which is why a mine or contractor hours from a city still buys Cat. That reach means revenue is exposed to construction and mining cycles on every continent, not just US housing or infrastructure.</li>
+    <li><b>Recent structural read:</b> no segment reorganisation is asserted in the verified pack. The structural story in the numbers is cyclical, not corporate: a stock priced near $863 in early October was pricing peak-cycle earnings power; the Q3 reset to $622.75 is the market re-underwriting that power at a lower level. Treat any &ldquo;pivot&rdquo; claim beyond the verified derating with caution.</li>
+    <li><b>Supply-chain dependencies:</b> steel and castings, engines components, hydraulics, electronics and emissions systems; large-machine lead times and dealer inventory levels amplify small demand changes. Tariff exposure on imported components and machines is explicitly flagged as a sector risk (see §4).</li>
+    <li><b>The installed base is the annuity:</b> every machine sold seeds years of parts, service and rebuild revenue. That is why Caterpillar typically holds up better through downturns than a pure new-equipment seller — and why backlog and dealer commentary matter more than any single quarter&rsquo;s unit sales.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>On verified trailing figures, Caterpillar looks like a <b>large, profitable, premium-rated cyclical</b> — not a distressed one. The balance-sheet detail that would normally complete this section (cash, debt, free cash flow, dividend and buyback pace) <b>was not verified in this pass</b>, so this note does the honest thing: it diagnoses what can be checked, and labels the rest as an open item instead of filling it with plausible numbers.</p>
+  <div class="tblwrap"><table>
+    <caption>Verified snapshot — price $622.75 (30 Oct 2026 close). TTM = trailing twelve months as carried in the research pack.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct close)</td><td class="n">$622.75</td><td>Confirmed on the official-close feed; −3.81% on the day</td></tr>
+      <tr><td>Market cap</td><td class="n">$286.3B</td><td>FinanceCharts basis. Note: vendor caps differ — Finnhub&rsquo;s ~$291.0B was not used; FinanceCharts is the pack basis</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">26.8×</td><td>Finnhub 26.84× corroborated in verification. Still a premium multiple for a cyclical — the market is paying for through-cycle earnings power, not trough earnings</td></tr>
+      <tr><td>EPS (TTM basis in pack)</td><td class="n">$18.81</td><td>Finnhub. Cross-check: $622.75 ÷ 26.8 ≈ $23.24 does not equal $18.81 — the P/E and EPS come from different vendor TTM windows; use each as sourced, do not force them to reconcile</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$74.7B</td><td>Motley Fool</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$24.3B</td><td>Motley Fool; implied gross margin ≈ 32.5% (derived)</td></tr>
+      <tr><td>Price / Sales</td><td class="n">3.8×</td><td>Derived: $286.3B ÷ $74.7B = 3.83×. For heavy machinery this is historically rich — it embeds services mix and peak-cycle margins</td></tr>
+      <tr><td>EV / EBITDA · Forward P/E</td><td class="n">—</td><td>Not verified in this pass — omitted. Do not substitute a vendor estimate without checking its EBITDA definition</td></tr>
+      <tr><td>Free cash flow · Dividends · Buybacks</td><td class="n">—</td><td>Not verified in this pass — omitted, do not assume. Caterpillar is normally a strong cash generator, but no figure is stated here without a checked source</td></tr>
+      <tr><td>Debt / leverage (incl. Cat Financial)</td><td class="n">—</td><td>Not verified in this pass — omitted. Note for when it is checked: Cat Financial debt funds customer loans and must be read separately from industrial debt; a single blended D/E misleads</td></tr>
+      <tr><td>R&amp;D / capital intensity</td><td class="n">—</td><td>Not quantified in the verified pack — omitted as a figure. Qualitatively, engine emissions, autonomy and electrification drive spend</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Reading the 26.8× multiple honestly</div>
+  <p>A 26.8× trailing P/E and 3.8× sales for a cyclical equipment maker only make sense if earnings are <b>mid-cycle or trough, not peak</b> — or if the services/installed-base mix has permanently lifted margins. After a −27.8% derating, the bull argument is exactly that: the multiple looks high because the &ldquo;E&rdquo; is about to be trough. The bear argument is the mirror image: if $18.81 EPS was closer to peak, 26.8× is expensive on peak earnings and the derating has further to run. §5 prices both.</p></div>
+  <h3>Capital allocation — what can and cannot be said</h3>
+  <ul>
+    <li><b>Verified:</b> nothing on dividend, buyback or FCF pace in this pass — see table. Any sizing decision that depends on yield or buyback support should wait for that check.</li>
+    <li><b>Structural (model, not figures):</b> Caterpillar&rsquo;s model throws off cash in upcycles and absorbs it in working capital and dealer inventory in downcycles; Cat Financial adds a second, financial balance sheet inside the group. Judge cash returns on a full cycle, never on one quarter.</li>
+    <li><b>Open question for the next pass:</b> latest cash, industrial vs financial debt split, TTM free cash flow, and current dividend/buyback run-rate — all flagged here as unverified rather than estimated.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide but cyclical.</b> Caterpillar&rsquo;s advantages — dealer network, installed base and scale in mining and construction — are real and hard to replicate. Its pricing power is <b>cyclical, not absolute</b>: in tight-supply upcycles Cat can push price and hold lead times; in downturns, used-equipment prices, dealer discounting and miner capex cuts take that power back. That single distinction drives the whole valuation debate.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Dealer network:</b> global, local, parts-and-service dense. Uptime is what miners and contractors actually buy; a rival machine that waits a week for a part loses to a Cat that is fixed tomorrow.</li>
+      <li><b>Installed base:</b> decades of machines in the field generate parts, service and rebuild demand that persists even when new-machine sales fall — a recurring-revenue core inside a cyclical shell.</li>
+      <li><b>Scale in mining &amp; construction:</b> breadth of line (from compact machines to the largest mining trucks) plus engine/turbine range lets Cat serve whole fleets and sites, raising switching costs.</li>
+      <li><b>Financing attached:</b> Cat Financial lowers the friction of very large purchases and ties the customer relationship to the machine&rsquo;s life.</li>
+      <li><b>Brand &amp; resale values:</b> strong used-equipment values lower the true cost of ownership — a quiet but powerful competitive weapon.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Pricing power fades with the cycle:</b> when commodity capex or construction volumes fall, price realisation, mix and absorption all reverse together — there is no subscription floor under new-equipment revenue.</li>
+      <li><b>Direct rivals:</b> Komatsu in mining/construction, Deere in construction-adjacent equipment, plus Cummins and others in engines/power — all capable, global and price-competitive at the margin.</li>
+      <li><b>China exposure both ways:</b> Chinese demand is a major end-market and Chinese makers are increasingly credible competitors at home and in emerging markets; a China construction slowdown hits volume and price simultaneously.</li>
+      <li><b>Tariffs cut into the moat:</b> the Motley Fool sector work flags Trump tariffs as a sector risk — imported content raises costs that can only be passed on while demand stays strong.</li>
+      <li><b>Technology transition:</b> electrification, autonomy and alternative power favour whoever invests best through the downturn; scale helps, but does not guarantee the next technology cycle.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Caterpillar is the quality name in a cyclical industry — the one you own for the dealer/services annuity and through-cycle compounding, not the one you own expecting consumer-tech-style multiple expansion. At 26.8× trailing earnings you are still paying a quality premium after the derating; the moat justifies <i>a</i> premium, the cycle decides <i>how much</i>.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Backlog &amp; mining capex:</b> a firm order backlog and renewed miner fleet spending would validate the &ldquo;trough E&rdquo; reading of the 26.8× multiple and support the base case.</li>
+        <li><b>Energy &amp; turbines:</b> gas-turbine and engine demand — including power for data centres and oil &amp; gas — is the highest-growth optionality inside the group.</li>
+        <li><b>Infrastructure spending:</b> sustained public infrastructure work supports construction-equipment volumes and dealer confidence.</li>
+        <li><b>Stabilisation after the reset:</b> the stock has already absorbed a −27.8% derating and a $100 target cut while J.P. Morgan stayed Overweight — if earnings merely stop falling, multiple repair alone carries the base case (+9%).</li>
+        <li><b>Services resilience:</b> parts/services holding up while new-machine sales soften would prove the installed-base thesis again, as in prior downturns.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Post-earnings derating continues:</b> momentum after a break of this size often overshoots; the bear case ($520) is only −16.5% further — well within one more disappointing guide.</li>
+        <li><b>Tariffs:</b> flagged explicitly as a sector risk in the Fool material — cost inflation that cannot be passed through in a softening market compresses the ~32.5% gross margin directly.</li>
+        <li><b>China / construction slowdown:</b> weaker Chinese construction and property-linked demand hits volumes, mix and competitive pricing at once.</li>
+        <li><b>Commodity capex cuts:</b> if miners defer fleet replacement, the highest-margin large-equipment and rebuild revenue falls fastest.</li>
+        <li><b>Peak-earnings trap:</b> if trailing EPS proves to have been peak rather than trough, a 26.8× multiple on falling earnings compounds losses — price falls <i>and</i> the denominator shrinks.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Evidence that the Q3 reset was the start, not the end, of earnings downgrades — specifically, backlog rolling over <i>while</i> tariff costs build and China construction weakens. Any one is a normal cyclical headwind Caterpillar has navigated before; all three together would mean the &ldquo;E&rdquo; in the 26.8× P/E is falling for a full cycle, and the bear case in §5, not the base, becomes the planning assumption.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b>modelled estimates</b> from the research pack — methodology shown, never verified facts. Cross-check anchor: J.P. Morgan&rsquo;s post-Q3 target is <b>$1,000 (cut from $1,100, Overweight maintained)</b>, far above every scenario below. That gap is itself information: either the bank is underwriting a much stronger through-cycle earnings recovery, or its target has not yet fully absorbed the reset. This note&rsquo;s scenarios are deliberately more conservative — they price the cycle, not the franchise&rsquo;s best year.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$520</div><div class="ret down">−16.5% vs $622.75</div><p>Derating extends: tariffs bite, China/construction softens, commodity capex is deferred. Earnings fall and the multiple compresses toward trough-cycle levels. This is the &ldquo;peak-E trap&rdquo; path.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--gold)">Base · modelled</div><div class="price mono">$680</div><div class="ret up">+9.2% vs $622.75</div><p>Earnings stabilise at trough, backlog and services hold, turbines/infrastructure offset soft construction. Modest multiple repair from the oversold post-Q3 level — no heroics required.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$820</div><div class="ret up">+31.7% vs $622.75</div><p>Mining capex and energy/turbine demand re-accelerate, tariff pass-through holds, and the market re-rates Cat back toward — though still below — its early-October level and J.P. Morgan&rsquo;s $1,000 target.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $675</div></div><p>Using the house convention 25% Bear / 50% Base / 25% Bull: 0.25×$520 + 0.50×$680 + 0.25×$820 = <b>$675 (+8.4%)</b>. Weights are this note&rsquo;s modelling choice, stated so the arithmetic can be checked — change the weights and the weighted value changes with them.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Method as specified in the brief and the pack: start from the <b>$622.75</b> reference price, hold the framework frozen (share count implied by the $286.3B cap ≈ 460M shares held constant; no buyback or dilution assumed, since neither was verified), and vary only the <b>price CAGR</b> plus, in Bull/Bear, a margin/multiple uplift or derating. This is a price-path model, not a full revenue/EPS build — the pack supplies CAGRs, not verified 5-year revenue and margin lines, so none are invented here.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Price CAGR / yr</th><th>Extra assumption</th><th class="n">Maths</th><th class="n">5-yr price</th><th class="n">Vs $622.75</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">0%</td><td>Plus derating — multiple compresses as earnings disappoint</td><td class="n">—</td><td class="n">~$450</td><td class="n">−27.7%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">4%</td><td>Through-cycle compounding only; no multiple change</td><td class="n">$622.75 × 1.04⁵ = $622.75 × 1.217</td><td class="n">$758</td><td class="n">+21.7%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6%</td><td>Plus margin / P/E uplift on a mining + energy upcycle</td><td class="n">—</td><td class="n">~$980</td><td class="n">+57.4%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td>Modelled estimate — weights stated for checkability</td><td class="n">0.25×450 + 0.50×758 + 0.25×980</td><td class="n">≈ $737</td><td class="n">+18.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the weighted maths: 112.50 + 379.00 + 245.00 = 736.50 ≈ $737, as carried in the pack. A 4% base CAGR is deliberately unheroic for a &ldquo;quality cyclical&rdquo; — it assumes Caterpillar compounds like a mature industrial, not like the stock priced at $863 in early October. The bull case at ~$980 still sits below J.P. Morgan&rsquo;s 12-month $1,000 target, which tells you how much recovery that target already assumes. Illustrative model, not a forecast.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b> — equity-heavy, able to hold a cyclical through a downturn without being a forced seller. Recommendations are <b>research views, not guarantees and not investment advice</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold / Buy on weakness</span></td><td><b>Hold existing; add only in tranches on further weakness.</b> Modelled base is only +9% — not enough to chase a stock still digesting a −27.8% break. The risk/reward improves materially toward the bear-case zone (~$520) and worsens toward $680+ without new earnings evidence.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Build to the 2.0% target weight over time.</b> Modelled weighted 5-yr value ≈ $737 (+18%, ≈ +3.4%/yr on the weighted path, with the bull path at +57%) — modest in price terms, which is the honest price of a mature cyclical bought <i>after</i> a derating rather than at the peak. The case rests on dealer/services durability, not on growth heroics.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the shares reclaim ~$820+ (bull-case price) without matching earnings upgrades — the cycle would be fully priced again. Re-underwrite on the §4 thesis-breaker: backlog rollover + tariff margin hit + China weakness arriving together.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 2.0% of total portfolio</h3>
+  <ul>
+    <li><b>CAT target: 2.0%</b> (research-pack recommendation for this profile). Caterpillar is a single cyclical name inside a diversified Industrials allocation — sized to matter in an upcycle, small enough that a full bear case (−27.7% over 5 years in the model) costs the total portfolio only ~0.55%.</li>
+    <li><b>Why not larger:</b> at 26.8× trailing earnings the quality premium is still in the price, balance-sheet and cash-return detail is unverified in this pass, and the earnings direction is currently down. Size follows verification and cycle position, not brand familiarity.</li>
+    <li><b>Revisit triggers for sizing up:</b> verified FCF/dividend/buyback data landing cleanly, <i>or</i> a further move toward the bear-case price without a thesis break.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 2.0% target weight and the $622.75 reference price. Share count is indicative only (fractional shares assumed); it is a sizing illustration, not an order.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>CAT — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $622.75.</strong> <strong>DCF intrinsic: $250.</strong> Discount/premium vs DCF: <strong>+149.1%</strong> — i.e. the shares are trading 149.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$250</td><td>+149.1%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$9.62B</strong>; constant growth g <strong>4%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$71.55B</strong>; PV of terminal value <strong>$80.75B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-37.22B</strong>; divided by <strong>460.90m</strong> diluted shares = <strong>$250</strong>. Base FCF $9.616B = OCF $14.184B − capex $4.568B, TTM to 30 Sep 2026 (FinanceCharts/StockAnalysis cash-flow statement). Growth g 4% = pack 5-year base CAGR. Net cash −$37.22B: cash $7.93B (Q3 enterprise cash, TradingKey) less debt $45.15B (30 Jun 2026, GreekSoup) — debt includes Cat Financial funding debt, so the DCF is conservative for the machinery business. Shares 460.9m diluted (FinanceCharts). DPS $6.52 annualised (pack-era $1.63/quarter, InTickers/StockAnalysis).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://www.financecharts.com/stocks/CAT/growth/free-cash-flow , https://stockanalysis.com/stocks/cat/ , https://greeksoup.ai/stocks/us/cat/ ; price 30 Oct 2026 close $622.75. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CAT — Top customers (B2B, dealer-intermediated)</h2>
+<p>Caterpillar is classified <strong>B2B</strong>: it sells through a global dealer network to mining, construction, energy and transport businesses. No ranked customer list is disclosed in the pack; the table names the largest known end-market customer types, ranking not disclosed.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Global mining majors (e.g. BHP)</td><td></td><td>Covered ticker — DCF intrinsic $48.70, discount/premium +62.5%</td></tr><tr><td>Global mining majors (e.g. Rio Tinto)</td><td></td><td>Covered ticker — DCF intrinsic $59.71, discount/premium +37.1%</td></tr><tr><td>Mining and metals producers (e.g. Freeport-McMoRan)</td><td></td><td>Covered ticker — DCF intrinsic $23.38, discount/premium +167.2%</td></tr><tr><td>Construction and infrastructure contractors</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Energy and power-generation customers (incl. data-centre power)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Governments and public infrastructure buyers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Independent Cat dealers (channel, not end customers)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Caterpillar's order book is only as strong as its end customers' capex cycles: the pack cites a record $78.1B backlog at Q3 2026, up 96% year on year. If the covered mining customers in this table trade at discounts to intrinsic once filled in, that is a potential tailwind for mining-capex orders; premiums are a potential headwind — but a cheap miner may be cheap because commodity prices are falling, which would cut its capex rather than raise it, so the caveat applies with full force here. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CAT — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Caterpillar benefits from AI indirectly through power-generation demand: its energy turbines and engines feed data-centre power, and the pack cites a record $78.1B backlog.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: data-centre construction and backup/prime power orders in Power & Energy, plus mining demand for the metals that AI hardware consumes; the pack's backlog growth (+96% year on year) is consistent with, but not solely caused by, AI build-out. Multiple channel: CAT's 26.8× trailing P/E in the pack already reflects a cyclical upswing; an AI unwind would remove the data-centre growth premium embedded in that multiple even if construction demand held.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: data-centre developers delay or cancel power orders and mining capex follows commodity prices down, cutting the backlog that currently supports the thesis. Second, multiple compression: medium-high — from ~27× trailing toward a through-cycle machinery multiple in the mid-teens, a sharp de-rating given the post-Q3 fall from ~$863 to $622.75 already seen in the pack. Third, balance sheet: moderate — consolidated debt $45.15B includes Cat Financial funding debt, and working capital absorbed heavily in 2026 (inventories +$4.08B in 9M 2026 per Q3 coverage), so an order slowdown would strand inventory. Trigger to watch: hyperscaler capex guidance cuts or a data-centre power-order cancellation.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price reference: 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Verification note: CAT price and market cap were confirmed on independent feeds in the verification pass; trailing P/E was corroborated via Finnhub (the pack&rsquo;s own P/E source). Dividend, buyback, free-cash-flow and debt figures were not verified in this pass and are omitted in the note. All scenario prices are modelled estimates with methodology shown in §5.</p>
+  <ol class="refs">
+    <li><a href="https://StockAnalysis.com/stocks/cat/history/" target="_blank" rel="noopener">StockAnalysis — CAT price history (30 Oct close $622.75 confirmed)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/industrials?columns=custom-growth" target="_blank" rel="noopener">FinanceCharts — Industrials sector / CAT market cap $286.3B basis</a></li>
+    <li><a href="https://finnhub.io/?q=%22CAT%22" target="_blank" rel="noopener">Finnhub — CAT quote: EPS $18.81, trailing P/E 26.8×</a></li>
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Industrials companies (business description, TTM revenue $74.7B, gross profit $24.3B; ranking as of 5 Oct 2026)</a></li>
+    <li><a href="https://intickers.com/reports/cat/" target="_blank" rel="noopener">Intickers — CAT report: Q3 derating path (~$863 on 6 Oct → $647.39 on 29 Oct) and J.P. Morgan Overweight, target $1,100 → $1,000</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is equity research prepared for information only. It is not investment advice, a solicitation, or a guarantee of future returns. Scenario prices are modelled estimates based on stated assumptions and will differ — possibly materially — from outcomes. Cyclical equities can lose value, including through the bear paths shown. Verify any figure you intend to act on against the linked primary source, and consider your own circumstances and professional advice before investing. As of 1 Nov 2026; price reference 30 Oct 2026 close.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.0% sizing.';return;}
+    var amt=v*0.02, shares=amt/622.75;
+    out.innerHTML='2.0% target = <b>$'+fmt(amt)+'</b> in CAT &nbsp;·&nbsp; ≈ <b>'+shares.toFixed(1)+' shares</b> at $622.75 &nbsp;·&nbsp; bear-case (−27.7% modelled) impact on total portfolio ≈ <b>−'+(2.0*0.277).toFixed(2)+'%</b>.';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

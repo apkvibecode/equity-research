@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — HOOD</title>
+<style>
+:root{
+  --bg:#f6f7f4; --surface:#ffffff; --surface2:#eef1ec; --ink:#14201a; --muted:#5a6a60; --line:#d8ded6;
+  --accent:#0d6b3f; --accent2:#c8a415; --red:#b42318; --green:#0d6b3f; --amber:#9a6b00;
+  --chip:#e6efe8; --bar:#0d6b3f; --bar2:#7aa88c; --bar3:#c8a415; --bar4:#3b4a40;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0e1511; --surface:#16201a; --surface2:#1c2a20; --ink:#e8efe9; --muted:#a7b8ab; --line:#2c3d31;
+  --accent:#4cc07c; --accent2:#e3c94f; --red:#ff8a7a; --green:#4cc07c; --amber:#e3c94f; --chip:#1e3024; --bar:#4cc07c; --bar2:#7aa88c; --bar3:#e3c94f; --bar4:#a7b8ab; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Iowan Old Style",Palatino,Georgia,serif;line-height:1.55}
+.sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 18px 64px}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;word-break:break-word}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:clamp(21px,3vw,27px);margin:38px 0 10px;line-height:1.2;border-bottom:2px solid var(--ink);padding-bottom:8px}
+h3{font-size:17px;margin:20px 0 8px}
+p{margin:8px 0}
+.small{font-size:13px;color:var(--muted)}
+.kicker{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero{border-top:6px solid var(--accent);padding-top:18px}
+.badge{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:2px 4px 2px 0}
+.grid{display:grid;gap:12px}
+.grid.c4{grid-template-columns:repeat(4,1fr)} .grid.c3{grid-template-columns:repeat(3,1fr)} .grid.c2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.grid.c4,.grid.c3,.grid.c2{grid-template-columns:1fr 1fr}}
+@media(max-width:460px){.grid.c4,.grid.c3,.grid.c2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.card .label{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.card .val{font-size:26px;font-weight:700;line-height:1.15;margin:4px 0 2px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.card .sub{font-size:13px;color:var(--muted)}
+.verdict{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--accent2);border-radius:10px;padding:16px 18px;margin-top:16px}
+.verdict strong{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+nav.toc{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0;margin:18px 0 4px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;line-height:2}
+nav.toc a{margin-right:16px;text-decoration:none;color:var(--ink);font-weight:600;white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;margin:10px 0}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){ table,thead,tbody,tr,th,td{display:block} thead{display:none} tr{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--surface);padding:6px 4px} td{border:none;padding:5px 10px} td.num{text-align:left} td::before{content:attr(data-l)" ";font-weight:700;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.05em} }
+.bar-row{display:grid;grid-template-columns:150px 1fr 86px;gap:10px;align-items:center;margin:7px 0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px}
+.bar-track{background:var(--surface2);border-radius:6px;height:18px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px}
+@media(max-width:560px){.bar-row{grid-template-columns:110px 1fr 70px}}
+.up{color:var(--green);font-weight:700}.down{color:var(--red);font-weight:700}.warn{color:var(--amber);font-weight:700}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.toggle button{border:0;background:var(--surface);color:var(--ink);padding:8px 16px;cursor:pointer;font-size:14px;font-weight:600}
+.toggle button.on{background:var(--accent);color:#fff}
+input[type=number]{width:100%;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:16px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.footnote{font-size:12.5px;color:var(--muted)}
+ul{margin:6px 0 6px 18px;padding:0} li{margin:5px 0}
+.callout{background:var(--surface2);border-radius:10px;padding:14px 16px;margin:12px 0}
+svg{max-width:100%;height:auto;display:block}
+:focus-visible{outline:3px solid var(--accent2);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Financials · Brokerage &amp; Trading Platforms · As of 1 Nov 2026</div>
+  <h1>Robinhood Markets (HOOD)</h1>
+  <p class="sans" style="font-size:17px;max-width:760px">The retail-trading platform that turned zero-commission trading into a mass product — now pivoting from pure transaction volume toward prediction markets, subscriptions and on-chain infrastructure. Record Q3 revenue, but a crypto collapse inside it, an EPS miss, and a 39× trailing multiple leave no room for a quiet quarter.</p>
+  <div>
+    <span class="badge">Price ref: 30 Oct 2026 close</span>
+    <span class="badge">Added name — not top-10 by size</span>
+    <span class="badge">Risk 8/10 · Mid-30s profile</span>
+    <span class="badge">Research views only — not investment advice</span>
+  </div>
+
+  <div class="grid c4" style="margin-top:16px">
+    <div class="card"><div class="label">Price — 30 Oct close</div><div class="val">$84.99</div><div class="sub"><span class="down">−7.21%</span> vs prior close $91.59 (post-Q3 de-rate)</div></div>
+    <div class="card"><div class="label">Market cap</div><div class="val">$76.6bn</div><div class="sub">$76.61bn — Finnhub. #74 globally per ranking basis</div></div>
+    <div class="card"><div class="label">Trailing P/E</div><div class="val">39.1×</div><div class="sub">EPS TTM $2.17. Volatile — embeds paper mark-to-market moves</div></div>
+    <div class="card"><div class="label">Consensus target</div><div class="val">$127.39</div><div class="sub">MarketBeat — Moderate Buy. +50% vs $84.99</div></div>
+    <div class="card"><div class="label">TTM revenue (filed)</div><div class="val">$5.08bn</div><div class="sub">Total net revenues, TTM to 30 Sep 2026</div></div>
+    <div class="card"><div class="label">Q3 2026 revenue</div><div class="val">$1.42bn</div><div class="sub"><span class="up">+12% y/y</span> — in line with ~$1.43bn consensus</div></div>
+    <div class="card"><div class="label">Q3 net income / EPS</div><div class="val">$476m</div><div class="sub"><span class="down">−14% y/y</span> · GAAP EPS $0.51 — miss vs $0.55–0.56</div></div>
+    <div class="card"><div class="label">Dividend</div><div class="val">None</div><div class="sub">No dividend. Forward P/E not verified in this pass</div></div>
+  </div>
+
+  <div class="verdict sans">
+    <p style="margin:0 0 6px"><strong>Verdict — Short term (12–18 mo): HOLD.</strong> Expensive at ~39× trailing after the post-Q3 de-rate to $84.99. <strong>Long term (5 yr): BUY — small, satellite only, at 1.5% of portfolio.</strong> Size it for volatility, not as a core bank holding.</p>
+    <p style="margin:0" class="small">Ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company. HOOD is added as a named ticker ($76.6bn, #74 globally) — <strong>not</strong> top-10 in Financials — included per your instruction. Prices = 30 Oct 2026 close; 1 Nov 2026 was a weekend.</p>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sections">
+  <a href="#model">1 · Business model</a><a href="#health">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation</a><a href="#action">6 · Recommendation</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="model">
+<h2>1 · Business Model &amp; Segment Breakdown</h2>
+<p>Robinhood makes money three ways: <strong>transaction-based revenue</strong> (payment for order flow and spreads on options, equities, crypto and — newest and fastest-growing — event contracts), <strong>net interest income</strong> on customer cash and margin balances, and <strong>other revenue</strong>, led by Robinhood Gold subscriptions. It owns no deposit franchise and no banking moat; the product is the app, the brand with younger retail investors, and an expanding shelf of trading products.</p>
+
+<h3>Q3 2026 — the quarter in detail (reported 27 Oct 2026)</h3>
+<table>
+<thead><tr><th>Line</th><th class="num">Q3 2026</th><th class="num">y/y</th><th>Read</th></tr></thead>
+<tbody>
+<tr><td data-l="">Total revenue</td><td class="num" data-l="Q3: ">$1.42bn</td><td class="num" data-l="y/y: ">+12%</td><td data-l="">Record quarter; in line with ~$1.43bn consensus</td></tr>
+<tr><td data-l="">Transaction revenue</td><td class="num" data-l="Q3: ">$867m</td><td class="num" data-l="y/y: ">+19%</td><td data-l="">The engine — see mix below</td></tr>
+<tr><td data-l="">— Options</td><td class="num" data-l="Q3: ">$399m</td><td class="num" data-l="y/y: ">+31%</td><td data-l="">Largest single transaction line</td></tr>
+<tr><td data-l="">— Event contracts</td><td class="num" data-l="Q3: ">$173m</td><td class="num" data-l="y/y: ">&gt;6×</td><td data-l="">Prediction markets — now <strong>larger than crypto</strong></td></tr>
+<tr><td data-l="">— Equities</td><td class="num" data-l="Q3: ">$121m</td><td class="num" data-l="y/y: ">+41%</td><td data-l="">Strong retail equity activity</td></tr>
+<tr><td data-l="">— Crypto</td><td class="num" data-l="Q3: ">$120m</td><td class="num" data-l="y/y: "><span class="down">−55%</span></td><td data-l="">Crypto volume $50bn, <span class="down">−38%</span> — the weak leg</td></tr>
+<tr><td data-l="">Net interest income</td><td class="num" data-l="Q3: ">$415m</td><td class="num" data-l="y/y: ">−9%</td><td data-l="">Rate- and balance-sensitive; fell despite record revenue</td></tr>
+<tr><td data-l="">Other (incl. Gold)</td><td class="num" data-l="Q3: ">$142m</td><td class="num" data-l="y/y: ">+61%</td><td data-l="">Gold subscriptions +34% — the recurring-revenue pivot</td></tr>
+<tr><td data-l="">Net income</td><td class="num" data-l="Q3: ">$476m</td><td class="num" data-l="y/y: ">−14%</td><td data-l="">Fell even as revenue hit a record</td></tr>
+</tbody>
+</table>
+<p class="footnote">Q3 lines sum to the total: $867m + $415m + $142m = $1,424m. All Q3 figures above are confirmed in the independent verification log (Seeking Alpha / InvestingNews releases).</p>
+
+<h3>Q3 transaction mix — where the $867m came from</h3>
+<div class="bar-row"><span>Options</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--bar)"></div></div><span>$399m · 46%</span></div>
+<div class="bar-row"><span>Event contracts</span><div class="bar-track"><div class="bar-fill" style="width:43%;background:var(--bar3)"></div></div><span>$173m · 20%</span></div>
+<div class="bar-row"><span>Equities</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--bar2)"></div></div><span>$121m · 14%</span></div>
+<div class="bar-row"><span>Crypto</span><div class="bar-track"><div class="bar-fill" style="width:30%;background:var(--bar4)"></div></div><span>$120m · 14%</span></div>
+<p class="footnote">Shares are of the $867m transaction total; the four named lines total $813m, with the balance in other transaction activity. The structural story: event contracts (&gt;6× y/y) have overtaken crypto (−55%) — Robinhood's growth engine rotated within a single year.</p>
+
+<h3>Q3 income flow</h3>
+<svg viewBox="0 0 980 300" role="img" aria-label="Sankey-style flow: Q3 revenue of 1,424 million dollars splits into transaction 867, net interest 415 and other 142, then into implied costs of 948 and net income of 476 million dollars">
+  <path d="M210,40 C340,40 340,55 470,55 L470,125 C340,125 340,150 210,150 Z" fill="#0d6b3f" opacity=".55"/>
+  <path d="M210,155 C340,155 340,135 470,135 L470,180 C340,180 340,190 210,190 Z" fill="#c8a415" opacity=".6"/>
+  <path d="M210,195 C340,195 340,190 470,190 L470,215 C340,215 340,230 210,230 Z" fill="#7aa88c" opacity=".65"/>
+  <path d="M690,55 C790,55 790,60 880,60 L880,120 C790,120 790,115 690,115 Z" fill="#3b4a40" opacity=".5"/>
+  <path d="M690,120 C790,120 790,150 880,150 L880,185 C790,185 790,180 690,180 Z" fill="#0d6b3f" opacity=".8"/>
+  <rect x="30" y="35" width="180" height="200" rx="8" fill="#0d6b3f"/>
+  <rect x="470" y="50" width="220" height="170" rx="8" fill="#22332a"/>
+  <rect x="880" y="55" width="90" height="135" rx="8" fill="#22332a"/>
+  <g fill="#fff" font-family="sans-serif" font-size="14">
+    <text x="48" y="70" font-weight="700">Revenue</text><text x="48" y="92">$1,424m</text>
+    <text x="48" y="125" font-size="12">Transaction $867m</text>
+    <text x="48" y="148" font-size="12">Net interest $415m</text>
+    <text x="48" y="171" font-size="12">Other $142m</text>
+  </g>
+  <g fill="#fff" font-family="sans-serif" font-size="13">
+    <text x="488" y="82" font-weight="700">After all costs</text>
+    <text x="488" y="106" font-size="12">Costs &amp; other items</text><text x="488" y="124" font-size="12">(implied residual) $948m</text>
+    <text x="488" y="152" font-size="12">Net income $476m</text>
+    <text x="892" y="88" font-size="12">Costs</text><text x="892" y="106" font-size="12">$948m</text>
+    <text x="892" y="140" font-size="12" font-weight="700">Net inc.</text><text x="892" y="158" font-size="12">$476m</text>
+  </g>
+</svg>
+<p class="footnote">Costs are shown as a single implied residual ($1,424m revenue − $476m net income) because the research pack does not carry a filed Q3 cost breakdown for HOOD — no expense split has been invented. Q3 also included a $67m unrealised mark-to-market loss (see §2).</p>
+
+<h3>Structural pivots &amp; dependencies</h3>
+<ul>
+<li><strong>Prediction markets as a business line:</strong> event contracts at $173m in one quarter — from negligible a year ago to Robinhood's second-largest transaction line.</li>
+<li><strong>Robinhood Chain:</strong> &gt;$80bn DEX volume and &gt;$50m in fees in its first mainnet quarter. <em>Caution:</em> those are platform activity figures — not the same as reported crypto transaction revenue ($120m, down 55%).</li>
+<li><strong>Gold &amp; wealth:</strong> other revenue +61% with Gold subscriptions +34% — the push toward recurring revenue, retirement and wealth products, plus international expansion and the Bitstamp crypto footprint.</li>
+<li><strong class="warn">Deposit concentration flag:</strong> October net deposits were &gt;$13bn month-to-date — but that includes a <strong>single $6bn contribution</strong>. Nearly half the month's inflow is one account; treat headline deposit growth with care.</li>
+<li><strong>Core dependency:</strong> revenue still rides retail trading volumes and crypto cycles. When crypto volume fell 38%, crypto revenue halved — in a record quarter for everything else.</li>
+</ul>
+</section>
+
+<section id="health">
+<h2>2 · Financial Health &amp; Balance Sheet Diagnostics</h2>
+<div style="margin:10px 0" class="sans">
+  <span style="font-weight:700;margin-right:10px">Q3 EPS view:</span>
+  <span class="toggle" role="group" aria-label="EPS view toggle">
+    <button id="btnGaap" class="on" onclick="setEps('gaap')">GAAP</button>
+    <button id="btnAdj" onclick="setEps('adj')">Adjusted</button>
+  </span>
+  <span id="epsOut" style="margin-left:12px;font-weight:700">GAAP EPS $0.51 — miss vs $0.55–0.56 consensus</span>
+</div>
+<p class="footnote" id="epsNote">GAAP is the filed number. Q3 GAAP results include a $67m unrealised mark-to-market loss — paper gains and losses of this kind are why HOOD's trailing P/E swings so much.</p>
+
+<table>
+<thead><tr><th>Metric</th><th class="num">Value</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td data-l="">Price / market cap</td><td class="num" data-l="Value: ">$84.99 / $76.6bn</td><td data-l="">30 Oct 2026 close; cap Finnhub ($76.61bn). Price corrected in verification from $84.90 → $84.99 (four sources)</td></tr>
+<tr><td data-l="">Trailing P/E</td><td class="num" data-l="Value: ">39.1×</td><td data-l="">On EPS TTM $2.17 (FinanceCharts basis). Vendor P/Es vary: 39.17 MarketBeat vs 38.62 Finnhub</td></tr>
+<tr><td data-l="">Forward P/E</td><td class="num" data-l="Value: ">n.v.</td><td data-l="">Not verified in this pass — not presented as fact</td></tr>
+<tr><td data-l="">P/S (TTM, derived)</td><td class="num" data-l="Value: ">~15.1×</td><td data-l="">Derived: $76.6bn cap ÷ $5.08bn filed TTM revenue</td></tr>
+<tr><td data-l="">EV / EBITDA</td><td class="num" data-l="Value: ">n.v.</td><td data-l="">Not verified in this pass — omitted rather than estimated</td></tr>
+<tr><td data-l="">TTM revenue (filed)</td><td class="num" data-l="Value: ">$5.08bn</td><td data-l="">Total net revenues, TTM to 30 Sep 2026. <strong>Not</strong> the ~$5.70bn you get by annualising record Q3 (×4) — that overstates by ~12%</td></tr>
+<tr><td data-l="">Cash / debt / FCF</td><td class="num" data-l="Value: ">n.v.</td><td data-l="">Exact figures not verified in this pass — labelled honestly rather than filled in</td></tr>
+<tr><td data-l="">Dividend</td><td class="num" data-l="Value: ">None</td><td data-l="">No dividend; returns, if any, come only from price appreciation</td></tr>
+<tr><td data-l="">Stock-based comp</td><td class="num" data-l="Value: ">Material</td><td data-l="">SBC is a real, ongoing cost. The valuation model assumes shares dilute <strong>+2% per year</strong></td></tr>
+<tr><td data-l="">Consensus</td><td class="num" data-l="Value: ">$127.39</td><td data-l="">MarketBeat consensus target — Moderate Buy</td></tr>
+</tbody>
+</table>
+<div class="callout sans">
+<p style="margin:0"><strong>How to read the 39× multiple:</strong> HOOD's trailing P/E embeds paper mark-to-market gains and losses (Q3 alone carried a $67m unrealised loss), so the multiple can lurch without the underlying business changing. At ~39× trailing and ~15× sales, the market is pricing continued double-digit growth — the valuation question is durability of trading and event-contract volumes, not this quarter's earnings print.</p>
+</div>
+</section>
+
+<section id="moat">
+<h2>3 · Competitive Moat &amp; Industry Positioning</h2>
+<div class="grid c2">
+<div class="card"><h3 style="margin-top:0">What HOOD has</h3><ul>
+<li><strong>Young retail brand &amp; UX:</strong> the default first brokerage for a generation of retail traders; zero-commission, mobile-first experience.</li>
+<li><strong>Product velocity:</strong> first-mover scale in event contracts / prediction markets among US brokerages.</li>
+<li><strong>Optionality stack:</strong> Gold subscriptions, crypto + Bitstamp, tokenisation and Robinhood Chain — multiple shots on new revenue pools.</li>
+<li><strong>Engagement flywheel:</strong> options +31%, equities +41% in Q3 show the active-trader base deepening, not just growing.</li>
+</ul></div>
+<div class="card"><h3 style="margin-top:0">What HOOD lacks</h3><ul>
+<li><strong>No deposit / banking moat:</strong> unlike the big banks in this sector, no sticky low-cost deposit base funding the balance sheet.</li>
+<li><strong>Low switching costs:</strong> customers can move to Schwab, Fidelity, Interactive Brokers, Webull or Coinbase quickly; balances follow promotions.</li>
+<li><strong>No pricing power over its cycle:</strong> transaction revenue is volume × market mood — Robinhood does not set either.</li>
+<li><strong>Regulated at every growth edge:</strong> prediction markets, crypto and payment for order flow are each a live regulatory file (see §4).</li>
+</ul></div>
+</div>
+<p><strong>Positioning:</strong> HOOD is not competing with JPMorgan for the same wallet — it is competing for the <em>active retail trader's</em> wallet against incumbent brokerages and crypto exchanges simultaneously. Its edge is demographic and experiential; its vulnerability is that the same customers trade less exactly when markets fall.</p>
+</section>
+
+<section id="catalysts">
+<h2>4 · Catalysts &amp; Downside Risks</h2>
+<div class="grid c2">
+<div class="card"><h3 style="margin-top:0">Catalysts</h3><ul>
+<li>Prediction-market scale — event contracts already $173m/quarter and &gt;6× y/y.</li>
+<li>Sustained options growth (+31%) — the highest-value transaction line.</li>
+<li>Gold subscription growth (+34%) converting traders into recurring revenue.</li>
+<li>Robinhood Chain / tokenisation optionality (&gt;$80bn DEX volume in its first mainnet quarter).</li>
+<li>International expansion, retirement and wealth products broadening beyond trading.</li>
+<li>October net deposits &gt;$13bn MTD signal continued asset gathering (with the concentration caveat in §1).</li>
+</ul></div>
+<div class="card"><h3 style="margin-top:0">Risks</h3><ul>
+<li><strong>Crypto cyclicality:</strong> crypto revenue −55% y/y in one quarter shows the swing factor.</li>
+<li><strong>Regulatory:</strong> prediction markets, crypto and PFOF are all exposed to rule changes.</li>
+<li><strong>Valuation:</strong> ~39× trailing leaves the stock priced for growth that must actually arrive.</li>
+<li><strong>SBC dilution:</strong> stock-based comp is material; the model assumes +2%/yr share dilution.</li>
+<li><strong>Volume dependence:</strong> a quiet or falling market cuts options, equity and crypto revenue at once.</li>
+<li><strong>Concentration:</strong> a single $6bn contribution inside October's &gt;$13bn deposits.</li>
+<li><strong>Earnings quality:</strong> mark-to-market paper moves (e.g. Q3's $67m unrealised loss) distort reported EPS and the P/E.</li>
+</ul></div>
+</div>
+</section>
+
+<section id="valuation">
+<h2>5 · Scenario-Based Valuation &amp; Price Targets</h2>
+<p class="sans"><strong>12–18 month horizon:</strong> the anchor is the MarketBeat consensus target of <strong>$127.39</strong> (Moderate Buy) — about +50% from $84.99. The research pack models no separate bull/bear split for this horizon, so none is invented here; the 5-year scenarios below frame what has to go right or wrong around that anchor.</p>
+
+<h3>5-year projection — modelled estimates (frozen-parameter format)</h3>
+<p class="footnote">Modelled estimates, not verified facts. Assumptions as modelled in the research pack: revenue growth, net margin and exit P/E per case as shown; shares assumed to dilute +2%/yr for stock-based comp. Weights: Base 40% / Bull 30% / Bear 30%.</p>
+<table>
+<thead><tr><th>Case (weight)</th><th class="num">Revenue growth/yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">5-yr price</th><th class="num">vs $84.99</th></tr></thead>
+<tbody>
+<tr><td data-l="">Base (40%)</td><td class="num" data-l="Growth: ">15%</td><td class="num" data-l="Margin: ">35%</td><td class="num" data-l="P/E: ">39.12×</td><td class="num" data-l="Price: "><strong>$155</strong></td><td class="num" data-l="vs: ">+82%</td></tr>
+<tr><td data-l="">Bull (30%)</td><td class="num" data-l="Growth: ">25%</td><td class="num" data-l="Margin: ">40%</td><td class="num" data-l="P/E: ">45×</td><td class="num" data-l="Price: "><strong>$309</strong></td><td class="num" data-l="vs: ">+264%</td></tr>
+<tr><td data-l="">Bear (30%)</td><td class="num" data-l="Growth: ">5%</td><td class="num" data-l="Margin: ">20%</td><td class="num" data-l="P/E: ">22×</td><td class="num" data-l="Price: "><strong>$32</strong></td><td class="num" data-l="vs: "><span class="down">−62%</span></td></tr>
+<tr><td data-l=""><strong>Probability-weighted</strong></td><td class="num" data-l=""></td><td class="num" data-l=""></td><td class="num" data-l=""></td><td class="num" data-l="Price: "><strong>$165</strong></td><td class="num" data-l="vs: ">+94%</td></tr>
+</tbody>
+</table>
+<p class="footnote">Check: 0.40 × $155 + 0.30 × $309 + 0.30 × $32 = $62.00 + $92.70 + $9.60 = $164.30 ≈ $165. Read the spread honestly: the bear case ($32, −62%) is a <em>collapse</em> case — volumes dry up, crypto stays down, the multiple de-rates to 22× — and it carries a full 30% weight. That asymmetry is exactly why the position size in §6 is small.</p>
+</section>
+
+<section id="action">
+<h2>6 · Recommendation &amp; Position Sizing</h2>
+<div class="grid c3">
+<div class="card"><div class="label">Short term · 12–18 mo</div><div class="val" style="font-size:22px">HOLD</div><div class="sub">Expensive at ~39× trailing; the post-Q3 de-rate helps, but the $127.39 consensus already assumes the growth story continues. Add only on deeper weakness.</div></div>
+<div class="card"><div class="label">Long term · 5 yr</div><div class="val" style="font-size:22px">BUY — satellite only</div><div class="sub">Event contracts, Gold and Chain give real optionality — as a satellite position sized for volatility, not as a core bank holding.</div></div>
+<div class="card"><div class="label">Portfolio weight</div><div class="val" style="font-size:22px">1.5%</div><div class="sub">For a mid-30s investor at risk 8/10. Deliberately small: a 30%-weighted bear case is −62%.</div></div>
+</div>
+
+<h3>Position-size calculator</h3>
+<div class="grid c2">
+<div class="card">
+<label class="sans" style="font-size:13px;font-weight:700" for="pf">Total portfolio value ($)</label>
+<input type="number" id="pf" value="500000" min="0" step="1000" oninput="calc()">
+<p class="footnote">Default $500,000 is an illustration — type your own value. Nothing is saved or sent anywhere.</p>
+</div>
+<div class="card sans" aria-live="polite">
+<div class="label">At 1.5% weight</div>
+<div class="val" id="amt">$7,500</div>
+<div class="sub" id="sh">≈ 88 shares at $84.99</div>
+<div class="sub" id="bear" style="margin-top:6px">If the bear case ($32) hit: position ≈ $2,824 — a portfolio-level hit of about −0.94%.</div>
+</div>
+</div>
+<p class="footnote">Within the Financials sleeve, HOOD belongs in the satellite / high-growth bucket alongside — not instead of — the diversified banks and card networks. Its revenue is the most market-sensitive in the sector: it rises fastest in bull markets and falls first when volumes dry up.</p>
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<ul class="sans" style="font-size:14px">
+<li>FinanceCharts — HOOD P/E history &amp; averages: <a href="https://www.financecharts.com/stocks/HOOD/value/pe-ratio-averages">financecharts.com/stocks/HOOD/value/pe-ratio-averages</a></li>
+<li>MarketBeat — HOOD price, consensus target $127.39, Moderate Buy: <a href="https://www.marketbeat.com/stocks/NASDAQ/HOOD/?utm_source=MarketBeatPopup&utm_campaign=MarketBeatPopup&utm_medium=MarketBeatPopup&RegistrationCode=ModernMarketsPopup-Financial News Live">marketbeat.com/stocks/NASDAQ/HOOD</a></li>
+<li>CoinDesk — Q3 2026: crypto revenue −55% as platform posts record sales (27 Oct 2026): <a href="https://Www.coindesk.com/markets/2026/10/27/robinhood-s-crypto-revenue-plunges-55-even-as-trading-platform-posts-record-sales">coindesk.com/markets/2026/10/27/robinhood-s-crypto-revenue-plunges</a></li>
+<li>Zacks — HOOD Q3 earnings coverage: <a href="http://www.zacks.com/stock/news/3016807/hood-q3-earnings-beat-on-trading-strength-stock-dips-on-revenue-miss?art_rec=earnings-earnings_calendar-earnings_headlines-ID05-txt-3016807">zacks.com/stock/news/3016807</a></li>
+<li>Seeking Alpha — Robinhood Q3 2026 results release (verification source): <a href="https://seekingalpha.com/pr/20702323-robinhood-reports-third-quarter-2026-results">seekingalpha.com/pr/20702323</a></li>
+<li>InvestingNews — Robinhood Q3 2026 results, transaction detail (verification source): <a href="https://investingnews.com/robinhood-reports-third-quarter-2026-results/">investingnews.com/robinhood-reports-third-quarter-2026-results</a></li>
+<li>StockAnalysis — HOOD filed TTM revenue $5.08bn to 30 Sep 2026: <a href="https://stockanalysis.com/stocks/hood/revenue/">stockanalysis.com/stocks/hood/revenue</a></li>
+<li>Finnhub — HOOD 30 Oct close $84.99 and market cap $76.61bn (verification source): <a href="https://finnhub.io/?q=%22HOOD%22">finnhub.io</a></li>
+</ul>
+<p class="footnote">Verification note: every confirmed figure above was checked in an independent verification pass against a second source. Two pack figures were corrected by that pass and the corrections are applied here: price $84.90 → <strong>$84.99</strong>, and TTM revenue is the filed <strong>$5.08bn</strong>, not an annualised-Q3 ~$5.70bn. Items marked “n.v.” (forward P/E, EV/EBITDA, exact cash/debt/FCF) were not verified in this pass and are labelled as such rather than presented as fact. All scenario prices are modelled estimates with their assumptions shown — never verified facts. Data as of 1 Nov 2026; price reference is the 30 Oct 2026 close. This page is research commentary, not investment advice.</p>
+<p class="footnote">— Blaze</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Robinhood Markets (HOOD)</h2>
+<p><strong>Price (30 Oct 2026 close): $84.99.</strong> <strong>DCF intrinsic: $48.78.</strong> Discount/premium vs DCF: <strong>+74.2%</strong> — i.e. the shares are trading 74.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$48.78</td><td>+74.2%</td><td>Base Earnings proxy (broker, no dividend): TTM net income EPS $2.17 x 0.902bn = $1.96bn, x 0.85 SBC haircut = $1.66bn (SBC is a material real cost per pack). No net-cash add-on (broker/client cash is not free cash). Pack base g 15% used, capped at 15%. Growth g 15%, discount r 12% (high-risk 12%), terminal g 3%. PV of projected cash flows $19.25bn + PV of terminal value $24.75bn + net cash / excess capital $0.00bn, ÷ 0.902bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/HOOD/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Robinhood Markets (HOOD)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Retail-investor-facing, not B2B: no top-7 business-customer list. Demand is driven by retail trading activity, crypto volumes, net new funded accounts and interest on customer cash — all highly cyclical with market sentiment and the very AI-driven stocks its users trade.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Robinhood Markets (HOOD)</h2>
+<p><strong>Role: Beneficiary (high-beta).</strong> While the AI trade runs, Robinhood is a leveraged beneficiary: retail trading volumes, options and crypto activity surge when AI stocks run, and the pack’s thesis is growth in funded accounts and trading revenue — Q3 included a $67m paper/RVI mark-to-market loss, a reminder that its own earnings are mark-sensitive too.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is the story: at ~39x trailing earnings (pack) Robinhood carries a growth/speculative multiple, so an AI unwind compresses it directly and quickly, well before any change in its own fundamentals.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — retail trading and crypto volumes collapse first, cutting transaction revenue; (2) multiple — compression from ~39x toward a through-cycle broker multiple, which is the largest value risk in this batch; (3) balance sheet — lower direct AI-capex debt risk, but customer-cash interest income falls with rates and activity, and share-based compensation continues to dilute. Triggers to watch: monthly trading volumes, crypto revenue (down by more than half in Q3, pack context), and funded-account growth stalling.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+</div>
+<script>
+function setEps(mode){
+  var g=document.getElementById('btnGaap'), a=document.getElementById('btnAdj'),
+      o=document.getElementById('epsOut'), n=document.getElementById('epsNote');
+  if(mode==='gaap'){ g.classList.add('on'); a.classList.remove('on');
+    o.textContent='GAAP EPS $0.51 — miss vs $0.55–0.56 consensus';
+    n.textContent='GAAP is the filed number. Q3 GAAP results include a $67m unrealised mark-to-market loss — paper gains and losses of this kind are why HOOD\u2019s trailing P/E swings so much.';
+  } else { a.classList.add('on'); g.classList.remove('on');
+    o.textContent='Adjusted EPS $0.60 — down 3% y/y';
+    n.textContent='Adjusted EPS strips out items management treats as non-recurring. The $0.09 gap to GAAP is the difference between the filed result and the underlying trading quarter — judge HOOD on whether the adjusted figure compounds, not on either number alone.';
+  }
+}
+function fmt(x){ return '$'+Math.round(x).toLocaleString('en-US'); }
+function calc(){
+  var v=parseFloat(document.getElementById('pf').value)||0;
+  var amt=v*0.015, price=84.99;
+  document.getElementById('amt').textContent=fmt(amt);
+  document.getElementById('sh').textContent='≈ '+Math.floor(amt/price).toLocaleString('en-US')+' shares at $84.99';
+  var bearVal=amt*(32/price);
+  document.getElementById('bear').textContent='If the bear case ($32) hit: position ≈ '+fmt(bearVal)+' — a portfolio-level hit of about −'+(v>0?((amt-bearVal)/v*100).toFixed(2):'0.00')+'%.';
+}
+calc();
+</script>
+</body>
+</html>

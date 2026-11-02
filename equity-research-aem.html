@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — AEM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f7f5f0;--paper:#fffdf8;--ink:#131a24;--ink2:#3d4756;--muted:#6b7686;--line:#ddd6c8;--line2:#c9c0ab;--navy:#0d2b52;--blue:#0b5cad;--blue-soft:#e3edf7;--green:#0e6b3a;--green-soft:#e2f0e6;--red:#a4231c;--red-soft:#f7e4e1;--amber:#8a5a00;--amber-soft:#f6ecd2;--gold:#b8860b;--card:#fff;--chip:#efece3;--shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1116;--paper:#141922;--ink:#e8e6df;--ink2:#b9c0cc;--muted:#8b94a3;--line:#2a3140;--line2:#3a4356;--navy:#9db9dd;--blue:#6aa8e8;--blue-soft:#1b2a3f;--green:#5fc98b;--green-soft:#17301f;--red:#e88a80;--red-soft:#3a1e1a;--amber:#e0aa4e;--amber-soft:#332a14;--gold:#d9a441;--card:#171d28;--chip:#1e2634;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px}.masthead h1 .tick{color:var(--blue)}.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}.vcell{padding:14px 16px;border-right:1px solid var(--line)}.vcell:last-child{border-right:0}.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}.vsub{font-size:12.5px;color:var(--ink2)}.up{color:var(--green)}.down{color:var(--red)}.span3{grid-column:span 3}.span4{grid-column:span 4}@media(max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}nav.toc::-webkit-scrollbar{display:none}nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:0}.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}h3{font-size:15px;font-weight:800;margin:20px 0 6px}p{margin:8px 0;color:var(--ink2)}p b,li b{color:var(--ink)}ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}li{margin:4px 0}.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}.callout p{margin:4px 0}.warn .ct{color:var(--amber)}.bad .ct{color:var(--red)}.good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}td:first-child{color:var(--ink);font-weight:600}tr.hl td{background:var(--blue-soft);color:var(--ink)}tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}.bar-row{display:grid;grid-template-columns:170px 1fr 96px;gap:10px;align-items:center;margin:6px 0;font-size:13px}.bar-row .bl{font-weight:600;color:var(--ink)}.bar-track{height:16px;background:var(--chip)}.bar-fill{height:100%;background:var(--blue)}.bar-fill.gold{background:var(--gold)}.bar-fill.green{background:var(--green)}.bar-fill.red{background:var(--red)}.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}figcaption{font-size:12px;color:var(--muted);margin-top:8px}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:760px){.two{grid-template-columns:1fr}}.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}@media(max-width:760px){.proscons{grid-template-columns:1fr}}.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.pc.bull h4{color:var(--green)}.pc.bear h4{color:var(--red)}.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media(max-width:760px){.scen{grid-template-columns:1fr}}.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}.sc p{font-size:13px;margin:6px 0 0}.sc.bear{border-top:4px solid var(--red)}.sc.base{border-top:4px solid var(--blue)}.sc.bull{border-top:4px solid var(--green)}.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}@media(prefers-color-scheme:dark){.wtd{background:#1b2a3f;color:var(--ink)}}.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}.toggle button.on{background:var(--navy);color:#fff}@media(prefers-color-scheme:dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}.calc .out{font-size:14px;color:var(--ink2)}.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}.pill.buy{background:var(--green-soft);color:var(--green)}.pill.hold{background:var(--amber-soft);color:var(--amber)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}.refs{columns:2;column-gap:28px;font-size:13px}@media(max-width:760px){.refs{columns:1}}.refs li{margin:5px 0;break-inside:avoid}.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}@media print{nav.toc{position:static}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Gold Mining · NYSE: AEM</span></div>
+  <h1>Agnico Eagle Mines <span class="tick">(NYSE: AEM)</span></h1>
+  <p class="lede">Canada's largest miner and the world's No. 2 gold producer — the quality name in a single-metal sector. Q3 2026 showed the model at full leverage to gold: lower ounces, much higher prices. Production fell 6.1%, yet revenue rose 17.1%, net income hit $1.35B and free cash flow was $852M in one quarter, leaving the balance sheet in net cash. The question is not operational quality; it is how much of today's gold price is already in the $165 share price.</p>
+  <div class="byline"><span><b>As of:</b> 1 Nov 2026</span><span><b>Price reference:</b> $165.38 close, 30 Oct 2026</span><span><b>Latest print:</b> Q3 2026</span><span><b>Horizon:</b> 12–18 months + 5-year model</span></div>
+  <p class="small" style="margin-top:10px"><b>Ranking basis:</b> GLOBAL top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names. The printed sector list is not in strict market-cap order (e.g. BHP $292.4B printed after LIN $237.1B). AEM figures below are as verified in the coordinator log.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$165.38</div><div class="vsub">Finnhub-only feed in verification pass — see Sources note</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$84.3B</div><div class="vsub">Fool $84.3B / MarketBeat $83.7B — source variance noted †</div></div>
+  <div class="vcell span3"><div class="vlabel">Trailing P/E (vendor) · P/S</div><div class="vbig mono">14.5× / 5.8×</div><div class="vsub">Vendor P/E 14.5× and vendor TTM EPS $8.86 use different earnings bases — see reconciliation in §2 · Div. yield 1.09%</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus target</div><div class="vbig mono">$227.20</div><div class="vsub up">+37% vs $165.38 · MarketBeat</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base target $185 (+12%). Net cash + Q3 cash generation support buying quality on gold dips.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted value ~$190. Lower 5-yr torque than growth names — this is ballast, not a compounder.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Satellite materials / gold hedge. See §6.</div></div>
+</div>
+
+<nav class="toc"><a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a></nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>A classic gold-leverage quarter: <b>fewer ounces, far more dollars per ounce</b>. Payable production was <b>814,012 oz, down 6.1% year on year</b>, yet revenue grew <b>+17.1% YoY</b> (per Traders Union coverage of the print) because realised gold prices more than offset volume. Profitability followed price, not production.</p>
+  <div class="toggle" role="group" aria-label="Adjusted versus GAAP EPS"><button id="btnAdj" class="on" type="button">Adjusted EPS</button><button id="btnGaap" type="button">GAAP EPS</button></div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Payable gold production</td><td class="n">814,012 oz</td><td>−6.1% YoY — volume down, price up; do not read the volume dip as demand weakness</td></tr>
+      <tr><td>Revenue growth</td><td class="n">+17.1% YoY</td><td>Gold-price leverage in one line</td></tr>
+      <tr><td>Net income</td><td class="n">$1,353M</td><td>Verified — Kitco / earnings coverage</td></tr>
+      <tr class="hl"><td>EPS — <span id="epsLabel">adjusted</span></td><td class="n" id="epsVal">$2.62</td><td id="epsRead">Adjusted EPS $2.62, beat by $0.18. GAAP EPS was $2.67 — label matters, the two are not interchangeable.</td></tr>
+      <tr><td>Free cash flow (Q3)</td><td class="n">$852M</td><td>One quarter's FCF alone exceeds many peers' full-year generation</td></tr>
+      <tr><td>Cash · Debt · Net cash (30 Sep)</td><td class="n">$3,613M · $197M · $3,416M</td><td>Essentially debt-free on a net basis — see §2</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Kitco Q3 report, Kalkine Media announcement summary, IndexBox summary, Traders Union — all linked in Sources. <b>Adjusted vs GAAP:</b> everywhere in this note, $2.62 is <i>adjusted</i> EPS and $2.67 is GAAP EPS, per the coordinator correction which overrides the research pack.</p>
+  <figure>
+    <svg viewBox="0 0 980 210" width="100%" role="img" aria-label="Flow from Q3 production to net income and free cash flow" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="55" width="200" height="70" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="82" font-size="13" font-weight="700" fill="var(--ink)">Production</text><text x="20" y="102" font-size="12" fill="var(--ink2)">814,012 oz · −6.1% YoY</text>
+      <rect x="290" y="55" width="200" height="70" fill="var(--chip)" stroke="var(--line2)"/><text x="302" y="82" font-size="13" font-weight="700" fill="var(--ink)">Revenue</text><text x="302" y="102" font-size="12" fill="var(--ink2)">+17.1% YoY (price-led)</text>
+      <rect x="572" y="30" width="190" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="586" y="52" font-size="13" font-weight="700" fill="var(--ink)">Net income $1.35B</text><text x="586" y="70" font-size="12" fill="var(--ink2)">Adj. EPS $2.62 · GAAP $2.67</text>
+      <rect x="572" y="104" width="190" height="56" fill="var(--paper)" stroke="var(--line2)"/><text x="586" y="126" font-size="13" font-weight="700" fill="var(--ink)">Free cash flow $852M</text><text x="586" y="144" font-size="12" fill="var(--ink2)">Q3 2026 alone</text>
+      <rect x="800" y="55" width="168" height="70" fill="var(--navy)"/><text x="812" y="82" font-size="13" font-weight="700" fill="#fff">Net cash $3.42B</text><text x="812" y="102" font-size="12" fill="#fff">Cash $3.61B · Debt $0.20B</text>
+      <line x1="208" y1="90" x2="286" y2="90" stroke="var(--muted)" stroke-width="6" opacity=".35"/><line x1="490" y1="90" x2="568" y2="62" stroke="var(--muted)" stroke-width="5" opacity=".35"/><line x1="490" y1="90" x2="568" y2="128" stroke="var(--muted)" stroke-width="4" opacity=".35"/><line x1="762" y1="90" x2="796" y2="90" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+    </svg>
+    <figcaption>Q3 2026 flow — widths indicative, not to scale. Production, net income, adjusted/GAAP EPS, FCF, cash, debt and net cash as verified in the coordinator log.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Agnico Eagle is a <b>pure, premium gold miner</b>: it digs gold (with a small silver by-product) in the jurisdictions investors worry about least, sells it at the spot-linked price, and converts an unusually high share of that price into cash because its mines are long-life, relatively low-cost and politically stable. There is no refining moat, no downstream business and no diversification story — the equity <i>is</i> a levered, well-run claim on the gold price, with management quality as the differentiator.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Item</th><th class="n">Figure</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td>Gold production (annual guide range in pack)</td><td class="n">3.3–3.5M oz / yr</td><td>Motley Fool profile figure carried in the pack; Q3 alone was 0.814M oz</td></tr>
+      <tr><td>Silver production</td><td class="n">~2.5M oz / yr</td><td>By-product only — immaterial to valuation vs gold</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$14.5B</td><td>Fool figure in pack</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$9.1B</td><td>Implied gross margin ~63% — the arithmetic of a high gold price meeting a fixed-ish cost base</td></tr>
+      <tr><td>Operating footprint</td><td class="n">Canada · Australia · Finland · Mexico</td><td>Canada is the core; all four are established mining jurisdictions — no single high-risk geography dominates</td></tr>
+    </tbody>
+  </table></div>
+  <div class="geo">
+    <div><h3>What actually drives revenue</h3><ul><li><b>Gold price × ounces × grade.</b> Q3 proved the hierarchy: price >> volume. A 6.1% production decline was overwhelmed by price.</li><li><b>No segment split is disclosed in the verified pack</b> — segment-level revenue/profit by mine or country was not verified in this pass and is therefore omitted rather than estimated. That is an open question for a fuller note.</li><li><b>Silver and other metals</b> are credits against cost, not a second business.</li></ul></div>
+    <div><h3>Structural features</h3><ul><li><b>Scale:</b> Canada's largest miner, world's No. 2 gold producer (pack) — scale brings lower funding costs and the ability to fund growth internally.</li><li><b>Growth is brownfield-led:</b> Canadian and Australian expansion / optimisation is the pack's named growth path, not transformational M&amp;A.</li><li><b>Supply chain:</b> diesel, power, labour and consumables in four countries; the binding dependency is skilled labour and energy cost in remote Canadian/Australian operations, plus permitting timelines — not a single supplier.</li></ul></div>
+  </div>
+  <div class="callout"><div class="ct">Business-model verdict</div><p>Simplest model in the Materials set: one metal, four stable jurisdictions, internal funding. That simplicity is the appeal (clean gold beta with an operator premium) and the risk (no hedge when gold falls — see §4).</p></div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>By mining standards this balance sheet is <b>fortress-like</b>: $3,613M of cash against just $197M of debt at 30 Sep 2026 is $3,416M of net cash. Most gold miners carry net debt through the cycle; Agnico enters any gold downturn already paid for. Valuation, however, is not distressed — at 14.5× trailing earnings and 5.8× sales, the market already pays for quality.</p>
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price $165.38 (30 Oct 2026 close). TTM = trailing twelve months as carried in the pack.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (vendor-reported)</td><td class="n">14.5×</td><td>Finnhub figure, corroborated in verification (14.52). <b>Reconciliation note:</b> the pack also carries Finnhub TTM EPS of $8.86, and $165.38 ÷ $8.86 = 18.7× — the two vendor figures do <i>not</i> divide into each other, so they rest on different earnings bases (the P/E's earnings base is not the $8.86 TTM EPS). Both are shown exactly as sourced; neither is silently “fixed”. On either basis earnings are real and positive, so trailing P/E is meaningful and no normalisation adaptation is needed.</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">5.8×</td><td>Premium for a miner — justified only if ~63% gross margins persist; highly gold-price-sensitive</td></tr>
+      <tr><td>Forward P/E · EV/EBITDA</td><td class="n">—</td><td>Not verified in this pass — omitted rather than invented, per the pack caveat. Do not fill from consensus aggregators without a dated source.</td></tr>
+      <tr><td>Dividend yield</td><td class="n">1.09%</td><td>Modest income; the return case is price + buyback optionality, not yield</td></tr>
+      <tr><td>Q3 free cash flow</td><td class="n">$852M</td><td>Verified. Annualising a single strong quarter would flatter — gold price and grade vary by quarter</td></tr>
+      <tr><td>Cash &amp; equivalents (30 Sep)</td><td class="n">$3,613M</td><td>Verified — IndexBox summary of Q3 results</td></tr>
+      <tr><td>Total debt (30 Sep)</td><td class="n">$197M</td><td>Remarkably low for an $84B miner</td></tr>
+      <tr class="hl"><td>Net cash</td><td class="n">$3,416M</td><td>Cash minus debt. Leverage / debt-to-equity is effectively nil on a net basis; gross D/E is not presented because the verified pack does not carry a book-equity figure</td></tr>
+      <tr><td>Capital allocation</td><td class="n">Buybacks named</td><td>Pack lists buybacks as a catalyst / allocation lever alongside growth spend. Quantum and pace were not verified in this pass — omitted, not estimated.</td></tr>
+      <tr><td>R&amp;D</td><td class="n">n/a</td><td>Exploration &amp; project spend is the miner's analogue of R&amp;D; no verified figure was carried, so none is shown.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">TTM revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$14.5B</span></div>
+    <div class="bar-row"><span class="bl">TTM gross profit</span><div class="bar-track"><div class="bar-fill gold" style="width:63%"></div></div><span class="bv">$9.1B</span></div>
+    <div class="bar-row"><span class="bl">Cash (30 Sep)</span><div class="bar-track"><div class="bar-fill green" style="width:25%"></div></div><span class="bv">$3.61B</span></div>
+    <div class="bar-row"><span class="bl">Debt (30 Sep)</span><div class="bar-track"><div class="bar-fill red" style="width:2%"></div></div><span class="bv">$0.20B</span></div>
+  </div>
+  <p class="small">Bars scaled to TTM revenue for proportion only. Revenue/gross profit: Fool via pack. Cash/debt/net cash: verified Q3 figures.</p>
+  <div class="callout good"><div class="ct">Diagnostic summary</div><p>No leverage concern, no funding concern, no FCF concern at current gold prices. The financial-health risk is entirely <b>exogenous</b>: every line above — margin, FCF, net cash build — reverses mechanically if gold corrects. Financial strength buys time in a downturn; it does not prevent one.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: narrow-to-moderate, jurisdiction- and execution-based — not pricing power.</b> No gold miner has pricing power: gold is a commodity sold at a global price. Agnico's edge is earning a <i>better margin on the same price</i> than peers, and being trusted to keep doing so.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul><li><b>Lowest-risk jurisdictions:</b> Canada, Australia, Finland, Mexico — the pack's core moat claim. Political / expropriation risk, the industry's biggest destroyer of value, is structurally low.</li><li><b>Execution record:</b> a long history of delivering projects and production in those jurisdictions compounds into a lower cost of capital.</li><li><b>Balance sheet:</b> net cash $3.42B lets Agnico invest through a downturn while levered peers cut — a counter-cyclical advantage.</li><li><b>Scale:</b> world No. 2 producer, Canada's largest miner — procurement, talent and funding advantages follow scale in mining.</li></ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul><li><b>Commodity price-taker:</b> no brand, no switching costs, no network effects. The moat protects margin, never price.</li><li><b>Depletion is permanent:</b> every ounce sold is an ounce not replaced unless exploration / acquisition succeeds — miners must run to stand still.</li><li><b>Peers:</b> Newmont (NEM — in this Materials set at $106.61, 11.9× trailing P/E, $110.8B cap per pack) is the larger, cheaper-rated alternative; Barrick and mid-tier Canadian/Australian producers compete for the same quality premium.</li><li><b>Cost creep erodes the edge:</b> labour, energy and permitting inflation in Canada/Australia hits Agnico's core footprint directly.</li></ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> the <i>quality compounder</i> of gold mining — you pay a vendor-reported 14.5× vs Newmont's 11.9× (pack figures, same vendor basis) for lower jurisdiction risk, a cleaner balance sheet and a better execution history. That premium is the investment debate in one sentence: it is deserved in a flat-to-rising gold market, and it compresses first in a falling one.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div><h3>Catalysts</h3><ul><li><b>Gold price (dominant):</b> any further leg up in gold flows almost directly to margin and FCF at a fixed cost base — Q3's +17.1% revenue on −6.1% volume is the template.</li><li><b>Canadian / Australian growth:</b> brownfield expansion and optimisation in the core footprint (pack) — volume growth on top of price would be a double driver Q3 did not have.</li><li><b>Buybacks:</b> with net cash of $3.42B and $852M of FCF in one quarter, repurchase capacity is real; pace/quantum not verified, so treat as optionality, not a forecast.</li><li><b>Production recovery:</b> a return to growth after Q3's −6.1% print, at current prices, would annualise well above TTM earnings.</li></ul></div>
+    <div><h3>Downside risks</h3><ul><li><b>Gold correction (dominant):</b> single-metal concentration means a 15–20% gold fall hits revenue, margin, FCF and the multiple simultaneously — there is no second segment to cushion it.</li><li><b>Cost inflation:</b> labour and energy in remote operations; the ~63% gross margin is a high-water mark, not a floor.</li><li><b>Production / grade variability:</b> Q3 already showed −6.1%; a weaker quarter at a weaker gold price is the bear-case recipe (see §5).</li><li><b>Permitting &amp; jurisdiction drift:</b> low-risk is not no-risk — Canadian/Australian permitting timelines and Mexican policy can delay growth projects.</li><li><b>Premium-multiple compression:</b> at 5.8× sales, disappointment is priced harshly.</li></ul></div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained gold correction <i>combined with</i> cost inflation — price down, costs up. Either alone squeezes margins; together they recreate the 2013–15 miner downturn, in which even quality names de-rated for years. Net cash softens that path; it does not remove it.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets below are <b>modelled estimates</b> with methodology shown — not verified facts and not analyst targets, except the MarketBeat consensus of $227.20 quoted for cross-check. Note the tension: the Street consensus ($227.20) sits <i>above even our bull case</i> for 12–18 months — the Street is pricing more gold upside, faster, than this note's scenarios. Treat that gap as information, not as an error to be closed.</p>
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$135</div><div class="ret down">−18% vs $165.38</div><p>Gold corrects, costs stay sticky, production stays soft. The quality premium compresses toward the peer multiple and earnings fall together.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$185</div><div class="ret up">+12% vs $165.38</div><p>Gold holds near current levels, production stabilises, FCF and buyback optionality support a modest re-rating from 14.5×.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$220</div><div class="ret up">+33% vs $165.38</div><p>Gold makes a further leg up and Canadian/Australian growth delivers volume on top of price — operating leverage in both directions at once.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted (12–18 mo)</div><div class="wv mono">≈ $181</div></div><p>0.25×$135 + 0.50×$185 + 0.25×$220 = $181.25, or +10% from $165.38. Modelled estimate — weights are this note's judgement (25/50/25), shown so the arithmetic can be checked.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (2031)</h3>
+  <p>Formula, as specified: <b>2031 price = 2031 revenue × net margin ÷ shares × P/E</b>. Frozen parameters per case: shares held at <b>~510M</b> (derived: $84.3B market cap ÷ $165.38 — a derived estimate, labelled as such, since the verified pack does not carry a share count); exit P/E held at the <b>vendor-reported trailing 14.5× in all three cases</b> (see the §2 reconciliation note on its earnings base) — trailing P/E is meaningful here (positive, cash-backed earnings), so no normalisation adaptation is needed, and holding it frozen isolates the earnings story. Starting revenue: TTM $14.5B. The 2031 EPS figures in the table are derived <i>only</i> from 2031 revenue × net margin ÷ shares — they do not build on the $8.86 TTM EPS. Margin assumptions (29% / 35% / 39%) are this note's modelled estimates, set against the ~63% TTM gross margin and Q3's $1.35B net income, and flex with the assumed gold price.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E (frozen)</th><th class="n">2031 price</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">2%</td><td class="n">29%</td><td class="n">~$16.0B</td><td class="n">~$9.10</td><td class="n">14.5×</td><td class="n">$130</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">6%</td><td class="n">35%</td><td class="n">~$19.4B</td><td class="n">~$13.30</td><td class="n">14.5×</td><td class="n">$192</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">9%</td><td class="n">39%</td><td class="n">~$22.3B</td><td class="n">~$17.00</td><td class="n">14.5×</td><td class="n">$245</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">~$190</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check: base 2031 revenue $14.5B × 1.06⁵ ≈ $19.4B; × 35% ≈ $6.8B net income; ÷ 0.51B shares ≈ $13.30 EPS; × 14.5 ≈ $192 — and $165.38 growing at ~3%/yr for five years also gives ~$192, matching the pack's cross-check. Weighted: 0.25×$130 + 0.50×$192 + 0.25×$245 = $189.75 ≈ $190 (+15% over five years, ~+2.8%/yr — before the 1.09% dividend). That modest 5-yr torque is the honest character of this name at today's gold price: the near-term leverage is to gold, the long-term return is mostly margin defence plus dividends. All figures are modelled estimates.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Profile assumed: <b>mid-30s, risk score 8/10</b>, long accumulation horizon. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td>Weighted modelled value ~$181 (+10%) with a $185 base case; net cash and $852M quarterly FCF cushion the entry. The main timing risk is buying immediately ahead of a gold correction — stage the entry.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td>Weighted modelled value ~$190. A quality, debt-free gold exposure for portfolio ballast and inflation / real-rate hedging — not a growth engine. Size it as such.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing</h3>
+  <ul><li><b>Suggested weight: 1.5% of total portfolio</b> (pack guidance for this name — satellite tier: core names in this pack run 2.0–2.5%, satellites 1.0–1.5%).</li><li><b>Role:</b> within a Materials / real-assets sleeve, AEM is the quality gold anchor alongside cheaper, larger Newmont exposure if held — do not hold both at full satellite size without counting the combined gold beta.</li><li><b>Rebalance rule:</b> because AEM's price is a gold derivative, trim mechanically if a gold spike pushes the weight well above target; add on gold-driven drawdowns only if the balance-sheet story (net cash) is intact.</li></ul>
+  <div class="calc"><div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div><div class="out" id="pfOut" aria-live="polite"></div></div>
+  <p class="small">Calculator uses the 1.5% suggested weight and the $165.38 reference price; share count is approximate and excludes fees/taxes.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Agnico Eagle Mines (AEM)</h2>
+<p><strong>Price (30 Oct 2026 close): $165.38.</strong> <strong>DCF intrinsic: $77.</strong> Discount/premium vs DCF: <strong>+114.8%</strong> — i.e. the shares are trading 114.8% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$77</td><td>+114.8%</td><td>g 3.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack Q3 2026 verified (coordinator correction: adjusted EPS $2.62); TwelveData https://twelvedata.com/markets/129523/stock/nyse/aem/statistics ; TipRanks https://www.tipranks.com/stocks/aem/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Agnico Eagle Mines (AEM)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Agnico Eagle sells gold (plus ~2.5m oz/yr silver) into spot and benchmark markets via refiners and bullion banks, with no single customer disclosed as a concentration. Like Newmont, it is a price-taker: jurisdiction and cost position, not customer relationships, are the moat.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Bullion refiners and bullion banks (spot market)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Central banks (reserve buyers)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Jewellery and industrial buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> There is no meaningful top-7 customer list and no covered-ticker customer, so the customer read-through does not apply in the usual sense: Agnico&#x27;s revenue is set by the gold price, not by any buyer&#x27;s valuation — an undervalued jeweller or bank would not lift its realised price, and the signal that matters is investor and central-bank demand for gold, which moves with real rates and risk appetite.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Agnico Eagle Mines (AEM)</h2>
+<p><strong>Role: Low exposure.</strong> Gold has no AI input channel: Agnico&#x27;s earnings are set by the gold price and its low-cost, low-risk jurisdictions, and AI sentiment reaches it only through risk appetite and real rates.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand barely moves: gold demand comes from investors, jewellers and central banks, and AI capex consumes no material gold.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is no AI premium to unwind (trailing P/E 14.5 in the pack is a gold-price multiple), so compression would come from a falling gold price, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — gold-price weakness as risk appetite returns; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, the position is defensive: both miners carry net cash (~$3.4bn each in this build) and no AI-capex debt, so an unwind hits through the gold price, not solvency.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: a sharp gold-price correction on rising real rates, a risk-on rotation out of haven assets, and cost inflation at the mines themselves. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; verification notes</h2>
+  <p class="small">Price reference: 30 Oct 2026 close. Verification status per the independent log appended to the research pack: AEM production, net income, FCF, cash, net cash and debt were CONFIRMED; the EPS label was CORRECTED to adjusted $2.62 (GAAP $2.67) and is applied throughout. AEM's price was reproduced via Finnhub only in the verification pass (the pack's own source) — a second price feed had not been added at verification time, so treat the $165.38 close as corroborated, not independently double-sourced. Market cap is shown as Fool $84.3B with MarketBeat $83.7B noted († source variance by share-class/feed). Forward P/E, EV/EBITDA, segment profit, buyback quantum and book equity were not verified and are omitted, not estimated. All scenario prices are modelled estimates with assumptions and weights shown in §5.</p>
+  <ol class="refs">
+    <li><a href="https://www.kitco.com/news/article/2026-10-28/agnico-eagle-beats-earnings-expectations-higher-gold-prices-offset-rising" target="_blank" rel="noopener">Kitco — Q3 2026: 814,012 oz production (−6.1% YoY), net income $1,353M, adjusted EPS $2.62 / GAAP $2.67</a></li>
+    <li><a href="https://kalkinemedia.com/us/news/announcements/agnico-eagle-reports-q3-2026-814012-ounces-gold-production-and-852m-free-cash-flow" target="_blank" rel="noopener">Kalkine Media — Q3 announcement summary: production and $852M FCF</a></li>
+    <li><a href="https://www.indexbox.io/blog/agnico-eagle-reports-strong-third-quarter-2026-results/" target="_blank" rel="noopener">IndexBox — Q3 results: FCF $852M, cash $3,613M, net cash $3,416M, debt $197M</a></li>
+    <li><a href="https://tradersunion.com/news/stocks/show/4038118-agnico-eagle-mines-drops-7-49percent/" target="_blank" rel="noopener">Traders Union — Q3: revenue +17.1% YoY, EPS beat, net cash ~$3.4B</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NYSE/AEM/" target="_blank" rel="noopener">MarketBeat — AEM: consensus target $227.20, market cap $83.7B</a></li>
+    <li><a href="https://finnhub.io/?q=%22AEM%22" target="_blank" rel="noopener">Finnhub — AEM quote: price $165.38, P/E 14.5, EPS $8.86 (pack source; see verification note above)</a></li>
+    <li><a href="https://www.fool.com/research/largest-materials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Materials companies: ranking basis, TTM revenue $14.5B, gross profit $9.1B, P/S 5.8×, production profile</a></li>
+    <li><a href="https://www.financecharts.com/sectors/materials?columns=custom-growth" target="_blank" rel="noopener">FinanceCharts — Materials sector data (30 Oct 2026)</a></li>
+  </ol>
+  <p class="disc">Disclaimer: This note is research for information only, based on the sources above as of 1 Nov 2026 with a 30 Oct 2026 price reference. Scenario prices are modelled estimates, not forecasts or guarantees. Gold equities are volatile and single-commodity-exposed; a mid-30s, risk-8/10 profile is assumed for sizing only. This is not investment advice — verify figures against primary filings (Agnico Eagle's Q3 2026 report / 6-K) before acting.</p>
+</footer>
+</div>
+<script>
+(function(){
+  var adj=document.getElementById('btnAdj'), gaap=document.getElementById('btnGaap');
+  var val=document.getElementById('epsVal'), lab=document.getElementById('epsLabel'), read=document.getElementById('epsRead');
+  function setAdj(){adj.classList.add('on');gaap.classList.remove('on');val.textContent='$2.62';lab.textContent='adjusted';read.textContent='Adjusted EPS $2.62, beat by $0.18. GAAP EPS was $2.67 — label matters, the two are not interchangeable.';}
+  function setGaap(){gaap.classList.add('on');adj.classList.remove('on');val.textContent='$2.67';lab.textContent='GAAP';read.textContent='GAAP EPS $2.67. Adjusted EPS was $2.62 (beat by $0.18 vs consensus). The coordinator correction requires both labels to be shown — never plain “EPS $2.62”.';}
+  adj.addEventListener('click',setAdj); gaap.addEventListener('click',setGaap);
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function calc(){var v=parseFloat(pf.value)||0; var amt=v*0.015; var sh=165.38>0?amt/165.38:0; out.innerHTML='At <b>1.5%</b>: <b>$'+fmt(amt)+'</b> in AEM ≈ <b>'+fmt(sh)+' shares</b> at $165.38.';}
+  pf.addEventListener('input',calc); calc();
+})();
+</script>
+</body>
+</html>

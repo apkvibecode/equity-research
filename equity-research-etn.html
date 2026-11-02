@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ETN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f5f6f4; --paper:#fdfcfa; --ink:#161c22; --ink2:#3e4753; --muted:#6c7582;
+  --line:#d9dcd2; --line2:#bcc2b0;
+  --navy:#16324f; --blue:#1f5f8b; --blue-soft:#e2ecf3;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#9a7414;
+  --card:#ffffff; --chip:#eef0e8;
+  --shadow:0 1px 2px rgba(22,28,34,.06),0 8px 24px rgba(22,28,34,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0f1216; --paper:#151a20; --ink:#e9e7de; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a313c; --line2:#3b4554;
+    --navy:#a9c4de; --blue:#6fb0dd; --blue-soft:#1b2a3a;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d25; --chip:#202833;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0f1216}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3a;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Industrials</span><span>Electrical Equipment · Intelligent Power Management</span></div>
+  <h1>Eaton Corporation <span class="tick">(NYSE: ETN)</span></h1>
+  <p class="lede">An intelligent power-management company — electrical components and systems, hydraulics and aerospace content, sold in 160+ countries with 92,000+ employees. Eaton sits directly in the path of the two biggest physical spending waves of this cycle: data-centre power and grid modernisation. The stock fell 6.03% on 30 Oct alone, from $393.72 to $369.97. The debate is not whether the end-markets are real — it is whether a 38.6× trailing multiple already pays for them in full.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $369.97 close, Fri 30 Oct 2026</span>
+    <span><b>Sector frame:</b> Industrials — global top-10 universe (see Basis)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage">
+    <span class="tab active">ETN — this report</span>
+    <span class="tab">Industrials peers covered separately</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$369.97</div><div class="vsub down">−6.03% on the day, from $393.72 · Finnhub feed — see verification note</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$143.7B</div><div class="vsub">~388M shares implied (derived: cap ÷ price)</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E / P/S</div><div class="vbig mono">38.6× / 4.8×</div><div class="vsub">EPS $10.45 (Finnhub basis) · Div. yield 1.19%</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus target</div><div class="vbig mono">$484.10 <span class="up" style="font-size:16px">+31%</span></div><div class="vsub">MarketBeat consensus — above this note&rsquo;s base case; see §5</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Post-sell-off entry. Modelled base $430 (+16%). The 30 Oct drop improved the entry; it did not remove the multiple risk.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $537 (+45%). Electrical breadth into data-centre and grid demand is the compounder.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Quality-industrial slot inside Industrials. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Revenue flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The set-up in one view</h2></div>
+  <p>Eaton is a <b>$30.0B-revenue (TTM)</b> power-management franchise earning <b>$10.8B of gross profit</b> — an implied gross margin of <b>36.0%</b> (derived) that reflects a mix tilted to electrical specification products rather than commodity hardware. At <b>$143.7B</b> market cap the market pays <b>4.8× sales and 38.6× trailing earnings</b> for that profile: a growth multiple on an industrial P&amp;L. The 30 Oct fall of <b>−6.03% in a single session</b> is the entry point this note underwrites — not a broken thesis, on the verified evidence available, but a reminder of how quickly a 38× multiple reprices when holders head for the exit together.</p>
+  <div class="callout warn"><div class="ct">Ranking basis — read this first</div>
+  <p><b>Global</b> top-10 by market cap (Motley Fool sector pages; rankings and metrics as of <b>5 Oct 2026</b>, with live quote cards updating; prices in this note at the <b>30 Oct 2026 close</b>), <b>including OTC ADRs and state-controlled issuers</b>. The Industrials list runs to <b>11 names</b> because Bloom Energy (BE), a named ticker in the brief, is added. The list is <b>not in strict market-cap order</b> as printed. A NYSE/Nasdaq-only list would be different (e.g. Boeing, Uber and Honeywell would enter). Do not read the sector ordering as a live league table.</p></div>
+  <div class="callout"><div class="ct">What is verified here — and what is labelled or omitted</div>
+  <p>Price ($369.97), trailing P/E (38.6×) and EPS ($10.45) were reproduced in the independent verification pass <b>via Finnhub only — the research pack&rsquo;s own source</b> — so they are marked <b>Finnhub-only pending a second feed</b>, not &ldquo;independently verified&rdquo; in the full sense. TTM revenue and gross profit are Motley Fool figures from the pack. <b>Forward multiples, EV/EBITDA, free cash flow, debt and buyback detail were not in the verified pack and are omitted rather than estimated.</b> All scenario prices in §5 are <b>modelled estimates</b> with methodology and weights shown — never verified facts. All 12–18-month scenario targets are likewise modelled and were not re-checked as facts in verification.</p></div>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>TTM revenue flow — where $30.0B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 240" width="100%" role="img" aria-label="Eaton trailing twelve month revenue of 30 billion dollars splitting into 19.2 billion cost of revenue and 10.8 billion gross profit, a 36 percent gross margin" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="70" width="200" height="90" fill="var(--navy)"/><text x="24" y="106" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="24" y="128" font-size="13" fill="#fff">$30.0B</text><text x="24" y="146" font-size="12" fill="#fff">Motley Fool basis</text>
+      <rect x="420" y="26" width="230" height="70" fill="var(--chip)" stroke="var(--line2)"/><text x="436" y="54" font-size="13" font-weight="700" fill="var(--ink)">Cost of revenue (derived)</text><text x="436" y="74" font-size="12" fill="var(--ink2)">$19.2B · 64.0% of revenue</text>
+      <rect x="420" y="130" width="230" height="70" fill="var(--green-soft)" stroke="var(--line2)"/><text x="436" y="158" font-size="13" font-weight="700" fill="var(--ink)">Gross profit</text><text x="436" y="178" font-size="12" fill="var(--ink2)">$10.8B · 36.0% gross margin</text>
+      <line x1="208" y1="98" x2="416" y2="64" stroke="var(--muted)" stroke-width="14" opacity=".35"/>
+      <line x1="208" y1="132" x2="416" y2="162" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <rect x="720" y="70" width="252" height="90" fill="var(--paper)" stroke="var(--line2)"/><text x="736" y="100" font-size="13" font-weight="700" fill="var(--ink)">Per share (TTM, Finnhub)</text><text x="736" y="122" font-size="12" fill="var(--ink2)">EPS $10.45 · Price $369.97</text><text x="736" y="140" font-size="12" fill="var(--ink2)">Dividend yield 1.19% (≈ $4.40/yr, derived)</text>
+    </svg>
+    <figcaption>Revenue and gross profit: Motley Fool via the research pack. Cost of revenue ($30.0B − $10.8B = $19.2B) and the 36.0% margin are arithmetic derivations, labelled as such. Operating profit, net income and cash-flow lines below gross profit were not in the verified pack and are not shown as figures. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Eaton&rsquo;s model, in the pack&rsquo;s words, is <b>intelligent power management</b>: design and sell the equipment that distributes, protects, converts and controls electrical power — plus hydraulics and aerospace components — into buildings, factories, utilities, vehicles and aircraft. Financially it is a <b>specification business</b>: Eaton products are designed into electrical systems by engineers and contractors, bought through distributors and OEMs, and replaced or expanded over decades-long asset lives. That design-in dynamic, across <b>160+ countries</b> and <b>92,000+ employees</b> (Motley Fool), is the core of both the moat (§3) and the cyclicality (§4).</p>
+
+  <h3>Core revenue streams</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>What it sells</th><th>Demand driver</th></tr></thead>
+    <tbody>
+      <tr><td>Electrical — components &amp; assemblies</td><td>Circuit protection, switchgear, power distribution, wiring devices, backup power and power-quality equipment for buildings, factories and utilities</td><td>Construction, industrial capex, grid investment — and, currently, data-centre build-outs, which are exceptionally power-dense</td></tr>
+      <tr><td>Electrical — data-centre &amp; utility systems</td><td>Higher-capacity distribution and protection specified into hyperscale and utility projects, sold on long-standing data-centre/utility relationships (pack)</td><td>Hyperscaler capex, utility grid hardening and interconnection queues</td></tr>
+      <tr><td>Aerospace</td><td>Hydraulic, fuel, motion-control and electrical content on commercial and defence aircraft</td><td>New aircraft production plus the aftermarket on the installed fleet — aftermarket is the higher-margin, steadier leg</td></tr>
+      <tr><td>Hydraulics &amp; vehicle / mobility</td><td>Hydraulic components and vehicle powertrain/mobility products</td><td>Off-highway, agricultural and vehicle production cycles — the most conventionally cyclical part of the mix</td></tr>
+      <tr class="total"><td>Group (TTM)</td><td>Revenue $30.0B · Gross profit $10.8B</td><td>Implied gross margin 36.0% (derived) — see flow diagram above</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Group TTM revenue and gross profit: Motley Fool (see Sources). Segment revenue splits and geographic revenue percentages were not in the verified pack and are therefore not stated as figures — the table describes the model qualitatively, with no invented percentages.</p>
+
+  <h3>Geography, structure and dependencies</h3>
+  <ul>
+    <li><b>Geographic footprint:</b> operations in <b>160+ countries</b> (Motley Fool) — demand is therefore a blend of North American construction and data-centre spending, European industrial activity, and Asia-Pacific manufacturing, rather than a single-country bet. No verified regional revenue split is available in this pass, so none is quoted.</li>
+    <li><b>Structural pivot — toward electrical, toward power density:</b> the investment case in the pack is a mix shift, not a corporate reorganisation: electrical content for data centres and the grid is the growth engine, aerospace aftermarket is the stabiliser, and legacy hydraulics/vehicle exposure is the cyclical tail. Each data-centre megawatt requires multiples of the electrical content of conventional commercial space — that intensity, not unit construction growth, is what Eaton is geared to.</li>
+    <li><b>Supply-chain dependencies:</b> copper and electrical steel, semiconductors and electronic controls, castings and machined components. Copper is the signature input: sustained copper inflation squeezes the 36.0% gross margin unless specification pricing passes it through — historically Eaton&rsquo;s design-in position has allowed pass-through, with a lag.</li>
+    <li><b>Channel dependency:</b> electrical distribution and contractor relationships carry the product to market; utility and hyperscaler specification lists gate the largest orders. Losing a specification position is slow to show and slow to win back — which cuts both ways (see §3).</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>On verified trailing figures, Eaton is a <b>profitable, dividend-paying industrial priced like a growth stock</b>. That single tension organises this whole section: the underlying P&amp;L (36.0% gross margin on $30.0B of revenue) is high quality for an industrial, but at <b>38.6× trailing earnings</b> the buyer is pre-paying for several years of data-centre and grid-driven growth. Balance-sheet specifics — cash, debt, free cash flow — <b>were not verified in this pass</b> and are flagged as open items below instead of being filled in.</p>
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price $369.97 (30 Oct 2026 close, Finnhub feed). TTM = trailing twelve months as carried in the research pack.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct close)</td><td class="n">$369.97</td><td>Finnhub feed; −6.03% on the day from $393.72. Verification reproduced this via Finnhub only — the pack&rsquo;s own source — pending a second feed</td></tr>
+      <tr><td>Market cap</td><td class="n">$143.7B</td><td>Pack basis; implies ~388M shares (derived). Vendor caps differ across feeds — do not mix bases</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">38.6×</td><td>Finnhub, corroborated in verification via Finnhub. This is the richest kind of multiple a diversified industrial carries — it prices execution, not just quality</td></tr>
+      <tr><td>EPS (TTM basis in pack)</td><td class="n">$10.45</td><td>Finnhub. Cross-check: $369.97 ÷ 38.6 ≈ $9.59 does not equal $10.45 — the P/E and EPS come from different vendor TTM windows; use each as sourced, do not force them to reconcile</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$30.0B</td><td>Motley Fool</td></tr>
+      <tr><td>TTM gross profit / margin</td><td class="n">$10.8B / 36.0%</td><td>Gross profit: Motley Fool. Margin derived ($10.8B ÷ $30.0B) — strong for electrical equipment; reflects specification mix</td></tr>
+      <tr><td>Price / Sales</td><td class="n">4.8×</td><td>Pack figure; cross-checks arithmetically ($143.7B ÷ $30.0B ≈ 4.79×)</td></tr>
+      <tr><td>Dividend yield</td><td class="n">1.19%</td><td>Pack / Finnhub basis; implies ≈ $4.40 per share per year at $369.97 (derived). A real but modest income leg — this is a capital-appreciation holding, not a yield holding</td></tr>
+      <tr><td>Forward P/E · EV/EBITDA</td><td class="n">—</td><td>Not in the verified pack — omitted. On a 38.6× trailing multiple, the forward figure is the one that matters most; treat its absence as a genuine gap, not a detail</td></tr>
+      <tr><td>Free cash flow · Buybacks · R&amp;D</td><td class="n">—</td><td>Not verified in this pass — omitted, do not assume a figure</td></tr>
+      <tr><td>Cash · Debt · Leverage / D/E</td><td class="n">—</td><td>Not verified in this pass — omitted. No leverage claim is made anywhere in this note</td></tr>
+      <tr><td>Street consensus target</td><td class="n">$484.10</td><td>MarketBeat consensus (pack); +30.9% vs the reference price — see §5 for why this note&rsquo;s base case sits well below it</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Reading the 38.6× multiple honestly</div>
+  <p>At 38.6× trailing earnings and 4.8× sales, Eaton has <b>no valuation cushion</b>: the multiple itself is the risk. If data-centre electrical orders compound for years, today&rsquo;s multiple compresses painlessly as the &ldquo;E&rdquo; grows into the price. If orders merely pause — a digestion quarter or two — the same arithmetic works in reverse, and 30 Oct&rsquo;s −6.03% session is the template for how fast it happens. The dividend (1.19%) and the gross-margin quality argue the business is sound; they do not argue the price is cheap. §5 therefore sets a base case (+16%) far below the Street&rsquo;s $484.10 (+31%).</p></div>
+  <h3>Capital allocation — what can and cannot be said</h3>
+  <ul>
+    <li><b>Verified:</b> a dividend exists and yields 1.19% at the reference price. Nothing on buyback pace, payout ratio or free-cash-flow conversion was verified in this pass.</li>
+    <li><b>Structural (model, not figures):</b> Eaton&rsquo;s cash demands compete three ways — capacity and component investment to serve the data-centre/grid order wave, the dividend, and portfolio shaping (electrical-weighted deals over legacy hydraulics). In a demand surge, working capital absorbs cash before shareholders see it; judge cash returns over a full cycle.</li>
+    <li><b>Open questions for the next pass:</b> latest cash and total debt, debt-to-equity, TTM free cash flow and buyback run-rate, forward P/E and EV/EBITDA on a stated EBITDA definition — all flagged here as unverified rather than estimated.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide, built on specification and breadth.</b> The pack&rsquo;s moat summary is compact — <i>electrical components breadth, data-centre/utility relationships, aerospace content</i> — and each leg is a different kind of barrier. Breadth means a contractor or OEM can source a whole electrical system from one qualified vendor. Specification relationships mean Eaton is written into designs and utility standards before a purchase order exists. Aerospace content means parts qualified onto aircraft platforms, where re-qualification of a rival is slow, expensive and risk-averse. None of these is a consumer-style network effect; together they are a deep industrial moat.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Electrical breadth:</b> protection, distribution, power quality and backup under one roof — breadth wins whole-system specifications that a point-product rival cannot bid for.</li>
+      <li><b>Designed-in, not just sold-in:</b> once Eaton gear is specified into a data centre, building or utility standard, repeat orders and expansions default to the incumbent. Switching means re-engineering, not just re-ordering.</li>
+      <li><b>Data-centre &amp; utility relationships:</b> the customers driving this cycle&rsquo;s capex are precisely the ones Eaton has served for decades — qualification history is a genuine barrier when build schedules are measured in months.</li>
+      <li><b>Aerospace content &amp; aftermarket:</b> qualified content on long-lived platforms generates aftermarket demand for decades, at margins and visibility the industrial cycle cannot offer.</li>
+      <li><b>Global service &amp; distribution reach:</b> 160+ countries of presence supports multinational customers uniformly — hard for regional rivals to match.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Formidable direct rivals:</b> Schneider Electric and ABB in electrical distribution and automation, Siemens in industrial power, Honeywell and Parker Hannifin in adjacent aerospace/motion markets — all global, all well-capitalised, all chasing the same data-centre specifications.</li>
+      <li><b>Pricing power is real but lagged:</b> specification pricing passes copper and component inflation through with a delay; in a fast input-cost spike, the 36.0% gross margin absorbs the gap first.</li>
+      <li><b>No take-or-pay floor:</b> data-centre and utility orders are project orders — they can be deferred. The moat wins Eaton the order book; it does not guarantee the order book&rsquo;s timing.</li>
+      <li><b>Cyclical tail exposure:</b> hydraulics and vehicle-linked demand remain tied to off-highway and vehicle production, where Eaton&rsquo;s differentiation is thinner.</li>
+      <li><b>Customer concentration in the growth leg:</b> the data-centre wave is funded by a small number of hyperscalers; their collective capex discipline is a single point of failure for the entire electrical complex, Eaton included.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Eaton is one of the highest-quality ways to own the physical side of the AI build-out — the power layer rather than the compute layer — plus a grid-modernisation cycle and an aerospace aftermarket annuity. That quality is recognised: 38.6× trailing earnings is the market&rsquo;s price for it. The moat justifies a premium multiple; whether it justifies <i>this</i> premium depends entirely on order durability, which is §4&rsquo;s question.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Data-centre electrical orders:</b> continued hyperscale build-outs translate directly into Eaton&rsquo;s highest-demand product set — switchgear, distribution and backup power. Order commentary, not revenue, is the leading indicator to watch.</li>
+        <li><b>Grid modernisation:</b> utility spending on grid hardening, capacity and interconnection is a multi-year, policy-supported cycle that diversifies Eaton away from pure data-centre exposure.</li>
+        <li><b>Aerospace aftermarket:</b> a large, ageing installed fleet keeps aftermarket demand compounding steadily — the leg most likely to deliver in a soft industrial year.</li>
+        <li><b>Post-sell-off reset:</b> the shares enter this window down 6.03% in a day, at $369.97 vs a $484.10 Street consensus — if orders merely hold, the path from an oversold print back toward the modelled $430 base is multiple repair, not earnings heroics.</li>
+        <li><b>Mix shift compounding:</b> every point of revenue mix moving toward electrical specification and aerospace aftermarket lifts the structural gross margin above today&rsquo;s 36.0% — slow, but durable.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>The 38× problem:</b> the pack names it plainly — at 38.6× trailing P/E, disappointment is expensive. A single soft guide can take 10–15% off the shares without anything being &ldquo;broken&rdquo; in the business.</li>
+        <li><b>Data-centre digestion:</b> if hyperscalers pause to absorb capacity — or power availability, not demand, throttles build schedules — electrical orders defer in a bunch, and the market will not wait to find out whether it is a pause or a peak.</li>
+        <li><b>Industrial cycle:</b> construction, off-highway and vehicle end-markets are late-cycle sensitive; a macro downturn hits the hydraulics/vehicle tail and general electrical demand simultaneously.</li>
+        <li><b>Input costs:</b> copper and component inflation compress gross margin before specification pricing catches up (see §3).</li>
+        <li><b>Execution &amp; capacity:</b> serving a demand surge requires capacity added ahead of orders; over-build into a digestion phase reverses operating leverage just as fast.</li>
+        <li><b>Geopolitics &amp; trade:</b> a 160+ country footprint plus globally sourced components means tariffs and trade friction are a standing exposure, as flagged across the Industrials sector work — costs rise first, pass-through follows later, if demand allows.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Clear evidence that data-centre electrical ordering has peaked — hyperscaler capex guides cut <i>and</i> utility/grid spending failing to offset — while the shares still carry a premium multiple. In that world Eaton remains a good business but becomes a de-rating stock: earnings flatten, the multiple compresses toward a conventional industrial level, and the bear paths in §5 ($310 near-term, ~$330 over five years) become the planning assumptions rather than the tail cases.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b>modelled estimates</b> from the research pack — methodology and weights shown, never verified facts; the verification pass explicitly did not re-check 12–18-month targets. Cross-check anchor: the MarketBeat consensus target is <b>$484.10 (+30.9%)</b> — above even this note&rsquo;s base case and close to its bull case. Read that gap carefully: the Street is underwriting sustained data-centre order growth at close to today&rsquo;s multiple. This note&rsquo;s scenarios are more conservative — they assume the multiple does some of the adjusting even when the business performs.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25% weight</div><div class="price mono">$310</div><div class="ret down">−16.2% vs $369.97</div><p>Data-centre digestion arrives: orders defer, the industrial cycle softens, and a 38.6× multiple compresses toward the mid-20s on flat earnings. Nothing is broken — the price simply stops pre-paying for growth.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50% weight</div><div class="price mono">$430</div><div class="ret up">+16.2% vs $369.97</div><p>Orders hold: data-centre and grid demand carry electrical growth, aerospace aftermarket compounds, earnings grow into the multiple with modest compression. This is the pack&rsquo;s base estimate (+16%).</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25% weight</div><div class="price mono">$500</div><div class="ret up">+35.1% vs $369.97</div><p>The order wave accelerates — data-centre power content per megawatt surprises upward, grid spending adds a second leg, and the market keeps paying a scarcity premium for the power layer of the AI build-out. Still only ~3% above the Street&rsquo;s $484.10 consensus.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $418</div></div><p>Using the stated weights — 25% Bear / 50% Base / 25% Bull: 0.25×$310 + 0.50×$430 + 0.25×$500 = <b>$417.50 (+12.8%)</b>. Weights are this note&rsquo;s modelling choice, published so the arithmetic can be checked; change the weights and the weighted value changes with them. Skew note: the bear loses 16%, the bull gains 35% — favourable asymmetry <i>if</i> you believe the order book holds.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Method as specified in the brief and carried in the pack: start from the <b>$369.97</b> reference price and hold the framework frozen — share count implied by the $143.7B cap (≈388M shares) held constant, no buyback or dilution assumed since neither was verified — and vary only the <b>price CAGR</b> by case. The pack&rsquo;s base case is stated exactly this way: <b>8% CAGR → $369.97 × 1.08⁵ = $369.97 × 1.469 ≈ $544</b>. Bull and bear CAGRs below are back-solved from the pack&rsquo;s scenario prices (labelled derived) so every figure can be re-checked. This is a price-path model, not a full revenue/EPS build — the pack supplies no verified 5-year revenue and margin lines, so none are invented here. For intuition only: at a frozen 38.6× multiple, the base-case $544 would require EPS of ≈ $14.09 (derived) vs $10.45 today.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Price CAGR / yr</th><th>Maths</th><th class="n">5-yr price</th><th class="n">Vs $369.97</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −2.3% (derived)</td><td>Digestion + industrial downturn; multiple compression overwhelms slow earnings growth</td><td class="n">~$330</td><td class="n">−10.8%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">8%</td><td>$369.97 × 1.08⁵ = $369.97 × 1.469</td><td class="n">$544</td><td class="n">+47.0%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +14.6% (derived)</td><td>Multi-year data-centre + grid supercycle; premium multiple broadly held</td><td class="n">~$730</td><td class="n">+97.3%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td>0.25×$330 + 0.50×$544 + 0.25×$730 = 82.50 + 272.00 + 182.50</td><td class="n">≈ $537</td><td class="n">+45.2%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the weighted maths: it sums to $537.00, as carried in the pack. Read the shape, not just the weighted point: even the bear case is only −10.8% over five years (the model assumes earnings growth cushions multiple compression over a long window), while the bull case nearly doubles the shares. That asymmetry is the long-term buy case — and it rests entirely on the data-centre/grid order wave lasting years, not quarters. Illustrative model, not a forecast.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b> — equity-heavy, able to hold a premium-multiple industrial through an order-cycle wobble without being a forced seller. Recommendations are <b>research views, not guarantees and not investment advice</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — staged, post-sell-off.</b> The pack&rsquo;s short-term call is Buy following the 30 Oct −6.03% session: the entry improved by ~$24 a share in a day while the verified business facts did not change. Modelled weighted value ≈ $418 (+12.8%), base $430. Stage the entry — a 38.6× stock can always get cheaper in a digestion scare, and the bear case ($310) is the level to keep dry powder for.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Build to the 2.0% target weight.</b> Modelled weighted 5-yr value ≈ $537 (+45%, ≈ +7.7%/yr on the weighted path) with a bull path near +97%. The case is the power layer of two long cycles — data centres and grid — plus the aerospace aftermarket, owned through a specification moat.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the shares reach the bull zone (~$500) on multiple expansion alone, without order growth to match — the Street&rsquo;s $484.10 would already be in hand and the asymmetry gone. Re-underwrite on the §4 thesis-breaker: hyperscaler capex guides cut with no grid offset. Before sizing up further, close the open verification items in §2 (forward multiples, FCF, leverage).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 2.0% of total portfolio</h3>
+  <ul>
+    <li><b>ETN target: 2.0%</b> (research-pack recommendation for this profile). A single-name industrial slot — large enough for the bull path (+97% modelled over 5 years) to matter, small enough that the 5-yr bear path (−10.8%) costs the total portfolio only ~0.22%.</li>
+    <li><b>Why not larger:</b> the 38.6× trailing multiple is the dominant risk factor, the growth leg depends on a handful of hyperscaler budgets, and key balance-sheet figures are unverified in this pass. Size follows verification and valuation, not franchise quality alone.</li>
+    <li><b>Role in the portfolio:</b> Eaton is the &ldquo;picks-and-shovels power&rdquo; expression of the AI theme — correlated with data-centre capex across your other holdings, so count it toward the AI-infrastructure cluster total, not as independent diversification.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 2.0% target weight and the $369.97 reference price. Share count is indicative only (fractional shares assumed); it is a sizing illustration, not an order.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>ETN — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $369.97.</strong> <strong>DCF intrinsic: $194.</strong> Discount/premium vs DCF: <strong>+90.7%</strong> — i.e. the shares are trading 90.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$194</td><td>+90.7%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$4.5B</strong>; constant growth g <strong>8%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$40.74B</strong>; PV of terminal value <strong>$55.11B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-20.64B</strong>; divided by <strong>388.40m</strong> diluted shares = <strong>$194</strong>. Base FCF $4.50B = OCF $4.95B − capex $0.446B, TTM (TipRanks/Finspry). Growth g 8% = pack 5-year base CAGR. Net cash −$20.64B (cash $0.695B − debt $21.33B, TwelveData/TipRanks). Shares 388.40m (TwelveData). DPS $4.40 annualised ($1.10/quarter declared for 27 Nov 2026; trailing $4.34).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://www.tipranks.com/stocks/etn/statistics , https://twelvedata.com/markets/103055/stock/nyse/etn/statistics ; price 30 Oct 2026 close $369.97. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ETN — Top customers (B2B)</h2>
+<p>Eaton is classified <strong>B2B</strong>: electrical, hydraulics and aerospace products are sold to utilities, data-centre operators, industrials and aerospace OEMs. No ranked customer list is disclosed in the pack.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Data-centre operators — Amazon / AWS</td><td></td><td>Covered ticker — DCF intrinsic $25, discount/premium +861.4%</td></tr><tr><td>Data-centre operators — Microsoft</td><td></td><td>Covered ticker — DCF intrinsic $236 discount/premium +121.1%</td></tr><tr><td>Data-centre operators — Google</td><td></td><td>Covered ticker — DCF intrinsic $45, discount/premium +521.9%</td></tr><tr><td>GE Aerospace (aerospace customer)</td><td></td><td>Covered ticker — DCF intrinsic $142, discount/premium +112.5%</td></tr><tr><td>Airbus SE (aerospace customer)</td><td></td><td>Covered ticker — DCF intrinsic $25.04, discount/premium +113.3%</td></tr><tr><td>Utilities and grid operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Industrial and commercial building customers</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Eaton's electrical backlog is tied to the same data-centre and grid build-out as Schneider's and GE Vernova's, plus aerospace content through GE and Airbus. If the covered customers in this table trade at discounts to intrinsic once filled in, that is a potential tailwind for electrical and aerospace orders; premiums are a potential headwind — but, as with the other power names, the customers' own capex plans and delivery schedules, not their discounts, decide whether orders actually arrive. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ETN — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Eaton is a direct AI enabler: its electrical components are in the power chain of data centres and utilities — the pack cites data-centre electrical orders as the core catalyst.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: data-centre electrical orders, grid modernisation and aerospace aftermarket; the pack's 5-year base case (8% CAGR) leans heavily on data-centre demand. Multiple channel: ETN's 38.6× P/E in the pack is one of the richest in this batch and embeds a data-centre premium that an AI unwind would compress first.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: data-centre digestion — developers pause after a build-out wave (pack risk) — cutting electrical orders, the most AI-sensitive revenue line here. Second, multiple compression: high — from ~39× toward a through-cycle electrical multiple in the low-20s, a severe de-rating. Third, balance sheet: moderate — net debt $20.64B against TTM FCF $4.50B gives limited cushion if orders fall, though there is no single-customer concentration disclosed. Trigger to watch: a hyperscaler electrical-order slowdown or a data-centre digestion announcement.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price reference: 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Verification note: ETN&rsquo;s price, P/E and EPS were reproduced in the independent verification pass via Finnhub only — the pack&rsquo;s own price source — and are labelled Finnhub-only pending a second feed; market-cap basis is the pack&rsquo;s. TTM revenue and gross profit are Motley Fool figures. The 12–18-month and 5-year scenario prices are modelled estimates with methodology and weights shown in §5, not verified facts.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22ETN%22" target="_blank" rel="noopener">Finnhub — ETN quote: price $369.97 (−6.03% on 30 Oct, from $393.72), trailing P/E 38.6×, EPS $10.45</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NYSE/ETN/" target="_blank" rel="noopener">MarketBeat — ETN: consensus price target $484.10</a></li>
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Industrials companies (Eaton model: 160+ countries, 92,000+ employees; TTM revenue $30.0B, gross profit $10.8B; ranking as of 5 Oct 2026)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is equity research prepared for information only. It is not investment advice, a solicitation, or a guarantee of future returns. Scenario prices are modelled estimates based on stated assumptions and will differ — possibly materially — from outcomes. Premium-multiple equities can fall sharply, including through the bear paths shown. Verify any figure you intend to act on against the linked primary source, and consider your own circumstances and professional advice before investing. As of 1 Nov 2026; price reference 30 Oct 2026 close.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.0% sizing.';return;}
+    var amt=v*0.02, shares=amt/369.97;
+    out.innerHTML='2.0% target = <b>$'+fmt(amt)+'</b> in ETN &nbsp;·&nbsp; ≈ <b>'+shares.toFixed(1)+' shares</b> at $369.97 &nbsp;·&nbsp; 5-yr bear-case (−10.8% modelled) impact on total portfolio ≈ <b>−'+(2.0*0.108).toFixed(2)+'%</b>.';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

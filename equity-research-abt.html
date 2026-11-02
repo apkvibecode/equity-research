@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ABT (Abbott Laboratories)</title>
+<style>
+  :root{
+    --bg:#f6f7f5; --surface:#ffffff; --surface2:#eef1ee; --ink:#17211c; --muted:#5b6a61;
+    --line:#d9dfd9; --accent:#0e6b57; --accent-ink:#ffffff; --gold:#9a7414;
+    --red:#b03a2e; --green:#1e7a3c; --amber:#a86a00;
+    --chip:#e4ede8;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101512; --surface:#181e1a; --surface2:#1f2722; --ink:#e8ede9; --muted:#9db0a4;
+      --line:#2c3830; --accent:#2fae8d; --accent-ink:#08130f; --gold:#d9a93a;
+      --red:#e0786c; --green:#5cc47e; --amber:#e0a83e; --chip:#223129;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:20px 18px 64px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2}
+  h2{font-size:1.45rem;margin:2.2em 0 .5em;border-bottom:2px solid var(--accent);padding-bottom:.3em}
+  h3{font-size:1.1rem;margin:1.4em 0 .4em}
+  p{margin:.6em 0}
+  a{color:var(--accent)}
+  .muted{color:var(--muted)} .small{font-size:.86rem}
+  .hero{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 22px 16px}
+  .hero .kicker{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .hero h1{font-size:2rem;margin:.15em 0 .1em}
+  .hero .sub{font-size:1.05rem;color:var(--muted);margin:0}
+  .verdict{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+  .verdict div{background:var(--chip);border-radius:8px;padding:10px 14px;flex:1 1 200px}
+  .verdict b{display:block;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .verdict span{font-size:1.05rem;font-weight:700}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 0}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .stat b{display:block;font-size:.75rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .stat span{font-size:1.25rem;font-weight:700}
+  .stat small{display:block;color:var(--muted);font-size:.8rem}
+  table{width:100%;border-collapse:collapse;margin:.8em 0;font-size:.94rem}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.78rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+  .callout{border-left:4px solid var(--gold);background:var(--surface);padding:12px 16px;border-radius:0 10px 10px 0;margin:14px 0}
+  .callout.red{border-left-color:var(--red)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.grid2{grid-template-columns:1fr}}
+  ul{margin:.4em 0 .8em;padding-left:1.2em} li{margin:.3em 0}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 76px;gap:10px;align-items:center;margin:7px 0;font-size:.92rem}
+  .bar-track{background:var(--surface2);border-radius:5px;height:16px;overflow:hidden}
+  .bar-fill{background:var(--accent);height:100%}
+  .bar-val{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  @media(max-width:520px){.bar-row{grid-template-columns:110px 1fr 64px}}
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:6px 0}
+  .toggle button{border:0;background:var(--surface);color:var(--ink);padding:7px 16px;font-size:.9rem;cursor:pointer}
+  .toggle button.on{background:var(--accent);color:var(--accent-ink);font-weight:700}
+  .pos{color:var(--green)} .neg{color:var(--red)}
+  .tag{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.78rem;font-weight:600;margin-right:6px}
+  .calc{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+  .calc label{font-size:.85rem;color:var(--muted);display:block}
+  .calc input{width:170px;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:1rem}
+  .calc .out{font-size:1.05rem;font-weight:700}
+  .sources{font-size:.88rem} .sources li{margin:.45em 0}
+  .foot{margin-top:36px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:.84rem}
+  svg text{font-family:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ HEADER ============ -->
+  <section class="hero">
+    <div class="kicker">Equity Research · Health Care · As of 1 Nov 2026</div>
+    <h1>Abbott Laboratories (ABT)</h1>
+    <p class="sub">Diversified health-care: medical devices, diagnostics, nutrition and established pharmaceuticals. The investable story is the devices franchise — FreeStyle Libre CGM, electrophysiology, cancer diagnostics — while two overhangs dominate the tape: NEC preterm-formula litigation and the planned Nutrition spin-off.</p>
+    <div class="verdict">
+      <div><b>Short term (12–18 mo)</b><span>Hold — add only on litigation clarity</span></div>
+      <div><b>Long term (5 yr)</b><span>Buy</span></div>
+      <div><b>Suggested position</b><span>1.5% of total portfolio</span></div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat"><b>Price · 30 Oct 2026 close</b><span>$106.20</span><small>Price reference date for all figures</small></div>
+    <div class="stat"><b>Market cap</b><span>$183.77B</span><small>FinanceCharts, updated 30 Oct 2026</small></div>
+    <div class="stat"><b>Forward P/E</b><span>18.20×</span><small>Provider figure — see verification note</small></div>
+    <div class="stat"><b>Trailing P/E (GAAP)</b><span>39.47×</span><small>Inflated by litigation charges</small></div>
+    <div class="stat"><b>Dividend</b><span>$2.52 · 2.37%</span><small>54 consecutive years of growth</small></div>
+    <div class="stat"><b>Free cash flow (TTM)</b><span>$7.82B</span><small>16.80% FCF margin (provider figure)</small></div>
+  </div>
+
+  <div class="callout">
+    <strong>Ranking basis.</strong> ABT is the 9th-largest <em>US-domiciled</em> health-care company by market cap (FinanceCharts global list, last updated 30 Oct 2026, filtered to US-domiciled names). Global ranks differ — Roche, Novartis, Genmab and AstraZeneca sit between US names globally. Reserves just outside the US top 10: Danaher (11th US) and Intuitive Surgical (12th US).
+  </div>
+
+  <!-- ============ 1. BUSINESS MODEL ============ -->
+  <h2>1. Business Model &amp; Segment Breakdown</h2>
+  <p>Abbott is four businesses under one roof. Q3 2026 (reported 21 Oct 2026) delivered sales of <strong>$13.01B, up 14.5% reported / 7.0% on a comparable basis</strong>, with adjusted EPS of $1.42 (+9.2%). Roughly 60% of sales are outside the US (secondary research summary). The reported growth flatters the underlying business because Diagnostics now consolidates Exact Sciences, acquired earlier in 2026 for <strong>$21B cash</strong> (some secondary coverage cites a $23B enterprise value; $21B cash is the cleaner figure).</p>
+
+  <div class="card">
+    <h3 style="margin-top:0">Q3 2026 segment sales</h3>
+    <div class="bar-row"><span>Medical Devices</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bar-val">$5.83B</span></div>
+    <div class="bar-row"><span>Diagnostics</span><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div><span class="bar-val">$3.45B</span></div>
+    <div class="bar-row"><span>Nutrition</span><div class="bar-track"><div class="bar-fill" style="width:39%"></div></div><span class="bar-val">~$2.3B</span></div>
+    <div class="bar-row"><span>Established Pharma</span><div class="bar-track"><div class="bar-fill" style="width:27%"></div></div><span class="bar-val">~$1.6B</span></div>
+    <p class="small muted" style="margin-bottom:0">Segment figures as reported in the research pack; they sum to ~$13.2B against $13.01B total sales (rounding and eliminations). Growth below is on the comparable (organic, constant-currency style) basis management reports.</p>
+  </div>
+
+  <table>
+    <tr><th>Segment</th><th>Q3 2026 detail</th><th class="num">Comparable growth</th></tr>
+    <tr><td><strong>Medical Devices</strong> (~$5.83B)</td><td>Diabetes Care $2.19B, with continuous glucose monitoring (CGM) up 7.7%; Electrophysiology up 15.5% on the Volt pulsed-field ablation system</td><td class="num">+7.8%</td></tr>
+    <tr><td><strong>Diagnostics</strong> (~$3.45B)</td><td>Core Laboratory +5.5%; Cancer Diagnostics +13.8% (Exact Sciences: Cologuard, Oncotype). Reported growth of +46.7% reflects the Exact Sciences consolidation, not organic demand</td><td class="num">+6.4%</td></tr>
+    <tr><td><strong>Nutrition</strong> (~$2.3B)</td><td>Infant formula and adult nutrition (Similac, Ensure family). ~$8.5B of annual sales — and the business at the centre of the NEC litigation</td><td class="num">+4.9%</td></tr>
+    <tr><td><strong>Established Pharmaceuticals</strong> (~$1.6B)</td><td>Branded generics sold mainly in emerging markets</td><td class="num">+8.4%</td></tr>
+  </table>
+
+  <h3>The two structural pivots</h3>
+  <ul>
+    <li><strong>Nutrition spin-off.</strong> Abbott plans to spin Nutrition (~$8.5B of sales) off as an independent listed company <strong>by end-2027</strong>. Ex-Nutrition, management expects comparable growth <strong>50–100bp higher</strong> and margin improvement — a cleaner, faster-growing devices-and-diagnostics company remains. It also ring-fences the NEC litigation question into the spun entity's story rather than the device franchise's.</li>
+    <li><strong>Exact Sciences consolidation.</strong> The $21B cash acquisition makes cancer diagnostics a real third growth leg (Cancer Diagnostics +13.8% comparable), but it was debt-funded in effect — see the net debt position in §2 — and integration is still early.</li>
+  </ul>
+  <p><strong>Supply-chain dependencies.</strong> The model leans on high-volume, precision manufacturing: CGM sensors (Libre) at scale, the Alinity diagnostics installed base pulling through proprietary reagents (razor-and-blade), and specialised cardiovascular/electrophysiology devices. Emerging-market branded generics add currency and local-regulatory exposure across the ~60% ex-US sales base.</p>
+  <p><strong>FY26 guidance (cut).</strong> Adjusted EPS guided to <strong>$5.50–$5.55</strong>, with comparable sales growth of ~6% — trimmed from 6.5–7.5%. A guidance cut in the same quarter as a spin-off announcement is worth noting: management is re-basing expectations while it reshapes the company.</p>
+
+  <!-- ============ 2. FINANCIAL HEALTH ============ -->
+  <h2>2. Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <p>The single most important thing in ABT's numbers right now: <strong>GAAP and adjusted figures tell two different stories</strong>, because Q3 absorbed ~$1.6B of one-time charges, including a $670M NEC settlement. Use the toggle to see both.</p>
+
+  <div class="toggle" role="group" aria-label="GAAP versus adjusted view">
+    <button id="btnAdj" class="on" onclick="setView('adj')">Adjusted (underlying)</button>
+    <button id="btnGaap" onclick="setView('gaap')">GAAP (as reported)</button>
+  </div>
+  <div class="stats" style="margin-top:8px">
+    <div class="stat"><b>Q3 2026 EPS</b><span id="vEps">$1.42</span><small id="vEpsNote">Adjusted, +9.2% YoY</small></div>
+    <div class="stat"><b>Q3 net income</b><span id="vNi">—</span><small id="vNiNote">Adjusted figure not in pack; GAAP was $920M</small></div>
+    <div class="stat"><b>FY26E adjusted EPS (guide)</b><span id="vTtmEps">$5.52*</span><small id="vTtmNote">*Midpoint of FY26 guide $5.50–5.55 — forward, not trailing</small></div>
+    <div class="stat"><b>P/E on this basis</b><span id="vPe">~19×*</span><small id="vPeNote">*Forward P/E: price ÷ FY26E guide EPS — estimate</small></div>
+  </div>
+  <p class="small muted">GAAP Q3: EPS $0.53, net income $920M (−44% YoY) after ~$1.6B of one-time charges including the $670M NEC settlement. Trailing GAAP EPS is $2.69, which is what produces the headline 39.47× trailing P/E — a litigation artefact, not a valuation signal.</p>
+
+  <table>
+    <tr><th>Metric (TTM unless noted)</th><th class="num">Value</th><th>Read</th></tr>
+    <tr><td>Revenue</td><td class="num">$48.23B</td><td>Q3 annualises above this as Exact Sciences consolidates</td></tr>
+    <tr><td>Gross margin</td><td class="num">57.08%</td><td>Device/diagnostics mix supports it</td></tr>
+    <tr><td>Operating margin (GAAP)</td><td class="num">16.55%</td><td>Depressed by one-time charges</td></tr>
+    <tr><td>Net margin (GAAP)</td><td class="num">9.75%</td><td>Net income $4.68B; adjusted margin implied by guidance is ~19–20%</td></tr>
+    <tr><td>Price / Sales</td><td class="num">3.81×</td><td>Moderate for a diversified medtech</td></tr>
+    <tr><td>EV / EBITDA</td><td class="num">17.64×</td><td>In line with quality device peers</td></tr>
+    <tr><td>Forward P/E</td><td class="num">18.20×</td><td>Provider figure; unverified as a dataset — see note below</td></tr>
+    <tr><td>Free cash flow</td><td class="num">$7.82B</td><td>16.80% FCF margin as reported by the provider (≈16.2% against the $48.23B TTM revenue above — periods differ slightly); the balance-sheet repair engine</td></tr>
+    <tr><td>Cash</td><td class="num">$5.60B</td><td>Against $32.72B of debt</td></tr>
+    <tr><td>Net debt</td><td class="num">$27.12B</td><td>Post–Exact Sciences; the number to watch down</td></tr>
+    <tr><td>Debt / Equity</td><td class="num">0.63</td><td>Manageable, but no longer the fortress balance sheet of old</td></tr>
+    <tr><td>Dividend</td><td class="num">$2.52 · 2.37%</td><td>54 years of consecutive growth — a Dividend King</td></tr>
+    <tr><td>Buyback yield</td><td class="num">0.25%</td><td>Token; capital is going to debt and the dividend</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Verification note.</strong> Prices and market cap were independently confirmed against the 30 Oct 2026 official close. Forward P/E values across this research series could <em>not</em> be re-sourced to a second provider in the verification pass, so treat the 18.20× forward P/E as a provider figure (StockAnalysis basis, TTM pack dated 1 Nov 2026), not a verified fact. All scenario prices in §5 are modelled estimates with methodology shown — never verified facts.
+  </div>
+
+  <p><strong>Capital allocation.</strong> The hierarchy right now is: (1) defend the dividend streak (54 years — management will protect it), (2) digest Exact Sciences and bring net debt down from $27.12B, (3) fund the device pipeline (Libre Duo, Volt, Amulet). Buybacks at a 0.25% yield are an afterthought until leverage falls. R&amp;D spend was not available (NV) in the verified pack, so no R&amp;D figure is presented here rather than estimated.</p>
+
+  <h3>Q3 2026 income flow — where the charges sit</h3>
+  <p class="small muted">GAAP view, Q3 2026. Sales and segment split are reported; the charge block is the ~$1.6B of one-time items (including the $670M NEC settlement) that cut GAAP net income to $920M. Intermediate cost lines were not broken out in the verified pack and are shown combined rather than invented.</p>
+  <svg viewBox="0 0 720 240" width="100%" role="img" aria-label="Q3 2026 income flow diagram" style="background:var(--surface);border:1px solid var(--line);border-radius:10px">
+    <g font-size="12" fill="var(--ink)">
+      <rect x="10" y="20" width="165" height="52" rx="6" fill="var(--chip)"/>
+      <text x="20" y="42" font-weight="700">Devices $5.83B</text><text x="20" y="60">Diagnostics $3.45B</text>
+      <rect x="10" y="86" width="165" height="52" rx="6" fill="var(--chip)"/>
+      <text x="20" y="108" font-weight="700">Nutrition ~$2.3B</text><text x="20" y="126">Est. Pharma ~$1.6B</text>
+      <rect x="230" y="52" width="140" height="56" rx="6" fill="var(--accent)"/>
+      <text x="246" y="76" fill="var(--accent-ink)" font-weight="700">Sales $13.01B</text><text x="246" y="94" fill="var(--accent-ink)">+14.5% reported</text>
+      <rect x="460" y="20" width="150" height="52" rx="6" fill="var(--chip)"/>
+      <text x="474" y="42" font-weight="700">Costs &amp; opex</text><text x="474" y="60">(combined, n/d)</text>
+      <rect x="460" y="86" width="150" height="52" rx="6" fill="#b03a2e" opacity="0.85"/>
+      <text x="474" y="108" fill="#fff" font-weight="700">One-time charges</text><text x="474" y="126" fill="#fff">~$1.6B incl. $670M NEC</text>
+      <rect x="460" y="152" width="150" height="56" rx="6" fill="var(--chip)"/>
+      <text x="474" y="176" font-weight="700">GAAP net income</text><text x="474" y="194" font-weight="700">$920M · EPS $0.53</text>
+      <path d="M175 46 C 200 46, 205 66, 230 72" stroke="var(--muted)" fill="none" stroke-width="2"/>
+      <path d="M175 112 C 200 112, 205 92, 230 88" stroke="var(--muted)" fill="none" stroke-width="2"/>
+      <path d="M370 66 C 410 66, 420 46, 460 46" stroke="var(--muted)" fill="none" stroke-width="2"/>
+      <path d="M370 80 C 410 80, 420 112, 460 112" stroke="var(--muted)" fill="none" stroke-width="2"/>
+      <path d="M370 94 C 410 130, 420 180, 460 180" stroke="var(--muted)" fill="none" stroke-width="2"/>
+    </g>
+  </svg>
+  <p class="small muted">n/d = not disclosed as a separate line in the verified research pack. Adjusted EPS of $1.42 is the same quarter with the charge block removed.</p>
+
+  <!-- ============ 3. MOAT ============ -->
+  <h2>3. Competitive Moat &amp; Industry Positioning</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Where the moat is real</h3>
+      <ul>
+        <li><strong>FreeStyle Libre scale.</strong> ~57% global CGM share (secondary research figure — indicative, not independently verified). Scale in sensors is a cost, distribution and payer-coverage advantage that compounds.</li>
+        <li><strong>Razor-and-blade diagnostics.</strong> The Alinity installed base locks laboratories into recurring reagent revenue; switching costs are high and contracts long.</li>
+        <li><strong>Cardiovascular &amp; EP device portfolio.</strong> Volt pulsed-field ablation (+15.5% EP growth) competes in one of medtech's fastest-growing categories.</li>
+        <li><strong>Emerging-market branded generics.</strong> Established Pharma's distribution depth in EM is hard to replicate quickly.</li>
+        <li><strong>Diversification itself.</strong> Four segments with different cycles — the reason ABT rarely has a disastrous year, and also why it rarely has a spectacular one.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Who it fights</h3>
+      <ul>
+        <li><strong>Dexcom</strong> — the pure-play CGM rival; the Libre share figure is contested ground, priced aggressively on both sides.</li>
+        <li><strong>Medtronic &amp; Boston Scientific</strong> — diabetes-adjacent devices and electrophysiology (Boston Scientific is the PFA pace-setter Volt must chase).</li>
+        <li><strong>Roche &amp; Siemens Healthineers</strong> — core-lab diagnostics against Alinity.</li>
+        <li><strong>Danaher</strong> — diagnostics breadth; also the 11th-ranked US name just outside this sector's top 10.</li>
+      </ul>
+      <p class="small muted" style="margin-bottom:0">Pricing power is strongest where the installed base is (diagnostics reagents, CGM sensors with payer contracts) and weakest where tenders and reimbursement schedules set the price — the standing tension in diabetes care.</p>
+    </div>
+  </div>
+
+  <!-- ============ 4. CATALYSTS & RISKS ============ -->
+  <h2>4. Catalysts &amp; Downside Risks</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3 style="margin-top:0">Catalysts</h3>
+      <ul>
+        <li><strong>Nutrition spin-off (by end-2027)</strong> — value unlock: a purer devices/diagnostics multiple on the remaining company, +50–100bp of guided growth and margin improvement ex-Nutrition.</li>
+        <li><strong>Libre Duo US launch, planned Dec 2026</strong> — next CGM step into the US market.</li>
+        <li><strong>Volt PFA and Amulet</strong> — electrophysiology momentum (+15.5%) with structural-heart follow-through.</li>
+        <li><strong>Cancer diagnostics</strong> — Cologuard and Oncotype scaling inside Diagnostics (+13.8% comparable) justify the Exact Sciences price if integration holds.</li>
+        <li><strong>Litigation clarity itself</strong> — a bounded, quantified NEC liability would remove the discount the GAAP numbers now carry.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Risks</h3>
+      <ul>
+        <li><strong>NEC preterm-formula litigation — the dominant risk.</strong> Q3 included a $670M settlement within ~$1.6B of one-time charges; ~1,760 lawsuits are cited in secondary coverage and <strong>total liability is unknown</strong>. This is an open question, not a quantified exposure.</li>
+        <li><strong>Diabetes pricing / reimbursement pressure</strong> on the CGM franchise that carries the growth story.</li>
+        <li><strong>Electrophysiology softness ahead of Amulet 360</strong> — a product-transition air pocket is flagged in the pack.</li>
+        <li><strong>Spin-off execution</strong> — separation costs, dis-synergies, and which entity carries the litigation.</li>
+        <li><strong>Exact Sciences integration and debt</strong> — $27.12B of net debt leaves less room for error if cancer-diagnostics growth disappoints.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 5. VALUATION ============ -->
+  <h2>5. Scenario-Based Valuation &amp; Price Targets</h2>
+  <p class="small muted">All prices in this section are <strong>modelled estimates</strong>, not verified facts and not analyst consensus (the analyst average for reference is $118.52). Methodology is shown so each figure can be checked.</p>
+
+  <h3>12–18-month scenarios (vs $106.20 today)</h3>
+  <table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">Move</th><th>What has to happen</th></tr>
+    <tr><td><strong>Bear</strong></td><td class="num">$95</td><td class="num neg">−10.5%</td><td>NEC liability escalates beyond the Q3 settlement pattern; spin-off slips; diabetes pricing bites</td></tr>
+    <tr><td><strong>Base</strong></td><td class="num">$125</td><td class="num pos">+17.7%</td><td>Spin-off progresses on schedule, Libre Duo launches, devices keep compounding at ~7–8%</td></tr>
+    <tr><td><strong>Bull</strong></td><td class="num">$140</td><td class="num pos">+31.8%</td><td>Litigation bounded early, cancer diagnostics outperforms, ex-Nutrition re-rating arrives before the spin completes</td></tr>
+  </table>
+  <p>Probability-weighted on 50% base / 25% bull / 25% bear (the weighting convention used in the 5-year model below): <strong>~$121</strong> — above the $118.52 analyst average, but the path runs through a courtroom, not just an earnings calendar.</p>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Starting point: TTM revenue $48.23B, ~1,730M shares held frozen. The margin used is a <strong>normalised estimate</strong>: GAAP net margin is 9.75%, but adjusted EPS of ~$5.52 implies a ~19–20% adjusted margin, so the 16% base case below is deliberately conservative. Only growth, margin and exit P/E vary by case.</p>
+  <table>
+    <tr><th>Case (weight)</th><th class="num">Rev growth/yr</th><th class="num">Net margin*</th><th class="num">2031 revenue</th><th class="num">2031 EPS</th><th class="num">P/E</th><th class="num">2031 price</th></tr>
+    <tr><td>Base (50%)</td><td class="num">6%</td><td class="num">16%</td><td class="num">$64.5B</td><td class="num">$5.97</td><td class="num">18×</td><td class="num"><strong>$107</strong></td></tr>
+    <tr><td>Bull (25%)</td><td class="num">9%</td><td class="num">19%</td><td class="num">~$74B</td><td class="num">~$8.14</td><td class="num">21×</td><td class="num"><strong>$171</strong></td></tr>
+    <tr><td>Bear (25%)</td><td class="num">3%</td><td class="num">11%</td><td class="num">~$56B</td><td class="num">~$3.55</td><td class="num">14×</td><td class="num"><strong>$50</strong></td></tr>
+  </table>
+  <p class="small muted">*Normalised margin is a modelled estimate, not a reported figure. Bull/bear revenue and EPS are derived from the stated growth, margin and share count and are shown rounded.</p>
+  <div class="callout">
+    <strong>Probability-weighted 5-year value: ~$109</strong> (0.50 × $107 + 0.25 × $171 + 0.25 × $50 = $108.75). That it sits near today's $106.20 is the honest summary of ABT right now: the weighted maths reflects litigation and spin-off uncertainty, <em>not</em> a broken device franchise. If the NEC exposure gets bounded, the bear weight — and that $50 bear price — is what changes first.
+  </div>
+
+  <!-- ============ 6. RECOMMENDATION ============ -->
+  <h2>6. Recommendation &amp; Portfolio Fit</h2>
+  <p>For a mid-30s investor with a risk score of 8/10, framed as research views only — not investment advice:</p>
+  <table>
+    <tr><th>Horizon</th><th>Call</th><th>Reasoning</th></tr>
+    <tr><td>Short term (12–18 mo)</td><td><strong>HOLD</strong></td><td>The 12–18-month base case ($125) is attractive, but the entry trigger in the research is litigation clarity, not price. Hold what you own; add on a bounded NEC outcome or a spin-off milestone, not before.</td></tr>
+    <tr><td>Long term (5 yr)</td><td><strong>BUY</strong></td><td>Libre scale, razor-and-blade diagnostics, EP momentum and a cleaner post-spin structure support the bull/base maths; the dividend streak (54 years) pays you to wait through the legal overhang.</td></tr>
+    <tr><td>Position size</td><td><strong>1.5% of total portfolio</strong></td><td>A quality compounder with an unquantified legal tail does not earn a top-weight slot at risk 8/10 until the tail is priced. Revisit upward on litigation clarity.</td></tr>
+  </table>
+
+  <div class="card">
+    <h3 style="margin-top:0">Position-size calculator</h3>
+    <div class="calc">
+      <div><label for="pf">Total portfolio value ($)</label><input id="pf" type="number" value="500000" min="0" step="1000" oninput="calc()"></div>
+      <div><label for="pct">ABT weight (%)</label><input id="pct" type="number" value="1.5" min="0" max="100" step="0.1" oninput="calc()"></div>
+      <div class="out" id="calcOut"></div>
+    </div>
+    <p class="small muted" style="margin-bottom:0">At the $106.20 reference price. Illustrative only — share counts round to whole shares in practice.</p>
+  </div>
+
+  <h3>What would change the call</h3>
+  <ul>
+    <li><strong>Upgrade trigger:</strong> a global/bounded NEC settlement that caps total liability, or spin-off terms that clearly leave the litigation behind the remaining company.</li>
+    <li><strong>Downgrade trigger:</strong> NEC verdicts escalating well beyond the $670M Q3 settlement pattern, a Libre Duo delay, or net debt rising instead of falling through 2027.</li>
+  </ul>
+
+  <!-- ============ SOURCES ============ -->
+  <h2>Sources</h2>
+  <ol class="sources">
+    <li>Motley Fool — “This Dividend King just announced great news for investors” (Q3 2026 results, Nutrition spin-off, guidance): <a href="https://www.fool.com/investing/2026/10/26/this-dividend-king-just-announced-great-news-for-investors/">fool.com</a></li>
+    <li>StockAnalysis — ABT statistics (price, multiples, TTM financials, dividend): <a href="https://stockanalysis.com/stocks/abt/statistics/">stockanalysis.com/stocks/abt/statistics</a></li>
+    <li>Tickeron — ABT company/research page (segment and litigation context): <a href="https://TICKERON.COM/ticker/ABT/">tickeron.com/ticker/ABT</a></li>
+    <li>StockSentinel research — ABT: <a href="https://flash.stocksentinel.ai/research/ABT">flash.stocksentinel.ai/research/ABT</a></li>
+    <li>R2A Intel — ABT company profile: <a href="https://www.r2aintel.com/companies/abt">r2aintel.com/companies/abt</a></li>
+    <li>FinanceCharts — Health Care sector ranking (market-cap basis for the US top-10 universe, updated 30 Oct 2026): <a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&amp;sort=fcfyield">financecharts.com/sectors/health_care</a></li>
+  </ol>
+
+  <div class="foot">
+    <p>Research as of 1 Nov 2026; price reference is the 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Figures were independently verified against second sources where the verification log confirms them; items the log marked unverified (forward P/E dataset; all modelled scenario prices) are labelled as estimates above. Open questions carried plainly: total NEC litigation liability is unknown; R&amp;D spend was not available in the verified pack; the ~57% CGM share figure is a secondary-source indicative number. This page is research and education, not investment advice, and not a guarantee of future results.</p>
+    <p>— Blaze</p>
+  </div>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>ABT — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $106.20.</strong> <strong>DCF intrinsic: $67.</strong> Discount/premium vs DCF: <strong>+58.5%</strong> — i.e. the shares are trading 58.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$67</td><td>+58.5%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$7.82B</strong>; constant growth g <strong>6%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$64.15B</strong>; PV of terminal value <strong>$79.45B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-27.12B</strong>; divided by <strong>1,730.00m</strong> diluted shares = <strong>$67</strong>. Base FCF $7.82B (pack, TTM). Growth g 6% = pack 5-year base CAGR. Net debt $27.12B (cash $5.60B − debt $32.72B). Equity $51.94B derived from debt ÷ D/E 0.63. DPS $2.52 (pack). TTM GAAP earnings are litigation-charge depressed; FCF is the cleaner base.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $106.20. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ABT — Top customers (B2B, intermediated channel)</h2>
+<p>Abbott is classified <strong>B2B</strong>: its diagnostics, devices and nutrition products reach patients mainly through hospitals, laboratories, distributors and payers. No ranked top-7 list is disclosed in the pack.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (distributor)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (distributor)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (distributor)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum (payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>Hospitals and health systems</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Clinical laboratories</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Retail pharmacies and nutrition retailers</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Abbott's channel concentration is lower than a pure pharma name's because devices and diagnostics also flow through hospitals and labs directly, but the distributor/payer trio still shapes net pricing. If UnitedHealth/Optum trades at a discount once filled in, that is a potential tailwind for reimbursement stability; a premium is a potential headwind — with the usual caveat that a cheap payer may be cheap because it is squeezing provider and supplier prices. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ABT — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI in diagnostics data and device software, plus manufacturing efficiency, within a diversified devices/diagnostics/nutrition base. Multiple channel: ABT's 18.20× forward P/E in the pack is a medtech multiple, not an AI multiple, and litigation/spin-off uncertainty in the pack matters more to it.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a litigation outcome or a diagnostics slowdown, rather than an AI unwind.</p>
+</div>
+</div>
+
+<script>
+  function setView(v){
+    var adj = v === 'adj';
+    document.getElementById('btnAdj').className = adj ? 'on' : '';
+    document.getElementById('btnGaap').className = adj ? '' : 'on';
+    document.getElementById('vEps').textContent = adj ? '$1.42' : '$0.53';
+    document.getElementById('vEpsNote').textContent = adj ? 'Adjusted, +9.2% YoY' : 'GAAP, after ~$1.6B one-time charges';
+    document.getElementById('vNi').textContent = adj ? '—' : '$920M';
+    document.getElementById('vNiNote').textContent = adj ? 'Adjusted figure not in pack; GAAP was $920M' : 'GAAP net income, −44% YoY';
+    document.getElementById('vTtmEps').textContent = adj ? '$5.52*' : '$2.69';
+    document.getElementById('vTtmNote').textContent = adj ? '*Midpoint of FY26 guide $5.50–5.55 — forward, not trailing' : 'GAAP trailing EPS (StockAnalysis TTM)';
+    document.getElementById('vPe').textContent = adj ? '~19×*' : '39.47×';
+    document.getElementById('vPeNote').textContent = adj ? '*Forward P/E: price ÷ FY26E guide EPS — estimate' : 'Trailing GAAP P/E — litigation-inflated';
+  }
+  function calc(){
+    var pf = parseFloat(document.getElementById('pf').value) || 0;
+    var pct = parseFloat(document.getElementById('pct').value) || 0;
+    var dollars = pf * pct / 100;
+    var shares = dollars / 106.20;
+    document.getElementById('calcOut').textContent =
+      '= $' + dollars.toLocaleString('en-US', {maximumFractionDigits: 0}) +
+      '  ·  ~' + shares.toLocaleString('en-US', {maximumFractionDigits: 1}) + ' shares';
+  }
+  calc();
+</script>
+</body>
+</html>

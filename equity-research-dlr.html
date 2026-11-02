@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — DLR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f7f5f0;--paper:#fffdf8;--ink:#131a24;--ink2:#3d4756;--muted:#6b7686;--line:#ddd6c8;--line2:#c9c0ab;--navy:#0d2b52;--blue:#0b5cad;--blue-soft:#e3edf7;--green:#0e6b3a;--green-soft:#e2f0e6;--red:#a4231c;--red-soft:#f7e4e1;--amber:#8a5a00;--amber-soft:#f6ecd2;--gold:#b8860b;--card:#fff;--chip:#efece3;--shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06)}
+@media (prefers-color-scheme: dark){:root{--bg:#0e1116;--paper:#141922;--ink:#e8e6df;--ink2:#b9c0cc;--muted:#8b94a3;--line:#2a3140;--line2:#3a4356;--navy:#9db9dd;--blue:#6aa8e8;--blue-soft:#1b2a3f;--green:#5fc98b;--green-soft:#17301f;--red:#e88a80;--red-soft:#3a1e1a;--amber:#e0aa4e;--amber-soft:#332a14;--gold:#d9a441;--card:#171d28;--chip:#1e2634;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}.up{color:var(--green)}.down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.warn .ct{color:var(--amber)}.bad .ct{color:var(--red)}.good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}tr.hl td{background:var(--blue-soft);color:var(--ink)}tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}.bar-row{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}.bar-track{height:16px;background:var(--chip);position:relative}.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)}.bar-fill.green{background:var(--green)}.bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.pc.bull h4{color:var(--green)}.pc.bear h4{color:var(--red)}.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)}.sc.base{border-top:4px solid var(--blue)}.sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}.calc .out b{color:var(--ink)}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}@media (max-width:760px){.refs{columns:1}}.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Data Centres · Specialised REITs</span></div>
+  <h1>Digital Realty Trust <span class="tick">(NYSE: DLR)</span></h1>
+  <p class="lede">The wholesale scale play in data centres: 300+ facilities, 5,000+ customers and a record $2.5B leasing backlog built for hyperscale and AI demand. Q3 2026 delivered core FFO of $2.10, up 11.1%, and a guidance raise — at $180.70 the debate is whether backlog conversion and a 63% pre-leased pipeline can keep FFO compounding double-digit against power constraints.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $180.70 close, Fri 30 Oct 2026</span>
+    <span><b>Ranking basis:</b> Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI / Real Estate index) — market-cap ranking, not VNQ-weight order. VNQ weight order differs only in swapping O (3.34%) ahead of PSA (3.11%). Globally the same 10 names are the top 10, but the US-only label is applied for consistency.</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$180.70</div><div class="vsub">Confirmed 4:00 PM ET official close · Source: StockAnalysis / Finnhub</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$67.04B</div><div class="vsub">Pack basis (TipRanks-aligned); Finnhub float-based values differ — do not mix vendors</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Primary (REIT)</div><div class="vbig mono">~21.7× P/FFO</div><div class="vsub">$180.70 ÷ $8.33 core FFO (guidance midpoint basis) · Trailing P/E 83.43× shown for reference only — not used for valuation</div></div>
+  <div class="vcell span3"><div class="vlabel">Q3 2026 core FFO</div><div class="vbig mono">$2.10 <span class="up" style="font-size:15px">+11.1%</span></div><div class="vsub">FY26 guidance raised to $8.30–$8.35 · Dividend yield 2.71%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base $215 (+19.0%). See §5 — all targets are modelled estimates.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value $270.40 (estimate) — see frozen FFO method in §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Pair with EQIX for data-centre exposure; do not double-count as two independent bets. See §6.</div></div>
+</div>
+
+<nav class="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The investment case in one view</h2></div>
+  <p>Digital Realty is the <b>global wholesale and interconnection data-centre platform</b>: <b>300+ data centres, 5,000+ customers, across 6 regions</b> — North America, South America, Europe, Africa, Asia and Oceania [<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>]. Where Equinix monetises interconnection density, DLR monetises <b>scale, hyperscaler relationships and a development pipeline</b> that is already substantially de-risked: <b>63% pre-leased at ~11.6% stabilised yield</b> on the Q3 call. Q3 was a beat-and-raise quarter on the metric that matters for a REIT — core FFO, not GAAP EPS.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline figure (30 Oct 2026 reference)</th><th class="n">Value</th><th>Source / status</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (close)</td><td class="n">$180.70</td><td>Confirmed official close, 4:00 PM ET 30 Oct — <a href="https://stockanalysis.com/stocks/dlr/statistics/">StockAnalysis</a>. Note: MarketBeat's $180.26 “03:59pm” figure is a pre-close snapshot, <b>not</b> the official close — not used here</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$67.04B</td><td>Pack value [<a href="https://finnhub.io/?q=%22DLR%22">Finnhub query basis</a>]; vendor/method-dependent — see §2 note</td></tr>
+      <tr><td>Q3 2026 core FFO / share</td><td class="n">$2.10 (+11.1% y/y)</td><td><a href="https://www.zacks.com/stock/news/3019741/dlr-q3-ffo-revenues-beat-estimates-on-rental-growth-26-view-raised">Zacks</a>; <a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/digital-realty-dlr-q3-2026-earnings-call-transcript/">Fool Q3 call transcript</a> — confirmed in verification log</td></tr>
+      <tr><td>Q3 2026 revenue growth</td><td class="n">+20.6% y/y</td><td>MarketBeat summary of the print, via pack — growth rate only; no absolute revenue figure is stated because none was verified in the pack</td></tr>
+      <tr><td>Q3 GAAP EPS (do not confuse with FFO)</td><td class="n">$0.48 vs $0.52 consensus — miss</td><td>Pack / MarketBeat summary. <b>GAAP EPS is not FFO</b>: for REITs GAAP EPS is depressed by real-estate depreciation and is not the operating earnings measure — see §2</td></tr>
+      <tr><td>FY2026 core FFO guidance</td><td class="n">$8.30–$8.35 (raised)</td><td>Raised from $8.15–$8.20 [<a href="https://www.zacks.com/stock/news/3019741/dlr-q3-ffo-revenues-beat-estimates-on-rental-growth-26-view-raised">Zacks</a>] — ~13% growth per pack; confirmed</td></tr>
+      <tr><td>Same-capital cash NOI guidance</td><td class="n">5.25–5.75% (raised)</td><td>Q3 call [<a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/digital-realty-dlr-q3-2026-earnings-call-transcript/">Fool transcript</a>]</td></tr>
+      <tr><td>Leasing backlog</td><td class="n">$2.5B ($1.85B at DLR share)</td><td>Record backlog, Q3 call / <a href="https://www.zacks.com/stock/news/3019741/dlr-q3-ffo-revenues-beat-estimates-on-rental-growth-26-view-raised">Zacks</a> — $2.5B is at 100% share; $1.85B is DLR's share (coordinator-corrected figure)</td></tr>
+      <tr><td>Development pipeline</td><td class="n">63% pre-leased · ~11.6% stabilised yield</td><td>Q3 call [<a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/digital-realty-dlr-q3-2026-earnings-call-transcript/">Fool transcript</a>]</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.71%</td><td><a href="https://www.marketbeat.com/stocks/NYSE/DLR/?utm-source=404Redirect&utm-medium=404Redirect&RegistrationCode=404Redirect">MarketBeat</a> / <a href="https://finnhub.io/?q=%22DLR%22">Finnhub</a> via pack</td></tr>
+      <tr class="hl"><td>Trailing P/E (reference only)</td><td class="n">83.43× (Finnhub) / 75.42× (MarketBeat)</td><td>Vendor spread itself shows why this is unusable for a REIT — <b>do not use for valuation</b>; primary multiples are P/FFO and P/AFFO (see §2). Forward P/E 21.54× per pack</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <svg viewBox="0 0 980 190" width="100%" role="img" aria-label="Bar comparison of current price versus modelled 12 to 18 month scenarios" style="font-family:'Archivo',sans-serif">
+      <text x="10" y="22" font-size="13" font-weight="700" fill="var(--ink)">Price vs. modelled scenarios — 12–18 months (all modelled estimates, §5)</text>
+      <rect x="10" y="38" width="632" height="22" fill="var(--red)" opacity=".85"/><text x="652" y="54" font-size="12" fill="var(--ink)">Bear $155 · −14.2%</text>
+      <rect x="10" y="70" width="737" height="22" fill="var(--chip)" stroke="var(--line2)"/><text x="757" y="86" font-size="12" fill="var(--ink)">Today $180.70</text>
+      <rect x="10" y="102" width="876" height="22" fill="var(--blue)"/><text x="886" y="118" font-size="12" fill="var(--ink)">Base $215 · +19.0%</text>
+      <rect x="10" y="134" width="976" height="6" fill="var(--green)"/><text x="10" y="158" font-size="12" fill="var(--ink2)">Bull $245 · +35.6% (bar scaled beyond chart width, shown as marker) — full method and 5-yr model in §5</text>
+      <text x="10" y="180" font-size="12" fill="var(--ink2)">5-yr modelled weighted value: $270.40 (+49.7%) — estimate with weights and arithmetic shown in §5.</text>
+    </svg>
+    <figcaption>Scenario prices are modelled estimates from the research pack, not verified facts and not guarantees. The official close ($180.70) is used throughout — not MarketBeat's $180.26 pre-close snapshot.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Digital Realty operates as a <b>global data-centre REIT</b> under its PlatformDIGITAL® footprint: it owns and develops data centres and leases powered space and interconnection to hyperscalers, enterprises and service providers. Revenue is fundamentally <b>rent-like and contractual</b> — base rent plus power/interconnection — with growth coming from (a) leasing the existing estate, (b) converting a signed backlog into commenced rent, and (c) delivering new development capacity into demand that, at present, exceeds powered supply.</p>
+  <h3>Footprint — the verified scale</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Dimension</th><th class="n">Scale (per pack)</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Data centres</td><td class="n">300+</td><td>The largest-count global estate in this top-10 set — breadth supports follow-the-customer deals across continents [<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>]</td></tr>
+      <tr><td>Customers</td><td class="n">5,000+</td><td>A broad tenant base anchored by hyperscaler relationships (see §3); breadth dampens single-tenant risk, though top-customer concentration remains a named risk in §4</td></tr>
+      <tr><td>Regions</td><td class="n">6</td><td>North America, South America, Europe, Africa, Asia, Oceania — genuinely intercontinental, not US-plus-Europe [<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>]</td></tr>
+      <tr class="total"><td>Backlog to convert</td><td class="n">$2.5B / $1.85B at share</td><td>Signed but not yet commenced leasing — the most visible near-term revenue bridge in the story (Q3 call)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="two">
+    <div>
+      <h3>Core revenue mechanics</h3>
+      <ul>
+        <li><b>Colocation &amp; hyperscale leasing:</b> long-term leases of space and power. Q3 revenue grew <b>+20.6% y/y</b> (MarketBeat summary) — a wholesale-led acceleration consistent with AI / hyperscale commencements, not with mature single-digit rent growth.</li>
+        <li><b>Same-capital cash NOI:</b> guided to <b>5.25–5.75%</b> growth for FY26 (raised on the Q3 call) — this is the like-for-like rent engine underneath the development story, and at 5%+ it is healthy for an existing estate.</li>
+        <li><b>Development as a revenue factory:</b> the pipeline is <b>63% pre-leased at ~11.6% stabilised yield</b> — building to a double-digit yield on cost, pre-sold, is the highest-quality growth a REIT can show, provided power and execution hold (see §4).</li>
+        <li><b>Honest gap — no segment % split is presented:</b> the verified pack does not break out revenue by product or by region as percentages, so this note does not invent one. The footprint counts above are verified; any finer split should be taken from the latest 10-Q before underwriting beyond the §6 weight.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural pivots &amp; dependencies</h3>
+      <ul>
+        <li><b>Pivot — from landlord to AI-capacity developer:</b> the centre of gravity has shifted from stabilised rent collection toward backlog conversion and pre-leased development. The earnings mix is therefore becoming <i>more</i> growth-like and <i>more</i> execution-sensitive at the same time.</li>
+        <li><b>Supply-chain dependency #1 — power:</b> in constrained markets, grid access and power pricing gate both new development and renewal economics. The pack names <b>power-constrained markets</b> as a headline risk — for DLR, power <i>is</i> the supply chain.</li>
+        <li><b>Supply-chain dependency #2 — hyperscaler demand:</b> the largest tenants drive the backlog. That is demand quality (investment-grade, long leases) and concentration risk in the same line item.</li>
+        <li><b>Development execution:</b> delivering 63%-pre-leased capacity on schedule and on budget converts the 11.6% stabilised yield from a promise into FFO. Slippage pushes FFO growth from the §5 base path toward the bear path without any change in demand.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><div class="ct">Reading DLR correctly</div><p>Do not anchor on the Q3 GAAP EPS miss ($0.48 vs $0.52). For a data-centre REIT, GAAP EPS subtracts depreciation on assets that are leasing up at record rates — it can fall while the business strengthens. The operating truth of Q3 is in <b>core FFO $2.10 (+11.1%), the guidance raise to $8.30–$8.35, and the record backlog</b>. Judge DLR on FFO conversion, the way §2 and §5 do.</p></div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p><b>REIT accounting rule first:</b> for REITs, use <b>P/FFO and P/AFFO as the primary multiples</b>. Trailing P/E for DLR is quoted at <b>83.43× (Finnhub) and 75.42× (MarketBeat)</b> — an 8-point vendor spread on the same date — because GAAP earnings are crushed by real-estate depreciation. The research pack instructs explicitly that trailing P/E <b>must NOT be used for valuation</b>. On the correct basis, DLR trades at roughly <b>21.7× current-year core FFO</b>, in line with its 21.54× forward P/E — a demanding but not extreme multiple for guided ~13% FFO growth.</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $180.70 (30 Oct 2026 close). FFO = funds from operations (core, as guided/reported); forward figures as labelled.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Price / Core FFO (on $8.33 base)</td><td class="n">21.7×</td><td>Derived: $180.70 ÷ $8.33 = 21.69×, where $8.33 is the midpoint-area FFO base used in the §5 frozen model (guidance $8.30–$8.35). This is the multiple §5 flexes (18× bear / 21× base / 24× bull)</td></tr>
+      <tr><td>Forward P/E (pack)</td><td class="n">21.54×</td><td>Corroborates the P/FFO read: the market is paying ~21–22× forward earnings power, not the 75–83× the trailing GAAP P/E suggests</td></tr>
+      <tr><td>Trailing P/E (reference only)</td><td class="n">83.43× / 75.42×</td><td>Finnhub / MarketBeat — do not anchor on this for a REIT; shown only to inoculate against headline misuse</td></tr>
+      <tr><td>Core FFO growth — Q3 / FY26 guide</td><td class="n">+11.1% / ~13%</td><td>Q3 core FFO $2.10 (+11.1% confirmed); FY26 guidance raised to $8.30–$8.35, ~13% growth per pack — the growth that must justify 21.7×</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.71%</td><td>Income is a meaningful secondary component — higher than EQIX's 2.04% in the same sector pack — but total return still depends mainly on FFO growth and backlog conversion</td></tr>
+      <tr><td>Market cap</td><td class="n">$67.04B</td><td>#6 in the VNQ-universe top 10 by market cap. Vendor note: TipRanks-aligned pack values match the verification log; Finnhub float-based values (e.g. $66.66B cited in the log) differ by method — state one basis and stay on it</td></tr>
+      <tr><td>Revenue growth (Q3)</td><td class="n">+20.6% y/y</td><td>MarketBeat summary of the print — unusually fast for a REIT and the clearest sign that commencements, not just rent bumps, are driving the top line</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Balance-sheet diagnostics — what can and cannot be said</h3>
+  <ul>
+    <li><b>What the pack verifies:</b> price, market cap, yield, FFO path, guidance, NOI guidance, backlog and pipeline economics above. Those are the figures carried in this note, with sources at the point of use.</li>
+    <li><b>What the pack does not verify:</b> a line-by-line debt, cash, leverage (net debt / EBITDA) or debt-to-equity breakdown for DLR was <b>not in the verified pack</b>, so this note does not publish one rather than invent numbers. For a development-heavy REIT this is a genuine <b>open diligence item</b>: check the latest 10-Q for total debt, maturity ladder, rate mix and development funding commitments before sizing beyond the §6 weight.</li>
+    <li><b>FFO quality check that <i>is</i> available:</b> guidance was <i>raised</i> mid-cycle ($8.15–$8.20 → $8.30–$8.35) on both FFO and same-capital cash NOI (to 5.25–5.75%) — raises on both the development-inclusive and like-for-like lines suggest breadth, not a single-lease fluke. The verification log confirms both raises independently via Zacks.</li>
+    <li><b>Capital-allocation read:</b> a 2.71% yield alongside a 63%-pre-leased development programme signals a <b>balanced growth REIT</b>: the dividend is funded while capital is recycled into ~11.6%-yield development. The risk in that model is funding cost — if capital markets price REIT debt wider, the spread between development yield and funding cost compresses, and the §5 bull path (24×) becomes hard to defend.</li>
+  </ul>
+  <div class="callout warn"><div class="ct">The spread is the story</div><p>DLR's equity case is, arithmetically, a spread trade: build at ~11.6% stabilised yield, fund at REIT capital costs, and let the market capitalise the resulting FFO at ~21×. Every leg is observable — pre-leasing (63%), FFO delivery ($2.10 and rising guidance), and the exit multiple. If any leg breaks — power delays, execution slippage, or multiple compression toward the bear-case 18× — the §5 bear outcomes ($155 near-term, $191 over five years) require no crisis, only normal friction.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide on scale and relationships; narrower than EQIX on interconnection density.</b> The pack's moat statement is: <i>global footprint + hyperscaler relationships, development pipeline.</i> DLR's advantage is being the counterparty hyperscalers call when they need capacity in many countries at once, delivered by a developer with a pre-leased track record.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Global footprint at count scale:</b> 300+ centres across 6 regions — a multinational or hyperscaler can expand with one landlord across continents, a procurement and consistency advantage regional rivals cannot match.</li>
+      <li><b>Hyperscaler relationships:</b> the record $2.5B backlog ($1.85B at share) is itself evidence — hyperscalers do not pre-commit at that scale to a developer they expect to fail on delivery.</li>
+      <li><b>Development pipeline as a moat-in-progress:</b> 63% pre-leased at ~11.6% stabilised yield means future capacity is substantially sold before it is built. Securing powered land and pre-leasing it compounds the footprint advantage.</li>
+      <li><b>Tenant breadth:</b> 5,000+ customers diversify the base beneath the hyperscale headline — enterprise and service-provider tenancy stabilises occupancy through cloud capex cycles.</li>
+      <li><b>Pricing signal:</b> same-capital cash NOI guided to 5.25–5.75% growth indicates genuine rent pricing power on the existing estate, not growth bought solely with new capital.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Competitors &amp; moat limits</h4><ul>
+      <li><b>Equinix (EQIX):</b> the direct listed rival — for context from the same verified sector pack, EQIX is #3 by market cap ($100.34B) with the denser interconnection ecosystem. DLR wins on wholesale scale; EQIX wins on network density. They compete hardest for enterprise hybrid-cloud demand.</li>
+      <li><b>Hyperscaler self-build:</b> the largest customers are also the best-capitalised potential competitors. Every hyperscaler-owned campus is wholesale demand that never reaches DLR's backlog.</li>
+      <li><b>Power owners as kingmakers:</b> where powered land is the binding constraint, whoever controls power wins the next development regardless of brand. The moat protects the existing 300+ estate more reliably than it guarantees the next site.</li>
+      <li><b>Private platforms:</b> private data-centre developers compete for the same hyperscale leases without public disclosure — competitive intensity for each large deal is partly invisible from outside.</li>
+      <li><b>Customer concentration:</b> a backlog built on large hyperscale leases cuts both ways — a single tenant's capex pause can move commencements, and therefore FFO, by a visible amount.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> DLR is the <b>scale-and-development leader</b> in listed data centres, ranked #6 in the VNQ-universe top 10 by market cap ($67.04B). The moat justifies a premium P/FFO versus generic REITs; at 21.7× current FFO the premium is moderate rather than heroic — §5's bull case (24×) is roughly the ceiling the moat alone defends without faster FFO growth, while the base case needs no expansion at all (21×).</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>AI leasing commencements accelerating over the next 2 quarters:</b> stated on the Q3 call and the pack's lead catalyst. Signed backlog only becomes FFO at commencement — an acceleration converts the $2.5B backlog from a promise into the FY26–27 FFO line.</li>
+        <li><b>Backlog conversion at scale:</b> $2.5B at 100% share ($1.85B at DLR share) is a record book. Each tranche that commences on schedule de-risks the ~13% guided FFO growth and supports the §5 base growth path (9%).</li>
+        <li><b>Guidance momentum:</b> FY26 FFO and NOI guidance were both raised at Q3. A further raise — or early FY27 guidance at double-digit FFO growth — would validate the bull-case growth assumption (12%).</li>
+        <li><b>Pre-leased deliveries landing at ~11.6% yield:</b> each stabilised delivery adds high-yield NOI without leasing risk on 63% of the pipeline, compounding FFO per share if share count and funding are managed.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Power-constrained markets:</b> the pack's lead risk. Grid delays or power-cost spikes stall commencements and new development alike — and unlike a leasing slowdown, management cannot market its way around a missing megawatt.</li>
+        <li><b>Development execution:</b> construction cost, timing and lease-up on the un-leased 37% of the pipeline. The 11.6% stabilised yield is an underwriting figure until assets stabilise.</li>
+        <li><b>Customer concentration:</b> hyperscaler-weighted backlog means tenant capex decisions transmit quickly into DLR's commencement schedule; insourcing (self-build) is the slow version of the same risk.</li>
+        <li><b>Rate &amp; multiple sensitivity (REIT structural):</b> at 21.7× FFO there is less premium to lose than at EQIX's ~26.5× AFFO, but the §5 bear case still only needs an 18× exit multiple — a normal higher-for-longer de-rating — to cap five-year returns at ~+6% total.</li>
+        <li><b>Funding-cost spread compression:</b> if REIT debt costs rise toward development yields, new pre-leased growth adds less FFO per dollar of capital, pressuring both growth and the dividend's headroom (yield 2.71% today).</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Commencements slipping while the backlog stays signed — revenue deferred, not lost, quarter after quarter — <i>alongside</i> FFO growth sliding toward the bear-case 5%. Either alone is a timing issue the balance sheet can likely absorb; together they would mean the AI-capacity conversion story is stalling, and at 21.7× FFO the multiple would do the near-term damage (bear $155) before earnings do.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p class="small"><b>Method note — read first.</b> All scenario prices below are <b>modelled estimates</b>, not verified facts. The brief's frozen-parameter format (2031 price = 2031 revenue × net margin ÷ shares × P/E) is <b>adapted transparently for a REIT</b>: trailing P/E is meaningless for valuation here (75–83×, depreciation-distorted), so the frozen parameters are <b>core FFO per share, FFO growth (g) and the exit P/FFO multiple</b> — the REIT equivalent of earnings, growth and P/E, with the FFO base held frozen per case exactly as the format requires. This is the same adaptation used for EQIX (on AFFO) in this series.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$155</div><div class="ret down">−14.2% vs $180.70</div><p>Power delays push commencements right; FFO growth disappoints versus the raised guidance path and the market de-rates the shares toward the high-teens P/FFO. A valuation-and-timing downside — no demand collapse assumed.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · modelled</div><div class="price mono">$215</div><div class="ret up">+19.0% vs $180.70</div><p>Backlog converts broadly on schedule, AI commencements accelerate as guided on the Q3 call, FFO compounds at high-single to low-double digits, and the P/FFO multiple is broadly sustained near today's ~21.7×.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$245</div><div class="ret up">+35.6% vs $180.70</div><p>Commencements beat the call's acceleration guide, pre-leased deliveries stabilise at or above the ~11.6% underwritten yield, FFO growth sustains at the guided ~13% pace, and the market pays a fuller scarcity premium for powered capacity.</p></div>
+  </div>
+  <p class="small">The pack supplies these three 12–18-month prices as estimates without publishing scenario weights for this horizon, so <b>no probability-weighted 12–18-month figure is presented</b> — presenting one would require inventing weights. Weights <i>are</i> published and checkable for the 5-year model below.</p>
+
+  <h3>5-year projection — frozen-parameter FFO model (to 2031, modelled estimates)</h3>
+  <p>Formula (frozen per case): <b>2031 price = $8.33 × (1 + g)<sup>5</sup> × exit P/FFO</b>, where $8.33 is the core FFO/share base (guidance $8.30–$8.35), g is core FFO growth per year and the exit multiple is held frozen for the case. Worked base case: $8.33 × 1.09<sup>5</sup> = $12.82 FFO in 2031; $12.82 × 21 = <b>$269.20</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Core FFO growth g / yr</th><th class="n">2031 core FFO / sh</th><th class="n">Exit P/FFO</th><th class="n">2031 price</th><th class="n">Return vs $180.70</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">5%</td><td class="n">$10.63</td><td class="n">18×</td><td class="n">$191.00</td><td class="n">+5.7% total</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">9%</td><td class="n">$12.82</td><td class="n">21×</td><td class="n">$269.20</td><td class="n">+49.0% total</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">12%</td><td class="n">$14.68</td><td class="n">24×</td><td class="n">$352.00</td><td class="n">+94.8% total</td></tr>
+      <tr class="total"><td>Probability-weighted (25 / 50 / 25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$270.40</td><td class="n">+49.7% total</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the weighted figure yourself: 0.25 × $191.00 + 0.50 × $269.20 + 0.25 × $352.00 = $47.75 + $134.60 + $88.00 = <b>$270.40</b>. Label: <b>modelled estimate — the independent verification log marks all 5-year weighted prices UNVERIFIED because scenario weights were not supplied to the verifier</b>; the weights and arithmetic are published here precisely so the figure can be checked, not taken on trust. Reasonableness anchors: base g of 9% is <i>below</i> both Q3's +11.1% FFO growth and the ~13% implied by raised FY26 guidance — the base case assumes deceleration from today's pace, not continuation; bull g of 12% roughly sustains the current guided pace for five years; the base exit multiple of 21× is today's ~21.7× held essentially flat — no multiple expansion is needed for the base case, and the bear case still grows FFO (5%) yet returns only +5.7% over five years because the multiple compresses to 18×.</p>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">5-yr probability-weighted value (modelled estimate)</div><div class="wv mono">$270.40</div></div><p>Versus $180.70 today (+49.7% over five years). The shape matters more than the point estimate: the return is carried by FFO compounding (conversion of a signed, largely pre-leased book), while the near-term bear case (−14.2%) shows the 12–18-month risk is timing and multiple, not demand. That combination — visible backlog, moderate premium, execution-gated upside — is why §6 pairs a Buy with a capped 2.0% weight shared as a theme with EQIX.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b> — equity-heavy and able to tolerate single-name drawdowns. DLR offers that profile a growth-REIT with a moderate (for data centres) multiple, but its returns hinge on development and power execution, so conviction is expressed at a satellite weight. <b>Recommendations are research views, not guarantees and not investment advice.</b></p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy (per pack recommendation).</b> Modelled base $215 (+19.0%) sits above the price after a beat-and-raise Q3. Respect the modelled bear of $155 (−14.2%): stage entry around commencement updates rather than buying the full weight ahead of delivery news, and re-underwrite if commencements slip two quarters running.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy (per pack recommendation).</b> Modelled weighted value $270.40 (+49.7%) with the base case requiring no multiple expansion — only 9% FFO compounding, below today's guided pace. The thesis-breaker to monitor is in §4: commencements deferring while FFO growth slides toward 5%.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>DLR target: 2.0% of total portfolio</b> (pack suggestion for the mid-30s, risk-8/10 profile). A satellite position: large enough for the data-centre theme to matter, small enough that the bear-case near-term de-rating (−14.2%) costs the total portfolio only ~0.3%.</li>
+    <li><b>Pairing rule — read before adding EQIX:</b> the pack is explicit: <b>pair DLR with EQIX for data-centre exposure; do not double-count them as two independent bets.</b> DLR (wholesale scale / development) and EQIX (interconnection density) diversify the <i>business model</i>, but they share the sector's power, rate and hyperscaler-capex exposures — treat the pair as one themed allocation when judging total portfolio risk.</li>
+    <li><b>Role in the portfolio:</b> Real Estate sleeve, specialised / data-centre exposure. Do not double-count it as a technology holding — it is a REIT whose multiple behaves like a REIT under rate stress, however AI-driven its tenants are.</li>
+    <li><b>Open item before adding beyond 2.0%:</b> the leverage and maturity detail flagged in §2 was not in the verified pack. Confirm debt, maturities, rate mix and development funding from the latest filing first — that gap, not the thesis, is what caps the weight here.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 2.0% target weight and the $180.70 reference price. Shares are rounded down to whole shares; the dollar figure is the exact 2.0% allocation.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>DLR — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $180.70.</strong> <strong>DCF intrinsic: $165.</strong> Discount/premium vs DCF: <strong>+9.5%</strong> — i.e. the shares are trading 9.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$165</td><td>+9.5%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $8 per share — FY2026 core FFO guidance midpoint $8.33 (pack) - FFO used; AFFO not disclosed. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 8.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/DLR/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/dlr/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>DLR — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Largest single customer (unnamed in filings)</td><td>10.8% of annualised recurring revenue</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Amazon (AWS)</td><td>Not disclosed individually</td><td>AMZN — DCF intrinsic $25, discount/premium +861.4% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Microsoft (Azure)</td><td>Not disclosed individually</td><td>MSFT — DCF intrinsic $236 discount/premium +121.1% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Google Cloud</td><td>Not disclosed individually</td><td>GOOGL — DCF intrinsic $45, discount/premium +521.9% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Meta</td><td>Not disclosed individually</td><td>META — DCF intrinsic $242 discount/premium +154.1% (filled in by the coordinator after all intrinsics are computed)</td></tr></table><p>Read-through: Digital Realty does not name its top tenants in its filings, but its economics are concentrated — the largest single customer is 10.8% of annualised recurring revenue and the top 20 are 51.9% — so the hyperscaler read-through matters even without names. If the filled-in intrinsics show Amazon, Microsoft, Google and Meta trading at discounts to intrinsic, that is a tailwind for DLR's leasing (well-capitalised hyperscalers with headroom to convert the $2.5B backlog, 63% pre-leased per the pack), and premiums would be a headwind — but an undervalued hyperscaler does not guarantee more leased megawatts: hyperscalers self-build, and their leasing depends on AI workload growth and power availability, not on their share price versus intrinsic value. DLR's $410m of post-quarter US hyperscale leases (per reporting) shows the concentration in action: two signatures can move a quarter's rent.</p><p><em>Source: DLR Q1 supplemental via reporting (top 20 customers 51.9% of annualised recurring revenue; largest single customer 10.8%); pack (5,000+ customers, hyperscaler relationships, $2.5B backlog). Named hyperscalers are listed ranking-not-disclosed; no individual rent share is disclosed for them.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>DLR — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Digital Realty operates 300+ data centres for 5,000+ customers and is the wholesale hyperscale landlord: its Q3 2026 print showed a $2.5B backlog, a pipeline 63% pre-leased at ~11.6% stabilised yield, and AI leasing commencements accelerating (pack).</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Hyperscaler AI demand converts directly into leased megawatts, backlog conversion and renewal pricing — above-1 MW hyperscale renewals repriced 66.7% higher on a cash basis in recent reporting — making AI the primary demand engine.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> DLR trades on AI growth expectations (the real anchor is 21x core FFO in the pack's 5-yr model), so the multiple channel is the AI premium itself: while AI leasing accelerates, the market capitalises the backlog and pipeline.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: hyperscalers delay or cancel AI builds, or shift to self-build, leaving the 63%-pre-leased pipeline and the $2.5B backlog to slip — the largest single customer is 10.8% of annualised recurring revenue, so each signature matters. Second, multiple compression: from an AI-growth multiple toward a through-cycle data-centre multiple, with Q3 promote income flattering the run-rate. Third, balance sheet: development is capital-hungry (pipeline cost ~$20B per reporting) and power-constrained markets are the bottleneck, so a demand pause strands development capital. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Hyperscaler AI capex guidance and lease commencements; backlog conversion versus the $2.5B figure; and power availability in constrained markets.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Every key figure in this note is linked at the point of use and listed here. Prices are the 30 Oct 2026 regular-session close; 1 Nov 2026 was a weekend. Scenario prices in §5 are this series' modelled estimates with methodology shown — they are not sourced facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool — Largest real estate companies: DLR footprint (300+ data centres, 5,000+ customers, 6 regions)</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/digital-realty-dlr-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">Motley Fool — DLR Q3 2026 earnings call transcript (30 Oct 2026): core FFO, guidance, backlog, pipeline pre-leasing and stabilised yield, AI commencements</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3019741/dlr-q3-ffo-revenues-beat-estimates-on-rental-growth-26-view-raised" target="_blank" rel="noopener">Zacks — DLR Q3 FFO and revenues beat, FY26 view raised: core FFO $2.10 (+11.1%), guidance $8.30–$8.35, record $2.5B backlog (independent verification source)</a></li>
+    <li><a href="https://stockanalysis.com/stocks/dlr/statistics/" target="_blank" rel="noopener">StockAnalysis — DLR statistics: $180.70 official close, 30 Oct 2026, 4:00 PM ET (price confirmation)</a></li>
+    <li><a href="https://finnhub.io/?q=%22DLR%22" target="_blank" rel="noopener">Finnhub — DLR: market cap basis, trailing P/E 83.43× (reference only), forward P/E and dividend yield via pack</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NYSE/DLR/?utm-source=404Redirect&utm-medium=404Redirect&RegistrationCode=404Redirect" target="_blank" rel="noopener">MarketBeat — DLR: trailing P/E 75.42× (reference only), dividend yield 2.71%, Q3 revenue growth +20.6% summary, GAAP EPS $0.48 vs $0.52 consensus</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings: universe and weight context for the ranking-basis note (market-cap ranking, not VNQ-weight order)</a></li>
+  </ol>
+  <p class="disc"><b>Ranking &amp; verification notes.</b> Ranking basis: top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI / Real Estate index); VNQ weight order differs only in swapping O ahead of PSA — this note follows market-cap order. Globally the same 10 names are the top 10 (Sun Hung Kai Properties is #11 globally at ~$40.22B, below Ventas at $45.81B), but the US-only label is applied for consistency. Next US name by market cap is Crown Castle (CCI, ~$37.7–38.3B), #11 behind Ventas (VTR, #10) — not #11 by VNQ weight, where CBRE and Iron Mountain rank ahead of it. The DLR close was independently confirmed in the sector verification log ($180.70, 4:00 PM ET, 30 Oct 2026); MarketBeat's $180.26 “03:59pm” figure is a pre-close snapshot and was <i>not</i> used. Backlog is stated as $2.5B at 100% share ($1.85B at DLR share) per the coordinator correction, which overrides the pack's rounded $1.8B. DLR's FFO base ($8.33) is the reported guidance range ($8.30–$8.35), not an estimate-flagged base. All 5-year weighted prices are labelled modelled estimates with weights and arithmetic shown in §5, per the coordinator correction.</p>
+  <p class="disc">This report is research for information only. It is not investment advice, not a solicitation, and not a guarantee of any outcome. Scenario targets are modelled estimates based on stated assumptions (core FFO growth and exit P/FFO) that may not occur. Verify figures against primary filings before acting, and consider your own objectives and advice from a licensed adviser.</p>
+</footer>
+</div>
+<script>
+(function(){
+  var inp=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function upd(){
+    var v=parseFloat(inp.value)||0, alloc=v*0.02, shares=Math.floor(alloc/180.70);
+    out.innerHTML='2.0% target = <b>$'+fmt(alloc)+'</b> · ≈ <b>'+fmt(shares)+' shares</b> at $180.70';
+  }
+  inp.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

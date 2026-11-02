@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — Index</title>
+<style>
+:root{
+  --bg:#faf9f6; --panel:#ffffff; --panel2:#f1efe9; --ink:#17202a; --muted:#5a6572; --line:#ddd8cc;
+  --accent:#0f5c4d; --accent2:#b4551d; --accent-soft:#e3efe9; --warn-bg:#fdf3e3; --warn-line:#e5c07a;
+  --buy:#0f5c4d; --hold:#8a6d1a; --sell:#a02c22; --chip:#eef0ec;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#11151b; --panel:#1a202a; --panel2:#222a36; --ink:#eef1f4; --muted:#a7b0bc; --line:#333d4b;
+  --accent:#5ec2a8; --accent2:#e08a4e; --accent-soft:#1d332c; --warn-bg:#2e2716; --warn-line:#6b5622;
+  --buy:#5ec2a8; --hold:#d9b64a; --sell:#ef8a7d; --chip:#242d3a; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.55;font-size:16px}
+a{color:var(--accent);text-decoration:none;font-weight:600}
+a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:0 18px 64px}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.15;margin:0}
+h1{font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:clamp(23px,3.4vw,31px);margin-bottom:8px}
+h3{font-size:20px}
+.hero{padding:34px 0 10px;border-bottom:3px solid var(--ink)}
+.hero .dateline{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);font-weight:700;margin-bottom:10px}
+.hero p.lede{font-size:18px;max-width:820px;color:var(--ink);margin:14px 0 6px}
+.hero p.sub{color:var(--muted);max-width:820px;margin:6px 0 18px}
+.statrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:18px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font-size:24px;font-family:Georgia,serif}
+.stat span{font-size:12.5px;color:var(--muted)}
+.note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:14px 16px;margin:18px 0;font-size:14.5px}
+.note h3{font-size:16px;margin-bottom:6px}
+.note ul{margin:6px 0 0;padding-left:20px}
+.note li{margin:5px 0}
+section{margin-top:38px}
+.sec-head{border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:6px}
+.sec-head .basis{color:var(--muted);font-size:14px;margin-top:4px}
+.navchips{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0 0}
+.navchips a{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:13px;color:var(--ink);font-weight:600}
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}
+.controls input[type=search]{flex:1 1 240px;padding:11px 13px;border:1px solid var(--line);border-radius:9px;background:var(--panel);color:var(--ink);font-size:15px}
+.controls label{font-size:14px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:13.8px;margin:10px 0 18px}
+th{background:var(--panel2);text-align:left;padding:9px 10px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);vertical-align:bottom}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+td,th{overflow-wrap:anywhere}
+table{table-layout:auto}
+td.tk{font-weight:700;white-space:nowrap}
+.verdict{font-weight:700;white-space:nowrap}
+.v-buy{color:var(--buy)} .v-hold{color:var(--hold)} .v-sell{color:var(--sell)}
+.top5cap{font-size:13px;color:var(--muted);margin:14px 0 0;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.bar-row{display:grid;grid-template-columns:170px 1fr 64px;gap:10px;align-items:center;margin:6px 0;font-size:14px}
+.bar-track{background:var(--panel2);border-radius:6px;height:18px;overflow:hidden}
+.bar-fill{height:100%;background:var(--accent);border-radius:6px}
+.bar-fill.alt{background:var(--accent2)}
+.alloc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:820px){.alloc-grid{grid-template-columns:1fr}}
+.alloc-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.alloc-card h3{margin-bottom:4px}
+.alloc-card p{color:var(--muted);font-size:13.5px;margin:4px 0 12px}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px;margin-top:12px}
+.gloss div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.gloss dt{font-weight:700;font-family:Georgia,serif;font-size:16px}
+.gloss dd{margin:4px 0 0;color:var(--muted);font-size:14px}
+details.method{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 18px 14px;margin-top:14px}
+details.method summary{cursor:pointer;font-family:Georgia,serif;font-size:19px;font-weight:700;padding:10px 0}
+details.method ul{padding-left:20px} details.method li{margin:6px 0;font-size:14.5px}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:13.5px}
+.hidden{display:none!important}
+@media(max-width:760px){
+  table,thead,tbody,tr,td{display:block;width:100%}
+  thead{display:none}
+  table{background:transparent;border:none}
+  tr{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 10px;padding:6px 4px}
+  td{border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:14px;text-align:right;white-space:normal}
+  td>span,td>a,td>b{flex-shrink:1}
+  td:last-child{border-bottom:none}
+  td::before{content:attr(data-l);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:left;padding-top:2px}
+  td.num{text-align:right}
+  .bar-row{grid-template-columns:110px 1fr 54px;font-size:13px}
+}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="dateline">Equity research series · Index · 1 November 2026</div>
+  <h1>Every report, one map: 124 equities by sector, compared and sized</h1>
+  <p class="lede">This index links to every individual equity report in the series, compares the top five names in each of the 11 sectors, and rebuilds the per-sector portfolio weights — which were each sized independently and add up to 249.0% — into <strong>one coherent 100% allocation for each horizon</strong>: the next 12–18 months, and 5 years.</p>
+  <p class="sub">Prices are the <strong>30 October 2026 close</strong> (1 Nov 2026 was a weekend). The investor profile behind the sizing is mid-30s, risk score 8/10. All Bull / Base / Bear scenario prices in the linked reports and in the tables below are <strong>modelled estimates</strong>, not forecasts or guarantees. Verdicts are research views.</p>
+  <div class="statrow">
+    <div class="stat"><b>124</b><span>equity reports linked, across 11 sectors</span></div>
+    <div class="stat"><b>249.0%</b><span>sum of published weights before normalisation</span></div>
+    <div class="stat"><b id="statShort">—</b><span>total effective weight, 12–18 months (after verdict factors)</span></div>
+    <div class="stat"><b id="statLong">—</b><span>total effective weight, 5 years (after verdict factors)</span></div>
+    <div class="stat"><b>100%</b><span>normalised allocation, each horizon, separately</span></div>
+  </div>
+  <nav class="navchips" id="sectorNav" aria-label="Jump to a sector"></nav>
+</header>
+
+<section id="allocation">
+  <div class="sec-head"><h2>The best % spread — one 100% portfolio per horizon</h2>
+  <p class="basis">How the normalisation works, so the arithmetic is checkable: <strong>effective weight = published weight × verdict factor</strong>. Buy-family verdicts (Buy, Buy-satellite, Buy-selective, Buy-speculative, Buy-on-weakness, Buy-access-dependent, Buy-small) count at 1.0; Hold-family verdicts (Hold and all Hold-… variants) count at 0.5; Sell / Sell-Trim counts at 0. The 12–18-month spread uses each name's <em>short</em> verdict; the 5-year spread uses its <em>long</em> verdict (a Sell long verdict — only CUAEF — counts at 0). Each name's normalised % is its effective weight divided by that horizon's total effective weight, times 100. Names published at 0% (2222, CNOOC, CUAEF) stay at 0% in both horizons and are shown, not dropped. Never stack the sector sleeves: they were sized independently.</p></div>
+
+  <div class="alloc-grid">
+    <div class="alloc-card"><h3>By sector — next 12–18 months</h3><p>Sector totals of the normalised short-horizon allocation. Total effective weight: <span id="totS"></span>.</p><div id="barsShort"></div></div>
+    <div class="alloc-card"><h3>By sector — 5 years</h3><p>Sector totals of the normalised long-horizon allocation. Total effective weight: <span id="totL"></span>.</p><div id="barsLong"></div></div>
+  </div>
+
+  <p class="top5cap">Sector spread in numbers — raw sleeve vs normalised</p>
+  <div id="sectorTotals"></div>
+  <p style="color:var(--muted);font-size:14px">Why the two horizons differ: the 5-year view upgrades many Hold-short names to Buy-long (for example most of Communication Services, Consumer Discretionary and Utilities), so those sectors gain share; the 12–18-month view concentrates more in names already rated Buy today, which lifts Information Technology, Financials and Energy. The per-equity normalised % inside each sector is in the sector tables below — that is the actionable spread: pick the horizon, then hold each name at its normalised % for that horizon.</p>
+</section>
+
+<section id="method">
+  <div class="sec-head"><h2>Methodology, reconciliation flags &amp; caveats</h2>
+  <p class="basis">Read this before using any number. Every flag below is carried over from the compiled data behind the 124 reports — nothing has been smoothed away.</p></div>
+  <details class="method" open>
+    <summary>Flags and caveats carried from the source reports</summary>
+    <ul>
+      <li><strong>Modelled estimates:</strong> all scenario prices are modelled estimates from the individual artifacts. Many 5-year tables are price-CAGR or EPS-form adaptations (not full revenue × margin ÷ shares builds) because the underlying packs supplied no operating inputs; the artifacts label them as modelled estimates, and they must not be read as operating builds.</li>
+      <li><strong>Calculator caveat:</strong> position-size calculator live re-typing was verified by live probe on only some artifacts; on-load default outputs were verified everywhere. Do not assume live re-typing was verified on any given artifact.</li>
+      <li><strong>META 5-year:</strong> the delivered META artifact's weighted ~$1,300 is used here (it is the figure the reader has seen); the sector pack's $976 figure is unreconciled and is <em>not</em> used. The methodology difference is footnoted, not hidden.</li>
+      <li><strong>MNST 5-year:</strong> published cases $36 / $75 / $114, weighted $76; a strict frozen-share recomputation gives ~$34 / $73 / $108, weighted ~$72. Published artifact figures are used; the gap is disclosed.</li>
+      <li><strong>PM 5-year:</strong> published Bull $375 / Bear $170 vs strict recomputation ~$357 / ~$162; published figures used, gap disclosed.</li>
+      <li><strong>VMRK 5-year:</strong> published Base $76.10 recomputes to ~$78.84 from the displayed rounded inputs ($4.32 × 1.04^5 × 15); the artifact retains the pack figure with a transparency footnote and flags a re-run on the 4 Nov print. Published figures used, gap disclosed.</li>
+      <li><strong>D (Dominion) 5-year:</strong> the figure shown is a standalone proxy <em>only</em> — the deal-fails world. The base case is the NextEra merger closing H2 2027. Do not read D's 5-year figure as a standalone forecast without that label.</li>
+      <li><strong>BE 5-year weighted ~$173</strong> is a bear-weighted outcome, below both spot ($203.17) and its 12–18-month base ($240); it is <em>not</em> the central expectation. The same disclosure pattern applies to other below-spot weighted figures — MU $853 vs the $884.74 close; PLTR $151 vs $184.11; JNJ $247 vs $273.20; ABBV $219 vs $294.89; MRK weighted $115; AMGN $418 vs $466.01; PFE $28.65 vs $30.52; TSLA $249 vs $399.81; and CEG / SRE / ETR 5-year weighted figures below their 12–18-month bases — each explained in its own artifact.</li>
+      <li><strong>SFTBY 5-year figures are the corrected ones</strong> (Base $14.40, weighted ~$14.55, +5% over 5 years); the original build's $17 / ~$16 / +16% were arithmetic errors, fixed by edit.</li>
+      <li><strong>Missing Bull/Bear splits:</strong> 12–18-month Bull/Bear splits are missing by pack design for the Financials pattern names (BRK.B, JPM, V, MA, BAC, MS, GS, WFC, AXP, C, HOOD — shown as base only or consensus only) and for PM, MNST, BTI, WMT, COST, PEP, UL and KO (base/consensus only). This index prints exactly “base only” or “consensus only” for those and links to the artifact — it does not invent splits. The same rule applies wherever a price or target is given as “see artifact”.</li>
+      <li><strong>Foreign / OTC names</strong> (CTATF, SIEGY, SBGSF, EADSY, 2222, PCCYF, CNOOC, CUAEF, AIQUF, ZIJMF, GMBXF) have indicative, thin OTC prints; several prices, caps and multiples are labelled UNVERIFIED in their artifacts. SHEL, TTE, LIN, BHP, RIO, SCCO, NEM, AEM and FCX are NYSE-listed.</li>
+      <li><strong>Ranking bases differ by sector:</strong> Real Estate is ordered by market cap, <em>not</em> VNQ weight (O 3.34% ahead of PSA 3.11% by weight); CCI is #11 by US market cap, behind VTR (#10), not behind VMRK (#9). Utilities is XLU US-listed only, not a global top 10. Materials, Industrials and Energy lists are global (Motley Fool 6 Oct 2026 metrics, 30 Oct prices, not strict cap order).</li>
+      <li><strong>REIT valuation</strong> uses P/FFO and P/AFFO, not trailing P/E (trailing P/E is shown reference-only, or flagged not usable, where the artifact says so).</li>
+      <li><strong>Rounding notes retained:</strong> DLR weighted $270.40 vs $270.35 from rounded components; EQIX bull AFFO $64.30 vs recomputed $64.42 (~0.2%); SPG published prices rounded down from unrounded products (~$184 / $259 / $318 → $183 / $258 / $317). SNDK prices are pre-split (8-for-1 split payable ~19 Nov 2026; split-adjusted ~$143.86).</li>
+      <li><strong>Research views, not guarantees:</strong> verdicts and weights are research views for a mid-30s, risk-8/10 profile. They are not personal financial advice and not a promise of returns.</li>
+    </ul>
+  </details>
+  <details class="method" open>
+    <summary>Intrinsic value — DCF only (revised update: methodology &amp; caveats)</summary>
+    <ul><li><strong>What changed in this DCF-only revision:</strong> intrinsic value is now DCF only. The DDM (Gordon), asset-based (BVPS floor) and weighted-average figures from the November build have been removed from every ticker report and from this index; DCF inputs and assumptions are unchanged. The index columns are now <strong>DCF intrinsic</strong> and <strong>Disc/Prem % vs DCF</strong>. Price reference throughout: 30 Oct 2026 close.</li>
+      <li><strong>Discount/premium convention (used everywhere, no exceptions):</strong> Disc/Prem % = (Price − DCF intrinsic) / DCF intrinsic × 100, recomputed from the rounded DCF and price shown in each report so a reader can reproduce it. Negative = trading at a DISCOUNT to DCF intrinsic (price below intrinsic); positive = at a PREMIUM. The index column shows the DCF-intrinsic figure; each ticker report shows its DCF inputs and assumptions in full.</li>
+      <li><strong>Method — DCF (unchanged from the November build):</strong> 10-year projection of free cash flow (operating cash flow minus capex; TTM FCF normalised where the pack flags it as peak/distorted) at a CONSTANT growth rate per ticker from pack evidence (capped at 15%), discounted at r = 10% default, 8.5% for regulated utilities and REITs, 12% for high-risk/speculative names. Terminal value by Gordon growth on year-10 cash flow at terminal g = 3% (2.5% utilities/REITs). Equity value = PV of projected cash flow + net cash, divided by diluted shares — EXCEPT utilities (see restatement note below) and the withdrawn/no-DCF names below. Banks/insurers use a distributable-earnings proxy (net income to common after required capital retention), never bank operating cash flow; REITs use AFFO-based cash flow (FFO where AFFO is not given, labelled as such); loss-making names use a forward normalised FCF assumption labelled HIGHLY UNCERTAIN.</li>
+      <li><strong>5-yr CAGR and % to wtd (new columns, both tables, immediately after the 5-yr weighted column):</strong> % to wtd = (5-yr weighted − Price) / Price × 100; 5-yr CAGR = (5-yr weighted / Price)^(1/5) − 1, as a % — the compound annual growth rate implied if the price moved from the 30 Oct 2026 close to the 5-year scenario weighted price over 5 years. Both are computed from each row’s existing price and 5-yr weighted values (SNDK uses split-adjusted figures: price ~$143.86, weighted ~$127). Non-numeric weighteds (“see artifact”, “—”, qualitative-only) and unparseable row prices render as “N/A” for both columns. <strong>The 5-yr weighted is the v1 scenario weighted price, NOT the intrinsic value</strong> — it is a different figure from the DCF intrinsic column and must not be read as one.</li>
+      <li><strong>Utilities — DCF RESTATED (correction applied, still in force):</strong> the first build subtracted net debt from a regulated-earnings proxy that is already after interest, double-counting debt. In this corrected build the utilities DCF excludes the net-debt term entirely (PV of projected cash flow + PV of terminal value, ÷ shares). On the DCF-only basis the utilities now screen at discounts: EXC −25.5%, NEE −19.1%, XEL −16.8% (vs DCF intrinsic).</li>
+      <li><strong>Withdrawn DCFs — DE and ORCL; no DCF — SFTBY:</strong> DE’s DCF ($11.29 memo) is withdrawn (consolidated FCF/debt include Deere Financial while ~$49B of financing receivables are excluded — a distortion dwarfing the figure); ORCL’s DCF ($99 memo) is likewise withdrawn (its $15B base assumes capex moderating to ~$32B against $90–95B FY2027 guidance). Both withdrawn figures remain visible in their reports, labelled WITHDRAWN with the reason, and are never presented as an intrinsic value; their index cells read “N/A”. SFTBY has no DCF available (investment holding company; consolidated FCF is dominated by investment flows and NAV, not FCF, is the right lens), so its index cells also read “N/A”.</li>
+      <li><strong>Extreme values carry their own caveats in their reports — do not quote them bare:</strong> BE’s DCF excludes its ~$6B product backlog and ~$20B service agreements (only $0.72B was binding RPO at 30 Sep 2026; the service book converts over 5–20 years and is annually terminable); TSLA’s DCF ($23) reflects TTM FCF depressed by AI capex; WMT/COST DCF values ($21 / $476) reflect small FCF bases against very high multiples at a 10% discount rate (their FCF bases were confirmed exactly on re-sourcing).</li>
+      <li><strong>Currency and date caveats:</strong> 2222 intrinsics are in SAR and its price (SAR 25.92) is a 2 Oct 2026 snapshot, NOT a verified 30 Oct close; CNOOC intrinsics are in CNY with the same date caveat. SNDK is split-adjusted throughout (8-for-1 split payable ~19 Nov 2026; adjusted price ~$143.86, adjusted 5-yr weighted ~$127). Thin OTC prints (PCCYF, CUAEF, GMBXF, AIQUF, ZIJMF and others flagged in v1) remain indicative only.</li>
+      <li><strong>Customers:</strong> B2B tables list the top 7 customers by revenue importance where disclosed, otherwise the largest known customers with ranking explicitly not disclosed; revenue shares appear only where disclosed. A customer’s DCF intrinsic and discount/premium vs DCF are shown only if that customer is itself one of the 124 covered tickers (taken from this same build); private or uncovered customers read “not in coverage — no intrinsic on file”; withdrawn/no-DCF customers (ORCL, DE, SFTBY) read “N/A (DCF withdrawn)” / “N/A (no DCF)”. The read-through thesis (undervalued customers as a potential tailwind) is stated with its caveat in each report: an undervalued customer does not guarantee higher spending.</li>
+      <li><strong>Unchanged by this revision:</strong> verdicts, scenario prices (including all 5-yr weighted prices) and published weights are UNCHANGED. A large premium vs DCF intrinsic is a statement about what the uniform discount rate implies, not a new sell call.</li>
+      <li><strong>Verification:</strong> in this DCF-only revision every Disc/Prem % was recomputed from the rounded DCF and 30 Oct price shown, every customer DCF figure was recomputed from the same master data, and the 5-yr CAGR / % to wtd columns were checked against worked examples (NVDA: +21.8% CAGR, +167.8% to wtd; SNDK adjusted: −2.5% CAGR, −11.7% to wtd). All intrinsic figures remain MODELLED ESTIMATES from stated inputs and assumptions, not verified facts and not investment advice. Inputs that could not be re-sourced are labelled UNVERIFIED/estimate in their reports, never presented as fact.</li></ul>
+  </details>
+
+</section>
+
+<section id="directory">
+  <div class="sec-head"><h2>All 124 reports by sector — with top-5 comparisons</h2>
+  <p class="basis">Each sector opens with its top-5 comparison (the first five names in that sector's published order), followed by the full sector table. New columns DCF intrinsic and Disc/Prem % vs DCF come from the November intrinsic-value update as revised to DCF only (see Methodology), plus 5-yr CAGR and % to wtd, computed from each row’s price and 5-yr weighted price. Click any table header to sort that table (numbers, $ and % sorted numerically; “see artifact” / N/A rows sort last; click again to reverse). Every ticker links to its own report, “Equity Research — &lt;TICKER&gt;”. “12–18mo” and “5-yr” columns show Bear / Base / Bull modelled estimates unless the source says base only, consensus only, or see artifact — printed exactly as given.</p></div>
+  <div class="controls">
+    <input type="search" id="filterBox" placeholder="Filter by ticker — e.g. NVDA, HOOD, 2222…" aria-label="Filter tickers"/>
+    <label>Filtering hides non-matching rows across all sector tables.</label>
+  </div>
+  <div id="sectors"></div>
+</section>
+
+<section id="glossary">
+  <div class="sec-head"><h2>Glossary</h2>
+  <p class="basis">Every term used in the tables above and in the linked reports.</p></div>
+  <dl class="gloss">
+    <div><dt>ADR</dt><dd>American Depositary Receipt — a US-listed certificate representing shares of a foreign company (e.g. TSM, TM), so the price is in USD but the underlying trades abroad.</dd></div>
+    <div><dt>AFFO</dt><dd>Adjusted Funds From Operations — FFO further adjusted for recurring capital spending and straight-line rent; the closer REIT analogue of free cash flow.</dd></div>
+    <div><dt>Bear / Base / Bull case</dt><dd>The pessimistic / central / optimistic scenario in a valuation. Each carries explicit assumptions and a probability (scenario weight); none is a promise.</dd></div>
+    <div><dt>Buyback</dt><dd>A company repurchasing its own shares, which reduces the share count and lifts per-share figures; part of capital allocation alongside dividends and reinvestment.</dd></div>
+    <div><dt>CAGR</dt><dd>Compound annual growth rate — the smoothed yearly growth rate between two values over a period.</dd></div>
+    <div><dt>Consensus</dt><dd>The average of sell-side analyst estimates or price targets. “Consensus only” means the source report carries the consensus anchor and no modelled Bull/Bear split.</dd></div>
+    <div><dt>D/E (debt-to-equity)</dt><dd>Total debt divided by shareholders' equity — a leverage gauge. Higher means more of the business is funded by borrowing.</dd></div>
+    <div><dt>Data-centre pipeline</dt><dd>The contracted and planned capacity (usually in MW/GW) a utility, REIT or developer has agreed or announced to build for data-centre customers — a forward growth indicator.</dd></div>
+    <div><dt>Dividend yield</dt><dd>Annual dividend per share divided by the share price — the income return before any price movement.</dd></div>
+    <div><dt>EPS</dt><dd>Earnings per share — net income divided by the share count. GAAP EPS includes one-offs; non-GAAP/underlying EPS strips them out.</dd></div>
+    <div><dt>EV/EBITDA</dt><dd>Enterprise value (market cap plus net debt) divided by earnings before interest, tax, depreciation and amortisation — a capital-structure-neutral valuation multiple.</dd></div>
+    <div><dt>FCF (free cash flow)</dt><dd>Operating cash flow minus capital expenditure — the cash left for dividends, buybacks, debt repayment or reinvestment.</dd></div>
+    <div><dt>FFO</dt><dd>Funds From Operations — the REIT earnings measure: net income plus depreciation/amortisation of real estate, excluding property sale gains.</dd></div>
+    <div><dt>Frozen-parameter model</dt><dd>The 5-year projection method used in this series: today's net margin, P/E and share count are held (“frozen”) unless a case changes them, and only revenue growth varies by scenario.</dd></div>
+    <div><dt>LOE (loss of exclusivity)</dt><dd>The date a drug's patent protection ends and generic/biosimilar competition can enter — a key pharma downside risk (relevant to MRK, PFE, ABBV).</dd></div>
+    <div><dt>MFN (most favoured nation)</dt><dd>In this series, US drug-pricing policy pressure to match the lowest price paid in comparable countries — a margin risk for large pharma names.</dd></div>
+    <div><dt>Merger arbitrage</dt><dd>Trading a stock on the spread between its market price and an agreed takeover price; the return depends on the deal closing, not on standalone fundamentals (see D).</dd></div>
+    <div><dt>NAV discount</dt><dd>When a holding company or conglomerate trades below the estimated net asset value of what it owns — the gap is the discount (relevant to SFTBY, BRK.B, TCEHY).</dd></div>
+    <div><dt>Net margin</dt><dd>Net income divided by revenue — how much of each sales dollar survives as profit.</dd></div>
+    <div><dt>OTC</dt><dd>Over-the-counter — traded off a major exchange, often thinly, so prices are indicative and sometimes unverified (many foreign names here are OTC ADRs).</dd></div>
+    <div><dt>P/AFFO</dt><dd>Price divided by AFFO per share — the REIT multiple that pairs with FFO-based valuation instead of P/E.</dd></div>
+    <div><dt>P/E — trailing</dt><dd>Price divided by the last twelve months' actual EPS. Meaningless or misleading when earnings are depressed or one-off-heavy.</dd></div>
+    <div><dt>P/E — forward</dt><dd>Price divided by expected EPS over the next twelve months — depends on analyst estimates being right.</dd></div>
+    <div><dt>P/FFO</dt><dd>Price divided by FFO per share — the standard REIT valuation multiple, used in this series instead of trailing P/E for real estate.</dd></div>
+    <div><dt>P/S (price-to-sales)</dt><dd>Market cap divided by revenue — useful when earnings are thin or negative, but it ignores profitability entirely.</dd></div>
+    <div><dt>Rate base</dt><dd>The asset base on which a regulated utility is allowed to earn a regulated return; growing the rate base (e.g. grid and data-centre build-out) grows allowed earnings.</dd></div>
+    <div><dt>REIT</dt><dd>Real Estate Investment Trust — a property company that must pay out most taxable income as dividends and is valued on FFO/AFFO rather than EPS.</dd></div>
+    <div><dt>ROE (return on equity)</dt><dd>Net income divided by shareholders' equity — how profitably a company uses its owners' capital.</dd></div>
+    <div><dt>Scenario weights</dt><dd>The probabilities attached to Bear / Base / Bull cases (commonly 25% / 50% / 25% in this series) used to blend them into a weighted price.</dd></div>
+    <div><dt>SHOP (senior housing operating portfolio)</dt><dd>The segment of a healthcare REIT (e.g. WELL, VTR) where the REIT shares in the operating economics of senior housing, rather than only collecting rent.</dd></div>
+    <div><dt>Triple-net (NNN)</dt><dd>A lease where the tenant pays rent plus taxes, insurance and maintenance — the landlord's income is comparatively passive and predictable (e.g. O).</dd></div>
+    <div><dt>Verdict factor</dt><dd>The normalisation rule in this index: Buy-family = 1.0, Hold-family = 0.5, Sell = 0, applied to a published weight to get its effective weight for a horizon.</dd></div>
+    <div><dt>Weighted price</dt><dd>The probability-weighted blend of the Bear, Base and Bull scenario prices — read as “the maths under these assumptions”, not a prediction.</dd></div>
+  </dl>
+</section>
+
+<footer>
+  <p>Equity Research — Index · Dated 1 November 2026 · Price reference: 30 October 2026 close. All scenario prices are modelled estimates from the individual reports; verdicts are research views, not guarantees, and nothing here is personal financial advice. Where a source report says “base only”, “consensus only” or “see artifact”, this index prints exactly that and links to the report rather than filling the gap.</p>
+</footer>
+</div>
+<script>
+"use strict";
+function slugFor(t){ if(t==="META") return "equity-research-meta-sample"; return "equity-research-"+t.toLowerCase().replace(/\./g,"-"); }
+var SECTORS=[
+{name:"Information Technology",id:"tech",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison.",rows:[
+["AAPL","344.63","285 / 365 / 410 · wtd ~356","198 / 348 / 467","340","Hold","Buy",5.0],
+["NVDA","204.64","150 / 245 / 310 · wtd ~238","164 / 523 / 980","548","Buy","Buy",4.0],
+["MSFT","521.91","430 / 580 / 650","460 / 804 / 1195","816","Buy","Buy",5.0],
+["TSM","406.13 (ADR)","300 / 480 / 580","375 / 782 / 1308","~812","Buy","Buy",3.5],
+["AVGO","326.08","240 / 380 / 470","211 / 547 / 1011","580","Buy","Buy",3.0],
+["MU","884.74","500 / 950 / 1300","106 / 850 / 1604","853","Hold","Hold",2.0],
+["AMD","504.80","350 / 580 / 720","153 / 601 / 1315","667","Buy","Buy",2.5],
+["ASML","1,565.90","1200 / 1850 / 2300","1180 / 2847 / 4645","~2,880","Buy","Buy",2.5],
+["CSCO","104.51","85 / 115 / 135","53 / 108 / 156","106","Hold","Hold",1.0],
+["PLTR","184.11","110 / 200 / 260","21 / 130 / 323","151","Sell","Hold",1.0],
+["ORCL","130.67","95 / 165 / 210","84 / 262 / 507","279","Hold","Buy",1.5],
+["LRCX","239.11","180 / 285 / 360","113 / 310 / 538","318","Buy","Buy",1.5],
+["TXN","300.84","240 / 330 / 380","132 / 306 / 478","306","Hold","Hold",1.0],
+["MRVL","196.40","130 / 240 / 320 · wtd 232.50","39 / 256 / 676","307","Hold","Buy",1.0],
+["QCOM","164.79","130 / 195 / 240","109 / 256 / 477","274","Buy","Buy",1.0],
+["SNDK","1,150.89 pre-split (8-for-1 payable ~19 Nov 2026; adj. ~143.86)","600 / 1250 / 1700 pre-split · wtd 1200","cases pre-split; weighted only","1017 pre-split (~127 adj.)","Sell/Trim","Hold",0.5],
+["ACN","258.24","210 / 290 / 340","209 / 406 / 634","414","Hold","Hold",1.0],
+["NBIS","154.14","80 / 190 / 280 · wtd 185","64 / 251 / 1013","395","Hold","Buy-speculative",0.5],
+["ASX","39.50","28 / 50 / 65 · wtd ~48","23 / 76 / 151","82","Buy","Buy",0.75],
+["AMKR","see artifact","28 / 48 / 62","15 / 52 / 112","58","Hold","Hold",0.25]
+]},
+{name:"Communication Services",id:"comm",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison.",rows:[
+["GOOGL","279.84","235 / 340 / 410","199 / 429 / 652","427","Hold","Buy",6.0],
+["SPCX","134.72","95 / 155 / 190 · wtd 145.75","22.50 / 153.60 / 431.03","not published","Hold","Buy-satellite",3.5],
+["META","614.99","515 / 780 / 1010 · wtd ~771","505 / 1310 / 2075","~1,300","Hold-accumulate","Buy",7.0],
+["TCEHY","49.04","44 / 58 / 70 · wtd 57.50","42 / 62 / 78","61","Hold","Buy-selective",2.0],
+["NFLX","62.08","55 / 80 / 105 · wtd 80","42 / 99 / 169","102","Buy","Buy",3.0],
+["DIS","110.94","95 / 130 / 155 · wtd 127.50","86 / 212 / 360","218","Hold","Buy",2.0],
+["VZ","44.73","40 / 50 / 58","30 / 52 / 79","53","Hold","Hold",1.5],
+["SFTBY","13.82","11 / 16 / 21 · wtd 16.00","7.80 / 14.40 / 21.60 (corrected)","~14.55 (corrected)","Hold","Hold",1.0],
+["TMUS","156.44","140 / 185 / 240","105 / 225 / 372","232","Buy","Buy",2.0],
+["T","21.41","19 / 24 / 28","13 / 24 / 40","25","Hold","Hold",1.5],
+["DTEGY","29.00","26 / 34 / 40","21 / 40 / 67","42","Hold","Hold",1.0]
+]},
+{name:"Consumer Discretionary",id:"disc",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison.",rows:[
+["AMZN","240.35","200 / 285 / 340","115 / 292 / 500","300","Hold","Buy",6.0],
+["TSLA","399.81","280 / 400 / 520","31 / 208 / 547","249","Hold","Hold",3.0],
+["HD","329.20","290 / 360 / 420","206 / 425 / 723","445","Hold","Buy",3.0],
+["BABA","98.04","80 / 125 / 165","56 / 180 / 377","198","Hold","Buy-selective",2.0],
+["TM","195.71 (ADR)","170 / 215 / 260","92 / 219 / 387","229","Hold","Hold-Buy",2.0],
+["LVMUY","85.93 ADR (Paris €387.00)","weighted €443 (ADR ~$98)","weighted €626 (ADR ~$139)","€626 (ADR ~$139)","Hold","Buy",2.0],
+["IDEXY","15.68","13 / 18 / 22","6.80 / 14.74 / 24 (inputs-consistent; pack-stated figures preserved in artifact)","~15.05","Hold","Buy",2.0],
+["MCD","258.12","230 / 290 / 330","187 / 348 / 536","355","Hold","Buy",2.5],
+["TJX","140.31","125 / 165 / 195","97 / 192 / 319","200","Buy","Buy",2.0],
+["HESAY","144.37","120 / 160 / 200","75 / 160 / 264","165","Hold","Buy",1.5],
+["SONY","25.30","21 / 29 / 36 · wtd 28.75","12.45 / 28.35 / 45.30","not published","Hold","Buy",4.0]
+]},
+{name:"Financials",id:"fin",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison. This sector's pack published base/consensus anchors only for 12–18 months — printed exactly as given, with no invented Bull/Bear splits.",rows:[
+["BRK.B","542.49","base only 580","380 / 627 / 824","614","Hold","Buy",4.0],
+["JPM","337.04","consensus anchor only 368.10","249 / 410 / 550","405","Buy","Buy",4.0],
+["V","413.59","base only 460","391 / 666 / 923","662","Buy","Buy",4.0],
+["MA","638.01","base only 720","645 / 1074 / 1539","1,083","Buy","Buy",3.0],
+["BAC","50.01","base only 58","36 / 61 / 95","~63","Hold","Hold",2.0],
+["MS","184.30","base only 215 (consensus)","140 / 236 / 376","247","Buy","Buy",2.0],
+["GS","894.55","base only 1020","562 / 1198 / 1820","1,195","Hold","Buy",2.0],
+["WFC","83.40","base only 95 (+14%)","59 / 102 / 145","102","Hold","Hold",1.5],
+["AXP","319.11","base only 360","232 / 453 / 706","462","Hold","Buy",2.0],
+["C","122.62","consensus anchor only 150.87","85 / 157 / 281","170","Buy","Hold",1.5],
+["HOOD","84.99","consensus anchor only 127.39","32 / 155 / 309","165","Hold","Buy-satellite",1.5]
+]},
+{name:"Consumer Staples",id:"staples",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison. Several names are base/consensus only for 12–18 months — printed exactly as given.",rows:[
+["WMT","~123.51 (calculator-implied)","base only 132 (MarketBeat consensus 132.41)","101 / 166 / 225","~164","Buy","Buy",4.0],
+["COST","1,012.28","base only 1086 (MarketBeat)","950 / 1522 / 1877","1,468","Hold","Buy",3.0],
+["KO","94.08","base only 102 (+8%)","79 / 115 / 155","117","Buy","Buy",2.5],
+["PG","161.57","see artifact","128 / 185 / 251","188","Hold","Hold",2.0],
+["PM","208.79","base only 230","170 / 266 / 375","270","Buy","Buy",2.0],
+["PEP","137.34","consensus only 143.28","106 / 161 / 232","166","Hold","Hold",1.5],
+["UL","~65.26 (calculator-implied)","base only 70 (+7%)","49 / 64 / 112","72","Hold","Hold",1.0],
+["BTI","UNVERIFIED (see artifact)","base only 68","43 / 69 / 97","70","Hold","Hold-for-income",1.0],
+["MO","78.03","consensus only — MarketBeat $71.00","56 / 84 / 118","86","Hold","Hold-income",1.0],
+["MNST","47.34","base only 72","36 / 75 / 114","76","Buy-small","Buy-small",1.5]
+]},
+{name:"Health Care",id:"health",basis:"Universe order as published in the sector artifacts; the first five are the sector's top 5 for comparison.",rows:[
+["LLY","see artifact","1100 / 1550 / 1750 · wtd ~1488","894 / 2132 / 3122","2,070","Buy","Buy",4.0],
+["JNJ","273.20","240 / 285 / 310","138 / 253 / 343","247","Hold","Hold",2.0],
+["ABBV","294.89","250 / 320 / 360 · wtd 313","110 / 219 / 330","219","Buy","Hold",2.5],
+["MRK","149.52","see artifact","weighted only","115","Hold","Hold-with-sell-bias",1.5],
+["UNH","406.97","340 / 470 / 540","221 / 494 / 775","496","Buy","Buy",2.0],
+["TMO","697.00","580 / 760 / 850","385 / 756 / 1121","754","Buy","Buy",2.0],
+["AMGN","466.01","340 / 430 / 520","200 / 414 / 646","~418","Hold","Hold-Buy",1.5],
+["GILD","170.68","145 / 185 / 205","106 / 198 / 275","194","Hold","Buy",3.5],
+["ABT","106.20","95 / 125 / 140","weighted only","~109","Hold","Buy",1.5],
+["PFE","30.52","24 / 31 / 36","14.60 / 29.50 / 47.60","28.65","Hold","Hold",2.5]
+]},
+{name:"Industrials",id:"industrials",basis:"Global list (Motley Fool 6 Oct 2026 metrics, 30 Oct prices, not strict cap order). The first five are the sector's top 5 for comparison.",rows:[
+["CAT","622.75","520 / 680 / 820 · wtd ~675","450 / 758 / 980","~737","Hold","Buy-on-weakness",2.0],
+["GE","301.80","260 / 330 / 390 · wtd ~328","260 / 423 / 560","~417","Hold","Buy",2.0],
+["CTATF","42.57","32 / 48 / 60","38 / 69 / 95","~68","Hold","Buy-access-dependent",1.0],
+["GEV","857.87","720 / 1000 / 1180 · wtd ~975","800 / 1512 / 2050","~1,469","Buy","Buy",2.5],
+["RTX","199.80","175 / 225 / 260","165 / 267 / 355","~264","Buy","Buy",2.0],
+["SIEGY","147.95","125 / 165 / 195","120 / 189 / 250","~187","Hold","Buy",1.5],
+["DE","675.48","560 / 720 / 830 · wtd ~708","500 / 783 / 1000","~766","Hold","Hold-Buy-on-pullback",1.5],
+["SBGSF","~260.41 (calculator-implied)","215 / 285 / 340 · wtd ~281","210 / 348 / 460","~342","Hold","Buy",1.5],
+["ETN","369.97","310 / 430 / 500 · wtd ~418","330 / 544 / 730","~537","Buy","Buy",2.0],
+["EADSY","53.42","45 / 60 / 70 · wtd 58.75","42 / 68 / 90","67","Buy","Buy",1.5],
+["BE","203.17","130 / 240 / 310","31 / 180 / 300","~173 (bear-weighted, NOT central)","Hold","Hold-speculative",0.5]
+]},
+{name:"Energy",id:"energy",basis:"Global list (Motley Fool 6 Oct 2026 metrics, 30 Oct prices, not strict cap order). The first five are the sector's top 5 for comparison.",rows:[
+["2222","SAR 25.92 (Tadawul; 2 Oct snapshot, UNVERIFIED — not a 30 Oct close)","qualitative Bull/Base/Bear only, no US price target","no 5-yr price (qualitative only)","—","Hold","Hold-for-holders",0.0],
+["XOM","187.25","155 / 205 / 240 · wtd ~201","140 / 207 / 270","~206","Buy","Buy",2.5],
+["CVX","235.52","195 / 255 / 295 · wtd ~250","175 / 260 / 335","~258","Buy","Buy",2.5],
+["SHEL","108.69","90 / 120 / 140","82 / 120 / 155","~119","Buy","Buy",2.0],
+["PCCYF","1.35","1.10 / 1.45 / 1.70","base 1% CAGR → 1.42","~1.40","Hold","Hold-access-restricted",0.5],
+["TTE","~95.33 (calculator-implied)","80 / 105 / 125 · wtd ~104","weighted only","~104","Buy","Buy",1.5],
+["CNOOC","CNY 35.97 (Shanghai; UNVERIFIED)","CNY 28 / 40 / 48 · wtd ~39","weighted only","~CNY 42.5","Hold","Hold",0.0],
+["COP","154.03","125 / 170 / 200 · wtd ~169","105 / 170 / 220","~169","Buy","Buy",1.5],
+["CUAEF","5.62","4.40 / 5.80 / 6.80 · wtd ~5.70","3.80 / 5.34 / 6.50","~5.25","Hold","Sell-long",0.0],
+["MPC","444.73","340 / 460 / 540","300 / 445 / 560","~439","Hold","Hold",1.0]
+]},
+{name:"Materials",id:"materials",basis:"Global list (Motley Fool 6 Oct 2026 metrics, 30 Oct prices, not strict cap order). The first five are the sector's top 5 for comparison.",rows:[
+["LIN","514.24","450 / 560 / 640","470 / 656 / 850","~644","Buy","Buy",2.5],
+["BHP","79.16","65 / 88 / 105 · wtd 86.50","62 / 96 / 125","~95","Buy","Buy",2.5],
+["SCCO","177.53","140 / 195 / 235 · wtd ~191","140 / 227 / 300","~224","Buy","Buy",1.5],
+["RIO","81.89","68 / 92 / 110 · wtd ~91","65 / 100 / 130","~99","Buy","Buy",2.0],
+["NEM","106.61","88 / 118 / 140","82 / 124 / 160","~123","Buy","Hold-Buy",1.5],
+["FCX","62.47","48 / 70 / 85 · wtd ~68","~48 / ~80 / ~105","~79","Buy","Buy",1.5],
+["GMBXF","12.04","9.50 / 13.20 / 16.00","~9 / 14.65 / ~19","~14.50","Hold","Hold",0.5],
+["AIQUF","199.50","170 / 218 / 255","~165 / ~255 / ~330","~250","Hold","Buy",1.5],
+["ZIJMF","~3.49 (calculator-implied)","2.70 / 3.85 / 4.70 · wtd ~3.78","weighted only","~4.39","Hold","Hold-access-restricted",0.5],
+["AEM","165.38","135 / 185 / 220 · wtd ~181","130 / 192 / 245","~190","Buy","Buy",1.5]
+]},
+{name:"Utilities",id:"utilities",basis:"XLU US-listed only, not a global top 10. The first five are the sector's top 5 for comparison.",rows:[
+["NEE","83.71","74 / 93 / 104 · wtd 91","90.40 / 116.60 / 128.30","113.00","Buy","Buy",3.0],
+["SO","93.71","82 / 95 / 106","81.80 / 104.30 / 120.80","102.90","Hold","Buy",2.0],
+["DUK","127.39","110 / 132 / 145 · wtd 129.75","124.50 / 160.60 / 187.00","158.20","Hold","Buy",2.5],
+["CEG","262.38","210 / 330 / 400","202 / 317.20 / 429","316.40","Hold","Buy",2.0],
+["AEP","130.21","115 / 140 / 155 · wtd 137.50","119.20 / 156 / 180.60","~153","Buy","Buy",1.5],
+["D","66.62","58 / 71 / 78 (merger-arbitrage range)","65.10 / 85.10 / 98.70","83.60 (standalone proxy, deal-fails ONLY)","Hold","Hold-via-NEE",1.0],
+["SRE","86.06","74 / 98 / 108 · wtd 94.50","68.20 / 88.40 / 104.30","87.40","Hold","Buy",1.5],
+["ETR","110.11","92 / 122 / 138","78.50 / 117.30 / 140.20","113.40","Hold","Buy-on-weakness",1.5],
+["XEL","79.82","70 / 88 / 98","82.20 / 107.50 / 124.50","105.50","Buy","Buy",1.5],
+["EXC","46.16","40 / 48 / 54 · wtd ~47.50","44.50 / 60.20 / 70.90","~58.90","Hold","Buy",1.0]
+]},
+{name:"Real Estate",id:"realestate",basis:"Ordered by market cap, NOT VNQ weight (O 3.34% ahead of PSA 3.11% by weight); CCI is #11 by US market cap behind VTR (#10). REITs are valued on P/FFO and P/AFFO, not trailing P/E. The first five are the sector's top 5 for comparison.",rows:[
+["WELL","234.60","195 / 255 / 290 · wtd ~249","226 / 320.30 / 412","~319.50","Hold","Buy",2.5],
+["PLD","127.98","110 / 148 / 168 · wtd 143.50","123.60 / 159.80 / 202.40","161.40","Buy","Buy",2.5],
+["EQIX","1,013.70","850 / 1200 / 1380","1074 / 1461 / 1929","1,481","Buy","Buy",2.0],
+["AMT","187.78","165 / 210 / 235 · wtd 205","174 / 241 / 294","237.50","Hold","Buy",1.5],
+["SPG","217.75","185 / 230 / 255 · wtd ~225","183 / 258 / 317","254","Hold","Hold-Buy-on-weakness",1.0],
+["DLR","180.70","155 / 215 / 245","191 / 269.20 / 352","270.40","Buy","Buy",2.0],
+["PSA","324.77","285 / 330 / 365 · wtd ~328","267 / 367 / 447","~362","Hold","Buy",1.5],
+["O","56.93","50 / 62 / 70 · wtd 61.00","52.30 / 69.00 / 84.80","68.80","Hold","Hold",1.5],
+["VMRK","61.90","54 / 70 / 78 · wtd 68.00","55.80 / 76.10 / 98.40","76.60","Hold","Buy",1.5],
+["VTR","84.80","72 / 95 / 108 · wtd 92.50","84.50 / 120 / 158","120.60","Hold","Buy",1.5]
+]}
+];
+function factor(v){ if(v.indexOf("Sell")===0) return 0; if(v.indexOf("Buy")===0) return 1; return 0.5; }
+function vclass(v){ if(v.indexOf("Sell")===0) return "v-sell"; if(v.indexOf("Buy")===0) return "v-buy"; return "v-hold"; }
+function fmt(n,d){ return n.toFixed(d===undefined?2:d); }
+var TOT_S=0,TOT_L=0,GRAND_RAW=0;
+SECTORS.forEach(function(s){ s.raw=0; s.effS=0; s.effL=0; s.rows.forEach(function(r){ var pub=r[7]; s.raw+=pub; GRAND_RAW+=pub; r.effS=pub*factor(r[5]); r.effL=pub*factor(r[6]); s.effS+=r.effS; s.effL+=r.effL; TOT_S+=r.effS; TOT_L+=r.effL; }); });
+SECTORS.forEach(function(s){ s.rows.forEach(function(r){ r.nS=r.effS/TOT_S*100; r.nL=r.effL/TOT_L*100; }); s.nS=s.effS/TOT_S*100; s.nL=s.effL/TOT_L*100; });
+document.getElementById("statShort").textContent=fmt(TOT_S,1);
+document.getElementById("statLong").textContent=fmt(TOT_L,1);
+document.getElementById("totS").textContent=fmt(TOT_S,2);
+document.getElementById("totL").textContent=fmt(TOT_L,2);
+function link(t){ return '<a href="'+slugFor(t)+'.html">'+t+'</a>'; }
+function bars(el, key, cls){ var h=""; SECTORS.forEach(function(s){ var v=s[key]; h+='<div class="bar-row"><span>'+s.name+'</span><div class="bar-track"><div class="bar-fill '+cls+'" style="width:'+Math.max(v*4.2,1.5)+'%"></div></div><b>'+fmt(v)+'%</b></div>'; }); document.getElementById(el).innerHTML=h; }
+bars("barsShort","nS",""); bars("barsLong","nL","alt");
+(function(){ var h='<table><thead><tr><th>Sector</th><th class="num">Published sleeve %</th><th class="num">Eff. wt 12–18mo</th><th class="num">Normalised 12–18mo %</th><th class="num">Eff. wt 5-yr</th><th class="num">Normalised 5-yr %</th></tr></thead><tbody>';
+SECTORS.forEach(function(s){ h+='<tr data-tk=""><td data-l="Sector"><b>'+s.name+'</b></td><td data-l="Sleeve %" class="num">'+fmt(s.raw,1)+'</td><td data-l="Eff. 12–18" class="num">'+fmt(s.effS,2)+'</td><td data-l="Norm 12–18 %" class="num"><b>'+fmt(s.nS)+'</b></td><td data-l="Eff. 5-yr" class="num">'+fmt(s.effL,2)+'</td><td data-l="Norm 5-yr %" class="num"><b>'+fmt(s.nL)+'</b></td></tr>'; });
+h+='<tr><td data-l="Sector"><b>Total</b></td><td data-l="Sleeve %" class="num"><b>'+fmt(GRAND_RAW,1)+'</b></td><td data-l="Eff. 12–18" class="num"><b>'+fmt(TOT_S,2)+'</b></td><td data-l="Norm 12–18 %" class="num"><b>100.00</b></td><td data-l="Eff. 5-yr" class="num"><b>'+fmt(TOT_L,2)+'</b></td><td data-l="Norm 5-yr %" class="num"><b>100.00</b></td></tr></tbody></table>';
+document.getElementById("sectorTotals").innerHTML=h; })();
+(function(){ var nav=""; SECTORS.forEach(function(s){ nav+='<a href="#sec-'+s.id+'">'+s.name+' ('+s.rows.length+')</a>'; }); nav+='<a href="#glossary">Glossary</a>'; document.getElementById("sectorNav").innerHTML=nav; })();
+var INTR={"2222":[22.78,13.8,25.92],"AAPL":[204,68.9,344.63],"ABBV":[167,76.6,294.89],"ABT":[67,58.5,106.2],"ACN":[395,-34.6,258.24],"AEM":[77,114.8,165.38],"AEP":[137,-5,130.21],"AIQUF":[93,114.5,199.5],"AMD":[190,165.7,504.8],"AMGN":[241,93.4,466.01],"AMKR":[42.5,-7.1,39.5],"AMT":[124,51.4,187.78],"AMZN":[25,861.4,240.35],"ASML":[981,59.6,1565.9],"ASX":[14.76,167.6,39.5],"AVGO":[288,13.2,326.08],"AXP":[291,9.7,319.11],"BABA":[85.26,15,98.04],"BAC":[49.99,0,50.01],"BE":[29,600.6,203.17],"BHP":[48.7,62.5,79.16],"BRK.B":[358,51.5,542.49],"BTI":[18.98,224.1,61.52],"C":[106,15.7,122.62],"CAT":[250,149.1,622.75],"CEG":[248,5.8,262.38],"CNOOC":[38.28,-6,35.97],"COP":[101,52.5,154.03],"COST":[476,112.7,1012.28],"CSCO":[56,86.6,104.51],"CTATF":[65.01,-34.5,42.57],"CUAEF":[1.55,262.6,5.62],"CVX":[169,39.4,235.52],"D":[72.64,-8.3,66.62],"DE":[null,null,675.48],"DIS":[64,73.3,110.94],"DLR":[165,9.5,180.7],"DTEGY":[42.36,-31.5,29],"DUK":[149,-14.5,127.39],"EADSY":[25.04,113.3,53.42],"EQIX":[901,12.5,1013.7],"ETN":[194,90.7,369.97],"ETR":[92,19.7,110.11],"EXC":[61.93,-25.5,46.16],"FCX":[23.38,167.2,62.47],"GE":[142,112.5,301.8],"GEV":[993,-13.6,857.87],"GILD":[161,6,170.68],"GMBXF":[7.31,64.7,12.04],"GOOGL":[45,521.9,279.84],"GS":[963,-7.1,894.55],"HD":[197,67.1,329.2],"HESAY":[92,56.9,144.37],"HOOD":[48.78,74.2,84.99],"IDEXY":[11.05,41.9,15.68],"JNJ":[134,103.9,273.2],"JPM":[302,11.6,337.04],"KO":[46.78,101.1,94.08],"LIN":[126,308.1,514.24],"LLY":[456,210.9,1417.54],"LRCX":[144,66,239.11],"LVMUY":[97.19,-11.6,85.93],"MA":[476,34,638.01],"MCD":[98,163.4,258.12],"META":[242,154.1,614.99],"MNST":[24.88,90.3,47.34],"MO":[55.93,39.5,78.03],"MPC":[179,148.5,444.73],"MRK":[84,78,149.52],"MRVL":[69,184.6,196.4],"MS":[172,7.2,184.3],"MSFT":[236,121.1,521.91],"MU":[717,23.4,884.74],"NBIS":[126,22.3,154.14],"NEE":[103.47,-19.1,83.71],"NEM":[82,30,106.61],"NFLX":[50.03,24.1,62.08],"NVDA":[166,23.3,204.64],"O":[49.55,14.9,56.93],"ORCL":[null,null,130.67],"PCCYF":[1.04,29.8,1.35],"PEP":[83,65.5,137.34],"PFE":[12.11,152,30.52],"PG":[87,85.7,161.57],"PLD":[93,37.6,127.98],"PLTR":[54,240.9,184.11],"PM":[122,71.1,208.79],"PSA":[242,34.2,324.77],"QCOM":[201,-18,164.79],"RIO":[59.71,37.1,81.89],"RTX":[92,117.2,199.8],"SBGSF":[293,-11.1,260.41],"SCCO":[84,111.3,177.53],"SFTBY":[null,null,13.82],"SHEL":[120,-9.4,108.69],"SIEGY":[93,59.1,147.95],"SNDK":[110,30.8,143.86],"SO":[90.32,3.8,93.71],"SONY":[27.12,-6.7,25.3],"SPCX":[23,485.7,134.72],"SPG":[179,21.6,217.75],"SRE":[71.6,20.2,86.06],"T":[14.31,49.6,21.41],"TCEHY":[54,-9.2,49.04],"TJX":[66,112.6,140.31],"TM":[125,56.6,195.71],"TMO":[281,148,697],"TMUS":[194,-19.4,156.44],"TSLA":[23,1638.3,399.81],"TSM":[335,21.2,406.13],"TTE":[115.16,-17.2,95.33],"TXN":[191,57.5,300.84],"UL":[60.67,7.6,65.26],"UNH":[352,15.6,406.97],"V":[287,44.1,413.59],"VMRK":[71.03,-12.9,61.9],"VTR":[78.22,8.4,84.8],"VZ":[25.07,78.4,44.73],"WELL":[144,62.9,234.6],"WFC":[90.65,-8,83.4],"WMT":[21,488.1,123.51],"XEL":[95.92,-16.8,79.82],"XOM":[101,85.4,187.25],"ZIJMF":[3.31,5.4,3.49]};
+function intrFmt(t){ var v=INTR[t]; if(!v) return "see artifact"; if(v[0]===null) return "N/A"; var w=v[0]; var num=(v[2]>100)?fmt(w,0):fmt(w,2); return (t==="2222"?"SAR ":t==="CNOOC"?"CNY ":"$")+num; }
+function dpFmt(t){ var v=INTR[t]; if(!v) return "see artifact"; if(v[1]===null) return "N/A"; return (v[1]>=0?"+":"")+v[1].toFixed(1)+"%"; }
+
+function numFor(v){ var t=(v||"").trim();
+  if(!t||/see artifact/i.test(t)||t==="\u2014"||/not published/i.test(t)) return null;
+  var m=t.match(/adj\.\s*~?\s*([\d,]+(?:\.\d+)?)/); if(m) return parseFloat(m[1].replace(/,/g,""));
+  m=t.match(/ADR\s*~?\$\s*([\d,]+(?:\.\d+)?)/); if(m) return parseFloat(m[1].replace(/,/g,""));
+  m=t.match(/([\d,]+(?:\.\d+)?)/); if(m) return parseFloat(m[1].replace(/,/g,""));
+  return null; }
+function pctCell(v){ return v===null?"N/A":(v>=0?"+":"")+v.toFixed(1)+"%"; }
+function cagrWtd(r){ var p,w; if(r[0]==="SNDK"){ p=143.86; w=127; } else { p=numFor(r[1]); w=numFor(r[4]); }
+  if(p===null||w===null||p<=0||w<=0) return [null,null];
+  return [(Math.pow(w/p,0.2)-1)*100,(w-p)/p*100]; }
+function rowTop5(r){ var cw=cagrWtd(r); return '<tr data-tk="'+r[0]+'"><td data-l="Ticker" class="tk">'+link(r[0])+'</td><td data-l="Price" class="num">'+r[1]+'</td><td data-l="12–18mo B/Ba/Bu">'+r[2]+'</td><td data-l="5-yr weighted" class="num">'+r[4]+'</td><td data-l="5-yr CAGR" class="num">'+pctCell(cw[0])+'</td><td data-l="% to wtd" class="num">'+pctCell(cw[1])+'</td><td data-l="Short"><span class="verdict '+vclass(r[5])+'">'+r[5]+'</span></td><td data-l="Long"><span class="verdict '+vclass(r[6])+'">'+r[6]+'</span></td><td data-l="Published %" class="num">'+fmt(r[7],2)+'%</td><td class="num">'+intrFmt(r[0])+'</td><td class="num">'+dpFmt(r[0])+'</td></tr>'; }
+function rowFull(r){ var cw=cagrWtd(r); return '<tr data-tk="'+r[0]+'"><td data-l="Ticker" class="tk">'+link(r[0])+'</td><td data-l="Price" class="num">'+r[1]+'</td><td data-l="12–18mo B/Ba/Bu">'+r[2]+'</td><td data-l="5-yr B/Ba/Bu">'+r[3]+' · wtd '+r[4]+'</td><td data-l="5-yr CAGR" class="num">'+pctCell(cw[0])+'</td><td data-l="% to wtd" class="num">'+pctCell(cw[1])+'</td><td data-l="Short / Long"><span class="verdict '+vclass(r[5])+'">'+r[5]+'</span> / <span class="verdict '+vclass(r[6])+'">'+r[6]+'</span></td><td data-l="Published %" class="num">'+fmt(r[7],2)+'%</td><td data-l="Eff. 12–18" class="num">'+fmt(r.effS,2)+'</td><td data-l="Norm 12–18 %" class="num"><b>'+fmt(r.nS)+'%</b></td><td data-l="Eff. 5-yr" class="num">'+fmt(r.effL,2)+'</td><td data-l="Norm 5-yr %" class="num"><b>'+fmt(r.nL)+'%</b></td><td class="num">'+intrFmt(r[0])+'</td><td class="num">'+dpFmt(r[0])+'</td></tr>'; }
+(function(){ var h=""; SECTORS.forEach(function(s){
+ h+='<div id="sec-'+s.id+'"><h3 style="margin-top:30px;font-size:24px">'+s.name+' <span style="color:var(--muted);font-size:15px;font-family:inherit">· '+s.rows.length+' reports · sleeve '+fmt(s.raw,1)+'% → normalised '+fmt(s.nS)+'% (12–18mo) / '+fmt(s.nL)+'% (5-yr)</span></h3><p style="color:var(--muted);font-size:14px;margin:4px 0 0">'+s.basis+'</p>';
+ h+='<p class="top5cap">Top 5 comparison — '+s.name+'</p><table><thead><tr><th>Ticker</th><th class="num">Price 30 Oct</th><th>12–18mo Bear/Base/Bull</th><th class="num">5-yr weighted</th><th class="num">5-yr CAGR</th><th class="num">% to wtd</th><th>Short</th><th>Long</th><th class="num">Published %<th class="num">DCF intrinsic</th><th class="num">Disc/Prem % vs DCF</th></tr></tr></thead><tbody>';
+ for(var i=0;i<5 && i<s.rows.length;i++) h+=rowTop5(s.rows[i]);
+ h+='</tbody></table>';
+ h+='<p class="top5cap">Full sector — every report, with its normalised spread inside the 100% portfolios</p><table><thead><tr><th>Ticker</th><th class="num">Price</th><th>12–18mo</th><th>5-yr (wtd)</th><th class="num">5-yr CAGR</th><th class="num">% to wtd</th><th>Short / Long verdict</th><th class="num">Pub. %</th><th class="num">Eff. 12–18</th><th class="num">Norm 12–18 %</th><th class="num">Eff. 5-yr</th><th class="num">Norm 5-yr %<th class="num">DCF intrinsic</th><th class="num">Disc/Prem % vs DCF</th></tr></tr></thead><tbody>';
+ s.rows.forEach(function(r){ h+=rowFull(r); });
+ h+='</tbody></table></div>';
+}); document.getElementById("sectors").innerHTML=h; })();
+document.getElementById("filterBox").addEventListener("input",function(e){ var q=e.target.value.trim().toUpperCase(); var rows=document.querySelectorAll("#sectors tr[data-tk], #sectorTotals tr[data-tk]"); rows.forEach(function(tr){ var tk=tr.getAttribute("data-tk")||""; tr.classList.toggle("hidden", q!=="" && tk.indexOf(q)!==0 && tk!==q && tk.indexOf(q)===-1); }); SECTORS.forEach(function(s){ var box=document.getElementById("sec-"+s.id); if(!box) return; var any=false; box.querySelectorAll("tbody tr").forEach(function(tr){ if(!tr.classList.contains("hidden")) any=true; }); box.classList.toggle("hidden", q!=="" && !any); }); });
+</script>
+
+<script>
+(function(){
+  function parseVal(txt){
+    var t=(txt||"").trim();
+    if(t===""||/^see artifact$/i.test(t)||/^N\/A$/i.test(t)) return null;
+    var num=parseFloat(t.replace(/[$,%]/g,"").replace(/,/g,""));
+    if(!isNaN(num)&&/^[$\-\+\d.,%\s]+$/.test(t)) return num;
+    return t.toLowerCase();
+  }
+  function cmp(a,b,dir){
+    if(a===null&&b===null) return 0;
+    if(a===null) return 1;
+    if(b===null) return -1;
+    var r=0;
+    if(typeof a==="number"&&typeof b==="number") r=a-b;
+    else r=String(a).localeCompare(String(b));
+    return dir==="asc"?r:-r;
+  }
+  document.querySelectorAll("#sectors table, #sectorTotals table").forEach(function(table){
+    var thead=table.querySelector("thead"); if(!thead) return;
+    var ths=thead.querySelectorAll("th");
+    var pinned=null;
+    if(table.closest("#sectorTotals")){
+      var tb=table.querySelector("tbody");
+      if(tb&&tb.rows.length) pinned=tb.rows[tb.rows.length-1];
+    }
+    ths.forEach(function(th,ci){
+      th.style.cursor="pointer"; th.title="Click to sort";
+      if(!th.dataset.label) th.dataset.label=th.textContent;
+      th.addEventListener("click",function(){
+        var tbody=table.querySelector("tbody"); if(!tbody) return;
+        var dir=(table.dataset.sortCol==String(ci)&&table.dataset.sortDir==="asc")?"desc":"asc";
+        table.dataset.sortCol=String(ci); table.dataset.sortDir=dir;
+        var rows=Array.prototype.slice.call(tbody.rows);
+        var tail=null;
+        if(pinned&&rows[rows.length-1]===pinned){ tail=rows.pop(); }
+        rows.sort(function(r1,r2){
+          return cmp(parseVal(r1.cells[ci]?r1.cells[ci].textContent:""),
+                     parseVal(r2.cells[ci]?r2.cells[ci].textContent:""),dir);
+        });
+        rows.forEach(function(r){ tbody.appendChild(r); });
+        if(tail) tbody.appendChild(tail);
+        ths.forEach(function(h){ h.textContent=h.dataset.label; });
+        th.textContent=th.dataset.label+(dir==="asc"?" \u25B2":" \u25BC");
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

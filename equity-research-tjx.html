@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TJX</title>
+<style>
+  :root{
+    --bg:#f6f4ef; --surface:#fffdf8; --surface2:#efe9dd; --ink:#1c1a15; --muted:#5d574c;
+    --line:#ddd3bf; --accent:#7a1f2b; --accent-ink:#ffffff; --gold:#a97e2f;
+    --good:#1e6b3a; --bad:#a12622; --warn:#8a5a00;
+    --chip:#f0e7d3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14120e; --surface:#1e1b15; --surface2:#26221a; --ink:#efe9dc; --muted:#b3a98f;
+      --line:#3a3428; --accent:#c65a68; --accent-ink:#fff5f0; --gold:#c9a24a;
+      --good:#5dbb82; --bad:#e07a72; --warn:#d9a94e;
+      --chip:#2c2719;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    line-height:1.55;font-size:16px}
+  .sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:1060px;margin:0 auto;padding:20px 18px 64px}
+  a{color:var(--accent)}
+  h1{font-size:34px;line-height:1.12;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:22px;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+  h3{font-size:17px;margin:18px 0 6px}
+  p{margin:8px 0}
+  .muted{color:var(--muted)}
+  .small{font-size:13px}
+  .tickerline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 14px}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:13px}
+  .chip strong{color:var(--accent)}
+  .hero{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:22px 20px}
+  .price{font-size:44px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .down{color:var(--bad)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:16px 0 4px}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .kpi .k{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .kpi .v{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
+  .kpi .s{font-size:12.5px;color:var(--muted)}
+  .verdict{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+  @media (max-width:640px){.verdict{grid-template-columns:1fr}}
+  .vcard{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--surface)}
+  .vcard .tag{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .vcard .call{font-size:24px;font-weight:700;color:var(--good)}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-variant-numeric:tabular-nums}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  td.num,th.num{text-align:right}
+  .tblwrap{overflow-x:auto}
+  @media (max-width:640px){
+    /* Wide 5-year table reflows into stacked rows on phones — no sideways scroll */
+    table.stack5, table.stack5 tbody, table.stack5 tr, table.stack5 td{display:block;width:100%}
+    table.stack5 tr.head{display:none}
+    table.stack5 tr{border-bottom:2px solid var(--accent);padding:6px 0}
+    table.stack5 td{border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;text-align:right}
+    table.stack5 td::before{content:attr(data-label);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;padding-top:2px}
+    table.stack5 td.total{font-size:16px}
+  }
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .card h3{margin-top:0}
+  ul{margin:6px 0 6px 18px;padding:0}
+  li{margin:4px 0}
+  .note{border:1px solid var(--gold);background:var(--surface2);border-radius:10px;padding:12px 16px;font-size:14.5px}
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+  .calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:4px}
+  .calc input{font:inherit;font-size:18px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+  .calc .out{font-size:17px;margin-top:10px}
+  .foot{margin-top:36px;border-top:1px solid var(--line);padding-top:14px}
+  .srcs{font-size:13.5px}
+  .srcs li{margin:5px 0;word-break:break-word}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 74px;gap:10px;align-items:center;margin:7px 0;font-size:14px}
+  .bar-track{height:16px;background:var(--surface2);border-radius:4px;position:relative}
+  .bar-fill{height:100%;border-radius:4px;background:var(--gold)}
+  .bar-fill.bull{background:var(--good)} .bar-fill.bear{background:var(--bad)} .bar-fill.now{background:var(--accent)}
+  .bar-val{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+  .est{font-size:11px;background:var(--chip);border:1px solid var(--line);border-radius:4px;padding:1px 6px;vertical-align:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="small muted sans" style="margin:0">EQUITY RESEARCH · CONSUMER DISCRETIONARY · AS OF 1 NOV 2026</p>
+  <h1>TJX Companies (TJX) — the off-price machine</h1>
+  <p class="muted" style="max-width:70ch">The world's largest off-price apparel and home-fashions retailer. TJX buys excess and cancelled-order brand-name inventory at a discount and resells it in a no-frills "treasure hunt" store format — a model that tends to gain customers precisely when household budgets tighten. Research views only, not guarantees, not investment advice.</p>
+
+  <div class="hero">
+    <div class="tickerline sans">
+      <span class="chip"><strong>NYSE: TJX</strong></span>
+      <span class="chip">Sector: Consumer Discretionary</span>
+      <span class="chip">Price reference: 30 Oct 2026 close</span>
+      <span class="chip">Profile: mid-30s investor · risk 8/10</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:22px;align-items:flex-end">
+      <div>
+        <div class="price">$140.31</div>
+        <div class="small muted">Regular-session close, 30 Oct 2026 · <span class="down">−0.74% on the day</span></div>
+      </div>
+      <div style="padding-bottom:4px">
+        <div class="sans" style="font-weight:700;font-size:18px">Analyst consensus target: $174.95</div>
+        <div class="small muted">≈ +24.7% vs. the 30 Oct close (MarketBeat)</div>
+      </div>
+    </div>
+    <div class="kpis sans">
+      <div class="kpi"><div class="k">Market cap</div><div class="v">$154.7B</div><div class="s">FinanceCharts, 30 Oct 2026</div></div>
+      <div class="kpi"><div class="k">Trailing P/E</div><div class="v">25.94×</div><div class="s">MarketBeat</div></div>
+      <div class="kpi"><div class="k">Price / Sales</div><div class="v">2.56×</div><div class="s">MarketBeat compare page</div></div>
+      <div class="kpi"><div class="k">Annual revenue</div><div class="v">$60.37B</div><div class="s">Trailing, MarketBeat</div></div>
+      <div class="kpi"><div class="k">Dividend yield</div><div class="v">1.37%</div><div class="s">MarketBeat</div></div>
+      <div class="kpi"><div class="k">Shares out</div><div class="v">1.10B</div><div class="s">1,099,970,000 shares</div></div>
+    </div>
+    <p class="small muted" style="margin-top:10px">Verification note: the research pack's $140.34 close came only from MarketBeat. Independent verification against Finnhub, StockAnalysis history and FinancialContent put the official 30 Oct close at <strong>$140.31</strong>, which is the figure used throughout this page. The market-cap impact is immaterial.</p>
+  </div>
+
+  <div class="verdict sans">
+    <div class="vcard">
+      <div class="tag">Short term · 12–18 months</div>
+      <div class="call">BUY</div>
+      <p class="small muted" style="margin:4px 0 0">Modelled base case $165 <span class="est">MODELLED ESTIMATE</span> vs. $140.31 today, with a trade-down tailwind if consumers keep tightening budgets.</p>
+    </div>
+    <div class="vcard">
+      <div class="tag">Long term · 5 years</div>
+      <div class="call">BUY</div>
+      <p class="small muted" style="margin:4px 0 0">Probability-weighted modelled value $200 <span class="est">MODELLED ESTIMATE</span> — a steady compounder, not a moonshot. Suggested portfolio weight: <strong>2%</strong>.</p>
+    </div>
+  </div>
+
+  <h2>1 · Business model &amp; segment breakdown</h2>
+  <p>TJX is an <strong>off-price retailer</strong>: its buyers purchase brand-name merchandise that manufacturers and department stores overproduced, cancelled, or need to clear, then sell it in stores at prices typically well below department-store tags. Stores deliberately carry a shifting, incomplete assortment — the "treasure hunt" — which drives frequent visits and fast inventory turnover, and makes the model hard to replicate online.</p>
+  <div class="cards">
+    <div class="card">
+      <h3>Marmaxx (U.S.)</h3>
+      <p class="small">T.J. Maxx and Marshalls — the core U.S. apparel and home-fashions banners and the group's largest business.</p>
+    </div>
+    <div class="card">
+      <h3>HomeGoods (U.S.)</h3>
+      <p class="small">Dedicated home-fashions banner; a named growth driver as TJX expands the home category beyond Marmaxx's in-store departments.</p>
+    </div>
+    <div class="card">
+      <h3>TJX Canada</h3>
+      <p class="small">Canadian off-price operations under the Winners / Marshalls / HomeSense banners.</p>
+    </div>
+    <div class="card">
+      <h3>TJX International</h3>
+      <p class="small">Europe and Australia (T.K. Maxx) — the expansion frontier. Overall the business remains <strong>U.S.-heavy</strong>, with international growth coming from new European and Australian stores.</p>
+    </div>
+  </div>
+  <p><strong>Structural points.</strong> Revenue is overwhelmingly store-based and discretionary, but skewed to value price points, so demand historically holds up — or improves — when shoppers trade down. The critical supply-chain dependency is not a factory: it is the <em>availability of quality closeout inventory</em>, which depends on other retailers and brands over-ordering. Sourcing is global, which is also where tariff exposure enters (see Risks).</p>
+
+  <h2>2 · Financial health &amp; balance sheet diagnostics</h2>
+  <div class="tblwrap sans"><table>
+    <tr><th>Metric</th><th class="num">Value</th><th>Source / note</th></tr>
+    <tr><td>Share price (30 Oct 2026 close)</td><td class="num">$140.31</td><td>Corrected close — Finnhub / StockAnalysis / FinancialContent (see verification note above)</td></tr>
+    <tr><td>Market capitalisation</td><td class="num">$154.7B</td><td>FinanceCharts, 30 Oct 2026 ($154.744B)</td></tr>
+    <tr><td>Trailing P/E</td><td class="num">25.94×</td><td>MarketBeat</td></tr>
+    <tr><td>Price / sales</td><td class="num">2.56×</td><td>MarketBeat compare page</td></tr>
+    <tr><td>Annual revenue</td><td class="num">$60.37B</td><td>MarketBeat compare page</td></tr>
+    <tr><td>Dividend yield</td><td class="num">1.37%</td><td>MarketBeat</td></tr>
+    <tr><td>Shares outstanding</td><td class="num">1.10B</td><td>1,099,970,000 (MarketBeat)</td></tr>
+    <tr><td>Analyst consensus target</td><td class="num">$174.95</td><td>MarketBeat</td></tr>
+  </table></div>
+  <p><strong>Reading the multiples.</strong> At ~26× trailing earnings and 2.56× sales, TJX is priced like a premium, dependable compounder rather than a bargain-bin retailer — the market pays up for the consistency of the off-price model through cycles. The 1.37% yield is a modest income component on top of that growth profile, not the reason to own it. The valuation question is therefore not "is it cheap?" but "does the earnings compounding continue long enough to justify ~26×?" — which is exactly what the scenario model in §5 tests.</p>
+  <p class="small muted">Balance-sheet detail beyond the verified figures above (segment margins, cash and debt lines, buyback pace) was not part of the verified research pack for this ticker and is left out rather than estimated.</p>
+
+  <h2>3 · Competitive moat &amp; industry positioning</h2>
+  <ul>
+    <li><strong>Buying scale.</strong> TJX is the largest off-price buyer in its markets; that scale gets it first look at the best closeout inventory and the leverage to buy opportunistically, in bulk, when vendors need to move stock.</li>
+    <li><strong>Inventory flexibility.</strong> With no fixed assortment to defend, buyers can shift categories, brands and price points as supply appears — a flexibility full-price retailers structurally lack.</li>
+    <li><strong>Low-cost model.</strong> No-frills stores, lean fixtures and fast turns keep the cost base low, funding the price gap to department stores while still earning retail margins.</li>
+    <li><strong>Brand-name bargains.</strong> The customer proposition — recognised brands at visibly lower prices — is simple, proven, and strengthens when household budgets are squeezed.</li>
+  </ul>
+  <p><strong>Primary competitors:</strong> Ross Stores and Burlington Stores (direct off-price rivals), Amazon (online value and convenience), and department stores themselves when they discount aggressively to clear their own stock.</p>
+
+  <h2>4 · Catalysts &amp; downside risks</h2>
+  <div class="cards">
+    <div class="card">
+      <h3 style="color:var(--good)">Catalysts</h3>
+      <ul class="small" style="margin-left:16px">
+        <li><strong>Trade-down consumer:</strong> a squeezed shopper is TJX's natural customer — full-price weakness feeds both its footfall and its inventory supply.</li>
+        <li><strong>New stores:</strong> continued unit growth across banners, including Europe and Australia.</li>
+        <li><strong>HomeGoods expansion:</strong> the home category is a named growth engine within the U.S. business.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--bad)">Downside risks</h3>
+      <ul class="small" style="margin-left:16px">
+        <li><strong>Inventory availability:</strong> the model depends on a steady flow of quality closeout stock; a lean-inventory era across retail means less to buy.</li>
+        <li><strong>Tariffs on sourced goods:</strong> merchandise is globally sourced, so tariff increases raise replacement costs and pressure the price gap.</li>
+        <li><strong>Consumer slowdown:</strong> off-price is resilient, not immune — a deep downturn still cuts discretionary trips and basket size.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5 · Scenario valuation &amp; price targets <span class="est sans">ALL PRICES MODELLED ESTIMATES</span></h2>
+  <p class="small muted">All scenario prices below are modelled estimates, not verified facts. Methodology: future revenue = base revenue grown at the case CAGR for 5 years; future EPS = revenue × net margin ÷ shares (share count falls in stronger cases, reflecting buybacks); price = EPS × the case P/E. 12–18-month cases use the same framework on a shorter horizon.</p>
+
+  <h3>12–18 month targets</h3>
+  <div class="tblwrap sans"><table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">vs. $140.31</th></tr>
+    <tr><td>Bear</td><td class="num">$125</td><td class="num">−10.9%</td></tr>
+    <tr><td>Base</td><td class="num">$165</td><td class="num">+17.6%</td></tr>
+    <tr><td>Bull</td><td class="num">$195</td><td class="num">+39.0%</td></tr>
+  </table></div>
+  <p class="small muted">For reference, the analyst consensus target is $174.95 (MarketBeat) — between the modelled base and bull cases.</p>
+
+  <h3>5-year projection (to ~2031)</h3>
+  <p class="small">Frozen-parameter format: base 2026E revenue $60B, shares 1.10B at the start. Only growth, margin, share count and the exit P/E vary by case. Weights: Base 50% / Bull 25% / Bear 25%.</p>
+  <div class="tblwrap sans"><table class="stack5">
+    <tr class="head"><th>Case (weight)</th><th class="num">Rev. CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">Shares</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+    <tr><td data-label="Case (weight)">Base (50%)</td><td class="num" data-label="Rev. CAGR">7%</td><td class="num" data-label="2031 revenue">$84B</td><td class="num" data-label="Net margin">10%</td><td class="num" data-label="Shares">1.05B</td><td class="num" data-label="EPS">$8.00</td><td class="num" data-label="P/E">24×</td><td class="num" data-label="Price"><strong>$192</strong></td></tr>
+    <tr><td data-label="Case (weight)">Bull (25%)</td><td class="num" data-label="Rev. CAGR">10%</td><td class="num" data-label="2031 revenue">$97B</td><td class="num" data-label="Net margin">12%</td><td class="num" data-label="Shares">1.02B</td><td class="num" data-label="EPS">$11.40</td><td class="num" data-label="P/E">28×</td><td class="num" data-label="Price"><strong>$319</strong></td></tr>
+    <tr><td data-label="Case (weight)">Bear (25%)</td><td class="num" data-label="Rev. CAGR">3%</td><td class="num" data-label="2031 revenue">$70B</td><td class="num" data-label="Net margin">8%</td><td class="num" data-label="Shares">1.10B</td><td class="num" data-label="EPS">$5.09</td><td class="num" data-label="P/E">19×</td><td class="num" data-label="Price"><strong>$97</strong></td></tr>
+    <tr><td class="total" colspan="7" data-label="Weighted"><strong>Probability-weighted value</strong> (0.50×192 + 0.25×319 + 0.25×97)</td><td class="num total" data-label="Price"><strong>$200</strong></td></tr>
+  </table></div>
+
+  <div class="sans" style="margin:14px 0 4px" role="img" aria-label="Bar chart comparing today's price of $140.31 with modelled 5-year bear $97, base $192, bull $319 and weighted $200">
+    <div class="bar-row"><span>Bear</span><div class="bar-track"><div class="bar-fill bear" style="width:30%"></div></div><span class="bar-val">$97</span></div>
+    <div class="bar-row"><span>Today</span><div class="bar-track"><div class="bar-fill now" style="width:44%"></div></div><span class="bar-val">$140.31</span></div>
+    <div class="bar-row"><span>Base</span><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><span class="bar-val">$192</span></div>
+    <div class="bar-row"><span>Weighted</span><div class="bar-track"><div class="bar-fill" style="width:63%"></div></div><span class="bar-val">$200</span></div>
+    <div class="bar-row"><span>Bull</span><div class="bar-track"><div class="bar-fill bull" style="width:100%"></div></div><span class="bar-val">$319</span></div>
+  </div>
+  <p><strong>How to read it.</strong> The weighted $200 implies ~+43% over five years (~7.3%/yr) from compounding alone — respectable for a defensive compounder, with the real spread between outcomes driven by whether revenue compounds at 3% or 10% and whether the exit multiple holds near today's premium. The bear case ($97, −31%) is mainly a de-rating story: slower growth plus the P/E compressing to 19×.</p>
+
+  <h2>6 · Recommendation &amp; portfolio fit</h2>
+  <p>For a mid-30s investor with a risk score of 8/10, the research view is <strong>BUY short term and BUY long term</strong>, sized at <strong>2% of the total portfolio</strong>. TJX's role in that portfolio is ballast-with-growth: a consumer name whose demand driver (trade-down) is partly counter-cyclical, balancing the heavy technology weight elsewhere in this research set. At 2%, even the bear case (−31%) costs the overall portfolio roughly 0.6% — the position can be wrong without being costly.</p>
+  <div class="calc sans">
+    <label for="pv">Your total portfolio value (USD)</label>
+    <input id="pv" type="number" inputmode="decimal" value="100000" min="0" step="1000" />
+    <div class="out" id="pvout"></div>
+    <p class="small muted" style="margin:6px 0 0">At the suggested 2% weight and the $140.31 reference price. In-memory only — nothing is saved or sent anywhere.</p>
+  </div>
+
+  <div class="note" style="margin-top:22px">
+    <strong>Sector ranking basis.</strong> TJX sits in the Consumer Discretionary top-10 set ranked on FinanceCharts' biggest-companies pages, last updated 30 Oct 2026, with prices at the 30 Oct 2026 close. The bottom of that ranking is a <strong>source-dependent tie</strong>: FinanceCharts ranks SONY #10 ($148.38B) and HESAY #11 ($148.079B), while StockAnalysis puts HESAY at $151.28B, above SONY. Both are therefore included (a top 11) with this tie footnoted — HESAY should not be read as an unambiguous #10.
+  </div>
+
+  <div class="foot">
+    <h3 style="margin-top:0">Sources</h3>
+    <ol class="srcs sans">
+      <li>MarketBeat — TJX stock page (price, P/E, dividend yield, shares, target $174.95): <a href="https://www.marketbeat.com/stocks/NYSE/TJX/">marketbeat.com/stocks/NYSE/TJX</a></li>
+      <li>StockAnalysis — TJX price history (independent check of the $140.31 close): <a href="https://StockAnalysis.com/stocks/tjx/history/">stockanalysis.com/stocks/tjx/history</a></li>
+      <li>FinanceCharts — Consumer Discretionary sector ranking and market caps, 30 Oct 2026: <a href="https://www.financecharts.com/sectors/consumer_discretionary">financecharts.com/sectors/consumer_discretionary</a></li>
+    </ol>
+    <p class="small muted">Figures were independently verified against a second source before publication; where sources disagreed, the correction is noted on this page. Scenario prices are modelled estimates with the methodology shown in §5 — they are not analyst targets and not verified facts. This page is research commentary for a stated investor profile, not investment advice. Data as of 1 Nov 2026; price reference is the 30 Oct 2026 close (1 Nov 2026 was a weekend).</p>
+    <p class="small muted">— Blaze</p>
+  </div>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TJX (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $140.31.</strong> <strong>DCF intrinsic: $66.</strong> Discount/premium vs DCF: <strong>+112.6%</strong> — i.e. the shares are trading 112.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$66</td><td>+112.6%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $4.4bn. TTM levered FCF (TwelveData $4.40bn; OCF $8.03bn - capex). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $36.09bn + PV of terminal value $44.7bn + net cash $-8.32bn, divided by 1.1bn diluted shares = <strong>$66</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/201255/stock/nyse/tjx/statistics</li><li>Forward annual dividend rate $1.92 (TwelveData/coindataflow; trailing $1.81)</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — TJX (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Revenue is off-price apparel and home-goods purchases by individual shoppers, with no single business customer disclosed above 10%. Key demand drivers: consumer trade-down behaviour, availability of branded inventory from full-price retailers, and store productivity across Marmaxx and HomeGoods.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TJX</h2>
+<p><strong>Role: Low exposure.</strong> TJX's AI exposure is merchandising and inventory allocation, not infrastructure: the pack's thesis is opportunistic buying and trade-down share gains, with FCF of $4.4bn TTM.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows only indirectly, through better buying and allocation; the multiple is supported by off-price economics, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks little directly — off-price demand is counter-cyclical and can rise in a downturn; then the multiple compresses toward a through-cycle retail multiple; then the balance sheet — debt $14.3bn against cash $6.0bn — is manageable. Watch: inventory availability from full-price retailers, Marmaxx comparable sales, and tariff effects on sourced goods.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+</div>
+<script>
+  (function(){
+    var input = document.getElementById('pv');
+    var out = document.getElementById('pvout');
+    var PRICE = 140.31, WEIGHT = 0.02;
+    function fmt(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}); }
+    function render(){
+      var v = parseFloat(input.value);
+      if (isNaN(v) || v < 0){ out.textContent = 'Enter a portfolio value to see the position size.'; return; }
+      var dollars = v * WEIGHT;
+      var shares = dollars / PRICE;
+      out.innerHTML = 'Suggested TJX position (2%): <strong>' + fmt(dollars) + '</strong> ≈ <strong>' +
+        shares.toLocaleString('en-US',{maximumFractionDigits:1}) + ' shares</strong> at $140.31.';
+    }
+    input.addEventListener('input', render);
+    render();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — O</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:150px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 64px}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Retail · Single-Tenant Net-Lease REIT</span></div>
+  <h1>Realty Income <span class="tick">(NYSE: O)</span></h1>
+  <p class="lede">“The Monthly Dividend Company” is a bond-like equity by design: 15,500+ single-tenant properties on triple-net leases, rent collected monthly, growth bought one sale-leaseback at a time. At $56.93 the question is not growth — peers in data centres and healthcare compound far faster — but whether slow, diversified, investment-grade-tenant rent still deserves a premium multiple when Treasuries sit above 5%.</p>
+  <div class="byline">
+    <span><b>As of:</b> Saturday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $56.93 close, Thu 30 Oct 2026</span>
+    <span><b>Ranking basis:</b> Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI / Real Estate index). Market-cap ranking, not VNQ-weight order — VNQ weight order differs only in swapping O (3.34%) ahead of PSA (3.11%).</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close ✓ verified</div><div class="vbig mono">$56.93</div><div class="vsub">Official 4pm close — Finnhub / StockAnalysis history. <a href="https://stockanalysis.com/stocks/o/history/" target="_blank" rel="noopener">Source</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$53.87B</div><div class="vsub">Finnhub basis. Vendor methods differ — see §2 note. <a href="https://finnhub.io/?q=%22O%22" target="_blank" rel="noopener">Source</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Revenue · TTM</div><div class="vbig mono">$6.0B</div><div class="vsub">Trailing twelve months. <a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Fool research</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus target</div><div class="vbig mono">$63.43 <span class="up" style="font-size:16px">+11.4%</span></div><div class="vsub">TipRanks consensus vs $56.93. See §5 — our base sits just below it.</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Own it for income, not for price growth. Base target $62 (+8.9%, modelled estimate).</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD — income compounder <span class="pill hold">Hold</span></div><div class="vsub">Modelled weighted 5-yr value $68.80 — most return is expected to come as dividends along the way, not price.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Income-seeking portion only. At risk 8/10 this is ballast, not a growth engine — see §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">READ FIRST</span><h2>How to value a REIT — and what this note will not do</h2></div>
+  <p>Realty Income is a REIT, so this note follows REIT conventions throughout. <b>Trailing P/E (42.76×, Finnhub) is shown for completeness only and is not used for valuation</b> — GAAP earnings for a property owner are depressed by large non-cash depreciation charges and do not describe cash rent. The primary multiples are <b>P/FFO and P/AFFO</b> (funds / adjusted funds from operations). Where the research pack’s FFO/AFFO base could not be independently confirmed, it is labelled <b>ESTIMATE</b> in bold — that applies to the $4.15 AFFO base in §5.</p>
+  <div class="callout warn"><div class="ct">Open item — dividend yield not stated</div>
+  <p>Realty Income pays a <b>monthly</b> dividend — that frequency is verified and is central to the name. The <b>monthly amount and the resulting yield were NOT VERIFIED in this pass</b>, so this note deliberately does not quote a yield figure. Do not fill it in from memory: check the current declaration before acting on any income maths. The same discipline applies to leverage detail — no debt figure is quoted here that the pack did not carry.</p></div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Snapshot (30 Oct 2026)</th><th class="n">Value</th><th>Status / source</th></tr></thead>
+    <tbody>
+      <tr><td>Close price</td><td class="n">$56.93</td><td>✓ CONFIRMED — StockAnalysis history; TipRanks historical prices</td></tr>
+      <tr><td>Market cap</td><td class="n">$53.87B</td><td>Finnhub — see vendor note in §2</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">42.76×</td><td>Finnhub — <b>not</b> a valuation input for a REIT (see above)</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$6.0B</td><td>Fool largest-real-estate-companies research</td></tr>
+      <tr><td>Properties</td><td class="n">15,500+</td><td>Single-tenant commercial, US / UK / EU — Fool research</td></tr>
+      <tr><td>AFFO per share (model base)</td><td class="n">$4.15 EST.</td><td><b>ESTIMATE</b> — FFO base flagged as estimate by coordinator verification; §5 model only</td></tr>
+      <tr class="hl"><td>Implied P/AFFO at $56.93</td><td class="n">~13.7× EST.</td><td>Derived: $56.93 ÷ $4.15 est. AFFO — inherits the estimate flag</td></tr>
+      <tr><td>Consensus target</td><td class="n">$63.43</td><td>TipRanks consensus (+11.4% vs close)</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Price history cross-check: <a href="https://www.TipRanks.com/stocks/o/historical-prices" target="_blank" rel="noopener">TipRanks — O historical prices</a> · <a href="https://stockanalysis.com/stocks/o/history/" target="_blank" rel="noopener">StockAnalysis — O history</a>. Sector ranking context: <a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings</a>.</p>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Realty Income owns <b>15,500+ single-tenant commercial properties</b> across the <b>US, UK and Europe</b> and rents each one to a single tenant under a <b>triple-net lease</b>: the tenant — not Realty Income — pays property tax, insurance and maintenance on top of rent. [<a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Fool</a>] That one contract choice explains almost everything about the equity: landlord costs are unusually predictable, margins are rent minus financing and overhead rather than rent minus property upkeep, and the business scales by buying more buildings rather than by operating the ones it has more intensively.</p>
+
+  <h3>Revenue architecture</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th class="n">Scale</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Contractual rent — single-tenant net leases</td><td class="n">Rev. TTM $6.0B</td><td>Long-dated leases to predominantly retail tenants; rent is the product. Growth comes from (a) contractual escalators on the standing portfolio and (b) acquisitions — principally sale-leasebacks, where an operator sells its property to Realty Income and immediately leases it back</td></tr>
+      <tr><td>Sale-leaseback &amp; acquisition pipeline</td><td class="n">Growth engine</td><td>Every new deal is underwritten to a cap rate (first-year rent ÷ purchase price). When Treasury yields sit above 5%, sellers need a higher cap rate to transact — which is simultaneously Realty Income’s opportunity (better entry yields) and its constraint (its own cost of equity/debt is higher too). See §4</td></tr>
+      <tr><td>European platform (UK / EU)</td><td class="n">Expansion leg</td><td>The same net-lease model exported — diversifies tenant and currency exposure away from US retail, and accesses sale-leaseback sellers who have fewer large net-lease buyers competing for their assets</td></tr>
+      <tr class="total"><td>Total revenue (TTM)</td><td class="n">$6.0B</td><td>No operating segments beyond property rent are broken out in the verified pack — this note does not invent a segment split the pack does not carry</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>What the model is — in one picture</h3>
+      <ul>
+        <li><b>Landlord, not operator:</b> tenant pays tax, insurance, maintenance (triple-net). Vacancy and tenant credit — not repair bills — are the landlord’s real risks.</li>
+        <li><b>Monthly dividend:</b> rent in, dividend out, monthly — the “Monthly Dividend Company” identity is a cash-flow statement, not just marketing.</li>
+        <li><b>Externally grown:</b> unlike a retailer, Realty Income cannot open stores to grow; it must continuously issue capital (equity + debt) and buy properties at cap rates above its cost of capital. When the share price falls, that spread narrows and growth slows mechanically.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Geographic footprint (as verified)</h3>
+      <ul>
+        <li><b>United States</b> — the core portfolio and the bulk of the 15,500+ properties.</li>
+        <li><b>United Kingdom &amp; Europe</b> — the deliberate second leg; European expansion is listed as a catalyst in §4 precisely because it is still the smaller share.</li>
+        <li><b>No finer split is quoted:</b> the verified pack gives property count and regions, not a % revenue split by country. Any precise geographic % you see elsewhere was not verified for this note and is omitted rather than repeated.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Structural features &amp; dependencies</h3>
+  <ul>
+    <li><b>Supply chain, REIT-style:</b> the “inputs” are (1) properties to buy — supplied by operators doing sale-leasebacks, (2) cheap capital — supplied by equity and bond markets, and (3) creditworthy tenants. Realty Income is dependent on all three staying open at once; a closed equity market or a retail-credit scare each independently throttles growth.</li>
+    <li><b>Interest-rate transmission is direct:</b> property values are discounted rent. Higher long rates → higher cap rates → lower values for the standing portfolio and higher required yields on new deals. No other holding in a typical growth portfolio is this cleanly exposed to the long end of the curve.</li>
+    <li><b>Tenant concentration is diluted by design:</b> 15,500+ properties means no single building matters — but <i>sector</i> concentration (retail) still matters, because tenants’ fortunes correlate in a consumer downturn even when the leases are legally independent.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Diagnostics here are deliberately narrower than for an operating company, because the verified pack is narrower — and a research note that pads a REIT balance sheet with un-sourced leverage ratios would be worse than one that says what it knows. What is solid: a <b>$53.87B market cap on $6.0B of TTM revenue</b>, a share price that values estimated cash earnings (AFFO) at roughly 13–14×, and a GAAP P/E that should be ignored for the reason given in the snapshot.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $56.93 (30 Oct 2026 close, confirmed). AFFO-derived rows inherit the ESTIMATE flag on the $4.15 base.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~9.0×</td><td>Derived: $53.87B ÷ $6.0B. High vs operating companies — normal for a net-lease REIT, where revenue is almost pure rent with tenant-borne costs; compare only within REITs</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">42.76×</td><td>Finnhub. <b>Do not use for valuation:</b> depreciation on 15,500+ buildings depresses GAAP EPS. Shown only so a reader screening on P/E understands why the screen misleads here</td></tr>
+      <tr class="hl"><td>P / AFFO (on $4.15 est. AFFO)</td><td class="n">~13.7× EST.</td><td><b>Primary multiple.</b> The §5 base case applies 14× to 2031 AFFO — i.e. it assumes essentially no multiple expansion from today; the bull case (16×) is the only one that pays for re-rating</td></tr>
+      <tr><td>P / FFO</td><td class="n">Not quoted</td><td>FFO base flagged as an <b>estimate</b> in coordinator verification and no separate verified FFO figure was carried in the pack — omitted rather than guessed</td></tr>
+      <tr><td>Dividend yield</td><td class="n">Not quoted</td><td><b>Not verified in this pass</b> (monthly amount unconfirmed). Monthly frequency is verified; the yield is not — see snapshot callout</td></tr>
+      <tr><td>Consensus target</td><td class="n">$63.43</td><td>TipRanks — the Street is pricing modest price appreciation plus income; our $62 base (§5) is consistent with, and fractionally more cautious than, consensus</td></tr>
+      <tr><td>Market-cap rank</td><td class="n">Top-10 US RE</td><td>By market cap at 30 Oct 2026 within the VNQ universe. Next US name beyond the top 10 is Crown Castle (CCI, ~$38B), #11 behind Ventas (VTR, #10) — not #11 by VNQ weight</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="ct">Balance-sheet read — what can honestly be said</div>
+  <p>A net-lease REIT’s balance sheet is its factory: properties funded by a permanent stack of equity and unsecured debt, refinanced in cycles. The pack for this note did <b>not</b> carry a verified debt total, debt/equity ratio, or maturity ladder for O, so none is printed here. The economically important points that <i>can</i> be made without inventing numbers: (1) growth is externally funded, so the cost of capital <i>is</i> the strategy; (2) at 5%+ Treasury yields, new-deal cap rates must clear a materially higher hurdle than in the 2010s, which caps FFO growth (see §4); (3) dividend coverage should be judged on AFFO, not GAAP earnings — on the <b>estimated</b> $4.15 AFFO base the model in §5 is built, and coverage claims beyond that base would be unverified.</p>
+  <p class="small" style="margin-top:6px">Market-cap vendor note (from verification): TipRanks values match the pack across the real-estate top 10; Finnhub float-based values differ by up to ~$3B on some names. Do not mix vendors in one comparison table — this note uses the pack/Finnhub $53.87B for O consistently.</p></div>
+
+  <h3>Capital allocation, REIT-style</h3>
+  <ul>
+    <li><b>Dividends first, by law and by identity:</b> REIT status requires distributing the bulk of taxable income; the monthly cadence is the brand. For this investor the dividend is not a bonus on top of the thesis — it <i>is</i> most of the expected return (compare §5: base-case price CAGR is only ~3.9%/yr over five years).</li>
+    <li><b>Buybacks are not the tool:</b> a growing net-lease REIT issues shares to fund acquisitions when its cost of equity is attractive; it does not shrink the share count. Capital allocation = acquisition underwriting discipline.</li>
+    <li><b>Growth spend = acquisitions:</b> there is no R&amp;D line to analyse. The analogue of “capex discipline” is the spread between acquisition cap rates and funding costs — the single number that decides whether each new property adds or dilutes AFFO per share.</li>
+    <li><b>Free cash flow framing:</b> for a REIT, AFFO is the cash-earnings proxy (FFO less recurring capex and leasing costs). This note’s entire valuation rests on it — which is why its <b>estimate</b> status is flagged at every use, not buried.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: moderate — scale and diversification, not pricing power.</b> Realty Income cannot raise rents faster than its leases allow, and a tenant with options does not have to renew. What it has instead is arguably more durable for an income holding: a portfolio so diversified — by property count, by tenant, by geography — that individual failures are statistical noise, and a cost-of-capital advantage that lets it outbid smaller buyers for sale-leaseback deals while still earning its spread.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Diversification at scale:</b> 15,500+ properties across US/UK/EU — the largest single-tenant net-lease pool in this coverage set. One tenant default is a rounding error; it takes a sector-wide retail event to hurt the rent roll.</li>
+      <li><b>Investment-grade tenant tilt:</b> the pack identifies investment-grade tenants as a core feature — tenants whose credit survives cycles, which is what makes the rent bond-like.</li>
+      <li><b>Net-lease structure:</b> tenant pays tax, insurance and maintenance. Cost inflation at the property level is largely the tenant’s problem — a structural margin protection most landlords do not have.</li>
+      <li><b>Scale as a buyer:</b> few counterparties can write a cheque for a large, multi-property sale-leaseback portfolio in one transaction. That scarcity of buyers at size is a genuine, if quiet, barrier to entry.</li>
+      <li><b>Monthly dividend franchise:</b> decades of monthly payments have built a loyal income-investor base that lowers the cost of equity — the moat literally funds itself.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Named competitors: NNN REIT (NNN), W. P. Carey (WPC), EPR Properties (EPR)</b> — same net-lease playbook, overlapping tenant universes, competing for the same sale-leaseback flow. There is no proprietary asset here; deals are won on price and certainty of close.</li>
+      <li><b>No pricing power at renewal:</b> market rent is market rent. The moat protects occupancy and credit quality, not rent growth — hence the low-single-digit AFFO growth in every §5 case.</li>
+      <li><b>Rate-sensitive valuation:</b> when the risk-free rate offers 5%+, a ~13–14× AFFO equity with slow growth must justify itself on total return (income + modest growth), not on safety alone.</li>
+      <li><b>Retail exposure:</b> the tenant base is retail-heavy by history. E-commerce pressure and consumer cycles transmit — slowly, through renewals and occasional defaults — into the portfolio.</li>
+      <li><b>Growth envy is not a moat flaw, but a positioning fact:</b> data-centre (DLR/EQIX) and healthcare (WELL) REITs in the same top-10 are compounding FFO far faster; capital chasing growth will keep choosing them first.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Realty Income is the defensive anchor of the US net-lease sub-sector — the name you own when you want rent, not a story. Its competitive contest is not for tenants but for <i>capital and deals</i>: against NNN and WPC for acquisitions, and against the Treasury curve itself for the income investor’s dollar.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Sale-leaseback pipeline conversion</b> — a run of accretive deals at cap rates that visibly clear funding costs would prove the growth model still works at 5%+ Treasuries, and is the cleanest path to the bull case.</li>
+        <li><b>European expansion</b> — further UK/EU acquisitions diversify the rent roll and tap a less contested buyer market; progress here supports the higher AFFO growth in the bull case (5%).</li>
+        <li><b>Rate relief (external)</b> — any sustained fall in long Treasury yields mechanically re-rates long-duration rent: cap rates compress, portfolio values rise, and the P/AFFO multiple can expand toward the bull-case 16× without any company-specific news.</li>
+        <li><b>AFFO print confirming the base</b> — the $4.15 AFFO figure in §5 is an <b>estimate</b>; a reported print at or above it would firm up every number in this note’s valuation.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Cap-rate expansion at 5%+ Treasuries</b> — the pack’s headline risk. If new deals must be priced at ever-higher cap rates while the standing portfolio is marked at older, lower ones, book values soften and the acquisition spread that funds growth keeps thinning.</li>
+        <li><b>Retail tenant credit</b> — a consumer downturn hits tenants first and the landlord second (non-renewals, restructurings, discounted re-lets). Diversification caps the size of any single hit, not the direction.</li>
+        <li><b>Slow FFO growth vs peers</b> — low-single-digit growth against data-centre/healthcare REITs compounding at high-single-to-double digits risks a slow de-rating as the sector’s capital rotates to growth.</li>
+        <li><b>Funding-cost squeeze</b> — externally grown means permanently exposed: a lower share price raises the equity cost of every acquisition; higher bond yields raise the debt cost. Both at once is the bear case.</li>
+        <li><b>Currency / geography</b> — the UK/EU leg that diversifies also introduces FX translation and differing property-law/lease norms (e.g. UK upward-only reviews vs US fixed escalators) — manageable, but not free.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Evidence that acquisition cap rates can no longer clear Realty Income’s cost of capital — growth bought at dilutive spreads — <i>or</i> a cluster of tenant-credit events large enough to dent portfolio occupancy. Either turns “slow but safe” into “slow and impaired,” and the bear case in §5 ($50 near-term, $52.30 at five years) assumes only the milder, multiple-compression version of that world.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: <b>AFFO-multiple scenarios — the REIT adaptation of this series’ frozen-parameter format.</b> For a REIT, trailing P/E is meaningless as a valuation anchor (see snapshot), so the frozen formula is applied transparently on AFFO instead: <span class="mono">2031 price = AFFO<sub>base</sub> × (1+g)<sup>5</sup> × exit P/AFFO</span>, with the AFFO base, growth (g) and exit multiple frozen per case. <b>All targets in this section are MODELLED ESTIMATES</b> — the $4.15 AFFO base is itself an <b>estimate</b> (coordinator verification flags O’s FFO base as estimated), and scenario weights were not supplied to the independent verifier, so the weights used are published here for checking: <b>Bear 25% / Base 50% / Bull 25%</b>. Cross-check: TipRanks consensus is $63.43; our 12–18-month base of $62 sits just below it.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$50</div><div class="ret down">−12.2% vs $56.93</div><p>Treasuries stay above 5%, cap rates keep expanding, a tenant-credit scare hits retail landlords, and P/AFFO compresses toward ~12× on flat AFFO. Price falls even though rent is still collected — a multiple event, not a solvency event.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$62</div><div class="ret up">+8.9% vs $56.93</div><p>Rates roughly unchanged, sale-leaseback flow continues at workable spreads, AFFO grows low-single-digits. Price appreciation is modest by design — the dividend (amount unverified in this pass) is expected to supply the rest of total return.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$70</div><div class="ret up">+23.0% vs $56.93</div><p>Long rates ease, cap-rate pressure reverses, European deals land accretively, and P/AFFO re-rates toward the mid-teens. Requires the rate catalyst — management execution alone does not get here.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $61.00</div></div><p>0.25×$50 + 0.50×$62 + 0.25×$70 = $61.00, or <b>+7.1%</b> price-only from $56.93, before dividends. Note the shape: for an income REIT the weighted <i>price</i> upside is deliberately unexciting — judging O on price alone understates the holding, and judging it without the (unverified-here) yield overstates precision. Both caveats are the point.</p></div>
+
+  <h3>5-year projection — frozen-parameter format (AFFO adaptation)</h3>
+  <p>Starting point: <b>AFFO base $4.15 per share — ESTIMATE</b>. AFFO base, growth and exit P/AFFO are frozen per case; nothing else varies. Formula per case: <span class="mono">2031 price = $4.15 × (1+g)<sup>5</sup> × P/AFFO</span>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">AFFO growth / yr (g)</th><th class="n">2031 AFFO</th><th class="n">Exit P/AFFO</th><th class="n">2031 price</th><th class="n">Total vs $56.93</th><th class="n">Price CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">1.0%</td><td class="n">~$4.36</td><td class="n">12×</td><td class="n">$52.30</td><td class="n">−8.1%</td><td class="n">−1.7%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">3.5%</td><td class="n">~$4.93</td><td class="n">14×</td><td class="n">$69.00</td><td class="n">+21.2%</td><td class="n">+3.9%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">5.0%</td><td class="n">~$5.30</td><td class="n">16×</td><td class="n">$84.80</td><td class="n">+49.0%</td><td class="n">+8.3%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$68.80</td><td class="n">+20.9%</td><td class="n">+3.9%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: Base — $4.15 × 1.035<sup>5</sup> = $4.93 × 14 = $69.00. Bull — $4.15 × 1.05<sup>5</sup> = $5.30 × 16 = $84.80. Bear — $4.15 × 1.01<sup>5</sup> = $4.36 × 12 = $52.30. Weighted — 0.25×$52.30 + 0.50×$69.00 + 0.25×$84.80 = $68.80. All five-year figures are <b>modelled estimates</b> built on an <b>estimated</b> AFFO base; price CAGRs exclude dividends, which for this name are a material part of realised return. The base-case exit multiple (14×) is essentially today’s ~13.7× estimated P/AFFO — the base case assumes no re-rating at all, only AFFO growth.</p>
+
+  <div class="bars" aria-label="Scenario price comparison">
+    <div class="bar-row"><span class="bl">Bear (5-yr)</span><div class="bar-track"><div class="bar-fill red" style="width:62%"></div></div><span class="bv">$52.30</span></div>
+    <div class="bar-row"><span class="bl">Today</span><div class="bar-track"><div class="bar-fill gold" style="width:67%"></div></div><span class="bv">$56.93</span></div>
+    <div class="bar-row"><span class="bl">Base (12–18 mo)</span><div class="bar-track"><div class="bar-fill" style="width:73%"></div></div><span class="bv">$62.00</span></div>
+    <div class="bar-row"><span class="bl">Consensus</span><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><span class="bv">$63.43</span></div>
+    <div class="bar-row"><span class="bl">Base (5-yr)</span><div class="bar-track"><div class="bar-fill" style="width:81%"></div></div><span class="bv">$69.00</span></div>
+    <div class="bar-row"><span class="bl">Bull (5-yr)</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bv">$84.80</span></div>
+  </div>
+  <p class="small">Bar widths scaled to the bull-case price. Near-term and 5-year bases nearly coincide with consensus and the weighted value respectively — the model is internally consistent, but consistency is not confirmation: every bar above $56.93 depends on the estimated AFFO base and frozen multiples.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. That profile matters here more than for most names in this series: an 8/10 investor is being paid — in opportunity cost — to hold growth. Realty Income must therefore justify itself as the <i>income and ballast</i> line in the portfolio, not as a competitor to the growth holdings.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold for income, not growth.</b> Weighted price value ≈ $61 (+7.1% before dividends, modelled estimate) does not justify chasing, and the bear case is a rate move away. Holders keep collecting monthly rent-backed dividends; new money has no urgency at $56.93 with consensus only at $63.43.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td><b>Hold as an income compounder.</b> Base-case price CAGR ~3.9%/yr to a $69.00 modelled value — the holding earns its place through cumulative monthly income plus slow AFFO growth, not price. It is a Hold on both horizons precisely because the thesis is durability, and durability does not compound into a Buy at this multiple.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Review</span></td><td>Upgrade case: P/AFFO compressing toward ~12× on an unchanged AFFO path (bear-case pricing without bear-case fundamentals) would make the income genuinely cheap. Downgrade case: dilutive acquisition spreads or a tenant-credit cluster (§4 thesis-breakers) — either argues for exiting the income sleeve into shorter-duration alternatives rather than averaging down.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>O target: 1.5% of total portfolio — income-seeking portion only.</b> This is the pack’s suggested sizing and it fits the profile: at risk 8/10, a slow-growth, rate-sensitive income REIT should be a diversifier, not a position.</li>
+    <li><b>Role discipline:</b> count O inside the real-estate / income sleeve, not the growth sleeve. If the portfolio has no explicit income sleeve yet, 1.5% is a starter allocation to build one — not a reason to build it quickly.</li>
+    <li><b>Rate-risk budgeting:</b> O behaves like a long-duration asset. Pairing it in the same portfolio as long-duration growth names concentrates the same risk factor (the long Treasury yield) in two costumes — size the combination, not just the line item.</li>
+    <li><b>Tax/location note (general, not advice):</b> REIT dividends are typically taxed less favourably than qualified corporate dividends in a taxable account; where an investor holds both taxable and sheltered accounts, income REITs are the classic candidate for the sheltered one. Verify current treatment before acting.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 1.5% suggested weight and the $56.93 reference price. Share counts are illustrative and rounded down to whole shares; they exclude dividends and transaction costs.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>O — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $56.93.</strong> <strong>DCF intrinsic: $49.55.</strong> Discount/premium vs DCF: <strong>+14.9%</strong> — i.e. the shares are trading 14.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$49.55</td><td>+14.9%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $4.45 per share — FY2026 AFFO/share guidance midpoint $4.45 (raised 5 Aug 2026, $4.44–$4.45). REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 3.5% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/O/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/o/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>O — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Dollar General</td><td>3.3% of annualised base rent (Q2 2026 supplemental)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>7-Eleven</td><td>3.1%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Walgreens</td><td>3.0%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Family Dollar</td><td>2.6%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Life Time Group</td><td>2.1%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Kingfisher (B&Q)</td><td>2.0%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Wynn Resorts</td><td>2.0%</td><td>not in coverage — no intrinsic on file</td></tr></table><p>Read-through: Realty Income is deliberately diversified — the top 20 clients are only 34.8% of rent and the largest single client is 3.3% — so no tenant's valuation can drive O's rent. None of the top seven tenants is in the 124-ticker coverage universe (covered names Home Depot and Walmart/Sam's Club sit at #18 and #19, at 0.9% each), so this table carries no filled-in intrinsics at all, and the thesis cannot be applied tenant-by-tenant here. The honest read is portfolio-level: O's risk is retail tenant credit (Walgreens and Family Dollar are flagged on the watch list in reporting) and cap-rate expansion on new sale-leasebacks, not any single tenant's discount or premium — and even a financially strong tenant does not guarantee more sale-leasebacks, since those depend on its own expansion and financing choices.</p><p><em>Source: Realty Income Q2 2026 supplemental, Client Diversification table (top 20 = 34.8% of annualised base rent).</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>O — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> Realty Income owns 15,500+ single-tenant net-lease properties let to retailers, grocers and service businesses; the pack names no AI or data-centre exposure, and its rent comes from contractual escalators on long triple-net leases, not from compute demand.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Essentially none: AI reaches O only indirectly, if AI-driven productivity supports its tenants' sales (grocery, convenience, dollar stores) or if data-centre-adjacent industrial sale-leasebacks grow — neither is quantified in the pack.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> O's multiple is an income multiple (5.72% yield per StockAnalysis), not an AI multiple, so there is no AI premium to compress; the shares move on rates and tenant credit.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: nothing AI-specific breaks; the demand risks are retail tenant credit (Walgreens, Family Dollar on the watch list per reporting) and cap-rate expansion on new deals at 5%+ Treasury yields. Second, multiple compression: indirect only, via a rate-driven de-rating of income REITs — a high-yielding, slow-growth name is rate-sensitive by construction. Third, balance sheet: $30.76B net debt against a diversified, 98.8%-occupied portfolio, so stress would come from tenant defaults or refinancing costs, not from AI. No quantified sensitivity is claimed, and the AFFO base used here is a pack estimate.</p>
+<p><strong>Trigger(s) to watch:</strong> Retail tenant credit events; sale-leaseback cap rates versus Treasury yields; and broad rate moves rather than any AI-specific trigger.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are drawn from the verified research pack for O (Real Estate sector, price reference 30 Oct 2026 close) and its independent verification log, which confirmed the $56.93 close and corrected the ranking description to market-cap order. Scenario prices in §5 are this note’s modelled estimates with methodology and weights shown — they are not sourced facts. Items the verification pass marked unverified (dividend amount/yield, FFO base) are labelled as such in the text and never presented as fact.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22O%22" target="_blank" rel="noopener">Finnhub — O: price $56.93, market cap $53.87B, trailing P/E 42.76</a></li>
+    <li><a href="https://stockanalysis.com/stocks/o/history/" target="_blank" rel="noopener">StockAnalysis — O price history (30 Oct 2026 close confirmation)</a></li>
+    <li><a href="https://www.TipRanks.com/stocks/o/historical-prices" target="_blank" rel="noopener">TipRanks — O historical prices (close cross-check); consensus target $63.43 per pack</a></li>
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool research — largest real estate companies: 15,500+ properties, model, TTM revenue $6.0B</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings (universe &amp; weight context: O 3.34% vs PSA 3.11%)</a></li>
+    <li><a href="https://public.com/stocks/vnq" target="_blank" rel="noopener">Public.com — VNQ (MSCI US IMI / Real Estate universe reference)</a></li>
+    <li><a href="https://stockanalysis.com/etf/vnq/holdings/" target="_blank" rel="noopener">StockAnalysis — VNQ holdings (next-name / CCI context in verification)</a></li>
+    <li><a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/" target="_blank" rel="noopener">CompaniesMarketCap — global real-estate ranking context (Sun Hung Kai #11 globally, ~$40.22B)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary for the stated investor profile, dated 1 Nov 2026 and priced off the 30 Oct 2026 close. Recommendations are research views, not guarantees and not personal investment advice. Modelled targets depend on an estimated AFFO base ($4.15) and frozen multiples that will not hold exactly; the dividend amount and yield were not verified in this pass and are not quoted. Verify current prices, declarations and filings before any transaction.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 1.5% sizing.';return;}
+    var target=v*0.015, shares=Math.floor(target/56.93);
+    out.innerHTML='At <b>1.5%</b>, target holding ≈ <b>$'+fmt(target)+'</b> ≈ <b>'+fmt(shares)+' shares</b> at $56.93.';
+  }
+  input.addEventListener('input',render); render();
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=[];
+  links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)secs.push({a:a,el:el});});
+  function onScroll(){
+    var y=window.scrollY+80, cur=null;
+    secs.forEach(function(s){if(s.el.offsetTop<=y)cur=s;});
+    links.forEach(function(a){a.style.color='';a.style.borderBottomColor='transparent';});
+    if(cur){cur.a.style.color='var(--blue)';cur.a.style.borderBottomColor='var(--blue)';}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

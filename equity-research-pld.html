@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — PLD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Industrial / Logistics REITs</span></div>
+  <h1>Prologis <span class="tick">(NYSE: PLD)</span></h1>
+  <p class="lede">The world's logistics landlord just printed the quarter that defines the debate: core FFO beat, occupancy held at 95.6%, and same-store cash NOI accelerated — then management cut the GAAP earnings guide and the stock fell 3.8% anyway as the 10-year pushed above 5%. The operating business is inflecting; the multiple is being set by rates, not warehouses.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $127.98 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">PLD — this report</span>
+    <span class="tab">Real Estate · Top 10 by market cap (VNQ universe)</span>
+  </div>
+  <p class="small" style="margin-top:10px">Ranking basis: Top 10 US-listed real estate names <b>by market cap</b> at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI Real Estate index). This is a market-cap ranking, not VNQ-weight order — by VNQ weight, Realty Income (O, 3.34%) ranks ahead of Public Storage (PSA, 3.11%); that swap is the only order difference. Globally the same 10 names are also the top 10 — Sun Hung Kai Properties is #11 globally at ~$40.22B, below Ventas (VTR) at $45.81B — but the US-listed label is retained for consistency. Next US name by market cap is Crown Castle (CCI, ~$37.7–38.3B), #11 behind VTR (#10), not behind Vivmark (VMRK, #9).</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$127.98</div><div class="vsub down">−3.8% on Q3 print day · rate-driven selloff</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$124.13B</div><div class="vsub">#2 in VNQ universe by cap · $240B AUM</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/FFO / P/AFFO</div><div class="vbig mono">18.80× / 23.85×</div><div class="vsub">Primary REIT multiples — see §2 on why P/E is not used</div></div>
+  <div class="vcell span3"><div class="vlabel">Dividend</div><div class="vbig mono">$4.28 · 3.34%</div><div class="vsub">Yield at $127.98 · TTM revenue $9.89B (+8.7%)</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Rate-driven selloff vs leasing strength. Base target $148 (+16%).</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — core holding <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value $161.40 (estimate) — mark-to-market + data centres.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.5% of portfolio</div><div class="vsub">Core real-estate holding. See §6 for calculator.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">FFO flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Read Prologis on <b>core FFO</b>, not GAAP earnings — and Q3 was a beat on the line that matters. Core FFO was <b>$1.60 vs $1.49 a year ago (+7.4%)</b>, revenue rose to <b>$2.388B (+7.9%; Zacks text rounds growth to 7.8%)</b>, and leasing volume hit <b>60m sq ft</b> at <b>95.6% period-end occupancy</b> (95.1% average). The disappointment was guidance optics: FY26 core FFO was <i>narrowed</i> (a tightening, not a cut) to <b>$6.25–$6.29</b>, cash same-store NOI guidance was <i>raised</i> to <b>7.0–7.5%</b> — yet net-earnings guidance was cut to <b>$4.05–$4.15 from $4.40–$4.55</b>, and with the 10-year above 5% the market sold the GAAP line, not the FFO line.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th class="n">Year ago / prior guide</th><th class="n">Change</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Core FFO / share</td><td class="n">$1.60</td><td class="n">$1.49</td><td class="n">+7.4%</td><td>Beat — the REIT earnings line; confirmed vs Zacks</td></tr>
+      <tr><td>Total revenue</td><td class="n">$2.388B</td><td class="n">—</td><td class="n">+7.9%</td><td>Rental revenues rising; Zacks rounds to +7.8% / $2.39B</td></tr>
+      <tr><td>Occupancy — period-end</td><td class="n">95.6%</td><td class="n">95.1% avg</td><td class="n">—</td><td>High-95s in a soft supply cycle = pricing retained</td></tr>
+      <tr><td>Leasing volume</td><td class="n">60m sq ft</td><td class="n">—</td><td class="n">—</td><td>Demand breadth across the platform</td></tr>
+      <tr><td>Cash same-store NOI growth</td><td class="n">+5.9%</td><td class="n">—</td><td class="n">—</td><td>In-quarter print; full-year guide raised (below)</td></tr>
+      <tr class="hl"><td>FY26 core FFO guidance</td><td class="n">$6.25–$6.29</td><td class="n">$6.22–$6.30 prior</td><td class="n">Narrowed</td><td>Midpoint $6.27 is the anchor for the 5-yr model in §5</td></tr>
+      <tr><td>FY26 cash same-store NOI guide</td><td class="n">7.0–7.5%</td><td class="n">Raised</td><td class="n">Raised</td><td>Mark-to-market burn-off is arriving in cash NOI</td></tr>
+      <tr><td>FY26 net-earnings guidance</td><td class="n">$4.05–$4.15</td><td class="n">$4.40–$4.55 prior</td><td class="n">Cut</td><td>GAAP line — drove the −3.8% reaction alongside rates; not the FFO story</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Zacks Q3 coverage, TickerOn earnings summary and Financial News guidance report — all linked in Sources. Q3 core FFO, revenue, occupancy and both guidance ranges independently confirmed in verification (see Sources note).</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 — from rent to FFO</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 260" width="100%" role="img" aria-label="Flow from Prologis Q3 revenue through occupancy and NOI to core FFO" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="28" width="190" height="58" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="50" font-size="13" font-weight="700" fill="var(--ink)">Total revenue</text><text x="20" y="68" font-size="12" fill="var(--ink2)">$2.388B · +7.9% YoY</text>
+      <rect x="8" y="104" width="190" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="125" font-size="13" font-weight="700" fill="var(--ink)">Leasing</text><text x="20" y="142" font-size="12" fill="var(--ink2)">60m sq ft leased in Q3</text>
+      <rect x="8" y="174" width="190" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="195" font-size="13" font-weight="700" fill="var(--ink)">Occupancy</text><text x="20" y="212" font-size="12" fill="var(--ink2)">95.6% end · 95.1% avg</text>
+      <rect x="300" y="78" width="180" height="66" fill="var(--navy)"/><text x="316" y="106" font-size="14" font-weight="700" fill="#fff">Cash same-store NOI</text><text x="316" y="126" font-size="13" fill="#fff">+5.9% in Q3</text>
+      <line x1="198" y1="57" x2="296" y2="98" stroke="var(--muted)" stroke-width="9" opacity=".35"/>
+      <line x1="198" y1="130" x2="296" y2="112" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <line x1="198" y1="200" x2="296" y2="126" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <rect x="580" y="28" width="200" height="58" fill="var(--green-soft)" stroke="var(--line2)"/><text x="594" y="50" font-size="13" font-weight="700" fill="var(--ink)">Core FFO / share</text><text x="594" y="68" font-size="12" fill="var(--ink2)">$1.60 · +7.4% YoY</text>
+      <rect x="580" y="104" width="200" height="52" fill="var(--paper)" stroke="var(--line2)"/><text x="594" y="125" font-size="13" font-weight="700" fill="var(--ink)">FY26 guide (mid $6.27)</text><text x="594" y="142" font-size="12" fill="var(--ink2)">Core FFO $6.25–$6.29</text>
+      <rect x="580" y="174" width="200" height="52" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="594" y="195" font-size="13" font-weight="700" fill="var(--ink)">Embedded mark-to-market</text><text x="594" y="212" font-size="12" fill="var(--ink2)">~16% · ~$780m NOI*</text>
+      <line x1="480" y1="100" x2="576" y2="60" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="480" y1="118" x2="576" y2="128" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <rect x="580" y="238" width="392" height="0" fill="none"/>
+      <text x="800" y="62" font-size="12" fill="var(--ink2)">P/FFO 18.80×</text>
+      <text x="800" y="132" font-size="12" fill="var(--ink2)">NOI guide 7.0–7.5%</text>
+      <text x="800" y="202" font-size="12" fill="var(--ink2)">Future rent uplift</text>
+    </svg>
+    <figcaption>*Embedded mark-to-market (~16%, ~$780m NOI) as summarised from the Q3 call in the research pack — treat as management commentary, not an audited figure. Flow widths are indicative, not to scale. All other figures Q3 2026 as sourced above.</figcaption>
+  </figure>
+  <div class="bars" aria-label="Key operating gauges">
+    <div class="bar-row"><span class="bl">Occupancy (period-end)</span><div class="bar-track"><div class="bar-fill green" style="width:95.6%"></div></div><span class="bv">95.6%</span></div>
+    <div class="bar-row"><span class="bl">Cash same-store NOI — Q3</span><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div><span class="bv">+5.9%</span></div>
+    <div class="bar-row"><span class="bl">Cash NOI guide — FY26 mid</span><div class="bar-track"><div class="bar-fill gold" style="width:72%"></div></div><span class="bv">7.25% mid</span></div>
+    <div class="bar-row"><span class="bl">Dividend yield</span><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><span class="bv">3.34%</span></div>
+  </div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Prologis is the <b>global landlord to the goods economy</b>: warehouses, distribution centres and flex logistics space sited in consumption markets — close to end consumers, ports and population density — leased to <b>6,500+ customers</b> on a platform with <b>$240B of assets under management</b>. The model is rent plus embedded growth: long leases signed in a weaker rent era are now rolling to market, development and value-add activity captures the spread, and the land bank in supply-constrained infill markets is the scarce input competitors cannot replicate quickly.</p>
+
+  <h3>What the business actually sells</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream / asset</th><th class="n">Scale signal</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Logistics real estate — warehouses, distribution, flex</td><td class="n">6,500+ customers</td><td>Core rental engine. Q3 revenue $2.388B (+7.9%); TTM revenue $9.89B (+8.7%). Rent is collected across diversified tenants and geographies; no single-tenant figure is carried in the verified pack, so none is asserted here.</td></tr>
+      <tr><td>Embedded mark-to-market</td><td class="n">~16% · ~$780m NOI*</td><td>The gap between in-place rents and market rents. As leases expire, that gap converts to cash NOI — visible already in Q3 cash same-store NOI +5.9% and the raised FY26 guide of 7.0–7.5%. This is contracted-ish future growth, not hope.</td></tr>
+      <tr><td>Data centres — emerging leg</td><td class="n">5.8 GW pipeline</td><td>Power secured / in advanced stages at 30 Sep 2026. Prologis controls land + power access near demand centres — the two gating inputs for data-centre development — and is converting that advantage into a second growth platform alongside logistics.</td></tr>
+      <tr><td>European expansion — SEGRO combination</td><td class="n">~$18.8B · to 363m sq ft*</td><td>SEGRO shareholders approved the combination on 28 Sep 2026; expected close H1 2027 (confirmed). European portfolio to 363m sq ft per the call summary. Deal size is as reported — verify final terms in filings at close.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*Call-summary figures from the research pack (SEGRO portfolio size and mark-to-market) — reported management commentary, not independently audited segment disclosures. The verified pack does not carry a geographic revenue split or a segment revenue split for PLD, so this note does not invent one; the geographic story is told through the SEGRO European scale-up and the global platform description above.</p>
+
+  <h3>Structural pivots (2025–26)</h3>
+  <ul>
+    <li><b>From pure logistics to logistics + powered land:</b> the 5.8 GW data-centre pipeline reframes part of the land bank as AI infrastructure. Same scarce inputs (infill land, power interconnection), higher rent per acre if executed — and materially higher capex intensity if Prologis builds rather than sells powered land.</li>
+    <li><b>Transatlantic scale via SEGRO:</b> a ~$18.8B combination, approved by SEGRO holders 28 Sep 2026 and expected to close H1 2027, deepens the European footprint to a scale no listed rival matches on both sides of the Atlantic.</li>
+    <li><b>Harvesting the COVID-era rent reset:</b> the investment case has rotated from development gains (the zero-rate era) to <i>internal</i> growth — mark-to-market burn-off flowing through same-store NOI at 7%+ guided rates, which needs no new construction to deliver.</li>
+  </ul>
+
+  <h3>Supply-chain &amp; operating dependencies</h3>
+  <ul>
+    <li><b>Goods flows are the demand function:</b> tenant demand tracks consumption, imports and e-commerce fulfilment. Tariffs or a trade shock that reduces goods movement hits leasing velocity first, rents second — see §4.</li>
+    <li><b>Power:</b> the data-centre thesis depends on grid interconnection and secured power (5.8 GW secured/advanced) actually converting to delivered capacity on schedule.</li>
+    <li><b>Construction &amp; capital costs:</b> development economics are rate- and cost-sensitive; a 10-year above 5% raises both the discount rate on the stock and the hurdle rate on new builds simultaneously.</li>
+    <li><b>Capital markets access:</b> as a REIT, Prologis funds growth externally by design — equity and debt market windows are an operating dependency, not just a valuation one.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p><b>Read this REIT on FFO, not earnings.</b> GAAP net earnings for a property company are distorted by depreciation of appreciating assets and by gains timing — which is exactly why the FY26 <i>net-earnings</i> guide was cut ($4.05–$4.15) in the same release that <i>narrowed core FFO up</i> ($6.25–$6.29) and raised cash NOI guidance. The cash economics improved; the accounting line fell. Accordingly, trailing P/E (28.26×) and forward P/E (39.06×) are shown for completeness only and are <b>not used for valuation anywhere in this note</b> — the primary multiples are <b>P/FFO 18.80× and P/AFFO 23.85×</b>.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; operating snapshot — price $127.98 (30 Oct 2026 close). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Price / Core FFO (primary)</td><td class="n">18.80×</td><td>On TTM core FFO — the sector-standard earnings multiple. §5 values PLD at 17× (bear) to 23× (bull) forward core FFO.</td></tr>
+      <tr class="hl"><td>Price / AFFO</td><td class="n">23.85×</td><td>AFFO strips recurring capex/leasing costs — the tighter, cash-true multiple; the gap to P/FFO is the cost of keeping warehouses leased.</td></tr>
+      <tr><td>Trailing P/E — not used</td><td class="n">28.26×</td><td>Shown for reference only. REIT GAAP earnings understate cash rent economics.</td></tr>
+      <tr><td>Forward P/E — not used</td><td class="n">39.06×</td><td>Inflated by the cut GAAP guide ($4.05–$4.15). Using it would price the accounting line, not the rent line.</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$9.89B · +8.7%</td><td>High-single-digit top-line growth for a $124B landlord — driven by rent burn-off, not acquisitions alone.</td></tr>
+      <tr><td>Q3 core FFO / share</td><td class="n">$1.60 · +7.4%</td><td>vs $1.49 a year ago; FY26 guide midpoint $6.27 annualises the run-rate cleanly.</td></tr>
+      <tr><td>Dividend</td><td class="n">$4.28 · 3.34% yield</td><td>Yield at the 30 Oct close. Against FY26 core FFO guide mid $6.27, the dividend is ~68% of core FFO (calculated: 4.28 ÷ 6.27) — covered on the FFO line.</td></tr>
+      <tr><td>Occupancy</td><td class="n">95.6% end / 95.1% avg</td><td>The balance-sheet-adjacent health metric for a landlord: high occupancy through a supply wave protects NOI and refinancing terms.</td></tr>
+      <tr><td>Cash same-store NOI</td><td class="n">+5.9% Q3 · 7.0–7.5% FY guide</td><td>Internal growth is the earnings engine for 2026 — see §5 assumptions.</td></tr>
+      <tr><td>Market cap / AUM</td><td class="n">$124.13B / $240B</td><td>AUM is roughly 1.9× market cap — the platform manages and co-invests well beyond its own balance sheet.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">What this note does not claim</div>
+  <p>The verified research pack for PLD does not carry audited leverage, debt maturity, or interest-coverage figures, so this note <b>omits them rather than estimating them</b>. The balance-sheet judgement here rests on what is verified: FFO coverage of the dividend (~68% payout on the guide midpoint, calculated above), occupancy durability, and the FFO-guided — not earnings-guided — trajectory. Pull the Q3 10-Q debt schedule before sizing beyond the §6 recommendation.</p></div>
+
+  <h3>Capital allocation read</h3>
+  <ul>
+    <li><b>Dividend maintained at $4.28 (3.34% yield)</b> through a rate shock — for a REIT, the distribution <i>is</i> the capital-return programme; buybacks are not the sector convention and none are asserted here.</li>
+    <li><b>Growth capital is pointed at two places:</b> the SEGRO combination (~$18.8B, close H1 2027) and the 5.8 GW data-centre power pipeline. Both are land-and-power monetisation, consistent with the core moat (§3).</li>
+    <li><b>FFO growth funds itself internally at the margin:</b> with cash NOI guided +7.0–7.5%, a meaningful share of FFO growth needs no new equity — the key contrast with development-led REIT models.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — location scarcity at global scale.</b> Warehouses are commodity boxes; <i>land next to consumption</i> is not. Prologis assembled infill positions in the world's major consumption markets over decades, at historical land costs. A competitor can build a shed; it cannot rebuild the land bank at anything like the embedded cost — and the ~16% mark-to-market is the measurable residue of that advantage.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Global scale, local scarcity:</b> $240B AUM, 6,500+ customers, and — post-SEGRO — a European portfolio to 363m sq ft alongside the US platform. Tenants running global supply chains get one landlord across continents.</li>
+      <li><b>Embedded pricing power:</b> ~16% mark-to-market (~$780m NOI, per call summary) means rents can grow on <i>rollover alone</i> even if market rents go flat — pricing power already signed, waiting to vest.</li>
+      <li><b>Data as an operating edge:</b> leasing and throughput data across thousands of tenants and markets informs siting, development and retention decisions at a granularity no single-market rival sees.</li>
+      <li><b>Power + land optionality:</b> 5.8 GW of secured/advanced data-centre power converts the same land moat into the AI-infrastructure market — an adjacency private logistics rivals cannot fund as cheaply.</li>
+      <li><b>Customer diversification:</b> 6,500+ customers caps single-tenant risk; the Q3 print (60m sq ft leased, 95.6% occupancy in a supply wave) is the moat showing up in numbers.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>GLP (private)</b> — the closest global-scale logistics rival, private and aggressive in Asia and data centres; competes for the same tenants and land.</li>
+      <li><b>Digital Realty (DLR)</b> — not a logistics rival, but the direct competitor for the data-centre leg and for the marginal REIT investor dollar in powered real estate.</li>
+      <li><b>STAG Industrial &amp; Rexford (REXR)</b> — US-focused industrial REITs competing on secondary-market and coastal-infill niches respectively; smaller, sometimes cheaper per unit of FFO growth.</li>
+      <li><b>No moat against the rate:</b> the moat protects NOI, not the multiple. At a 10-year above 5%, PLD de-rated on a <i>beat</i> — duration risk is the honest limit of the moat.</li>
+      <li><b>New supply:</b> the 2022–24 development wave delivered competing space; occupancy held, but market-rent growth has normalised from its peak — the mark-to-market is finite and burns off.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> #2 by market cap in the VNQ real-estate universe and the clear global #1 in logistics specifically. <b>Pricing power:</b> demonstrated in the NOI guide raise. <b>Barriers to entry:</b> land, entitlements and power in infill markets — time and capital, in that order. <b>Regulatory angle:</b> the SEGRO combination (approved by SEGRO holders 28 Sep 2026, close expected H1 2027) still carries execution and integration risk into 2027 — see §4.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Mark-to-market burn-off (the base engine)</b> — ~16% embedded uplift converting at lease expiry; FY26 cash NOI already guided to 7.0–7.5%. Each quarter of delivery de-risks the §5 base case without any heroic assumption.</li>
+        <li><b>SEGRO close (H1 2027)</b> — completion of the ~$18.8B combination converts an approved deal into consolidated European scale (363m sq ft) and potential synergy disclosure.</li>
+        <li><b>Data-centre conversion</b> — any signed build-to-suit, powered-land sale or JV from the 5.8 GW pipeline gives the market a priced data point for a leg currently valued on narrative.</li>
+        <li><b>Rate relief</b> — the mirror of the Q3 selloff: the stock fell 3.8% on a beat because the 10-year crossed 5%. A retrace in long rates mechanically re-rates a 18.8× P/FFO long-duration cash flow.</li>
+        <li><b>FY27 guidance (with Q4 print)</b> — a 2027 core FFO guide implying mid-single-digit growth or better, with NOI still guided high-single-digit, would confirm the burn-off runway extends beyond 2026.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Rates stay higher for longer</b> — the single largest near-term risk, already demonstrated: FFO beat + guidance optics + 10-year &gt;5% = −3.8%. REIT multiples are long-duration assets; a 5.5% 10-year compresses P/FFO toward the bear case regardless of operations.</li>
+        <li><b>Trade / tariffs hit goods flows</b> — logistics demand is derived demand for moving goods. Tariff-driven import contraction or a consumer slowdown cuts leasing velocity (watch the 60m sq ft quarterly run-rate) before it cuts occupancy.</li>
+        <li><b>SEGRO integration</b> — a ~$18.8B cross-border combination closing H1 2027: leverage, currency, management bandwidth and synergy delivery are all unproven until reported. Deal value is as reported pre-close; final terms in filings govern.</li>
+        <li><b>Mark-to-market exhaustion</b> — the ~16% cushion is a wasting asset if market rents fall; a rent downturn would flip rollover from uplift to drag by 2027–28.</li>
+        <li><b>Data-centre execution</b> — 5.8 GW secured/advanced is a pipeline, not income. Power delivery delays or a decision to self-build at peak construction costs would raise capex intensity and dilute the FFO story.</li>
+        <li><b>GAAP-guide confusion, recurring</b> — the net-earnings cut ($4.05–$4.15) moved the stock more than the FFO beat. Headline algorithms and casual holders price the wrong line; expect repeated volatility on the same confusion.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Two consecutive quarters of occupancy slipping below ~94% <i>with</i> leasing volume materially under the 60m sq ft Q3 pace. That combination would mean the burn-off story is being overtaken by a demand downturn — at which point the bear-case multiple (17×) on slowing FFO, not the base case, is the right frame, and the position should be cut per §6.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: <b>core FFO × P/FFO</b> throughout — the REIT-correct frame. Trailing P/E is meaningless for this valuation (depreciation-distorted GAAP earnings; forward P/E of 39.06× prices the cut accounting guide, not rent), so the frozen-parameter 5-year model below is <i>transparently adapted</i>: it freezes the FFO base and the exit P/FFO multiple per case, exactly analogous to freezing net margin and P/E for an operating company. <b>All scenario prices on this page are modelled estimates</b> — methodology and assumptions are shown for each, per the verification requirement; they are not verified facts.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$110</div><div class="ret down">−14.0% vs $127.98</div><p><b>Rates + demand case.</b> 10-year stays above 5%, goods-flow softness slows leasing, SEGRO integration distracts. The market pays a trough multiple on stalled FFO growth. Estimate — assumptions as stated.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$148</div><div class="ret up">+15.6% vs $127.98</div><p><b>Burn-off delivers.</b> Cash NOI compounds at the guided 7.0–7.5%, core FFO grows mid-single-digits, SEGRO closes on schedule H1 2027, rates stabilise. Multiple recovers part — not all — of the rate de-rating. Estimate.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$168</div><div class="ret up">+31.3% vs $127.98</div><p><b>Rates fall + data centres price in.</b> Long rates retrace, a first priced data-centre transaction validates the 5.8 GW pipeline, and SEGRO synergies are guided. The stock re-rates toward growth-REIT multiples. Estimate.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $143.50</div></div><p>Weights 25% / 50% / 25% (bear / base / bull — this note's stated weights, applied consistently to both horizons): 0.25×$110 + 0.50×$148 + 0.25×$168 = $143.50, or <b>+12.1%</b> from $127.98, plus the 3.34% dividend yield while you wait. Positive total-return skew with an income floor — the shape a core REIT holding should have.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (REIT adaptation)</h3>
+  <p>Standard format, adapted transparently for a REIT: <b>2031 price = FY26 core FFO/share ($6.27, the guide midpoint — frozen base) × (1 + g)<sup>5</sup> × exit P/FFO</b>, where g (annual core FFO growth) and the exit P/FFO are frozen per case. This replaces the operating-company version (revenue × net margin ÷ shares × P/E) because PLD's earnings line is FFO, not net income — the adaptation is stated here rather than buried. Share count effects are inside FFO/share growth by construction.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Core FFO growth / yr (g)</th><th class="n">2031 core FFO / sh</th><th class="n">Exit P/FFO</th><th class="n">2031 price</th><th class="n">Return vs $127.98</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">3%</td><td class="n">~$7.27</td><td class="n">17×</td><td class="n">$123.60</td><td class="n">−3.4%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">5%</td><td class="n">~$8.00</td><td class="n">20×</td><td class="n">$159.80</td><td class="n">+24.9%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">7%</td><td class="n">~$8.79</td><td class="n">23×</td><td class="n">$202.40</td><td class="n">+58.2%</td></tr>
+      <tr class="total"><td>Probability-weighted — modelled estimate</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$161.40</td><td class="n">+26.1%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: base — $6.27 × 1.05<sup>5</sup> = $6.27 × 1.2763 ≈ $8.00; × 20 = ~$160 (pack figure $159.80, rounding in the FFO base). Bull — $6.27 × 1.07<sup>5</sup> ≈ $8.79; × 23 ≈ $202.40. Bear — $6.27 × 1.03<sup>5</sup> ≈ $7.27; × 17 ≈ $123.60. Weighted — 0.25×$123.60 + 0.50×$159.80 + 0.25×$202.40 = $161.40. Sanity anchors: base g of 5% sits <i>below</i> Q3's actual core FFO growth (+7.4%) and below the guided cash NOI growth (7.0–7.5%) — FFO growth is modelled slower than NOI growth to allow for interest and overhead drag. The bear case still assumes positive FFO growth every year; a genuine goods-flow recession would sit below it. All figures in this table are modelled estimates, not forecasts or verified facts. Dividend income over 5 years is additional to these price returns and is not compounded into them.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy the rate-driven selloff.</b> The −3.8% Q3 reaction punished a GAAP guide cut while core FFO beat and NOI guidance rose. At 18.80× P/FFO with a 3.34% yield, the entry prices the rate fear, not the rent roll. Weighted 12–18-mo value $143.50 (+12.1%, modelled estimate) plus dividend. Stage in if the 10-year pushes higher — the risk in §4 is real and may offer a better entry, not a thesis change.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Core real-estate holding.</b> Modelled weighted 5-yr value $161.40 (+26.1%, estimate) plus ~3.3%/yr of dividend at today's yield. The return engine — mark-to-market burn-off, SEGRO scale, data-centre optionality — is internal and contracted-leaning, the highest-quality kind of REIT growth.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if P/FFO re-rates above ~24× without a data-centre revenue line to justify it (multiple doing all the work). Cut to half on the §4 thesis-breaker: two consecutive quarters of occupancy below ~94% with leasing materially under 60m sq ft. Hard-review if SEGRO close slips beyond H1 2027 or is re-priced materially.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>PLD target: 2.5% of total portfolio</b> — a core real-estate holding, sized as the anchor of the REIT sleeve rather than as a growth bet. At risk 8/10 the portfolio's return is meant to come from equities; PLD's job is diversified, inflation-linked cash flow with equity upside.</li>
+    <li><b>Check the look-through:</b> PLD is a top VNQ constituent and sits inside broad real-estate and dividend funds. If the core already holds VNQ or a REIT fund, count that exposure and size the direct line down so <i>total</i> PLD stays near 2.5%.</li>
+    <li><b>Rate-sleeve discipline:</b> PLD correlates with other long-duration holdings (utilities, growth REITs) when the 10-year moves. Treat it as part of the portfolio's rate-sensitive bucket for drawdown planning, even though its NOI is operationally defensive.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: position = 2.5% of the portfolio value entered; shares at the $127.98 reference close. In-memory only — nothing is saved or sent anywhere.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>PLD — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $127.98.</strong> <strong>DCF intrinsic: $93.</strong> Discount/premium vs DCF: <strong>+37.6%</strong> — i.e. the shares are trading 37.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$93</td><td>+37.6%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $6 per share — FY2026 core FFO guidance midpoint $6.27 (pack) - FFO used; AFFO not disclosed in pack. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 5.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/PLD/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/pld/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>PLD — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Amazon</td><td>5.0% of net effective rent (Q2 2025 supplemental)</td><td>AMZN — DCF intrinsic $25, discount/premium +861.4% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Home Depot</td><td>1.9%</td><td>HD — DCF intrinsic $197 discount/premium +67.1% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>FedEx</td><td>1.3%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>DHL</td><td>1.2%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Geodis</td><td>1.1%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UPS</td><td>0.9%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>GXO</td><td>0.8%</td><td>not in coverage — no intrinsic on file</td></tr></table><p>Read-through: Prologis's rent roll is genuinely diversified — even the largest tenant, Amazon, is only 5.0% of net effective rent and the top 10 together are 14.4%, so no single customer's fortunes can drive Prologis's rent. If the filled-in intrinsics show Amazon and Home Depot trading at discounts to intrinsic, that is a mild tailwind for Prologis (two financially strong tenants with headroom to keep expanding warehouse footprints), and if they show premiums it is a mild headwind at most — but an undervalued customer does not guarantee higher spending: Amazon's warehouse decisions depend on its own e-commerce growth and automation priorities, and Home Depot's on housing turnover, not on its share price versus intrinsic value. The binding constraint for Prologis is goods flows and trade/tariff conditions, not any one tenant's valuation.</p><p><em>Source: Prologis Q2 2025 supplemental, Top Customers table (Amazon 5.0%, Home Depot 1.9%, FedEx 1.3%, DHL 1.2%, Geodis 1.1%, UPS 0.9%, GXO 0.8%); Q3 2026 update: Amazon 5.6% of net effective rent, top 25 customers 21.8%.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>PLD — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Prologis is the world's largest logistics landlord and is now pushing into data centres, with a 5.8 GW data-centre power pipeline secured or advanced at 30 Sep 2026 (pack) alongside its 1.3B sq ft logistics portfolio.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> AI demand adds a second engine: data-centre conversions and power-secured development on top of logistics rent growth from e-commerce and the ~16% embedded mark-to-market, while Amazon (5.6% of rent) links logistics demand to AI-funded hyperscaler spending.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Prologis trades at 18.80x P/FFO per pack — a full but not extreme logistics multiple — and the data-centre pipeline supports holding it while conversions lease up, rather than pricing in a speculative AI premium.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: data-centre conversions stall if power delivery or hyperscaler leasing slows, and logistics demand softens if trade/tariffs hit goods flows (the pack's stated risk). Second, multiple compression: the data-centre growth premium unwinds first, back toward a pure logistics multiple, with the 10-year above 5% already pressuring the shares. Third, balance sheet: moderate — the SEGRO combination (~$18.8B, approved Sep 2026, expected H1 2027) adds integration and funding demands just as development spending rises. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Data-centre conversion leasing and power delivery milestones; the SEGRO close in H1 2027; and goods-flow/trade data affecting logistics occupancy (95.6% in Q3).</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price, market cap and multiples are as of the 30 Oct 2026 regular-session close (official 4:00 PM ET close — not the MarketBeat 3:59 PM pre-close snapshot of $128.09, which verification explicitly flags as not the close). Q3 figures were independently confirmed against Zacks in the verification log appended to the research pack. Scenario prices in §5 are this note's modelled estimates with assumptions shown; they are not sourced facts. Market-cap vendor note: TipRanks values match the pack (PLD $124.09B vs pack $124.13B is a $0.04B rounding/method difference); Finnhub float-based caps differ by method — vendors are not mixed within any table here.</p>
+  <ol class="refs">
+    <li><a href="https://stockanalysis.com/stocks/pld/statistics/" target="_blank" rel="noopener">StockAnalysis — PLD statistics: $127.98 close (30 Oct, 4:00 PM EDT), market cap, P/E, dividend</a></li>
+    <li><a href="https://stockanalysis.com/stocks/pld/" target="_blank" rel="noopener">StockAnalysis — PLD overview: price, revenue TTM, multiples</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3008855/prologis-q3-ffo-beat-estimates-as-rental-revenues-rise" target="_blank" rel="noopener">Zacks — Q3 2026: core FFO $1.60 (+7.4%), revenue, occupancy 95.6%, FY26 core FFO guide $6.25–$6.29, 5.8 GW data-centre pipeline, SEGRO approval</a></li>
+    <li><a href="https://tickeron.com/earnings/PLD/" target="_blank" rel="noopener">TickerOn — PLD Q3 earnings summary: core FFO, revenue $2.388B, leasing, same-store NOI</a></li>
+    <li><a href="https://www.financial-news.co.uk/prologis-cuts-2026-guidance-despite-q3-earnings-beat/" target="_blank" rel="noopener">Financial News — net-earnings guidance cut to $4.05–$4.15 despite Q3 beat</a></li>
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool Research — largest real-estate companies: PLD model, 6,500+ customers, $240B AUM, data-centre push</a></li>
+    <li><a href="https://www.youtube.com/watch?v=47lsrl1uBXg" target="_blank" rel="noopener">Q3 call summary (video) — SEGRO combination ~$18.8B, European portfolio to 363m sq ft, mark-to-market ~16% / ~$780m NOI (reported commentary; verify deal terms in filings)</a></li>
+    <li><a href="https://finnhub.io/?q=%22PLD%22" target="_blank" rel="noopener">Finnhub — PLD quote reference used in verification cross-checks</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer.</b> This note is equity research prepared for information only, dated 1 Nov 2026 with a 30 Oct 2026 price reference. Buy/Hold/Sell language is a research view on the scenarios shown, not a guarantee of any outcome and not personalised investment advice. Modelled targets (§5) are estimates built on the stated frozen assumptions — core FFO base $6.27 (FY26 guide midpoint), growth and exit multiples frozen per case, scenario weights 25/50/25 — and will be wrong in at least some particulars; re-weight them as rates, guidance and the SEGRO close evolve. Past occupancy, NOI and FFO growth do not predict future results. Verify any figure against the linked primary coverage and Prologis filings before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    var secs=[];
+    links.forEach(function(a){var id=a.getAttribute('href').slice(1);var el=document.getElementById(id);if(el)secs.push({a:a,el:el});});
+    function onScroll(){
+      var y=window.scrollY+90, cur=null;
+      secs.forEach(function(s){ if(s.el.offsetTop<=y) cur=s; });
+      links.forEach(function(a){a.classList.remove('on');});
+      if(cur) cur.a.classList.add('on');
+    }
+    window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=127.98, PCT=0.025;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function calc(){
+    var v=parseFloat(pf.value)||0;
+    var pos=v*PCT, sh=pos/PRICE;
+    out.innerHTML='Target position (2.5%): <b>$'+fmt(pos)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(sh)+' shares</b> at $127.98 &nbsp;·&nbsp; Indicative dividend at $4.28/sh: <b>$'+fmt(sh*4.28)+'/yr</b>';
+  }
+  if(pf&&out){ pf.addEventListener('input',calc); calc(); }
+})();
+</script>
+</body>
+</html>

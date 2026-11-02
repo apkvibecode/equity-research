@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — NEM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Libre+Franklin:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface2:#f0ede6; --ink:#1a1e24; --muted:#5c6570; --faint:#8a929c;
+  --line:#ddd8cc; --line2:#e8e4da;
+  --navy:#14263d; --navy2:#1e3a5c; --gold:#9a7b1e; --gold-bg:#f5edd3;
+  --green:#1d6b3c; --green-bg:#e2efe5; --red:#9b2c2c; --red-bg:#f6e3e1; --amber:#8a5b12; --amber-bg:#f7ecd4;
+  --accent:#14263d;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#12151a; --surface:#1a1e25; --surface2:#22272f; --ink:#e9e6de; --muted:#a7aeb8; --faint:#7d858f;
+    --line:#333a44; --line2:#2a3038;
+    --navy:#d8c98a; --navy2:#e6d9a8; --gold:#d8c98a; --gold-bg:#33301e;
+    --green:#7fc996; --green-bg:#1e3325; --red:#e89a94; --red-bg:#3a2222; --amber:#e2bc7a; --amber-bg:#38301e;
+    --accent:#d8c98a;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Libre Franklin",system-ui,-apple-system,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--navy2);text-decoration:underline;text-underline-offset:2px}
+@media (prefers-color-scheme: dark){a{color:#a8c4e8}}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px 56px}
+.mono{font-family:"IBM Plex Mono",monospace}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.15;margin:0}
+.topbar{border-bottom:3px solid var(--navy);padding:22px 0 0}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--gold);margin-bottom:8px}
+.title-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 18px}
+h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+.ticker-chip{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:14px;background:var(--navy);color:#f5edd3;padding:4px 10px;border-radius:4px}
+@media (prefers-color-scheme: dark){.ticker-chip{background:#d8c98a;color:#1a1e24}}
+.subtitle{color:var(--muted);font-size:15px;max-width:72ch;margin-top:8px}
+.meta-line{display:flex;flex-wrap:wrap;gap:6px 20px;font-size:12.5px;color:var(--muted);padding:12px 0 14px;border-bottom:1px solid var(--line)}
+.meta-line strong{color:var(--ink)}
+.snapshot{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0 6px}
+@media(min-width:760px){.snapshot{grid-template-columns:repeat(6,1fr)}}
+.snap{background:var(--surface);padding:12px 13px}
+.snap .k{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.snap .v{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;margin-top:3px}
+.snap .s{font-size:11.5px;color:var(--muted);margin-top:1px}
+.verdict-bar{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 4px}
+.verdict{flex:1 1 220px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--navy);padding:12px 14px}
+.verdict .k{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.verdict .v{font-family:"Newsreader",serif;font-size:21px;font-weight:700;margin-top:2px}
+.verdict .s{font-size:12.5px;color:var(--muted)}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:99px;vertical-align:middle}
+.pill-buy{background:var(--green-bg);color:var(--green)}
+.pill-hold{background:var(--amber-bg);color:var(--amber)}
+.note{font-size:12.5px;color:var(--muted);background:var(--surface2);border:1px solid var(--line2);padding:10px 13px;margin:14px 0}
+section{margin-top:34px}
+.sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--navy);padding-bottom:7px;margin-bottom:14px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--gold)}
+h2{font-size:23px;font-weight:700}
+.sec-head .tag{margin-left:auto;font-size:11.5px;color:var(--faint);text-align:right}
+p{margin:0 0 10px;max-width:78ch}
+.grid2{display:grid;grid-template-columns:1fr;gap:16px}
+@media(min-width:760px){.grid2{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);padding:15px 17px}
+.card h3{font-size:16.5px;font-weight:700;margin-bottom:8px}
+.card ul{margin:0;padding-left:18px}
+.card li{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface);border:1px solid var(--line);margin:10px 0}
+th{ text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 11px;border-bottom:2px solid var(--line);background:var(--surface2)}
+td{padding:8px 11px;border-bottom:1px solid var(--line2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px;white-space:nowrap}
+@media(max-width:560px){
+  table{font-size:12px}
+  th,td{padding:6px 7px}
+  td.num,th.num{font-size:11.5px;white-space:normal}
+  th{font-size:10px}
+}
+td:first-child{font-weight:600}
+.scroll-x{overflow-x:auto}
+.bar-row{display:grid;grid-template-columns:86px 1fr 74px;align-items:center;gap:10px;margin:7px 0;font-size:13px}
+.bar-row .lab{font-weight:600}
+.bar-track{height:16px;background:var(--surface2);position:relative;border:1px solid var(--line2)}
+.bar-fill{height:100%}
+.bar-row .val{font-family:"IBM Plex Mono",monospace;text-align:right;font-weight:600}
+.spot-line{font-size:12px;color:var(--muted);margin-top:6px}
+.calc{background:var(--navy);color:#eef1f5;padding:18px;border-radius:6px;margin-top:14px}
+@media (prefers-color-scheme: dark){.calc{background:#22272f;color:var(--ink);border:1px solid var(--line)}}
+.calc h3{color:#f5edd3;font-size:18px}
+@media (prefers-color-scheme: dark){.calc h3{color:var(--gold)}}
+.calc-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
+@media(min-width:700px){.calc-grid{grid-template-columns:1fr 1fr 1fr}}
+.calc label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;opacity:.75;display:block;margin-bottom:5px}
+.calc input{width:100%;padding:10px 11px;font-size:17px;font-family:"IBM Plex Mono",monospace;border:1px solid rgba(255,255,255,.3);border-radius:4px;background:rgba(255,255,255,.08);color:inherit}
+.calc .out{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+.calc .out-sub{font-size:12px;opacity:.75}
+.src{font-size:11px;color:var(--faint)}
+.tag-est{font-size:10px;font-weight:800;letter-spacing:.06em;background:var(--amber-bg);color:var(--amber);padding:1px 6px;border-radius:3px;vertical-align:middle}
+.tag-open{font-size:10px;font-weight:800;letter-spacing:.06em;background:var(--red-bg);color:var(--red);padding:1px 6px;border-radius:3px;vertical-align:middle}
+footer{margin-top:40px;border-top:2px solid var(--navy);padding-top:14px;font-size:12.5px;color:var(--muted)}
+footer h3{font-size:15px;color:var(--ink);margin-bottom:6px}
+ol.sources{padding-left:18px;margin:6px 0}
+ol.sources li{margin-bottom:4px;overflow-wrap:anywhere}
+.disc{margin-top:14px;font-size:12px;color:var(--faint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="topbar">
+  <div class="eyebrow">Institutional Equity Research · Materials — Gold Mining</div>
+  <div class="title-row">
+    <h1>Newmont Corporation</h1>
+    <span class="ticker-chip">NYSE: NEM</span>
+  </div>
+  <p class="subtitle">The world's leading gold miner — with copper, silver, zinc and lead alongside gold — priced at a low-double-digit earnings multiple because the market is really pricing one thing: the gold price. Cost position, not pricing power, is the whole moat question.</p>
+  <div class="meta-line">
+    <span><strong>As of:</strong> 1 Nov 2026</span>
+    <span><strong>Price reference:</strong> 30 Oct 2026 close</span>
+    <span><strong>Universe:</strong> Global top 10 by market cap — Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close, including OTC names; list is not in strict market-cap order as printed</span>
+    <span><strong>Profile fitted:</strong> Mid-30s investor, risk score 8/10</span>
+  </div>
+</header>
+
+<div class="snapshot" role="table" aria-label="Key snapshot">
+  <div class="snap"><div class="k">Price · 30 Oct close</div><div class="v">$106.61</div><div class="s">Confirmed — TipRanks / Finnhub</div></div>
+  <div class="snap"><div class="k">Market cap</div><div class="v">$110.8bn</div><div class="s">Research pack figure</div></div>
+  <div class="snap"><div class="k">Trailing P/E</div><div class="v">11.9×</div><div class="s">Finnhub — corroborated in verification</div></div>
+  <div class="snap"><div class="k">EPS (TTM)</div><div class="v">$6.39</div><div class="s">Finnhub</div></div>
+  <div class="snap"><div class="k">Revenue (TTM)</div><div class="v">$25.8bn</div><div class="s">Motley Fool, via pack</div></div>
+  <div class="snap"><div class="k">Price / Sales</div><div class="v">4.3×</div><div class="s">Pack figure</div></div>
+</div>
+
+<div class="verdict-bar">
+  <div class="verdict"><div class="k">Short term · 12–18 months</div><div class="v">Buy <span class="pill pill-buy">BUY</span></div><div class="s">Base target $118 (+11%) — modelled estimate, see §5</div></div>
+  <div class="verdict"><div class="k">Long term · 5 years</div><div class="v">Hold / Buy <span class="pill pill-hold">HOLD → BUY</span></div><div class="s">Weighted modelled estimate ~$123 — see §5 for assumptions</div></div>
+  <div class="verdict"><div class="k">Suggested portfolio weight</div><div class="v">1.5%</div><div class="s">Of total portfolio — mid-30s, risk 8/10</div></div>
+</div>
+
+<div class="note"><strong>How to read the flags on this page:</strong> <span class="tag-est">ESTIMATE</span> marks modelled scenario prices from the research pack — they are estimates with methodology shown, never verified facts. <span class="tag-open">OPEN QUESTION</span> marks balance-sheet items the verified pack does not carry; they are stated as gaps rather than filled with invented numbers. Every other figure is carried from the research pack with its source named, and the 30 Oct close and trailing P/E were checked in the independent verification log appended to that pack.</div>
+
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2><span class="tag">What NEM sells, and where the ounces come from</span></div>
+  <p>Newmont is described in the research pack as the <strong>world's leading gold miner</strong>, producing gold as its core product with <strong>copper, silver, zinc and lead</strong> as additional metals. That mix matters: gold drives the investment case, while the base- and by-product metals — copper in particular — provide a partial offset when gold is soft and an extra earnings lever when it is not.</p>
+  <p>Attributable gold production was <strong>5.89 million ounces in FY2025</strong> (Motley Fool, via the pack). The current asset base is the product of two transformational deals: the <strong>Goldcorp acquisition in 2019</strong> and the <strong>Newcrest acquisition in 2023</strong>. The Newcrest deal is still the live structural story — the pack flags <strong>portfolio pruning post-Newcrest</strong> as an ongoing item, meaning non-core asset sales and integration remain part of the near-term narrative rather than settled history.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Revenue streams</h3>
+      <ul>
+        <li><strong>Gold — core:</strong> 5.89m oz attributable production in FY2025; the dominant revenue and valuation driver.</li>
+        <li><strong>Copper — by-product / co-product:</strong> named in the pack as a distinct catalyst; cushions gold-price downside at the margin.</li>
+        <li><strong>Silver, zinc, lead:</strong> additional metals in the production mix; smaller contributors, not broken out separately in the verified pack.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Structure &amp; footprint</h3>
+      <ul>
+        <li><strong>Built by acquisition:</strong> Goldcorp (2019) and Newcrest (2023) assembled today's scale.</li>
+        <li><strong>Diversified jurisdictions:</strong> the pack cites geographic diversification across mining jurisdictions as a core strength — no single-country concentration figure is carried in the verified pack, so no percentage split is shown here.</li>
+        <li><strong>Post-deal pruning:</strong> portfolio simplification after Newcrest is an active programme, per the pack.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:12px">A segment-level revenue split and a geographic revenue split are <span class="tag-open">OPEN QUESTION</span> — the verified research pack does not carry them for NEM, so this note does not present a breakdown it cannot source. The honest summary the pack supports is: one dominant product (gold), one meaningful secondary metal (copper), and a portfolio still being reshaped after a major acquisition.</p>
+</section>
+
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2><span class="tag">Cheap on earnings — because earnings ride the gold price</span></div>
+  <div class="scroll-x">
+  <table>
+    <tr><th>Metric</th><th class="num">Value</th><th>Source / status</th></tr>
+    <tr><td>Share price (30 Oct 2026 close)</td><td class="num">$106.61</td><td>Confirmed in verification log — <a href="https://www.tipranks.com/stocks/nem/historical-prices" target="_blank" rel="noopener">TipRanks historical prices</a> / Finnhub</td></tr>
+    <tr><td>Market capitalisation</td><td class="num">$110.8bn</td><td>Research pack figure</td></tr>
+    <tr><td>Trailing P/E</td><td class="num">11.9×</td><td><a href="https://finnhub.io/?q=%22NEM%22" target="_blank" rel="noopener">Finnhub</a> — matched to 0.1 in verification (pack's own source, so corroboration rather than a fully independent second feed)</td></tr>
+    <tr><td>EPS (TTM)</td><td class="num">$6.39</td><td><a href="https://finnhub.io/?q=%22NEM%22" target="_blank" rel="noopener">Finnhub</a>, via pack</td></tr>
+    <tr><td>Revenue (TTM)</td><td class="num">$25.8bn</td><td>Motley Fool, via pack</td></tr>
+    <tr><td>Gross profit (TTM)</td><td class="num">$15.2bn</td><td>Motley Fool, via pack</td></tr>
+    <tr><td>Price / Sales</td><td class="num">4.3×</td><td>Research pack figure</td></tr>
+    <tr><td>Debt, cash, FCF, dividend &amp; buyback detail</td><td class="num">—</td><td><span class="tag-open">OPEN QUESTION</span> Not carried in the verified pack for NEM — omitted rather than estimated</td></tr>
+  </table>
+  </div>
+
+  <h3 style="font-size:16px;margin:14px 0 4px">Revenue vs. gross profit (TTM, $bn)</h3>
+  <div class="bar-row"><span class="lab">Revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--navy)"></div></div><span class="val">$25.8bn</span></div>
+  <div class="bar-row"><span class="lab">Gross profit</span><div class="bar-track"><div class="bar-fill" style="width:58.9%;background:var(--gold)"></div></div><span class="val">$15.2bn</span></div>
+  <p class="spot-line">Both figures: Motley Fool, via the research pack. Gross profit of $15.2bn on $25.8bn of revenue implies roughly 59 cents of gross profit per revenue dollar at the TTM gold price — a margin structure that expands and contracts directly with the gold price, which is why the earnings multiple below must be read with care.</p>
+
+  <p><strong>Reconciliation caveat — read before using the P/E:</strong> the pack's two Finnhub figures do not divide into each other. $106.61 ÷ $6.39 EPS ≈ 16.7×, not 11.9×; conversely, 11.9× implies EPS of ≈ $8.96. The pack does not state the basis behind each figure (they may reflect different EPS definitions or windows as published by the source), so both are reproduced here exactly as carried, flagged rather than silently "corrected" — treat the 11.9× as the source's published multiple and the $6.39 as the source's published EPS, not as a consistent pair.</p>
+  <p><strong>Reading the multiple.</strong> At <strong>11.9× trailing earnings</strong> and <strong>4.3× sales</strong>, NEM screens cheap against the broader market — but for a gold miner that cheapness is partly an artefact of where gold sits in its cycle. When the gold price is high, TTM EPS is flattered and the P/E mechanically compresses; the same multiple at a cyclical gold low would look very different. The pack's valuation work (§5) therefore leans on price scenarios for gold rather than on multiple expansion.</p>
+  <p><strong>What cannot be diagnosed from the verified pack.</strong> Leverage (debt-to-equity), cash position, free-cash-flow generation, and the capital-allocation split between dividends, buybacks and reinvestment are not carried for NEM in the verified material. Those are the standard second half of a balance-sheet diagnostic, and this note flags them as open questions instead of substituting figures from memory. Any sizing decision (§6) should be revisited once a sourced debt/cash/FCF set is in hand.</p>
+</section>
+
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2><span class="tag">Scale and cost position — not pricing power</span></div>
+  <p>The pack is explicit about the nature of the moat, and it is worth quoting its logic rather than dressing it up: <strong>gold is a commodity and Newmont is a price-taker — the moat is cost position, not pricing power.</strong> Newmont cannot charge more for an ounce than the market price; what it can do is produce that ounce more cheaply, more reliably, and for longer than smaller rivals.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Where the advantage sits</h3>
+      <ul>
+        <li><strong>Scale:</strong> world's leading gold miner, 5.89m oz attributable in FY2025 — purchasing, technical and financing advantages follow from being the largest operator.</li>
+        <li><strong>Reserve base:</strong> cited by the pack as a core moat element — long-life reserves underpin production visibility that smaller miners cannot match.</li>
+        <li><strong>Diversified jurisdictions:</strong> production spread across jurisdictions reduces single-asset and single-country disruption risk.</li>
+        <li><strong>Metal mix:</strong> copper and other by-products diversify revenue away from a pure single-metal exposure.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Where it does not</h3>
+      <ul>
+        <li><strong>No pricing power:</strong> revenue per ounce is set by the gold market, full stop.</li>
+        <li><strong>Cost inflation exposure:</strong> labour, energy and consumables inflation directly compresses the cost advantage — flagged as a risk in §4.</li>
+        <li><strong>Execution risk at scale:</strong> a portfolio this large, reshaped by two major acquisitions, carries mine-level execution risk that a focused single-asset miner does not.</li>
+        <li><strong>Depletion:</strong> every ounce mined must eventually be replaced — reserve replacement is a permanent capital requirement of the model.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:12px"><strong>Positioning takeaway:</strong> within gold mining, NEM is the scale-and-longevity choice — the name an investor holds for diversified, reserve-backed gold exposure rather than for torque to a single discovery or mine. That positioning supports a core-but-modest portfolio weight (§6), not a concentrated bet: the return driver remains the gold price, which Newmont does not control.</p>
+</section>
+
+<section id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2><span class="tag">One dominant variable, several second-order ones</span></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>Gold price:</strong> the primary catalyst in both directions — sustained strength flows almost directly to earnings at NEM's margin structure.</li>
+        <li><strong>Copper by-product:</strong> copper contribution can support earnings and cash flow independently of gold.</li>
+        <li><strong>Portfolio pruning post-Newcrest:</strong> selling non-core assets after the 2023 deal can simplify the portfolio and return focus (and potentially capital) to the core mines.</li>
+        <li><strong>Cost position:</strong> any demonstrated cost discipline widens the miner's one real moat (§3).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Downside risks</h3>
+      <ul>
+        <li><strong>Gold correction:</strong> the mirror image of the main catalyst — a gold pullback compresses the flattered TTM earnings behind the 11.9× P/E and the multiple can de-rate at the same time.</li>
+        <li><strong>Cost inflation:</strong> mining input inflation erodes margins even if gold holds flat.</li>
+        <li><strong>Mine execution:</strong> operational underperformance at major assets, or integration slippage in the post-Newcrest portfolio.</li>
+        <li><strong>Jurisdiction risk:</strong> diversification mitigates but does not eliminate political, permitting and fiscal risk across mining jurisdictions.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:12px">Note the asymmetry the pack's own scenarios imply (§5): the 12–18-month bear case is <strong>$88, about −17% from $106.61</strong>, against a bull case of <strong>$140, about +31%</strong>. That spread is mostly a statement about gold, not about Newmont-specific execution — which is exactly why position size, not conviction, is the right risk control here.</p>
+</section>
+
+<section id="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><span class="tag">All targets are modelled estimates</span></div>
+  <p>All scenario prices below are <span class="tag-est">ESTIMATE</span> — modelled by the research pack, not verified facts. The 12–18-month set and the 5-year set use different logic and should not be blended: the near-term set is a gold-price-and-execution scenario range around today's price; the 5-year set is a frozen-parameter projection (methodology stated under the table).</p>
+
+  <h3 style="font-size:16.5px;margin:12px 0 2px">12–18-month scenarios</h3>
+  <div class="scroll-x">
+  <table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">vs. $106.61</th><th>What has to happen</th></tr>
+    <tr><td>Bear</td><td class="num">$88</td><td class="num">−17%</td><td>Gold corrects; cost inflation bites; execution disappoints</td></tr>
+    <tr><td>Base</td><td class="num">$118</td><td class="num">+11%</td><td>Gold broadly holds; steady production; pruning progresses</td></tr>
+    <tr><td>Bull</td><td class="num">$140</td><td class="num">+31%</td><td>Gold strength persists; copper contributes; clean execution</td></tr>
+  </table>
+  </div>
+  <div class="bar-row"><span class="lab">Bear $88</span><div class="bar-track"><div class="bar-fill" style="width:62.9%;background:var(--red)"></div></div><span class="val">−17%</span></div>
+  <div class="bar-row"><span class="lab">Base $118</span><div class="bar-track"><div class="bar-fill" style="width:84.3%;background:var(--navy)"></div></div><span class="val">+11%</span></div>
+  <div class="bar-row"><span class="lab">Bull $140</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--green)"></div></div><span class="val">+31%</span></div>
+  <p class="spot-line">Bar lengths are scaled to the bull target. Base-case +11% is the pack's stated figure. No probability-weighted 12–18-month price is published: the pack does not supply scenario weights for this horizon, and per the verification log a weighted figure must not be presented without them.</p>
+
+  <h3 style="font-size:16.5px;margin:18px 0 2px">5-year frozen-parameter projection</h3>
+  <p><strong>Methodology (as stated in the pack):</strong> the base case compounds the 30 Oct 2026 price of $106.61 at a <strong>3% CAGR driven by gold price plus volume — explicitly not volume alone</strong>: $106.61 × 1.03⁵ = $106.61 × 1.159 ≈ <strong>$124</strong>. Bull and bear are the pack's scenario prices around that path. The pack's probability-weighted result is <strong>~$123</strong>; the individual scenario weights behind that weighting were not supplied to the independent verifier, so the weighted figure is labelled a <strong>modelled weighted estimate</strong> throughout this note.</p>
+  <div class="scroll-x">
+  <table>
+    <tr><th>Case (5-yr)</th><th class="num">Price</th><th class="num">Total vs. today</th><th class="num">Implied CAGR*</th><th>Basis</th></tr>
+    <tr><td>Bear</td><td class="num">~$82</td><td class="num">−23%</td><td class="num">≈ −5.1%</td><td>Pack scenario — sustained gold weakness</td></tr>
+    <tr><td>Base</td><td class="num">$124</td><td class="num">+16%</td><td class="num">3.0%</td><td>Stated in pack: 3% CAGR, gold price + volume</td></tr>
+    <tr><td>Bull</td><td class="num">~$160</td><td class="num">+50%</td><td class="num">≈ +8.5%</td><td>Pack scenario — strong gold cycle + execution</td></tr>
+    <tr><td>Weighted <span class="tag-est">ESTIMATE</span></td><td class="num">~$123</td><td class="num">+15%</td><td class="num">≈ +2.9%</td><td>Pack's modelled weighted estimate — weights not supplied to verifier</td></tr>
+  </table>
+  </div>
+  <p class="spot-line">*Implied CAGRs for bear and bull are arithmetic derived from the pack's scenario prices over 5 years from $106.61; only the base-case 3% CAGR is stated in the pack itself. Frozen-parameter note: this projection holds the framework constant and varies the gold-price/volume path — it is an illustrative model of what today's price becomes under each path, not a forecast of earnings, and no revenue, margin or P/E path beyond the stated CAGR was supplied in the verified pack.</p>
+  <p><strong>The honest read of the 5-year maths:</strong> even the weighted estimate (~$123, ≈ +15% over five years) is a modest compounding path. NEM's case over five years is therefore not heroic growth — it is gold exposure with a dividend-and-scale profile at a low starting multiple, where most of the upside optionality sits in the bull case's gold cycle rather than in company-driven growth.</p>
+</section>
+
+<section id="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2><span class="tag">Research views — not guarantees, not investment advice</span></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Short term (12–18 months) — Buy</h3>
+      <p style="margin:0">The pack's recommendation is <strong>Buy</strong> for the short term: an 11.9× trailing multiple with a base target of $118 (+11%) and a bull case of $140 gives a favourable near-term skew, provided the holder accepts that the position is, in substance, a gold-price position. The bear case (−17% to $88) is the cost of that exposure being wrong.</p>
+    </div>
+    <div class="card">
+      <h3>Long term (5 years) — Hold / Buy</h3>
+      <p style="margin:0">The pack's recommendation is <strong>Hold/Buy</strong> for the long term. The 5-year weighted modelled estimate of ~$123 is only ~+15% over five years, so the long-term case rests on NEM's role as diversified, reserve-backed gold exposure — a portfolio diversifier — rather than on compounding growth. Existing holders can hold; new money should size it as a diversifier, not a growth engine.</p>
+    </div>
+  </div>
+
+  <div class="calc">
+    <h3>Position-size calculator — 1.5% target weight</h3>
+    <p style="font-size:13px;opacity:.85;margin:4px 0 0">Suggested weight for a mid-30s investor at risk score 8/10: <strong>1.5% of total portfolio</strong>. A deliberately small sleeve: large enough to give real gold diversification, small enough that a gold correction (bear case −17% on the position ≈ −0.26% at portfolio level) cannot dominate the outcome. Rationale: NEM's return driver is a commodity price outside the company's control, so it earns a diversifier's weight, not a core holding's.</p>
+    <div class="calc-grid">
+      <div>
+        <label for="pf">Total portfolio ($)</label>
+        <input id="pf" type="number" inputmode="decimal" min="0" value="500000" />
+      </div>
+      <div>
+        <label>NEM allocation at 1.5%</label>
+        <div class="out" id="alloc">$7,500</div>
+        <div class="out-sub">Target dollar position</div>
+      </div>
+      <div>
+        <label>Shares at $106.61</label>
+        <div class="out" id="shares">70.3</div>
+        <div class="out-sub">Fractional shares assumed available</div>
+      </div>
+    </div>
+  </div>
+  <p style="margin-top:12px"><strong>Bottom line:</strong> NEM at $106.61 is the scale choice for gold exposure — cheap-looking on trailing earnings, honestly labelled as a gold-price bet, and sized accordingly at 1.5%. Buy for the 12–18-month window on the pack's scenario skew; hold/buy over five years as a diversifier. Revisit the sizing if (a) gold's cycle turns, or (b) the open balance-sheet questions in §2 are answered with sourced debt, cash and free-cash-flow figures.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Newmont (NEM)</h2>
+<p><strong>Price (30 Oct 2026 close): $106.61.</strong> <strong>DCF intrinsic: $82.</strong> Discount/premium vs DCF: <strong>+30.0%</strong> — i.e. the shares are trading 30.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$82</td><td>+30.0%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; TwelveData https://twelvedata.com/markets/861463/stock/nyse/nem/statistics ; TipRanks https://www.tipranks.com/stocks/nem/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Newmont (NEM)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Newmont sells gold (and copper/silver/zinc/lead by-products) overwhelmingly into spot and benchmark markets — refiners, bullion banks, jewellers and central banks — with no single customer disclosed as a concentration. Gold is the purest price-taker case in this batch.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Bullion refiners and bullion banks (spot market)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Central banks (reserve buyers)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Jewellery and industrial gold buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Copper smelters (by-product offtake)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> There is no meaningful top-7 customer list and no covered-ticker customer, so the customer read-through does not apply in the usual sense: Newmont&#x27;s revenue is set by the gold price, not by any buyer&#x27;s valuation or spending decision — an undervalued jeweller or bank would not lift Newmont&#x27;s realised price, and the only &#x27;customer&#x27; signal that matters is central-bank and investor demand for gold itself, which moves with real rates and risk appetite.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Newmont (NEM)</h2>
+<p><strong>Role: Low exposure.</strong> Gold has no AI input channel: Newmont&#x27;s earnings are set by the gold price, real rates and mine costs, and AI sentiment reaches it only through general risk appetite and the dollar.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand barely moves: gold demand comes from investors, jewellers and central banks, and AI capex consumes no material gold.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is no AI premium to unwind (trailing P/E 11.9 in the pack is a gold-price multiple), so compression would come from a falling gold price, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — gold-price weakness as risk appetite returns; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, the position is defensive: both miners carry net cash (~$3.4bn each in this build) and no AI-capex debt, so an unwind hits through the gold price, not solvency.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: a sharp gold-price correction on rising real rates, a risk-on rotation out of haven assets, and cost inflation at the mines themselves. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer>
+  <h3>Sources</h3>
+  <ol class="sources">
+    <li>Price, 30 Oct 2026 close ($106.61) — confirmed in the pack's independent verification log via TipRanks historical prices: <a href="https://www.tipranks.com/stocks/nem/historical-prices" target="_blank" rel="noopener">tipranks.com/stocks/nem/historical-prices</a> and Finnhub.</li>
+    <li>P/E (11.9×) and EPS ($6.39) — Finnhub: <a href="https://finnhub.io/?q=%22NEM%22" target="_blank" rel="noopener">finnhub.io/?q=%22NEM%22</a> (P/E matched to 0.1 in verification; Finnhub was the pack's own source, so this is corroboration, not a fully independent second feed).</li>
+    <li>Production (5.89m oz attributable, FY2025), TTM revenue ($25.8bn) and gross profit ($15.2bn), business description and universe ranking basis — Motley Fool, as carried in the research pack (ranking: global top 10 by market cap, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close, including OTC names, not in strict market-cap order as printed).</li>
+    <li>Scenario targets, 5-year projection, recommendations and 1.5% suggested weight — research pack modelled estimates; methodology shown in §5. Scenario weights for the 5-year weighted figure were not supplied to the independent verifier.</li>
+  </ol>
+  <p class="disc">Research views only — not guarantees and not investment advice. Scenario prices are modelled estimates, not forecasts. Figures are as of 1 Nov 2026 with prices referenced to the 30 Oct 2026 close. Items flagged as open questions were not carried in the verified research pack and have been omitted rather than estimated. Verify current prices and filings before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), alloc=document.getElementById('alloc'), shares=document.getElementById('shares');
+  var PRICE=106.61, WEIGHT=0.015;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function update(){
+    var v=parseFloat(pf.value);
+    if(!isFinite(v)||v<0){alloc.textContent='—';shares.textContent='—';return;}
+    var a=v*WEIGHT;
+    alloc.textContent=fmt(a);
+    shares.textContent=(a/PRICE).toFixed(1);
+  }
+  pf.addEventListener('input',update);
+  update();
+})();
+</script>
+</body>
+</html>

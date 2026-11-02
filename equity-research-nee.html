@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — NEE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f7f5f0;--paper:#fffdf8;--ink:#131a24;--ink2:#3d4756;--muted:#6b7686;--line:#ddd6c8;--line2:#c9c0ab;--navy:#0d2b52;--blue:#0b5cad;--blue-soft:#e3edf7;--green:#0e6b3a;--green-soft:#e2f0e6;--red:#a4231c;--red-soft:#f7e4e1;--amber:#8a5a00;--amber-soft:#f6ecd2;--gold:#b8860b;--card:#ffffff;--chip:#efece3;--shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06)}
+@media (prefers-color-scheme: dark){:root{--bg:#0e1116;--paper:#141922;--ink:#e8e6df;--ink2:#b9c0cc;--muted:#8b94a3;--line:#2a3140;--line2:#3a4356;--navy:#9db9dd;--blue:#6aa8e8;--blue-soft:#1b2a3f;--green:#5fc98b;--green-soft:#17301f;--red:#e88a80;--red-soft:#3a1e1a;--amber:#e0aa4e;--amber-soft:#332a14;--gold:#d9a441;--card:#171d28;--chip:#1e2634;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}.up{color:var(--green)}.down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}p{margin:8px 0;color:var(--ink2)}p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}.warn .ct{color:var(--amber)}.bad .ct{color:var(--red)}.good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}tr.hl td{background:var(--blue-soft);color:var(--ink)}tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}.bar-row{display:grid;grid-template-columns:170px 1fr 84px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}.bar-track{height:16px;background:var(--chip)}.bar-fill{height:100%;background:var(--blue)}.bar-fill.gold{background:var(--gold)}.bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.pc.bull h4{color:var(--green)}.pc.bear h4{color:var(--red)}.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)}.sc.base{border-top:4px solid var(--blue)}.sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}.pill.hold{background:var(--amber-soft);color:var(--amber)}.pill.trim{background:var(--red-soft);color:var(--red)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}.calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}@media (max-width:760px){.refs{columns:1}}.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static}body{background:#fff}section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Regulated Electric · Renewables</span></div>
+  <h1>NextEra Energy <span class="tick">(NYSE: NEE)</span></h1>
+  <p class="lede">America's largest utility pairs the lowest-cost regulated franchise in Florida with the country's biggest renewables developer — and, in Q3 2026, a revenue miss that did not dent the earnings story. Adjusted EPS beat, the backlog hit ~36.7 GW, and management is targeting 8%+ EPS growth through 2035. The tension is financing: a pending Dominion merger and $12–17B of equity issuance sit between today's price and that growth path.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $83.71 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$83.71</div><div class="vsub">Confirmed close, regular session [<a href="https://finnhub.io/?q=%22NEE%22">Finnhub</a>]</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$175.57B</div><div class="vsub">#1 in XLU · TipRanks basis — see ranking note</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM / Fwd P/E</div><div class="vbig mono">15.08× / 20.27×</div><div class="vsub">Dividend yield 2.97% [<a href="https://stockanalysis.com/stocks/nee/statistics/">StockAnalysis</a>]</div></div>
+  <div class="vcell span3"><div class="vlabel">FY26 adj. EPS guidance</div><div class="vbig mono">$3.92–4.02</div><div class="vsub">Targeting high end · 8%+ CAGR thru 2032 &amp; 2035</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base-case modelled target $93 (+11.1%) — see §5. Best risk/reward in the sector on growth + merger optionality.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value $113.00 (estimate) — 8% EPS compounding is rare for a regulated utility.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">3.0% of portfolio</div><div class="vsub">Defensive compounder sleeve — see §6 for calculator.</div></div>
+</div>
+
+<nav class="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Q3 was a textbook NextEra split print: <b>earnings beat, revenue missed</b>. Adjusted EPS of <b>$1.24</b> beat the $1.20 consensus and rose <b>+9.7% year-on-year</b>, while revenue of <b>$8.09B</b> missed consensus of c. $9.1B ($9.08–$9.09B depending on vintage) [<a href="https://www.zacks.com/stock/news/3012019/nextera-energy-q3-earnings-beat-on-fpl-strength-revenues-miss">Zacks</a>]. The miss did not come from the regulated core — Zacks attributed the beat to FPL strength — and the forward story strengthened where it matters most for a developer: NEER added <b>3.7 GW</b> in the quarter (including 2.4 GW of storage) and the backlog reached <b>~36.7 GW</b> [<a href="https://www.securities.io/nextera-energy-q3-adjusted-eps-rises-9-7-as-backlog-reaches-36-7-gw/">Securities.io summary</a>].</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th class="n">Consensus / note</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Adjusted EPS</td><td class="n">$1.24</td><td class="n">$1.20 est.</td><td>Beat; +9.7% YoY — ahead of the company's own 8%+ long-run CAGR target for the quarter</td></tr>
+      <tr><td>Revenue</td><td class="n">$8.09B</td><td class="n">c. $9.1B est.</td><td>Clear miss vs $9.08–$9.09B consensus (vintage-dependent) — the soft line in the print</td></tr>
+      <tr><td>NEER additions</td><td class="n">3.7 GW</td><td class="n">incl. 2.4 GW storage</td><td>Storage-heavy mix — higher value per MW than plain solar/wind</td></tr>
+      <tr class="hl"><td>NEER backlog</td><td class="n">~36.7 GW</td><td class="n">—</td><td>The visibility engine: backlog converts to contracted cash flows over coming years</td></tr>
+      <tr><td>FY26 adj. EPS guidance</td><td class="n">$3.92–$4.02</td><td class="n">Targeting high end</td><td>Midpoint $3.97 is the anchor for the 5-year model in §5</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><div class="ct">Ranking basis — read this first</div>
+  <p>NEE is ranked #1 among <b>Top 10 US-listed Utilities (XLU universe, 30 Oct 2026)</b> — <b>not</b> a global top 10. XLU is 100% US geography, so US-listed-only is defensible as an XLU methodology [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks XLU holdings</a>]. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the list and XEL/EXC would fall out [<a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf">FinanceCharts</a>]. Market caps in this note are on a <b>TipRanks</b> basis throughout; Finnhub float-based values differ by up to ~$3B — vendors are not mixed in any one table.</p></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>NextEra is <b>two businesses under one financing umbrella</b>: a regulated Florida utility that earns an allowed return on invested capital, and a competitive renewables developer that builds, contracts and increasingly re-contracts the largest clean-energy fleet in the US. A third, smaller leg — transmission — rounds out the model.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment</th><th>What it does</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Florida Power &amp; Light (FPL)</td><td>Regulated electric utility serving Florida; the earnings anchor</td><td>Customer bills ~<b>37% below the US average</b> — the political and regulatory licence to keep growing rate base [<a href="https://WWW.FOOL.COM/earnings/takeaways/2026/10/22/nextera-energy-3-key-takeaways-for-long-term-investors/">Fool takeaways</a>]</td></tr>
+      <tr><td>NextEra Energy Resources (NEER)</td><td>Competitive renewables, storage and clean-energy development</td><td>3.7 GW added in Q3; ~36.7 GW backlog; recontracting at a <b>~$20/MWh premium</b> on ~1,400 MW year-to-date — pricing evidence, not just volume</td></tr>
+      <tr><td>NextEra Energy Transmission (NEET)</td><td>Regulated transmission development</td><td>Long-dated, regulated returns; benefits from grid-buildout demand regardless of generation mix</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>The newest leg — federal energy hubs (Florida + Texas/Pennsylvania)</h3>
+  <p>Per the Q3 call coverage, NextEra has <b>~16.5 GW under definitive agreements</b> across Florida and Texas/Pennsylvania federal energy hubs, with <b>$5.7B of initial funding year-to-date</b>. Crucially, the model is <b>fee-based with no project capital from NextEra</b>, and is expected to deliver <b>~50% of direct-ownership EPS over 20 years</b> [<a href="https://www.zacks.com/stock/news/3017133/nee-q3-earnings-call-highlights-growth-and-merger-challenges">Zacks call highlights</a>]. Read carefully: that is EPS at half the level of owning the assets outright, but with no balance-sheet capital consumed — a capital-light growth option layered on top of the capital-heavy core, ramping in the 2028–32 window (see §4).</p>
+
+  <h3>Geography &amp; structural notes</h3>
+  <ul>
+    <li><b>Florida-centric regulated base:</b> FPL's service territory is the demand story — population and large-load growth in Florida underpin rate-base growth — and also the concentration risk (storms, rate politics; §4).</li>
+    <li><b>Nationwide competitive fleet:</b> NEER's development footprint is national, which diversifies resource risk (a weak wind quarter in one region is not a company-wide event) but exposes it to federal policy on clean-energy incentives.</li>
+    <li><b>Supply chain dependencies:</b> turbines, panels, batteries and transformers are the critical path for converting a 36.7 GW backlog on schedule; storage was 2.4 GW of Q3's 3.7 GW of additions, so battery-cell supply and pricing now matter as much as traditional generation equipment. The fee-based hub model deliberately carries <i>no</i> project-capital exposure — a structural hedge against exactly this dependency.</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 980 168" width="100%" role="img" aria-label="NextEra structure: FPL regulated utility, NEER renewables with 36.7 gigawatt backlog, and transmission" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="30" width="290" height="108" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="24" y="58" font-size="14" font-weight="700" fill="var(--ink)">FPL — Regulated Florida</text><text x="24" y="80" font-size="12" fill="var(--ink2)">Bills ~37% below US average</text><text x="24" y="98" font-size="12" fill="var(--ink2)">Allowed-return rate-base growth</text><text x="24" y="116" font-size="12" fill="var(--ink2)">Large-load agreement expected pre-year-end</text>
+      <rect x="345" y="30" width="290" height="108" fill="var(--green-soft)" stroke="var(--line2)"/><text x="361" y="58" font-size="14" font-weight="700" fill="var(--ink)">NEER — Renewables &amp; Storage</text><text x="361" y="80" font-size="12" fill="var(--ink2)">+3.7 GW in Q3 (2.4 GW storage)</text><text x="361" y="98" font-size="12" fill="var(--ink2)">Backlog ~36.7 GW</text><text x="361" y="116" font-size="12" fill="var(--ink2)">Recontracting +~$20/MWh premium</text>
+      <rect x="682" y="30" width="290" height="108" fill="var(--chip)" stroke="var(--line2)"/><text x="698" y="58" font-size="14" font-weight="700" fill="var(--ink)">NEET + Federal Hubs</text><text x="698" y="80" font-size="12" fill="var(--ink2)">Transmission: regulated returns</text><text x="698" y="98" font-size="12" fill="var(--ink2)">Hubs: ~16.5 GW definitive agreements</text><text x="698" y="116" font-size="12" fill="var(--ink2)">Fee-based · no project capital</text>
+    </svg>
+    <figcaption>Structure as described on the Q3 2026 call. No segment revenue split is shown: the verified research pack does not carry one, so none is invented here.</figcaption>
+  </figure>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>For a utility, “financial health” means three things: can it fund the build, what does the funding do to per-share value, and will regulators let it earn on what it builds. NextEra's answers are unusually explicit — management has quantified both the growth (8%+ EPS CAGR through 2032 and through 2035, off the 2025 base of $3.71) and the cost of funding it (<b>$12–17B of equity financing needed through 2032</b>, per management via Zacks).</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $83.71 (30 Oct 2026 close). Market cap on TipRanks basis; multiples from StockAnalysis.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market cap</td><td class="n">$175.57B</td><td>Largest US utility; #1 in XLU at 30 Oct 2026 [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks</a>]</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">15.08×</td><td>Depressed trailing earnings make this the <i>less</i> useful multiple — see forward P/E and the §5 note</td></tr>
+      <tr><td>Forward P/E</td><td class="n">20.27×</td><td>The market is already paying for the guided recovery/growth path, not for trailing results [<a href="https://stockanalysis.com/stocks/nee/">StockAnalysis</a>]</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.97%</td><td>Meaningful income leg: at the base case, ~3% yield plus 8% EPS growth is the total-return engine</td></tr>
+      <tr><td>FY26 adj. EPS guidance</td><td class="n">$3.92–$4.02</td><td>Targeting the high end; midpoint $3.97 anchors §5</td></tr>
+      <tr><td>EPS growth target</td><td class="n">8%+ CAGR</td><td>Through 2032 <i>and</i> through 2035, off 2025 base EPS of $3.71 — top-tier for a regulated utility</td></tr>
+      <tr><td>Equity financing need</td><td class="n">$12–17B thru 2032</td><td>The dilution overhang: growth is real, but part of it is bought with new shares — per-share maths in §5 already uses EPS, so this is partly reflected</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">What is not verified — and therefore not shown</div>
+  <p>The verification pass for this sector did <b>not</b> verify NEE's debt, cash or enterprise-value breakdown (an EV figure of $283.92B appeared in a StockAnalysis snippet but was explicitly marked <b>not verified</b>). This note therefore shows <b>no debt/equity ratio and no EV/EBITDA</b> for NEE rather than printing an unchecked number. The verified leverage fact is the forward one: the $12–17B equity need through 2032. Treat any precise balance-sheet ratio for NEE from another source as unverified until checked against the 10-Q.</p></div>
+  <h3>Capital allocation read</h3>
+  <ul>
+    <li><b>Growth capex first:</b> the 36.7 GW backlog and the hub programme are the capital priorities; the backlog is contracted demand, not speculative build.</li>
+    <li><b>Dividend as the second leg:</b> a 2.97% yield at a growth utility is the market's pricing of dependable, regulated cash flows — the FPL base funds it.</li>
+    <li><b>Equity issuance as the balancing item:</b> $12–17B through 2032 is the honest cost of 8%+ growth without over-levering the balance sheet. The risk is execution price: issuing into a weak share price dilutes more per dollar raised (see §4).</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide for a utility — scale plus cost position, in an industry where moats are usually just franchises.</b> Most utilities own a territory; NextEra owns a territory <i>and</i> the industry's leading development machine.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Scale:</b> largest US utility at $175.57B market cap (TipRanks, 30 Oct) — cheapest access to capital in the sector, which in a capital-spending race is itself the moat.</li>
+      <li><b>Lowest-cost regulated base:</b> FPL bills ~37% below the US average give it regulatory goodwill competitors cannot copy — low bills are what let a utility ask for more rate base.</li>
+      <li><b>Development capability:</b> a ~36.7 GW backlog and 3.7 GW of quarterly additions show origination, interconnection and construction skills accumulated over decades — not purchasable quickly.</li>
+      <li><b>Demonstrated pricing on recontracting:</b> ~$20/MWh premium on ~1,400 MW recontracted year-to-date is direct evidence the fleet's output is worth more at renewal, not less.</li>
+      <li><b>Capital-light optionality:</b> the fee-based federal-hub model monetises expertise without balance sheet — a second, higher-return-on-capital business inside the same company.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Limits &amp; competitors</h4><ul>
+      <li><b>Named competitive set:</b> Duke Energy (DUK), Southern Company (SO), Dominion Energy (D) and Constellation Energy (CEG) — each with its own regulated base and, in CEG's case, a nuclear/data-centre growth story competing for the same growth-utility multiple.</li>
+      <li><b>Regulatory moat is rented, not owned:</b> FPL's returns exist at the pleasure of Florida regulators and politics; a hostile rate case compresses the allowed return regardless of operating skill.</li>
+      <li><b>No pricing power over the end customer:</b> regulated prices are set by process, not by NextEra — pricing evidence is confined to competitive NEER contracts.</li>
+      <li><b>Merger entanglement:</b> the pending Dominion combination (see §4) will, if completed, make a direct competitor part of the group — and until then, both stocks carry deal risk.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> NextEra is the sector's growth utility — investors do not buy it for the 2.97% yield alone, they buy FPL's regulated compounding plus NEER's contracted growth at a scale no US peer matches. That positioning is exactly why the forward P/E (20.27×) sits above the trailing (15.08×) earnings picture: the market prices the developer, not just the franchise.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Dominion Energy merger progressing to close:</b> shareholders of both companies approved the deal on <b>3 Sep 2026</b>; expected close is <b>H2 2027</b> [<a href="https://www.power-technology.com/news/nextera-dominion-merger-shareholder-approval/">Power Technology</a>]. Each regulatory milestone de-risks the combination.</li>
+        <li><b>FPL large-load / data-centre agreement</b> expected <b>before year-end</b> — a signed large-load deal converts the data-centre demand narrative into contracted rate base.</li>
+        <li><b>Federal energy hubs ramping 2028–32:</b> ~16.5 GW under definitive agreements, fee-based — progress updates are upside optionality not in the regulated base case.</li>
+        <li><b>Guidance delivery at the high end:</b> FY26 EPS guided $3.92–$4.02 targeting the high end; printing $4.02 validates the 8%+ CAGR framing into 2027.</li>
+        <li><b>Backlog conversion:</b> continued multi-GW quarterly additions at storage-heavy mix, and further recontracting at premium pricing.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Merger regulatory approval:</b> shareholder approval is done; regulatory approval is not. A blocked or heavily conditioned deal removes the merger optionality embedded in the bull case and strands deal costs.</li>
+        <li><b>$12–17B equity overhang through 2032:</b> a known, large issuance programme caps multiple expansion — every rally is partly a funding window for the company itself.</li>
+        <li><b>Wind resource / weather:</b> Q4 planning assumes wind at <b>90–95% of the long-term average on El Niño</b> — a weaker resource quarter hits NEER output directly; Florida storm exposure is the regulated-side equivalent.</li>
+        <li><b>Florida storm &amp; rate politics:</b> a major hurricane season or an adverse rate proceeding attacks both earnings and the low-bill goodwill the moat rests on.</li>
+        <li><b>Revenue softness persisting:</b> Q3 revenue missed by ~$1B vs consensus; if top-line misses repeat while EPS is held by cost/financing items, the quality of the beat will be questioned.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>The Dominion merger failing on regulatory grounds <i>combined with</i> equity issuance executed at depressed prices. Either alone is manageable — the standalone 8%+ EPS path does not require the deal, and $12–17B spread to 2032 is fundable. Together they would mean paying more dilution for less growth, which is precisely the bear case in §5 (6% growth at a 17× multiple).</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets on this page are <b>modelled estimates</b> — their assumptions are shown in full so the arithmetic can be checked. They are not verified facts and not guarantees.</p>
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$74</div><div class="ret down">−11.6% vs $83.71</div><p>Merger stalls on regulatory review, equity is issued into weakness, and wind/storm costs bite. The stock de-rates toward a yield-defensive utility multiple and the growth premium comes out.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$93</div><div class="ret up">+11.1% vs $83.71</div><p>FY26 prints at the high end of guidance, the FPL large-load agreement lands, the merger stays on its H2 2027 track, and EPS compounding at ~8% is re-priced at a normal growth-utility multiple. Plus the ~3% dividend on top of price return.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$104</div><div class="ret up">+24.2% vs $83.71</div><p>Merger milestones clear early, hub economics are quantified upward, and backlog additions accelerate — the market pays a scarcity premium for the sector's only 8%+ compounder at scale.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $91.00</div></div><p>0.25×$74 + 0.50×$93 + 0.25×$104 = $91.00, or <b>+8.7%</b> price return from $83.71, before the ~2.97% dividend yield. Modest price upside, respectable total return — the honest shape of a fairly-priced growth utility.</p></div>
+
+  <h3>5-year projection — frozen-parameter format, adapted transparently</h3>
+  <p><b>Adaptation note:</b> the standard format in this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>. For a regulated utility that identity is not how earnings are set — earnings follow rate base and allowed returns, and NextEra itself guides in EPS. The transparent equivalent used here freezes the same things (growth, profitability outcome, exit multiple) in EPS form: <b>2031 price = 2026 EPS × (1+g)<sup>5</sup> × exit P/E</b>, with 2026 EPS frozen at the guidance midpoint <b>$3.97</b>, per-case growth <i>g</i> and per-case P/E frozen. Note also the multiples context: trailing P/E is 15.08× on depressed trailing earnings while forward P/E is 20.27× — the exit multiples below (17–21×) are set against the <i>forward</i> anchor, which is the meaningful one.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">EPS growth / yr (g)</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Total vs $83.71</th><th class="n">CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">6%</td><td class="n">$5.32</td><td class="n">17×</td><td class="n">$90.40</td><td class="n">+8.0%</td><td class="n">~+1.6%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">8%</td><td class="n">$5.83</td><td class="n">20×</td><td class="n">$116.60</td><td class="n">+39.3%</td><td class="n">~+6.9%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">9%</td><td class="n">$6.11</td><td class="n">21×</td><td class="n">$128.30</td><td class="n">+53.3%</td><td class="n">~+8.9%</td></tr>
+      <tr class="total"><td>Probability-weighted · modelled estimate</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$113.00</td><td class="n">+35.0%</td><td class="n">~+6.2%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: base case $3.97 × 1.08<sup>5</sup> = $5.83; $5.83 × 20 = $116.60. Bull: $3.97 × 1.09<sup>5</sup> = $6.11; × 21 = $128.30. Bear: $3.97 × 1.06<sup>5</sup> = $5.32; × 17 = $90.40. Weighted: 0.50×$116.60 + 0.25×$128.30 + 0.25×$90.40 = $113.00. The base growth rate (8%) is simply management's own guided CAGR; the bull case asks for only one point more, sustained — the merger and hubs are the plausible source. Dividend income (~2.97%/yr, if maintained) is <i>additional</i> to these price-only figures. One honest quirk: the 5-year weighted price ($113) annualises to less than the 12–18-month base implies — because the near-term base assumes a re-rating that the 5-year model, anchored to a 20× exit, does not extrapolate.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> The verification pack rates NEE the best risk/reward in the sector on growth plus merger optionality: a beat-and-raise-quality print, guidance targeted at the high end, and two dated catalysts (FPL large-load agreement before year-end; merger milestones toward H2 2027) inside the window. Weighted modelled value $91 (+8.7%) plus ~3% yield is a reasonable, not spectacular, near-term proposition.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy / hold as a defensive compounder.</b> An 8%+ guided EPS CAGR through 2035 from the largest, lowest-cost US utility is the closest thing the sector offers to equity compounding with regulated downside cushioning. Modelled weighted 5-yr price $113 (+35%, price only) understates total return once dividends are counted.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill trim">Review</span></td><td>Review on: merger blocked or conditioned so heavily the economics change; FY guidance cut below $3.92; equity issued materially below the prevailing price in size; or a Florida rate outcome that cuts FPL's allowed return. Any one of these moves the position toward the bear case and the sizing below should be halved pending reassessment.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>NEE target: 3.0% of total portfolio.</b> This is a ballast-and-compound holding, not a high-beta satellite: at an 8/10 risk profile it belongs in the defensive sleeve that funds patience elsewhere, sized large enough that its dividend and compounding matter, small enough that a single-state regulatory shock cannot dominate outcomes.</li>
+    <li><b>Sector context:</b> within a utilities allocation, NEE is the natural anchor name — largest in XLU, fastest guided growth — so 3.0% as a single name can reasonably represent the bulk of a deliberate utilities position rather than one of many equal slices.</li>
+    <li><b>Reinvestment note:</b> for a mid-30s accumulator, enrolling the ~2.97% yield into reinvestment converts this from an income holding into a compounding one, matching the long-term Buy thesis.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the single target weight above (3.0%) at the 30 Oct close of $83.71. Share counts are rounded down to whole shares; the remainder stays as cash.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>NEE — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $83.71.</strong> <strong>DCF intrinsic: $103.47.</strong> Discount/premium vs DCF: <strong>-19.1%</strong> — i.e. the shares are trading 19.1% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$103.47</td><td>-19.1%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $3.97 per share — FY2026 adjusted EPS guidance midpoint (pack: $3.92-$4.02, targeting high end) - regulated earnings proxy. TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 8.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/NEE/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/nee/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NEE — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>NextEra sells electricity principally to households and small businesses through regulated Florida Power & Light tariffs, plus wholesale renewables customers — a predominantly household/small-business revenue base, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack discloses no named large industrial customer; it notes an FPL large-load / data-centre agreement expected before year-end and ~16.5 GW of federal energy hubs under definitive agreements, but names no counterparty.</p><p><strong>Key demand drivers:</strong> rate-base growth at FPL, the allowed return on that rate base, and whether the expected large-load/data-centre agreement lands before year-end and on what cost-allocation terms.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NEE — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> NextEra pairs the largest US regulated utility (FPL) with the largest renewables developer (NEER, ~36.7 GW backlog), and the pack flags an FPL large-load/data-centre agreement expected before year-end plus ~16.5 GW of fee-based federal hubs.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Data-centre and large-load demand raises FPL's regulated load and NEER's contracted renewables/storage volumes, and the federal hubs are fee-based with no project capital, so growth does not consume NextEra's balance sheet.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Investors already pay a growth multiple for NextEra (forward P/E 20.27 per pack) on 8%+ EPS CAGR guidance through 2032; an AI-led load boom extends that growth story and supports the multiple.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: the expected FPL large-load agreement slips or lands on cost terms the Florida PSC will not approve, and federal-hub milestones slip past 2028. Second, multiple compression: the growth premium unwinds toward the regulated peer average as 8%+ growth looks less certain. Third, balance sheet: growth capex already exceeds operating cash flow (TTM FCF -$18.01B), so a higher cost of capital bites hard, though the fee-based hub structure cushions part of it. No quantified sensitivity is claimed — the pack gives no load-elasticity figure.</p>
+<p><strong>Trigger(s) to watch:</strong> Whether the FPL large-load agreement is signed before year-end and on what terms; Florida PSC treatment of large-load cost allocation; and NEER backlog conversion versus the 90–95% wind-resource assumption for Q4.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures were independently verified for this series against a second source where the verification log says so; where the log and the research pack conflicted, the log was followed. Modelled targets in §5 are estimates with methodology shown, never verified facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.zacks.com/stock/news/3012019/nextera-energy-q3-earnings-beat-on-fpl-strength-revenues-miss" target="_blank" rel="noopener">Zacks — NEE Q3 earnings beat on FPL strength, revenues miss (EPS $1.24 vs $1.20, revenue $8.09B)</a></li>
+    <li><a href="https://www.zacks.com/stock/news/3017133/nee-q3-earnings-call-highlights-growth-and-merger-challenges" target="_blank" rel="noopener">Zacks — Q3 call highlights: growth, hubs and merger (3.7 GW adds, 36.7 GW backlog, guidance, equity need)</a></li>
+    <li><a href="https://www.securities.io/nextera-energy-q3-adjusted-eps-rises-9-7-as-backlog-reaches-36-7-gw/" target="_blank" rel="noopener">Securities.io — Q3 adjusted EPS +9.7%, backlog 36.7 GW (independent confirmation)</a></li>
+    <li><a href="https://WWW.FOOL.COM/earnings/takeaways/2026/10/22/nextera-energy-3-key-takeaways-for-long-term-investors/" target="_blank" rel="noopener">Motley Fool — 3 key takeaways for long-term investors (FPL bills ~37% below US average)</a></li>
+    <li><a href="https://stockanalysis.com/stocks/nee/statistics/" target="_blank" rel="noopener">StockAnalysis — NEE statistics (P/E, yield, market data)</a></li>
+    <li><a href="https://stockanalysis.com/stocks/nee/" target="_blank" rel="noopener">StockAnalysis — NEE overview (price $83.71, market cap, forward P/E)</a></li>
+    <li><a href="https://finnhub.io/?q=%22NEE%22" target="_blank" rel="noopener">Finnhub — NEE 30 Oct 2026 close confirmation ($83.71)</a></li>
+    <li><a href="https://www.power-technology.com/news/nextera-dominion-merger-shareholder-approval/" target="_blank" rel="noopener">Power Technology — NextEra–Dominion merger shareholder approval, 3 Sep 2026; close expected H2 2027</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings at 30 Oct 2026 (ranking basis, market caps)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global utilities market caps (Iberdrola, Enel, National Grid context)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research and education, not investment advice and not a guarantee of future results. Prices are the 30 Oct 2026 regular-session close; the note is dated 1 Nov 2026. Scenario prices are modelled estimates built from the stated frozen assumptions — actual outcomes will differ, including possibly by a lot. Dividend yield is the trailing/indicated figure at the reference price and is not guaranteed to be maintained. Verify any figure against the primary filing (10-Q / earnings release) before acting on it. Debt, cash and EV figures marked unverified in the underlying verification pass have been omitted rather than estimated.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=83.71, W=0.03;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value); if(isNaN(v)||v<0)v=0;
+    var dollars=v*W, shares=Math.floor(dollars/PRICE), spent=shares*PRICE;
+    out.innerHTML='Target at <b>3.0%</b>: <b>$'+fmt(dollars)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(shares)+' shares</b> at $83.71 (spends $'+fmt(spent)+')';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

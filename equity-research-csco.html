@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — CSCO</title>
+<style>
+:root{
+  --bg:#f7f8f9; --surface:#ffffff; --surface2:#eef1f3; --ink:#131a20; --muted:#5b6a75; --line:#d7dee3;
+  --accent:#0b4f7a; --accent2:#0e7a5f; --amber:#9a6b12; --red:#9e2b25; --gold:#c8a44a;
+  --chip:#e6eef3;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0e1418; --surface:#161e24; --surface2:#1d2830; --ink:#e8eef2; --muted:#9aadb9; --line:#2b3a44; --accent:#5aa9d6; --accent2:#3ec9a3; --amber:#e0b45a; --red:#e07a72; --chip:#1d2f3d; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family: Georgia, 'Times New Roman', serif; line-height:1.55;}
+.sans{font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;}
+.wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px;}
+a{color:var(--accent);}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:18px;}
+.badge{font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line);padding:5px 9px;border-radius:999px;background:var(--surface);color:var(--muted)}
+h1{font-size:40px;line-height:1.05;margin:6px 0 4px;font-weight:700;letter-spacing:-.01em}
+h1 span{color:var(--accent)}
+.sub{font-size:17px;color:var(--muted);max-width:720px;margin:0}
+.tickerline{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.pricecard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;flex:1 1 160px}
+.pricecard b{font-size:28px;display:block;line-height:1}
+.pricecard small{color:var(--muted);font-family:-apple-system,sans-serif;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 13px}
+.stat small{display:block;color:var(--muted);font-family:-apple-system,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.stat strong{font-size:19px}
+.stat em{display:block;font-style:normal;color:var(--muted);font-size:13px;margin-top:2px}
+section{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px 20px 16px;margin:14px 0}
+section h2{font-size:22px;margin:0 0 4px;line-height:1.2}
+section h2 i{font-style:normal;color:var(--accent);font-family:-apple-system,sans-serif;font-size:12px;letter-spacing:.1em;display:block;text-transform:uppercase;margin-bottom:6px}
+section p{margin:8px 0}
+ul{margin:8px 0 8px 18px;padding:0} li{margin:5px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.two{grid-template-columns:1fr} h1{font-size:32px}}
+.callout{background:var(--surface2);border-left:4px solid var(--accent);padding:12px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:15px}
+.warn{border-left-color:var(--amber)}
+table{width:100%;border-collapse:collapse;font-family:-apple-system,sans-serif;font-size:14px;margin:12px 0}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.verdict{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.verdict{grid-template-columns:1fr}}
+.vbox{border:1px solid var(--line);border-radius:8px;padding:14px}
+.vbox h3{margin:0 0 6px;font-size:16px}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-family:-apple-system,sans-serif;font-size:12px;font-weight:700;letter-spacing:.04em}
+.hold{background:#fdf0d0;color:#6b4e00} @media(prefers-color-scheme:dark){.hold{background:#3a2f10;color:#e0b45a}}
+.calc{background:var(--surface2);border-radius:8px;padding:14px;margin-top:12px;font-family:-apple-system,sans-serif}
+.calc label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
+.calc input{width:100%;padding:10px;border:1px solid var(--line);border-radius:6px;font-size:16px;background:var(--surface);color:var(--ink)}
+.calc-out{margin-top:10px;font-size:15px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 64px;gap:10px;align-items:center;font-family:-apple-system,sans-serif;font-size:13px;margin:7px 0}
+.bar{height:14px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%}
+.foot{font-size:13px;color:var(--muted);margin-top:18px}
+.foot li{margin:3px 0}
+details{border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:10px 0;background:var(--surface)}
+summary{cursor:pointer;font-family:-apple-system,sans-serif;font-weight:600;font-size:14px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="topbar sans"><span class="badge">Equity Research · Information Technology</span><span class="badge">As of 1 Nov 2026 · Price: 30 Oct 2026 close</span></div>
+
+  <h1>CSCO — <span>Cisco Systems</span></h1>
+  <p class="sub">The enterprise networking incumbent re-rated on an AI-networking story. The core business is mature and cash-generative; the question for the next five years is whether Ethernet for AI clusters and Splunk can outrun share loss to Arista in hyperscale.</p>
+
+  <div class="tickerline">
+    <div class="pricecard"><small>Close · 30 Oct 2026</small><b>$104.51</b><span class="sans" style="color:var(--muted);font-size:13px">NASDAQ: CSCO</span></div>
+    <div class="pricecard"><small>Market cap</small><b>$412.04B</b><span class="sans" style="color:var(--muted);font-size:13px">3.943B shares</span></div>
+    <div class="pricecard"><small>Consensus target</small><b>$128.52</b><span class="sans" style="color:var(--muted);font-size:13px">MarketBeat — cited in research pack</span></div>
+    <div class="pricecard"><small>Suggested weight</small><b>1.0%</b><span class="sans" style="color:var(--muted);font-size:13px">of total portfolio · risk 8/10, mid-30s</span></div>
+  </div>
+
+  <div class="grid sans">
+    <div class="stat"><small>Trailing P/E</small><strong>31.1–31.3×</strong><em>Provider range in pack</em></div>
+    <div class="stat"><small>Dividend yield</small><strong>1.61%</strong><em>Income is part of the case</em></div>
+    <div class="stat"><small>YTD return</small><strong>+35.7%</strong><em>To 30 Oct 2026</em></div>
+    <div class="stat"><small>1-year return</small><strong>+43.0%</strong><em>Re-rating, not high growth</em></div>
+    <div class="stat"><small>Sector rank basis</small><strong>FinanceCharts</strong><em>Biggest Tech Companies, Nov 2026 — updated 30 Oct 2026</em></div>
+  </div>
+
+  <div class="callout"><strong>Verdict in one line:</strong> Short term <span class="pill hold">HOLD</span> &nbsp; Long term <span class="pill hold">HOLD</span> — a quality, lower-beta compounder at a full multiple after a +43% year. The 5-year modelled weighted value ($106) sits essentially on today's price, so this is a hold-and-collect name at 1.0%, not a chase.</div>
+
+  <section>
+    <h2><i>Section 1</i>Business Model &amp; Segment Breakdown</h2>
+    <p>Cisco sells the plumbing of enterprise networks — switching and routing — and layers higher-margin software and services on top of that installed base:</p>
+    <ul>
+      <li><strong>Networking (core):</strong> campus / enterprise switching and routing, plus data-centre networking. This is the mature engine — large, entrenched, and slow-growing.</li>
+      <li><strong>Security:</strong> network and endpoint security, increasingly integrated with the networking sale rather than sold standalone.</li>
+      <li><strong>Observability:</strong> anchored by Splunk — the cross-sell and recurring-revenue pivot management is leaning on.</li>
+      <li><strong>Collaboration:</strong> Webex and related communications — a smaller, contested category.</li>
+    </ul>
+    <p><strong>Structural pivots.</strong> Two matter. First, <em>AI networking</em>: Ethernet fabrics for AI clusters, where Cisco is pushing to be the non-NVIDIA, non-Arista alternative for back-end and front-end networks as AI data centres scale. Second, <em>Splunk observability</em>: shifting the mix from one-off hardware toward software and recurring revenue.</p>
+    <div class="callout warn"><strong>Open question — stated plainly:</strong> No verified segment revenue split was confirmed in this research pass. Do not treat any segment percentages for CSCO elsewhere as verified here; check the latest 10-Q for the audited split before sizing up beyond the 1.0% starter weight.</div>
+    <p><strong>Supply-chain dependencies.</strong> Like all hardware networking vendors, Cisco depends on contract manufacturing and component supply (notably advanced silicon from merchant suppliers including Broadcom) — the same dependency that makes hardware cyclicality a standing risk below.</p>
+  </section>
+
+  <section>
+    <h2><i>Section 2</i>Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <div class="two">
+      <div>
+        <p><strong>Valuation today.</strong> At $104.51, CSCO trades on a trailing P/E of <strong>31.06–31.29×</strong> (provider range) with a <strong>1.61% dividend yield</strong> and a $412.04B market cap on 3.943B shares. That multiple is the story: for a company modelled below at ~6% base-case revenue growth, 31× is a re-rated price, not a value price.</p>
+        <p><strong>Performance context.</strong> +35.7% YTD and +43.0% over one year to 30 Oct 2026. The pack's read, carried here verbatim in substance: the stock has <em>re-rated on the AI-networking narrative, not on high growth</em>. That distinction is the whole risk — if the narrative cools, the multiple, not the earnings, does the falling.</p>
+      </div>
+      <div>
+        <p><strong>What is not in this pack.</strong> Forward P/E, P/S, EV/EBITDA, free-cash-flow, buyback/dividend totals, and debt-to-equity were not independently verified for CSCO in this pass, so they are <strong>omitted rather than estimated</strong>. The modelled scenario work in Section 5 uses an explicit estimated revenue base of ~$58B and a 21% base net margin — labelled as estimates there, not as reported financials.</p>
+        <p><strong>Capital return signal.</strong> The 1.61% yield confirms Cisco remains a dividend payer; treat income + modest growth, not capital appreciation alone, as the return engine at this entry price.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2><i>Section 3</i>Competitive Moat &amp; Industry Positioning</h2>
+    <ul>
+      <li><strong>Installed base:</strong> decades of enterprise deployments that are expensive and risky to rip out — the deepest part of the moat.</li>
+      <li><strong>IOS / certification ecosystem:</strong> a generation of network engineers trained and certified on Cisco — switching vendors means retraining people, not just swapping boxes.</li>
+      <li><strong>Channel:</strong> a global reseller and partner network that keeps Cisco in enterprise deals by default.</li>
+      <li><strong>Security integration:</strong> bundling security with networking raises the cost of unbundling to a best-of-breed rival.</li>
+    </ul>
+    <p><strong>Primary competitors:</strong> Arista Networks (the key threat in AI / hyperscale networking), Broadcom (silicon layer), Juniper / HPE, and Palo Alto Networks where security overlaps. Cisco's moat is strongest on campus / enterprise ground and weakest exactly where growth is fastest — hyperscale AI clusters, where Arista leads.</p>
+  </section>
+
+  <section>
+    <h2><i>Section 4</i>Catalysts &amp; Downside Risks</h2>
+    <div class="two">
+      <div><p><strong>Catalysts</strong></p><ul>
+        <li>AI-cluster Ethernet wins as AI data-centre build-out broadens beyond the first hyperscalers</li>
+        <li>Splunk cross-sell into the networking installed base lifting recurring-revenue mix</li>
+        <li>Consensus target of $128.52 (MarketBeat, cited) implies the Street still sees ~23% upside from $104.51</li>
+      </ul></div>
+      <div><p><strong>Risks</strong></p><ul>
+        <li>Arista share loss in hyperscale — losing the fastest-growing segment while defending the slowest</li>
+        <li>Enterprise spending slowdown hitting the core campus business</li>
+        <li>Hardware cyclicality — component and inventory cycles Cisco cannot fully control</li>
+        <li>Multiple compression: at ~31× trailing, disappointment is priced harshly</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2><i>Section 5</i>Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="sans" style="font-size:13px;color:var(--muted)">All scenario prices below are <strong>MODELLED ESTIMATES</strong> — not verified facts and not analyst targets. Methodology is shown so the arithmetic can be checked. Base inputs (estimates): revenue ~$58B, shares 3.94B held frozen, base net margin 21%.</p>
+
+    <p><strong>12–18 month horizon</strong> (pack scenarios)</p>
+    <div class="bar-row"><span>Bear</span><div class="bar"><i style="width:63%;background:var(--red)"></i></div><b>$85</b></div>
+    <div class="bar-row"><span>Base</span><div class="bar"><i style="width:85%;background:var(--accent)"></i></div><b>$115</b></div>
+    <div class="bar-row"><span>Bull</span><div class="bar"><i style="width:100%;background:var(--accent2)"></i></div><b>$135</b></div>
+    <p style="font-size:14px;color:var(--muted)">Vs. $104.51 today: base case +10%, bull +29%, bear −19%. Note the separate MarketBeat consensus target of $128.52 sits between base and bull.</p>
+
+    <p><strong>5-year projection</strong> — frozen-parameter format (share count held constant; only growth, margin and exit P/E vary)</p>
+    <table>
+      <tr><th>Case (weight)</th><th class="num">Rev. growth/yr</th><th class="num">Net margin</th><th class="num">2031 revenue</th><th class="num">2031 EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr>
+      <tr><td>Bear (25%)</td><td class="num">2%</td><td class="num">18%</td><td class="num">—</td><td class="num">—</td><td class="num">18×</td><td class="num"><strong>$53</strong></td></tr>
+      <tr><td>Base (50%)</td><td class="num">6%</td><td class="num">21%</td><td class="num">$77.6B</td><td class="num">$4.14</td><td class="num">26×</td><td class="num"><strong>$108</strong></td></tr>
+      <tr><td>Bull (25%)</td><td class="num">9%</td><td class="num">23%</td><td class="num">—</td><td class="num">—</td><td class="num">30×</td><td class="num"><strong>$156</strong></td></tr>
+    </table>
+    <p>Base-case check: $58B × 1.06<sup>5</sup> ≈ $77.6B revenue × 21% margin = $16.3B net income ÷ 3.94B shares = $4.14 EPS × 26 = <strong>$108</strong>. Probability-weighted (25/50/25): <strong>$106</strong> — essentially today's $104.51. That is the honest maths behind a Hold on both horizons: the dividend and any AI-networking upside carry the return, not the entry multiple.</p>
+  </section>
+
+  <section>
+    <h2><i>Section 6</i>Recommendation &amp; Portfolio Fit</h2>
+    <div class="verdict">
+      <div class="vbox"><h3>Short term (12–18 mo) — <span class="pill hold">HOLD</span></h3><p style="margin:0;font-size:15px">After +43% in a year at ~31× trailing earnings, the near-term path to the $115 base case is real but thin. Hold existing positions; new money has better entry points elsewhere in the sector until the multiple cools or AI-networking orders prove out.</p></div>
+      <div class="vbox"><h3>Long term (5 yr) — <span class="pill hold">HOLD</span></h3><p style="margin:0;font-size:15px">Weighted modelled value $106 ≈ price. The installed-base moat, dividend, and Splunk/AI options make it a steady compounder worth keeping — but at 1.0% weight it is a stabiliser in this portfolio, not a growth engine.</p></div>
+    </div>
+    <div class="calc">
+      <label for="pv">Position-size calculator — your total portfolio value ($)</label>
+      <input id="pv" type="number" value="500000" min="0" step="1000"/>
+      <div class="calc-out" id="out"></div>
+      <p style="font-size:12px;color:var(--muted);margin:8px 0 0">At the recommended 1.0% weight and $104.51/share. Illustrative only — research views, not investment advice.</p>
+    </div>
+  </section>
+
+  <details>
+    <summary>Verification &amp; methodology notes</summary>
+    <p style="font-size:14px">Price, market cap, share count, trailing P/E range, dividend yield, YTD / 1-year returns and the $128.52 consensus target are carried from the research pack for CSCO (Information Technology pack, price reference 30 Oct 2026 close), which was independently checked in the sector verification pass. Sector ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; Samsung / SK Hynix appear in that source's global ranking but are excluded from detail (foreign listings, not in the named set). All 5-year and 12–18-month scenario prices are modelled estimates with assumptions shown — scenario weights (25/50/25) are as given in the pack. Segment revenue split, forward multiples, FCF and leverage for CSCO were not verified in this pass and are omitted, not estimated.</p>
+  </details>
+
+  <div class="foot sans">
+    <p><strong>Sources</strong></p>
+    <ul>
+      <li><a href="https://finnhub.io/?q=%22CSCO%22">Finnhub — CSCO quote &amp; fundamentals</a></li>
+      <li><a href="https://www.marketbeat.com/stocks/NASDAQ/CSCO/?Vote=1">MarketBeat — CSCO (consensus target $128.52 as cited)</a></li>
+      <li><a href="https://www.financecharts.com/sectors/information_technology?columns=custom-performance">FinanceCharts — Information Technology sector ranking (basis for top-10 selection)</a></li>
+    </ul>
+    <p>Research views only, not guarantees, not investment advice. Prepared for a mid-30s investor profile, risk score 8/10, as of 1 Nov 2026.</p>
+  </div>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>CSCO — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $104.51.</strong> <strong>DCF intrinsic: $56.</strong> Discount/premium vs DCF: <strong>+86.6%</strong> — i.e. the shares are trading 86.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$56</td><td>+86.6%</td></tr></table>
+<p><strong>Method 1 — DCF: $56.</strong> Base FCF $12.77B, constant growth g = 6% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $104.75B; Year-10 FCF = $22.87B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $129.74B. Equity value = PV of FCF + PV of terminal value + net cash ($-13.60B) = $220.89B; divided by 3.943B diluted shares = $56. Base note: FY2026 FCF $12.77B (OCF $14.18B less capex, SEC-filing analysis). Net cash: cash + investments $15.9B less total debt $29.5B (Splunk-deal legacy).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://sec-api.io/insights/cisco-csco-fy2026-annual-results-analysis-ai-infrastructure-orders-purchase-commitments-margins-peers-and-scenarios-to-fy2030 ; https://www.dalalbytes.com/research/cisco-five-pillar-analysis.html ; http://tickeron.com/dividends/CSCO/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CSCO — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of CSCO's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>AI-cluster Ethernet + enterprise networking (hyperscale buyer)</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Amazon</td><td>Data-center networking — AWS</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Alphabet (Google)</td><td>Data-center networking — Google Cloud</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Meta Platforms</td><td>Data-center networking</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>AT&T</td><td>Service-provider routing/switching</td><td></td><td>$14.31</td><td>+49.6%</td></tr><tr><td>Verizon</td><td>Service-provider networking</td><td></td><td>$25.07</td><td>+78.4%</td></tr><tr><td>Comcast</td><td>Service-provider networking (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Cisco's read-through runs through hyperscale AI-cluster spending and service-provider capex: discounts at the filled hyperscaler and carrier intrinsics would be a potential tailwind for AI Ethernet orders (the pack cites $9.3B of FY2026 AI infrastructure orders), while premiums would warn of order delays. An undervalued customer does not guarantee higher networking spending — it depends on each buyer's own architecture choice (notably Arista as the rival) and cash position — and Cisco's core enterprise base is mature, so the AI-networking leg carries the read-through. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CSCO — AI trade positioning</h2>
+<p><strong>Role: Beneficiary — AI networking, second-order.</strong> Cisco is a second-order AI beneficiary: AI-cluster Ethernet and Splunk observability are the growth pivots in the pack, with $9.3B of FY2026 AI infrastructure orders from hyperscalers, against a mature core campus/enterprise networking base.</p>
+<p>While the AI trade runs, demand comes through AI-cluster Ethernet build-outs and Splunk cross-sell, with FY2027 guidance of $72.2–73.4B revenue in the pack's coverage. On multiples, Cisco has already re-rated (pack: YTD +35.7%, trailing P/E ~31x) on the AI-networking narrative rather than on high growth, so the multiple carries narrative risk.</p>
+<p>If the AI trade unwinds, demand breaks first through hyperscaler AI-fabric delays, where Arista — the pack's named rival — contests share directly, and through enterprise spending slowdowns hitting the core base. Multiple compression follows back toward a through-cycle networking multiple, below the current AI-narrative premium. The balance sheet carries the Splunk legacy: $15.9B of cash and investments against $29.5B of debt (net debt ~$13.6B), manageable but not a fortress. Triggers to watch: AI infrastructure order intake, Arista share commentary, Splunk ARR, and enterprise order trends.</p>
+</div>
+</main>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), out=document.getElementById('out');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(pv.value)||0; var dollars=v*0.01; var shares=dollars/104.51;
+    out.innerHTML='1.0% of $'+fmt(v)+' = <strong>$'+fmt(dollars)+'</strong> ≈ <strong>'+fmt(shares)+' shares</strong> at $104.51.';
+  }
+  pv.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

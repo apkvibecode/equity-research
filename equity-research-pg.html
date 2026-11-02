@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — PG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 84px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Consumer Staples</span><span>Household &amp; Personal Products</span></div>
+  <h1>Procter &amp; Gamble <span class="tick">(NYSE: PG)</span></h1>
+  <p class="lede">The archetypal defensive compounder — category-leading brands in 180+ countries, a 17.9% net margin and a 2.70% dividend yield — now showing the classic staples squeeze: Q1 FY2027 revenue grew ~4.0% while earnings grew only ~0.8%. The quality is not in question. Growth is the constraint, and at 23.5× trailing earnings the price already assumes it returns.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $161.57 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q1 FY2027, reported 22 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">PG — this report</span>
+    <span class="tab">Consumer Staples sector</span>
+  </div>
+  <p class="small" style="margin-top:10px">Sector ranking basis: FinanceCharts, last updated 30 Oct 2026. WMT is #1 in this sector. Prices throughout are the 30 Oct 2026 close. Market-cap and P/E figures are vendor-labelled where vendors diverge — see §2.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$161.57</div><div class="vsub">NYSE: PG · Consumer Staples</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap (Finnhub)</div><div class="vbig mono">$377.2B</div><div class="vsub">Research-pack figure $374.5B — vendor-divergent, Finnhub basis used here</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing / Forward P/E</div><div class="vbig mono">23.54× / 22.91×</div><div class="vsub">Trailing P/E confirmed on Finnhub basis · Div. yield 2.70%</div></div>
+  <div class="vcell span3"><div class="vlabel">Wall Street target</div><div class="vbig mono">$173.65 <span class="up" style="font-size:16px">+7.5%</span></div><div class="vsub">Consensus target as carried in the research pack</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Base case $174 (consensus) is only ~+7.5% away — limited upside at this multiple until volume growth improves.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled weighted value $188 — a quality hold, not a growth engine, in this framework.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2% of portfolio</div><div class="vsub">Defensive ballast inside the staples sleeve. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q1 FY27</span><h2>The quarter in one view</h2></div>
+  <p>The 22 Oct 2026 Q1 FY2027 print, as summarised by Tradestie, is the whole PG story in two numbers: <b>revenue growth ~4.0% year-on-year, earnings growth ~0.8%</b>. Pricing and mix are still carrying the top line, but costs, volume softness and investment are absorbing almost all of it before it reaches earnings. That gap — not demand collapse, not a broken brand — is what a Hold rating prices.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Trailing twelve months</th><th class="n">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue (TTM)</td><td class="n">$87.92B</td><td>The scale base for the 5-year model in §5</td></tr>
+      <tr><td>Net income (TTM)</td><td class="n">$15.74B</td><td>Net margin 17.9% — held as the frozen base-case margin in §5</td></tr>
+      <tr><td>Net margin</td><td class="n">17.9%</td><td>Elite for staples; the bull case only assumes 19%, the bear 16%</td></tr>
+      <tr><td>Q1 FY2027 revenue growth</td><td class="n">~+4.0% YoY</td><td>Per Tradestie summary of the 22 Oct 2026 print</td></tr>
+      <tr class="hl"><td>Q1 FY2027 earnings growth</td><td class="n">~+0.8% YoY</td><td>The squeeze: ~4% sales growth converting to under 1% earnings growth</td></tr>
+      <tr><td>Dividend yield</td><td class="n">2.70%</td><td>Consistent payer; exact TTM dividend and buyback amounts were not verified in the research pack — see §2</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: research pack figures, independently verified for price and trailing P/E (Finnhub basis); Q1 FY2027 growth rates per Tradestie summary linked in Sources.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>TTM income flow — where $87.92B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 240" width="100%" role="img" aria-label="Flow of PG trailing revenue into combined costs and net income" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="70" width="210" height="80" fill="var(--navy)"/><text x="24" y="104" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="24" y="124" font-size="13" fill="#fff">$87.92B</text>
+      <line x1="218" y1="96" x2="420" y2="62" stroke="var(--muted)" stroke-width="14" opacity=".35"/>
+      <line x1="218" y1="128" x2="420" y2="168" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <rect x="424" y="26" width="300" height="72" fill="var(--chip)" stroke="var(--line2)"/><text x="440" y="54" font-size="13" font-weight="700" fill="var(--ink)">All costs, expenses &amp; taxes</text><text x="440" y="74" font-size="12" fill="var(--ink2)">$72.18B · combined residual</text>
+      <rect x="424" y="140" width="300" height="72" fill="var(--green-soft)" stroke="var(--line2)"/><text x="440" y="168" font-size="13" font-weight="700" fill="var(--ink)">Net income</text><text x="440" y="188" font-size="12" fill="var(--ink2)">$15.74B · 17.9% margin</text>
+      <rect x="760" y="84" width="212" height="56" fill="var(--paper)" stroke="var(--line2)"/><text x="774" y="108" font-size="12.5" font-weight="700" fill="var(--ink)">Dividend yield 2.70%</text><text x="774" y="126" font-size="12" fill="var(--ink2)">Consistent payer</text>
+      <line x1="724" y1="176" x2="756" y2="118" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+    </svg>
+    <figcaption>The $72.18B is a combined residual ($87.92B revenue − $15.74B net income), labelled as such — the research pack does not break out gross profit or operating lines for PG, so none are shown. TTM figures as carried in the verified research pack.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>P&amp;G sells everyday consumables under category-leading brands, in <b>180+ countries</b>, with <b>~104,000 employees</b> (Fool). The model is repetition, not novelty: products bought weekly or monthly, defended by brand trust, retailer shelf power, R&amp;D and procurement scale, and monetised through steady pricing and premiumisation — with the limits on that pricing power now visible in the volume response (§4).</p>
+  <h3>The five segments</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment</th><th>Anchor brands / categories (as named in the research pack)</th><th>Role in the portfolio</th></tr></thead>
+    <tbody>
+      <tr><td>Fabric &amp; Home Care</td><td>Ariel, Tide</td><td>Laundry and home care — the habitual-purchase core</td></tr>
+      <tr><td>Baby, Feminine &amp; Family Care</td><td>Pampers, Bounty</td><td>Diapers, feminine care and paper — trust-sensitive, brand-loyal categories</td></tr>
+      <tr><td>Beauty</td><td>Beauty portfolio</td><td>Premiumisation-led; higher margin, more discretionary</td></tr>
+      <tr><td>Grooming</td><td>Gillette</td><td>Razors and grooming — a historic pricing-power franchise under structural pressure from value rivals</td></tr>
+      <tr><td>Health Care</td><td>Health care portfolio</td><td>Personal health consumables — defensive, regulated categories</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">The research pack names the five segments and the anchor brands above; it does not carry a verified per-segment revenue split for PG, so none is presented here rather than estimated.</p>
+  <h3>Structural features</h3>
+  <ul>
+    <li><b>Geographic breadth:</b> 180+ countries diversifies single-market risk, but exposes earnings to FX translation and emerging-market consumer cycles.</li>
+    <li><b>Supply chain:</b> scale procurement is a genuine cost advantage; the dependency runs the other way too — input-cost inflation (resins, pulp, energy, freight) lands directly in the margin line, as the Q1 FY27 earnings squeeze suggests.</li>
+    <li><b>Retailer dependence:</b> shelf power is the moat and the channel — large retailers (WMT is this sector's #1 by the FinanceCharts ranking basis) are both P&amp;G's route to market and its toughest price negotiators, and their private labels are the share threat in §4.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>A premium multiple on a low-growth base. At <b>23.54× trailing</b> and <b>22.91× forward</b> earnings, PG trades like a growth asset while currently growing earnings at ~0.8%. The defence is the quality underneath: 17.9% net margin, a 2.70% yield, and free cash flow described in the pack as strong.</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $161.57 (30 Oct 2026 close). Vendor named where the verification log found divergence.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">23.54×</td><td>CONFIRMED on Finnhub basis in the verification log</td></tr>
+      <tr><td>Forward P/E</td><td class="n">22.91×</td><td>Only a small discount to trailing — the market expects modest, not dramatic, earnings recovery</td></tr>
+      <tr><td>Market cap</td><td class="n">$377.2B</td><td>Finnhub basis. Pack figure was $374.5B — vendor-divergent by share-count treatment; do not mix vendors</td></tr>
+      <tr><td>Price / Sales (derived)</td><td class="n">~4.3×</td><td>Finnhub cap ÷ $87.92B TTM revenue — arithmetic on the two figures above, not a vendor quote</td></tr>
+      <tr><td>TTM revenue / net income</td><td class="n">$87.92B / $15.74B</td><td>Net margin 17.9%</td></tr>
+      <tr><td>Free cash flow</td><td class="n">Strong — exact TTM figure not verified</td><td>The pack states FCF is strong but carries no verified TTM number, so none is quoted</td></tr>
+      <tr><td>Dividend</td><td class="n">2.70% yield</td><td>Consistent payer with buybacks alongside; exact TTM amounts were not verified (n.v.) in the pack and are not quoted</td></tr>
+      <tr><td>Leverage / debt-to-equity</td><td class="n">Not in pack</td><td>No verified leverage figure was carried in the research pack for PG — omitted rather than estimated</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Vendor discipline — read this before quoting the cap</div>
+  <p>The independent verification log found PG's price ($161.57) and trailing P/E (23.54×) <b>confirmed on a Finnhub basis</b>, but the market cap <b>vendor-divergent</b> ($377.21B Finnhub vs $374.5B in the pack). This report uses the Finnhub figure and labels it. The same warning applies across the staples sector — caps and P/Es should never be mixed silently between Finnhub and MarketBeat.</p></div>
+  <h3>Capital allocation</h3>
+  <ul>
+    <li><b>Dividends:</b> a consistent payer at a 2.70% yield — for this profile PG is held partly as an income-carrying defensive.</li>
+    <li><b>Buybacks:</b> run alongside the dividend per the pack; amounts not verified, so no pace is claimed.</li>
+    <li><b>R&amp;D:</b> a named moat pillar (§3) — sustained product innovation is what defends shelf space against private label.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide, but contested at the value end.</b> P&amp;G's advantages are the classic staples stack — category-leading brands, retailer shelf power, R&amp;D depth and scale procurement. The limit is equally classic: pricing power works until the consumer trades down, and Q1 FY27's +4.0% / +0.8% split is what that limit looks like in numbers.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Category-leading brands</b> across five segments — Tide/Ariel, Pampers, Gillette and peers are default choices in trust-sensitive categories.</li>
+      <li><b>Retailer shelf power:</b> scale makes P&amp;G a must-stock supplier; shelf presence is itself advertising.</li>
+      <li><b>R&amp;D and innovation pipeline</b> supporting premiumisation — charging more for measurably better products rather than for the label alone.</li>
+      <li><b>Scale procurement:</b> purchasing leverage across 180+ countries cushions input inflation relative to smaller rivals.</li>
+      <li><b>Pricing power, demonstrated over cycles</b> — the franchise has repeatedly passed through cost inflation, albeit with the volume cost now showing.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Private-label share gains</b> — retailer own-brands are the structural share threat named in the pack, strongest exactly when consumers soften.</li>
+      <li><b>Volume vs price trade-off:</b> earnings +0.8% on revenue +4% shows pricing-led growth is no longer falling cleanly to the bottom line.</li>
+      <li><b>Branded peers</b> in each category compete on the same shelf; no segment is uncontested.</li>
+      <li><b>Grooming disruption:</b> value-led rivals permanently reset price expectations in razors.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> real, but at its elastic limit in the current consumer environment — further price-led growth risks volume and private-label switching. <b>Barriers to entry:</b> brand trust and shelf access take decades to build; the realistic threat is not a new entrant but the retailer's own label.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Premiumisation</b> — mix shift toward higher-value tiers is the cleanest path back to earnings growth without volume heroics.</li>
+        <li><b>Innovation</b> — new-product news flow that justifies price points and defends shelf space.</li>
+        <li><b>Emerging markets</b> — the 180+ country footprint is the long-run volume runway as middle-class consumption grows.</li>
+        <li><b>Earnings-conversion repair</b> — any quarter where earnings growth re-converges toward revenue growth would directly challenge the Hold thesis.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Volume vs price trade-off</b> — the central risk, already visible: +4.0% revenue, +0.8% earnings.</li>
+        <li><b>Private-label share gains</b> — accelerates in a soft consumer environment.</li>
+        <li><b>Input and FX costs</b> — commodity and currency moves hit a 17.9% margin with little offset if pricing is tapped out.</li>
+        <li><b>US consumer softness</b> — trading down is the transmission channel for all of the above.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would change the call</div><p>Two or more quarters of earnings growth at or above revenue growth — evidence the squeeze was cost timing, not structure — would make 23.5× defensible and argue for an upgrade. The reverse (revenue growth fading toward 1–2% with earnings flat) puts the bear case in §5 in play.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All scenario prices below are <b>modelled estimates</b> from the research pack — not verified facts and not analyst targets. The only external target carried is the Wall Street consensus of <b>$173.65 (+7.5%)</b>, which the pack uses as the 12–18-month base.</p>
+  <h3>12–18-month view</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon case</th><th class="n">Target</th><th class="n">vs $161.57</th><th>Basis</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Base (consensus)</td><td class="n">$174</td><td class="n">+7.5%</td><td>Wall Street consensus target $173.65, carried in the pack — rounded to $174 in its 12–18m base</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">The pack supplies no separate modelled bear/bull targets for the 12–18-month horizon for PG, so none are invented here. The scenario range below is the 5-year model.</p>
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Starting point: <b>TTM revenue $87.92B</b> and <b>base net margin 17.9%</b>. Each case varies revenue growth, the steady-state net margin and the exit P/E exactly as specified in the pack. Share count is held frozen under the standard convention of this series. Weights are shown so the weighted figure can be checked: 0.25 × $128 + 0.50 × $185 + 0.25 × $251 = $187.25, which the pack rounds to <b>$188</b>.</p>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$128</div><div class="ret down">−20.8% vs $161.57</div><p><b>Growth 1%/yr · margin 16% · exit P/E 19×.</b> Price-led growth exhausts, private label takes share, and the multiple de-rates to a no-growth staples level.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$185</div><div class="ret up">+14.5% vs $161.57</div><p><b>Growth 3%/yr · margin 17.9% · exit P/E 23.54×.</b> Today's margin and multiple simply persist on slow, steady compounding.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$251</div><div class="ret up">+55.3% vs $161.57</div><p><b>Growth 5%/yr · margin 19% · exit P/E 26×.</b> Premiumisation and emerging markets deliver, margins expand, and the market pays a quality premium again.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Modelled weighted value (5-yr)</div><div class="wv mono">$188</div></div><p>Modelled estimate, methodology above: 25/50/25 weights on bear/base/bull. +16% over five years plus a 2.70% yield is a bond-plus return profile — exactly what a 2% defensive sizing assumes.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. In an 8/10 portfolio a name like PG is not there for return maximisation — it is ballast that still compounds.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td>Consensus base $174 is only +7.5% away; at 23.54× trailing with earnings growing ~0.8%, there is no reason to chase and no quality reason to sell.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td>Modelled weighted value $188 (+16% over 5 years) plus the 2.70% yield — quality, but growth is the constraint, per the pack's recommendation.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>PG target: 2% of total portfolio</b> — a defensive staples position, sized for stability and income rather than growth.</li>
+    <li><b>Role in the sector sleeve:</b> within Consumer Staples, PG is the quality anchor alongside the sector's #1, WMT (FinanceCharts ranking basis) — PG for margin and yield, not for multiple expansion.</li>
+    <li><b>Revisit triggers:</b> upgrade case if earnings growth re-converges with revenue growth for two quarters; trim case if the shares reach the bull path (~$251 modelled) without the 5% growth to support it.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 2% target weight above. Illustration only, not a recommendation for any specific portfolio.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Procter & Gamble (PG)</h2>
+<p><strong>Price (30 Oct 2026 close): $161.57.</strong> <strong>DCF intrinsic: $87.</strong> Discount/premium vs DCF: <strong>+85.7%</strong> — i.e. the shares are trading 85.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$87</td><td>+85.7%</td><td>Base Normal DCF: TTM FCF $15.34bn (OCF $19.91bn - capex $4.58bn, TipRanks). Net cash = cash $15.37bn - debt $38.92bn = -$23.56bn (Sep 2026). Growth g 3%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $108.76bn + PV of terminal value $116.95bn + net cash / excess capital $-23.56bn, ÷ 2.318bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/PG/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Procter & Gamble (PG)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list (retailers are distribution channels, not end customers). Demand is driven by household staples volumes, premiumisation, and pricing power across beauty, grooming, health, fabric and home care.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Procter & Gamble (PG)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Procter & Gamble’s exposure is operational: AI can improve product development, marketing effectiveness and supply-chain efficiency across its household brands, but the pack’s thesis is slow, quality growth and pricing power, not AI revenue.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is modest: at ~24x trailing earnings PG carries a staples-quality premium, so an AI unwind would compress it only as part of a general defensive de-rating.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — household staples volumes are defensive and break last; (2) multiple — modest compression toward a through-cycle level; (3) balance sheet — net debt of $23.56bn against $15.34bn TTM free cash flow is comfortable, with no AI-capex debt. Triggers to watch: organic sales growth, pricing versus volume mix, and any broad de-rating of quality staples.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Figures are from the verified research pack for PG (Consumer Staples), as of 1 Nov 2026, price reference 30 Oct 2026 close. Independent verification: price and trailing P/E confirmed (Finnhub); market cap vendor-divergent — Finnhub basis used and labelled. All scenario prices are modelled estimates with methodology shown in §5, never verified facts. Research views only, not guarantees, not investment advice.</p>
+  <ol class="refs">
+    <li>Motley Fool — company profile: segments, 180+ countries, ~104,000 employees (as cited in the research pack)</li>
+    <li>FinanceCharts — Consumer Staples sector table, last updated 30 Oct 2026 (ranking basis; WMT #1 in sector)</li>
+    <li><a href="https://tradestie.com/stocks/PG/buy-or-sell-now/" target="_blank" rel="noopener">Tradestie — PG: Q1 FY2027 summary (revenue ~+4.0%, earnings ~+0.8%) and buy/sell view</a></li>
+    <li><a href="https://finnhub.io/?q=%22PG%22" target="_blank" rel="noopener">Finnhub — PG price, market cap ($377.21B) and trailing P/E (23.54×) verification basis</a></li>
+  </ol>
+  <p class="disc">This report is research commentary prepared for a mid-30s investor profile with a self-rated risk score of 8/10. It is not investment advice, not a solicitation, and not a guarantee of future results. Modelled targets are estimates whose assumptions are shown alongside them; figures marked not verified (n.v.) in the underlying research — including the exact TTM free-cash-flow figure and dividend/buyback amounts — have been omitted or labelled rather than estimated. Verify current prices and filings before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  var WEIGHT=0.02, PRICE=161.57;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2% sizing.';return;}
+    var dollars=v*WEIGHT, shares=dollars/PRICE;
+    out.innerHTML='PG at <b>2%</b> = <b>$'+fmt(dollars)+'</b> ≈ <b>'+fmt(shares)+' shares</b> at $161.57.';
+  }
+  input.addEventListener('input',render);
+  render();
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    links.forEach(function(a){
+      a.addEventListener('click',function(){
+        links.forEach(function(x){x.style.color='';x.style.borderBottomColor='transparent';});
+        a.style.color='var(--blue)';a.style.borderBottomColor='var(--blue)';
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>

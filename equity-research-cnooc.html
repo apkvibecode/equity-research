@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CNOOC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#102f3a; --blue:#0b5c6b; --blue-soft:#e0edef;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1214; --paper:#141a1d; --ink:#e8e6df; --ink2:#b9c2c6; --muted:#8b969b;
+    --line:#2a3338; --line2:#3a454b;
+    --navy:#a8cdd4; --blue:#6fb6c3; --blue-soft:#193038;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171e22; --chip:#1e282c;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)} .vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)} .up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)} section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)} p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)} li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0} .warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 86px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)} .bar-track{height:16px;background:var(--chip)} .bar-fill{height:100%;background:var(--blue)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px} @media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:118px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0} @media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.11em;text-transform:uppercase} .pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0} @media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600} .sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#193038;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700} .wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:64ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.05em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)} .pill.hold{background:var(--amber-soft);color:var(--amber)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.05em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)} .calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px} @media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:90ch}
+.est{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--amber);text-transform:uppercase}
+.unv{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--red);text-transform:uppercase}
+@media print{nav.toc{position:static} body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Offshore Oil &amp; Gas · State-Controlled</span></div>
+  <h1>CNOOC <span class="tick">(Shanghai: 600938 · ex-US OTC: CEO)</span></h1>
+  <p class="lede">China's offshore oil champion is, on the pack's figures, one of the cheapest large energy names in this coverage set — a ~$166B market cap on $64.6B of trailing revenue at a 7.3× P/E on its Shanghai listing. But this note's headline is not the valuation; it is <b>access</b>. CNOOC was delisted from the NYSE in 2021 under US sanctions, so for a US-account investor the researched conclusion is blunt: the business can be analysed, but it cannot sensibly be owned directly. Hold the view, not the stock — weight 0% via a US account.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> 30 Oct 2026 close (Shanghai listing)</span>
+    <span><b>Primary listings:</b> Shanghai (600938) · Hong Kong</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <p class="small" style="margin-top:10px"><b>Ranking basis:</b> Global top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026; prices at 30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ. Names are not in strict market-cap order as printed in the source ranking.</p>
+  <div class="callout warn"><div class="ct">Verification status — read this first</div>
+  <p>CNOOC's price, market cap and P/E were <b>not re-checked</b> in the independent verification pass for this sector (the log explicitly lists CNOOC among the names not re-checked, because its listings are foreign/OTC and its closes are less comparable). Every figure below that rests on the research pack alone is flagged <span class="unv">Unverified</span> and should be confirmed against the primary listing before any use. All scenario prices are <span class="est">modelled estimates</span> with methodology shown — never verified facts.</p></div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Shanghai price · 600938 <span class="unv">Unverified</span></div><div class="vbig mono">CNY 35.97</div><div class="vsub">As carried in the research pack (Finnhub). No US exchange price exists — NYSE delisted 2021</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="unv">Unverified</span></div><div class="vbig mono">$166.0B</div><div class="vsub">Motley Fool, as of 2 Oct 2026 (CNY-converted)</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/E (Shanghai) <span class="unv">Unverified</span></div><div class="vbig mono">7.3×</div><div class="vsub">Finnhub, as carried in the pack — the cheapest multiple in this energy set, if confirmed</div></div>
+  <div class="vcell span3"><div class="vlabel">US access</div><div class="vbig mono" style="font-size:21px">Delisted</div><div class="vsub down">NYSE delisting 2021 on US sanctions; US OTC ticker in the Fool table is CEO, with no price shown</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">A view on the Shanghai/HK listings only — not actionable via a US account.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Cheap multiple and offshore growth, offset by sanctions and geopolitical overhang that a US holder cannot diversify away.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">0% via US account</div><div class="vsub">Access, not valuation, sets the weight. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The name in one view</h2></div>
+  <p>CNOOC — China National Offshore Oil Corporation — is a <b>state-owned offshore producer</b> operating in <b>20+ countries</b>, including Indonesia, Iraq and the UAE (Motley Fool, via the research pack). It is China's offshore specialist: where PetroChina is the onshore incumbent, CNOOC is the company built for deepwater exploration and production, with the low lifting costs and state backing that combination implies.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Item</th><th class="n">Figure</th><th>Status &amp; read</th></tr></thead>
+    <tbody>
+      <tr><td>Market cap</td><td class="n">$166.0B</td><td><span class="unv">Unverified</span> — <a href="https://www.fool.com/research/largest-energy-companies/" target="_blank" rel="noopener">Motley Fool, largest energy companies</a>, as of 2 Oct 2026, CNY-converted; not re-checked in verification</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$64.6B</td><td><span class="unv">Unverified</span> — Fool, CNY-converted, as carried in the pack</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$43.8B</td><td><span class="unv">Unverified</span> — Fool, CNY-converted. Implies a gross margin of ~68% ($43.8B ÷ $64.6B, arithmetic on unverified inputs) — consistent with a low-cost upstream producer, but only as reliable as its inputs</td></tr>
+      <tr><td>Shanghai price (600938.SS)</td><td class="n">CNY 35.97</td><td><span class="unv">Unverified</span> — <a href="https://finnhub.io/?q=%22600938%2ESS%22" target="_blank" rel="noopener">Finnhub (600938.SS)</a> via the pack; the verification log did not re-check foreign-listing closes</td></tr>
+      <tr><td>P/E (Shanghai)</td><td class="n">7.3×</td><td><span class="unv">Unverified</span> — Finnhub via the pack. Implied EPS ≈ CNY 4.93 (35.97 ÷ 7.3, arithmetic)</td></tr>
+      <tr><td>Price / sales (implied)</td><td class="n">~2.6×</td><td>Arithmetic on the two unverified Fool figures above ($166.0B ÷ $64.6B) — shown for scale only</td></tr>
+      <tr class="hl"><td>US listing status</td><td class="n">Delisted 2021</td><td>NYSE delisting under US sanctions (Fool). The US OTC ticker shown in the Fool table is CEO, with no price shown — there is no liquid US price to target</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">This snapshot is deliberately thinner than the US-listed notes in this series: the verified pack carries no CNOOC earnings release, segment P&amp;L, cash-flow statement or balance-sheet lines, and this note does not invent them. Where a standard diagnostic cannot be sourced, §2 says so explicitly instead of estimating it silently.</p>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>CNOOC's model is the simplest in this energy set: <b>find and produce offshore oil and gas, at low lifting cost, under state ownership</b>. Unlike ExxonMobil or Chevron, there is no large refining and chemicals complex smoothing the cycle — the earnings are upstream earnings, geared directly to the oil and gas price and to offshore production volumes. That purity is both the appeal (maximum torque to offshore growth and gas) and the risk (nothing downstream catches the fall when crude drops).</p>
+
+  <h3>What the pack supports</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Dimension</th><th>Position</th></tr></thead>
+    <tbody>
+      <tr><td>Core activity</td><td>Offshore oil &amp; gas exploration and production — the company's defining specialism, reflected in its name and its asset base</td></tr>
+      <tr><td>Geographic footprint</td><td><b>20+ countries</b>, including <b>Indonesia, Iraq and the UAE</b> named in the pack — a China-anchored producer with a genuinely international offshore portfolio, not a purely domestic one</td></tr>
+      <tr><td>Growth emphasis</td><td>Offshore production growth and <b>natural gas</b> are the pack's named growth legs — gas matters because it is the transition-tolerant half of a hydrocarbon portfolio and a strategic priority for Chinese energy security</td></tr>
+      <tr><td>Ownership</td><td><b>State-owned / state-controlled</b> — the Chinese state is the controlling shareholder, which aligns the company with national energy-security goals as well as commercial ones (see §3 for both edges of that)</td></tr>
+      <tr><td>Listings</td><td>Shanghai (<b>600938</b>) and Hong Kong are the live primary listings. The NYSE listing ended with the <b>2021 delisting on US sanctions</b>; the Fool table's US OTC ticker is <b>CEO</b>, shown without a price</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>What is not broken out — an open gap, stated plainly</h3>
+  <ul>
+    <li><b>No segment revenue or earnings split</b> (oil vs gas, domestic vs overseas, upstream vs any downstream) is carried in the verified research pack, so this note presents none. Any percentage split shown elsewhere for CNOOC was not available to this build on a verified basis.</li>
+    <li><b>No production volumes, reserve figures or per-barrel costs</b> are carried in the pack either. The "low lifting costs" characterisation in §3 is the pack's qualitative assessment, not a figure this note can quote.</li>
+    <li><b>Supply-chain dependencies:</b> as an offshore specialist, the critical dependencies are deepwater rigs, subsea equipment and offshore service capacity — and, uniquely in this set, continued <i>access</i> to Western offshore technology and services under the sanctions regime. That dependency is a risk item (§4), not just an operational one.</li>
+  </ul>
+
+  <div class="bars" aria-label="Scale comparison of the pack's headline figures for CNOOC">
+    <div class="bar-row"><span class="bl">Market cap</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$166.0B</span></div>
+    <div class="bar-row"><span class="bl">TTM revenue</span><div class="bar-track"><div class="bar-fill gold" style="width:39%"></div></div><span class="bv">$64.6B</span></div>
+    <div class="bar-row"><span class="bl">TTM gross profit</span><div class="bar-track"><div class="bar-fill green" style="width:26%"></div></div><span class="bv">$43.8B</span></div>
+  </div>
+  <p class="small">All three bars: Motley Fool figures as of 2 Oct 2026, CNY-converted, <span class="unv">unverified</span> in the independent pass. Shown to convey scale relationships, not precision.</p>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The honest summary of this section is one sentence: <b>on the figures available, CNOOC screens very cheap — and this note cannot verify the balance sheet underneath that cheapness.</b> A 7.3× P/E, if the Finnhub figure is right, is roughly a third of the multiple on the US majors in this set. But the standard diagnostics this series runs — free cash flow, leverage, dividend and buyback detail — are not in the verified pack for CNOOC, and an institutional note does not fill those cells from memory.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — Shanghai reference price CNY 35.97 (pack figure, unverified).</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (Shanghai)</td><td class="n">7.3×</td><td><span class="unv">Unverified</span> — Finnhub via the pack. If accurate, the market is pricing CNOOC as a sanctioned, state-controlled commodity producer, not on its cash generation</td></tr>
+      <tr><td>Implied EPS</td><td class="n">≈ CNY 4.93</td><td>Arithmetic (CNY 35.97 ÷ 7.3×) on unverified inputs — a derived figure, not a reported one</td></tr>
+      <tr><td>Price / Sales</td><td class="n">~2.6×</td><td>Arithmetic on unverified Fool figures ($166.0B cap ÷ $64.6B TTM revenue)</td></tr>
+      <tr><td>Gross margin (implied)</td><td class="n">~68%</td><td>Arithmetic on unverified Fool figures ($43.8B ÷ $64.6B) — high, as expected for low-cost upstream, but unverified</td></tr>
+      <tr><td>EV / EBITDA · forward P/E</td><td class="n">—</td><td>Not carried as verified figures in the research pack, so omitted rather than estimated</td></tr>
+      <tr><td>Free cash flow · operating cash flow</td><td class="n">—</td><td>No cash-flow figures for CNOOC are carried in the verified pack; none are presented</td></tr>
+      <tr><td>Dividends · buybacks</td><td class="n">—</td><td>No verified dividend rate, payout or buyback figures are carried in the pack; this note does not quote a yield it cannot source</td></tr>
+      <tr><td>Leverage / debt-to-equity</td><td class="n">—</td><td>No debt, cash or equity figures are carried in the verified pack. State backing (§3) is a qualitative support factor, not a substitute for a leverage ratio</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="ct">How to read a cheap multiple you cannot fully verify</div>
+  <p>Three discounts are stacked inside that 7.3×: a <b>commodity discount</b> (pure upstream earnings deserve a low multiple), a <b>governance discount</b> (state control means minority holders are not the only constituency), and an <b>access/sanctions discount</b> (a large part of the global investor base literally cannot buy the stock). None of those three is a data error — they are reasons the multiple is low, and they persist whether or not the Finnhub figure is exactly right. The valuation question in §5 is therefore not "is 7.3× mispriced?" but "how much of that discount could plausibly narrow, for a holder who can actually hold it?"</p></div>
+
+  <h3>What to verify before relying on any of this</h3>
+  <ul>
+    <li><b>The Shanghai close and P/E</b> against the exchange or a second vendor — the verification log flags CNOOC's foreign-listing figures as not re-checked, and thin or non-comparable closes are a known issue for the foreign names in this universe.</li>
+    <li><b>The Fool TTM figures</b> (revenue $64.6B, gross profit $43.8B) are CNY-converted snapshots as of 2 Oct 2026 — currency conversion and trailing-window choices move them materially.</li>
+    <li><b>Any balance-sheet claim</b> — cash, debt, dividend — needs a primary-source check against the company's own filings before it is used; none is asserted here.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: real but non-transferable — offshore expertise and state backing that a foreign minority holder benefits from only partially.</b> The pack's three moat words are the right ones: <b>offshore expertise, low lifting costs, state backing</b>. Each is genuine. Each also comes with a matching limit that matters specifically to an outside investor.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Offshore expertise:</b> deepwater exploration and production is one of the most technically demanding activities in energy. CNOOC is China's designated offshore champion, with the accumulated geology, engineering and project record that role implies — a capability rivals cannot buy quickly.</li>
+      <li><b>Low lifting costs:</b> the pack's characterisation, and consistent with the ~68% implied gross margin on the (unverified) Fool figures. In a commodity business, cost position <i>is</i> the moat: the low-cost producer still earns at prices that strand higher-cost supply.</li>
+      <li><b>State backing:</b> as a state-owned producer in a strategically vital sector, CNOOC has preferential access to Chinese offshore acreage, state financing channels and a shareholder whose interest is the company's continuity, not its liquidation value.</li>
+      <li><b>International spread:</b> operations in 20+ countries (Indonesia, Iraq, UAE named) diversify geology and reduce dependence on any single field — though not, as §4 notes, on the geopolitical relationship between China and the West.</li>
+      <li><b>Scale:</b> at a $166.0B market cap (unverified, Fool), CNOOC is one of the world's largest producers — large enough to fund deepwater projects from its own resources.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Commodity price-taker:</b> no pricing power over oil or gas. The moat decides who survives a price fall, not whether earnings fall.</li>
+      <li><b>State control cuts both ways:</b> the controlling shareholder's goals include national energy security and policy objectives. Dividend policy, capex and asset decisions can serve those goals first; minority holders — especially foreign ones — are residual claimants on a partially non-commercial mandate.</li>
+      <li><b>Sanctions as an anti-moat:</b> the 2021 NYSE delisting is the proof case. US sanctions constrain the investor base, index inclusion and potentially access to Western technology and finance — a structural headwind no operational excellence removes.</li>
+      <li><b>Competition:</b> domestically, PetroChina and Sinopec contest the national-champion role onshore; internationally, CNOOC competes for offshore acreage and projects against the Western majors (XOM, SHEL, TTE in this coverage set) and other national oil companies that bid with state balance sheets.</li>
+      <li><b>South China Sea exposure:</b> part of the domestic offshore opportunity sits in contested waters, tying a slice of the growth story to the region's geopolitics (§4).</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> within China, CNOOC's position is close to unassailable — the offshore franchise is designated, not contested. Globally, it is a top-tier producer trading like a restricted security, because for much of the world's capital it is one. The moat protects the business; it does not protect a US investor's access to the business.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Offshore production growth</b> — the pack's lead catalyst. New offshore projects coming onstream raise volumes; for a low-cost producer, volume growth at a steady oil price drops largely to earnings, and it is the one growth lever management controls.</li>
+        <li><b>Natural gas mix</b> — growing the gas share of output supports earnings quality: gas demand is structurally supported by China's energy-security and coal-substitution priorities, and it softens (slightly) the pure crude torque.</li>
+        <li><b>A firm oil price</b> — unglamorous but decisive: at a 7.3× multiple (unverified), even a mid-cycle oil price sustained for a year forces the earnings — and any re-rating debate — into the open for holders of the Shanghai/HK listings.</li>
+        <li><b>Any thaw in access</b> — a change in the sanctions or listing environment would be the single largest re-rating event available to this stock. It is listed as a catalyst for completeness; nothing in the pack suggests it is expected, and §5 assigns it no value in the base case.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Sanctions &amp; market access</b> — the standing, thesis-defining risk. The 2021 delisting already happened; further measures could tighten technology, finance or secondary-market access further, and the risk is binary and political, not gradual and commercial.</li>
+        <li><b>South China Sea geopolitics</b> — escalation in contested waters would hit the domestic offshore growth story directly and the stock's risk premium generally.</li>
+        <li><b>Oil price</b> — a pure upstream producer has no downstream hedge. A deep crude fall compresses earnings at the full beta of the commodity.</li>
+        <li><b>Broader US–China friction</b> — tariffs, export controls and investment restrictions move this stock even when its fields produce exactly to plan, because its register and its listings sit inside that relationship.</li>
+        <li><b>State-shareholder priorities</b> — capital directed to strategic rather than commercial ends, or a dividend policy set by state cash needs, can transfer value away from minority holders without any operational failure.</li>
+        <li><b>Data risk</b> — unusually for this series, even the reference price and multiple here are unverified (see the masthead note). Decisions taken on stale or mis-converted foreign-listing data are a real, mundane risk on this name.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>For a holder of the Shanghai/HK listings: a sanctions escalation or South China Sea event that impairs offshore operations or technology access, or a sustained oil-price collapse with no downstream cushion. For a US investor the thesis is simpler and already broken at the door: there is no liquid, sanctioned-clean US route to own it — which is why §6's weight is 0% regardless of how cheap §2 screens.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><span class="est">Modelled estimates — not verified facts.</span> Consistent with the research pack, <b>there is no US price target for CNOOC</b>: the NYSE listing is gone and the US OTC line carries no usable price. All targets below are in <b>CNY on the Shanghai listing (600938)</b>, built from the pack's reference price of CNY 35.97 — itself <span class="unv">unverified</span> — with prices and weights shown so every weighted figure can be checked arithmetically. Weights used throughout: <b>Bear 25% / Base 50% / Bull 25%</b>.</p>
+
+  <h3>12–18-month targets (Shanghai, CNY)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">CNY 28</div><div class="ret down">−22% vs CNY 35.97</div><p>Oil price falls and the geopolitical premium widens together — sanctions rhetoric hardens or South China Sea tensions rise — compressing the multiple from an already-low base. Offshore volumes cannot offset price plus sentiment.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">CNY 40</div><div class="ret up">+11% vs CNY 35.97</div><p>Offshore growth and gas deliver mid-single-digit earnings progress at a mid-cycle oil price; the sanctions/access discount stays exactly where it is. The return is earnings growth at a frozen low multiple — no re-rating assumed, no access thaw assumed.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">CNY 48</div><div class="ret up">+33% vs CNY 35.97</div><p>Firm crude, offshore volumes beat, and the multiple partially normalises as sustained cash generation at 7× becomes impossible to ignore for the investors who <i>can</i> buy it. Even the bull case assumes no US re-listing.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ CNY 39</div></div><p>0.25×28 + 0.50×40 + 0.25×48 = CNY 39.00, about +8% from the unverified CNY 35.97 reference. This is a statement about the Shanghai listing for investors with access to it — it is not a US target and not actionable through a US brokerage account.</p></div>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Method, as specified for this series: parameters frozen at the reference point. Here that means the <b>P/E is held at 7.3×</b> and the starting EPS is the implied <b>CNY 4.93</b> (35.97 ÷ 7.3, arithmetic on unverified inputs); only EPS growth varies by case. Price = 7.3 × EPS after five years of the case's growth rate. No re-rating, no access change and no currency move is assumed in any case.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">EPS growth / yr</th><th class="n">EPS in 5 yrs</th><th class="n">5-yr price (7.3×)</th><th class="n">vs CNY 35.97</th><th>What has to be true</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">−4%</td><td class="n">≈ CNY 4.02</td><td class="n">≈ CNY 29</td><td class="n">−18%</td><td>A low-price regime and/or geopolitical impairment shrinks earnings; the frozen low multiple offers no cushion</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+4%</td><td class="n">≈ CNY 6.00</td><td class="n">≈ CNY 44</td><td class="n">+22%</td><td>Offshore volumes and gas grow earnings steadily at mid-cycle prices; the discount structure is unchanged in five years</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">+8%</td><td class="n">≈ CNY 7.24</td><td class="n">≈ CNY 53</td><td class="n">+47%</td><td>Offshore growth compounds at firm prices. Deliberately, even the bull case keeps the 7.3× multiple — any re-rating would be upside beyond this table</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">≈ CNY 42.5</td><td class="n">+18%</td><td>0.25×29 + 0.50×44 + 0.25×53 = CNY 42.50 — modelled estimate, checkable from the prices and weights above</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Read this table with its two constraints in view. First, every input traces to unverified pack figures — the shape of the model is sound, the calibration is only as good as CNY 35.97 and 7.3×. Second, the frozen 7.3× is doing heavy lifting: for CNOOC the entire long-run debate is whether that sanctions-and-governance multiple ever narrows. This model assumes it does not — which makes the 5-year case an earnings-compounding case, and any multiple expansion a free option for holders with access.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b>. Risk tolerance is not the binding constraint on this name — <b>market access is</b>. The recommendations below therefore split the investment view (on the listings that exist) from the portfolio action (for a US account).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold</b> (research view on the Shanghai/HK listings, per the pack). The modelled weighted value of ≈ CNY 39 is only ~+8% over an unverified reference price — not enough compensation to chase a sanctioned, geopolitically exposed name, and the cheap multiple argues against selling an existing accessible holding into weakness either.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> Earnings compounding at a frozen 7.3× gives a respectable ≈ CNY 42 weighted modelled value, but the return path runs through sanctions policy and South China Sea geopolitics — risks an 8/10 profile can tolerate in a listed, liquid holding, yet which argue for Hold rather than Buy while access and verification both remain impaired.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill hold">Review</span></td><td>Revisit immediately on: any change to the sanctions/listing status (in either direction); a verified primary-source financial set that confirms or refutes the 7.3× / CNY 35.97 inputs; or a South China Sea escalation affecting offshore operations.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>CNOOC target: 0% of total portfolio via a US account.</b> This is the pack's explicit sizing and this note endorses it: the NYSE line was delisted in 2021, the US OTC ticker carries no quoted price in the source table, and building a position through illiquid or sanctions-adjacent channels would add legal and liquidity risk that no 7.3× multiple compensates for.</li>
+    <li><b>0% is an access decision, not a quality verdict.</b> The business — low-cost offshore production, state backing, international spread — is a legitimate energy exposure. The portfolio simply cannot hold <i>this</i> wrapper from a US account.</li>
+    <li><b>Where the exposure would otherwise come from:</b> within this coverage set, the energy sleeve's accessible offshore/integrated exposure is carried by the US-listed majors covered in their own notes. No substitute weight is assigned here — each of those notes sizes its own name.</li>
+    <li><b>If access ever changes</b> (a re-listing or a sanctions change), the correct first step is a fresh note on verified primary financials — not an upgrade of this one, whose key inputs are explicitly unverified.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator is illustrative and applies the recommended 0% US-account weight — the output is $0 at any portfolio value, by design. It stores nothing and uses only the figures on this page.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — CNOOC Ltd (CNOOC)</h2>
+<p><strong>Price (30 Oct 2026 close): CNY 35.97.</strong> <strong>DCF intrinsic: CNY 38.28.</strong> Discount/premium vs DCF: <strong>-6.0%</strong> — i.e. the shares are trading 6.0% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>CNY 38.28</td><td>-6.0%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; interim results via https://files.quartr.com/reports/50d46fdfe1df0323e3e386c4c260ab56-2026-08-26-08-56-21.pdf ; TipRanks HK https://www.tipranks.com/stocks/hk:0883/statistics ; StockAnalysis https://stockanalysis.com/quote/hkg/0883/statistics/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — CNOOC Ltd (CNOOC)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: CNOOC sells offshore crude and gas mainly to Chinese refiners and gas buyers (including via its state-owned parent system) and into international markets, with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Chinese refiners and gas distributors</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>International crude buyers / traders</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is Chinese refining and gas demand: undervalued domestic buyers would be a tailwind only if they lift crude runs and gas offtake, which depends on China&#x27;s economy and state allocation rather than any share price; weakening domestic demand would be a headwind through volumes and realised prices.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — CNOOC Ltd (CNOOC)</h2>
+<p><strong>Role: Beneficiary.</strong> Offshore oil and gas feed the power and industrial demand that AI infrastructure creates in China and Asia, though CNOOC&#x27;s channel is indirect — it sells molecules, not power contracts.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 7.3 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">CNOOC was <b>not</b> among the names re-checked in the independent verification pass for this sector (the log lists CNOOC's price, market cap and P/E as not re-checked, owing to its foreign/OTC listings). Figures below are therefore cited to the research pack's sources and flagged unverified in the text. Scenario targets are modelled estimates, not sourced facts.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22600938%2ESS%22" target="_blank" rel="noopener">Finnhub — CNOOC Shanghai listing (600938.SS): price CNY 35.97 and P/E 7.3×, as carried in the research pack (unverified in the independent pass)</a></li>
+    <li><a href="https://www.fool.com/research/largest-energy-companies/" target="_blank" rel="noopener">Motley Fool — largest energy companies ranking (metrics as of 2 Oct 2026)</a> — source of the pack's CNOOC figures as carried in the research pack: market cap $166.0B, TTM revenue $64.6B, gross profit $43.8B (CNY-converted); state-owned offshore producer in 20+ countries incl. Indonesia, Iraq, UAE; NYSE delisted 2021 on US sanctions; US OTC ticker CEO, no price shown.</li>
+    <li>Independent verification log for the Industrials / Energy / Materials pack (checked 1 Nov 2026) — confirms the ranking-basis framing (global Motley Fool universe, including state-controlled issuers; not in strict market-cap order) and lists CNOOC among the tickers whose price, market cap and P/E were not re-checked.</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research for information only, dated 1 Nov 2026 with a price reference of the 30 Oct 2026 close. Buy/sell/hold views and portfolio weights are research opinions for the stated investor profile (mid-30s, risk 8/10), not guarantees, not personalised financial advice, and not a recommendation to any other reader. CNOOC is subject to US sanctions and was delisted from the NYSE in 2021; nothing here is a suggestion to acquire it through any channel. Key figures are flagged unverified where the independent verification pass did not re-check them, and modelled targets are estimates built on the stated scenario prices and weights; actual outcomes will differ, and energy equities are exposed to commodity prices and geopolitical events that can move sharply. Verify figures against the linked primary sources before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the recommended sizing.';return;}
+    var alloc=v*0;
+    out.innerHTML='At <b>0%</b> via a US account: <b>$'+fmt(alloc)+'</b> in CNOOC — the recommended weight is zero at any portfolio size, because the NYSE listing was delisted in 2021 under US sanctions.';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CUAEF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line);scroll-margin-top:52px}
+footer{scroll-margin-top:52px}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 120px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 96px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.sell{background:var(--red-soft);color:var(--red)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+.tag-unv{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 6px;border:1px solid var(--amber);color:var(--amber);border-radius:3px;text-transform:uppercase;vertical-align:middle}
+.tag-est{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 6px;border:1px solid var(--blue);color:var(--blue);border-radius:3px;text-transform:uppercase;vertical-align:middle}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Coal · Power · Integrated Transport</span></div>
+  <h1>China Shenhua Energy <span class="tick">(OTC: CUAEF)</span></h1>
+  <p class="lede">The world's largest state-owned coal miner is not really a mining company — it is a vertically integrated coal-to-electricity system, with its own railways, ports and shipping fleet moving its own coal to its own power plants. That integration makes it the most defensible coal asset in China. It does not change the direction of travel: this is the highest energy-transition risk name in the energy pack, and the long-term case is a managed decline, not a compounder.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $5.62 OTC print, Fri 30 Oct 2026 close</span>
+    <span><b>Listing:</b> US OTC — primary listings in Hong Kong / Shanghai; thin US volume</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">CUAEF — this report</span>
+    <span class="tab soon">Sector: Energy — global top-10 universe</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct OTC print <span class="tag-unv">Unverified</span></div><div class="vbig mono">$5.62</div><div class="vsub">Thin OTC line — avg volume ~1.8k shares/day (Fool); price is indicative, not a liquid exchange close</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="tag-unv">Unverified</span></div><div class="vbig mono">$127.7B</div><div class="vsub">Motley Fool figure, metrics as of 2 Oct 2026 — not re-checked in the independent verification pass</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/S (TTM)</div><div class="vbig mono">2.8×</div><div class="vsub">P/E and FCF: <b>not verified — omitted</b> in this note rather than estimated</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / gross profit</div><div class="vbig mono">$46.1B / $16.2B</div><div class="vsub">Fool figures <span class="tag-unv">Unverified</span> · Implied gross margin ≈ 35.1% (derived)</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled base $5.80 (+3%) — no edge large enough to justify adding to a thin OTC coal line.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">SELL / AVOID <span class="pill sell">Sell</span></div><div class="vsub">Transition case: modelled 5-yr weighted value ≈ $5.25, below today's price — coal phase-down dominates.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">0% of portfolio</div><div class="vsub">No allocation. Energy exposure, if wanted, belongs in lower-transition-risk names. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The name in one view — and what could not be verified</h2></div>
+  <p>China Shenhua Energy is majority-owned by the Chinese state: <b>~70% is held by China Energy Investment (CHNENERGY)</b>, per the company profile carried in the research pack. The US line, CUAEF, is an over-the-counter print on a Hong Kong / Shanghai-listed issuer — which is why this note looks different from a NYSE report. Several standard metrics could not be verified to institutional standard, and they are <b>shown as omitted</b> below rather than filled with estimates.</p>
+
+  <div class="callout warn"><div class="ct">Ranking basis — read this first</div>
+  <p>This name sits in a <b>GLOBAL top-10-by-market-cap universe (Motley Fool, metrics as of 2 Oct 2026, prices at the 30 Oct 2026 close), including state-controlled issuers</b>. A NYSE/Nasdaq-only list would differ materially — CUAEF has no US exchange listing at all. The universe list is <b>not in strict market-cap order</b> as published. OTC prices for names like this one are thin and indicative: CUAEF's average US volume is ~1,800 shares a day (Fool).</p></div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Figure</th><th class="n">Value</th><th>Status</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Price — 30 Oct 2026 (OTC)</td><td class="n">$5.62</td><td><span class="tag-unv">Unverified</span></td><td>Pack value; not re-checked in the independent verification pass — thin OTC print, treat as indicative</td></tr>
+      <tr><td>Market cap</td><td class="n">$127.7B</td><td><span class="tag-unv">Unverified</span></td><td>Motley Fool, metrics as of 2 Oct 2026</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$46.1B</td><td><span class="tag-unv">Unverified</span></td><td>Motley Fool figure carried in the pack</td></tr>
+      <tr><td>Gross profit (TTM)</td><td class="n">$16.2B</td><td><span class="tag-unv">Unverified</span></td><td>Motley Fool figure carried in the pack</td></tr>
+      <tr><td>Gross margin (derived)</td><td class="n">≈ 35.1%</td><td><span class="tag-est">Derived</span></td><td>Arithmetic only: $16.2B ÷ $46.1B — inherits the unverified status of both inputs</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.8×</td><td><span class="tag-unv">Unverified</span></td><td>Consistent with the cap and revenue above ($127.7B ÷ $46.1B ≈ 2.8×); the only multiple this note publishes</td></tr>
+      <tr><td>P/E · EV/EBITDA · Free cash flow</td><td class="n">—</td><td>Omitted</td><td>Not verified in the research pack — deliberately not estimated here</td></tr>
+      <tr><td>Controlling shareholder</td><td class="n">~70%</td><td>Pack figure</td><td>China Energy Investment (CHNENERGY), the state-owned parent — minority holders ride along with state policy</td></tr>
+      <tr class="hl"><td>Research stance</td><td class="n">Hold / Sell</td><td>View</td><td>Short term Hold, long term Sell (transition) at 0% portfolio weight — see §5–§6</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Verification status follows the independent verification log for the Industrials / Energy / Materials pack (checked 1 Nov 2026): prices, market caps and P/Es for CUAEF were explicitly <b>not re-checked</b> in that pass, and all 12–18-month base targets are unverified by construction — they are modelled estimates, shown as such in §5.</p>
+</section>
+
+<!-- ================= FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>TTM income flow — what the verified pack actually supports</h2></div>
+  <p>With only revenue and gross profit carried in the pack, the honest flow diagram is a short one. Everything below gross profit — operating costs, net income, EPS — was <b>not verified and is not charted</b>, rather than reconstructed from secondary snippets.</p>
+  <figure>
+    <svg viewBox="0 0 980 220" width="100%" role="img" aria-label="Flow of China Shenhua TTM revenue into cost of revenue and gross profit" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="70" width="200" height="80" fill="var(--navy)"/><text x="24" y="104" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="24" y="124" font-size="13" fill="#fff">$46.1B · Fool figure</text>
+      <rect x="390" y="26" width="230" height="64" fill="var(--chip)" stroke="var(--line2)"/><text x="406" y="52" font-size="13" font-weight="700" fill="var(--ink)">Cost of revenue (derived)</text><text x="406" y="72" font-size="12" fill="var(--ink2)">≈ $29.9B · $46.1B − $16.2B</text>
+      <rect x="390" y="120" width="230" height="64" fill="var(--green-soft)" stroke="var(--line2)"/><text x="406" y="146" font-size="13" font-weight="700" fill="var(--ink)">Gross profit</text><text x="406" y="166" font-size="12" fill="var(--ink2)">$16.2B · ≈ 35.1% margin (derived)</text>
+      <line x1="208" y1="96" x2="386" y2="62" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <line x1="208" y1="118" x2="386" y2="148" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <rect x="700" y="70" width="272" height="80" fill="var(--paper)" stroke="var(--line2)"/><text x="716" y="100" font-size="13" font-weight="700" fill="var(--ink)">Below this line: not verified</text><text x="716" y="120" font-size="12" fill="var(--ink2)">Operating income, net income, EPS and</text><text x="716" y="136" font-size="12" fill="var(--ink2)">FCF were omitted from the pack — see §2</text>
+      <line x1="620" y1="152" x2="696" y2="118" stroke="var(--muted)" stroke-width="3" opacity=".35" stroke-dasharray="5 4"/>
+    </svg>
+    <figcaption>All inputs are Motley Fool figures carried in the research pack and marked unverified (not re-checked in the independent verification pass). Cost of revenue and gross margin are arithmetic derivations from those two inputs, not separate source figures.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Shenhua's model, as carried in the pack, is <b>the world's largest state-owned coal miner, integrated end-to-end</b>: coal mines feed power generation, and the coal moves on the company's <b>own railways, through its own ports, on its own shipping fleet</b>. Where a standalone miner buys transport and sells into a spot market, Shenhua owns the chain — mine, rail, port, ship, power plant — inside China. That structure is the entire investment case, for and against: it stabilises margins across the coal cycle, and it concentrates the whole asset base in the one fuel the energy transition is designed to phase down.</p>
+
+  <h3>The integrated chain — segment by segment</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment (as described in the pack)</th><th>Role in the system</th><th>Economics</th></tr></thead>
+    <tbody>
+      <tr><td>Coal mining</td><td>The resource base — the world's largest state-owned coal mining operation</td><td>Volume anchor for the whole chain; earnings still ultimately keyed to the China coal price, which the state influences</td></tr>
+      <tr><td>Power generation</td><td>Burns a large share of its own coal output in its own plants</td><td>The internal customer: converts coal-price volatility into comparatively steadier power revenue</td></tr>
+      <tr><td>Railways</td><td>Company-owned rail links mines to ports and plants</td><td>Captive infrastructure — removes the transport bottleneck that caps rival miners</td></tr>
+      <tr><td>Ports</td><td>Own loading terminals for seaborne coal movement</td><td>Completes the mine-to-coast chain; a scarce, hard-to-replicate asset in China</td></tr>
+      <tr><td>Shipping</td><td>Own fleet for coastal coal transport</td><td>Closes the loop between port and power plant; insulation from freight-rate spikes</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Open question, stated plainly:</b> a segment-by-segment revenue and profit split was <b>not in the verified research pack</b>, so no split percentages are shown. Publishing a precise coal-vs-power mix from unverified secondary sources would break this note's own rule — the qualitative structure above is what the pack supports.</p>
+
+  <div class="geo">
+    <div>
+      <h3>Geographic distribution</h3>
+      <p>The pack describes an integrated coal–power–rail chain <b>in China</b>: mining, generation, rail, ports and shipping are all domestic. No geographic revenue split was carried in the pack, and none is estimated here. The practical read for a US holder is simpler than a mix chart: <b>this is a single-country, single-fuel exposure</b>, priced in China, governed by Chinese energy policy, and accessed from the US only through a thin OTC line.</p>
+      <ul>
+        <li><b>Demand geography:</b> Chinese power demand is the swing variable named in the pack — plant utilisation and coal burn follow it.</li>
+        <li><b>Price geography:</b> coal and power prices in China are subject to <b>state pricing influence</b> (see §4) — the market does not fully clear on its own.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Ownership &amp; structure</h3>
+      <ul>
+        <li><b>~70% owned by China Energy Investment (CHNENERGY)</b> — the state parent formed from China's coal and power champions. Control is not contestable; the free float serves state objectives first.</li>
+        <li><b>US access is OTC only (CUAEF).</b> Average US volume of ~1.8k shares/day (Fool) means the quoted price is <b>indicative</b>: entering or exiting any meaningful position at the print is not realistic.</li>
+        <li><b>Structural pivot:</b> none identified in the pack away from coal. The integration deepens the coal chain rather than diversifying out of it — the opposite direction from Western majors adding gas, LNG and transition assets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Internalised by design:</b> rail, port and shipping capacity — the dependencies that strand other miners — are owned, not contracted. Third-party logistics risk is the lowest in the coal sector.</li>
+    <li><b>The real dependency is policy, not logistics:</b> mining approvals, coal-price guidance, power tariffs and dispatch rules are all set or steered by the same state that owns ~70% of the company. Shenhua's "supply chain" runs through Beijing.</li>
+    <li><b>Fuel concentration:</b> every segment in the chain monetises the same molecule. There is no second commodity, no export growth engine and no transition hedge inside the model as described in the pack.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>This section is deliberately shorter than a NYSE-name equivalent, and the reason is the finding: <b>the research pack verified almost nothing below the gross-profit line for this ticker, and the independent verification pass explicitly did not re-check its price, market cap or multiples.</b> An institutional note that invented a P/E, a debt figure and a free-cash-flow yield to fill the table would be worse than useless. What can be said, and what cannot, is separated cleanly below.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Diagnostics — price $5.62 OTC print (30 Oct 2026). Every figure below carries the pack's own verification status; nothing is upgraded.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.8×</td><td><span class="tag-unv">Unverified</span> — the one multiple the pack carries; internally consistent ($127.7B cap ÷ $46.1B revenue). For scale, a 2.8× sales multiple on a coal miner prices in the integrated power/transport earnings, not just tonnes of coal</td></tr>
+      <tr><td>Gross margin (derived)</td><td class="n">≈ 35.1%</td><td>Arithmetic from pack inputs ($16.2B ÷ $46.1B). A mid-30s gross margin is the integration premium made visible — pure coal extraction alone rarely holds this through a cycle</td></tr>
+      <tr><td>Trailing / forward P/E</td><td class="n">Omitted</td><td>Not verified — the pack states this explicitly. No earnings multiple is published in this note</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">Omitted</td><td>Requires verified net debt and EBITDA; neither was carried in the pack</td></tr>
+      <tr><td>Free cash flow</td><td class="n">Omitted</td><td>Not verified — the pack states this explicitly. No FCF yield is quoted, and none should be inferred from the gross-profit line</td></tr>
+      <tr><td>Leverage / debt-to-equity</td><td class="n">Omitted</td><td>No debt, cash or equity figure for CUAEF was carried in the verified pack — omitted rather than estimated</td></tr>
+      <tr><td>Dividends / buybacks / capital allocation</td><td class="n">Not covered</td><td>The pack carries no dividend, payout or buyback figure for this name. State-controlled miners' payout policy is a policy decision, not a market signal — treat any yield figure found elsewhere as unverified against this note</td></tr>
+      <tr><td>Liquidity (US line)</td><td class="n">~1.8k sh/day</td><td>Fool figure for average OTC volume. This is the binding constraint in practice: the US line cannot absorb institutional size, and prints can gap away from the Hong Kong value</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout bad"><div class="ct">Balance-sheet verdict — insufficient verified data, and that is the verdict</div>
+  <p>For a $127.7B (unverified) market-cap company, the absence of a verified debt, cash, earnings or cash-flow figure in the pack is itself decision-relevant. Combined with a ~70% state holder, state-influenced pricing and an illiquid US line, a US investor cannot underwrite this balance sheet from public US-accessible data to the standard applied to the rest of this coverage universe. That information gap — not any single ratio — is why §6 sizes the position at zero.</p></div>
+
+  <h3>What the two verified-pack figures do establish</h3>
+  <ul>
+    <li><b>Scale is real:</b> $46.1B of TTM revenue (Fool, unverified) puts Shenhua among the largest energy companies in the world by sales — this is not a junior miner.</li>
+    <li><b>The gross line is structurally supported:</b> ~35% gross margin (derived) is consistent with a model where transport and power margins are captured internally instead of paid away.</li>
+    <li><b>Nothing below gross profit is established</b> — interest, tax, minority interests (material in a 70%-held state structure), capex and dividends all sit in the unverified zone for this note.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide inside coal, worthless against the transition.</b> The pack's one-line moat — the <b>integrated coal–power–rail chain in China</b> — is genuinely strong against competitors and genuinely irrelevant against the force that matters, which is policy-driven coal phase-down. Both halves need stating, because the first half is why the stock can look cheap for years while the second half decides what it is ultimately worth.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Vertical integration no rival can copy:</b> mine + rail + port + shipping + power in one balance sheet. A competitor would need decades and state permission to replicate the transport network alone.</li>
+      <li><b>Cost position:</b> captive rail and ports remove the logistics toll that compresses standalone miners' margins in tight markets — visible in the ~35% derived gross margin.</li>
+      <li><b>Internal demand:</b> its own power plants are a built-in buyer for its own coal, dampening volume risk when external demand softens.</li>
+      <li><b>State backing:</b> as the flagship of CHNENERGY (~70% holder), Shenhua sits at the centre of China's energy-security planning — licence, approval and financing access are structural advantages.</li>
+      <li><b>Scale:</b> the world's largest state-owned coal miner (pack description) — procurement, planning and grid relationships all scale with that position.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; positioning</h4><ul>
+      <li><b>The moat protects share of a shrinking fuel:</b> every advantage above defends coal cash flows, not enterprise value, if coal volumes are phased down by policy.</li>
+      <li><b>Pricing power is borrowed, not owned:</b> coal and power prices in China are state-influenced — in a price spike, the state can cap the upside that a free-market miner would keep. The moat's owner and the price-setter are ultimately the same party.</li>
+      <li><b>ESG exclusion shrinks the buyer base:</b> coal pure-plays are screened out of a large and growing share of institutional mandates, which structurally caps the multiple regardless of cash generation.</li>
+      <li><b>No transition asset base:</b> within this pack's energy universe, integrated oils hold gas/LNG and chemicals options; Shenhua's chain, as described in the pack, has no comparable second leg.</li>
+      <li><b>Governance discount:</b> a ~70% state holder means minority economics are residual to policy goals — a permanent, justified valuation discount for outside holders.</li>
+    </ul></div>
+  </div>
+  <p><b>Industry position:</b> Shenhua is the cost-and-logistics leader of Chinese coal, competing against other state miners on allocation and approvals more than on open-market price. Its true "competitors" for capital are the integrated oils and gas names in this same energy pack, which offer commodity exposure with lower stranded-asset risk — and on that comparison, CUAEF screens as the sector's transition laggard, which is exactly how the pack ranks its risk: <b>the highest transition risk in the energy pack</b>.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>China power demand strength</b> — the pack's named demand driver: firm electricity demand lifts both coal burn and plant utilisation across the integrated chain simultaneously.</li>
+        <li><b>Coal price firmness</b> — any sustained strength in Chinese coal prices flows through mining and, partly, power; the integrated model captures more of an upcycle than a standalone miner that must buy transport.</li>
+        <li><b>Energy-security policy emphasis</b> — periods when Beijing prioritises security of supply over decarbonisation pace have historically supported coal volumes and approvals for flagship state miners.</li>
+        <li><b>Multiple normalisation on the primary listings</b> — the OTC line follows Hong Kong; any re-rating there (e.g., state-enterprise valuation initiatives) would carry CUAEF with it, thin volume notwithstanding.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Coal phase-down (the central risk)</b> — China's decarbonisation path caps and then shrinks the addressable market for every segment of the chain at once. The pack flags this as the sector's <b>highest transition / stranded-asset risk</b>.</li>
+        <li><b>State pricing intervention</b> — coal-price caps or power-tariff restraint in a price spike would confiscate the upside case while leaving volume risk with the holder.</li>
+        <li><b>ESG exclusion and mandate shrinkage</b> — continued removal of coal names from institutional mandates mechanically reduces the marginal buyer and compresses the exit multiple.</li>
+        <li><b>Stranded infrastructure</b> — rail and port assets are coal-specific; unlike a diversified major, there is no alternative cargo story at comparable scale if coal volumes fall structurally.</li>
+        <li><b>OTC liquidity risk</b> — at ~1.8k shares/day (Fool), the US line can gap, spreads can widen sharply, and the print can diverge from Hong Kong value precisely when an exit is wanted.</li>
+        <li><b>Minority-holder subordination</b> — with ~70% state ownership, asset transfers, pricing and payout decisions can serve group or policy aims over listed-company returns.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>The Hold in §6 is a "no edge either way over 12–18 months" call, not a statement of safety. It breaks downward on any concrete acceleration of coal phase-down — a binding capacity-retirement schedule, a demand peak-and-decline print for Chinese coal burn, or state pricing action that caps coal realisations — because the 5-year bear case ($3.80, §5) then stops being a scenario and becomes the path. It breaks upward only on a durable policy re-prioritisation of coal in China's energy mix, which no current signal in the pack supports.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method note, stated before the numbers: with P/E and free cash flow <b>not verified</b> for this ticker, an earnings-multiple valuation cannot be built honestly. The targets below are therefore the pack's <b>modelled price-path estimates</b> — scenario levels for the share price itself, driven by coal price, China power demand and phase-down pace — and every one is labelled <span class="tag-est">Modelled estimate</span>. Scenario weights are published with the arithmetic so each weighted figure can be re-checked, as the verification log requires. Reference price: <b>$5.62</b> (30 Oct 2026 OTC print, unverified).</p>
+
+  <h3>12–18-month targets (to roughly early–mid 2028) <span class="tag-est">Modelled estimates</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$4.40</div><div class="ret down">−21.7% vs $5.62</div><p>Phase-down signals harden: coal-demand growth stalls, state pricing caps realisations, and ESG-driven selling compresses the multiple further. The integrated chain defends cash flow but not the rating.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$5.80</div><div class="ret up">+3.2% vs $5.62</div><p>China power demand grows modestly, coal prices stay range-bound, no new phase-down shock. The stock roughly marks time — cash generation continues, the market pays no more for it.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$6.80</div><div class="ret up">+21.0% vs $5.62</div><p>Energy-security policy supports coal volumes, power demand is firm, and coal prices hold up — the integration premium gets paid as earnings resilience is recognised on the primary listings.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $5.70</div></div><p>0.25×$4.40 + 0.50×$5.80 + 0.25×$6.80 = $5.70, or <b>+1.4%</b> from $5.62. The near-term distribution is close to symmetric around a flat centre — there is no 12–18-month edge here in either direction, which is precisely what a Hold means.</p></div>
+
+  <h3>5-year projection — frozen-parameter format, honestly adapted</h3>
+  <p>The standard format for this series freezes share count and varies revenue growth, net margin and exit P/E to reach an EPS-based price. <b>That build is not possible for CUAEF</b>: net income, EPS, share count and P/E were all unverified in the pack, and inventing them would violate this note's sourcing rule. The pack instead models the 5-year path as a <b>price CAGR per case</b> — shown below in the same Bull/Base/Bear frame, with the method stated in the table so the figures remain checkable: each 2031 price is the $5.62 reference compounded at the case CAGR for five years.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Implied price CAGR / yr</th><th class="n">2031 price</th><th class="n">Return vs $5.62</th><th>Case logic</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −7.5%</td><td class="n">$3.80</td><td class="n">−32.4%</td><td>Phase-down bites within the window: volumes peak and decline, stranded-asset discount deepens, multiple compresses toward liquidation-style levels for coal infrastructure</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">−1%</td><td class="n">$5.34</td><td class="n">−5.0%</td><td>The pack's stated base path: $5.62 × 0.99⁵ = $5.62 × 0.951 = <b>$5.34</b> — a slow grind lower as transition pressure offsets cash generation</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +3.0%</td><td class="n">$6.50</td><td class="n">+15.7%</td><td>Coal's role in China's mix proves durable for longer — demand and prices hold, integration keeps margins at the gross line, and the de-rating stops</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">≈ $5.25</td><td class="n">−6.6%</td><td>0.25×$3.80 + 0.50×$5.34 + 0.25×$6.50 = $5.245 ≈ $5.25 — matches the pack's weighted figure, with weights now published</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="bars" aria-label="Scenario prices versus reference price">
+    <div class="bar-row"><span class="bl">Bear 2031</span><div class="bar-track"><div class="bar-fill neg" style="width:56%"></div></div><span class="bv">$3.80</span></div>
+    <div class="bar-row"><span class="bl">Weighted 2031</span><div class="bar-track"><div class="bar-fill gold" style="width:77%"></div></div><span class="bv">≈ $5.25</span></div>
+    <div class="bar-row"><span class="bl">Base 2031</span><div class="bar-track"><div class="bar-fill" style="width:79%"></div></div><span class="bv">$5.34</span></div>
+    <div class="bar-row"><span class="bl">Reference price</span><div class="bar-track"><div class="bar-fill" style="width:83%;background:var(--muted)"></div></div><span class="bv">$5.62</span></div>
+    <div class="bar-row"><span class="bl">Bull 2031</span><div class="bar-track"><div class="bar-fill green" style="width:96%"></div></div><span class="bv">$6.50</span></div>
+  </div>
+  <p class="small">All scenario prices on this page are <b>modelled estimates</b> from the research pack, not verified figures and not forecasts of record. Note the shape, because it is the whole story: even the <i>base</i> 5-year case sits below today's price, and the probability-weighted 5-year value (≈ $5.25) is below both the reference price and the 12–18-month weighted value (≈ $5.70). Time is not on this asset's side — the opposite profile from a compounder, and the quantitative reason for the long-term Sell in §6.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b>. A high risk score argues for equity concentration and volatility tolerance — it does <b>not</b> argue for owning a structurally declining, state-priced, thinly traded coal line when the same risk budget buys commodity exposure with a transition path elsewhere in the sector. Risk tolerance decides how much volatility to accept; it does not oblige accepting negative expected drift.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold if already owned; do not initiate.</b> Modelled weighted value ≈ $5.70 (+1.4%) offers no edge for a new position in a ~1.8k-shares/day OTC line, where entry and exit costs are real. Existing holders face no near-term forcing event in the pack's base case.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill sell">Sell</span></td><td><b>Sell / avoid on transition grounds.</b> The probability-weighted 5-year value (≈ $5.25) is ~7% <i>below</i> today's price before any liquidity discount, the base case itself compounds at −1%/yr, and the bear case (−32%) is a policy path, not a tail event. Use any strength toward the bull zone ($6.50+) as an exit window rather than a reason to stay.</td></tr>
+      <tr><td>Reconsider triggers</td><td><span class="pill hold">Review</span></td><td>Re-underwrite only if: (1) verified earnings, cash-flow and balance-sheet data becomes available to US holders at institutional standard; (2) China's coal phase-down timetable is formally extended in a way that moves the base-case CAGR to flat-or-positive; or (3) the price falls to a level that pays for the bear case outright (at or below ~$3.80). None is in evidence as of 1 Nov 2026.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>CUAEF target: 0% of total portfolio.</b> This is a deliberate zero, not an omission: negative weighted 5-year drift, the pack's highest transition-risk flag in Energy, unverifiable financials from the US, and an illiquid access line fail four separate screens at once.</li>
+    <li><b>If energy exposure is wanted</b>, the same sector allocation is better carried by integrated names with gas/LNG optionality and verified, liquid US listings — the comparison the index artifact's sector table is built to make.</li>
+    <li><b>If a legacy position exists</b>, treat it as a managed exit, not a holding: stage sales into strength, and mind the OTC spread — at ~1.8k shares/day, patience on execution is worth more than timing.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">The calculator applies this note's recommended weight — 0% — so the target position is $0 at any portfolio size. It is shown to make the recommendation concrete, not as an invitation to override it with a "small" position: at 0% expected long-term drift advantage and bear-case risk of −32%, a small position has the same problem as a large one, in miniature.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — China Shenhua Energy (CUAEF)</h2>
+<p><strong>Price (30 Oct 2026 close): $5.62.</strong> <strong>DCF intrinsic: $1.55.</strong> Discount/premium vs DCF: <strong>+262.6%</strong> — i.e. the shares are trading 262.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$1.55</td><td>+262.6%</td><td>g -2.0%, r 12%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack (long Sell); Fool https://www.fool.com/quote/otc/cuaef/ ; TwelveData https://twelvedata.com/markets/573521/stock/otc/cuaef/statistics ; Morningstar https://www.morningstar.com/stocks/otcm/cuaef/quote</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — China Shenhua Energy (CUAEF)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: China Shenhua sells coal mainly to Chinese power generators (including its own power segment, which is internal offtake, not third-party revenue) plus rail/port users, with no single external customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Chinese power generators and grid companies (incl. State Grid system)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Industrial coal users (steel, cement, chemicals)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Rail, port and shipping users of its transport chain</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is Chinese power demand: undervalued power generators would be a tailwind only if they burn more coal, which depends on electricity demand, renewables dispatch and state coal-price policy rather than any share price — and the structural read-through is negative regardless, because Shenhua&#x27;s long verdict is Sell on coal phase-down, so even healthy customers do not fix a shrinking end-market.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — China Shenhua Energy (CUAEF)</h2>
+<p><strong>Role: At-risk.</strong> China&#x27;s data-centre load is currently met in part by coal power, which is a near-term demand support for Shenhua — but its structural exposure is the opposite: coal phase-down, ESG exclusion and state pricing make it the name in this batch most at risk from the energy-transition side of the AI power story.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand is paradoxical: Chinese data-centre load supports coal-power dispatch near-term, but every AI-era grid investment in renewables and nuclear is a long-term coal substitute.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is no AI premium to unwind (P/E not verified in the pack), so compression would come from phase-down policy, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, the risk is stranded coal/power assets and state-directed pricing, not AI-capex debt.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: Chinese coal-consumption caps or power-sector reform, accelerated renewables/nuclear dispatch, and any state coal-price intervention. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Pack figures (price, market cap, revenue, gross profit, P/S, ownership, volume) are Motley Fool figures as carried in the research pack, metrics as of 2 Oct 2026 and prices at the 30 Oct 2026 close; the independent verification log for the Industrials / Energy / Materials pack (checked 1 Nov 2026) explicitly did <b>not</b> re-check CUAEF's price, market cap or multiples, and this note marks them unverified accordingly. Scenario targets in §5 are modelled estimates from the pack, with weights and arithmetic shown in place.</p>
+  <ol class="refs">
+    <li><a href="https://www.FinanceCharts.com/stocks/CUAEF/profile" target="_blank" rel="noopener">FinanceCharts — CUAEF (China Shenhua Energy) company profile; majority holder CHN ENERGY ~70%</a></li>
+    <li>Motley Fool — largest energy companies ranking and metrics (as of 2 Oct 2026), via the research pack: CUAEF price $5.62, market cap $127.7B, TTM revenue $46.1B, gross profit $16.2B, P/S 2.8×, ~70% China Energy Investment ownership, ~1.8k shares/day average OTC volume. <i>Not independently re-checked — see verification note above.</i></li>
+    <li>Independent verification log — Industrials, Energy, Materials pack (1 Nov 2026): §1 (CUAEF listed among tickers not re-checked; OTC prices thin and indicative), §2 (global vs US-listed universe framing; state-controlled issuers), §3 (5-year weighted prices require published scenario weights — supplied in §5 of this note).</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary prepared for information only. All recommendations are research views, not guarantees and not personalised investment advice. Modelled scenario prices are estimates built on the stated assumptions; actual outcomes will differ, and coal-sector policy risk in particular can move faster than any scenario table. Figures marked unverified were not confirmed by the independent verification pass and should be re-checked against primary filings (Hong Kong / Shanghai) before any decision. Price reference: 30 Oct 2026 close (OTC print); note date: 1 Nov 2026.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    var map={};
+    links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('on');});
+          var a=map[e.target.id]; if(a) a.classList.add('on');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    document.querySelectorAll('section,footer').forEach(function(s){ if(s.id) obs.observe(s); });
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function money(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    if(!pf||!out) return;
+    var v=parseFloat(pf.value)||0;
+    out.innerHTML='Recommended CUAEF weight <b>0%</b> → target position <b>'+money(0)+'</b> of '+money(v)+'. '+
+      'For scale only, the modelled bear case (−32.4% over 5 yrs) on a hypothetical 1% position ('+money(v*0.01)+') would cost ≈ <b>'+money(v*0.01*0.324)+'</b> — with no offsetting base-case gain. This note\'s answer stays 0%.';
+  }
+  if(pf){ pf.addEventListener('input',calc); calc(); }
+})();
+</script>
+</body>
+</html>

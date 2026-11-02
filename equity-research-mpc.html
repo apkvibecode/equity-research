@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MPC (Marathon Petroleum)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f6f4ef; --paper:#fffdf9; --ink:#17202b; --ink2:#46536a; --muted:#6d7789;
+    --line:#ddd6c7; --line2:#e9e3d4;
+    --navy:#14263f; --navy2:#1d3a5f;
+    --accent:#a35b12; --accent-soft:#f3e3cd;
+    --up:#1c7a4d; --up-soft:#e2f0e6;
+    --down:#b3352c; --down-soft:#f9e5e1;
+    --hold:#8a6d1a; --hold-soft:#f4ecd2;
+    --chip:#efe9da;
+    --shadow:0 1px 2px rgba(23,32,43,.06),0 8px 24px rgba(23,32,43,.06);
+    --radius:10px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1319; --paper:#161e28; --ink:#e9edf3; --ink2:#b3bdcd; --muted:#8b96a8;
+      --line:#2b3646; --line2:#232e3d;
+      --navy:#0b1626; --navy2:#132740;
+      --accent:#e09a4a; --accent-soft:#3a2c17;
+      --up:#4cc084; --up-soft:#173628;
+      --down:#f0857c; --down-soft:#3d201c;
+      --hold:#d9b95c; --hold-soft:#38300f;
+      --chip:#202a38;
+      --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+
+  /* ---------- masthead ---------- */
+  .masthead{background:var(--navy);color:#eef2f8;margin:0 -18px;padding:26px 18px 0}
+  @media(min-width:1096px){.masthead{border-radius:0 0 14px 14px}}
+  .mast-inner{max-width:1024px;margin:0 auto}
+  .mast-top{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;justify-content:space-between}
+  .series{font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#b9c8dd}
+  .asof{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:#b9c8dd}
+  h1{font-family:"Source Serif 4",Georgia,serif;font-weight:900;font-size:clamp(30px,5.4vw,46px);
+     line-height:1.05;margin:10px 0 4px;letter-spacing:-.01em}
+  h1 .tick{color:#e8a558}
+  .subline{color:#c8d4e6;font-size:15px;max-width:70ch;margin:0 0 18px}
+  .subline b{color:#fff}
+  .snap{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid rgba(255,255,255,.16)}
+  @media(min-width:720px){.snap{grid-template-columns:repeat(4,1fr)}}
+  @media(min-width:1020px){.snap{grid-template-columns:repeat(8,1fr)}}
+  .snap .cell{padding:12px 12px 14px;border-left:1px solid rgba(255,255,255,.16)}
+  .snap .cell:first-child{border-left:none}
+  .snap .k{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#93a7c4;font-family:"IBM Plex Mono",monospace}
+  .snap .v{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;color:#fff;margin-top:2px;white-space:nowrap}
+  .snap .v small{font-size:11.5px;color:#b9c8dd;font-weight:400}
+  .snap .v.hot{color:#f2b25c}
+  .basis{background:rgba(0,0,0,.22);border-top:1px solid rgba(255,255,255,.16);
+    padding:10px 12px;font-size:12.5px;color:#c8d4e6}
+  .basis b{color:#fff}
+
+  /* ---------- verdict strip ---------- */
+  .verdict{display:grid;gap:12px;margin:18px 0 6px}
+  @media(min-width:760px){.verdict{grid-template-columns:1fr 1fr 1.15fr}}
+  .vcard{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow)}
+  .vcard .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted)}
+  .badge{display:inline-block;font-weight:700;font-size:19px;padding:3px 12px;border-radius:6px;margin:6px 0 4px}
+  .badge.hold{background:var(--hold-soft);color:var(--hold)}
+  .vcard p{margin:4px 0 0;font-size:13.5px;color:var(--ink2)}
+  .vcard .big{font-family:"Source Serif 4",serif;font-size:30px;font-weight:900;line-height:1.1;margin:6px 0 2px}
+  .vcard .big small{font-size:15px;color:var(--muted);font-family:"IBM Plex Sans",sans-serif;font-weight:500}
+
+  /* ---------- sections ---------- */
+  section{margin-top:30px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:6px;margin-bottom:14px}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:600}
+  h2{font-family:"Source Serif 4",Georgia,serif;font-size:24px;font-weight:700;margin:0;line-height:1.15}
+  h3{font-size:15.5px;font-weight:700;margin:18px 0 6px}
+  p{margin:0 0 10px}
+  .cols{display:grid;gap:14px}
+  @media(min-width:820px){.cols.two{grid-template-columns:1fr 1fr}.cols.wide{grid-template-columns:1.5fr 1fr}}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow)}
+  .card h3:first-child{margin-top:0}
+  ul.tight{margin:6px 0 10px;padding-left:18px}
+  ul.tight li{margin-bottom:5px}
+  .src{font-size:11.5px;color:var(--muted)}
+  .est{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:600;letter-spacing:.08em;
+    background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:1px 6px;vertical-align:2px;margin-left:6px}
+  .gap{border:1px dashed var(--line);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--ink2);background:transparent;margin:10px 0}
+  .gap b{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 12px}
+  th{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+     text-align:left;border-bottom:2px solid var(--line);padding:7px 8px}
+  td{border-bottom:1px solid var(--line2);padding:7px 8px;vertical-align:top}
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+  tr.hl td{background:var(--chip);font-weight:600}
+  .pos{color:var(--up);font-weight:600}.neg{color:var(--down);font-weight:600}
+  .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  @media(max-width:640px){
+    table.stack thead{display:none}
+    table.stack tr{display:block;border-bottom:2px solid var(--line);padding:6px 0}
+    table.stack td{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line2);text-align:right}
+    table.stack td::before{content:attr(data-k);font-family:"IBM Plex Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding-top:2px}
+    table.stack td:first-child{font-weight:700;justify-content:flex-start}
+    table.stack td:first-child::before{display:none}
+  }
+
+  /* flow diagram */
+  .flowbox{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px 8px;box-shadow:var(--shadow)}
+  .flowbox svg{width:100%;height:auto;display:block}
+  .flow-cap{font-size:12px;color:var(--muted);margin:6px 2px 8px}
+
+  /* scenario bars */
+  .scen{margin:10px 0 4px}
+  .scen-row{display:grid;grid-template-columns:86px 1fr 118px;gap:10px;align-items:center;margin:9px 0;font-size:13px}
+  .scen-row .lab{font-weight:700}
+  .scen-row .lab small{display:block;font-weight:400;color:var(--muted);font-size:11.5px}
+  .track{position:relative;height:22px;background:var(--line2);border-radius:5px}
+  .fill{position:absolute;top:0;bottom:0;border-radius:5px}
+  .spot{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+  .spot::after{content:"spot $444.73";position:absolute;top:-15px;left:50%;transform:translateX(-50%);
+    font-family:"IBM Plex Mono",monospace;font-size:10px;color:var(--muted);white-space:nowrap}
+  .scen-row .val{font-family:"IBM Plex Mono",monospace;text-align:right;font-weight:600;white-space:nowrap}
+  .scen-row .val small{display:block;font-weight:400;color:var(--muted);font-size:11px}
+
+  /* two-col risk lists */
+  .riskgrid{display:grid;gap:14px}
+  @media(min-width:820px){.riskgrid{grid-template-columns:1fr 1fr}}
+  .riskcard{border-radius:var(--radius);padding:14px 18px;border:1px solid var(--line)}
+  .riskcard.cat{background:var(--up-soft)}
+  .riskcard.risk{background:var(--down-soft)}
+  .riskcard h3{margin-top:2px}
+  .riskcard ul{margin:6px 0 4px;padding-left:18px}
+  .riskcard li{margin-bottom:6px;font-size:14px}
+
+  /* calculator */
+  .calc{display:grid;gap:14px}
+  @media(min-width:760px){.calc{grid-template-columns:1fr 1fr}}
+  .calc label{font-size:12.5px;font-weight:600;display:block;margin-bottom:5px}
+  .calc input{width:100%;font-family:"IBM Plex Mono",monospace;font-size:17px;padding:10px 12px;
+    border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+  .calc input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .calc .out{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line2);padding:8px 0;font-size:14px}
+  .calc .out b{font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+  .calc .note{font-size:12px;color:var(--muted);margin-top:8px}
+
+  .disc{margin-top:34px;border-top:2px solid var(--ink);padding-top:12px;font-size:12.5px;color:var(--ink2)}
+  .sources{font-size:13px}
+  .sources li{margin-bottom:6px;word-break:break-word}
+  footer{margin-top:22px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  @media print{body{background:#fff}.masthead{border-radius:0}.card,.vcard,.flowbox{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="mast-inner">
+      <div class="mast-top">
+        <span class="series">Equity Research · Energy</span>
+        <span class="asof">As of 1 Nov 2026 · Price ref: 30 Oct 2026 close</span>
+      </div>
+      <h1>Marathon Petroleum <span class="tick">MPC</span></h1>
+      <p class="subline">The largest US refiner by capacity — a downstream + midstream system built on the 2018 Andeavor
+      acquisition, 7,700+ retail stations, and a ~64% stake in MPLX. The stock is up <b>+173% year-to-date</b> into 30 Oct 2026
+      on crack spreads — this note is about what that run has already priced in.</p>
+      <div class="snap" role="table" aria-label="Key figures">
+        <div class="cell"><div class="k">Price · 30 Oct</div><div class="v">$444.73</div></div>
+        <div class="cell"><div class="k">Market cap</div><div class="v">$124.9<small>bn</small></div></div>
+        <div class="cell"><div class="k">Trailing P/E</div><div class="v">14.6×</div></div>
+        <div class="cell"><div class="k">P / Sales</div><div class="v">0.8×</div></div>
+        <div class="cell"><div class="k">TTM revenue</div><div class="v">$153.6<small>bn</small></div></div>
+        <div class="cell"><div class="k">Div / quarter</div><div class="v">$1.10</div></div>
+        <div class="cell"><div class="k">Div yield*</div><div class="v">~1.0%</div></div>
+        <div class="cell"><div class="k">YTD to 30 Oct</div><div class="v hot">+173%</div></div>
+      </div>
+      <div class="basis"><b>Ranking basis:</b> Global top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026; prices at
+      30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ. The sector list is not in
+      strict market-cap order as printed. *Yield is arithmetic on the declared $1.10/quarter rate — see §2.</div>
+    </div>
+  </header>
+
+  <!-- ============ VERDICT ============ -->
+  <div class="verdict">
+    <div class="vcard">
+      <div class="k">Short term · 12–18 months</div>
+      <span class="badge hold">HOLD</span>
+      <p>Do not chase a +173% run. The 12–18-month base case is $460 — only ~+3% from spot — so the near-term
+      risk/reward is capped on the upside and open on the downside if crack spreads normalise.</p>
+    </div>
+    <div class="vcard">
+      <div class="k">Long term · 5 years</div>
+      <span class="badge hold">HOLD</span>
+      <p>Core refining scale plus MPLX fee income supports holding an existing position, but the modelled 5-year
+      weighted value (~$439) sits essentially at today's price — this is an income-and-cycle name at the current print, not a compounder.</p>
+    </div>
+    <div class="vcard">
+      <div class="k">Suggested weight · mid-30s, risk 8/10</div>
+      <div class="big">1.0% <small>of total portfolio</small></div>
+      <p>A satellite energy position, sized small because refining earnings are cyclical and the entry point follows an
+      exceptional run. Calculator in §6.</p>
+    </div>
+  </div>
+  <p class="src">Recommendations are research views, not guarantees and not investment advice. Modelled prices are estimates — methodology in §5.</p>
+
+  <!-- ============ 1. BUSINESS MODEL ============ -->
+  <section id="s1">
+    <div class="sec-head"><span class="sec-num">§1</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+    <div class="cols wide">
+      <div class="card">
+        <h3>What MPC actually is</h3>
+        <p>Marathon Petroleum is the <b>largest US refiner by capacity</b>, a position created by the 2018 Andeavor
+        acquisition. The model is downstream-led: buy crude, refine it into gasoline, diesel and other products, and sell
+        into wholesale and retail channels — capturing the <i>crack spread</i> (the gap between crude input costs and
+        refined-product prices) rather than the crude price itself. That distinction drives everything in this note:
+        MPC earnings rise when refining margins widen, which is exactly what powered the +173% YTD move — the pack is
+        explicit that the run is <b>crack-spread driven, not a low-base effect</b>.</p>
+        <h3>Revenue streams</h3>
+        <ul class="tight">
+          <li><b>Refining &amp; marketing (core).</b> The dominant stream inside TTM revenue of <b>$153.6bn</b>. Earnings here are
+          spread-driven and volatile by construction — a wide crack is a tailwind this year and a mean-reversion risk next year.</li>
+          <li><b>Retail.</b> <b>7,700+ stations</b> give MPC a branded and franchised outlet for its own product, smoothing some
+          wholesale volatility and anchoring demand for refinery output.</li>
+          <li><b>Midstream via MPLX.</b> MPC holds <b>~64% of MPLX</b>, its midstream partnership. Pipelines, logistics and
+          gathering assets earn fee-based income that is far steadier than refining margins, and MPLX distributions are a
+          recurring cash channel back to MPC.</li>
+        </ul>
+        <p class="src">Sources: research pack (Motley Fool + MPLX source for the ~64% stake; Finnhub for TTM revenue) — links in Sources.</p>
+      </div>
+      <div class="card">
+        <h3>TTM income flow — revenue to gross profit</h3>
+        <p style="font-size:13.5px;color:var(--ink2)">Gross profit is only ~10.4% of revenue (derived: $15.9bn ÷ $153.6bn) —
+        the visual signature of a refiner: enormous throughput, thin unit margins, earnings made on the spread.</p>
+        <ul class="tight" style="font-size:14px">
+          <li>TTM revenue: <b class="mono">$153.6bn</b></li>
+          <li>TTM gross profit: <b class="mono">$15.9bn</b></li>
+          <li>All other costs (derived residual): <b class="mono">$137.7bn</b></li>
+        </ul>
+        <div class="gap"><b>Segment detail not in the verified pack:</b> a refining / retail / midstream revenue split and a
+        geographic distribution were not supplied with source figures, so they are omitted here rather than estimated.
+        MPC is a US-centred system; no sourced geographic revenue split was available to state precisely.</div>
+        <h3>Structural notes</h3>
+        <ul class="tight">
+          <li><b>Andeavor (2018)</b> is the defining structural pivot — it made MPC the capacity leader and reshaped its
+          western US footprint and retail network.</li>
+          <li><b>Supply-chain dependency:</b> the model depends on crude supply and pipeline logistics into its refineries,
+          and on product distribution out — the MPLX stake is partly a hedge on that dependency, keeping critical logistics
+          inside the group.</li>
+          <li><b>Next reported event:</b> Q3 results were due <b>3 Nov 2026</b> — after this note's 1 Nov date — so every figure
+          here is pre-Q3-print.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="flowbox" role="img" aria-label="Flow diagram: TTM revenue of 153.6 billion dollars splits into 137.7 billion of combined other costs and 15.9 billion gross profit">
+      <svg viewBox="0 0 980 190" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif">
+        <rect x="10" y="55" width="200" height="80" rx="8" fill="#14263f"/>
+        <text x="110" y="88" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">TTM Revenue</text>
+        <text x="110" y="112" text-anchor="middle" fill="#c8d4e6" font-size="14" font-family="IBM Plex Mono, monospace">$153.6bn</text>
+        <path d="M210 80 C 330 80, 330 52, 450 52 L 700 52 L 700 84 L 450 84 C 330 84, 330 92, 210 95 Z" fill="#b3352c" opacity="0.75"/>
+        <path d="M210 108 C 330 108, 330 128, 450 128 L 700 128 L 700 148 L 450 148 C 330 148, 330 118, 210 115 Z" fill="#1c7a4d" opacity="0.8"/>
+        <rect x="700" y="40" width="270" height="56" rx="8" fill="none" stroke="#b3352c" stroke-width="1.5"/>
+        <text x="716" y="64" font-size="13.5" font-weight="700" fill="currentColor">All other costs (residual)</text>
+        <text x="716" y="86" font-size="13.5" font-family="IBM Plex Mono, monospace" fill="currentColor">$137.7bn · 89.6%</text>
+        <rect x="700" y="112" width="270" height="52" rx="8" fill="none" stroke="#1c7a4d" stroke-width="1.5"/>
+        <text x="716" y="134" font-size="13.5" font-weight="700" fill="currentColor">Gross profit</text>
+        <text x="716" y="154" font-size="13.5" font-family="IBM Plex Mono, monospace" fill="currentColor">$15.9bn · 10.4%</text>
+      </svg>
+      <p class="flow-cap">TTM flow, figures as reported in the pack (revenue and gross profit, Motley Fool). The $137.7bn cost line is a
+      derived combined residual (revenue − gross profit), not a reported line item — it bundles crude, operating and all other costs above gross profit.</p>
+    </div>
+  </section>
+
+  <!-- ============ 2. FINANCIAL HEALTH ============ -->
+  <section id="s2">
+    <div class="sec-head"><span class="sec-num">§2</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+    <div class="tblwrap">
+      <table class="stack">
+        <thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / source</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td data-k="Metric">Share price (30 Oct 2026 close)</td><td class="num" data-k="Value">$444.73</td><td data-k="Basis">Finnhub / StockInvest — verified in the independent log</td><td data-k="Read">After a +173% YTD run</td></tr>
+          <tr><td data-k="Metric">Market capitalisation</td><td class="num" data-k="Value">$124.9bn</td><td data-k="Basis">Research pack</td><td data-k="Read">Implies ~281m shares (derived)</td></tr>
+          <tr><td data-k="Metric">Trailing P/E</td><td class="num" data-k="Value">14.6×</td><td data-k="Basis">Finnhub — matches the pack to 0.1 in the verification pass</td><td data-k="Read">Undemanding <i>if</i> peak-cycle earnings hold</td></tr>
+          <tr><td data-k="Metric">Price / sales</td><td class="num" data-k="Value">0.8×</td><td data-k="Basis">Pack; consistent with $124.9bn ÷ $153.6bn = 0.81 (derived)</td><td data-k="Read">Normal for a thin-margin refiner</td></tr>
+          <tr><td data-k="Metric">TTM revenue</td><td class="num" data-k="Value">$153.6bn</td><td data-k="Basis">Finnhub via pack</td><td data-k="Read">Scale of the refining system</td></tr>
+          <tr><td data-k="Metric">TTM gross profit</td><td class="num" data-k="Value">$15.9bn</td><td data-k="Basis">Motley Fool via pack</td><td data-k="Read">~10.4% gross margin (derived)</td></tr>
+          <tr><td data-k="Metric">EPS (as reported in pack)</td><td class="num" data-k="Value">$13.23</td><td data-k="Basis">Finnhub via pack</td><td data-k="Read">See open question below</td></tr>
+          <tr class="hl"><td data-k="Metric">Dividend — raised 10% on 28 Oct 2026</td><td class="num" data-k="Value">$1.10 / qtr</td><td data-k="Basis">Company declaration (from $1.00); record 18 Nov, payable 10 Dec</td><td data-k="Read">~1.0% yield at $444.73 (derived: $4.40 annualised ÷ price)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cols two">
+      <div class="card">
+        <h3>Capital allocation</h3>
+        <ul class="tight">
+          <li><b>Dividend:</b> raised <b>10%</b> on 28 Oct 2026, from $1.00 to <b>$1.10 per quarter</b> — a management signal of
+          confidence in through-cycle cash generation, declared days before the Q3 print (due 3 Nov).</li>
+          <li><b>Buybacks:</b> listed in the pack as a standing catalyst / return channel for MPC, but <b>no sourced buyback
+          amount or authorisation figure was supplied</b>, so none is stated here.</li>
+          <li><b>MPLX distributions:</b> the ~64% MPLX stake routes fee-based midstream cash back to MPC, funding part of the
+          shareholder-return programme from non-refining income.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Balance-sheet diagnostics — honest gaps</h3>
+        <div class="gap" style="margin-top:0"><b>Not in the verified pack:</b> total debt, cash, debt-to-equity, EV/EBITDA and a
+        free-cash-flow figure were not supplied with sources for MPC, so they are <b>omitted rather than estimated</b>. The
+        valuation read in this note therefore rests on P/E and P/S, which were verified.</div>
+        <p style="font-size:14px">What can be said on sourced figures: at <b>14.6× trailing earnings</b> and <b>0.8× sales</b>,
+        MPC is priced like a cyclical at strong-but-not-peak earnings — cheap against the broad market's multiple, but the
+        denominator (refining earnings after an exceptional crack-spread year) is the risk, not the multiple itself.</p>
+      </div>
+    </div>
+    <div class="gap"><b>Open question — EPS vs P/E:</b> the pack reports EPS of $13.23 (Finnhub) alongside a 14.6× P/E. At the
+    $444.73 close, 14.6× implies earnings of ~$30.5/share (derived), so the two figures appear to be on different bases
+    (e.g. different trailing windows). Both are shown exactly as sourced; the §5 model is built on price and the P/E
+    multiple, not on the $13.23 figure, and the discrepancy is flagged rather than smoothed over.</div>
+  </section>
+
+  <!-- ============ 3. MOAT ============ -->
+  <section id="s3">
+    <div class="sec-head"><span class="sec-num">§3</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <div class="cols two">
+      <div class="card">
+        <h3>Where the moat is real</h3>
+        <ul class="tight">
+          <li><b>Refining scale.</b> Largest US refiner by capacity. Scale buys crude-slate flexibility, procurement leverage
+          and the ability to run complex barrels competitors cannot process as profitably.</li>
+          <li><b>Permitting barrier.</b> New US refining capacity is effectively not being built — the existing fleet, MPC's
+          included, is a scarce, hard-to-replicate asset base. Incumbent capacity is the barrier to entry.</li>
+          <li><b>Midstream fee income via MPLX.</b> The ~64% MPLX stake adds contracted, fee-based logistics earnings that
+          damp the refining cycle — a structural cushion pure refiners lack.</li>
+          <li><b>Retail footprint.</b> 7,700+ stations secure an outlet for refined product and a consumer-facing brand layer
+          on top of a commodity business.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Where the moat stops</h3>
+        <ul class="tight">
+          <li><b>No pricing power over the product.</b> Gasoline and diesel are commodities priced off benchmarks. MPC's edge
+          is cost, scale and logistics — it cannot set the crack spread; it can only capture it efficiently.</li>
+          <li><b>Margin is market-given.</b> The same openness that produced +173% YTD works in reverse: refining margins are
+          set by industry capacity, demand and crude differentials, all outside management control.</li>
+          <li><b>Competitive set.</b> Other large US refiners and integrated majors with refining arms compete for the same
+          crude slates and product markets; MPC's defence is its capacity position and system integration, not differentiation.</li>
+          <li><b>Regulatory exposure as anti-moat.</b> Renewable-fuel obligations (RINs) and environmental regulation are
+          recurring cost lines for refiners — flagged in the pack as a standing risk, not a one-off.</li>
+        </ul>
+        <p class="src">Moat framing per the research pack: “Refining scale, midstream fee income via MPLX, logistics.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. CATALYSTS & RISKS ============ -->
+  <section id="s4">
+    <div class="sec-head"><span class="sec-num">§4</span><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="riskgrid">
+      <div class="riskcard cat">
+        <h3>Catalysts</h3>
+        <ul>
+          <li><b>Crack spreads staying wide.</b> The engine of the +173% run — every extra quarter of strong refining margins
+          extends the earnings base the 14.6× multiple sits on.</li>
+          <li><b>Q3 print, 3 Nov 2026.</b> The first hard test of whether current margins are holding; due two days after this note.</li>
+          <li><b>Dividend momentum.</b> The 10% raise to $1.10/quarter (payable 10 Dec) signals management's confidence and
+          supports the income case at ~1.0% yield.</li>
+          <li><b>MPLX distributions.</b> Growth in fee-based midstream cash flows raises the non-cyclical share of MPC's income.</li>
+          <li><b>Buybacks.</b> Flagged in the pack as an ongoing return channel alongside the dividend.</li>
+        </ul>
+      </div>
+      <div class="riskcard risk">
+        <h3>Downside risks</h3>
+        <ul>
+          <li><b>Refining-margin mean reversion — the dominant risk.</b> After +173% YTD, the stock prices in continued strong
+          cracks. Normalisation toward mid-cycle margins compresses earnings and the price together; the pack names this the
+          principal risk.</li>
+          <li><b>RINs and regulation.</b> Renewable-fuel credit costs and environmental rules can move refiner economics
+          quickly and are set by policy, not markets.</li>
+          <li><b>Demand erosion.</b> Fuel demand is in long-run structural decline pressure (efficiency, electrification);
+          a soft demand year plus new competing supply would squeeze the spread from both sides.</li>
+          <li><b>Cyclical multiple trap.</b> 14.6× looks cheap, but on peak-cycle earnings a “cheap” P/E can be the most
+          expensive kind — the E in the ratio falls before the P adjusts.</li>
+          <li><b>Concentration in one variable.</b> Unlike an integrated major, MPC has no upstream earnings to offset a
+          refining downturn; MPLX cushions but does not hedge the core.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. VALUATION ============ -->
+  <section id="s5">
+    <div class="sec-head"><span class="sec-num">§5</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+    <p>All targets below are <b>modelled estimates</b> from the research pack — not verified facts. Method: cases are framed on
+    the refining cycle (crack-spread path) applied to the $444.73 reference price; the 5-year model additionally holds the
+    trailing P/E (14.6×) and share count frozen, per the frozen-parameter convention, with only earnings growth varying.</p>
+
+    <h3>12–18-month scenarios <span class="est">MODELLED ESTIMATES</span></h3>
+    <div class="scen" aria-hidden="true">
+      <div class="scen-row"><span class="lab">Bull<small>margins stay wide</small></span>
+        <div class="track"><div class="fill" style="left:0;width:90%;background:var(--up)"></div><div class="spot" style="left:74.1%"></div></div>
+        <span class="val">$540<small>+21.4% vs spot</small></span></div>
+      <div class="scen-row"><span class="lab">Base<small>gradual normalisation</small></span>
+        <div class="track"><div class="fill" style="left:0;width:76.7%;background:var(--navy2)"></div><div class="spot" style="left:74.1%"></div></div>
+        <span class="val">$460<small>+3.4% vs spot</small></span></div>
+      <div class="scen-row"><span class="lab">Bear<small>margin mean reversion</small></span>
+        <div class="track"><div class="fill" style="left:0;width:56.7%;background:var(--down)"></div><div class="spot" style="left:74.1%"></div></div>
+        <span class="val">$340<small>−23.6% vs spot</small></span></div>
+    </div>
+    <div class="tblwrap">
+      <table class="stack">
+        <thead><tr><th>Case</th><th>Assumption</th><th class="num">Target</th><th class="num">vs $444.73</th></tr></thead>
+        <tbody>
+          <tr><td data-k="Case"><b>Bull</b></td><td data-k="Assumption">Crack spreads remain near current strength through the horizon; MPLX distributions grow; buybacks continue</td><td class="num" data-k="Target">$540</td><td class="num pos" data-k="Return">+21.4%</td></tr>
+          <tr class="hl"><td data-k="Case"><b>Base</b></td><td data-k="Assumption">Margins normalise gradually, not abruptly; mid-cycle earnings support a price only modestly above spot</td><td class="num" data-k="Target">$460</td><td class="num pos" data-k="Return">+3.4%</td></tr>
+          <tr><td data-k="Case"><b>Bear</b></td><td data-k="Assumption">Refining margins mean-revert sharply post-run; earnings compress and the multiple offers no protection</td><td class="num" data-k="Target">$340</td><td class="num neg" data-k="Return">−23.6%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px">The shape is the story: <b>+21% bull against −24% bear with a base of only +3%</b> is a negatively
+    skewed near-term profile — the arithmetic behind the short-term Hold and the “do not chase +173%” instruction.</p>
+
+    <h3>5-year frozen-parameter projection <span class="est">MODELLED ESTIMATE</span></h3>
+    <p style="font-size:14px">Frozen parameters: share count held constant, exit P/E held at today's trailing 14.6×, only the
+    earnings path varies. Earnings CAGRs below are derived from the pack's scenario prices at the frozen multiple — they are
+    the model's implied earnings trajectory, not reported guidance.</p>
+    <div class="tblwrap">
+      <table class="stack">
+        <thead><tr><th>Case (weight)</th><th class="num">Implied earnings CAGR/yr</th><th class="num">Implied EPS at frozen 14.6×</th><th class="num">Exit P/E</th><th class="num">5-yr price</th><th class="num">Price CAGR</th></tr></thead>
+        <tbody>
+          <tr><td data-k="Case"><b>Bull</b> (20%)</td><td class="num" data-k="CAGR">~+4.7%</td><td class="num" data-k="EPS">~$38.4</td><td class="num" data-k="P/E">14.6×</td><td class="num" data-k="Price">$560</td><td class="num pos" data-k="Price CAGR">+4.7%</td></tr>
+          <tr class="hl"><td data-k="Case"><b>Base</b> (60%)</td><td class="num" data-k="CAGR">~0%</td><td class="num" data-k="EPS">~$30.5</td><td class="num" data-k="P/E">14.6×</td><td class="num" data-k="Price">$445</td><td class="num" data-k="Price CAGR">~0.0%</td></tr>
+          <tr><td data-k="Case"><b>Bear</b> (20%)</td><td class="num" data-k="CAGR">~−7.6%</td><td class="num" data-k="EPS">~$20.5</td><td class="num" data-k="P/E">14.6×</td><td class="num" data-k="Price">$300</td><td class="num neg" data-k="Price CAGR">−7.6%</td></tr>
+          <tr class="hl"><td data-k="Case"><b>Probability-weighted</b></td><td class="num" data-k="CAGR">—</td><td class="num" data-k="EPS">—</td><td class="num" data-k="P/E">—</td><td class="num" data-k="Price">~$439</td><td class="num" data-k="Price CAGR">−0.3%/yr</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px">Weighted check, shown so the figure can be re-performed: 0.20 × $560 + 0.60 × $445 + 0.20 × $300 =
+    <b class="mono">$439</b> — matching the pack's modelled weighted estimate of ~$439. The base case's <b>0% CAGR</b> is the
+    pack's own assumption: at $444.73 the market has already capitalised the strong-margin year, so the central 5-year
+    expectation is a flat price plus the ~1.0% dividend — total return carried by income, not appreciation. Note the
+    verification log's caveat: scenario weights were not independently supplied for most packs, so the weights above are
+    this note's stated modelling convention (20/60/20), published precisely so the weighted figure is checkable.</p>
+  </section>
+
+  <!-- ============ 6. RECOMMENDATION ============ -->
+  <section id="s6">
+    <div class="sec-head"><span class="sec-num">§6</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+    <div class="tblwrap">
+      <table class="stack">
+        <thead><tr><th>Horizon</th><th>View</th><th>Rationale in one line</th></tr></thead>
+        <tbody>
+          <tr><td data-k="Horizon"><b>Short term (12–18 mo)</b></td><td data-k="View"><span class="badge hold" style="font-size:14px;padding:2px 10px">HOLD</span></td><td data-k="Why">Do not chase +173%; base case is only +3.4% with −23.6% bear skew</td></tr>
+          <tr><td data-k="Horizon"><b>Long term (5 yr)</b></td><td data-k="View"><span class="badge hold" style="font-size:14px;padding:2px 10px">HOLD</span></td><td data-k="Why">Scale + MPLX income justify holding; weighted 5-yr value ~$439 ≈ spot, so returns are income-led</td></tr>
+          <tr class="hl"><td data-k="Horizon"><b>Suggested weight</b></td><td data-k="View"><b class="mono">1.0%</b> of total portfolio</td><td data-k="Why">Satellite energy sleeve for a mid-30s investor at risk 8/10 — cyclical earnings cap the size</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Position-size calculator</h3>
+      <div class="calc">
+        <div>
+          <label for="pf">Total portfolio value (USD)</label>
+          <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="250000" />
+          <label for="wt" style="margin-top:14px">MPC weight (%) — suggested 1.0</label>
+          <input id="wt" type="number" inputmode="decimal" min="0" max="100" step="0.1" value="1.0" />
+          <p class="note">In-session only — nothing is stored or sent. Shares are rounded down to whole shares at the $444.73 reference price.</p>
+        </div>
+        <div>
+          <div class="out"><span>Target MPC position</span><b id="oAmt">—</b></div>
+          <div class="out"><span>Whole shares at $444.73</span><b id="oSh">—</b></div>
+          <div class="out"><span>Cash left uninvested</span><b id="oLeft">—</b></div>
+          <div class="out"><span>Indicative annual dividend on position*</span><b id="oDiv">—</b></div>
+          <p class="note">*At the declared $1.10/quarter rate ($4.40/share annualised), before any future changes. A research illustration, not a recommendation to transact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOURCES ============ -->
+  <section id="sources">
+    <div class="sec-head"><span class="sec-num">§7</span><h2>Sources</h2></div>
+    <ul class="sources">
+      <li>Price, P/E, EPS, TTM revenue — Finnhub (MPC quote): <a href="https://finnhub.io/?q=%22MPC%22" target="_blank" rel="noopener">finnhub.io/?q="MPC"</a> — price $444.73 and P/E 14.6 reproduced in the independent verification pass.</li>
+      <li>Price cross-check — StockInvest MPC price history: <a href="https://stockinvest.us/stock-price/MPC" target="_blank" rel="noopener">stockinvest.us/stock-price/MPC</a> ($444.73 close, 30 Oct 2026).</li>
+      <li>Dividend declaration — Marathon Petroleum declares dividend (10% raise to $1.10/quarter, 28 Oct 2026; record 18 Nov, payable 10 Dec): <a href="https://www.ad-hoc-news.de/boerse/corporate-news/marathon-petroleum-declares-dividend-per-marathon-petroleum-stock/70427476" target="_blank" rel="noopener">ad-hoc-news.de — MPC dividend declaration</a>.</li>
+      <li>Market cap, gross profit, sector ranking basis — Motley Fool sector research (metrics as of 2 Oct 2026): <a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">fool.com/research</a> (ranking-methodology reference carried in the verification log).</li>
+      <li>MPLX ownership (~64%) — MPLX / Marathon Petroleum materials as cited in the research pack.</li>
+    </ul>
+    <p class="src">Verification note: the independent verification log confirms MPC's 30 Oct close ($444.73) and trailing P/E (14.6×).
+    Figures the log did not cover — forward multiples, EV/EBITDA, leverage, FCF and segment splits — are omitted above rather than
+    presented unverified. All scenario prices are modelled estimates with methodology shown in §5.</p>
+  </section>
+
+  <div class="disc">
+    <b>Disclaimer.</b> This note is research commentary prepared as of 1 Nov 2026 using the 30 Oct 2026 close as its price
+    reference. It is not investment advice, a solicitation, or a guarantee of future results. Scenario prices are modelled
+    estimates built on the stated assumptions; actual outcomes will differ, and refining earnings are among the most cyclical
+    in the market. Verify figures against the linked sources and consider your own circumstances before acting.
+  </div>
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Marathon Petroleum (MPC)</h2>
+<p><strong>Price (30 Oct 2026 close): $444.73.</strong> <strong>DCF intrinsic: $179.</strong> Discount/premium vs DCF: <strong>+148.5%</strong> — i.e. the shares are trading 148.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$179</td><td>+148.5%</td><td>g 0.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack (dividend raised 10% 28 Oct to $1.10/q, verified); TipRanks https://www.tipranks.com/stocks/mpc/statistics ; TwelveData https://twelvedata.com/markets/189926/stock/nyse/mpc/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Marathon Petroleum (MPC)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. Marathon Petroleum is the exception in this batch with a genuinely consumer-facing arm, but it is still classified B2B overall: the majority of revenue comes from wholesale refined-product sales to distributors, retailers and other businesses, plus midstream fees — its 7,700+ stations are largely branded retail distribution, not a single-customer list. No ranked top-7 business-customer list is disclosed.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Wholesale fuel distributors and branded retailers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Airlines, trucking and industrial fuel buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Midstream customers via MPLX (affiliate, fee income)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is wholesale fuel demand and crack spreads: undervalued distributors and transport buyers would be a tailwind only if they lift volumes, which depends on travel, freight and their own margins rather than their valuation; overvalued or weakening fuel demand would be a headwind, and for Marathon the dominant swing factor remains the crack spread itself, not any one buyer.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Marathon Petroleum (MPC)</h2>
+<p><strong>Role: Low exposure.</strong> Refining and transport fuels have only a thin AI channel — backup diesel for data centres and construction fuel — and Marathon&#x27;s earnings are set by crack spreads, not by AI capex.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand barely moves: data centres buy backup diesel in small volumes and construction fuel in passing, while Marathon&#x27;s earnings are set by crack spreads on gasoline, diesel and jet fuel.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is no AI premium to unwind (trailing P/E 14.6 in the pack; the +173% YTD run is a crack-spread story, not AI), so compression would come from refining-margin normalisation.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is working-capital/inventory swings if product demand falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: crack-spread collapse, a transport-fuel demand downturn, and RIN/regulatory changes. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer>Equity Research — MPC (Marathon Petroleum) · Energy sector set · Companion index, sector comparisons and glossary are published in the index artifact for this series.</footer>
+</div>
+
+<script>
+(function(){
+  var PRICE = 444.73, DIVQ = 1.10;
+  var pf = document.getElementById('pf'), wt = document.getElementById('wt');
+  var oAmt = document.getElementById('oAmt'), oSh = document.getElementById('oSh'),
+      oLeft = document.getElementById('oLeft'), oDiv = document.getElementById('oDiv');
+  function fmt(n){ return '$' + n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function fmt2(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2}); }
+  function run(){
+    var P = parseFloat(pf.value), W = parseFloat(wt.value);
+    if(!(P >= 0) || !(W >= 0)){ oAmt.textContent = oSh.textContent = oLeft.textContent = oDiv.textContent = '—'; return; }
+    var amt = P * W / 100;
+    var sh = Math.floor(amt / PRICE);
+    var left = amt - sh * PRICE;
+    oAmt.textContent = fmt2(amt);
+    oSh.textContent = sh.toLocaleString('en-US');
+    oLeft.textContent = fmt2(left);
+    oDiv.textContent = fmt2(sh * DIVQ * 4) + ' / yr';
+  }
+  pf.addEventListener('input', run);
+  wt.addEventListener('input', run);
+  run();
+})();
+</script>
+</body>
+</html>

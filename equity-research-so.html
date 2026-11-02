@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SO (Southern Company)</title>
+<style>
+  :root{
+    --bg:#f7f5f0; --paper:#fffdf8; --ink:#17202b; --muted:#5b6675; --line:#ddd6c8;
+    --navy:#132a44; --navy2:#1d3f63; --gold:#b8860b; --gold-bg:#fdf3d7;
+    --green:#1a6b3c; --green-bg:#e6f2e9; --red:#9b2c1f; --red-bg:#fbe9e6;
+    --amber-bg:#fef6e0; --chip:#efe9db; --table-head:#132a44; --table-head-ink:#fff;
+    --accent:#b8860b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#10141a; --paper:#181e27; --ink:#e8e6df; --muted:#a3adbb; --line:#2c3644;
+      --navy:#0e1e33; --navy2:#1d3f63; --gold:#d9a441; --gold-bg:#2e2812;
+      --green:#5cc084; --green-bg:#14291d; --red:#e88a7d; --red-bg:#2f1a16;
+      --amber-bg:#2a2410; --chip:#232c3a; --table-head:#0e1e33; --table-head-ink:#e8e6df;
+    }
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:15px;line-height:1.55}
+  a{color:var(--navy2);text-decoration:underline;text-underline-offset:2px}
+  @media (prefers-color-scheme: dark){ a{color:#8db4e0} }
+  .wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px}
+  /* Header */
+  .kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 6px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:34px;line-height:1.1;margin:0;color:var(--ink);font-weight:700}
+  h1 .ticker{color:var(--navy2)}
+  @media (prefers-color-scheme: dark){ h1 .ticker{color:#8db4e0} }
+  .sub{color:var(--muted);font-size:13.5px;margin:8px 0 0;max-width:720px}
+  .meta-line{font-size:12px;color:var(--muted);margin-top:8px;border-top:1px solid var(--line);padding-top:8px}
+  /* Snapshot strip */
+  .snap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 0}
+  .snap div{background:var(--paper);padding:12px 14px}
+  .snap .lab{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .snap .val{font-size:22px;font-weight:800;line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums}
+  .snap .note{font-size:11.5px;color:var(--muted)}
+  .snap .val.gold{color:var(--gold)}
+  /* Verdict bar */
+  .verdict{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+  .vcard{flex:1 1 200px;background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--navy);padding:12px 14px}
+  .vcard.gold{border-top-color:var(--gold)}
+  .vcard .lab{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .vcard .big{font-size:19px;font-weight:800;margin:2px 0}
+  .vcard p{margin:0;font-size:12.5px;color:var(--muted)}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;vertical-align:middle}
+  .pill.hold{background:var(--amber-bg);color:#7a5a00;border:1px solid #e3c86a}
+  .pill.buy{background:var(--green-bg);color:var(--green);border:1px solid var(--green)}
+  @media (prefers-color-scheme: dark){ .pill.hold{color:#e8c96a} }
+  /* Sections */
+  section{margin-top:30px}
+  h2{font-family:Georgia,"Times New Roman",serif;font-size:21px;margin:0 0 4px;padding-bottom:6px;border-bottom:2px solid var(--navy);display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h2 .num{color:var(--gold);font-size:15px}
+  h2 .tag{font-family:-apple-system,sans-serif;font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+  h3{font-size:14.5px;margin:16px 0 6px;color:var(--navy2)}
+  @media (prefers-color-scheme: dark){ h3{color:#a9c4e8} }
+  p{margin:7px 0}
+  ul{margin:7px 0 7px 18px;padding:0}
+  li{margin:4px 0}
+  .small{font-size:12.5px;color:var(--muted)}
+  .callout{background:var(--gold-bg);border:1px solid var(--line);padding:12px 14px;font-size:13.5px;margin:12px 0}
+  .callout strong{color:var(--ink)}
+  .warn{background:var(--red-bg);border:1px solid var(--line);padding:12px 14px;font-size:13.5px;margin:12px 0}
+  /* Tables */
+  .tbl-wrap{overflow-x:auto;margin:10px 0}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+  th{background:var(--table-head);color:var(--table-head-ink);text-align:left;padding:8px 10px;font-size:12px;letter-spacing:.02em;white-space:nowrap}
+  td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:color-mix(in srgb, var(--paper) 60%, var(--bg))}
+  td.num,th.num{text-align:right}
+  .seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+  .seg{background:var(--paper);border:1px solid var(--line);padding:12px 14px}
+  .seg h4{margin:0 0 4px;font-size:14px}
+  .seg p{margin:0;font-size:13px;color:var(--muted)}
+  .seg .role{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .chart-box{background:var(--paper);border:1px solid var(--line);padding:14px;margin:12px 0}
+  .chart-box h4{margin:0 0 2px;font-size:13.5px}
+  .chart-box .cap{font-size:11.5px;color:var(--muted);margin:0 0 8px}
+  /* Calculator */
+  .calc{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--gold);padding:16px;margin:14px 0}
+  .calc label{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+  .calc input{width:100%;padding:10px 12px;font-size:16px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:4px}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;align-items:end}
+  .calc-out{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  .calc-out-lab{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+  .sources{font-size:12.5px}
+  .sources li{margin:5px 0;word-break:break-word}
+  footer{margin-top:36px;border-top:1px solid var(--line);padding-top:12px;font-size:11.5px;color:var(--muted)}
+  @media (max-width:640px){
+    h1{font-size:27px}
+    .snap{grid-template-columns:1fr 1fr}
+    .seg-grid,.two-col,.calc-grid{grid-template-columns:1fr}
+    .wrap{padding:14px 13px 44px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="kicker">Utilities · US-Listed · Equity Research</p>
+  <h1>Southern Company <span class="ticker">(NYSE: SO)</span></h1>
+  <p class="sub">Regulated Southeast electric &amp; gas utility — Georgia, Alabama and Mississippi monopolies plus wholesale power and gas — now priced as a data-centre load-growth story as much as an income stock. The question at $93.71 is whether Southeast load growth justifies a premium multiple for a regulated utility.</p>
+  <p class="meta-line">Note dated <strong>1 Nov 2026</strong> · Price reference: <strong>30 Oct 2026 regular-session close, $93.71</strong> · Market-cap basis: TipRanks XLU holdings, 30 Oct 2026 (see Ranking basis) · For a mid-30s investor, risk score 8/10 · Research views only — not guarantees, not investment advice.</p>
+
+  <!-- SNAPSHOT -->
+  <div class="snap" role="region" aria-label="Key snapshot">
+    <div><div class="lab">Close — 30 Oct 2026</div><div class="val">$93.71</div><div class="note">Regular-session close <a href="https://finnhub.io/?q=%22SO%22">[Finnhub]</a></div></div>
+    <div><div class="lab">Market cap</div><div class="val">$107.80B</div><div class="note">#2 in XLU top 10 <a href="https://www.tipranks.com/etf/xlu/holdings">[TipRanks XLU]</a></div></div>
+    <div><div class="lab">Trailing P/E</div><div class="val">~22.6×</div><div class="note">22.64× peer table <a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio">[FinanceCharts]</a></div></div>
+    <div><div class="lab">Dividend yield</div><div class="val gold">~3.2%</div><div class="note">3.19–3.23% across vendors — range shown, not a single point</div></div>
+    <div><div class="lab">Operating margin (TTM)</div><div class="val">24.2%</div><div class="note">Peer-table figure <a href="https://greeksoup.ai/stocks/us/ceg/">[Peer table]</a></div></div>
+    <div><div class="lab">Sales growth (TTM)</div><div class="val">+6.4%</div><div class="note">Peer-table figure <a href="https://greeksoup.ai/stocks/us/ceg/">[Peer table]</a></div></div>
+    <div><div class="lab">Debt / Equity</div><div class="val">1.78×</div><div class="note">Typical regulated-utility leverage <a href="https://greeksoup.ai/stocks/us/ceg/">[Peer table]</a></div></div>
+    <div><div class="lab">Capex plan (cited)</div><div class="val">$81.2B</div><div class="note">Sector capex reporting <a href="https://tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026/">[Tech-Insider]</a></div></div>
+  </div>
+
+  <div class="verdict">
+    <div class="vcard"><div class="lab">Short term · 12–18 months</div><div class="big">HOLD <span class="pill hold">Hold</span></div><p>Premium trailing multiple leaves little margin if Georgia PSC cost-allocation politics or rates bite. Base target $95 is only ~1% above the close — wait for a better entry.</p></div>
+    <div class="vcard gold"><div class="lab">Long term · 5 years</div><div class="big">BUY <span class="pill buy">Buy</span></div><p>Income (~3.2% yield) plus Southeast rate-base growth. Modelled 5-yr weighted estimate $102.90 — modest price upside, with the dividend doing much of the work.</p></div>
+    <div class="vcard"><div class="lab">Suggested portfolio weight</div><div class="big">2.0% of portfolio</div><p>Defensive income sleeve inside an 8/10-risk portfolio. See §6 for the position-size calculator.</p></div>
+  </div>
+
+  <div class="callout"><strong>Ranking basis — read this first:</strong> SO is ranked <strong>#2 among top-10 US-listed Utilities by market cap in the XLU universe</strong> as of 30 Oct 2026 (TipRanks): NEE $175.57B, <strong>SO $107.80B</strong>, DUK $99.33B, CEG $92.96B, AEP $70.90B, D $58.59B, SRE $56.27B, ETR $52.61B, XEL $51.23B, EXC $47.65B. XLU is 100% US geography, so “US-listed only” is defensible as an XLU methodology — <strong>it is not a global top 10</strong>. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter and XEL/EXC would fall out. Market caps use TipRanks values throughout; Finnhub float-based values differ by up to ~$3B for some names — vendors are not mixed in any one table. <a href="https://www.tipranks.com/etf/xlu/holdings">[TipRanks XLU holdings]</a></div>
+
+  <!-- 1 -->
+  <section>
+    <h2><span><span class="num">01</span> &nbsp;Business Model &amp; Segment Breakdown</span><span class="tag">Regulated first, merchant second</span></h2>
+    <p>Southern Company earns most of its money the regulated way: state commissions set the rates its utilities can charge on an approved asset base (rate base), and earnings grow when that rate base grows — new generation, grid hardening and connections for large new customers. That makes capital plans, not commodity prices, the core growth variable. The merchant/wholesale and gas businesses add diversification but do not change the regulated centre of gravity.</p>
+
+    <div class="seg-grid">
+      <div class="seg"><div class="role">Regulated electric — core</div><h4>Georgia Power · Alabama Power · Mississippi Power</h4><p>Vertically integrated regulated monopolies in Georgia, Alabama and Mississippi. Southeast population and industrial growth — plus data-centre load — drives connection and rate-base growth.</p></div>
+      <div class="seg"><div class="role">Wholesale</div><h4>Southern Power</h4><p>Wholesale generation business selling power under contracts — less regulated than the state utilities, but still asset-backed and contract-led rather than purely merchant.</p></div>
+      <div class="seg"><div class="role">Regulated gas</div><h4>Southern Company Gas</h4><p>Natural-gas distribution. Adds a second regulated fuel and a second set of state regulators; also the source of gas-commodity and winter-weather exposure noted in §4.</p></div>
+      <div class="seg"><div class="role">Growth engine</div><h4>Southeast data-centre load</h4><p>Meta and Microsoft are cited in sector capex reporting as anchor large-load customers in the Southeast. That load is the reason an $81.2B capex plan is being underwritten — see §4 for who pays for it. <a href="https://tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026/">[Source]</a></p></div>
+    </div>
+
+    <h3>Geography &amp; structural pivots</h3>
+    <ul>
+      <li><strong>Geography is concentrated by design:</strong> the Southeast US. That is the moat (fast-growing service territories) and the concentration risk (hurricane/storm exposure, three state political environments) in one fact.</li>
+      <li><strong>The pivot is load, not fuel:</strong> after a decade where US utility load was broadly flat, hyperscale data centres have turned load growth back into the investment case. SO's cited <strong>$81.2B capex plan</strong> <a href="https://tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026/">[Tech-Insider]</a> is the financial expression of that pivot — spending now, rate-base (and allowed earnings) later, subject to regulator approval.</li>
+      <li><strong>Nuclear context (flagged, not a verified 2026 figure):</strong> Plant Vogtle's new units are now in rate base — general industry knowledge included as context only; no 2026 Vogtle figure in the research pack was independently verified, so no Vogtle-specific number is used anywhere in the valuation below.</li>
+      <li><strong>Supply-chain dependencies:</strong> large transformers, switchgear, gas turbines and skilled construction labour — the same bottleneck chain facing every US utility building for data-centre load. Delays flow straight into capex timing and rate-case timing; no SO-specific lead-time figure was verified, so none is quoted.</li>
+    </ul>
+    <p class="small">No segment revenue split is published in this note: the research pack does not carry a verified segment revenue breakdown for SO, and an invented split would be worse than none. The qualitative weights above — regulated electric as the core, gas and wholesale as supporting businesses — are the pack's characterisation.</p>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <h2><span><span class="num">02</span> &nbsp;Financial Health &amp; Balance Sheet Diagnostics</span><span class="tag">Premium multiple, utility balance sheet</span></h2>
+    <div class="tbl-wrap"><table>
+      <tr><th>Metric</th><th class="num">SO</th><th>Reading</th><th>Source</th></tr>
+      <tr><td>Price (30 Oct 2026 close)</td><td class="num">$93.71</td><td>Reference price for all targets in §5</td><td><a href="https://finnhub.io/?q=%22SO%22">Finnhub</a></td></tr>
+      <tr><td>Market cap</td><td class="num">$107.80B</td><td>#2 in XLU top 10 (TipRanks basis)</td><td><a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks XLU</a> · <a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio">FinanceCharts</a></td></tr>
+      <tr><td>Trailing P/E</td><td class="num">~22.6× (22.64×)</td><td>High for a regulated utility — the “growth utility” premium. Central valuation risk in §4/§5.</td><td><a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio">FinanceCharts peer table</a></td></tr>
+      <tr><td>Forward P/E</td><td class="num">— omitted —</td><td><strong>Not verified</strong> in the research pack / verification log. Deliberately not quoted rather than estimated silently.</td><td>—</td></tr>
+      <tr><td>Dividend yield</td><td class="num">3.19–3.23%</td><td>Range across vendors. The income case: at 2% portfolio weight, SO contributes roughly 0.06pp of portfolio yield before any price move.</td><td>Pack range — see Sources</td></tr>
+      <tr><td>Operating margin (TTM)</td><td class="num">24.2%</td><td>Healthy for a regulated/gas mix; consistent with rate-based earnings rather than merchant windfalls.</td><td><a href="https://greeksoup.ai/stocks/us/ceg/">Peer table</a></td></tr>
+      <tr><td>Sales growth (TTM)</td><td class="num">+6.4%</td><td>Solid for a utility — load + rate effects, not volume exuberance.</td><td><a href="https://greeksoup.ai/stocks/us/ceg/">Peer table</a></td></tr>
+      <tr><td>Debt / Equity</td><td class="num">1.78×</td><td>Levered, as regulated utilities are — debt is serviced from regulated cash flows. The sensitivity is to interest rates and regulator-allowed returns, not to a near-term maturity wall (no maturity figure was verified).</td><td><a href="https://greeksoup.ai/stocks/us/ceg/">Peer table</a></td></tr>
+      <tr><td>Capex plan (cited)</td><td class="num">$81.2B</td><td>The growth commitment. Funds future rate base; also the financing burden if load or approvals slip.</td><td><a href="https://tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026/">Tech-Insider</a></td></tr>
+    </table></div>
+
+    <h3>Free cash flow &amp; capital allocation — what can and cannot be said</h3>
+    <p>Regulated utilities in a heavy build phase typically run <em>negative</em> free cash flow after capex — cash earnings fund part of the build, debt and equity fund the rest, and the dividend is paid through the cycle as a policy commitment. That is the sector pattern, stated as context. <strong>No SO-specific free-cash-flow, buyback, or payout-ratio figure was verified in the pack, so none is quoted here</strong> — inventing one would breach this note's own standard. What <em>is</em> grounded:</p>
+    <ul>
+      <li><strong>Dividend is the capital return:</strong> ~3.2% yield is the shareholder cash return; utilities of this type are not meaningful buyback stories, and no buyback figure is claimed.</li>
+      <li><strong>Capex is the capital allocation:</strong> the $81.2B cited plan <em>is</em> the allocation decision — growth capex into Southeast rate base ahead of competing uses of cash.</li>
+      <li><strong>Leverage diagnostic:</strong> D/E 1.78× with a 24.2% operating margin is a normal regulated profile. The balance-sheet question is not solvency; it is whether allowed returns on a growing rate base outrun the rising cost of the debt funding it if rates stay higher for longer.</li>
+    </ul>
+    <div class="callout"><strong>Valuation tension in one line:</strong> at ~22.6× trailing earnings SO is priced well above the historical regulated-utility norm — the market is already paying for data-centre rate-base growth. That is why the 12–18-month base target ($95) sits barely above the price while the long-term case rests on compounding + dividends, not on multiple expansion.</div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <h2><span><span class="num">03</span> &nbsp;Competitive Moat &amp; Industry Positioning</span><span class="tag">Regulation is the moat</span></h2>
+    <div class="two-col">
+      <div>
+        <h3>Moat sources</h3>
+        <ul>
+          <li><strong>Regulated monopoly territories:</strong> Georgia Power, Alabama Power and Mississippi Power face no direct retail competitor inside their service territories. Competition happens <em>for</em> the next data centre or factory siting decision, not for existing customers.</li>
+          <li><strong>Fast-growing territory:</strong> a monopoly in a growing region is worth more than a monopoly in a shrinking one — Southeast population, industrial and hyperscale growth compounds the rate base without SO having to win share.</li>
+          <li><strong>Scale &amp; generation mix:</strong> nuclear (Vogtle — context only, see §1), gas and renewables at utility scale, with the balance sheet (D/E 1.78×, investment-grade regulated profile) to fund an $81.2B build that smaller utilities cannot.</li>
+          <li><strong>Regulatory relationships:</strong> decades of rate-case practice in three states. This cuts both ways — see PSC politics in §4.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Positioning vs. peers</h3>
+        <ul>
+          <li><strong>vs. Duke Energy (DUK, $99.33B):</strong> closest Southeast regulated peer; the natural comparator for rate-base growth and PSC outcomes. SO trades at the premium multiple of the two stories.</li>
+          <li><strong>vs. NextEra Energy (NEE, $175.57B):</strong> the sector's growth benchmark (Florida regulated + renewables). NEE is the quality/growth pole; SO is the Southeast-pure regulated pole.</li>
+          <li><strong>vs. Dominion Energy (D, $58.59B):</strong> Mid-Atlantic regulated peer with a heavier recent restructuring history — SO screens as the cleaner Southeast execution story by comparison.</li>
+          <li><strong>Pricing power — the honest limit:</strong> a regulated utility has <em>no</em> unilateral pricing power. Prices are set by commissions. The “moat” is exclusivity + allowed return, not the ability to raise price. Any thesis that needs SO to out-earn its allowed return is a thesis about regulators, not about SO.</li>
+        </ul>
+      </div>
+    </div>
+    <p>Barriers to entry are effectively absolute inside the territories (no second wires utility will be built in Georgia), which is why the debate is never “will a competitor take share?” but always “what return will the PSC allow, and who pays for large-load buildout?” — a political question, priced in §5's bear case.</p>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <h2><span><span class="num">04</span> &nbsp;Catalysts &amp; Downside Risks</span><span class="tag">Load growth vs. who-pays politics</span></h2>
+    <div class="two-col">
+      <div>
+        <h3 style="color:var(--green)">▲ Catalysts</h3>
+        <ul>
+          <li><strong>Georgia data-centre load materialises on schedule:</strong> hyperscale connections (Meta, Microsoft cited in sector reporting) convert the $81.2B capex plan into rate base and allowed earnings — the bull case's engine.</li>
+          <li><strong>Constructive rate cases:</strong> timely recovery of buildout costs at allowed returns close to current levels keeps the EPS-growth path in §5 (5.5% base) intact.</li>
+          <li><strong>Rate relief:</strong> falling long rates compress the utility discount rate; high-multiple, high-yield names like SO (22.6×, ~3.2%) are among the most rate-sensitive beneficiaries.</li>
+          <li><strong>Load guidance upgrades:</strong> any upward revision to Southeast large-load pipelines re-rates the whole Southeast regulated group, SO included.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color:var(--red)">▼ Downside risks</h3>
+        <ul>
+          <li><strong>Georgia PSC politics — who pays for large-load buildout:</strong> the central risk. The same debate playing out in Florida (large-load tariff fights under the SB-484 framework) applies in Georgia: if residential customers are seen to subsidise hyperscaler connections, regulators can impose cost-allocation terms that dilute the earnings benefit or delay approvals.</li>
+          <li><strong>Premium multiple compression:</strong> at ~22.6× trailing, SO has further to fall than peers if the “AI power” trade cools — the bear case's 16× exit multiple is a de-rating scenario, not an earnings-collapse scenario.</li>
+          <li><strong>Execution / cost overruns on the build:</strong> an $81.2B programme has no room for Vogtle-style overrun headlines; disallowances (regulators refusing recovery of imprudent spend) hit equity directly.</li>
+          <li><strong>Gas-commodity &amp; storm exposure:</strong> Southern Company Gas carries commodity pass-through and winter risk; the Southeast footprint carries hurricane/storm restoration costs, always partly a regulatory-recovery negotiation after the fact.</li>
+          <li><strong>Higher-for-longer rates:</strong> D/E 1.78× funding a multi-year build into a high-rate tape raises interest cost faster than allowed returns adjust.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="warn"><strong>What would change the call:</strong> a Georgia PSC large-load framework that explicitly shields existing customers <em>and</em> guarantees cost recovery would upgrade the short-term view to Buy; a disallowance, a punitive cost-allocation ruling, or hyperscale load deferrals would move even the long-term view to Hold. Neither had occurred as of 1 Nov 2026 in the verified pack.</div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <h2><span><span class="num">05</span> &nbsp;Scenario-Based Valuation &amp; Price Targets</span><span class="tag">All targets are modelled estimates — methodology shown</span></h2>
+    <p>Two horizons, as requested. <strong>Every price in this section is a modelled estimate, not a verified fact.</strong> The 12–18-month cases are analyst-style scenario targets from the research pack. The 5-year cases use the frozen-parameter format, adapted transparently for a utility: because SO's trailing P/E (~22.6×) is meaningful, the pack collapses the revenue × margin ÷ shares identity into its EPS equivalent — <em>2031 price = 2026 EPS (est.) × (1+g)<sup>5</sup> × exit P/E</em> — with EPS growth g standing in for revenue growth × margin, and share count held implicitly frozen inside EPS. The adaptation is stated here rather than hidden.</p>
+
+    <h3>12–18-month scenarios (to ~early–mid 2028) — modelled estimates</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">vs. $93.71</th><th>Underlying assumption</th></tr>
+      <tr><td><strong>Bull</strong></td><td class="num">$106</td><td class="num">+13.1%</td><td>Data-centre load + constructive Georgia PSC outcomes; premium multiple broadly held as rate-base growth becomes visible.</td></tr>
+      <tr><td><strong>Base</strong></td><td class="num">$95</td><td class="num">+1.4%</td><td>Rate-base growth on plan, multiple drifts toward the high-teens/low-20s; total return carried mainly by the ~3.2% dividend.</td></tr>
+      <tr><td><strong>Bear</strong></td><td class="num">$82</td><td class="num">−12.5%</td><td>Who-pays politics or higher-for-longer rates compress the multiple before earnings growth can offset it.</td></tr>
+    </table></div>
+    <p class="small">Read the base case honestly: +1.4% price + ~3.2% yield ≈ a mid-single-digit total return — a Hold's arithmetic, not a Buy's. That is deliberate, and it is why the short-term call differs from the long-term call.</p>
+
+    <div class="chart-box">
+      <h4>12–18-month targets vs. current price</h4>
+      <p class="cap">Modelled estimates from the research pack. Dashed line = 30 Oct 2026 close, $93.71.</p>
+      <svg viewBox="0 0 640 168" width="100%" role="img" aria-label="Bar chart of SO scenario targets: Bear 82 dollars, Base 95 dollars, Bull 106 dollars, versus current price 93 dollars 71 cents">
+        <!-- scale: $0-$120 -> x 70..620 -->
+        <line x1="421" y1="8" x2="421" y2="150" stroke="var(--gold)" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="421" y="164" text-anchor="middle" font-size="11" fill="var(--muted)">Now $93.71</text>
+        <text x="0" y="32" font-size="12" font-weight="700" fill="var(--ink)">Bear</text>
+        <rect x="70" y="18" width="307" height="20" fill="#9b2c1f" opacity="0.85"/>
+        <text x="383" y="33" font-size="12" font-weight="700" fill="var(--ink)">$82 (−12.5%)</text>
+        <text x="0" y="76" font-size="12" font-weight="700" fill="var(--ink)">Base</text>
+        <rect x="70" y="62" width="356" height="20" fill="#1d3f63"/>
+        <text x="432" y="77" font-size="12" font-weight="700" fill="var(--ink)">$95 (+1.4%)</text>
+        <text x="0" y="120" font-size="12" font-weight="700" fill="var(--ink)">Bull</text>
+        <rect x="70" y="106" width="398" height="20" fill="#1a6b3c" opacity="0.9"/>
+        <text x="474" y="121" font-size="12" font-weight="700" fill="var(--ink)">$106 (+13.1%)</text>
+      </svg>
+    </div>
+
+    <h3>5-year frozen-parameter projection (to 2031) — modelled estimates</h3>
+    <p>Starting point: <strong>2026 EPS (est.) $4.20</strong> — derived in the pack as price ÷ trailing P/E ($93.71 ÷ ~22.6×); labelled an estimate because it is derived, not a reported SO figure. Parameters are frozen per case: EPS growth and exit P/E do not drift within a case.</p>
+    <div class="tbl-wrap"><table>
+      <tr><th>Case</th><th class="num">EPS growth / yr (g)</th><th class="num">2031 EPS (est.)</th><th class="num">Exit P/E (frozen)</th><th class="num">2031 price (est.)</th><th class="num">vs. $93.71</th></tr>
+      <tr><td><strong>Bull</strong></td><td class="num">6.5%</td><td class="num">$5.75</td><td class="num">21×</td><td class="num"><strong>$120.80</strong></td><td class="num">+28.9%</td></tr>
+      <tr><td><strong>Base</strong></td><td class="num">5.5%</td><td class="num">$5.49</td><td class="num">19×</td><td class="num"><strong>$104.30</strong></td><td class="num">+11.3%</td></tr>
+      <tr><td><strong>Bear</strong></td><td class="num">4.0%</td><td class="num">$5.11</td><td class="num">16×</td><td class="num"><strong>$81.80</strong></td><td class="num">−12.7%</td></tr>
+      <tr><td colspan="4"><strong>Probability-weighted (pack figure — modelled estimate, unverified)</strong></td><td class="num"><strong>$102.90</strong></td><td class="num">+9.8%</td></tr>
+    </table></div>
+    <p class="small">Formula per case: 2031 EPS = $4.20 × (1+g)<sup>5</sup>; 2031 price = 2031 EPS × exit P/E. Check: Base $4.20 × 1.055<sup>5</sup> = $5.49 × 19 = $104.30 ✓ · Bull $4.20 × 1.065<sup>5</sup> = $5.75 × 21 = $120.80 ✓ · Bear $4.20 × 1.04<sup>5</sup> = $5.11 × 16 = $81.80 ✓. The weighted $102.90 is the pack's modelled figure; scenario weights were not supplied to the independent verifier, so — per the coordinator correction — it is labelled a <strong>modelled estimate (unverified)</strong>, published here with its inputs so the arithmetic can be checked. Prices exclude dividends: at ~3.2%/yr, five years of dividends (before any growth/reinvestment) add roughly 16pp of cumulative cash return on top of every case — for this stock, the honest 5-year comparison is price + income.</p>
+    <div class="callout"><strong>Why the 5-year weighted price ($102.90) sits above the 12–18-month base ($95) yet implies only modest annualised gains:</strong> the model assumes the multiple <em>de-rates</em> in every case (19× base exit vs. 22.6× today). EPS compounding at 5.5% must first repay that de-rating before it creates price upside — the dividend is what makes the long-term total return respectable while it does so. This is the normal shape for a premium-priced regulated utility, not a modelling error.</div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <h2><span><span class="num">06</span> &nbsp;Recommendation &amp; Portfolio Sizing</span><span class="tag">Mid-30s · Risk 8/10</span></h2>
+    <div class="tbl-wrap"><table>
+      <tr><th>Horizon</th><th>Call</th><th>Rationale in one line</th></tr>
+      <tr><td>Short term (12–18 mo)</td><td><strong>HOLD</strong></td><td>Base target $95 ≈ price; premium 22.6× multiple + Georgia who-pays politics cap near-term upside. Accumulate below the bear-to-base midpoint (~$88) rather than chase here.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><strong>BUY</strong> (income + growth)</td><td>Modelled weighted price $102.90 plus ~3.2%/yr dividend; Southeast rate-base compounding in a monopoly territory is a durable, if unspectacular, compounder.</td></tr>
+      <tr><td>Suggested weight</td><td><strong>2.0% of total portfolio</strong></td><td>A defensive income position inside an aggressive (8/10) portfolio — ballast, not a return engine. It should sit inside the portfolio's Utilities sleeve, not displace growth holdings.</td></tr>
+    </table></div>
+
+    <div class="calc">
+      <div class="calc-grid">
+        <div><label for="pf">Your total portfolio ($)</label><input id="pf" type="number" inputmode="decimal" value="250000" min="0" step="1000" /></div>
+        <div><div class="calc-out-lab">SO position at 2.0%</div><div class="calc-out" id="amt">—</div></div>
+        <div><div class="calc-out-lab">≈ Shares at $93.71</div><div class="calc-out" id="sh">—</div></div>
+      </div>
+      <p class="small" style="margin:10px 0 0">Illustrative only, using the 30 Oct 2026 close. Expected dividend cash at ~3.2% yield on that position: <strong id="div">—</strong> per year (yield range 3.19–3.23%; before dividend growth, tax and price moves).</p>
+    </div>
+
+    <p><strong>Role in an 8/10-risk portfolio:</strong> SO is the low-beta anchor. At 2% it will not drive the portfolio's outcome — that is the point. Its job is to keep paying ~3.2% and compounding rate base through the drawdowns that an 8/10 portfolio will periodically take elsewhere. Size it larger only by deliberately lowering overall portfolio risk, not by enthusiasm for the data-centre story — that story is already in the price at 22.6×.</p>
+    <p class="small">Recommendations are research views based on the verified pack as of 1 Nov 2026, not guarantees and not personalised investment advice. Forward P/E was not verified and is omitted; Vogtle rate-base status is context, not a verified 2026 figure; all scenario prices are modelled estimates with methodology shown in §5.</p>
+  </section>
+
+  <!-- Sources -->
+  <section>
+    <h2><span><span class="num">§</span> &nbsp;Sources</span><span class="tag">Every key figure links to its source</span></h2>
+    <ol class="sources">
+      <li>Price reference (SO, 30 Oct 2026 close) — Finnhub: <a href="https://finnhub.io/?q=%22SO%22">finnhub.io/?q=%22SO%22</a></li>
+      <li>XLU holdings, ranking &amp; market caps (TipRanks, 30 Oct 2026) — <a href="https://www.tipranks.com/etf/xlu/holdings">tipranks.com/etf/xlu/holdings</a></li>
+      <li>Trailing P/E 22.64× &amp; market cap $107.801B (FinanceCharts peer table) — <a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio">financecharts.com/stocks/DUK/value/pe-ratio</a></li>
+      <li>Operating margin 24.2%, sales growth TTM 6.4%, D/E 1.78 (peer table) — <a href="https://greeksoup.ai/stocks/us/ceg/">greeksoup.ai/stocks/us/ceg</a></li>
+      <li>$81.2B capex plan &amp; Southeast data-centre load / Meta &amp; Microsoft (sector capex reporting) — <a href="https://tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026/">tech-insider.org/us-utility-1-4-trillion-ai-data-center-energy-2026</a></li>
+      <li>Global-utilities context for the ranking basis (Iberdrola / Enel / National Grid market caps, FinanceCharts via verification log) — <a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf">financecharts.com/sectors/utilities</a></li>
+    </ol>
+    <p class="small">Dividend yield is carried as the pack's cross-vendor range (3.19–3.23%) rather than a single-vendor point. Scenario targets and the 5-year projection are modelled estimates from the research pack (methodology in §5), independently flagged as unverified where weights were not supplied — they are labelled as estimates wherever they appear.</p>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SO — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $93.71.</strong> <strong>DCF intrinsic: $90.32.</strong> Discount/premium vs DCF: <strong>+3.8%</strong> — i.e. the shares are trading 3.8% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$90.32</td><td>+3.8%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $4.20 per share — Pack 2026 EPS estimate ($4.20) - regulated earnings proxy (proxy base UNVERIFIED as an independent check; the restatement below applies regardless). TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 5.5% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/SO/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/so/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SO — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Southern sells electricity and gas principally to households and small businesses through regulated Georgia, Alabama and Mississippi tariffs, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack names Meta and Microsoft in sector data-centre capex reporting as part of the Southeast data-centre load story, but discloses no contracted share of Southern's revenue for either, so no customer table is built on unnamed contract sizes.</p><p><strong>Key demand drivers:</strong> Southeast load growth (especially data-centre load in Georgia), rate-base growth on the $81.2B capex plan cited in the pack, and Georgia PSC decisions on who pays for large-load buildout.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SO — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Southern's Southeast regulated territories sit where hyperscalers are building: the pack cites Meta and Microsoft in sector data-centre capex reporting and an $81.2B capex plan, with Georgia data-centre load as the growth engine.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Data-centre load grows Georgia Power's regulated sales and rate base, turning AI power demand into regulated earnings at an allowed return rather than merchant price exposure.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Southern already trades at a premium regulated multiple (trailing P/E ~22.6 per pack); AI load growth justifies holding that premium while load materialises, since it underwrites rate-base growth without commodity risk.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: hyperscalers delay or cancel Georgia campuses, or shift load to other states, leaving the $81.2B plan with fewer contracted megawatts. Second, multiple compression: the premium trailing multiple unwinds toward peers as load growth disappoints, with Georgia PSC politics over who pays for large-load buildout (the same debate as Florida's SB 484) as the mechanism. Third, balance sheet: growth capex already exceeds operating cash flow (TTM FCF -$3.27B), so funding the plan gets more expensive as rates stay high, though regulated cost recovery limits the damage. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Georgia PSC rulings on large-load cost allocation; hyperscaler campus announcements or delays in Georgia; and Southern's Q3 print (due 5 Nov 2026, post-cutoff, not used here).</p>
+</div>
+<footer>
+    Equity Research — SO (Southern Company) · Dated 1 Nov 2026 · Price reference: 30 Oct 2026 close ($93.71) · Sector: Utilities (XLU universe, US-listed) · Prepared as a research view for a mid-30s investor, risk score 8/10. Not investment advice; not a guarantee of future returns. Verify figures against the linked sources before acting.
+  </footer>
+
+</div>
+<script>
+(function(){
+  var PRICE = 93.71, WEIGHT = 0.02, YIELD = 0.032;
+  var pf = document.getElementById('pf'), amt = document.getElementById('amt'),
+      sh = document.getElementById('sh'), dv = document.getElementById('div');
+  function fmt(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}); }
+  function run(){
+    var v = parseFloat(pf.value);
+    if (isNaN(v) || v < 0){ amt.textContent='—'; sh.textContent='—'; dv.textContent='—'; return; }
+    var a = v * WEIGHT;
+    amt.textContent = fmt(a);
+    sh.textContent = (a / PRICE).toLocaleString('en-US',{maximumFractionDigits:1});
+    dv.textContent = fmt(a * YIELD);
+  }
+  pf.addEventListener('input', run);
+  run();
+})();
+</script>
+</body>
+</html>

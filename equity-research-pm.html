@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — PM · Philip Morris International</title>
+<style>
+  :root{
+    --bg:#f7f5f1; --surface:#fffdf9; --surface2:#efeae0; --ink:#1c1a16; --ink2:#4c463c; --muted:#7a7263;
+    --line:#ddd5c4; --accent:#8a5a1e; --accent-soft:#f0e3cd; --good:#2e6b3e; --bad:#a03226; --warn:#8a5a1e;
+    --chip:#ece5d5;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14120e; --surface:#1e1b15; --surface2:#262219; --ink:#ece7da; --ink2:#c9c1ae; --muted:#9a917d;
+      --line:#3a352a; --accent:#d29a4a; --accent-soft:#33301f; --good:#7fc48f; --bad:#e08a7d; --warn:#d29a4a;
+      --chip:#2b2719;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.55;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:20px 16px 64px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2;margin:0}
+  h2{font-size:1.45rem;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent)}
+  h3{font-size:1.08rem;margin:18px 0 6px}
+  p{margin:8px 0;color:var(--ink2)}
+  p strong, li strong{color:var(--ink)}
+  ul{margin:8px 0;padding-left:20px;color:var(--ink2)}
+  li{margin:5px 0}
+  a{color:var(--accent)}
+  .kicker{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .title-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-top:4px}
+  h1{font-size:2rem}
+  .co{font-size:1.05rem;color:var(--muted)}
+  .asof{font-size:.85rem;color:var(--muted);margin-top:6px}
+  .snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:10px;margin:18px 0}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .stat .v{font-size:1.3rem;font-weight:700;font-family:Georgia,serif}
+  .stat .l{font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:10px;padding:16px 18px;margin:18px 0}
+  .verdict .row{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .pill{display:inline-block;background:var(--chip);border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:600}
+  .pill.good{background:var(--accent-soft);color:var(--good)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:640px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .card h3{margin-top:0}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem;background:var(--surface)}
+  th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:.76rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line)}
+  .tbl-wrap{overflow-x:auto}
+  @media (max-width:640px){
+    .tbl-wrap table{min-width:0}
+    th,td{padding:7px 6px;font-size:.85rem}
+    .hide-sm{display:none}
+  }
+  .note{font-size:.85rem;color:var(--muted)}
+  .est{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--accent-soft);color:var(--warn);border-radius:4px;padding:1px 6px;vertical-align:middle}
+  .up{color:var(--good);font-weight:700}.down{color:var(--bad);font-weight:700}
+  .calc{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+  .calc label{font-size:.85rem;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{font-size:1.05rem;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:220px;max-width:100%}
+  .calc .out{margin-top:12px;font-size:1rem}
+  .flow{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+  .flow svg{width:100%;height:auto;display:block}
+  .src{font-size:.88rem}
+  .src li{margin:4px 0}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="kicker">Equity Research · Consumer Staples</div>
+  <div class="title-row"><h1>PM — Philip Morris International</h1><span class="co">NYSE: PM</span></div>
+  <p class="asof">As of <strong>1 Nov 2026</strong>. Price reference: <strong>30 Oct 2026 regular-session close</strong> (1 Nov was a weekend). Sector ranking basis: FinanceCharts, last updated 30 Oct 2026 — Walmart (WMT) is #1 in Consumer Staples; PM sits in the sector's top tier on market cap. Prepared for a mid-30s investor, risk score 8/10. Research views only — not investment advice.</p>
+
+  <section class="snap" aria-label="Snapshot">
+    <div class="stat"><div class="v">$208.79</div><div class="l">Price · 30 Oct close</div></div>
+    <div class="stat"><div class="v">$324.6B</div><div class="l">Market cap · Finnhub</div></div>
+    <div class="stat"><div class="v">30.31×</div><div class="l">Trailing P/E · Finnhub</div></div>
+    <div class="stat"><div class="v">3.07%</div><div class="l">Dividend yield</div></div>
+    <div class="stat"><div class="v">$43.14B</div><div class="l">TTM revenue</div></div>
+    <div class="stat"><div class="v">$10.68B</div><div class="l">TTM net income</div></div>
+    <div class="stat"><div class="v">24.8%</div><div class="l">Net margin</div></div>
+  </section>
+
+  <div class="verdict">
+    <h3 style="margin-top:0">Verdict</h3>
+    <p>PM is two businesses in one ticker: a declining but highly profitable combustible franchise that funds the dividend, and a smoke-free portfolio (IQOS, ZYN) that carries the growth story. At 30.3× trailing earnings the market is already paying for the transition — so the position is sized for regulatory risk, not for the headline yield.</p>
+    <div class="row">
+      <span class="pill good">Short term (12–18m): Buy</span>
+      <span class="pill good">Long term (5y): Buy</span>
+      <span class="pill">Suggested weight: 2% of portfolio</span>
+      <span class="pill">12–18m base target: $230 (+10%)</span>
+    </div>
+  </div>
+
+  <h2>1 · Business Model &amp; Segment Breakdown</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Combustibles — the cash engine</h3>
+      <p>Cigarettes under <strong>Marlboro</strong> (the world's best-known cigarette brand), L&amp;M, Chesterfield and Parliament. Volumes decline structurally across the industry, but pricing power has historically more than offset the volume slide, making this segment the cash engine that funds dividends and the smoke-free build-out.</p>
+    </div>
+    <div class="card">
+      <h3>Smoke-free — the growth engine</h3>
+      <p><strong>IQOS</strong> heated tobacco, <strong>ZYN</strong> nicotine pouches and e-vapor products. This is where volume growth, margin expansion and the valuation multiple come from: every combustible smoker converted to a smoke-free product is worth more to PM and de-risks the regulatory profile.</p>
+    </div>
+  </div>
+  <ul>
+    <li><strong>No US cigarette sales.</strong> PM split from Altria in 2008; inside the US it sells only smoke-free products. Its cigarette business is entirely ex-US.</li>
+    <li><strong>Geography:</strong> ex-US global footprint — earnings are <strong>FX-sensitive</strong>, since revenue is earned in many currencies and reported in dollars.</li>
+    <li><strong>Structural pivot:</strong> the multi-year shift of revenue mix from combustibles toward smoke-free is the central investment question — conversion pace versus combustible decline pace.</li>
+  </ul>
+
+  <div class="flow" aria-label="TTM income flow">
+    <h3 style="margin-top:0">Where a year of revenue goes (TTM)</h3>
+    <svg viewBox="0 0 880 210" role="img" aria-label="Revenue 43.14 billion dollars flows to 32.46 billion in combined costs and taxes and 10.68 billion in net income">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a5a1e"/></marker>
+      </defs>
+      <rect x="10" y="60" width="220" height="90" rx="8" fill="#f0e3cd" stroke="#8a5a1e"/>
+      <text x="120" y="98" text-anchor="middle" font-size="17" font-weight="700" fill="#1c1a16">Revenue</text>
+      <text x="120" y="124" text-anchor="middle" font-size="15" fill="#4c463c">$43.14B TTM</text>
+      <line x1="230" y1="88" x2="420" y2="52" stroke="#8a5a1e" stroke-width="2.5" marker-end="url(#arr)"/>
+      <line x1="230" y1="122" x2="420" y2="158" stroke="#8a5a1e" stroke-width="2.5" marker-end="url(#arr)"/>
+      <rect x="425" y="15" width="300" height="74" rx="8" fill="#efeae0" stroke="#ddd5c4"/>
+      <text x="575" y="46" text-anchor="middle" font-size="15" font-weight="700" fill="#1c1a16">Costs, excise &amp; taxes</text>
+      <text x="575" y="70" text-anchor="middle" font-size="14" fill="#4c463c">$32.46B · combined residual</text>
+      <rect x="425" y="121" width="300" height="74" rx="8" fill="#f0e3cd" stroke="#8a5a1e"/>
+      <text x="575" y="152" text-anchor="middle" font-size="15" font-weight="700" fill="#1c1a16">Net income</text>
+      <text x="575" y="176" text-anchor="middle" font-size="14" fill="#4c463c">$10.68B · 24.8% margin</text>
+    </svg>
+    <p class="note">Built only from the verified TTM figures above; the cost block is the arithmetic residual (revenue − net income) and bundles production, excise, operating costs, interest and tax — it is not a filed line-item split.</p>
+  </div>
+
+  <h2>2 · Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td>30.31×</td><td>Finnhub — confirmed in verification</td></tr>
+      <tr><td>Forward P/E</td><td>Not verified</td><td>Not quoted in this pass — omitted rather than estimated</td></tr>
+      <tr><td>Dividend yield</td><td>3.07%</td><td>Income is a core part of the PM case</td></tr>
+      <tr><td>TTM revenue / net income</td><td>$43.14B / $10.68B</td><td>Net margin 24.8%</td></tr>
+      <tr><td>Leverage (debt/equity)</td><td>Not verified</td><td>Tobacco names typically carry high leverage; the exact ratio was not verified in this pass, so none is quoted</td></tr>
+      <tr><td>Dividend cover</td><td>Not verified</td><td>The research pack notes the dividend is well covered by cash flow in principle but the payout ratio is high — the exact ratio was not verified in this pass, so verify before overweighting the position</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Capital allocation read:</strong> PM's model is to convert combustible cash flow into (a) a large, growing dividend and (b) continued investment behind IQOS and ZYN. The risk in that model is arithmetic: a high payout leaves less buffer if combustible volumes fall faster than smoke-free converts, or if regulators squeeze either engine.</p>
+
+  <h2>3 · Competitive Moat &amp; Industry Positioning</h2>
+  <ul>
+    <li><strong>Brand:</strong> Marlboro is the pricing anchor of the global cigarette market — pricing power in a declining-volume industry is the moat's core.</li>
+    <li><strong>First-mover scale in smoke-free:</strong> IQOS in heated tobacco and ZYN in nicotine pouches hold early scale advantages in distribution, device ecosystems and brand recognition that later entrants must spend heavily to match.</li>
+    <li><strong>Distribution:</strong> a global retail footprint built over decades is hard to replicate, particularly across the ex-US markets where PM's cigarette business operates.</li>
+    <li><strong>Constraint:</strong> the moat operates inside one of the most regulated consumer categories in the world — pricing power exists, but so do excise escalation, flavour rules and marketing restrictions.</li>
+  </ul>
+
+  <h2>4 · Catalysts &amp; Downside Risks</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul>
+        <li>Continued smoke-free conversion lifting growth and mix</li>
+        <li>ZYN growth in the US nicotine-pouch market</li>
+        <li>Combustible pricing holding ahead of volume decline</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Risks</h3>
+      <ul>
+        <li>Regulation and excise tax increases; flavour bans</li>
+        <li>Litigation exposure inherent to tobacco</li>
+        <li>FX swings on ex-US earnings</li>
+        <li>ESG exclusion shrinking the potential holder base</li>
+        <li>Combustible volume decline outpacing conversion</li>
+        <li>US smoke-free competition intensifying</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5 · Scenario-Based Valuation &amp; Price Targets</h2>
+  <p><strong>12–18 month view:</strong> base-case target <strong>$230</strong>, about <span class="up">+10%</span> from $208.79 — growth plus a 3.07% yield, with the multiple roughly held.</p>
+  <h3>5-year scenarios <span class="est">Modelled estimates</span></h3>
+  <p class="note">Modelled, not verified facts. Method: today's TTM revenue base compounded at the case growth rate for five years, the case net margin applied, and the case P/E applied to the resulting earnings. Weights were not supplied to the independent verifier, so the weighted figure is shown with its inputs visible for checking.</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Case</th><th>Revenue growth/yr</th><th>Net margin</th><th>P/E</th><th>5-yr price</th><th class="hide-sm">vs $208.79</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Bull</strong></td><td>7%</td><td>27%</td><td>34×</td><td>$375</td><td class="up hide-sm">+80%</td></tr>
+      <tr><td><strong>Base</strong></td><td>5%</td><td>24.8%</td><td>30.31×</td><td>$266</td><td class="up hide-sm">+27%</td></tr>
+      <tr><td><strong>Bear</strong></td><td>2%</td><td>22%</td><td>24×</td><td>$170</td><td class="down hide-sm">−19%</td></tr>
+      <tr><td><strong>Weighted</strong></td><td colspan="3">Modelled blend of the three cases</td><td><strong>$270</strong></td><td class="up hide-sm">+29%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The bear case is the regulatory one: flavour bans or excise shocks slow conversion, margins compress toward 22%, and the market stops paying a growth multiple for a tobacco name. The bull case needs ZYN and IQOS to compound fast enough that PM is priced as a nicotine-platform company rather than a cigarette company.</p>
+
+  <h2>6 · Recommendation &amp; Portfolio Fit</h2>
+  <p><strong>Short term: Buy. Long term: Buy. Suggested weight: 2% of the total portfolio</strong> for the mid-30s, risk-8/10 profile — a growth-plus-income holding, deliberately sized down for regulatory and ESG-headline risk rather than for business quality. Within a Consumer Staples sleeve, PM is the growth-and-yield name, distinct from WMT's defensive scale at the top of the sector.</p>
+  <div class="calc">
+    <label for="pf">Your total portfolio value ($)</label>
+    <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+    <div class="out" id="out" aria-live="polite"></div>
+    <p class="note">Illustrative sizing at the suggested 2% weight and the $208.79 reference price. Fractional shares assumed.</p>
+  </div>
+
+  <h2>Sources &amp; Verification</h2>
+  <ul class="src">
+    <li>Motley Fool coverage of Philip Morris International.</li>
+    <li>FinanceCharts — Consumer Staples sector table (ranking basis, last updated 30 Oct 2026).</li>
+    <li>Finnhub — PM quote and metrics: <a href="https://finnhub.io/?q=%22PM%22">finnhub.io/?q="PM"</a></li>
+  </ul>
+  <p class="note">Verification note: price ($208.79), trailing P/E (30.31×, Finnhub) and market cap were independently confirmed against Finnhub in the verification pass; the pack's $325.4B cap and Finnhub's $324.58B differ only by vendor share-count treatment, so the Finnhub figure is shown and labelled. Forward P/E and the exact debt/equity ratio were not verified in this pass and are marked as such above rather than estimated. All scenario prices are modelled estimates with assumptions shown.</p>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Philip Morris International (PM)</h2>
+<p><strong>Price (30 Oct 2026 close): $208.79.</strong> <strong>DCF intrinsic: $122.</strong> Discount/premium vs DCF: <strong>+71.1%</strong> — i.e. the shares are trading 71.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$122</td><td>+71.1%</td><td>Base Normal DCF: TTM FCF $13.60bn (OCF $15.15bn - capex $1.56bn, stockanalysis). Net cash = cash $6.69bn - debt $47.73bn = -$41.04bn. Growth g 5%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $106.24bn + PV of terminal value $125.67bn + net cash / excess capital $-41.04bn, ÷ 1.559bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/PM/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Philip Morris International (PM)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list. Demand is driven by smoke-free conversion (IQOS/ZYN), cigarette pricing in a declining-volume market, and emerging-market growth; the dividend is funded by that cash conversion.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Philip Morris International (PM)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Philip Morris’s exposure is operational at best: AI can help manufacturing, reduced-risk product development and commercial analytics, but the pack’s thesis is smoke-free conversion (IQOS/ZYN) and cigarette pricing — not AI.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is modest: at ~30x trailing earnings PM carries a premium for smoke-free growth, not an AI premium, so an unwind would compress it only via general growth-stock sentiment.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — nicotine demand is largely unrelated to AI capex and breaks only in a broad consumer downturn; (2) multiple — modest compression; (3) balance sheet — the real constraint is leverage (net debt $41.04bn, negative book equity) and a ~93% dividend payout, which leave little room if cash flow disappoints — not AI-capex debt. Triggers to watch: smoke-free volume growth, IQOS/ZYN momentum, and free-cash-flow coverage of the dividend.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+    Equity Research — PM · Data as of 1 Nov 2026, prices from the 30 Oct 2026 close. Modelled scenario prices are estimates, not guarantees. This page is research commentary for a stated risk profile, not personalised investment advice.
+  </footer>
+</main>
+<script>
+  (function(){
+    var input=document.getElementById('pf'), out=document.getElementById('out');
+    var PRICE=208.79, W=0.02;
+    function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+    function render(){
+      var v=parseFloat(input.value);
+      if(isNaN(v)||v<0){out.textContent='Enter a portfolio value to see the suggested position size.';return;}
+      var amt=v*W, shares=amt/PRICE;
+      out.innerHTML='At a <strong>2%</strong> weight: <strong>$'+fmt(amt)+'</strong> in PM ≈ <strong>'+shares.toLocaleString('en-US',{maximumFractionDigits:1})+' shares</strong> at $208.79.';
+    }
+    input.addEventListener('input',render);
+    render();
+  })();
+</script>
+</body>
+</html>

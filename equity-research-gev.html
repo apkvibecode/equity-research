@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — GEV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#ffffff; --surface2:#efece4; --ink:#1a222e; --muted:#5b6572; --line:#ddd6c6;
+  --navy:#13293d; --navy2:#1d3d57; --accent:#b7791f; --accent-soft:#f3e5c3;
+  --good:#1e7a4c; --good-bg:#e2f1e7; --bad:#b3352b; --bad-bg:#f9e6e3; --warn:#8a6414; --warn-bg:#fdf0d0;
+  --chip:#e8e2d2;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#10151c; --surface:#171e28; --surface2:#1e2733; --ink:#e8e6df; --muted:#9aa6b3; --line:#2e3a48;
+    --navy:#0d1b29; --navy2:#16324a; --accent:#d9a441; --accent-soft:#3a2f16;
+    --good:#4cc07e; --good-bg:#173527; --bad:#e07a6e; --bad-bg:#3d201c; --warn:#e0b95a; --warn-bg:#38300f; --chip:#26313f; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",system-ui,sans-serif;font-size:15px;line-height:1.5}
+a{color:var(--navy2)} @media(prefers-color-scheme:dark){a{color:#8fc1e8}}
+.wrap{max-width:1060px;margin:0 auto;padding:0 16px 48px}
+.mono{font-family:"IBM Plex Mono",monospace}
+header.hero{background:var(--navy);color:#f2efe6;margin:0 -16px;padding:26px 20px 20px}
+header.hero .kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#c8a75a;font-weight:700}
+header.hero h1{font-family:"Fraunces",Georgia,serif;font-size:clamp(28px,5vw,42px);margin:6px 0 4px;line-height:1.08}
+header.hero h1 .tick{color:#e9c46a}
+header.hero p.sub{margin:0;color:#c9d2dc;max-width:760px;font-size:14.5px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.meta-row span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:3px 10px;font-size:12px}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:16px 0}
+.snap .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.snap .lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.snap .val{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;margin-top:2px}
+.snap .note{font-size:12px;color:var(--muted)}
+.up{color:var(--good)} .down{color:var(--bad)}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0}
+@media(max-width:720px){.verdict{grid-template-columns:1fr}}
+.verdict .box{border-radius:10px;padding:14px 16px;border:1px solid var(--line);background:var(--surface)}
+.verdict .box.buy{background:var(--good-bg);border-color:var(--good)}
+.verdict .lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.verdict .big{font-family:"Fraunces",Georgia,serif;font-size:26px;margin:2px 0}
+.verdict p{margin:4px 0 0;font-size:13.5px}
+section{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:14px 0}
+section h2{font-family:"Fraunces",Georgia,serif;font-size:22px;margin:0 0 4px}
+section h2 .no{color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:15px;margin-right:8px}
+section h3{font-size:16px;margin:16px 0 6px}
+section p{margin:8px 0}
+.lede{font-size:15.5px}
+table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13.5px}
+th,td{padding:7px 9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+tr.hl td{background:var(--accent-soft);font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:4px 0}
+.callout{border-radius:10px;padding:12px 14px;margin:12px 0;font-size:14px}
+.callout.warn{background:var(--warn-bg);border:1px solid var(--warn)}
+.callout.bad{background:var(--bad-bg);border:1px solid var(--bad)}
+.callout.good{background:var(--good-bg);border:1px solid var(--good)}
+.callout .t{font-weight:700;display:block;margin-bottom:2px}
+.tag{display:inline-block;background:var(--chip);border-radius:999px;padding:1px 8px;font-size:11px;font-weight:700;letter-spacing:.04em}
+.tag.est{color:var(--warn)}
+.src{font-size:11.5px;color:var(--muted)}
+.src a{color:inherit;text-decoration:underline}
+figure{margin:14px 0} figcaption{font-size:12px;color:var(--muted);margin-top:6px}
+.calc{background:var(--surface2);border-radius:10px;padding:14px 16px;margin-top:12px}
+.calc label{font-weight:600;font-size:13.5px;display:block;margin-bottom:6px}
+.calc .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.calc input{font-family:"IBM Plex Mono",monospace;font-size:16px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:180px}
+.calc .out{font-family:"IBM Plex Mono",monospace;font-size:16px}
+footer{font-size:12.5px;color:var(--muted);padding:6px 2px}
+.sources{font-size:12.5px} .sources li{margin:5px 0;word-break:break-word}
+.bars{display:flex;flex-direction:column;gap:8px;margin:10px 0}
+.bar-row{display:grid;grid-template-columns:110px 1fr 74px;gap:10px;align-items:center;font-size:13px}
+.bar-track{background:var(--surface2);border-radius:6px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Institutional Equity Research · Industrials · As of 1 Nov 2026</div>
+  <h1>GE Vernova <span class="tick">NYSE: GEV</span></h1>
+  <p class="sub">The power-equipment pure play riding two cycles at once: a gas-turbine super-cycle and a grid-modernisation wave, both pulled forward by AI data-centre electricity demand. Q3 2026 was a decisive beat — orders up 96% organically and backlog at $197bn — but the stock already prices in a great deal of it at 46× EV/EBITDA.</p>
+  <div class="meta-row">
+    <span>Price reference: 30 Oct 2026 close</span>
+    <span>Sector: Industrials</span>
+    <span>Ranking basis: Global top 10 by market cap — see note below</span>
+    <span>Research views only — not guarantees, not investment advice</span>
+  </div>
+</header>
+
+<div class="snap">
+  <div class="card"><div class="lab">Close · 30 Oct 2026</div><div class="val">$857.87</div><div class="note">Confirmed on StockAnalysis / Finnhub feed <span class="src">(<a href="https://StockAnalysis.com/stocks/gev/">source</a>)</span></div></div>
+  <div class="card"><div class="lab">Market cap</div><div class="val">$227.1B</div><div class="note">As reported in the research pack</div></div>
+  <div class="card"><div class="lab">Trailing P/E</div><div class="val">22.3–22.5×</div><div class="note">As published by TipRanks / FinanceCharts (Finnhub 21.9×) — does not reconcile with the sources' ~$17.9 EPS; see §2 <span class="src">(<a href="https://www.tipranks.com/stocks/gev/statistics">TipRanks</a>)</span></div></div>
+  <div class="card"><div class="lab">EV / EBITDA</div><div class="val">46.1×</div><div class="note">FinanceCharts — richly valued on this lens <span class="src">(<a href="https://www.FinanceCharts.com/stocks/GEV/bulls-bears">source</a>)</span></div></div>
+  <div class="card"><div class="lab">P / S (TTM)</div><div class="val">5.2–6.0×</div><div class="note">TTM revenue $38–41B range — see §2</div></div>
+  <div class="card"><div class="lab">Dividend yield</div><div class="val">0.23%</div><div class="note">Income is not the story here</div></div>
+</div>
+
+<div class="callout warn"><span class="t">Ranking basis — read first</span>
+GEV sits in a <strong>global</strong> top-10-by-market-cap Industrials universe (Motley Fool sector pages; rankings and metrics as of 5 Oct 2026, with live quote cards updating; prices here are at the 30 Oct 2026 close), including OTC ADRs and state-controlled issuers. The sector list runs to 11 names because BE — a ticker named in the original brief — is added. The list is <strong>not</strong> in strict market-cap order as printed. A NYSE/Nasdaq-only list would look different (e.g. Boeing, Uber and Honeywell would enter). <span class="src">(<a href="https://www.fool.com/research/largest-industrials-companies/">Motley Fool — largest industrials companies</a>)</span></div>
+
+<div class="verdict">
+  <div class="box buy"><div class="lab">Short term · 12–18 months</div><div class="big">BUY</div><p>Order momentum, a raised FY26 guide and backlog visibility support the near-term path. Base target $1,000 (+17%). <span class="tag est">Modelled estimate</span></p></div>
+  <div class="box buy"><div class="lab">Long term · 5 years</div><div class="big">BUY</div><p>Structural electrification exposure with a $197B backlog. Probability-weighted 5-yr value ~$1,469 vs $857.87 today. <span class="tag est">Modelled estimate</span></p></div>
+  <div class="box"><div class="lab">Suggested portfolio weight</div><div class="big">2.5%</div><p>Of total portfolio for a mid-30s investor, risk score 8/10 — the largest single weight in the Industrials sleeve. See §6 and the calculator.</p></div>
+</div>
+
+<section>
+<h2><span class="no">01</span>Business Model &amp; Segment Breakdown</h2>
+<p class="lede">GE Vernova is the energy business spun out of GE, organised around two engines as described in the research pack: <strong>Power</strong> — gas turbines, wind turbines, and hydro/nuclear services — and <strong>Grid (Electrification)</strong> — the transmission and distribution equipment that moves electricity from generator to user — plus related software layered across both.</p>
+<div class="callout warn"><span class="t">Open item — segment &amp; geographic split not published here</span>
+The verified research pack for this note carries company-total figures only (Q3 revenue, orders and backlog in the table below). It does <strong>not</strong> contain a verified per-segment revenue / profit / orders split (Power vs Wind vs Electrification) or a geographic revenue distribution, so neither is shown — rather than estimating a split, this note marks it as an open question to be filled from the company's segment reporting in a future revision. Wind is discussed separately in §3–§4 because the pack flags wind losses as a distinct drag, even though the pack's model description groups wind within Power.</div>
+<div class="grid2">
+<div>
+<h3>Why the installed base matters</h3>
+<ul class="tight">
+<li><strong>~25% of the world's electricity</strong> is generated by customers using GE Vernova technology — a claim carried by the Motley Fool profile — which makes the service and aftermarket annuity as important as new-unit sales.</li>
+<li><strong>~59,000 wind turbines</strong> installed, described as the largest US onshore fleet — scale that supports parts, service and repowering revenue.</li>
+<li><strong>Services attach to everything:</strong> turbines and grid kit are sold once and serviced for decades, so today's record orders convert into a long tail of higher-margin service work.</li>
+</ul>
+</div>
+<div>
+<h3>Structural pivots &amp; dependencies</h3>
+<ul class="tight">
+<li><strong>AI data-centre power is the new tailwind:</strong> hyperscale load growth is pulling gas-turbine and grid orders forward — the Q3 order surge is the clearest evidence so far.</li>
+<li><strong>Grid is becoming a second growth leg:</strong> the announced <strong>~$9B Trench Group acquisition</strong> (from Triton, ~50% cash / ~50% debt, close expected late 2027) deepens the grid portfolio — high-voltage components are exactly what transmission build-out needs. <span class="src">(<a href="https://www.turbomachinerymag.com/view/ge-vernova-q3-2026-gas-power-backlog-122-gw-trench-acquisition">TurboMachinery</a>)</span></li>
+<li><strong>Supply-chain exposure:</strong> large forgings, castings and turbine components are capacity-constrained industry-wide; slot reservations and customer down-payments (visible in Q3 cash flow, §2) show customers competing for scarce production slots.</li>
+</ul>
+</div>
+</div>
+<h3>Q3 2026 — the quarter that repriced the story</h3>
+<table>
+<tr><th>Metric</th><th class="num">Q3 2026</th><th>Read</th><th>Source</th></tr>
+<tr><td>Revenue</td><td class="num">$12.64B</td><td>+26.8% YoY (+18% organic)</td><td class="src"><a href="https://www.tradingview.com/news/tradingview:7604f66e25697:0-ge-vernova-raises-2026-guidance-after-revenue-rises-27-in-third-quarter/">TradingView</a></td></tr>
+<tr><td>EPS vs consensus</td><td class="num">$4.81 vs $4.03</td><td>Beat by $0.78</td><td class="src"><a href="https://www.thelincolnianonline.com/2026/10/28/ge-vernova-nysegev-announces-earnings-results-beats-estimates-by-0-78-eps.html">FiscalAI via Lincolnian</a></td></tr>
+<tr><td>Orders</td><td class="num">$29.3B</td><td><strong>+96% organically</strong> — more than 2× book-to-bill vs quarterly revenue</td><td class="src"><a href="https://stocktwits.com/news-articles/markets/equity/ge-vernova-to-acquire-trench-group-for-9-b-raises-2026-guidance-after-q3-revenue-beat-what-investors-need-to-know/cZU9hqqR9Gc">Stocktwits</a></td></tr>
+<tr><td>Backlog</td><td class="num">$197B</td><td>+$20B quarter-on-quarter; gas power backlog cited at 122 GW</td><td class="src"><a href="https://www.turbomachinerymag.com/view/ge-vernova-q3-2026-gas-power-backlog-122-gw-trench-acquisition">TurboMachinery</a></td></tr>
+<tr><td>Free cash flow (Q3)</td><td class="num">$5.4B</td><td>Flattered by working capital — see the caution in §2</td><td class="src"><a href="https://www.four01.com/companies/gev">Four01</a></td></tr>
+</table>
+<p class="src">Earnings-beat coverage: <a href="https://www.defenseworld.net/2026/10/30/ge-vernova-nysegev-stock-jumps-1-4-following-earnings-beat.html">Defense World (30 Oct 2026)</a> · <a href="https://stockcircle.com/stocks/gev">StockCircle</a></p>
+</section>
+
+<section>
+<h2><span class="no">02</span>Financial Health &amp; Balance Sheet Diagnostics</h2>
+<table>
+<tr><th>Metric</th><th class="num">Value</th><th>Comment</th></tr>
+<tr><td>Trailing P/E</td><td class="num">22.3–22.5×</td><td>As published by TipRanks / FinanceCharts; Finnhub prints 21.9×. <strong>Reconciliation warning:</strong> the sources also quote EPS of ~$17.9, and $857.87 ÷ $17.9 ≈ 48× — so the published P/E and the published EPS do <strong>not</strong> reconcile on a single basis (different vendor EPS bases/dates). Both are reproduced as sourced; read the P/E as the vendors' published multiple, not as a figure derived from the EPS shown. <span class="src">(<a href="https://www.tipranks.com/stocks/gev/statistics">TipRanks statistics</a>)</span></td></tr>
+<tr><td>P/S (TTM)</td><td class="num">5.2–6.0×</td><td>As published. Range reflects two TTM revenue bases in the sources: $38.07B (TipRanks) vs $41.4B (Fool, 5 Oct basis); this note uses the <strong>$38–41B range</strong> rather than picking one. Note the range implied by the $227.1B market cap over that revenue range is 5.5–6.0× — the 5.2× low end is the source's own published figure.</td></tr>
+<tr><td>EV/EBITDA</td><td class="num">46.1×</td><td>The expensive lens — the market is paying for forward EBITDA growth, not current cash earnings. <span class="src">(<a href="https://www.FinanceCharts.com/stocks/GEV/bulls-bears">FinanceCharts</a>)</span></td></tr>
+<tr><td>Debt / equity</td><td class="num">0.22</td><td>Lightly levered balance sheet today — before Trench's ~50% debt funding lands.</td></tr>
+<tr><td>Cash</td><td class="num">~$17B</td><td>At Q3 2026 — a substantial buffer ahead of the Trench close (late 2027).</td></tr>
+<tr><td>Dividend yield</td><td class="num">0.23%</td><td>Token at this price; total return must come from earnings growth.</td></tr>
+<tr><td>TTM free cash flow</td><td class="num">$17.12B</td><td>Arithmetically confirmed (Q4'25 $1.8B + Q1'26 $4.8B + Q2'26 $5.1B + Q3'26 $5.4B) — but see the flattery warning below.</td></tr>
+</table>
+
+<div class="callout bad"><span class="t">Caution — TTM free cash flow is front-loaded, not a run-rate</span>
+Q3 FCF included a <strong>~$5.3B working-capital benefit</strong>, mainly customer down-payments and slot reservations. <span class="src">(<a href="https://www.watchlistnews.com/what-ge-vernova-gev-said-on-its-q3-earnings-call/11283381.html">Watchlist News — Q3 call summary</a>)</span> Nine-month 2026 FCF is already ~$15.3B against a full-year guide of $16–17B, which implies only ~$0.7–1.7B in Q4. <strong>Do not annualise Q3.</strong> The advance payments are real cash and a genuine demand signal — but they are pulled-forward cash, not recurring quarterly generation.</div>
+
+<h3>FY2026 guidance — raised at Q3</h3>
+<table>
+<tr><th>Guide</th><th class="num">New</th><th class="num">Previous</th></tr>
+<tr><td>Revenue</td><td class="num">$46.5–47.5B</td><td class="num">$45.5–46.5B</td></tr>
+<tr><td>Free cash flow</td><td class="num">$16–17B</td><td class="num">$11.5–12.5B</td></tr>
+</table>
+<p>The FCF guide was raised far more than the revenue guide — consistent with the advance-payment dynamics above. Read the revenue raise as the cleaner signal of demand; read the FCF raise with the working-capital caveat attached. <span class="src">(<a href="https://stocktwits.com/news-articles/markets/equity/ge-vernova-to-acquire-trench-group-for-9-b-raises-2026-guidance-after-q3-revenue-beat-what-investors-need-to-know/cZU9hqqR9Gc">Stocktwits</a>)</span></p>
+
+<figure>
+<svg viewBox="0 0 640 200" width="100%" role="img" aria-label="Quarterly free cash flow building to trailing twelve month total">
+<text x="0" y="14" font-size="12" font-weight="700" fill="currentColor">Free cash flow by quarter ($B) — TTM total $17.1B</text>
+<g font-family="IBM Plex Mono, monospace" font-size="12">
+<rect x="40" y="130" width="90" height="26" fill="#8aa5bd"/><text x="40" y="122" fill="currentColor">Q4'25 · 1.8</text>
+<rect x="180" y="82" width="90" height="74" fill="#5b82a6"/><text x="180" y="74" fill="currentColor">Q1'26 · 4.8</text>
+<rect x="320" y="75" width="90" height="81" fill="#38648c"/><text x="320" y="67" fill="currentColor">Q2'26 · 5.1</text>
+<rect x="460" y="70" width="90" height="86" fill="#b7791f"/><text x="460" y="62" fill="currentColor">Q3'26 · 5.4*</text>
+</g>
+<text x="40" y="172" font-size="11" fill="currentColor">*Q3 includes ~$5.3B of working-capital benefit (customer down-payments /</text>
+<text x="40" y="188" font-size="11" fill="currentColor">slot reservations). Sources: GE Vernova Q4/FY25 release; Four01 series.</text>
+</svg>
+<figcaption>TTM FCF composition. The shape is the warning: the total is real, but it is concentrated in advance payments against a $197B backlog still to be executed. <span class="src">(<a href="https://www.gevernova.com/news/press-releases/ge-vernova-reports-fourth-quarter-full-year-2025-financial-results?ref=maschinenjournal.de">GE Vernova press release</a>)</span></figcaption>
+</figure>
+
+<h3>Capital allocation</h3>
+<p>With ~$17B cash, 0.22 debt/equity and a token 0.23% dividend yield, capital allocation is currently pointed at <strong>growth investment</strong>: the ~$9B Trench acquisition (~50% cash / ~50% debt, close expected late 2027) is the dominant commitment. That mix matters — the balance sheet can fund it without stress at today's leverage, but leverage will step up at close, and the deal's price leaves little room for integration disappointment (§4).</p>
+</section>
+
+<section>
+<h2><span class="no">03</span>Competitive Moat &amp; Industry Positioning</h2>
+<div class="grid2">
+<div>
+<h3>Moat sources</h3>
+<ul class="tight">
+<li><strong>Turbine technology:</strong> heavy-duty gas turbines are a three-player global technology race; efficiency and service economics, not price, decide fleet-standard deals.</li>
+<li><strong>Installed-base annuity:</strong> with ~25% of world electricity generated on its customers' GE Vernova-based equipment (per the Fool profile), long-term service agreements compound independently of new-order cycles.</li>
+<li><strong>Grid scale:</strong> electrification kit is qualification-heavy — utilities buy proven, certified equipment, which favours incumbents with installed references. Trench extends this.</li>
+<li><strong>Pricing power — currently demonstrable:</strong> customers are paying down-payments and reserving slots (the Q3 working-capital inflow), and orders ran at more than 2× book-to-bill. That is pricing/terms power you can see in cash, not just in commentary.</li>
+</ul>
+</div>
+<div>
+<h3>Positioning &amp; pressure points</h3>
+<ul class="tight">
+<li><strong>Primary competitive set:</strong> the other global power-OEMs in turbines and the large electrical-equipment groups in grid — competition is on technology, delivery slots and service, in that order, while capacity is scarce.</li>
+<li><strong>Wind is the soft underbelly:</strong> the pack flags ongoing wind losses against the strength in gas and grid — mix, not the cycle, is the drag.</li>
+<li><strong>Barriers to entry are real but cyclical:</strong> today's moat is amplified by industry capacity scarcity. When competitors add capacity, slot power and pricing normalise — the bear case in §5 is built on exactly that.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2><span class="no">04</span>Catalysts &amp; Downside Risks</h2>
+<div class="grid2">
+<div>
+<h3>Catalysts</h3>
+<ul class="tight">
+<li><strong>Gas-turbine super-cycle:</strong> 122 GW gas power backlog and orders +96% organically give multi-year revenue visibility if execution holds.</li>
+<li><strong>Grid modernisation:</strong> transmission build-out plus the Trench acquisition (close expected late 2027) scale the second leg.</li>
+<li><strong>AI power demand:</strong> data-centre load is the marginal buyer driving both cycles — every hyperscale power commitment is a potential GEV order.</li>
+<li><strong>Guide momentum:</strong> FY26 revenue and FCF guidance were both raised at Q3; further raises would compound the re-rating.</li>
+</ul>
+</div>
+<div>
+<h3>Downside risks</h3>
+<ul class="tight">
+<li><strong>Valuation:</strong> 46.1× EV/EBITDA leaves no slack — a single soft quarter on orders or margins can de-rate the stock hard (see Bear case, −16%).</li>
+<li><strong>Backlog execution:</strong> $197B of backlog is an asset only if delivered on time and on margin; supply-chain bottlenecks cut both ways.</li>
+<li><strong>Trench integration &amp; price:</strong> ~$9B, half debt-funded, closing late 2027 — a long window for conditions or the grid cycle to change.</li>
+<li><strong>Wind losses</strong> persisting would keep a margin drag on the group story.</li>
+<li><strong>Tariffs &amp; input costs</strong> on a global manufacturing footprint, against orders priced in today's terms.</li>
+<li><strong>Cash-flow normalisation:</strong> when advance payments slow, reported FCF will fall mechanically — the market may misread (or correctly read) that as deterioration.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section>
+<h2><span class="no">05</span>Scenario-Based Valuation &amp; Price Targets <span class="tag est">All targets are modelled estimates</span></h2>
+<p>All scenario prices below are <strong>modelled estimates</strong> with methodology shown — they are not verified facts and not guarantees. Starting point: $857.87 (30 Oct 2026 close).</p>
+<h3>12–18 month scenarios</h3>
+<table>
+<tr><th>Case</th><th class="num">Target</th><th class="num">vs $857.87</th><th>Underlying assumptions</th></tr>
+<tr><td><strong>Bear</strong></td><td class="num">$720</td><td class="num down">−16%</td><td>Order growth normalises sharply as capacity returns; wind losses persist; Trench concerns and tariff costs pressure margins; EV/EBITDA de-rates from 46×.</td></tr>
+<tr class="hl"><td><strong>Base</strong></td><td class="num">$1,000</td><td class="num up">+17%</td><td>Backlog converts on guide; FY26 revenue lands in the $46.5–47.5B range; grid momentum continues; multiple holds near current levels on earnings growth.</td></tr>
+<tr><td><strong>Bull</strong></td><td class="num">$1,180</td><td class="num up">+38%</td><td>Data-centre power orders sustain near-Q3 pace; further guidance raises; Trench read as strategically clean; premium multiple persists.</td></tr>
+<tr><td><strong>Probability-weighted</strong> (25 / 50 / 25)</td><td class="num">~$975</td><td class="num up">+14%</td><td>0.25×$720 + 0.50×$1,000 + 0.25×$1,180 = $975.</td></tr>
+</table>
+
+<h3>5-year projection — frozen-parameter method</h3>
+<p>Method, exactly as in the research pack: the 30 Oct close is compounded at a scenario price CAGR for five years. Share count and capital structure are held frozen (no buyback or dilution assumption); only the compounding rate varies by case. This is a price-path model, not a DCF.</p>
+<table>
+<tr><th>Case (weight)</th><th class="num">Price CAGR / yr</th><th class="num">Maths</th><th class="num">2031 price</th></tr>
+<tr><td>Bear (25%)</td><td class="num">≈ −1.4%</td><td class="num">$857.87 × 0.932</td><td class="num">$800</td></tr>
+<tr class="hl"><td>Base (50%)</td><td class="num">12%</td><td class="num">$857.87 × 1.762</td><td class="num">$1,512</td></tr>
+<tr><td>Bull (25%)</td><td class="num">≈ 19%</td><td class="num">$857.87 × 2.390</td><td class="num">$2,050</td></tr>
+<tr><td><strong>Probability-weighted</strong></td><td class="num">—</td><td class="num">0.25×800 + 0.50×1,512 + 0.25×2,050</td><td class="num"><strong>~$1,469</strong></td></tr>
+</table>
+<div class="bars" aria-hidden="true">
+<div class="bar-row"><span>Bear · $800</span><div class="bar-track"><div class="bar-fill" style="width:39%;background:#b3352b"></div></div><span class="mono">−7%</span></div>
+<div class="bar-row"><span>Today · $857.87</span><div class="bar-track"><div class="bar-fill" style="width:42%;background:#8aa5bd"></div></div><span class="mono">—</span></div>
+<div class="bar-row"><span>Base · $1,512</span><div class="bar-track"><div class="bar-fill" style="width:74%;background:#38648c"></div></div><span class="mono">+76%</span></div>
+<div class="bar-row"><span>Bull · $2,050</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:#b7791f"></div></div><span class="mono">+139%</span></div>
+</div>
+<p>The spread is the honest summary: even the bear case is only modestly below today's price on a 5-year view (the backlog cushions the downside), while the bull case requires the power super-cycle to run for most of the decade. The weighted ~$1,469 (+71% over five years) is a modelled estimate — treat the direction as the research view and the point value as arithmetic, not prophecy.</p>
+</section>
+
+<section>
+<h2><span class="no">06</span>Recommendation &amp; Portfolio Sizing</h2>
+<table>
+<tr><th>Horizon</th><th>View</th><th>Rationale in one line</th></tr>
+<tr><td>Short term (12–18 mo)</td><td><strong class="up">BUY</strong></td><td>Order/backlog momentum and a raised guide outweigh the rich EV/EBITDA at this horizon; base case +17%.</td></tr>
+<tr><td>Long term (5 yr)</td><td><strong class="up">BUY</strong></td><td>Structural electrification exposure with a $197B backlog; weighted modelled value ~$1,469 vs $857.87.</td></tr>
+<tr><td>Suggested weight</td><td><strong>2.5% of total portfolio</strong></td><td>Largest Industrials weight — sized as a core cyclical-growth holding, capped because 46× EV/EBITDA makes drawdowns violent when the cycle wobbles.</td></tr>
+</table>
+<p>For a mid-30s investor with risk score 8/10, GEV earns the biggest Industrials allocation in this framework: the growth is real and cash-backed (advance payments prove customers are committing), but the valuation multiple — not the business — is the main risk, and position size is the control for that. Add on de-rating drawdowns toward the bear case rather than chasing order headlines.</p>
+<div class="calc">
+<label for="pf">Position-size calculator — your total portfolio value ($)</label>
+<div class="row">
+<input id="pf" type="number" value="250000" min="0" step="1000" inputmode="numeric">
+<span class="out" id="calcOut"></span>
+</div>
+<p class="src" style="margin:8px 0 0">At the suggested 2.5% weight. Shares are rounded down to whole shares at $857.87. In-memory only — nothing is saved or sent anywhere.</p>
+</div>
+</section>
+
+<section>
+<h2>Sources</h2>
+<ol class="sources">
+<li>Price &amp; history — StockAnalysis, GEV: <a href="https://StockAnalysis.com/stocks/gev/">stockanalysis.com/stocks/gev</a></li>
+<li>Valuation statistics (P/E 22.3–22.5×, EPS ~$17.9, TTM revenue $38.07B) — TipRanks: <a href="https://www.tipranks.com/stocks/gev/statistics">tipranks.com/stocks/gev/statistics</a></li>
+<li>EV/EBITDA 46.1× — FinanceCharts: <a href="https://www.FinanceCharts.com/stocks/GEV/bulls-bears">financecharts.com/stocks/GEV/bulls-bears</a></li>
+<li>Q3 EPS $4.81 vs $4.03 consensus — <a href="https://www.thelincolnianonline.com/2026/10/28/ge-vernova-nysegev-announces-earnings-results-beats-estimates-by-0-78-eps.html">The Lincolnian (FiscalAI)</a></li>
+<li>Q3 revenue $12.642B, +26.8% YoY — <a href="https://www.tradingview.com/news/tradingview:7604f66e25697:0-ge-vernova-raises-2026-guidance-after-revenue-rises-27-in-third-quarter/">TradingView</a></li>
+<li>Orders +96% organically, backlog $197B, raised FY guide, Trench — <a href="https://stocktwits.com/news-articles/markets/equity/ge-vernova-to-acquire-trench-group-for-9-b-raises-2026-guidance-after-q3-revenue-beat-what-investors-need-to-know/cZU9hqqR9Gc">Stocktwits</a></li>
+<li>Trench $9.0B terms (~50% cash / 50% debt, late-2027 close), 122 GW gas backlog — <a href="https://www.turbomachinerymag.com/view/ge-vernova-q3-2026-gas-power-backlog-122-gw-trench-acquisition">TurboMachinery Magazine</a></li>
+<li>Earnings-beat coverage, 30 Oct 2026 — <a href="https://www.defenseworld.net/2026/10/30/ge-vernova-nysegev-stock-jumps-1-4-following-earnings-beat.html">Defense World</a> · <a href="https://stockcircle.com/stocks/gev">StockCircle</a></li>
+<li>Q3 working-capital benefit ~$5.3B — <a href="https://www.watchlistnews.com/what-ge-vernova-gev-said-on-its-q3-earnings-call/11283381.html">Watchlist News</a></li>
+<li>Quarterly FCF series — <a href="https://www.four01.com/companies/gev">Four01</a> · <a href="https://www.gevernova.com/news/press-releases/ge-vernova-reports-fourth-quarter-full-year-2025-financial-results?ref=maschinenjournal.de">GE Vernova Q4/FY25 press release</a></li>
+<li>Sector ranking basis (global top 10, as of 5 Oct 2026) — <a href="https://www.fool.com/research/largest-industrials-companies/">Motley Fool</a></li>
+</ol>
+<p class="src">Verification note: Q3 figures, the 30 Oct close, guidance and the Trench terms were independently re-checked on 1 Nov 2026 against second sources; the TTM FCF figure is arithmetically confirmed but flagged in §2 as front-loaded. Scenario targets are modelled estimates, not verified facts. Figures shown as ranges (P/E, P/S, TTM revenue) reflect genuine differences between the cited sources.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>GEV — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $857.87.</strong> <strong>DCF intrinsic: $993.</strong> Discount/premium vs DCF: <strong>-13.6%</strong> — i.e. the shares are trading 13.6% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$993</td><td>-13.6%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$11.8B</strong>; constant growth g <strong>8%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$107.00B</strong>; PV of terminal value <strong>$144.77B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$+12.61B</strong>; divided by <strong>266.33m</strong> diluted shares = <strong>$993</strong>. Base FCF $11.82B — NORMALISED (UNVERIFIED as an independent check — pack verification log only): pack TTM FCF $17.12B less the ~$5.3B Q3 working-capital benefit (mainly customer down-payments/slot reservations, per the pack verification log and Q3 call coverage). The pack verification log explicitly warns the TTM figure is front-loaded and must not be annualised; FY2026 guidance of $16–$17B itself includes those advances. Growth g 8% (below the pack's 12% price CAGR, to reflect that backlog conversion, not order growth, drives cash). Net cash +$12.61B (cash $16.36B − debt $3.75B, TwelveData/InTickers, before the ~$9B Trench acquisition, to be funded ~half debt). Shares 266.33m (TwelveData). DPS $2.00 (TwelveData/Digrin).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + pack verification log + https://twelvedata.com/markets/471811/stock/nyse/gev/statistics , https://intickers.com/reports/gev/ ; price 30 Oct 2026 close $857.87. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>GEV — Top customers (B2B)</h2>
+<p>GE Vernova is classified <strong>B2B</strong>: gas turbines, wind and grid equipment are sold to utilities, independent power producers and large energy buyers. No ranked customer list is disclosed in the pack; the table names the largest known demand channels, ranking not disclosed.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Electric utilities and grid operators (global)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Amazon / AWS (data-centre power demand channel)</td><td></td><td>Covered ticker — DCF intrinsic $25, discount/premium +861.4%</td></tr><tr><td>Microsoft (data-centre power demand channel)</td><td></td><td>Covered ticker — DCF intrinsic $236 discount/premium +121.1%</td></tr><tr><td>Google (data-centre power demand channel)</td><td></td><td>Covered ticker — DCF intrinsic $45, discount/premium +521.9%</td></tr><tr><td>Oracle (data-centre power demand channel)</td><td></td><td>Covered ticker — DCF intrinsic: N/A (DCF withdrawn)</td></tr><tr><td>Meta (data-centre power demand channel)</td><td></td><td>Covered ticker — DCF intrinsic $242 discount/premium +154.1%</td></tr><tr><td>Independent power producers and industrial energy buyers</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> GE Vernova's $197B backlog (pack, Q3 2026) is the demand fact that matters most: orders of $29.3B in Q3 alone were more than twice revenue. If the covered hyperscaler demand channels in this table trade at discounts to intrinsic once filled in, that supports continued data-centre power orders and is a potential tailwind; premiums are a potential headwind — but hyperscaler spending is set by their own AI capacity plans and grid-connection queues, not by their share-price discount alone, so the caveat applies. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>GEV — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> GE Vernova is a direct AI enabler: its gas turbines and grid equipment supply the power that data centres cannot get from a constrained grid — the pack cites ~25% of world electricity generated with its technology and a $197B backlog.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: gas-turbine orders (Q3 2026 orders $29.3B, +96%, book-to-bill above 2×) and grid/electrification equipment for data-centre campuses, the single largest incremental power-demand source in the pack. Multiple channel: GEV's 22.3–22.5× P/E and 46.1× EV/EBITDA in the pack already price a turbine super-cycle; an AI unwind would compress that premium even if the backlog held.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: hyperscalers and utilities delay turbine and grid orders, and the $5.3B of Q3 working-capital benefit (customer down-payments) reverses as deliveries slip — the normalised FCF base in the intrinsic section already strips that benefit out. Second, multiple compression: high — from ~46× EV/EBITDA toward a through-cycle power-equipment multiple, a severe de-rating. Third, balance sheet: moderate — net cash $12.61B before the ~$9B Trench acquisition (to be funded ~half debt) gives a cushion, but a $197B backlog built on advance payments is itself a working-capital risk if orders cancel. Trigger to watch: a hyperscaler capex cut, a turbine order cancellation, or Trench integration slippage.</p>
+</div>
+<footer>
+Equity Research — GEV · Prepared 1 Nov 2026 · Price reference: 30 Oct 2026 close ($857.87). Recommendations are research views, not guarantees and not investment advice. Verify figures against the linked sources before acting.
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('calcOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.textContent='Enter a portfolio value.';return;}
+    var amt=v*0.025, shares=Math.floor(amt/857.87);
+    out.textContent='→ $'+fmt(amt)+' in GEV ≈ '+fmt(shares)+' shares at $857.87';
+  }
+  input.addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>

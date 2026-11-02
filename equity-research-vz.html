@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — VZ (Verizon)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#fffdf9; --surface2:#efeae0; --ink:#1a1e24; --muted:#5c6570; --line:#ddd6c8;
+  --accent:#c8102e; --accent-ink:#fff; --teal:#0f766e; --amber:#92400e; --amber-bg:#fef3c7; --green-bg:#dcfce7; --green:#166534;
+  --red-bg:#fee2e2; --chart-bear:#b45309; --chart-base:#0f766e; --chart-bull:#15803d;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#111418; --surface:#1a1e24; --surface2:#232830; --ink:#ece7dc; --muted:#a8b0ba; --line:#333a44; --amber-bg:#3a2a0a; --green-bg:#14301f; --red-bg:#3a1515; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px}
+h1,h2{font-family:"Fraunces",Georgia,serif;line-height:1.05;letter-spacing:-.02em}
+h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.1em 0 .15em}
+h2{font-size:1.55rem;margin:0 0 .6rem;border-top:2px solid var(--ink);padding-top:1.1rem}
+h3{font-size:1.02rem;margin:1rem 0 .4rem}
+p{margin:.55rem 0}
+.small{font-size:.86rem;color:var(--muted)} .mono{font-family:"IBM Plex Mono",monospace}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.hero{padding:18px 0 8px}
+.lede{font-size:1.12rem;max-width:42em;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.stat b{display:block;font-size:1.45rem;line-height:1.1}
+.stat span{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:14px 0}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:640px){.verdict{grid-template-columns:1fr}}
+.pill{display:inline-block;padding:3px 9px;border-radius:999px;font-size:.75rem;font-weight:700;letter-spacing:.04em}
+.pill-hold{background:var(--amber-bg);color:var(--amber)} .pill-conf{background:var(--green-bg);color:var(--green)} .pill-est{background:var(--amber-bg);color:var(--amber)} .pill-unv{background:var(--red-bg);color:#991b1b}
+@media(prefers-color-scheme:dark){.pill-hold,.pill-est{color:#fbbf24}.pill-unv{color:#fca5a5}.pill-conf{color:#86efac}}
+table{width:100%;border-collapse:collapse;font-size:.93rem;margin:.6rem 0}
+th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+ul{margin:.4rem 0 .4rem 1.1rem;padding:0} li{margin:.3rem 0}
+.seg{display:flex;height:36px;border-radius:8px;overflow:hidden;margin:10px 0}
+.seg div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:.78rem;font-weight:600;padding:0 6px;text-align:center}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end}.calc label{font-size:.85rem;font-weight:600}
+.calc input{padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:1rem;width:180px}
+.calc button{background:var(--accent);color:var(--accent-ink);border:0;padding:11px 16px;border-radius:8px;font-weight:700;cursor:pointer}
+.note{background:var(--surface2);border-radius:10px;padding:12px 14px;font-size:.9rem}
+footer{margin-top:28px;border-top:1px solid var(--line);padding-top:14px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 64px;gap:10px;align-items:center;margin:7px 0;font-size:.9rem}
+.bar{height:18px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">Communication Services · Equity Research · As of 1 Nov 2026</div>
+  <h1>Verizon (VZ)</h1>
+  <p class="lede">The US incumbent wireless carrier as an income holding: nationwide spectrum and scale, very low pricing power, and a balance sheet shaped by telecom capex and spectrum. This is a yield-and-stability name, not a growth name — and the research treats it that way.</p>
+  <p class="small">Price reference: <strong>30 Oct 2026 regular-session close</strong> (1 Nov 2026 was a weekend). Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices = 30 Oct 2026 close. In Communication Services, GOOGL is counted once (GOOG excluded as a duplicate share class) and SPCX (SpaceX) is <strong>listed</strong> on NASDAQ (IPO 12 June 2026) and ranks #2 — DTEGY is therefore #11 and retained as an 11th name. Research views only — not guarantees, not investment advice. For a mid-30s investor, risk score 8/10.</p>
+  <div class="stats">
+    <div class="stat"><span>Close · 30 Oct</span><b>$44.73</b><span>+2.45% on the day</span></div>
+    <div class="stat"><span>Market cap</span><b>$185.1B</b><span>FinanceCharts</span></div>
+    <div class="stat"><span>Trailing P/E</span><b>10.93×</b><span>EPS $4.06 · Finnhub</span></div>
+    <div class="stat"><span>Dividend yield</span><b>~6%+</b><span>ESTIMATE — see §2</span></div>
+    <div class="stat"><span>Suggested weight</span><b>1.5%</b><span>of total portfolio</span></div>
+  </div>
+  <div class="card">
+    <div class="verdict">
+      <div><span class="pill pill-hold">SHORT TERM · HOLD</span><h3>Hold for income</h3><p class="small">No catalyst in the pack argues for chasing the stock; the case is collecting the dividend while broadband adds build.</p></div>
+      <div><span class="pill pill-hold">LONG TERM · HOLD</span><h3>Hold</h3><p class="small">Modelled 5-year weighted value $53 vs $44.73 today — modest upside plus income, consistent with a small, capped income position.</p></div>
+      <div><span class="pill pill-conf">POSITION SIZE</span><h3>1.5% target</h3><p class="small">Income sleeve, not a core growth holding. See the calculator in §6.</p></div>
+    </div>
+  </div>
+</header>
+
+<section>
+<h2>1 &nbsp;Business model &amp; segment breakdown</h2>
+<p>Verizon sells connectivity in the United States, in two reporting groups:</p>
+<div class="seg" role="img" aria-label="Illustrative split: Consumer wireless and broadband is the larger business; Business wireless and wireline is the second business; Fios and fixed wireless sit inside consumer and business broadband.">
+  <div style="background:#c8102e;flex:3">Consumer — wireless + broadband</div>
+  <div style="background:#334155;flex:2">Business — wireless + wireline</div>
+</div>
+<ul>
+  <li><strong>Consumer:</strong> postpaid and prepaid wireless, plus fixed broadband — Fios fibre where built, and fixed wireless access (FWA) elsewhere.</li>
+  <li><strong>Business:</strong> wireless and wireline services to enterprises and the public sector, including private 5G and network services.</li>
+  <li><strong>Geography:</strong> almost entirely US. There is no meaningful international revenue hedge — US competition and US spectrum policy are the whole story.</li>
+</ul>
+<h3>Recent structural pivots</h3>
+<ul>
+  <li><strong>Fixed wireless access</strong> as the broadband growth engine where fibre is uneconomic to build.</li>
+  <li><strong>Fibre expansion</strong> alongside FWA, rather than choosing one technology.</li>
+  <li><strong>AI / network slicing</strong> — selling differentiated network capability (slices, edge services) to business customers instead of only raw bandwidth.</li>
+  <li><strong>Cost cuts</strong> — the pack flags an ongoing cost-reduction programme as the margin lever in a low-growth revenue base.</li>
+</ul>
+<h3>Supply-chain dependencies</h3>
+<p>Verizon manufactures nothing. Its dependencies are <strong>network equipment vendors — Ericsson, Nokia and Samsung</strong> — for radio and core network gear, and <strong>handset OEMs</strong> for the devices it resells and finances for subscribers. Equipment-vendor concentration and handset subsidy costs are the two supply-side exposures.</p>
+</section>
+
+<section>
+<h2>2 &nbsp;Financial health &amp; balance-sheet diagnostics</h2>
+<table>
+<tr><th>Metric</th><th class="num">Value</th><th>Status / source</th></tr>
+<tr><td>Share price (30 Oct 2026 close)</td><td class="num">$44.73 (+2.45%)</td><td><span class="pill pill-conf">CONFIRMED</span> Finnhub via verification log; also StockAnalysis history</td></tr>
+<tr><td>Market capitalisation</td><td class="num">$185.112B</td><td><span class="pill pill-conf">CONFIRMED</span> FinanceCharts</td></tr>
+<tr><td>Trailing P/E</td><td class="num">10.93×</td><td><span class="pill pill-conf">CONFIRMED</span> Finnhub</td></tr>
+<tr><td>EPS (basis for P/E)</td><td class="num">$4.06</td><td><span class="pill pill-conf">CONFIRMED</span> Finnhub</td></tr>
+<tr><td>Revenue</td><td class="num">~$135B</td><td><span class="pill pill-est">ESTIMATE</span> Pack estimate (~$135B); the modelled base year in §5 uses $136B 2026E. Do not treat either as a reported figure.</td></tr>
+<tr><td>Dividend</td><td class="num">$2.60+ / yr · ~6%+ yield</td><td><span class="pill pill-est">ESTIMATE</span> Yield NOT re-verified in this run — labelled estimate from historical payout.</td></tr>
+<tr><td>Leverage / debt-to-equity</td><td class="num">Debt high; D/E not verified</td><td><span class="pill pill-unv">NOT VERIFIED</span> Debt is high (telecom capex + spectrum). D/E was NOT verified in this run; the pack notes it historically &gt;1.5× — treat that as unverified context, not a confirmed ratio.</td></tr>
+<tr><td>P/S, EV/EBITDA, FCF, buybacks</td><td class="num">—</td><td><span class="pill pill-unv">NOT IN PACK</span> Not supplied for VZ in the verified pack, so omitted here rather than estimated.</td></tr>
+</table>
+<div class="note"><strong>How to read the valuation:</strong> at 10.93× earnings with a ~6%+ estimated yield, the market prices VZ as a bond proxy. The return case is therefore <em>dividend + modest multiple stability</em>, not earnings growth — which is exactly what the scenarios in §5 assume (0–4% revenue CAGR, 10–15% net margin).</div>
+<h3>Capital allocation</h3>
+<p>The pack's picture is: heavy ongoing network capex and spectrum costs, a large and long-standing dividend (the $2.60+ annual figure above, estimate-labelled), and high debt carried as a structural feature of the model. No verified buyback or R&amp;D figures were supplied for VZ, so none are asserted here.</p>
+</section>
+
+<section>
+<h2>3 &nbsp;Competitive moat &amp; industry positioning</h2>
+<div class="grid2">
+<div class="card"><h3>What the moat is</h3><ul><li><strong>Spectrum holdings</strong> — licensed spectrum is scarce and cannot be replicated by a new entrant.</li><li><strong>Nationwide network</strong> — coverage and capacity built over decades.</li><li><strong>Scale</strong> — a very large subscriber base over a largely fixed-cost network.</li></ul></div>
+<div class="card"><h3>Where the moat is weak</h3><ul><li><strong>Low pricing power</strong> — the pack is explicit: price wars with T-Mobile and AT&amp;T cap what Verizon can charge.</li><li><strong>Cable MVNOs</strong> — Comcast and Charter resell mobile at aggressive prices and take share without building networks.</li><li><strong>Churn sensitivity</strong> — subscribers can switch carriers easily; promotions, not loyalty, drive net adds.</li></ul></div>
+</div>
+<p><strong>Primary competitors:</strong> T-Mobile (TMUS), AT&amp;T (T), Comcast / Charter mobile, and Dish / EchoStar. Verizon's positioning is the premium incumbent network — but in a market where the pack says pricing power is low, “premium” has to be re-earned with network quality every quarter.</p>
+</section>
+
+<section>
+<h2>4 &nbsp;Catalysts &amp; downside risks</h2>
+<div class="grid2">
+<div class="card"><h3>Catalysts</h3><ul><li><strong>Broadband adds</strong> — FWA and fibre net additions are the clearest growth metric left in the story.</li><li><strong>Business 5G</strong> — private networks and slicing monetising the business segment.</li><li><strong>Dividend income</strong> — the ~6%+ estimated yield is itself the near-term return driver for holders.</li><li><strong>Cost cuts</strong> — margin support if the programme delivers.</li></ul></div>
+<div class="card"><h3>Downside risks</h3><ul><li><strong>Price competition</strong> — promotional intensity from TMUS, T and cable MVNOs compresses ARPU and raises churn.</li><li><strong>Capex / spectrum auctions</strong> — the network must be fed continuously; spectrum auctions can add large, lumpy debt.</li><li><strong>Debt load</strong> — high leverage (D/E unverified, see §2) leaves less room if rates stay high or growth stalls.</li><li><strong>Subscriber churn</strong> — losing postpaid phone subscribers would break both the revenue and the dividend story.</li></ul></div>
+</div>
+</section>
+
+<section>
+<h2>5 &nbsp;Scenario-based valuation &amp; price targets</h2>
+<p class="small">All prices in this section are <strong>MODELLED ESTIMATES</strong> — outputs of the stated assumptions, not verified facts and not analyst price targets. Methodology is shown so every figure can be recomputed.</p>
+<h3>12–18 month targets (modelled)</h3>
+<table><tr><th>Case</th><th class="num">Target</th><th class="num">vs $44.73</th></tr>
+<tr><td>Bear</td><td class="num">$40</td><td class="num">−11%</td></tr>
+<tr><td>Base</td><td class="num">$50</td><td class="num">+12%</td></tr>
+<tr><td>Bull</td><td class="num">$58</td><td class="num">+30%</td></tr></table>
+<p class="small">Plus the ~6%+ estimated dividend yield over the holding period, which is the larger part of the expected 12–18-month total return in the base case.</p>
+<h3>5-year projection — frozen-parameter format</h3>
+<p>Starting point (modelled): <strong>2026E revenue $136B; shares 4.14B in base/bear, 4.10B in bull as modelled in the pack</strong>. Growth, margin and the exit P/E vary by case. Price = (2031 revenue × net margin ÷ shares) × P/E.</p>
+<table>
+<tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 rev</th><th class="num">Net margin</th><th class="num">2031 EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+<tr><td>Bear (25%)</td><td class="num">0%</td><td class="num">$136B</td><td class="num">10%</td><td class="num">$3.28</td><td class="num">9×</td><td class="num"><strong>$30</strong></td></tr>
+<tr><td>Base (50%)</td><td class="num">2%</td><td class="num">$150B</td><td class="num">13%</td><td class="num">$4.71</td><td class="num">11×</td><td class="num"><strong>$52</strong></td></tr>
+<tr><td>Bull (25%)</td><td class="num">4%</td><td class="num">$166B</td><td class="num">15%</td><td class="num">$6.07</td><td class="num">13×</td><td class="num"><strong>$79</strong></td></tr>
+</table>
+<p class="small">Worked base case: $150B × 13% = $19.5B net income ÷ 4.14B shares = $4.71 EPS × 11 = $52. Bull uses 4.10B shares ($166B × 15% ÷ 4.10B = $6.07 × 13 = $79). Probability-weighted (50/25/25): 0.50×$52 + 0.25×$79 + 0.25×$30 = <strong>$53</strong> — about +19% over five years before dividends, which is the honest shape of this stock: income first, capital growth second.</p>
+<div aria-label="5-year scenario prices versus current price">
+<div class="bar-row"><span>Bear $30</span><div class="bar" style="background:var(--chart-bear);width:38%"></div><span class="mono">$30</span></div>
+<div class="bar-row"><span>Today $44.73</span><div class="bar" style="background:#94a3b8;width:57%"></div><span class="mono">$44.73</span></div>
+<div class="bar-row"><span>Base $52</span><div class="bar" style="background:var(--chart-base);width:66%"></div><span class="mono">$52</span></div>
+<div class="bar-row"><span>Weighted $53</span><div class="bar" style="background:#0e7490;width:67%"></div><span class="mono">$53</span></div>
+<div class="bar-row"><span>Bull $79</span><div class="bar" style="background:var(--chart-bull);width:100%"></div><span class="mono">$79</span></div>
+</div>
+</section>
+
+<section>
+<h2>6 &nbsp;Recommendation &amp; portfolio sizing</h2>
+<p><strong>Short term (12–18 months): HOLD (income).</strong> <strong>Long term (5 years): HOLD.</strong> For a mid-30s investor at risk 8/10, the pack's suggested weight is <strong>1.5% of the total portfolio</strong> — an income-sleeve position. At risk 8/10 most of the portfolio belongs in growers; VZ's job in that mix is ballast and cash flow, and 1.5% is sized so its low upside cannot drag the whole portfolio, while the dividend still registers.</p>
+<div class="card"><h3>Position-size calculator</h3>
+<div class="calc"><label>Portfolio value ($) <input id="pv" type="number" value="500000" min="0" step="1000"></label><button id="calcBtn" type="button">Calculate 1.5%</button></div>
+<p id="calcOut" class="mono" aria-live="polite" style="margin-top:10px">Target VZ position: $7,500 ≈ 167 shares at $44.73</p>
+<p class="small">Illustrative only, using the 30 Oct close. Share count is rounded down to whole shares in the calculation.</p></div>
+</section>
+
+<section>
+<h2>Sources &amp; verification</h2>
+<ul>
+<li>Price &amp; P/E/EPS basis — Finnhub (VZ quote): <a href="https://finnhub.io/?q=%22VZ%22">finnhub.io/?q="VZ"</a></li>
+<li>Price history cross-check — StockAnalysis VZ statistics: <a href="https://stockanalysis.com/stocks/vz/statistics/">stockanalysis.com/stocks/vz/statistics</a></li>
+<li>Market cap &amp; sector ranking basis — FinanceCharts, Communication Services (updated 30 Oct 2026): <a href="https://www.financecharts.com/sectors/communication_services">financecharts.com/sectors/communication_services</a></li>
+</ul>
+<p class="small">Verification note: an independent verification log for Communication Services (dated 1 Nov 2026) confirmed VZ's price ($44.73) and market cap ($185.112B) and the ranking basis above, including that SPCX is listed (not unlisted). Items the log did not verify — revenue (~$135B), dividend yield (~6%+), and debt-to-equity — are labelled ESTIMATE / NOT VERIFIED wherever they appear. All scenario prices are modelled estimates with methodology shown in §5.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — VZ (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $44.73.</strong> <strong>DCF intrinsic: $25.07.</strong> Discount/premium vs DCF: <strong>+78.4%</strong> — i.e. the shares are trading 78.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$25.07</td><td>+78.4%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $21.11bn. TTM FCF (Fool: OCF $39.05bn - capex $17.94bn = $21.11bn; Intickers $22.38bn is close). FCF after network/spectrum capex, as reported. Growth g = 2% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $142.66bn + PV of terminal value $145.98bn + net cash $-184.47bn, divided by 4.155bn diluted shares = <strong>$25.07</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.fool.com/quote/nyse/vz/</li><li>Quarterly $0.7075 x4 = $2.83 (alphabetastock Q3 2026 report; TwelveData forward rate $2.83)</li><li>https://www.marketbeat.com/stocks/NYSE/VZ/</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — VZ (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>US federal government and public-sector customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Large enterprise wireless and wireline customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Wholesale / MVNO partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Business broadband / Fios business customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Frontier acquired broadband customers (group, post-acquisition)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Consumer subscribers (fragmented; shown for completeness, not a single customer)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr><tr><td>Equipment / device-channel partners (not customers in the revenue sense — shown to avoid confusion)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></tbody></table><p><strong>Read-through.</strong> Verizon discloses no single business customer above 10% of revenue, and its consumer base is fragmented, so no single-customer valuation drives the read-through. If its enterprise and government buyers were broadly trading at a discount to intrinsic, that would be a potential tailwind for business wireless, broadband and public-sector work — but an undervalued customer does not guarantee higher spending, which depends on that customer's own priorities and cash position, and government spending in particular follows budgets rather than market valuations.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — VZ</h2>
+<p><strong>Role: Low exposure.</strong> Verizon is a connectivity beneficiary of AI only indirectly: the pack's thesis is fixed wireless, fibre and business 5G, with AI workloads driving data-centre connectivity demand at the margin, not a capex-for-AI story.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through business 5G, fibre and fixed-wireless adds as enterprises digitise; the multiple is supported by the dividend (6%+ yield) rather than any AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in business adds and broadband if enterprise spending stalls; then the multiple compresses only modestly, since little AI premium is embedded; then the balance sheet — debt $189.0bn against cash $4.5bn — is the binding constraint, as it limits spectrum and fibre flexibility. Watch: broadband adds, business 5G momentum, and any Starlink-Mobile competitive pressure (the pack notes the October spectrum news).</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+<p class="small">Equity Research — VZ · As of 1 Nov 2026 · Price reference 30 Oct 2026 close · Research views only, not guarantees, not investment advice. Modelled targets are estimates based on the assumptions shown; verify current prices and filings before acting.</p>
+</footer>
+</div>
+<script>
+(function(){
+  var btn=document.getElementById('calcBtn'), pv=document.getElementById('pv'), out=document.getElementById('calcOut');
+  function calc(){
+    var v=parseFloat(pv.value)||0; var target=v*0.015; var shares=Math.floor(target/44.73);
+    out.textContent='Target VZ position: $'+target.toLocaleString('en-US',{maximumFractionDigits:0})+' ≈ '+shares.toLocaleString('en-US')+' shares at $44.73';
+  }
+  btn.addEventListener('click',calc); pv.addEventListener('input',calc);
+})();
+</script>
+</body>
+</html>

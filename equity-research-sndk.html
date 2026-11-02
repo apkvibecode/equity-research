@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SNDK</title>
+<style>
+  :root{
+    --bg:#f7f5f2; --surface:#ffffff; --surface2:#f0ede8; --ink:#1a1714; --muted:#6b6560;
+    --line:#e2ddd6; --accent:#b45309; --accent-ink:#92400e; --accent-bg:#fef3c7;
+    --red:#b91c1c; --red-bg:#fef2f2; --green:#15803d; --green-bg:#f0fdf4;
+    --amber:#92400e; --amber-bg:#fffbeb; --teal:#0f766e;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#121110; --surface:#1c1a18; --surface2:#24211e; --ink:#ece8e2; --muted:#a8a09a;
+      --line:#33302c; --accent:#f59e0b; --accent-ink:#fbbf24; --accent-bg:#2a2110;
+      --red:#f87171; --red-bg:#2a1515; --green:#4ade80; --green-bg:#12241a;
+      --amber:#fbbf24; --amber-bg:#2a2110; --teal:#2dd4bf;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family: ui-sans-system, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent-ink);text-decoration-color:color-mix(in srgb, var(--accent) 40%, transparent);text-underline-offset:3px}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px}
+  /* header */
+  .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .crumb{font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .datepill{font-size:12.5px;background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:999px;color:var(--muted)}
+  h1{font-family: Georgia, "Times New Roman", serif;font-size:34px;line-height:1.05;margin:6px 0 6px;letter-spacing:-.02em;font-weight:700}
+  h1 .ticker{color:var(--accent)}
+  .sub{font-size:16px;color:var(--muted);max-width:720px;margin:0}
+  .sub strong{color:var(--ink)}
+  /* price strip */
+  .pricecard{margin-top:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:16px}
+  @media(max-width:700px){.pricecard{grid-template-columns:1fr 1fr}.pricecard .big{grid-column:1/-1}}
+  .big .p{font-size:36px;font-weight:800;letter-spacing:-.03em;line-height:1}
+  .big .chg{color:var(--red);font-weight:700;font-size:14px;margin-top:6px}
+  .stat label{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+  .stat .v{font-size:19px;font-weight:700;letter-spacing:-.02em}
+  .stat .n{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.4}
+  /* alerts */
+  .alerts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  @media(max-width:700px){.alerts{grid-template-columns:1fr}}
+  .alert{border-radius:12px;padding:14px 16px;border:1px solid var(--line);font-size:14px;line-height:1.5}
+  .alert.red{background:var(--red-bg);border-color:color-mix(in srgb, var(--red) 25%, var(--line))}
+  .alert.amber{background:var(--amber-bg)}
+  .alert b{display:block;margin-bottom:4px;font-size:13px;letter-spacing:.04em;text-transform:uppercase}
+  .alert.red b{color:var(--red)} .alert.amber b{color:var(--amber)}
+  /* verdict */
+  .verdict{margin-top:12px;background:var(--ink);color:var(--bg);border-radius:16px;padding:18px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+  @media(max-width:700px){.verdict{grid-template-columns:1fr}}
+  .verdict label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.65;font-weight:700;display:block;margin-bottom:6px}
+  .verdict .bigv{font-size:20px;font-weight:800;line-height:1.2}
+  .verdict p{margin:6px 0 0;font-size:13.5px;opacity:.85;line-height:1.5}
+  .verdict .pct{font-size:32px;font-weight:800;letter-spacing:-.03em}
+  /* sections */
+  section{margin-top:28px}
+  .sec-head{display:flex;gap:12px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px}
+  .sec-head .num{font-family:Georgia,serif;font-size:22px;color:var(--accent);font-weight:700}
+  .sec-head h2{font-size:20px;margin:0;letter-spacing:-.01em}
+  .sec-head .tag{margin-left:auto;font-size:12px;color:var(--muted);white-space:nowrap}
+  @media(max-width:560px){.sec-head .tag{display:none}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .card + .card{margin-top:12px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:700px){.grid2{grid-template-columns:1fr}}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:700px){.grid3{grid-template-columns:1fr}}
+  h3{font-size:15px;margin:0 0 8px}
+  p{margin:0 0 10px} p:last-child{margin-bottom:0}
+  .muted{color:var(--muted)} .small{font-size:13px} 
+  ul{margin:6px 0 0;padding-left:18px} li{margin:5px 0}
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+  @media(max-width:700px){.kpi-row{grid-template-columns:1fr 1fr}}
+  .kpi{background:var(--surface2);border-radius:10px;padding:12px}
+  .kpi label{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block}
+  .kpi .v{font-size:18px;font-weight:800;margin-top:3px}
+  .kpi .n{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.4}
+  /* tables */
+  .tblwrap{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{ text-align:left;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface2)}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.num, th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  @media(max-width:640px){
+    table{font-size:12.5px}
+    th,td{padding:8px 7px}
+    td.num, th.num{white-space:normal;text-align:right}
+    th{white-space:normal;line-height:1.3}
+    td{word-break:break-word}
+  }
+  .pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 7px;border-radius:999px;background:var(--accent-bg);color:var(--accent-ink);border:1px solid color-mix(in srgb, var(--accent) 25%, transparent)}
+  .badge.red{background:var(--red-bg);color:var(--red)} .badge.green{background:var(--green-bg);color:var(--green)}
+  /* scenario toggle */
+  .togglebar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+  .seg{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px}
+  .seg button{border:0;background:transparent;padding:7px 14px;border-radius:999px;font-weight:700;font-size:13px;cursor:pointer;color:var(--muted)}
+  .seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+  .scenarios{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  @media(max-width:700px){.scenarios{grid-template-columns:1fr}}
+  .scen{border-radius:14px;padding:16px;border:1px solid var(--line);background:var(--surface)}
+  .scen.bear{border-top:4px solid var(--red)} .scen.base{border-top:4px solid var(--accent)} .scen.bull{border-top:4px solid var(--green)}
+  .scen label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;font-weight:800;color:var(--muted)}
+  .scen .price{font-size:30px;font-weight:800;letter-spacing:-.03em;margin:4px 0 2px}
+  .scen .vs{font-size:13px;color:var(--muted)}
+  .scen dl{margin:12px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:13px}
+  .scen dt{color:var(--muted)} .scen dd{margin:0;text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+  .weighted{margin-top:12px;background:var(--surface2);border-radius:12px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;justify-content:space-between}
+  .weighted .wprice{font-size:24px;font-weight:800}
+  /* range bar */
+  .rangebar{margin-top:14px}
+  .track{height:10px;background:var(--surface2);border-radius:999px;position:relative;border:1px solid var(--line)}
+  .fill{position:absolute;left:0;top:0;bottom:0;background:var(--accent);opacity:.28;border-radius:999px}
+  .dot{position:absolute;top:50%;width:16px;height:16px;background:var(--surface);border:3px solid var(--accent);border-radius:50%;transform:translate(-50%,-50%)}
+  .range-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums}
+  /* calc */
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:end}
+  @media(max-width:600px){.calc{grid-template-columns:1fr}}
+  .calc label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{width:100%;font-size:18px;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-weight:700}
+  .calc .out{background:var(--surface2);border-radius:10px;padding:12px 14px}
+  .calc .out .amt{font-size:22px;font-weight:800}
+  /* flow */
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow .step{background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;flex:1;min-width:130px}
+  .flow .step b{display:block;font-size:14px}
+  .flow .arr{color:var(--muted);font-weight:800}
+  footer{margin-top:32px;border-top:1px solid var(--line);padding-top:16px}
+  .sources{font-size:13px;color:var(--muted);line-height:1.7}
+  .sources a{word-break:break-all}
+  .disclaimer{font-size:12.5px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:14px;line-height:1.6}
+  .note{font-size:13px;background:var(--amber-bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="crumb">Equity Research · Information Technology · Storage / NAND</span>
+    <span class="datepill">As of 1 Nov 2026 · Price: 30 Oct 2026 close</span>
+  </div>
+
+  <h1>SanDisk <span class="ticker">— SNDK</span></h1>
+  <p class="sub">A pure NAND flash and SSD cyclical that has become an <strong>AI-storage trade</strong>. After a <strong>+384.8% year-to-date</strong> run, the question is no longer whether NAND pricing is strong — it is whether you are being paid to own peak earnings at peak volatility. <strong>Beta 3.29, the highest in this research pack.</strong></p>
+
+  <div class="pricecard">
+    <div class="big">
+      <div class="p">$1,150.89</div>
+      <div class="chg">▼ −13.47% on 30 Oct 2026</div>
+      <div class="small muted" style="margin-top:6px">Pre-split price. 8-for-1 split announced 29 Oct, payable ~19 Nov → split-adjusted ≈ $143.86. Use the toggle in §5.</div>
+    </div>
+    <div class="stat"><label>Market cap</label><div class="v">$166.34B</div><div class="n">~0.145B shares outstanding</div></div>
+    <div class="stat"><label>52-week range</label><div class="v">$181.51 – $2,354.39</div><div class="n">A 13× range in one year — this is the volatility regime, not a typo</div></div>
+    <div class="stat"><label>Returns</label><div class="v">+384.8% YTD</div><div class="n">+477.4% over 1 year</div></div>
+  </div>
+
+  <div class="alerts">
+    <div class="alert red">
+      <b>⚠ Peak-earnings trap — read the P/E carefully</b>
+      The headline trailing P/E looks cheap only because earnings are at a cyclical peak. Do not pair FY2026 EPS with a TTM P/E — see the corrected basis table in §2. Record fiscal Q4 gross margin was 84.6%.
+    </div>
+    <div class="alert amber">
+      <b>⇄ 8-for-1 stock split — prices change basis on ~19 Nov</b>
+      All scenario prices in this report are <strong>pre-split</strong> unless labelled split-adjusted. $1,017 pre-split ≈ $127 split-adjusted. The toggle in §5 converts every target for you.
+    </div>
+  </div>
+
+  <div class="verdict">
+    <div>
+      <label>Short term · 12–18 months</label>
+      <div class="bigv">Sell / Trim</div>
+      <p>The pack’s literal wording is “Short Sell (after +385% YTD, peak multiple).” For anyone who owns the stock, this page translates that bearish call as <strong>sell / trim</strong> — it does <em>not</em> recommend opening a literal short position (borrowed shares, uncapped loss, beta 3.29).</p>
+    </div>
+    <div>
+      <label>Long term · 5 years</label>
+      <div class="bigv">Hold — small cyclical only</div>
+      <p>Hold only as a deliberately small cyclical position, sized for a NAND downcycle — not as a core compounder.</p>
+    </div>
+    <div>
+      <label>Suggested weight · Mid-30s, risk 8/10</label>
+      <div class="pct">0.5%</div>
+      <p>Of total portfolio. The smallest sizing in the tech pack — a direct reflection of beta 3.29 and cycle risk.</p>
+    </div>
+  </div>
+
+  <p class="small muted" style="margin-top:10px">Ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. Samsung and SK hynix appear in that source’s global ranking but are excluded from detail here (foreign listings, not in the named set). Research views only — not guarantees, not investment advice.</p>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <div class="sec-head"><span class="num">1</span><h2>Business Model &amp; Segment Breakdown</h2><span class="tag">What it sells, and to whom</span></div>
+    <div class="card">
+      <p>SanDisk is a <strong>pure memory/storage business</strong>: NAND flash memory and the SSDs/storage products built on it. There is no services annuity, no subscription layer, and no software recurring revenue to smooth the cycle — earnings rise and fall with <strong>NAND price and bits shipped</strong>.</p>
+      <div class="flow" aria-label="Value chain">
+        <div class="step"><b>NAND flash</b>Wafer / fab capacity, including JV fab capacity</div><span class="arr">→</span>
+        <div class="step"><b>SSDs &amp; storage</b>Packaged drives and embedded storage</div><span class="arr">→</span>
+        <div class="step"><b>End markets</b>Client, enterprise/AI, and mobile</div>
+      </div>
+      <div class="grid3" style="margin-top:12px">
+        <div><h3>Client</h3><p class="small muted">PCs, consumer devices and removable storage. The most price-sensitive, most commoditised end of the business — first to feel a NAND price fall.</p></div>
+        <div><h3>Enterprise / AI</h3><p class="small muted">Data-centre SSDs, where AI workloads are raising storage content per server. This is the current investment case: AI storage demand on top of a NAND upcycle.</p></div>
+        <div><h3>Mobile</h3><p class="small muted">Embedded flash for handsets and devices. Volume-driven and tied to handset cycles and content-per-device growth.</p></div>
+      </div>
+      <div class="note"><strong>Open question — no verified segment split in this pass.</strong> The research pack explicitly did not verify a revenue split by segment from the latest filing, so none is printed here rather than estimated. The pack’s own framing is the honest one: <em>the investment case is NAND price, not a services annuity.</em> Check the latest 10-K/10-Q segment disclosure before relying on any mix figure.</div>
+    </div>
+    <div class="card">
+      <h3>Structural position</h3>
+      <ul>
+        <li><strong>Leveraged to two things at once:</strong> the NAND pricing cycle <em>and</em> AI-driven storage content growth. When both point up — as now — earnings explode. The leverage works in reverse just as fast.</li>
+        <li><strong>Supply-chain dependency is the business:</strong> NAND fab capacity (including joint-venture fabs) is capital-intensive, long-lead, and shared across the industry — industry over-supply is the classic cause of price collapses.</li>
+        <li><strong>Partial mitigant, disclosed by verification:</strong> roughly <strong>~50% of clients on long-term contracts</strong>, which softens — but does not remove — spot-price exposure in a downturn.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section id="financials">
+    <div class="sec-head"><span class="num">2</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2><span class="tag">Corrected EPS / P/E basis</span></div>
+
+    <div class="card">
+      <h3>The one table that matters: which EPS goes with which P/E</h3>
+      <p class="small muted">Independent verification found the pack’s original pairing — EPS $73.76 beside P/E 8.56× — was internally inconsistent. $1,150.89 ÷ $73.76 = 15.6×, not 8.56×. Both bases are shown below, each correctly labelled. Pick a basis and stay on it.</p>
+      <div class="tblwrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Basis (label it this way)</th><th class="num">EPS</th><th class="num">Implied P/E at $1,150.89</th><th>Source / check</th></tr></thead>
+          <tbody>
+            <tr><td><strong>FY2026 EPS</strong> — fiscal year ended 3 Jul 2026, diluted</td><td class="num">$73.76</td><td class="num">~15.6×</td><td class="small muted">Finnhub FY2026 figure; arithmetic check $1,150.89 / $73.76</td></tr>
+            <tr><td><strong>TTM EPS</strong> — trailing twelve months to Oct 2026</td><td class="num">~$124 – $134</td><td class="num">~8.6 – 9.2×</td><td class="small muted">FinanceCharts: $124.47 → 9.24×. Finnhub P/E 8.5643 implies EPS $134.37</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small" style="margin-top:10px"><strong>Why neither P/E should be taken at face value:</strong> verification labels the “peak-earnings trap” as a <em>plausible interpretation, not a measured fact</em> — supported by record margins (fiscal Q4 gross margin <strong>84.6%</strong>), forward P/E around 5–8× versus trailing, and history: NAND fell ~60% and DRAM ~40% in 2018–19, and DRAM fell ~68% peak-to-trough into Q3 2023. A low P/E on peak earnings has repeatedly been the most expensive way to buy a memory stock.</p>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi"><label>Price · 30 Oct</label><div class="v">$1,150.89</div><div class="n">−13.47% on the day</div></div>
+      <div class="kpi"><label>Market cap</label><div class="v">$166.34B</div><div class="n">Shares ~0.145B</div></div>
+      <div class="kpi"><label>Beta</label><div class="v">3.29</div><div class="n">Highest in this research pack</div></div>
+      <div class="kpi"><label>Fiscal Q4 gross margin</label><div class="v">84.6%</div><div class="n">Record — cited in verification as peak-margin evidence</div></div>
+    </div>
+
+    <div class="grid2" style="margin-top:12px">
+      <div class="card">
+        <h3>Valuation on the model’s own revenue estimate</h3>
+        <p class="small">The scenario model in §5 starts from an <strong>estimated revenue of $14B</strong> (labelled ESTIMATE in the pack — not a verified reported figure). On that estimate:</p>
+        <ul class="small">
+          <li>Implied price/sales ≈ <strong>11.9×</strong> ($166.34B ÷ $14B) — derived from an estimate, so treat it as indicative only.</li>
+          <li>The model deliberately uses a <strong>normalised net margin of 25%</strong>, <em>not</em> the peak margin implied by today’s earnings. That single choice is why the 5-year weighted value sits <em>below</em> today’s price.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>What is <em>not</em> verified in this pass</h3>
+        <p class="small muted">No verified figures for cash, debt, free cash flow, dividends, buybacks, EV/EBITDA, or P/S from primary filings were carried in the research pack for SNDK, so none are printed here. For a cyclical at peak earnings, those balance-sheet items — especially inventory and fab commitments heading into a downturn — are exactly what to pull from the latest 10-Q before sizing any position.</p>
+        <p class="small"><span class="badge">Open question</span> &nbsp;Balance-sheet diagnostics to be completed from the latest filing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <div class="sec-head"><span class="num">3</span><h2>Competitive Moat &amp; Industry Positioning</h2><span class="tag">Scale, not pricing power</span></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Where the moat actually is</h3>
+        <ul>
+          <li><strong>NAND scale and JV fab capacity</strong> — few firms worldwide can fund and run leading-edge NAND fabs; that capital barrier is the moat.</li>
+          <li><strong>Enterprise SSD qualification</strong> — getting qualified into data-centre platforms is slow and sticky; once in, suppliers are not swapped casually.</li>
+          <li><strong>Long-term contracts (~50% of clients)</strong> — dampen, but do not eliminate, spot-price cyclicality.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Where there is no moat</h3>
+        <ul>
+          <li><strong>No durable pricing power:</strong> NAND is a commodity. Price is set by industry supply/demand, not by SanDisk.</li>
+          <li><strong>Competitors:</strong> Samsung, SK hynix, Micron, Kioxia — plus <strong>CXMT</strong> as a longer-term, state-backed supply threat.</li>
+          <li><strong>Customer concentration</strong> is listed as a risk in the pack: large buyers can and do re-time orders when prices turn.</li>
+        </ul>
+        <p class="small muted" style="margin-top:8px">In short: a scale-and-qualification moat inside a commodity industry. It protects share better than it protects margin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS / RISKS -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="num">4</span><h2>Catalysts &amp; Downside Risks</h2><span class="tag">Both sides run through NAND price</span></div>
+    <div class="grid2">
+      <div class="card">
+        <h3><span class="badge green">Catalysts</span></h3>
+        <ul>
+          <li><strong>NAND price upcycle continues</strong> — the single largest earnings lever.</li>
+          <li><strong>AI storage content growth</strong> — more SSD capacity per AI server lifts enterprise demand beyond the normal cycle.</li>
+          <li><strong>8-for-1 split (~19 Nov)</strong> — mechanical, not fundamental: lowers the per-share price (~$143.86 adjusted) and can broaden retail access. It creates no value by itself.</li>
+          <li><strong>Contract coverage</strong> — ~50% of clients on long-term contracts could make this cycle’s earnings more durable than prior cycles.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3><span class="badge red">Downside risks</span></h3>
+        <ul>
+          <li><strong>NAND price collapse</strong> — the defining risk. Precedent: NAND −60% in 2018–19.</li>
+          <li><strong>Inventory build</strong> — stock built at peak prices becomes a write-down in a downturn.</li>
+          <li><strong>CXMT supply</strong> — added industry capacity, longer-term, pressures price from the supply side.</li>
+          <li><strong>Customer concentration</strong> and order push-outs when buyers smell a price peak.</li>
+          <li><strong>Beta 3.29</strong> — expect moves roughly 3× the market. The −13.47% single day on 30 Oct, and a 52-week range of $181.51–$2,354.39, are the lived version of that number.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="rangebar card">
+      <h3>52-week range — where $1,150.89 sits</h3>
+      <div class="track"><div class="fill" style="width:44.6%"></div><div class="dot" style="left:44.6%"></div></div>
+      <div class="range-labels"><span>Low $181.51</span><span>Close $1,150.89 · 44.6% of the way up the range</span><span>High $2,354.39</span></div>
+      <p class="small muted" style="margin-top:8px">Mid-range on price, extreme on momentum: +384.8% YTD and +477.4% in a year, followed by a −13.5% day. Position size has to assume the next −13% day is normal, not exceptional.</p>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <div class="sec-head"><span class="num">5</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><span class="tag">Modelled estimates — methodology shown</span></div>
+
+    <div class="togglebar">
+      <p class="small muted" style="margin:0;max-width:560px"><strong style="color:var(--ink)">All targets below are MODELLED ESTIMATES, not verified facts.</strong> Scenario weights are 25% Bear / 50% Base / 25% Bull throughout, so every weighted figure can be recomputed from the cards.</p>
+      <div class="seg" role="group" aria-label="Price basis">
+        <button id="btnPre" aria-pressed="true" onclick="setBasis('pre')">Pre-split</button>
+        <button id="btnPost" aria-pressed="false" onclick="setBasis('post')">Split-adjusted ÷8</button>
+      </div>
+    </div>
+
+    <h3 style="margin-bottom:8px">12–18-month targets <span class="muted small" style="font-weight:400">— vs <span id="closeLbl">$1,150.89</span> close (<span class="split-note">pre-split</span>)</span></h3>
+    <div class="scenarios">
+      <div class="scen bear"><label>Bear · 25%</label><div class="price" data-pre="600">$600</div><div class="vs" data-vs="600">−47.9% vs close</div><dl><dt>Story</dt><dd>NAND price rolls over</dd><dt>Holder action</dt><dd>Why 0.5% sizing exists</dd></dl></div>
+      <div class="scen base"><label>Base · 50%</label><div class="price" data-pre="1250">$1,250</div><div class="vs" data-vs="1250">+8.6% vs close</div><dl><dt>Story</dt><dd>Upcycle cools, no collapse</dd><dt>Holder action</dt><dd>Hold / trim into strength</dd></dl></div>
+      <div class="scen bull"><label>Bull · 25%</label><div class="price" data-pre="1700">$1,700</div><div class="vs" data-vs="1700">+47.7% vs close</div><dl><dt>Story</dt><dd>AI storage + pricing persist</dd><dt>Holder action</dt><dd>Sell into it — don’t chase</dd></dl></div>
+    </div>
+    <div class="weighted"><span class="small"><strong>Probability-weighted 12–18m value</strong> · 0.25×Bear + 0.50×Base + 0.25×Bull · modelled estimate</span><span class="wprice" data-pre="1200">$1,200</span></div>
+    <p class="small muted" style="margin-top:8px">Weighted upside is only ~+4% from the close — after a +385% year, the near-term maths no longer pays you for the cycle risk. That asymmetry is the whole short-term call.</p>
+
+    <h3 style="margin:20px 0 8px">5-year projection <span class="muted small" style="font-weight:400">— frozen-parameter format: starting revenue is an ESTIMATE, margin is normalised, share count frozen</span></h3>
+    <div class="card" style="margin-bottom:12px">
+      <p class="small" style="margin:0"><strong>Starting point (all labelled):</strong> revenue <strong>$14B — ESTIMATE</strong> (pack figure, not a verified reported number) · shares <strong>0.145B, frozen</strong> · normalised net margin <strong>25% in Base</strong> — deliberately <em>not</em> the peak margin behind today’s EPS. Only growth, margin and exit P/E vary by case. Formula per case: 2031 revenue = $14B × (1 + CAGR)<sup>5</sup> → net income = revenue × margin → EPS = net income ÷ 0.145B → price = EPS × P/E.</p>
+    </div>
+    <div class="scenarios">
+      <div class="scen bear"><label>Bear · 25%</label><div class="price" data-pre="60">$60</div><div class="vs" data-vs="60">−94.8% vs close</div><dl><dt>Revenue CAGR</dt><dd>−5%/yr</dd><dt>2031 revenue</dt><dd>~$10.8B</dd><dt>Net margin</dt><dd>10%</dd><dt>Exit P/E</dt><dd>8×</dd></dl></div>
+      <div class="scen base"><label>Base · 50%</label><div class="price" data-pre="972">$972</div><div class="vs" data-vs="972">−15.5% vs close</div><dl><dt>Revenue CAGR</dt><dd>15%/yr</dd><dt>2031 revenue</dt><dd>$28.2B</dd><dt>Net income</dt><dd>$7.04B</dd><dt>EPS → P/E</dt><dd>$48.55 × 20×</dd></dl></div>
+      <div class="scen bull"><label>Bull · 25%</label><div class="price" data-pre="2062">$2,062</div><div class="vs" data-vs="2062">+79.2% vs close</div><dl><dt>Revenue CAGR</dt><dd>25%/yr</dd><dt>Net margin</dt><dd>35%</dd><dt>Exit P/E</dt><dd>20×</dd></dl></div>
+    </div>
+    <div class="weighted"><span class="small"><strong>Probability-weighted 5-year value</strong> · 0.25×$2,062 + 0.50×$972 + 0.25×$60 = $1,017 <span class="split-note">pre-split</span> · modelled estimate</span><span class="wprice" data-pre="1017">$1,017</span></div>
+    <div class="note"><strong>Why the 5-year weighted value ($1,017) is below today’s price ($1,150.89) — this is deliberate, not a typo.</strong> The model refuses to capitalise peak earnings: it normalises margin to 25% and still gives the Bear case a −95% outcome, because that is what NAND downcycles have historically done to this kind of stock. Split-adjusted, the weighted value is ~$127 vs a split-adjusted close of ~$143.86 — the same conclusion on either basis.</div>
+
+    <div class="tblwrap" style="margin-top:14px">
+      <table>
+        <thead><tr><th>Horizon</th><th class="num">Bear (25%)</th><th class="num">Base (50%)</th><th class="num">Bull (25%)</th><th class="num">Weighted</th><th class="num">Vs close</th></tr></thead>
+        <tbody>
+          <tr><td>12–18 months (<span class="split-note">pre-split</span>)</td><td class="num" data-pre="600">$600</td><td class="num" data-pre="1250">$1,250</td><td class="num" data-pre="1700">$1,700</td><td class="num" data-pre="1200"><strong>$1,200</strong></td><td class="num">+4.3%</td></tr>
+          <tr><td>5 years (<span class="split-note">pre-split</span>)</td><td class="num" data-pre="60">$60</td><td class="num" data-pre="972">$972</td><td class="num" data-pre="2062">$2,062</td><td class="num" data-pre="1017"><strong>$1,017</strong></td><td class="num neg">−11.6%</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section id="recommendation">
+    <div class="sec-head"><span class="num">6</span><h2>Recommendation &amp; Portfolio Sizing</h2><span class="tag">Mid-30s · Risk 8/10</span></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>How to hold it, if at all</h3>
+        <ul>
+          <li><strong>Short term: Sell / Trim</strong> (the pack’s literal call is “Short Sell”). +384.8% YTD, a peak-earnings multiple, and a weighted 12–18m value only ~4% above the price. Selling what you own and shorting are different trades: this page endorses the first, not a borrowed-share short — at minimum, do not add here.</li>
+          <li><strong>Long term: Hold, small cyclical only.</strong> The AI-storage demand story is real, but it sits inside a commodity cycle. Own it as a cycle trade you actively manage, not a buy-and-forget core holding.</li>
+          <li><strong>Re-entry discipline:</strong> the Bear cases ($600 near-term, $60 five-year) are not decoration — they are the prices this stock’s history says are possible. Size so that outcome is survivable.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Position-size calculator — 0.5% target weight</h3>
+        <div class="calc">
+          <div><label for="pf">Your total portfolio ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" oninput="calcSize()"></div>
+          <div class="out"><div class="small muted">SNDK at 0.5% =</div><div class="amt" id="amt">$2,500</div><div class="small muted" id="shares">≈ 2.2 shares at $1,150.89 (pre-split) · ≈ 17.4 shares split-adjusted</div></div>
+        </div>
+        <p class="small muted" style="margin-top:10px">0.5% is the pack’s suggested weight for this profile — the smallest in the tech set, set by beta 3.29 and the Bear-case depth, not by the quality of the AI-storage story.</p>
+      </div>
+    </div>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SNDK — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $143.86.</strong> <strong>DCF intrinsic: $110.</strong> Discount/premium vs DCF: <strong>+30.8%</strong> — i.e. the shares are trading 30.8% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$110</td><td>+30.8%</td></tr></table>
+<p><strong>Method 1 — DCF: $110.</strong> Base FCF $5.00B, constant growth g = 10% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $50.00B; Year-10 FCF = $12.97B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $73.57B. Equity value = PV of FCF + PV of terminal value + net cash ($4.59B) = $128.16B; divided by 1.16B diluted shares = $110. Base note: SPLIT-ADJUSTED (8-for-1, payable ~19 Nov 2026): price $143.86 = $1,150.89/8; shares 1.16B = 0.145B x 8; all intrinsics below are split-adjusted. NORMALISED (peak-cycle): FY2026 FCF was $11.5B versus -$0.12B in FY2025, and Q4 alone included $1.94B of customer prepayments. Base $5B is a mid-cycle judgement between trough and peak (average ~$5.7B, rounded down for NAND cyclicality), labelled as such. Net cash: cash $4.762B less debt $0.177B at 3 Jul 2026 (FY2026 10-K); the $1.777B marketable equity securities balance is excluded.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://tickerscout.ai/sndk/ (FY2026 10-K) ; https://www.trefis.com/stock/sndk/articles/619918/why-does-sandisk-stocks-high-cash-yield-get-so-little-credit/2026-10-22 ; https://twelvedata.com/markets/542904/stock/nasdaq/sndk/financials/cash-flow?period=annual</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SNDK — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of SNDK's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>Enterprise SSDs / AI storage — hyperscale</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Alphabet (Google)</td><td>Enterprise SSDs / AI storage</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Amazon</td><td>Enterprise SSDs — AWS</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Meta Platforms</td><td>Enterprise SSDs / AI storage</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Apple</td><td>Client/mobile NAND</td><td></td><td>$204</td><td>+68.9%</td></tr><tr><td>Dell Technologies</td><td>Client and enterprise SSDs (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Lenovo</td><td>Client SSDs (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> SanDisk's read-through runs through hyperscale storage buyers and OEMs: discounts at the filled hyperscaler intrinsics would be a potential tailwind for enterprise SSD volumes and NAND pricing, while premiums would warn of a storage-order slowdown. An undervalued customer does not guarantee higher NAND spending — it depends on each buyer's own storage architecture, inventory and cash position — and NAND price itself, plus CXMT, is the pack's dominant driver, ahead of any single customer's health. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SNDK — AI trade positioning</h2>
+<p><strong>Role: Beneficiary — NAND for AI storage (split-adjusted).</strong> SanDisk is a NAND pure-play leveraged to AI storage: enterprise SSDs for data centers plus client and mobile NAND, with the pack's case resting on NAND price rather than any services annuity — and every figure here is split-adjusted for the 8-for-1 split payable ~19 Nov 2026.</p>
+<p>While the AI trade runs, demand comes through enterprise SSD volumes and NAND pricing for AI storage, with FY2026 revenue of ~$20B (+175%) and net income of ~$11.4B in the pack's coverage — a peak-cycle print, not a run-rate. On multiples, the trailing P/E of ~8.6x (TTM basis, per the coordinator correction) is the peak-earnings trap the pack names for both memory names: it looks cheapest at the top.</p>
+<p>If the AI trade unwinds, demand breaks first through NAND price collapse — the classic memory break — with enterprise SSD pricing following and customer prepayments (Q4 FY2026 included $1.94B) reversing. Multiple compression is then perverse: earnings fall faster than price, so P/E rises while the shares fall (beta 3.29, the pack's highest). The balance sheet is clean after the peak (cash $4.762B, debt $0.177B at 3 Jul 2026, $4.5B of Q4 buybacks) but that cash was earned at peak pricing. Triggers to watch: NAND spot/contract pricing, enterprise SSD qualification wins, CXMT progress, and customer inventory commentary.</p>
+</div>
+<footer>
+    <h3 style="margin-bottom:6px">Sources</h3>
+    <p class="sources">
+      Pack sources: <a href="https://finnhub.io/?q=%22SNDK%22">Finnhub — SNDK</a> · <a href="https://topstocksytd.com/">Top Stocks YTD</a> · <a href="https://www.youtube.com/watch?v=p4_Z2-uPfG4">Video source cited in pack</a><br>
+      Independent verification (1 Nov 2026, different sources where possible): <a href="https://www.financecharts.com/stocks/SNDK/value/pe-ratio-averages">FinanceCharts — SNDK P/E (TTM EPS $124.47)</a> · <a href="https://greeksoup.ai/stocks/us/sndk/">GreekSoup — SNDK</a> · <a href="https://www.marketbeat.com/stocks/NASDAQ/SNDK/">MarketBeat — SNDK (split)</a> · <a href="https://financefeeds.com/sandisk-sndk-stock-1151-saturday-week-ahead-after-13-percent-results-drop-8-for-1-split-19-november-bull-1330-bear-1050/">FinanceFeeds — $1,151 close, −13%, 8-for-1 split 19 Nov</a> · <a href="https://www.fool.com/investing/2026/10/24/micron-sandisk-record-memory-margins-winner/">Motley Fool — record memory margins (SNDK fiscal Q4 GM 84.6%)</a> · <a href="https://www.ldeepai.com/tech-hub/memory-supercycle-2026-dram-nand-enterprise-ssd-price-surge/">Memory supercycle — historic NAND/DRAM drawdowns &amp; long-term contracts</a>
+    </p>
+    <p class="sources" style="margin-top:8px"><strong>Verification status:</strong> Price, market cap, YTD return and the split were independently confirmed. The EPS/P/E pairing was <strong>corrected</strong> per the verification log (FY2026 EPS $73.76 → ~15.6×; TTM EPS ~$124–134 → ~8.6–9.2×) — both bases are labelled wherever used. All scenario prices and weighted values are <strong>modelled estimates</strong> with weights (25/50/25) and assumptions shown in §5; they were not — and cannot be — verified as facts. Segment revenue split and full balance-sheet diagnostics were not verified in this pass and are flagged as open questions rather than filled in.</p>
+    <div class="disclaimer"><strong>Disclaimer:</strong> This page is research and education as of 1 Nov 2026, built from the sources above. It is not investment advice, not a recommendation to buy or sell any security, and not a guarantee of any outcome. Memory stocks are among the most cyclical in the market; verify figures against SanDisk’s latest SEC filings before acting, and consider your own circumstances or a licensed adviser.</div>
+  </footer>
+
+</div>
+<script>
+  var basis = 'pre';
+  var CLOSE_PRE = 1150.89;
+  function fmt(n){
+    if (n >= 100) return '$' + Math.round(n).toLocaleString('en-US');
+    return '$' + n.toFixed(2);
+  }
+  function setBasis(b){
+    basis = b;
+    document.getElementById('btnPre').setAttribute('aria-pressed', b==='pre' ? 'true':'false');
+    document.getElementById('btnPost').setAttribute('aria-pressed', b==='post' ? 'true':'false');
+    var div = (b==='post') ? 8 : 1;
+    var close = CLOSE_PRE / div;
+    var prices = document.querySelectorAll('[data-pre]');
+    for (var i=0;i<prices.length;i++){
+      var pre = parseFloat(prices[i].getAttribute('data-pre'));
+      prices[i].textContent = fmt(pre/div);
+    }
+    var vs = document.querySelectorAll('[data-vs]');
+    for (var j=0;j<vs.length;j++){
+      var pre2 = parseFloat(vs[j].getAttribute('data-vs'));
+      var pct = (pre2/CLOSE_PRE - 1) * 100;
+      vs[j].textContent = (pct>=0?'+':'') + pct.toFixed(1) + '% vs close';
+    }
+    document.getElementById('closeLbl').textContent = fmt(close);
+    var notes = document.querySelectorAll('.split-note');
+    for (var k=0;k<notes.length;k++){ notes[k].textContent = (b==='post') ? 'split-adjusted' : 'pre-split'; }
+    calcSize();
+  }
+  function calcSize(){
+    var v = parseFloat(document.getElementById('pf').value) || 0;
+    var amt = v * 0.005;
+    document.getElementById('amt').textContent = '$' + amt.toLocaleString('en-US',{maximumFractionDigits:0});
+    var div = (basis==='post') ? 8 : 1;
+    var px = CLOSE_PRE / div;
+    var sh = px > 0 ? (amt/px) : 0;
+    var otherDiv = (basis==='post') ? 1 : 8;
+    var otherPx = CLOSE_PRE / otherDiv;
+    var otherSh = otherPx > 0 ? (amt/otherPx) : 0;
+    document.getElementById('shares').textContent = '≈ ' + sh.toFixed(1) + ' shares at ' + fmt(px) + (basis==='post' ? ' (split-adjusted)' : ' (pre-split)') + ' · ≈ ' + otherSh.toFixed(1) + ' shares ' + (basis==='post' ? 'pre-split' : 'split-adjusted');
+  }
+  calcSize();
+</script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SBGSF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f6f2; --surface:#ffffff; --surface2:#efede6; --ink:#1c1f1a; --ink2:#4c5148; --ink3:#767b70;
+    --line:#ddd9cd; --line2:#c9c4b2;
+    --accent:#1e7a34; --accent-soft:#e3f0e5; --accent-ink:#14532a;
+    --bull:#1e7a34; --bear:#b3352b; --base:#8a6d1f; --base-soft:#f5edd4;
+    --warn:#9a6206; --warn-soft:#fdf0d7; --warn-line:#e3c98a;
+    --chip:#eef0ea;
+    --shadow:0 1px 2px rgba(28,31,26,.06),0 4px 14px rgba(28,31,26,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12140f; --surface:#1a1d16; --surface2:#22261d; --ink:#eceee6; --ink2:#b9bdb0; --ink3:#8b9081;
+      --line:#333829; --line2:#454b3a;
+      --accent:#4cc26a; --accent-soft:#1d2f21; --accent-ink:#9fe0ae;
+      --bull:#4cc26a; --bear:#e0685e; --base:#d9b84a; --base-soft:#2e2a18;
+      --warn:#e0aa4e; --warn-soft:#2e2413; --warn-line:#5c4a22;
+      --chip:#24281f;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 64px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .num{font-variant-numeric:tabular-nums}
+
+  /* ---------- header ---------- */
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+  .kicker .dot{width:3px;height:3px;border-radius:50%;background:var(--ink3);align-self:center}
+  h1{font-family:"Source Serif 4",Georgia,serif;font-weight:700;font-size:clamp(30px,5.4vw,44px);line-height:1.08;margin:10px 0 4px;letter-spacing:-.01em}
+  h1 .tick{color:var(--accent)}
+  .sub{font-size:16px;color:var(--ink2);margin:0 0 6px;max-width:70ch}
+  .asof{font-size:12.5px;color:var(--ink3);margin:0}
+
+  .verdictbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:20px 0 6px;box-shadow:var(--shadow)}
+  .verdictbar>div{background:var(--surface);padding:12px 14px}
+  .verdictbar .lab{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:3px}
+  .verdictbar .val{font-size:19px;font-weight:800;line-height:1.15}
+  .verdictbar .val small{font-size:12px;font-weight:600;color:var(--ink2)}
+  .v-hold{color:var(--base)} .v-buy{color:var(--bull)}
+  @media (max-width:640px){.verdictbar{grid-template-columns:1fr 1fr}}
+
+  .alertbox{border:1px solid var(--warn-line);background:var(--warn-soft);border-radius:10px;padding:13px 16px;margin:16px 0 0;font-size:13.5px}
+  .alertbox b{color:var(--warn)}
+  .alertbox p{margin:0 0 6px}.alertbox p:last-child{margin:0}
+
+  /* ---------- metric strip ---------- */
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0 4px}
+  .metric{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;box-shadow:var(--shadow)}
+  .metric .lab{font-size:10.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink3)}
+  .metric .val{font-size:23px;font-weight:800;margin-top:2px;line-height:1.1}
+  .metric .note{font-size:11.5px;color:var(--ink2);margin-top:3px;line-height:1.4}
+  @media (max-width:640px){.metrics{grid-template-columns:1fr 1fr}}
+
+  .tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:20px;vertical-align:2px;white-space:nowrap}
+  .tag-unv{background:var(--warn-soft);color:var(--warn);border:1px solid var(--warn-line)}
+  .tag-mod{background:var(--chip);color:var(--ink2);border:1px solid var(--line2)}
+  .tag-src{background:var(--accent-soft);color:var(--accent-ink);border:1px solid transparent}
+
+  /* ---------- sections ---------- */
+  section{margin-top:34px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:7px;margin-bottom:14px}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--accent)}
+  h2{font-family:"Source Serif 4",Georgia,serif;font-size:23px;font-weight:700;margin:0;line-height:1.2}
+  h3{font-size:14px;font-weight:800;letter-spacing:.02em;margin:20px 0 7px}
+  p{margin:0 0 10px}
+  p:last-child{margin-bottom:0}
+  ul{margin:0 0 10px;padding-left:19px}
+  li{margin-bottom:5px}
+  li:last-child{margin-bottom:0}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:680px){.two{grid-template-columns:1fr}}
+  .small{font-size:12.5px;color:var(--ink2)}
+  .tiny{font-size:11.5px;color:var(--ink3)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  th{background:var(--surface2);text-align:left;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);padding:8px 11px;border-bottom:1px solid var(--line2)}
+  td{padding:8px 11px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.r,th.r{text-align:right}
+  .rowlabel{font-weight:600}
+  @media (max-width:640px){
+    .scrollfix{overflow-x:auto}
+    table{font-size:12px}
+    th{padding:7px 8px;font-size:10px}
+    td{padding:7px 8px}
+    .tag{font-size:9px;padding:1px 5px}
+  }
+  .pos{color:var(--bull);font-weight:700}.neg{color:var(--bear);font-weight:700}
+
+  .callout{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:8px;padding:13px 16px;margin:12px 0;box-shadow:var(--shadow)}
+  .callout p{font-size:14px}
+  .gapbox{background:var(--surface2);border:1px dashed var(--line2);border-radius:8px;padding:12px 16px;margin:10px 0;font-size:13.5px}
+  .gapbox b{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);display:block;margin-bottom:4px}
+
+  /* scenario cards */
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0}
+  .scen>div{border:1px solid var(--line);border-radius:10px;padding:13px 15px;background:var(--surface);box-shadow:var(--shadow)}
+  .scen .lab{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .scen .px{font-size:27px;font-weight:800;margin:3px 0 1px;line-height:1.1}
+  .scen .pct{font-size:13px;font-weight:700}
+  .scen .wt{font-size:11.5px;color:var(--ink3);margin-top:5px}
+  .s-bull .lab{color:var(--bull)} .s-base .lab{color:var(--base)} .s-bear .lab{color:var(--bear)}
+  @media (max-width:640px){.scen{grid-template-columns:1fr}}
+
+  /* calculator */
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;box-shadow:var(--shadow);margin:12px 0}
+  .calc h3{margin-top:0}
+  .calc-row{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+  .calc label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2);display:block;margin-bottom:5px}
+  .calc input{font:inherit;font-size:17px;font-weight:700;padding:9px 12px;border:1px solid var(--line2);border-radius:8px;background:var(--bg);color:var(--ink);width:190px;max-width:100%}
+  .calc input:focus{outline:2px solid var(--accent);outline-offset:1px}
+  .calc-out{display:flex;gap:26px;flex-wrap:wrap}
+  .calc-out .lab{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink2)}
+  .calc-out .v{font-size:21px;font-weight:800}
+
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px}
+  .srcs{font-size:12.5px;color:var(--ink2)}
+  .srcs li{margin-bottom:4px}
+  .disclaimer{font-size:11.5px;color:var(--ink3);line-height:1.6;margin-top:14px}
+  @media print{body{background:#fff}.wrap{max-width:none}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <!-- ================= HEADER ================= -->
+  <div class="kicker">
+    <span>Equity Research · Industrials</span><span class="dot"></span>
+    <span>Single-stock note</span><span class="dot"></span>
+    <span>Sample series — META format</span>
+  </div>
+  <h1>Schneider Electric SE <span class="tick">(SBGSF)</span></h1>
+  <p class="sub">The grid-and-data-centre electrification pure play: energy management and industrial automation across 100+ countries, with the EcoStruxure software layer and deep exposure to data-centre power and cooling demand.</p>
+  <p class="asof">As of <b>1 Nov 2026</b> · Price reference: <b>30 Oct 2026 close</b> · SBGSF is the US OTC line for Schneider Electric (primary listing: Euronext Paris) · Prepared for a mid-30s investor, risk score 8/10 · Research views only — not guarantees, not investment advice.</p>
+
+  <div class="verdictbar">
+    <div><div class="lab">Short term · 12–18 mo</div><div class="val v-hold">HOLD</div></div>
+    <div><div class="lab">Long term · 5 yr</div><div class="val v-buy">BUY</div></div>
+    <div><div class="lab">Suggested weight</div><div class="val">1.5% <small>of portfolio</small></div></div>
+    <div><div class="lab">12–18 mo base target</div><div class="val">$285 <small class="pos">+9%</small></div></div>
+  </div>
+
+  <div class="alertbox">
+    <p><b>Verification status — read first.</b> SBGSF's price, market cap, revenue and multiples were <b>not re-checked</b> in the independent verification pass for this sector (the ticker sits on the log's explicit "not re-checked" list, alongside the other OTC/foreign names). Every such figure below is tagged <span class="tag tag-unv">Unverified</span> and comes from a single source as noted. SBGSF also trades as a <b>thin OTC print, not a liquid exchange close</b> — treat the $260.41 reference as indicative. All scenario prices are <span class="tag tag-mod">Modelled estimate</span> with methodology shown; they are not verified facts.</p>
+    <p><b>Ranking basis.</b> This note sits in a <b>global</b> top-10-by-market-cap Industrials universe (Motley Fool sector pages; rankings and metrics as of <b>5 Oct 2026</b>, prices at 30 Oct 2026 close), including OTC ADRs and state-controlled issuers. The Industrials list carries <b>11 names</b>, not 10, because BE was added as a named ticker, and the list is <b>not in strict market-cap order</b>. A NYSE/Nasdaq-only list would be different — Boeing, Uber and Honeywell, among others, would enter.</p>
+  </div>
+
+  <div class="metrics">
+    <div class="metric">
+      <div class="lab">Price · 30 Oct 2026 close</div>
+      <div class="val num">$260.41</div>
+      <div class="note">OTC line; thin, indicative print <span class="tag tag-unv">Unverified</span></div>
+    </div>
+    <div class="metric">
+      <div class="lab">Market cap</div>
+      <div class="val num">$153.3bn</div>
+      <div class="note">Motley Fool <span class="tag tag-unv">Unverified</span></div>
+    </div>
+    <div class="metric">
+      <div class="lab">TTM revenue</div>
+      <div class="val num">$47.2bn</div>
+      <div class="note">Fool, EUR-converted <span class="tag tag-unv">Unverified</span></div>
+    </div>
+    <div class="metric">
+      <div class="lab">Trailing P/E</div>
+      <div class="val num">~30.8×</div>
+      <div class="note">German listing (SND.TG), Finnhub — not the OTC line <span class="tag tag-unv">Unverified</span></div>
+    </div>
+  </div>
+  <p class="tiny">Further pack figures: TTM gross profit $19.9bn (Fool, EUR-converted — an implied gross margin of ~42% on the pack's own numbers) and P/S of 3.2×, both <span class="tag tag-unv">Unverified</span>. Implied shares outstanding of ~589m is arithmetic from the unverified cap and price above, not a sourced figure.</p>
+
+  <!-- ================= 1. BUSINESS MODEL ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+    <p>Schneider Electric sells the equipment and software that distribute, protect and automate electrical power. The research pack frames the model in two engines, operating in <b>100+ countries</b>:</p>
+    <div class="scrollfix"><table>
+      <tr><th style="width:24%">Engine</th><th>What it sells (per pack)</th><th style="width:30%">Demand driver</th></tr>
+      <tr><td class="rowlabel">Energy management</td><td>Electrical distribution equipment and the EcoStruxure software platform layered over it; power and cooling exposure inside data centres.</td><td>Data-centre build-out, grid upgrades, building electrification</td></tr>
+      <tr><td class="rowlabel">Industrial automation</td><td>Automation and control systems for industrial customers, sold through the same global channel scale.</td><td>Factory automation and electrification of industrial processes</td></tr>
+    </table></div>
+    <p><b>Structural pivot to note:</b> the centre of gravity is shifting from cyclical building/construction demand toward <b>data-centre power and cooling</b>, where AI infrastructure spending is the marginal buyer. The pack flags a <b>$1bn planned US energy/AI infrastructure investment</b> (Motley Fool) — Schneider is putting capacity behind the US build-out rather than only supplying it from Europe.</p>
+    <p><b>Geographic and supply-chain read:</b> the footprint is genuinely global (100+ countries), which diversifies demand but leaves a structural tilt to Europe — the pack names a <b>European slowdown</b> as a first-order risk (Section 4). The business is hardware-led: electrical distribution gear plus an attached software layer, sold at channel scale. Segment-level revenue splits, geographic revenue mix and named supply-chain dependencies were <b>not in the research pack</b> and are listed as open questions in Section 2 rather than estimated here.</p>
+  </section>
+
+  <!-- ================= 2. FINANCIAL HEALTH ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+    <p>This is the thinnest section of the note, and deliberately so: the verification log did not re-check any SBGSF financial, and the pack carries only a handful of figures. What exists is shown below with its status; what doesn't is named, not filled in.</p>
+    <div class="scrollfix"><table>
+      <tr><th>Metric</th><th class="r">Value</th><th>Source</th><th>Status</th></tr>
+      <tr><td class="rowlabel">Price (30 Oct 2026 close, OTC)</td><td class="r num">$260.41</td><td>Research pack</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+      <tr><td class="rowlabel">Market cap</td><td class="r num">$153.3bn</td><td>Motley Fool</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+      <tr><td class="rowlabel">TTM revenue</td><td class="r num">$47.2bn</td><td>Fool, EUR-converted</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+      <tr><td class="rowlabel">TTM gross profit</td><td class="r num">$19.9bn</td><td>Fool, EUR-converted</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+      <tr><td class="rowlabel">Implied gross margin (derived)</td><td class="r num">~42%</td><td>Arithmetic on the two rows above</td><td><span class="tag tag-unv">Unverified inputs</span></td></tr>
+      <tr><td class="rowlabel">Trailing P/E</td><td class="r num">~30.8×</td><td>Finnhub, German listing SND.TG</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+      <tr><td class="rowlabel">Price / sales</td><td class="r num">3.2×</td><td>Research pack</td><td><span class="tag tag-unv">Unverified</span></td></tr>
+    </table></div>
+    <p><b>Valuation read (on unverified inputs):</b> at ~30.8× trailing earnings and 3.2× sales, Schneider is priced as a quality compounder, not a cyclical — the market is paying today for the data-centre and grid-electrification runway. That multiple leaves little room for a demand air-pocket: the bear case in Section 5 is mostly a multiple-compression story, not a business-collapse story. Note the P/E is measured on the <b>German listing</b>, not on SBGSF itself; cross-listing multiples for the same company should be close, but the OTC line's own trailing multiple was not sourced.</p>
+    <div class="gapbox">
+      <b>Open questions — not in the pack, not estimated</b>
+      Free cash flow and its conversion rate; cash, gross debt and net leverage / debt-to-equity; dividend and buyback policy and recent capital returns; R&amp;D spend; forward P/E and EV/EBITDA; segment and geographic revenue splits. Any leverage or cash-flow claim for SBGSF would be invented at this point, so the balance-sheet verdict is explicitly <b>unrated pending sourced filings data</b> (Schneider reports in EUR on Euronext Paris; the pack's USD figures are Fool conversions).
+    </div>
+    <p class="small">Practical consequence for the recommendation in Section 6: the long-term Buy rests on the business model, moat and scenario maths — <i>not</i> on a verified balance-sheet diagnostic, because none exists in this pack. Position size is kept modest (1.5%) partly for that reason.</p>
+  </section>
+
+  <!-- ================= 3. MOAT ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <div class="two">
+      <div>
+        <h3>Where the moat sits</h3>
+        <ul>
+          <li><b>Installed base + software attach.</b> Electrical distribution is specification-driven: once Schneider gear is designed into a building, plant or data centre, the EcoStruxure software layer and replacement cycle attach to it. Switching means re-engineering, not just re-ordering.</li>
+          <li><b>Data-centre power/cooling position.</b> The pack singles out data-centre power and cooling exposure as a core moat element — Schneider sits in the critical path of AI capacity additions, where reliability failures are existential for the customer and price is a secondary concern.</li>
+          <li><b>Channel scale.</b> Distribution reach across 100+ countries is itself a barrier: rivals must match not just the product catalogue but the local availability, service and spec-in relationships.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Who it fights</h3>
+        <ul>
+          <li><b>Eaton</b> — the closest US-listed comparable in electrical/data-centre power; also in this Industrials universe.</li>
+          <li><b>ABB</b> — electrification and automation overlap, strong in Europe and robotics-adjacent automation.</li>
+          <li><b>Siemens</b> — industrial automation heavyweight (its ADR, SIEGY, is also in this universe); competes hardest on the automation side.</li>
+        </ul>
+        <p class="small">Pricing power read: specification-led, reliability-critical categories support premium pricing, and the ~42% implied gross margin (unverified inputs) is consistent with that — but the ~30.8× earnings multiple means the market already capitalises the moat. The moat defends the business; it does not by itself make the OTC line cheap.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 4. CATALYSTS & RISKS ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="two">
+      <div>
+        <h3>Catalysts</h3>
+        <ul>
+          <li><b>Data-centre build-out.</b> Continued hyperscaler capex flows straight into power distribution and cooling orders — the single largest near-term earnings lever in the pack.</li>
+          <li><b>Grid upgrade cycle.</b> Utilities modernising grids for renewables, EVs and new AI load is a multi-year, policy-supported spend.</li>
+          <li><b>Building electrification.</b> Efficiency rules and electrification of heating/cooling lift the core energy-management franchise.</li>
+          <li><b>US capacity investment.</b> The $1bn planned US energy/AI infrastructure investment (Fool) positions Schneider inside the largest data-centre market rather than exporting into it.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Downside risks</h3>
+        <ul>
+          <li><b>Data-centre capex pause.</b> The same concentration that powers the bull case cuts the other way: any hyperscaler digestion period hits orders and the multiple simultaneously.</li>
+          <li><b>European slowdown.</b> A soft European construction/industrial cycle pressures the home-market base of the business.</li>
+          <li><b>Competition.</b> Eaton, ABB and Siemens are all chasing the same data-centre and electrification wallet; share or pricing slippage would compress the premium multiple.</li>
+          <li><b>Instrument risk (SBGSF specifically).</b> The OTC line is thin and indicative; EUR/USD moves flow into the USD price because the underlying business reports in euros; and the figures behind this note are unverified — see the header box.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. VALUATION ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+    <p>All targets below are <span class="tag tag-mod">Modelled estimates</span> from the research pack — the verification log explicitly did not re-check any 12–18-month base target, and no scenario weights were supplied to the verifier. Weights are therefore <b>shown as this note's stated modelling assumption (Bear 25% / Base 50% / Bull 25%)</b> so every weighted figure can be re-computed by hand.</p>
+
+    <h3>12–18-month scenarios (from $260.41 reference)</h3>
+    <div class="scen">
+      <div class="s-bear"><div class="lab">Bear · 25%</div><div class="px num">$215</div><div class="pct neg">−17%</div><div class="wt">Data-centre capex pause + European softness; multiple compresses from ~30.8×</div></div>
+      <div class="s-base"><div class="lab">Base · 50%</div><div class="px num">$285</div><div class="pct pos">+9%</div><div class="wt">Build-out and grid spend continue at trend; multiple roughly held</div></div>
+      <div class="s-bull"><div class="lab">Bull · 25%</div><div class="px num">$340</div><div class="pct pos">+31%</div><div class="wt">AI power demand accelerates; US investment converts to orders; premium multiple sustained</div></div>
+    </div>
+    <p class="small">Probability-weighted 12–18-month value on the stated weights: 0.25 × $215 + 0.50 × $285 + 0.25 × $340 = <b class="num">~$281 (+8%)</b> — a <span class="tag tag-mod">Modelled estimate</span>. A high-single-digit weighted upside against a −17% bear case is exactly why the short-term call is Hold rather than Buy: the expected value is positive but the path is hostage to hyperscaler capex headlines.</p>
+
+    <h3>5-year frozen-parameter projection</h3>
+    <p class="small">Method, as in the META sample: the pack's method holds the valuation frame frozen and lets growth do the work — the Base case is a stated <b>6% annual price CAGR</b> off the $260.41 reference ($260.41 × 1.06<sup>5</sup> = $260.41 × 1.338 = <b>$348</b>). Bull and Bear prices are the pack's modelled endpoints; the revenue lines apply the same growth rates to the pack's TTM revenue base of $47.2bn (unverified) purely to show scale — margin, share count and multiple detail beyond this was not in the pack and is not modelled.</p>
+    <div class="scrollfix"><table>
+      <tr><th>Case (weight)</th><th class="r">Implied growth / yr</th><th class="r">2031 revenue (modelled)</th><th class="r">2031 price</th><th class="r">vs $260.41</th></tr>
+      <tr><td class="rowlabel" style="color:var(--bull)">Bull (25%)</td><td class="r num">~+12%</td><td class="r num">~$83bn</td><td class="r num"><b>$460</b></td><td class="r pos">+77%</td></tr>
+      <tr><td class="rowlabel" style="color:var(--base)">Base (50%)</td><td class="r num">+6%</td><td class="r num">~$63bn</td><td class="r num"><b>$348</b></td><td class="r pos">+34%</td></tr>
+      <tr><td class="rowlabel" style="color:var(--bear)">Bear (25%)</td><td class="r num">~−4%</td><td class="r num">~$38bn</td><td class="r num"><b>$210</b></td><td class="r neg">−19%</td></tr>
+      <tr><td class="rowlabel">Probability-weighted</td><td class="r">—</td><td class="r">—</td><td class="r num"><b>~$342</b></td><td class="r pos">+31%</td></tr>
+    </table></div>
+    <p class="small">Check the weighted line yourself: 0.25 × $460 + 0.50 × $348 + 0.25 × $210 = $115.00 + $174.00 + $52.50 = <b class="num">$341.50 ≈ $342</b>, matching the pack's weighted figure under the stated 25/50/25 assumption. The Bull/Bear growth rates (~+12% / ~−4%) are back-solved from the pack's endpoint prices, not independently forecast. Read the shape, not the decimals: even the bear case is a de-rating to ~$210, not a wipeout — that asymmetry is the core of the long-term case.</p>
+  </section>
+
+  <!-- ================= 6. RECOMMENDATION ================= -->
+  <section>
+    <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Fit</h2></div>
+    <div class="scrollfix"><table>
+      <tr><th>Horizon</th><th>Call</th><th>Rationale in one line</th></tr>
+      <tr><td class="rowlabel">Short term (12–18 mo)</td><td><b style="color:var(--base)">HOLD</b></td><td>Weighted upside only ~+8% against a −17% bear case at a ~30.8× multiple — wait for a better entry or confirmation that data-centre orders are holding.</td></tr>
+      <tr><td class="rowlabel">Long term (5 yr)</td><td><b style="color:var(--bull)">BUY</b></td><td>Electrification, grid and AI-power demand are decade-long currents; even the modelled bear case (−19% over five years) is a de-rating, and the weighted path is ~$342.</td></tr>
+      <tr><td class="rowlabel">Suggested weight</td><td><b>1.5%</b> of total portfolio</td><td>Quality electrification exposure for a mid-30s, risk-8/10 portfolio — sized as a supporting position, not a core holding, reflecting the premium multiple, the unverified data pack, and OTC-line liquidity.</td></tr>
+    </table></div>
+
+    <div class="calc">
+      <h3>Position-size calculator</h3>
+      <div class="calc-row">
+        <div>
+          <label for="pf">Total portfolio value ($)</label>
+          <input id="pf" type="number" inputmode="decimal" min="0" value="500000" />
+        </div>
+        <div class="calc-out">
+          <div><div class="lab">Target position · 1.5%</div><div class="v num" id="outAmt">—</div></div>
+          <div><div class="lab">≈ Shares at $260.41</div><div class="v num" id="outSh">—</div></div>
+        </div>
+      </div>
+      <p class="tiny" style="margin-top:10px">Runs in this page only; nothing is saved or sent. Share count uses the unverified $260.41 OTC reference and is indicative — the Paris listing is the liquid line for an order of any size.</p>
+    </div>
+
+    <div class="callout">
+      <p><b>Bottom line:</b> Schneider is one of the cleanest ways to own the physical layer of the AI build-out — power distribution, cooling and the software on top — without owning a chip cycle. At ~30.8× earnings (unverified, German listing) you are paying for that quality in full, so the discipline is sizing and patience: <b>Hold</b> here, <b>Buy</b> for the five-year book, <b>1.5%</b> of the portfolio. Revisit the call the moment a sourced balance-sheet and cash-flow pack exists — Section 2's open questions are the first thing to close.</p>
+    </div>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SBGSF — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $260.41.</strong> <strong>DCF intrinsic: $293.</strong> Discount/premium vs DCF: <strong>-11.1%</strong> — i.e. the shares are trading 11.1% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$293</td><td>-11.1%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$10.4B</strong>; constant growth g <strong>6%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$85.15B</strong>; PV of terminal value <strong>$105.46B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-18.19B</strong>; divided by <strong>588.81m</strong> diluted shares = <strong>$293</strong>. Base FCF $10.38B = OCF €12.48B − capex €2.10B, TTM (Motley Fool; EUR-origin, treated as the vendor figure for the ADR — see OTC caveat). Growth g 6% = pack 5-year base CAGR. Net cash −$18.19B (cash $5.05B − debt $23.24B, TwelveData). Shares 588.81m (Fool; market cap ÷ price agrees). DPS $4.94 (StockAnalysis, annual payment). OTC ADR — figures are vendor-reported approximations; treat as UNVERIFIED for precision. Note: the pack-era PTC acquisition news (Oct 2026, ~$23B) is not reflected in these balance-sheet inputs.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://WWW.FOOL.COM/quote/otc/sbgsf/ , https://twelvedata.com/markets/565291/stock/otc/sbgsf/statistics , https://stockanalysis.com/quote/otc/SBGSF/dividend/ ; price 30 Oct 2026 close $260.41 (OTC ADR). All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SBGSF — Top customers (B2B)</h2>
+<p>Schneider Electric is classified <strong>B2B</strong>: energy-management and automation products are sold to data-centre operators, utilities, industrials and building operators. No ranked customer list is disclosed in the pack; the table names the largest known demand channels, ranking not disclosed.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Data-centre operators and hyperscalers — Amazon / AWS</td><td></td><td>Covered ticker — DCF intrinsic $25, discount/premium +861.4%</td></tr><tr><td>Data-centre operators and hyperscalers — Microsoft</td><td></td><td>Covered ticker — DCF intrinsic $236 discount/premium +121.1%</td></tr><tr><td>Data-centre operators and hyperscalers — Google</td><td></td><td>Covered ticker — DCF intrinsic $45, discount/premium +521.9%</td></tr><tr><td>Data-centre operators and hyperscalers — Meta</td><td></td><td>Covered ticker — DCF intrinsic $242 discount/premium +154.1%</td></tr><tr><td>Data-centre operators and hyperscalers — Oracle</td><td></td><td>Covered ticker — DCF intrinsic: N/A (DCF withdrawn)</td></tr><tr><td>Utilities and grid operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Industrial manufacturers and building operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Schneider's data-centre exposure (pack: $1B planned US energy/AI infrastructure investment; H1 2026 data-centre demand called out as particularly strong) makes the hyperscaler demand channel the key read-through: if the covered hyperscalers in this table trade at discounts to intrinsic once filled in, that supports continued data-centre electrical orders and is a potential tailwind; premiums are a potential headwind — but hyperscaler capex is set by their AI roadmaps and power availability, not by their discounts alone, so the caveat applies. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>OTC note: SBGSF figures are thin-print approximations; see NOTES.md.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SBGSF — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Schneider Electric is a direct AI enabler: its electrical distribution and EcoStruxure software power and cool data centres — the pack cites a $1B planned US energy/AI infrastructure investment and strong H1 2026 data-centre demand.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: data-centre power/cooling orders and grid-upgrade equipment, with H1 2026 organic growth of 14% and data centres called out as particularly strong. Multiple channel: SBGSF's ~30.8× P/E (German listing, pack) embeds a data-centre premium that an AI unwind would compress even if the installed base held.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: data-centre developers pause electrical orders (the pack's own stated risk: data-centre capex pause) and building electrification slows. Second, multiple compression: high — from ~31× toward a through-cycle electrical-equipment multiple in the low-20s. Third, balance sheet: moderate — net debt $18.19B is manageable, but the announced ~$23B PTC acquisition (Oct 2026, pack-era news) would add ~€16–17B of debt and €5–6B of new equity if completed, raising leverage into any unwind. Trigger to watch: a hyperscaler electrical-order pause or PTC deal-approval/price developments.</p>
+</div>
+<footer>
+    <h3 style="margin-top:0">Sources &amp; verification notes</h3>
+    <ul class="srcs">
+      <li>Motley Fool — Largest Industrials Companies (sector universe, market cap, TTM revenue/gross profit, business model, $1bn planned US energy/AI infrastructure investment; rankings &amp; metrics as of 5 Oct 2026): <a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">fool.com/research/largest-industrials-companies</a></li>
+      <li>Finnhub — Schneider Electric German listing (SND.TG), trailing P/E ~30.8×: <a href="https://finnhub.io/?q=%22SND%2ETG%22" target="_blank" rel="noopener">finnhub.io/?q="SND.TG"</a></li>
+      <li>CoinDataFlow — SBGSF identification as Schneider Electric's US OTC line (France): <a href="https://coindataflow.com/en/stock/SBGSF" target="_blank" rel="noopener">coindataflow.com/en/stock/SBGSF</a></li>
+    </ul>
+    <p class="srcs"><b>Verification notes.</b> An independent verification pass was run over this sector pack on 1 Nov 2026. It confirmed prices and earnings figures for several NYSE-listed Industrials/Energy/Materials names, but SBGSF appears on its explicit <b>not-re-checked</b> list — price, market cap and P/E for SBGSF were not independently verified, and all 12–18-month targets across the pack were likewise not re-checked. Accordingly: pack figures for SBGSF are labelled <span class="tag tag-unv">Unverified</span> throughout, scenario and 5-year prices are labelled <span class="tag tag-mod">Modelled estimate</span> with weights and arithmetic shown, and balance-sheet items absent from the pack are listed as open questions rather than estimated. The two coordinator corrections appended to this pack (AEM adjusted-vs-GAAP EPS labelling; LIN/BHP sector notes) concern other tickers and do not change any SBGSF figure.</p>
+    <p class="disclaimer">This note is research and education, not investment advice, and its recommendations are views, not guarantees. Prices reference the 30 Oct 2026 close as of 1 Nov 2026; OTC prices are thin and indicative. Modelled scenarios depend on the assumptions shown and will be wrong in detail — use the ranges and the reasoning, not false precision. Verify any figure against the primary source before acting on it.</p>
+  </footer>
+
+</main>
+<script>
+  (function(){
+    var pf = document.getElementById('pf');
+    var outAmt = document.getElementById('outAmt');
+    var outSh = document.getElementById('outSh');
+    var PRICE = 260.41, W = 0.015;
+    function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+    function upd(){
+      var v = parseFloat(pf.value);
+      if (isNaN(v) || v < 0){ outAmt.textContent = '—'; outSh.textContent = '—'; return; }
+      var amt = v * W;
+      outAmt.textContent = '$' + fmt(amt);
+      outSh.textContent = fmt(amt / PRICE);
+    }
+    pf.addEventListener('input', upd);
+    upd();
+  })();
+</script>
+</body>
+</html>

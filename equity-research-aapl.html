@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — AAPL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 86px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Information Technology</span><span>Devices · Services · Silicon</span></div>
+  <h1>Apple <span class="tick">(NASDAQ: AAPL)</span></h1>
+  <p class="lede">The hardware company that quietly became a services annuity. Q2 FY26 showed both halves working at once — iPhone revenue up 22% and Services at an all-time record — on a gross margin of 49.3% and an installed base above 2.35 billion active devices. The debate is not the business; it is the price: at 39.5× trailing earnings, the market is already paying for the base case and part of the bull case, which is why the modelled 5-year weighted value sits fractionally <i>below</i> today's close.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $344.63 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print in pack:</b> Q2 FY26 (March quarter)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+    <span><b>Profile:</b> mid-30s, risk 8/10</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$344.63</div><div class="vsub">Confirmed to the cent in the independent verification pass (Finnhub / MarketBeat)</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$5.03T</div><div class="vsub">14.59B shares · Largest company in the FinanceCharts Nov 2026 tech ranking</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing / Forward P/E</div><div class="vbig mono">39.5× / 37.5×</div><div class="vsub">P/S ~11.2× · EPS $7.47 as reported (basis note in §2) · Dividend yield 0.31%</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue</div><div class="vbig mono">~$451B</div><div class="vsub">Q2 FY26 alone: $111.18B, +17% YoY, gross margin 49.3%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled 12–18-month weighted value ≈ $356 (+3%) — the near term is priced for delivery, not for disappointment.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — on weakness <span class="pill buy">Buy</span></div><div class="vsub">Durable compounder, but buy the multiple, not the story: staged entries below the base-case value work better than chasing at 39×.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">5.0% of portfolio</div><div class="vsub">Research-pack recommendation for this profile. See §6 for the calculator.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q2 FY26</span><h2>The latest quarter in one view</h2></div>
+  <p>Apple's March quarter (Q2 FY26) is the most recent print carried in the verified research pack. It was a two-engine quarter: the iPhone cycle delivered volume, and Services — the higher-margin, recurring half — set another record. Greater China, the region bears watch most, grew fastest of the figures disclosed.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q2 FY26 (March quarter)</th><th class="n">Actual</th><th class="n">YoY</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Total revenue</td><td class="n">$111.18B</td><td class="n">+17%</td><td>Growth at Apple's scale, driven by product <i>and</i> services together</td></tr>
+      <tr><td>iPhone revenue</td><td class="n">$56.99B</td><td class="n">+22%</td><td>The upgrade cycle is real this year — the single largest revenue line accelerated</td></tr>
+      <tr><td>Services revenue</td><td class="n">$30.98B</td><td class="n">+16.3%</td><td>All-time record — App Store, iCloud, Music, AppleCare and payments compounding off the installed base</td></tr>
+      <tr><td>Other products combined*</td><td class="n">$23.21B</td><td class="n">—</td><td>Mac, iPad, Wearables, Home &amp; Accessories as a combined residual (total less iPhone and Services); the pack does not split these lines individually</td></tr>
+      <tr><td>Gross margin</td><td class="n">49.3%</td><td class="n">—</td><td>Services mix is structurally lifting the blended margin toward one-half of every revenue dollar</td></tr>
+      <tr class="hl"><td>Greater China revenue</td><td class="n">$20.5B</td><td class="n">+28%</td><td>~18% of the quarter's revenue — the geopolitical exposure and, this quarter, the fastest growth</td></tr>
+      <tr><td>Installed base</td><td class="n">&gt;2.35B devices</td><td class="n">—</td><td>Active devices cited in the pack — the distribution asset every Services dollar is collected through</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*Residual calculated from the pack's confirmed total, iPhone and Services figures. Sources: research pack §1 (StockAnalysis, MarketBeat and coverage linked in Sources), independently verified 1 Nov 2026.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q2 FY26 income flow — where $111.2B came from, and what it cost to earn</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow diagram of Apple Q2 FY26 revenue by segment into total revenue, then gross profit and cost of revenue" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="26" width="190" height="54" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="48" font-size="13" font-weight="700" fill="var(--ink)">iPhone</text><text x="20" y="66" font-size="12" fill="var(--ink2)">$56.99B · 51.3% · +22%</text>
+      <rect x="8" y="102" width="190" height="50" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="123" font-size="13" font-weight="700" fill="var(--ink)">Services</text><text x="20" y="141" font-size="12" fill="var(--ink2)">$30.98B · 27.9% · record</text>
+      <rect x="8" y="174" width="190" height="50" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="195" font-size="13" font-weight="700" fill="var(--ink)">Mac · iPad · Wearables*</text><text x="20" y="213" font-size="12" fill="var(--ink2)">$23.21B · 20.9% combined</text>
+      <rect x="310" y="92" width="180" height="66" fill="var(--navy)"/><text x="326" y="120" font-size="14" font-weight="700" fill="#fff">Total revenue</text><text x="326" y="140" font-size="13" fill="#fff">$111.18B · +17% YoY</text>
+      <line x1="198" y1="53" x2="306" y2="106" stroke="var(--muted)" stroke-width="11" opacity=".35"/>
+      <line x1="198" y1="127" x2="306" y2="122" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="198" y1="199" x2="306" y2="140" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <rect x="600" y="56" width="230" height="58" fill="var(--green-soft)" stroke="var(--line2)"/><text x="614" y="79" font-size="13" font-weight="700" fill="var(--ink)">Gross profit</text><text x="614" y="97" font-size="12" fill="var(--ink2)">~$54.8B · 49.3% margin</text>
+      <rect x="600" y="146" width="230" height="58" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="614" y="169" font-size="13" font-weight="700" fill="var(--ink)">Cost of revenue</text><text x="614" y="187" font-size="12" fill="var(--ink2)">~$56.4B · 50.7% of revenue</text>
+      <line x1="490" y1="112" x2="596" y2="88" stroke="var(--muted)" stroke-width="7" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="490" y1="138" x2="596" y2="168" stroke="var(--muted)" stroke-width="7" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="600" y="238" width="372" height="44" fill="var(--paper)" stroke="var(--line2)"/><text x="614" y="258" font-size="12.5" font-weight="700" fill="var(--ink)">Gross profit and cost split derived from the pack's 49.3% margin</text><text x="614" y="274" font-size="12" fill="var(--ink2)">Operating and net lines for Q2 were not in the verified pack — not estimated here</text>
+    </svg>
+    <figcaption>*Mac, iPad, Wearables, Home &amp; Accessories shown as one combined residual ($111.18B − $56.99B − $30.98B = $23.21B) because the verified pack does not split them. Flow widths are indicative, not to scale. All figures Q2 FY26.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Apple sells <b>one ecosystem through five doors</b>. The iPhone is the door most revenue walks through; Services is the toll collected once a customer is inside; Mac, iPad and Wearables widen the walls so leaving gets harder with every device added. The model only works as a system — which is precisely the moat (§3) and precisely what regulators are litigating (§4).</p>
+
+  <h3>Revenue architecture — Q2 FY26</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">iPhone</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$56.99B · 51%</span></div>
+    <div class="bar-row"><span class="bl">Services</span><div class="bar-track"><div class="bar-fill green" style="width:54%"></div></div><span class="bv">$30.98B · 28%</span></div>
+    <div class="bar-row"><span class="bl">Mac · iPad · Wearables*</span><div class="bar-track"><div class="bar-fill gold" style="width:41%"></div></div><span class="bv">$23.21B · 21%</span></div>
+  </div>
+  <p class="small">*Combined residual, as above. Trailing-twelve-month revenue is ~$451.44B, so no single quarter's mix should be read as the full-year mix — the September iPhone-launch quarter is seasonally heavier in hardware.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>What it contains</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>iPhone</td><td>The flagship line, now on A19 / A19 Pro silicon</td><td>Cyclical by launch, but each cycle re-seeds the installed base that Services monetises for years</td></tr>
+      <tr><td>Services</td><td>App Store, iCloud, Music, AppleCare, payments</td><td>Subscription and take-rate revenue on &gt;2.35B active devices; +16.3% to a record $30.98B in Q2 — the margin engine (blended gross margin 49.3%)</td></tr>
+      <tr><td>Mac · iPad · Wearables</td><td>Computers, tablets, Watch / AirPods and home devices</td><td>Attach products: each one raises switching costs and Services attach rather than carrying the P&amp;L alone</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Geographic signal — Greater China</h3>
+      <p>Greater China contributed <b>$20.5B in Q2, up 28% YoY</b> — roughly 18 cents of every revenue dollar, growing faster than the company as a whole. The verified pack does not break out the other regions individually, so no other regional split is shown rather than an estimated one. The read is two-sided: China demand is currently a <i>tailwind</i>, and it is also the concentration the risk case in §4 is built on.</p>
+    </div>
+    <div>
+      <h3>Structural pivot</h3>
+      <ul>
+        <li><b>From hardware-only cycle to Services + silicon:</b> the strategic centre of gravity is shifting from selling a phone every few years to collecting Services revenue every month, on devices differentiated by Apple's own chips.</li>
+        <li><b>On-device AI on A19 / A19 Pro (TSMC 3nm):</b> Apple's AI features run substantially on its own silicon — a deliberate contrast with hyperscaler cloud capex (§2), keeping its AI spend comparatively light.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>TSMC fabrication:</b> A19 / A19 Pro are built on TSMC's 3nm process — Apple's silicon advantage and its single most important external dependency are the same relationship.</li>
+    <li><b>Assembly concentration in China and India:</b> final assembly remains concentrated in Asia, with India the diversification leg. Tariff changes and US–China friction land directly on this line — it is the channel through which geopolitics reaches Apple's cost base.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Apple's financial signature is <b>capital-light compounding</b>: a $5.03T market value resting on ~$451B of trailing revenue, with shareholder returns delivered mainly through buybacks rather than dividends, and an AI spending bill that is a rounding error next to the hyperscalers'. The cost of that quality is the multiple — there is no version of 39.5× trailing earnings that counts as cheap.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $344.63 (30 Oct 2026 close). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market capitalisation</td><td class="n">$5.03T</td><td>The largest company in the sector ranking (FinanceCharts, updated 30 Oct 2026)</td></tr>
+      <tr><td>Shares outstanding</td><td class="n">14.59B</td><td>Held frozen at ~14.6B in the 5-year model (§5) — conservative, since buybacks normally shrink the count and lift EPS</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">39.54×</td><td>Premium multiple: the market is paying for durability and Services mix, not for current growth alone</td></tr>
+      <tr><td>Forward P/E</td><td class="n">37.51×</td><td>Barely below trailing — the forward discount is thin, so earnings delivery, not multiple expansion, must do the work</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~11.2×</td><td>$5.03T ÷ ~$451B TTM revenue — a services-grade multiple on a still-majority hardware revenue base</td></tr>
+      <tr><td>EPS (as reported)</td><td class="n">$7.47</td><td>Shown as reported in the pack — see the basis note below: it does not reconcile arithmetically with the 39.54× trailing P/E, and the two are not presented as one basis</td></tr>
+      <tr><td>Gross margin (Q2 FY26)</td><td class="n">49.3%</td><td>Services mix effect, measured in the quarter</td></tr>
+      <tr><td>Dividend yield</td><td class="n">0.31%</td><td>Income is not the proposition — the dividend is a token next to buybacks</td></tr>
+      <tr><td>Buybacks</td><td class="n">$100B authorisation</td><td>Reported in 2026 coverage cited by the pack; buybacks are the core return engine and the main share-count reducer</td></tr>
+      <tr><td>AI capex (2026, cited)</td><td class="n">~$12B</td><td>Capex-light versus the hyperscalers — Apple's on-device silicon strategy largely rents TSMC's capex instead of building its own</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">Basis note — EPS and P/E do not reconcile, and are not forced to</div>
+  <p>The pack reports <b>EPS of $7.47</b> and a <b>trailing P/E of 39.54×</b> side by side, but $344.63 ÷ $7.47 = <b>46.1×</b>, not 39.54× (which would imply EPS of ~$8.72). The two figures therefore come from different provider bases or vintages — the same EPS/P/E basis mismatch the verification log corrected explicitly for SNDK in this sector. Both AAPL figures are shown <b>as reported</b>, each labelled, rather than silently adjusting either one; the "priced at ~39.5×" framing in this report follows the pack's reported multiple, and readers using the $7.47 EPS should work with ~46× instead.</p></div>
+
+  <div class="callout warn"><div class="ct">Open items — deliberately not filled in</div>
+  <p>The verified research pack does not carry an EV/EBITDA multiple, a trailing free-cash-flow figure, or a debt / leverage schedule for AAPL, so this report does not estimate them. Those three lines are the first additions to make when the pack is extended — they matter for cross-checking the 39.5× earnings multiple against cash generation and balance-sheet leverage, and inventing them here would defeat the verification pass the figures above went through.</p></div>
+
+  <h3>Capital allocation, as evidenced in the pack</h3>
+  <ul>
+    <li><b>1. Buybacks first</b> — the $100B authorisation reported in 2026 coverage is the primary return channel; at a frozen share count the §5 model understates EPS growth if the buyback runs at its usual pace.</li>
+    <li><b>2. Dividend second</b> — maintained at a 0.31% yield; a signalling device, not an income stream.</li>
+    <li><b>3. R&amp;D in silicon and on-device AI</b> — funded through the P&amp;L and the TSMC relationship rather than data-centre capex (~$12B AI capex cited for 2026, versus nine-figure quarterly builds at cloud peers).</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — the widest in consumer technology, and it is a system moat, not a product moat.</b> No single Apple product is unassailable; the combination of silicon, operating system, services and 2.35 billion devices in customers' hands is what a competitor would have to rebuild, all at once, to compete.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Ecosystem lock-in:</b> iPhone + Mac + iPad + Watch + iCloud + AppleCare is a switching-cost stack; each added device raises the cost of leaving more than it costs to buy.</li>
+      <li><b>Silicon + OS integration:</b> A19 / A19 Pro designed in-house, fabricated by TSMC on 3nm, running only Apple's software — performance-per-watt and on-device AI capability rivals cannot buy off the shelf.</li>
+      <li><b>The App Store toll:</b> distribution over &gt;2.35B active devices converts third-party developer success into Apple Services revenue — the highest-quality line in the P&amp;L.</li>
+      <li><b>Brand and pricing power:</b> iPhone revenue +22% in Q2 at premium prices, with blended gross margin at 49.3%, is demonstrated — not asserted — pricing power.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Samsung</b> — the only rival with comparable hardware scale and vertical integration in Android.</li>
+      <li><b>Google</b> — owns the services layer on most non-Apple phones and is the AI-features pace-setter Apple is measured against.</li>
+      <li><b>Microsoft</b> — competes at the productivity and AI-assistant layer rather than in handsets.</li>
+      <li><b>Huawei (China)</b> — the local champion in Apple's fastest-growing disclosed region; Greater China's +28% quarter can reverse on share shifts or politics, not just demand.</li>
+      <li><b>The toll is the target:</b> the App Store commission that makes Services so profitable is exactly what regulators and courts are pressing on (§4) — the moat's most profitable brick is its most contested one.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> intact — premium hardware growth and a near-50% gross margin say so. <b>Barriers to entry:</b> effectively absolute at the ecosystem level; no new entrant can replicate the installed base, and the base itself keeps generating the Services cash that funds the next silicon generation.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>iPhone upgrade cycle:</b> Q2's +22% iPhone growth is the cycle working; a strong launch-quarter follow-through extends it into the 12–18-month window.</li>
+        <li><b>Services compounding:</b> +16.3% to a record $30.98B — every point of Services growth is worth more than a point of hardware growth because it carries the margin mix with it.</li>
+        <li><b>AI features on A19 silicon:</b> on-device AI is Apple's differentiated answer to cloud AI — if it drives upgrades, Apple gets the AI cycle's revenue without the hyperscalers' capex bill.</li>
+        <li><b>China momentum:</b> Greater China +28% — sustained, it removes the market's favourite bear argument.</li>
+        <li><b>Buyback pace:</b> the $100B authorisation shrinking the share count faster than the frozen-count model assumes is mechanical EPS upside.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>App Store regulation:</b> mandated changes to commissions or payment rules strike the highest-margin revenue first; this is a margin risk, not a volume risk.</li>
+        <li><b>China demand &amp; geopolitics:</b> ~18% of Q2 revenue from Greater China, Huawei competing locally, and assembly concentrated in China/India — demand, competition and trade policy all point at the same region.</li>
+        <li><b>Smartphone saturation:</b> the replacement cycle lengthens structurally; Apple's growth then depends on price and mix, which have limits.</li>
+        <li><b>Tariff / assembly risk:</b> tariff changes on Asia-assembled hardware flow straight into cost of revenue — the 50.7% side of the §flow diagram.</li>
+        <li><b>Multiple risk (the quiet one):</b> at 39.5× trailing, ordinary disappointment is enough — no crisis is required for the bear case, only growth a few points light.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Services growth rolling over <i>while</i> the iPhone cycle fades — the two engines have never failed together, and the entire premium multiple rests on at least one of them always working. An App Store ruling that cuts the take rate materially would be the regulatory version of the same break.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All scenario prices on this page are <b>modelled estimates</b> — built from the stated assumptions, shown so the arithmetic can be checked, and not verified facts. The verification pass confirmed the inputs carried in §1–§2 (price, market cap, multiples, Q2 figures); scenario weights were not supplied to the verifier, so every target below is labelled with its full methodology.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear</div><div class="price mono">$285</div><div class="ret down">−17.3% vs $344.63</div><p>Upgrade cycle fades, an App Store or tariff hit lands, and the multiple compresses from 39.5× toward the mid-20s on flat earnings.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base</div><div class="price mono">$365</div><div class="ret up">+5.9% vs $344.63</div><p>Cycle delivers, Services compounds in the mid-teens, and the premium multiple holds roughly where it is — earnings growth does all the work.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull</div><div class="price mono">$410</div><div class="ret up">+19.0% vs $344.63</div><p>AI features ignite a supercycle, China stays strong, and the market keeps paying ~37–40× for the cleanest compounder in mega-cap tech.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Modelled weighted value (12–18 mo)</div><div class="wv mono">≈ $356</div></div><p>Using the same 25 / 50 / 25 bear / base / bull weights as the 5-year model: 0.25×$285 + 0.50×$365 + 0.25×$410 = $356, or <b>+3.4%</b> from $344.63. The near-term skew is mildly positive but thin — at this multiple, Apple has to earn its return rather than re-rate into it.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (your standard format)</h3>
+  <p>Starting point: <b>base revenue $450B</b> (≈ TTM $451.44B), <b>share count held frozen at 14.6B</b>, <b>base net margin 24%</b>. Only revenue growth, net margin and the exit P/E vary by case — the same convention as the AMZN, INTC and META models in this series, so they are directly comparable. Freezing the share count is deliberately conservative: Apple's buyback normally shrinks it, which would raise every EPS below.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Return vs $344.63</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">4%</td><td class="n">22%</td><td class="n">~$548B</td><td class="n">$8.25</td><td class="n">24×</td><td class="n">$198</td><td class="n">−42.5%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">8%</td><td class="n">24%</td><td class="n">~$661B</td><td class="n">$10.87</td><td class="n">32×</td><td class="n">$348</td><td class="n">+1.0%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">11%</td><td class="n">25%</td><td class="n">~$758B</td><td class="n">$12.98</td><td class="n">36×</td><td class="n">$467</td><td class="n">+35.5%</td></tr>
+      <tr class="total"><td>Probability-weighted (modelled estimate)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$340</td><td class="n">−1.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p>Check the base case by hand: $450B × 1.08<sup>5</sup> = ~$661B revenue; × 24% = $158.7B net income; ÷ 14.6B shares = $10.87 EPS; × 32 = <b>$348</b>. Weighted: 0.25×$198 + 0.50×$348 + 0.25×$467 = <b>$340</b>.</p>
+  <div class="callout"><div class="ct">Read this before the number worries you</div><p>The weighted 5-year value of <b>$340 sits fractionally below the $344.63 close — that is information, not a typo.</b> It says today's price already capitalises the base case (8% growth at a 32× exit multiple) plus a slice of the bull case. Apple's business quality is not in question in any scenario here — even the bear case grows revenue. What is in question is only how much of that future the buyer at 39.5× has already prepaid. That is why §6 pairs a long-term Buy with buying on weakness rather than at any price.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendation as carried in the verified research pack.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> Modelled weighted value ≈ $356 is only ~3% above the close — there is no near-term mispricing to harvest, and at 39.5× the stock is vulnerable to ordinary disappointment. Add only on a pullback toward the bear-case zone, not at the multiple's high end.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — staged, on weakness.</b> The ecosystem, Services annuity and buyback make Apple a core compounder for an 8/10 profile; the $340 weighted model value argues for building the position in tranches (initial / on multiple compression / on cycle weakness) rather than in one lot at $344.63.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill trim">Trim</span></td><td>Review if Services growth breaks below double digits for two consecutive quarters, if an App Store ruling cuts the take rate materially, or if Greater China revenue turns negative while assembly tariffs rise — the two-sided China exposure flipping from tailwind to headwind.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>AAPL target: 5.0% of total portfolio</b> (research-pack recommendation for a mid-30s, risk-8/10 investor).</li>
+    <li><b>Count the look-through:</b> at a $5.03T market cap Apple is one of the largest weights in broad US index funds — a direct 5.0% on top of an index-heavy core means total Apple exposure is higher than 5.0%. Size the direct holding down if the core is concentrated in US mega-cap index funds.</li>
+    <li><b>Role in the portfolio:</b> quality compounder / ballast within the technology sleeve — lower octane than the AI-infrastructure names, held for the Services annuity and buyback rather than for cycle torque.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Ranking basis for this series: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026, prices at the 30 Oct 2026 close. Samsung and SK Hynix appear in that source's global ranking but are excluded from detail here (foreign listings, not in the named set).</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>AAPL — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $344.63.</strong> <strong>DCF intrinsic: $204.</strong> Discount/premium vs DCF: <strong>+68.9%</strong> — i.e. the shares are trading 68.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$204</td><td>+68.9%</td></tr></table>
+<p><strong>Method 1 — DCF: $204.</strong> Base FCF $136.68B, constant growth g = 8% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $1,237.31B; Year-10 FCF = $295.08B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $1,674.00B. Equity value = PV of FCF + PV of terminal value + net cash ($62.18B) = $2,973.49B; divided by 14.59B diluted shares = $204. Base note: TTM FCF to 27 Jun 2026: OCF $146.72B less capex $10.04B = $136.68B (FinanceCharts/InTickers). Not normalised: no peak/distortion flag in the pack for FCF.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://www.financecharts.com/stocks/AAPL/growth/free-cash-flow ; https://intickers.com/reports/aapl/ ; research pack ~/workspace/research_notes/equity/AAPL/report.md</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AAPL — Customers: B2C note (no top-7 business-customer list)</h2>
+<p><strong>Classification: B2C with an enterprise note.</strong> Apple is treated as consumer-facing because the majority of its revenue comes from consumers buying devices (iPhone, Mac, iPad, wearables) and consumer services (App Store, iCloud, Music, AppleCare), even though it also sells to enterprises, education and government. No top-7 business-customer list is therefore published: no single business buyer dominates a consumer device franchise, and the pack discloses no ranked business-customer revenue shares.</p>
+<p><strong>Key demand drivers:</strong> the iPhone upgrade cycle (pack Q2 FY26: iPhone $56.99B, +22% YoY) and Services growth (pack: $30.98B, +16.3%, an all-time record), against an installed base of over 2.35B active devices; Greater China demand (pack Q2: $20.5B, +28%) and App Store regulation are the key swing factors.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AAPL — AI trade positioning</h2>
+<p><strong>Role: Beneficiary (with a hedge quality).</strong> Apple benefits from AI mainly through on-device AI and silicon (A19/A19 Pro on TSMC 3nm) plus Services monetisation, rather than from selling AI infrastructure — the pack's pivot is Services plus on-device AI versus a hardware-only cycle, and its ~$12B of cited 2026 AI capex is light next to hyperscaler spending.</p>
+<p>While the AI trade runs, demand comes through the iPhone upgrade cycle and Services growth (pack Q2 FY26: iPhone +22%, Services +16.3% to a record), as AI features give owners a reason to upgrade into a 2.35B-device installed base. On multiples, Apple already trades at a premium (pack trailing P/E 39.5x, forward 37.5x), so the AI narrative supports a rich multiple rather than creating a new one — and the October evidence in the pack's own coverage is that Apple was treated as a flight-to-quality hedge inside tech while AI-infrastructure names sold off.</p>
+<p>If the AI trade unwinds, what breaks first is the upgrade-cycle story: AI features fail to pull upgrades forward, Services growth slows, and the premium multiple compresses toward Apple's through-cycle range rather than collapsing on fundamentals. Next, Greater China demand (pack Q2: $20.5B, +28%) and App Store regulation become the binding risks. The balance sheet is a mitigant, not a risk: cash and investments of ~$146.5B against ~$84.3B of debt, and capex-light operations. Triggers to watch: iPhone sell-through and Services growth prints, any App Store ruling, and China demand or assembly/tariff headlines.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Figures are from the AAPL research pack (as of 1 Nov 2026, price reference 30 Oct 2026 close), independently verified 1 Nov 2026 against a second set of sources — price and market cap confirmed to the cent / as stated; scenario prices are modelled estimates with methodology shown in §5, not verified facts.</p>
+  <ol class="refs">
+    <li><a href="https://StockAnalysis.com/stocks/aapl/statistics/" target="_blank" rel="noopener">StockAnalysis — AAPL statistics (multiples, EPS, share count)</a></li>
+    <li><a href="https://www.marketbeat.com/stocks/NASDAQ/AAPL/" target="_blank" rel="noopener">MarketBeat — AAPL price, market cap and earnings data</a></li>
+    <li><a href="https://www.analyticsinsight.net/technology/list-of-largest-technology-companies-by-revenue-in-2026" target="_blank" rel="noopener">Analytics Insight — largest technology companies by revenue, 2026</a></li>
+    <li><a href="https://getaidecoded.com/articles/apple-q2-111b-record-microsoft-azure-40pct-ai-37b-run-rate.html" target="_blank" rel="noopener">AI Decoded — Apple Q2 FY26: $111B record quarter detail</a></li>
+  </ol>
+  <p class="disc">Research views only, as of 1 Nov 2026 — not guarantees and not investment advice. Scenario targets are modelled estimates built from the assumptions stated in §5; they are not analyst consensus and were not presented to the verifier as facts. Figures the verified pack did not carry (EV/EBITDA, trailing FCF, leverage schedule, regional splits beyond Greater China, and the individual Mac / iPad / Wearables split) are flagged as open items in the text rather than estimated.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=344.63, TARGET=0.05;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(pf.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the 5.0% sizing.';return;}
+    var amt=v*TARGET;
+    var shares=amt/PRICE;
+    out.innerHTML='At the <b>5.0%</b> target: <b>$'+fmt(amt)+'</b> in AAPL ≈ <b>'+fmt(shares)+' shares</b> at $344.63.';
+  }
+  pf.addEventListener('input',render);
+  render();
+  var toc=document.getElementById('toc');
+  if(toc){toc.addEventListener('click',function(e){if(e.target.tagName==='A'){var links=toc.querySelectorAll('a');for(var i=0;i<links.length;i++)links[i].style.color='';e.target.style.color='var(--blue)';}});}
+})();
+</script>
+</body>
+</html>

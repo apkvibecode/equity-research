@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — AMT</title>
+<style>
+  :root{
+    --bg:#f7f6f2; --surface:#ffffff; --surface2:#efede6; --ink:#1c2226; --muted:#5b666e;
+    --line:#d9d5c9; --accent:#0e5f56; --accent-ink:#0a463f; --gold:#9a7420;
+    --up:#17724c; --down:#b03a2e; --warn-bg:#fdf3e0; --warn-line:#e3c98a; --warn-ink:#6d5312;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12161a; --surface:#1a2025; --surface2:#222a30; --ink:#e8e6df; --muted:#a3adb4;
+      --line:#333c43; --accent:#3fbfae; --accent-ink:#7fd8cb; --gold:#d3ab4e;
+      --up:#4cc38a; --down:#e57365; --warn-bg:#2c2517; --warn-line:#6b5a2c; --warn-ink:#e6cf8f;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+    font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+  .sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:20px 18px 56px}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  h1{font-size:32px;line-height:1.15;margin:0 0 4px;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:20px;margin:34px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent);
+     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-weight:700}
+  h3{font-size:16px;margin:18px 0 6px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  p{margin:8px 0}
+  .kicker{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .dek{color:var(--muted);font-size:17px;margin:2px 0 14px}
+  .meta{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:8px 0;display:flex;flex-wrap:wrap;gap:6px 18px}
+  .verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .vcard .lab{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .vcard .big{font-size:24px;font-weight:700;margin:4px 0 2px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .hold{color:var(--gold)} .buy{color:var(--up)}
+  .vcard .sub{font-size:13.5px;color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:14px 0}
+  .stat{background:var(--surface);padding:10px 12px}
+  .stat .lab{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .stat .val{font-size:19px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  .stat .src{font-size:11.5px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  th,td{padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{text-align:left;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.hl td{background:var(--surface2);font-weight:700}
+  .note{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;
+    padding:12px 14px;margin:14px 0;font-size:14.5px;color:var(--warn-ink)}
+  .callout{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:14px 0}
+  ul{margin:8px 0 8px 20px;padding:0} li{margin:5px 0}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:640px){.twocol{grid-template-columns:1fr} h1{font-size:26px}}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 74px;gap:10px;align-items:center;margin:7px 0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:13.5px}
+  .bar-track{background:var(--surface2);border-radius:6px;height:20px;position:relative;overflow:hidden}
+  .bar-fill{position:absolute;inset:0 auto 0 0;border-radius:6px;background:var(--accent)}
+  .bar-fill.intl{background:var(--gold)}
+  .bar-price{position:absolute;top:0;bottom:0;width:2px;background:var(--down)}
+  .scen{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:12px 0}
+  .scard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .scard .lab{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+  .scard .px{font-size:28px;font-weight:700;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;margin:2px 0}
+  .scard .ret{font-size:13.5px;color:var(--muted)}
+  .bear .lab{color:var(--down)} .base .lab{color:var(--accent)} .bull .lab{color:var(--up)}
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+  .calc label{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{width:100%;max-width:280px;padding:9px 11px;font-size:16px;border:1px solid var(--line);
+    border-radius:8px;background:var(--bg);color:var(--ink)}
+  .calc .out{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:15px;margin-top:10px}
+  .formula{background:var(--surface2);border-radius:8px;padding:10px 14px;font-size:14.5px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;overflow-wrap:anywhere}
+  .srcs{font-size:13.5px;color:var(--muted)}
+  .srcs li{margin:4px 0}
+  .foot{margin-top:36px;border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--muted)}
+  .tag{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:999px;
+    background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);vertical-align:middle}
+  .tag.ok{background:var(--surface2);color:var(--muted);border-color:var(--line)}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="kicker">Equity Research · Real Estate — Towers</div>
+  <h1>American Tower (AMT)</h1>
+  <p class="dek">The world's largest tower REIT: a landlord to the mobile networks, paid on long leases with built-in escalators — priced here as an income-plus-moderate-growth holding, not a growth stock.</p>
+  <div class="meta">
+    <span><strong>Report date:</strong> 1 Nov 2026</span>
+    <span><strong>Price reference:</strong> 30 Oct 2026 close — $187.78</span>
+    <span><strong>Sector:</strong> Real Estate (Specialised / Towers)</span>
+    <span><strong>Ranking basis:</strong> Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (VNQ tracks the MSCI US IMI Real Estate index). This is a market-cap ranking, not VNQ-weight order — VNQ weight differs only in swapping Realty Income (O, 3.34%) ahead of Public Storage (PSA, 3.11%). AMT sits #4 by market cap in that top 10.</span>
+  </div>
+
+  <div class="verdict">
+    <div class="vcard"><div class="lab">Short term · 12–18 mo</div><div class="big hold">HOLD</div>
+      <div class="sub">Base target $210 (+11.8% price, plus ~3.8% yield). No rush to add until the AFFO base is confirmed against the Q3 release.</div></div>
+    <div class="vcard"><div class="lab">Long term · 5 yr</div><div class="big buy">BUY</div>
+      <div class="sub">Modelled 2031 weighted value $237.50 <span class="tag">Modelled estimate</span> — escalator-driven AFFO compounding plus the dividend.</div></div>
+    <div class="vcard"><div class="lab">Suggested portfolio weight</div><div class="big">1.5%</div>
+      <div class="sub">Of total portfolio, for a mid-30s investor at risk score 8/10. A satellite income position inside the real-estate sleeve — deliberately small while the AFFO base is unverified.</div></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="lab">Close · 30 Oct 2026</div><div class="val">$187.78</div><div class="src">Confirmed in independent verification · <a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a></div></div>
+    <div class="stat"><div class="lab">Market cap</div><div class="val">$87.09B</div><div class="src"><a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a></div></div>
+    <div class="stat"><div class="lab">Revenue · TTM</div><div class="val">$10.9B</div><div class="src"><a href="https://www.fool.com/research/largest-real-estate-companies/">Motley Fool research</a></div></div>
+    <div class="stat"><div class="lab">Dividend yield</div><div class="val">3.81%</div><div class="src">FinanceCharts, via research pack</div></div>
+    <div class="stat"><div class="lab">Trailing P/E</div><div class="val">26.48×</div><div class="src"><a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a> — reported for reference only; see valuation note</div></div>
+    <div class="stat"><div class="lab">Implied P/AFFO</div><div class="val">~17.9×</div><div class="src">Derived: $187.78 ÷ $10.50 AFFO <span class="tag">Estimate</span></div></div>
+  </div>
+
+  <div class="note"><strong>Read this first — two flags that shape everything below.</strong>
+    (1) <strong>The AFFO base is an estimate.</strong> The research pack's AFFO figure of ~$10.50/share was <em>not verified</em> in the independent verification pass, so every AFFO-based multiple, scenario and 5-year price in this note is labelled a <strong>modelled estimate</strong> and should be re-checked against AMT's Q3 release before sizing up.
+    (2) <strong>REIT multiples:</strong> for REITs, P/FFO and P/AFFO are the primary valuation multiples. Trailing P/E is distorted by depreciation and is <em>not</em> used for valuation anywhere in this note — the 26.48× above is shown only because it is the headline figure most screens display.</div>
+
+  <h2>1 · Business Model &amp; Segment Breakdown</h2>
+  <p>American Tower owns and leases the vertical real estate that mobile networks run on. Carriers — AT&amp;T, Verizon and T-Mobile in the US, plus international carriers abroad — rent space on AMT's towers under long leases, typically with contractual annual escalators. AMT does not sell connectivity; it collects rent on scarce, permitted sites, and each additional tenant on an existing tower drops through at very high incremental margin because the structure is already built. Alongside towers, AMT operates a data-centre business (the CoreSite adjacency), which is the structural pivot of the last several years: from pure towers toward digital infrastructure more broadly.</p>
+
+  <h3>Portfolio footprint</h3>
+  <div class="bar-row"><span>US &amp; Canada</span><div class="bar-track"><div class="bar-fill" style="width:28.4%"></div></div><span>42,000+ sites</span></div>
+  <div class="bar-row"><span>International</span><div class="bar-track"><div class="bar-fill intl" style="width:71.6%"></div></div><span>~106,000 sites</span></div>
+  <p class="srcs">Total: <strong>148,000+ communications sites across 22 countries</strong>, of which <strong>42,000+ are in the US/Canada</strong> — the international count (~106,000) is the residual of those two reported figures. Source: <a href="https://www.fool.com/research/largest-real-estate-companies/">Motley Fool — Largest Real Estate Companies</a>. Segment-level revenue splits were not carried in the verified pack and are omitted rather than estimated.</p>
+
+  <h3>How the money works</h3>
+  <ul>
+    <li><strong>Carrier leases (core):</strong> multi-year contracts with escalators; revenue TTM of <strong>$10.9B</strong> (<a href="https://www.fool.com/research/largest-real-estate-companies/">Fool</a>). Tenancy additions and amendments (carriers adding equipment for 5G) are the organic growth engine.</li>
+    <li><strong>International book:</strong> the majority of sites by count, spread across 22 countries including India, Africa and Latin America — faster carrier growth, but FX and political exposure (see §4).</li>
+    <li><strong>Data centres:</strong> the adjacency bet — interconnect-rich facilities that benefit from the same digital-infrastructure demand as towers, at different (higher) capital intensity.</li>
+    <li><strong>Dependencies:</strong> carrier capex cycles are the single biggest external driver — when AT&amp;T, Verizon or T-Mobile slow network spend, tenancy growth slows with a lag. Site supply is constrained by zoning/permitting, which protects incumbents (see §3).</li>
+  </ul>
+
+  <h2>2 · Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <p>AMT's financial profile is that of a mature, leveraged infrastructure landlord: high-margin rental revenue, a substantial dividend, and a balance sheet that carries meaningful debt against long-lived assets. The pack did <strong>not</strong> verify a debt-to-equity figure for AMT, so no leverage ratio is stated here as fact — the verification log marks D/E <em>not verified</em>, and the honest read is directional only: tower REITs fund portfolios with debt because the underlying leases are long and predictable, which makes the shares rate-sensitive (see §4).</p>
+
+  <table>
+    <tr><th>Metric</th><th class="n">Value</th><th>Basis / source</th></tr>
+    <tr><td>Price (30 Oct 2026 close)</td><td class="n">$187.78</td><td>Confirmed · <a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a></td></tr>
+    <tr><td>Market capitalisation</td><td class="n">$87.09B</td><td><a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a></td></tr>
+    <tr><td>Revenue (TTM)</td><td class="n">$10.9B</td><td><a href="https://www.fool.com/research/largest-real-estate-companies/">Motley Fool</a></td></tr>
+    <tr><td>Dividend yield</td><td class="n">3.81%</td><td>FinanceCharts, via pack</td></tr>
+    <tr><td>Implied annual dividend (derived)</td><td class="n">~$7.15/sh</td><td>Derived: 3.81% × $187.78</td></tr>
+    <tr><td>AFFO per share (model base)</td><td class="n">~$10.50</td><td><span class="tag">Estimate — not verified</span> re-check vs Q3 release</td></tr>
+    <tr><td>Implied dividend payout vs AFFO est.</td><td class="n">~68%</td><td>Derived from the two rows above; estimate-based</td></tr>
+    <tr><td>Implied P/AFFO</td><td class="n">~17.9×</td><td>Derived: $187.78 ÷ $10.50 est. AFFO</td></tr>
+    <tr><td>Trailing P/E (reference only)</td><td class="n">26.48×</td><td><a href="https://finnhub.io/?q=%22AMT%22">Finnhub</a> — not used for REIT valuation</td></tr>
+    <tr><td>Debt / equity</td><td class="n">—</td><td>Not verified in the pack; omitted rather than guessed</td></tr>
+  </table>
+
+  <p><strong>Capital allocation.</strong> The stated mechanics of the model: AFFO funds (i) the dividend — at a 3.81% yield, income is a real part of the return here, roughly a third of the base-case 12–18-month total return; (ii) tower construction and acquisitions; and (iii) the data-centre build-out. The key diagnostic to run when the Q3 release is in hand: does reported AFFO confirm the ~$10.50 base? If actual AFFO comes in materially lower, the implied P/AFFO rises above ~18× and the scenario prices in §5 all shift down proportionally — the formula in §5 makes that sensitivity explicit.</p>
+  <p><strong>FCF character.</strong> Towers are low-maintenance assets once built (ground rent, insurance, monitoring), so cash conversion of rental revenue is structurally high; the drags are growth capex (new builds, data centres) and interest on the debt stack. That is why AFFO — which strips out maintenance capex from FFO — is the cash-flow number this note anchors on, with the estimate caveat attached.</p>
+
+  <h2>3 · Competitive Moat &amp; Industry Positioning</h2>
+  <ul>
+    <li><strong>Zoning &amp; permitting barriers:</strong> new tower sites face local permitting friction that takes years; the existing 148,000+ site portfolio cannot be replicated at any reasonable cost or speed. This is the core moat.</li>
+    <li><strong>Carrier switching costs:</strong> moving an antenna array means network re-engineering, downtime risk and new permits. Carriers renew; churn is structurally low, and escalators compound in place.</li>
+    <li><strong>Scale &amp; footprint:</strong> 22 countries and the largest US/Canada base (42,000+ sites) let AMT offer carriers one landlord across markets — a bundling advantage smaller tower owners cannot match.</li>
+    <li><strong>Competitors:</strong> Crown Castle (CCI) and SBA Communications (SBAC) are the named rivals. Context on ranking: the next US real-estate name by market cap after the top 10 is Crown Castle (CCI, ~$38B), #11 behind Ventas (VTR, #10) — not #11 by VNQ weight, where CBRE and Iron Mountain rank ahead of it (<a href="https://stockanalysis.com/etf/vnq/holdings/">StockAnalysis VNQ holdings</a>). CCI is more US-concentrated and fibre-heavy; SBAC is the smaller, more leveraged pure-tower peer.</li>
+    <li><strong>Pricing power:</strong> contractual escalators give built-in, inflation-linked-ish pricing growth without renegotiation; pricing power is real but capped by carrier concentration — three US carriers dominate domestic demand.</li>
+  </ul>
+
+  <h2>4 · Catalysts &amp; Downside Risks</h2>
+  <div class="twocol">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>5G densification:</strong> carriers adding equipment and mid-band spectrum deployments drive amendments and new tenancies on existing sites — high-margin growth.</li>
+        <li><strong>International growth:</strong> India, Africa and LatAm carrier build-outs, where tower tenancy ratios are lower and runway is longer.</li>
+        <li><strong>Data-centre adjacency:</strong> continued CoreSite/data-centre demand rides the same AI-era digital-infrastructure spend lifting the data-centre REITs.</li>
+        <li><strong>Rate relief:</strong> as a 3.81%-yielding REIT, any sustained fall in long rates mechanically supports the multiple.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><strong>Carrier consolidation / capex cuts:</strong> fewer carriers or a network-spending pause cuts tenancy growth; carrier concentration is the flip side of the moat.</li>
+        <li><strong>FX exposure:</strong> the majority of sites sit outside the US/Canada — a strong dollar and EM currency weakness directly dent reported results.</li>
+        <li><strong>Emerging-market regulatory / political risk:</strong> India, Africa and LatAm operations carry rule-change and counterparty risk not present in the US book.</li>
+        <li><strong>Leverage &amp; rates:</strong> an unverified-but-material debt stack (D/E not verified — see §2) plus REIT rate sensitivity: rising long rates compress both the multiple and refinancing economics.</li>
+        <li><strong>Estimate risk:</strong> the AFFO base underlying this note's valuation is unverified; a lower Q3 print invalidates the scenario anchors until re-based.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5 · Scenario-Based Valuation &amp; Price Targets</h2>
+  <p class="sans" style="font-size:13px;color:var(--muted)">All targets below are <strong>modelled estimates</strong> with methodology shown — not verified facts. Scenario weights (25% bear / 50% base / 25% bull) are the modelling convention of this series and are shown so every weighted figure can be re-checked.</p>
+
+  <h3>12–18-month targets</h3>
+  <div class="scen">
+    <div class="scard bear"><div class="lab">Bear · 25%</div><div class="px">$165</div><div class="ret">−12.1% vs $187.78 close. Carrier capex pause, FX drag, multiple compresses toward ~15–16× AFFO.</div></div>
+    <div class="scard base"><div class="lab">Base · 50%</div><div class="px">$210</div><div class="ret">+11.8% vs close, plus ~3.8% dividend yield. Steady escalators, mid-single-digit AFFO growth, multiple holds near ~18×.</div></div>
+    <div class="scard bull"><div class="lab">Bull · 25%</div><div class="px">$235</div><div class="ret">+25.2% vs close. 5G amendment cycle re-accelerates, data centres contribute, rates ease.</div></div>
+  </div>
+  <p><strong>Probability-weighted 12–18-month value:</strong> 0.25 × $165 + 0.50 × $210 + 0.25 × $235 = <strong>$205.00</strong> (derived from the modelled targets above; +9.2% price upside, ~13% including the dividend at the current yield).</p>
+
+  <h3>5-year projection — frozen-parameter format, adapted for a REIT</h3>
+  <p>The standard format in this series is <em>2031 price = 2031 revenue × net margin ÷ shares × P/E</em>. For a REIT that formula misleads: depreciation makes net income and P/E poor anchors. The transparent adaptation used here freezes the same three drivers — growth, cash earnings per share, and the multiple — but on AFFO:</p>
+  <div class="formula">2031 price = AFFO/share₀ × (1 + g)⁵ × P/AFFO, &nbsp; AFFO/share₀ = $10.50 (ESTIMATE), parameters frozen per case</div>
+  <table>
+    <tr><th>Case (weight)</th><th class="n">AFFO growth / yr</th><th class="n">2031 AFFO/sh</th><th class="n">P/AFFO</th><th class="n">2031 price</th><th class="n">vs $187.78</th></tr>
+    <tr><td>Bull (25%)</td><td class="n">7%</td><td class="n">$14.73</td><td class="n">20×</td><td class="n">$294</td><td class="n">+56.6%</td></tr>
+    <tr><td>Base (50%)</td><td class="n">5%</td><td class="n">$13.40</td><td class="n">18×</td><td class="n">$241</td><td class="n">+28.3%</td></tr>
+    <tr><td>Bear (25%)</td><td class="n">2%</td><td class="n">$11.59</td><td class="n">15×</td><td class="n">$174</td><td class="n">−7.3%</td></tr>
+    <tr class="hl"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$237.50</td><td class="n">+26.5%</td></tr>
+  </table>
+  <p class="srcs">Arithmetic check: base $10.50 × 1.05⁵ = $13.40 × 18 = $241 · bull $10.50 × 1.07⁵ = $14.73 × 20 = $294 · bear $10.50 × 1.02⁵ = $11.59 × 15 = $174 · weighted 0.25×294 + 0.50×241 + 0.25×174 = $237.50. All <span class="tag">Modelled estimate</span> — and remember the $10.50 AFFO seed itself is unverified; dividends received over five years (~3.8%/yr at today's yield, before any growth) sit on top of these price-only figures. The bear case is instructive: even with 2% AFFO growth, multiple compression to 15× leaves the price below today — for a REIT, the entry multiple does much of the work.</p>
+
+  <h2>6 · Recommendation &amp; Portfolio Sizing</h2>
+  <div class="twocol">
+    <div class="callout">
+      <h3 style="margin-top:0">Short term (12–18 mo): <span class="hold">HOLD</span></h3>
+      <p>The weighted target ($205) offers ~9% price upside plus the dividend — fair, not compelling, and the AFFO base still needs confirming against the Q3 print. Hold existing positions; add only on weakness toward the bear-case zone or after the AFFO base is verified.</p>
+      <h3>Long term (5 yr): <span class="buy">BUY</span></h3>
+      <p>Escalator-compounding rent on irreplaceable sites, a ~3.8% starting yield, and international/data-centre optionality support the base-case path to $241 (weighted $237.50, modelled estimate). The moat is structural, not technological — it decays slowly, which suits a 5-year hold.</p>
+    </div>
+    <div class="calc">
+      <label for="pf">Position-size calculator — your total portfolio ($)</label>
+      <input id="pf" type="number" inputmode="decimal" value="250000" min="0" step="1000" />
+      <div class="out" id="calcOut"></div>
+      <p class="srcs" style="margin-top:8px">Suggested weight 1.5% of total portfolio for a mid-30s investor, risk score 8/10 — a satellite income holding inside the real-estate sleeve. Size stays modest while the AFFO base is an estimate; revisit after the Q3 release confirms it.</p>
+    </div>
+  </div>
+
+  <h2>Sources</h2>
+  <ul class="srcs">
+    <li>Price, market cap, trailing P/E — Finnhub, AMT quote (30 Oct 2026 close independently confirmed in the verification pass): <a href="https://finnhub.io/?q=%22AMT%22">finnhub.io/?q="AMT"</a></li>
+    <li>Site counts, countries, revenue TTM — Motley Fool, Largest Real Estate Companies: <a href="https://www.fool.com/research/largest-real-estate-companies/">fool.com/research/largest-real-estate-companies</a></li>
+    <li>Sector ranking universe — TipRanks, VNQ holdings: <a href="https://www.tipranks.com/etf/vnq/holdings">tipranks.com/etf/vnq/holdings</a></li>
+    <li>VNQ weight context (CCI #11 note) — StockAnalysis, VNQ holdings: <a href="https://stockanalysis.com/etf/vnq/holdings/">stockanalysis.com/etf/vnq/holdings</a></li>
+    <li>Global ranking context (same top 10 globally; Sun Hung Kai #11 at ~$40.22B) — CompaniesMarketCap, largest real estate companies: <a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/">companiesmarketcap.com</a></li>
+    <li>Dividend yield 3.81% — FinanceCharts, via the verified research pack (no direct link carried in the pack).</li>
+  </ul>
+
+  <div class="foot">
+    <p><strong>Open questions, stated plainly:</strong> (1) AMT's actual AFFO/share — the ~$10.50 model base is an unverified estimate; verify against the Q3 release before sizing. (2) Debt-to-equity — not verified in the pack, deliberately omitted. (3) Segment revenue splits — not carried in the verified pack, omitted rather than estimated.</p>
+    <p>Recommendations are research views, not guarantees and not investment advice. Scenario prices are modelled estimates built on the assumptions shown. Prepared 1 Nov 2026; price reference is the 30 Oct 2026 close ($187.78).</p>
+  </div>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>AMT — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $187.78.</strong> <strong>DCF intrinsic: $124.</strong> Discount/premium vs DCF: <strong>+51.4%</strong> — i.e. the shares are trading 51.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$124</td><td>+51.4%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $10 per share — AFFO ESTIMATE $10.50 (pack - flagged estimate, not verified). REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 5.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/AMT/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/amt/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AMT — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>T-Mobile</td><td>18% of total revenue (FY2025)</td><td>TMUS — DCF intrinsic $194 discount/premium -19.4% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>AT&T</td><td>17%</td><td>T — DCF intrinsic $14.31, discount/premium +49.6% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Verizon Wireless</td><td>14%</td><td>VZ — DCF intrinsic $25.07, discount/premium +78.4% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Telefónica</td><td>10%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Other tenants (incl. data-centre customers)</td><td>Remainder; no individual tenant above 10% disclosed</td><td>not in coverage — no intrinsic on file</td></tr></table><p>Read-through: American Tower is highly concentrated — its top four tenants are 59% of revenue and the three US carriers alone are 85% of US & Canada property revenue — so the tenant read-through genuinely matters here. If the filled-in intrinsics show T-Mobile, AT&T and Verizon trading at discounts to intrinsic, that is a tailwind for AMT (carriers with valuation headroom are better placed to keep funding 5G densification and lease renewals), and premiums would be a headwind — but an undervalued carrier does not guarantee higher tower spend: carrier capex depends on spectrum, competition and balance-sheet priorities, and the pack's own risk list includes carrier consolidation and capex cuts. Note also the concentration cuts both ways: a single carrier's relocation or consolidation decision moves AMT's rent far more than any valuation signal.</p><p><em>Source: American Tower FY2025 annual report / 10-K: top four customers by total revenue T-Mobile 18%, AT&T 17%, Verizon Wireless 14%, Telefónica 10%; US & Canada top three = 85% of segment revenue.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AMT — AI trade positioning</h2>
+<p><strong>Role: Beneficiary (low–moderate).</strong> American Tower's AI exposure is indirect but real: AI workloads drive mobile data growth and edge-compute demand, and its 148,000+ sites plus data-centre adjacency serve carriers whose networks carry AI traffic — but the pack names no AI-specific lease or revenue line.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Carrier data growth from AI-driven mobile and edge usage supports 5G densification leasing and, at the margin, edge data-centre demand; the primary driver remains carrier capex cycles, not AI itself.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> AMT trades at a mid-pack tower multiple with a 3.81% yield; AI adds a modest growth narrative to carrier leasing, but the multiple is anchored by contracted escalators and carrier credit, not by an AI premium.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: carriers cut capex (the pack's stated risk) if AI monetisation disappoints or consolidation reduces the tenant count from three US carriers. Second, multiple compression: modest, since no large AI premium is embedded; the bigger risk is a general rate-driven REIT de-rating. Third, balance sheet: high — $43.42B net debt and large non-US exposure (FX, emerging-market regulation), so a stronger dollar or EM stress compounds a capex downturn. No quantified sensitivity is claimed, and the AFFO base used here is a pack estimate.</p>
+<p><strong>Trigger(s) to watch:</strong> US carrier capex guidance (AT&T, Verizon, T-Mobile); carrier consolidation or lease renegotiation news; and FX/EM developments in AMT's international book.</p>
+</div>
+</main>
+<script>
+  (function(){
+    var PRICE = 187.78, WEIGHT = 0.015;
+    var input = document.getElementById('pf'), out = document.getElementById('calcOut');
+    function fmt(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}); }
+    function render(){
+      var v = parseFloat(input.value);
+      if (isNaN(v) || v < 0){ out.textContent = 'Enter a portfolio value to see the suggested position.'; return; }
+      var pos = v * WEIGHT, shares = pos / PRICE;
+      out.innerHTML = 'Suggested AMT position at 1.5%: <strong>' + fmt(pos) + '</strong> ≈ <strong>' +
+        shares.toLocaleString('en-US',{maximumFractionDigits:1}) + ' shares</strong> at $187.78.';
+    }
+    input.addEventListener('input', render);
+    render();
+  })();
+</script>
+</body>
+</html>

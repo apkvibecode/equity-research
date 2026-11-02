@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — GOOGL (Alphabet)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f6f2; --surface:#ffffff; --surface2:#efeee8; --ink:#17222e; --ink2:#46536a; --ink3:#6b7789;
+    --line:#dcd9d0; --line2:#c9c5b8;
+    --accent:#1d4f9c; --accent-soft:#e3ecf8;
+    --good:#1c6b3c; --good-soft:#e2f0e6;
+    --bad:#a02c22; --bad-soft:#f8e6e3;
+    --warn:#8a5d00; --warn-soft:#f7ecd2;
+    --chip:#eef0f3;
+    --shadow:0 1px 3px rgba(23,34,46,.08), 0 8px 24px rgba(23,34,46,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#11161d; --surface:#1a212c; --surface2:#222b38; --ink:#e8ecf1; --ink2:#aeb9c7; --ink3:#8492a5;
+      --line:#2e3947; --line2:#3d4a5c;
+      --accent:#7aa8e8; --accent-soft:#22334d;
+      --good:#7cc79b; --good-soft:#1d3328;
+      --bad:#e08a80; --bad-soft:#3d2320;
+      --warn:#e0bd6b; --warn-soft:#3a3018;
+      --chip:#242e3c;
+      --shadow:0 1px 3px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+  .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+  h1,h2,h3{font-family:"IBM Plex Serif",Georgia,serif;line-height:1.15;margin:0}
+  h2{font-size:26px;font-weight:700;letter-spacing:-.01em}
+  h3{font-size:18px;font-weight:600}
+  p{margin:0 0 12px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .small{font-size:13px;color:var(--ink2)}
+  .tiny{font-size:12px;color:var(--ink3)}
+
+  /* ---------- header ---------- */
+  header{padding:34px 0 0}
+  .dateline{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;font-size:13px;color:var(--ink2);border-bottom:2px solid var(--ink);padding-bottom:10px}
+  .dateline b{color:var(--ink)}
+  .title-row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;padding:22px 0 6px}
+  .title-row h1{font-size:42px;font-weight:700;letter-spacing:-.015em}
+  .title-row .co{font-size:17px;color:var(--ink2);margin-top:4px}
+  .price-block{text-align:right}
+  .price-block .px{font-family:"IBM Plex Mono",monospace;font-size:38px;font-weight:600;letter-spacing:-.02em}
+  .price-block .chg{font-size:14px;font-weight:600;color:var(--bad)}
+  .price-block .cap{font-size:13px;color:var(--ink2)}
+  .verdict-strip{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px}
+  .verdict{flex:1 1 210px;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);padding:12px 14px;box-shadow:var(--shadow)}
+  .verdict .k{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+  .verdict .v{font-size:19px;font-weight:700;margin-top:2px}
+  .verdict .n{font-size:13px;color:var(--ink2)}
+  .verdict.hold{border-top-color:var(--warn)} .verdict.buy{border-top-color:var(--good)}
+
+  /* ---------- KPI grid ---------- */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0 6px}
+  .kpi{background:var(--surface);border:1px solid var(--line);padding:14px 16px;box-shadow:var(--shadow)}
+  .kpi .k{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+  .kpi .v{font-family:"IBM Plex Mono",monospace;font-size:23px;font-weight:600;margin-top:3px}
+  .kpi .n{font-size:12.5px;color:var(--ink2);margin-top:2px}
+  .kpi .v.neg{color:var(--bad)} .kpi .v.pos{color:var(--good)}
+
+  .basis{background:var(--surface2);border:1px solid var(--line);padding:12px 16px;font-size:13px;color:var(--ink2);margin:16px 0 0}
+  .basis b{color:var(--ink)}
+
+  /* ---------- sections ---------- */
+  section{margin-top:44px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line2);padding-bottom:8px;margin-bottom:16px}
+  .sec-head .no{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--accent);border:1px solid var(--accent);padding:2px 7px}
+  .sec-head h2{flex:1}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--surface);border:1px solid var(--line);padding:18px 20px;box-shadow:var(--shadow)}
+  .card h3{margin-bottom:10px}
+  ul.tight{margin:0;padding-left:18px}
+  ul.tight li{margin-bottom:7px}
+  ul.tight li::marker{color:var(--accent)}
+  .tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:1px 7px;border-radius:99px;vertical-align:2px;margin-left:6px}
+  .tag.est{background:var(--warn-soft);color:var(--warn)}
+  .tag.conf{background:var(--good-soft);color:var(--good)}
+  .tag.mod{background:var(--accent-soft);color:var(--accent)}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--surface)}
+  th{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);text-align:left;padding:10px 12px;border-bottom:2px solid var(--line2);background:var(--surface)}
+  td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.r,th.r{text-align:right}
+  tr:last-child td{border-bottom:none}
+  .tbl-wrap{border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+  .pos{color:var(--good);font-weight:600}.neg{color:var(--bad);font-weight:600}
+
+  /* segment bars */
+  .segbar{display:flex;height:30px;border:1px solid var(--line2);overflow:hidden;margin:6px 0 8px}
+  .segbar div{display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden}
+  .seg-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--ink2)}
+  .dot{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:-1px}
+
+  /* sankey */
+  .sankey-card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:18px 20px}
+  .sankey-card svg{width:100%;height:auto;display:block}
+  .sk-label{font-family:"IBM Plex Sans",sans-serif;font-size:12.5px;font-weight:600;fill:var(--ink)}
+  .sk-sub{font-family:"IBM Plex Mono",monospace;font-size:11.5px;fill:var(--ink2)}
+  .sk-note{font-size:11px;fill:var(--ink3);font-family:"IBM Plex Sans",sans-serif}
+
+  /* scenarios */
+  .weighted{display:flex;flex-wrap:wrap;gap:14px;align-items:center;background:var(--accent-soft);border:1px solid var(--line);padding:14px 18px;margin-top:14px}
+  .weighted .big{font-family:"IBM Plex Mono",monospace;font-size:30px;font-weight:600}
+  .weighted .lbl{font-size:13px;color:var(--ink2);max-width:560px}
+
+  /* calculator */
+  .calc{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);padding:20px}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .calc label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:6px}
+  .calc input[type=text]{width:100%;font-family:"IBM Plex Mono",monospace;font-size:20px;padding:10px 12px;border:1px solid var(--line2);background:var(--bg);color:var(--ink)}
+  .calc input[type=range]{width:100%;accent-color:var(--accent)}
+  .calc-out{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px}
+  .calc-out .o{background:var(--surface2);border:1px solid var(--line);padding:12px 14px}
+  .calc-out .k{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+  .calc-out .v{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;margin-top:2px}
+
+  .risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .risk-col h3{margin-bottom:10px;padding-bottom:6px}
+  .risk-col.cat h3{border-bottom:3px solid var(--good)} .risk-col.risk h3{border-bottom:3px solid var(--bad)}
+
+  .sources{font-size:13.5px}
+  .sources li{margin-bottom:6px;word-break:break-word}
+  footer{margin-top:48px;border-top:2px solid var(--ink);padding-top:14px;font-size:12.5px;color:var(--ink2)}
+  .disc{background:var(--warn-soft);border:1px solid var(--line);padding:12px 16px;font-size:13px;margin-top:16px}
+
+  @media (max-width:820px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .cols,.risk-grid,.calc-grid{grid-template-columns:1fr}
+    .title-row h1{font-size:33px}
+    .price-block{text-align:left}
+    .calc-out{grid-template-columns:1fr}
+    h2{font-size:22px}
+    table{font-size:12.5px}
+    th{padding:8px 6px;font-size:10.5px}
+    td{padding:8px 6px}
+    /* wide tables reflow into labelled stacked rows */
+    table.wide thead{display:none}
+    table.wide,table.wide tbody,table.wide tr,table.wide td{display:block;width:100%}
+    table.wide tr{padding:10px 12px;border-bottom:2px solid var(--line2)}
+    table.wide tr:last-child{border-bottom:none}
+    table.wide td{border-bottom:none;padding:3px 0;display:flex;justify-content:space-between;align-items:baseline;gap:16px;text-align:right;font-size:13.5px}
+    table.wide td::before{content:attr(data-l);font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);text-align:left;flex:0 0 auto;padding-top:2px}
+    table.wide td:first-child{font-size:15px}
+    table.wide.seg td:last-child{display:block;text-align:left}
+    table.wide.seg td:last-child::before{display:block;margin-bottom:2px}
+    .card,.sankey-card{padding:14px}
+    .sk-label{font-size:14px}
+    .sk-sub{font-size:13px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="dateline">
+    <span><b>Equity Research</b> · Communication Services</span>
+    <span>As of <b>1 Nov 2026</b></span>
+    <span>Price reference: <b>30 Oct 2026 close</b> (1 Nov was a weekend)</span>
+    <span>Profile: mid-30s investor · risk score 8/10</span>
+  </div>
+  <div class="title-row">
+    <div>
+      <h1>Alphabet Inc. — GOOGL</h1>
+      <div class="co">Search &amp; YouTube advertising · Google Cloud · Other Bets (Waymo, Verily) · NASDAQ: GOOGL (Class A)</div>
+    </div>
+    <div class="price-block">
+      <div class="px">$279.84</div>
+      <div class="chg">−1.40% on 30 Oct 2026</div>
+      <div class="cap">Market cap <span class="num">$3.42T</span> · FinanceCharts, 30 Oct 2026</div>
+    </div>
+  </div>
+
+  <div class="verdict-strip">
+    <div class="verdict hold">
+      <div class="k">Short term · 12–18 months</div>
+      <div class="v">HOLD</div>
+      <div class="n">Capex / free-cash-flow overhang despite the Cloud beat.</div>
+    </div>
+    <div class="verdict buy">
+      <div class="k">Long term · 5 years</div>
+      <div class="v">BUY</div>
+      <div class="n">Search distribution + Cloud scale + TPU silicon still compound.</div>
+    </div>
+    <div class="verdict">
+      <div class="k">Suggested position</div>
+      <div class="v">6% of portfolio</div>
+      <div class="n">Single-name weight for a risk-8/10 profile. Calculator in §6.</div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="k">Q3 2026 revenue</div><div class="v">$127.58B</div><div class="n"><span class="pos">+25% y/y</span> · reported 28 Oct 2026</div></div>
+    <div class="kpi"><div class="k">Google Cloud revenue</div><div class="v">$30.71B</div><div class="n"><span class="pos">+103% y/y</span> · op. income $11.12B</div></div>
+    <div class="kpi"><div class="k">Q3 operating income</div><div class="v">$40.58B</div><div class="n">31.8% operating margin</div></div>
+    <div class="kpi"><div class="k">Q3 free cash flow</div><div class="v neg">−$9.07B</div><div class="n">Second negative quarter · $51.36B PP&amp;E spend</div></div>
+    <div class="kpi"><div class="k">Forward P/E</div><div class="v">~24–26×</div><div class="n">Estimate on normalised earnings <span class="tag est">Estimate</span></div></div>
+    <div class="kpi"><div class="k">Price / sales</div><div class="v">~7.3×</div><div class="n">On 2026E revenue ~$470B <span class="tag est">Estimate</span></div></div>
+    <div class="kpi"><div class="k">2026 capex guide</div><div class="v">$195–205B</div><div class="n">Unchanged at the Q3 call</div></div>
+    <div class="kpi"><div class="k">Q3 EPS</div><div class="v">$2.12</div><div class="n">After an $8.66B equity-securities loss</div></div>
+  </div>
+
+  <div class="basis"><b>Ranking &amp; verification basis.</b> Sector ranking from FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. GOOGL is counted once (GOOG excluded as a duplicate share class of the same company). Key figures below were independently re-verified against second sources on 1 Nov 2026; where a figure could not be verified it is labelled <b>Estimate</b>, and every scenario price is a <b>modelled estimate</b> with its assumptions shown — not a verified fact. Note on multiples: one vendor's trailing P/E (14.48× on EPS of $10.81) does not reconcile to the $279.84 price, so it is treated as unreliable and not used here.</div>
+</header>
+
+<!-- ================= 1. BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="no">§1</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+
+  <p>Alphabet earns money three ways: advertising and subscriptions inside <b>Google Services</b> (Search, YouTube, Network, subscriptions/platforms/devices), enterprise cloud and AI infrastructure in <b>Google Cloud</b>, and long-dated options in <b>Other Bets</b> (Waymo, Verily and others). Q3 2026 was a Cloud story: total revenue grew 25% while Cloud more than doubled, helped by TPU systems sales alongside the usual compute and AI services.</p>
+
+  <div class="segbar" role="img" aria-label="Q3 2026 revenue mix: Google Services 75.5 percent, Google Cloud 24.1 percent, Other Bets and hedging about 0.4 percent">
+    <div style="width:75.5%;background:#1d4f9c">Google Services · 75.5%</div>
+    <div style="width:24.1%;background:#3d7bc4">Cloud · 24.1%</div>
+    <div style="width:0.4%;background:#9db8d9"></div>
+  </div>
+  <div class="seg-legend">
+    <span><span class="dot" style="background:#1d4f9c"></span>Google Services $96.302B</span>
+    <span><span class="dot" style="background:#3d7bc4"></span>Google Cloud $30.709B</span>
+    <span><span class="dot" style="background:#9db8d9"></span>Other Bets + hedging ≈ $0.57B (residual)</span>
+  </div>
+
+  <div style="height:16px"></div>
+  <div class="tbl-wrap">
+    <table class="wide seg">
+      <thead><tr><th>Q3 2026 segment</th><th class="r">Revenue</th><th class="r">Growth y/y</th><th class="r">Operating income</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><b>Search &amp; other</b></td><td class="r num">$63.350B</td><td class="r num pos">+12%</td><td class="r num">—</td><td>Core auction business; AI Mode is the watch item (see risks).</td></tr>
+        <tr><td><b>YouTube ads</b></td><td class="r num">$11.207B</td><td class="r num pos">+9%</td><td class="r num">—</td><td>Inside Google Services; competes with TikTok for video attention.</td></tr>
+        <tr><td><b>Google Services (total)</b></td><td class="r num">$96.302B</td><td class="r num">—</td><td class="r num">$39.157B</td><td>Search + YouTube + Network + subscriptions, platforms &amp; devices.</td></tr>
+        <tr><td><b>Google Cloud</b></td><td class="r num">$30.709B</td><td class="r num pos">+103%</td><td class="r num">$11.121B</td><td>Op. income up from $3.594B a year ago; includes TPU systems sales.</td></tr>
+        <tr><td><b>Alphabet group</b></td><td class="r num"><b>$127.577B</b></td><td class="r num pos"><b>+25%</b></td><td class="r num"><b>$40.576B</b></td><td>Group operating margin 31.8%.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tiny" style="margin-top:8px">All Q3 figures independently confirmed in verification (source: Securities.io earnings summary; see Sources). Segment operating income is disclosed at Services / Cloud level, not for Search or YouTube individually.</p>
+
+  <div class="cols" style="margin-top:18px">
+    <div class="card">
+      <h3>Geography &amp; structural pivots</h3>
+      <ul class="tight">
+        <li>Revenue is predominantly US plus EMEA/APAC advertising and Cloud; the Q3 summaries used do not disclose a segment-level geographic split, so none is quoted here.</li>
+        <li><b>AI Mode in Search:</b> management noted AI Mode monetises less than classic Search so far — the central mix question for the ad engine.</li>
+        <li><b>TPU systems sales</b> are now a visible part of Cloud growth — Alphabet is selling its own silicon, not just renting compute.</li>
+        <li><b>Capex pivot:</b> a $195–205B 2026 capex programme (data centres, power, networking) has turned Alphabet from a cash compounder into a heavy infrastructure builder.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Supply-chain dependencies</h3>
+      <ul class="tight">
+        <li><b>Advanced silicon &amp; packaging:</b> TSMC and advanced-packaging capacity underpin TPU supply.</li>
+        <li><b>Data-centre power:</b> grid capacity and power contracts are now a gating factor for Cloud growth, alongside networking equipment.</li>
+        <li>This is an infrastructure supply chain, not a device supply chain in the Apple sense — the risk is power and chip capacity, not handset assembly.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2. FINANCIAL HEALTH ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="no">§2</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+
+  <p>The quarter's tension in one line: operating performance was strong (31.8% margin, Cloud profit tripling) while cash performance was not — $51.355B of property &amp; equipment purchases against $42.290B of operating cash flow produced a <b>second consecutive negative free-cash-flow quarter</b>. Net income also understates the operating business: EPS of $2.12 absorbed an $8.664B equity-securities loss.</p>
+
+  <div class="sankey-card">
+    <h3 style="margin-bottom:4px">Q3 2026 income flow — where the $127.58B went</h3>
+    <p class="small" style="margin-bottom:14px">Sankey-style flow built only from verified Q3 figures. The wedge between operating and net income is shown as a combined residual (taxes, interest and other items, net of the disclosed equity loss) and labelled as such.</p>
+    <svg viewBox="0 0 960 340" role="img" aria-label="Income flow diagram: revenue 127.58 billion splits to Google Services 96.30, Cloud 30.71 and other 0.57; revenue then splits to operating costs 87.00 and operating income 40.58; operating income splits to the equity securities loss 8.66, a combined residual 5.45, and net income 26.47">
+      <!-- flows: revenue -> segments -->
+      <path d="M150,60 C260,60 260,52 370,52 L370,128 C260,128 260,140 150,140 Z" fill="#1d4f9c" opacity="0.75"/>
+      <path d="M150,140 C260,140 260,196 370,196 L370,256 C260,256 260,196 150,176 Z" fill="#3d7bc4" opacity="0.75"/>
+      <path d="M150,176 C260,176 260,282 370,282 L370,290 C260,290 260,182 150,182 Z" fill="#9db8d9" opacity="0.8"/>
+      <!-- revenue node -->
+      <rect x="120" y="56" width="30" height="128" fill="#17222e"/>
+      <!-- segment nodes -->
+      <rect x="370" y="48" width="26" height="84" fill="#1d4f9c"/>
+      <rect x="370" y="192" width="26" height="68" fill="#3d7bc4"/>
+      <rect x="370" y="278" width="26" height="16" fill="#9db8d9"/>
+      <!-- flows: segments -> op result -->
+      <path d="M396,56 C500,56 500,40 610,40 L610,84 C500,84 500,124 396,124 Z" fill="#5b7ea6" opacity="0.55"/>
+      <path d="M396,196 C500,196 500,110 610,110 L610,150 C500,150 500,252 396,252 Z" fill="#7d97b5" opacity="0.55"/>
+      <path d="M396,282 C500,282 500,152 610,152 L610,156 C500,156 500,288 396,288 Z" fill="#b9c9dd" opacity="0.6"/>
+      <!-- op nodes -->
+      <rect x="610" y="36" width="26" height="52" fill="#a02c22"/>
+      <rect x="610" y="106" width="26" height="52" fill="#1c6b3c"/>
+      <!-- flows: op income -> net -->
+      <path d="M636,114 C720,114 720,196 800,196 L800,222 C720,222 720,140 636,140 Z" fill="#8a5d00" opacity="0.55"/>
+      <path d="M636,140 C720,140 720,232 800,232 L800,252 C720,252 720,152 636,152 Z" fill="#9aa7b8" opacity="0.55"/>
+      <path d="M636,106 C720,106 720,60 800,60 L800,140 C720,140 720,114 636,114 Z" fill="#1c6b3c" opacity="0.6"/>
+      <rect x="800" y="56" width="26" height="88" fill="#1c6b3c"/>
+      <rect x="800" y="192" width="26" height="30" fill="#8a5d00"/>
+      <rect x="800" y="230" width="26" height="24" fill="#9aa7b8"/>
+      <!-- labels -->
+      <text class="sk-label" x="60" y="112">Revenue</text>
+      <text class="sk-sub" x="48" y="130">$127.58B</text>
+      <text class="sk-label" x="406" y="86">Google Services</text>
+      <text class="sk-sub" x="406" y="104">$96.30B rev · $39.16B op. inc.</text>
+      <text class="sk-label" x="406" y="222">Google Cloud</text>
+      <text class="sk-sub" x="406" y="240">$30.71B rev · $11.12B op. inc.</text>
+      <text class="sk-label" x="406" y="290">Other Bets + hedging</text>
+      <text class="sk-sub" x="560" y="290">≈$0.57B (residual)</text>
+      <text class="sk-label" x="646" y="58">Operating costs</text>
+      <text class="sk-sub" x="646" y="76">$87.00B (residual)</text>
+      <text class="sk-label" x="646" y="128">Operating income</text>
+      <text class="sk-sub" x="646" y="146">$40.58B · 31.8%</text>
+      <text class="sk-label" x="836" y="96">Net income</text>
+      <text class="sk-sub" x="836" y="114">$26.47B</text>
+      <text class="sk-label" x="836" y="204">Equity-securities loss</text>
+      <text class="sk-sub" x="836" y="220">$8.66B</text>
+      <text class="sk-label" x="836" y="240">Taxes, interest &amp; other</text>
+      <text class="sk-sub" x="836" y="256">$5.45B (combined residual)</text>
+    </svg>
+    <p class="tiny">Reading note: operating income ($40.58B) minus the equity-securities loss ($8.66B) and the combined residual ($5.45B) equals consolidated net income ($26.47B). The residual is not a disclosed line — it is the arithmetic remainder, shown combined rather than split into invented components.</p>
+  </div>
+
+  <div style="height:18px"></div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Diagnostic</th><th class="r">Value</th><th>Read</th></tr></thead>
+      <tbody>
+        <tr><td>Price / market cap (30 Oct)</td><td class="r num">$279.84 / $3.42T</td><td>−1.40% on the day; the stock had fallen ~12.6% on 29 Oct in the post-earnings reaction (per CNBC summary — see Sources).</td></tr>
+        <tr><td>Forward P/E</td><td class="r num">~24–26× <span class="tag est">Estimate</span></td><td>On normalised earnings. A vendor trailing P/E of 14.48× does not reconcile to the price and is not used.</td></tr>
+        <tr><td>Price / sales</td><td class="r num">~7.3× <span class="tag est">Estimate</span></td><td>On 2026E revenue of ~$470B (model base, §5).</td></tr>
+        <tr><td>Q3 operating cash flow</td><td class="r num">$42.290B</td><td>Healthy generation — the FCF problem is spending, not operations.</td></tr>
+        <tr><td>Q3 PP&amp;E purchases / FCF</td><td class="r num">$51.355B / −$9.065B</td><td>Second negative FCF quarter; 2026 capex guided $195–205B, unchanged.</td></tr>
+        <tr><td>Q3 net income / EPS</td><td class="r num">$26.468B / $2.12</td><td>$26.468B consolidated ($26.170B to common holders) after $298M preferred dividends; depressed by the $8.664B equity-securities loss — operating performance was stronger than net income.</td></tr>
+        <tr><td>Cash &amp; debt</td><td class="r num">Not quoted <span class="tag est">Estimate</span></td><td>Not re-verified in this run. Historically a large net-cash position, now shrinking under capex — do not rely on any precise 30 Oct net-cash figure here.</td></tr>
+        <tr><td>Capital allocation</td><td class="r num">Buybacks ongoing</td><td>Buybacks continue; the dividend (initiated 2024) is small and not material to the thesis. Capex is now the dominant use of cash by a wide margin.</td></tr>
+        <tr><td>One-off in the quarter</td><td class="r num">$5.2B EC fine</td><td>Q3 included a $5.2B European Commission fine payment, per the earnings-call summary (see Sources).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 3. MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="no">§3</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <div class="cols">
+    <div class="card">
+      <h3>Where the moat is real</h3>
+      <ul class="tight">
+        <li><b>Search default distribution</b> — default placement across browsers and Android keeps query volume (and the data flywheel behind it) compounding.</li>
+        <li><b>YouTube scale</b> — the largest video ad surface in the market, with subscription revenue layered on top.</li>
+        <li><b>Android / Play</b> — distribution and billing rails for the mobile ecosystem outside iOS.</li>
+        <li><b>Cloud + custom TPU silicon</b> — owning the accelerator stack lowers AI compute cost per unit versus renting third-party GPUs, and TPUs are now sold externally.</li>
+        <li><b>AI research depth and capital</b> — few firms can fund a $200B capex year plus frontier-model research simultaneously; that is itself a barrier.</li>
+        <li><b>Pricing power</b> sits in the Search/YouTube auctions; Cloud pricing is competitive against AWS and Azure rather than dictated.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Who it fights, and where</h3>
+      <ul class="tight">
+        <li><b>Microsoft / Azure + OpenAI</b> — Cloud and AI assistants; the most direct threat to both Cloud share and Search behaviour.</li>
+        <li><b>Amazon / AWS</b> — still the Cloud scale benchmark Alphabet is chasing.</li>
+        <li><b>Meta</b> — advertising budgets and AI talent/models.</li>
+        <li><b>Apple</b> — devices and distribution terms (default-search economics run through Apple).</li>
+        <li><b>TikTok</b> — video attention, especially younger users, against YouTube.</li>
+      </ul>
+      <p class="small" style="margin-top:10px">Barriers to entry: proprietary data, compute scale, research talent, and sheer capital. The moat question is no longer whether rivals can build a search engine — it is whether AI interfaces change where queries start.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. CATALYSTS & RISKS ================= -->
+<section id="risks">
+  <div class="sec-head"><span class="no">§4</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="risk-grid">
+    <div class="card risk-col cat">
+      <h3>Catalysts</h3>
+      <ul class="tight">
+        <li><b>Cloud momentum:</b> +103% growth with operating income up from $3.594B to $11.121B — if even a fraction of that pace holds, Cloud mix lifts group margins.</li>
+        <li><b>TPU external sales:</b> selling silicon turns a cost centre into a revenue line and validates the custom-silicon strategy.</li>
+        <li><b>Gemini / AI Mode monetisation:</b> closing the monetisation gap between AI Mode and classic Search removes the market's biggest mix fear.</li>
+        <li><b>Waymo scaling:</b> the largest Other Bet is moving from experiment toward commercial scale — optionality not in the current multiple.</li>
+        <li><b>Street targets sit above the price:</b> consensus targets of $406.55 (StockAnalysis) and $410.46 (MarketBeat) frame the upside if the capex story is forgiven.</li>
+      </ul>
+    </div>
+    <div class="card risk-col risk">
+      <h3>Downside risks</h3>
+      <ul class="tight">
+        <li><b>Capex vs. free cash flow:</b> two straight negative-FCF quarters and a $195–205B guide; the 28–30 Oct sell-off (≈ −12.6% on 29 Oct, per CNBC summary) was the market pricing exactly this.</li>
+        <li><b>DOJ antitrust remedies:</b> US remedies could hit default distribution — the moat's foundation — rather than just cost a fine.</li>
+        <li><b>EU fines:</b> Q3 already included a $5.2B EC fine payment (per earnings-call summary); European regulatory cost is recurring, not one-off.</li>
+        <li><b>AI Mode cannibalisation:</b> if AI answers replace high-value classic Search clicks faster than AI Mode monetises, the highest-margin revenue in the group dilutes.</li>
+        <li><b>EPS volatility from the equity portfolio:</b> an $8.664B mark-to-market loss in one quarter shows reported EPS will keep swinging independently of the operating business.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 5. VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="no">§5</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All prices in this section are <b>modelled estimates</b> — arithmetic from the stated assumptions, not verified facts and not analyst targets (consensus targets are shown separately, sourced). Base starting point: 2026E revenue ~$470B, ~12.2B shares, with buybacks trimming the count in the base and bull cases.</p>
+
+  <h3 style="margin:16px 0 10px">12–18 month scenarios <span class="tag mod">Modelled estimate</span></h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Case</th><th class="r">Target</th><th class="r">Vs. $279.84</th><th>What has to happen</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bear</b></td><td class="r num">$235</td><td class="r num neg">−16%</td><td>FCF stays negative, antitrust remedies bite, AI Mode dilution shows up in Search growth.</td></tr>
+        <tr><td><b>Base</b></td><td class="r num">$340</td><td class="r num pos">+22%</td><td>Cloud stays very strong, capex guide holds, Search growth stays near current pace.</td></tr>
+        <tr><td><b>Bull</b></td><td class="r num">$410</td><td class="r num pos">+47%</td><td>TPU sales scale, AI Mode monetisation closes the gap, FCF inflects back toward positive.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="small" style="margin-top:8px">For reference, published consensus targets: <b>$406.55</b> (StockAnalysis) and <b>$410.46</b> (MarketBeat) — both sit at this model's bull case, which says the Street is pricing a cleaner capex outcome than the base case here assumes.</p>
+
+  <h3 style="margin:22px 0 10px">5-year projection — frozen-parameter format <span class="tag mod">Modelled estimate</span></h3>
+  <p class="small">Revenue compounded from the 2026E base of ~$470B; net margin and exit P/E as stated per case; share count held near-frozen except for the stated buyback drift. Likelihoods: Base 50% · Bull 25% · Bear 25%.</p>
+  <div class="tbl-wrap">
+    <table class="wide">
+      <thead><tr><th>Case (likelihood)</th><th class="r">Revenue CAGR</th><th class="r">2031 revenue</th><th class="r">Net margin</th><th class="r">2031 EPS</th><th class="r">Exit P/E</th><th class="r">2031 price</th></tr></thead>
+      <tbody>
+        <tr><td><b>Base</b> (50%)</td><td class="r num">13%</td><td class="r num">$866B</td><td class="r num">27%</td><td class="r num">$19.50</td><td class="r num">22×</td><td class="r num"><b>$429</b></td></tr>
+        <tr><td><b>Bull</b> (25%)</td><td class="r num">16%</td><td class="r num">$987B</td><td class="r num">30%</td><td class="r num">$25.09</td><td class="r num">26×</td><td class="r num"><b>$652</b></td></tr>
+        <tr><td><b>Bear</b> (25%)</td><td class="r num">8%</td><td class="r num">$691B</td><td class="r num">22%</td><td class="r num">$12.46</td><td class="r num">16×</td><td class="r num"><b>$199</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tiny" style="margin-top:8px">Workings — Base: $866B × 27% = $234B net income ÷ 12.0B shares = $19.50 EPS × 22 = $429. Bull: $987B × 30% ÷ 11.8B shares = $25.09 × 26 = $652. Bear: $691B × 22% ÷ 12.2B shares = $12.46 × 16 = $199.</p>
+  <div class="weighted">
+    <div><div class="tiny" style="text-transform:uppercase;letter-spacing:.06em;font-weight:700">Probability-weighted 5-yr value</div><div class="big num">$427</div></div>
+    <div class="lbl">0.50 × $429 + 0.25 × $652 + 0.25 × $199 = <b>$427</b>, about +53% over five years from $279.84. Read it as "if Cloud keeps compounding and the capex converts, the maths points up" — the bear case is a world where AI spending never earns its cost of capital and the multiple de-rates to 16×.</div>
+  </div>
+</section>
+
+<!-- ================= 6. RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="no">§6</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <div class="cols">
+    <div class="card">
+      <h3>The call</h3>
+      <ul class="tight">
+        <li><b>Short term (12–18 months): HOLD.</b> The Cloud beat is real, but two negative-FCF quarters, a $195–205B capex guide and live antitrust remedies argue against chasing the stock until the cash story stabilises.</li>
+        <li><b>Long term (5 years): BUY.</b> Search distribution, YouTube, Cloud scale and owned silicon are durable advantages; the weighted modelled value ($427) sits ~53% above the current price.</li>
+        <li><b>Suggested weight: 6% of total portfolio</b> for a mid-30s investor at risk 8/10 — a core-sized position, capped so the capex cycle in a single name cannot dominate the outcome.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Open questions — stated plainly</h3>
+      <ul class="tight">
+        <li>Precise cash/debt at 30 Oct 2026 was <b>not re-verified</b> in this run; no exact net-cash figure is quoted in this report.</li>
+        <li>No segment-level geographic revenue split was available in the Q3 sources used.</li>
+        <li>Trailing P/E is not quoted: the available vendor figure does not reconcile to the 30 Oct price. The forward P/E shown is an estimate on normalised earnings.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="height:18px"></div>
+  <div class="calc">
+    <h3 style="margin-bottom:14px">Position-size calculator — 6% target weight</h3>
+    <div class="calc-grid">
+      <div>
+        <label for="pf">Total portfolio value (USD)</label>
+        <input type="text" id="pf" inputmode="decimal" value="500,000" />
+      </div>
+      <div>
+        <label for="wt">Target GOOGL weight — <span id="wtLbl" class="num">6.0%</span></label>
+        <input type="range" id="wt" min="0" max="15" step="0.5" value="6" />
+        <div class="tiny">Suggested 6%. Slider runs 0–15% so you can test a smaller starter or a fuller core position.</div>
+      </div>
+    </div>
+    <div class="calc-out">
+      <div class="o"><div class="k">Position value</div><div class="v" id="outVal">$30,000</div></div>
+      <div class="o"><div class="k">Shares at $279.84</div><div class="v" id="outSh">107.2</div></div>
+      <div class="o"><div class="k">Whole shares</div><div class="v" id="outWhole">107</div></div>
+    </div>
+    <p class="tiny" style="margin-top:12px">Illustrative arithmetic only, at the 30 Oct 2026 close of $279.84. It does not account for taxes, fees, or the rest of your portfolio.</p>
+  </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+<section id="sources">
+  <div class="sec-head"><span class="no">§7</span><h2>Sources</h2></div>
+  <ol class="sources">
+    <li>Alphabet Q3 2026 results summary — revenue, segments, Cloud, operating income, FCF, capex: <a href="https://www.securities.io/alphabet-q3-revenue-rises-25-as-google-cloud-revenue-jumps-103/" target="_blank" rel="noopener">securities.io</a> (independent verification source)</li>
+    <li>Q3 2026 segment detail (Services / Cloud / Search / YouTube) and capex programme: <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/262248965-google-earnings-report-q3-services-cloud-search-capital-expenditures-cash-tradingkey" target="_blank" rel="noopener">tradingkey.com</a></li>
+    <li>GOOGL profile and segment data: <a href="https://basispilot.com/stocks/googl" target="_blank" rel="noopener">basispilot.com/stocks/googl</a></li>
+    <li>Price, 30 Oct close and consensus target $406.55: <a href="https://stockanalysis.com/stocks/googl/" target="_blank" rel="noopener">stockanalysis.com/stocks/googl</a></li>
+    <li>Price confirmation and consensus target $410.46: <a href="https://www.marketbeat.com/stocks/NASDAQ/GOOGL/" target="_blank" rel="noopener">marketbeat.com — GOOGL</a></li>
+    <li>2026 capex guide $195–205B, unchanged; EC fine payment: <a href="https://www.fool.com/earnings/call-transcripts/2026/10/29/alphabet-googl-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">Motley Fool — Q3 2026 earnings call transcript</a></li>
+    <li>Post-earnings sell-off and AI Mode / free-cash-flow reaction (CNBC summary): <a href="https://www.skimwire.com/alphabet-q3-2026-earnings-ai-mode-search-free-cash-flow/" target="_blank" rel="noopener">skimwire.com</a></li>
+    <li>Market-cap ranking basis (30 Oct 2026): <a href="https://www.financecharts.com/sectors/communication_services" target="_blank" rel="noopener">financecharts.com — Communication Services</a></li>
+  </ol>
+  <div class="disc"><b>Disclaimer.</b> Research views as of 1 Nov 2026, prepared for a mid-30s investor profile with risk score 8/10. Confirmed figures are sourced above; items labelled <b>Estimate</b> or <b>Modelled estimate</b> are estimates or model outputs with assumptions shown, not verified facts or guarantees. This is not investment advice — position sizing should reflect your full portfolio, tax situation and liquidity needs.</div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — GOOGL (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $279.84.</strong> <strong>DCF intrinsic: $45.</strong> Discount/premium vs DCF: <strong>+521.9%</strong> — i.e. the shares are trading 521.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$45</td><td>+521.9%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $19.7bn. TTM FCF to Q3 2026 (Aardvark recap of Q3 release); Q3 alone was -$9.07bn, so TTM, not the quarter, is the base. Capex-depressed. Growth g = 8% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $178.34bn + PV of terminal value $241.28bn + net cash $139.0bn (VARIANCE: cash + securities $265.1bn − debt $141.9bn = $123.2bn on a different lease/debt definition — not a hard correction), divided by 12.294bn diluted shares = <strong>$45</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://research.aardvarklabs.co/research/googl/earnings/2026-q3/googl-2026-q3-recap</li><li>https://s206.q4cdn.com/479360582/files/doc_news/2026/Oct/28/attachments/2026q3-alphabet-earnings-release.pdf</li><li>$0.22 quarterly dividend declared Oct 2026 x4 = $0.88 (pack + dividendlantern)</li><li>Q3 2026 10-Q: total stockholders&#x27; equity $677,549m; shares 12,294m</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — GOOGL (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>Large advertisers — retail/e-commerce, travel, financial services and other auction buyers (group, not a single customer)</td><td></td><td>not in coverage — no intrinsic on file (customer group, not a single covered ticker)</td></tr><tr><td>Google Cloud enterprise customers — large enterprises buying cloud, data and AI infrastructure (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Anthropic — Cloud/AI customer (private)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>YouTube advertisers and subscription partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Android / Google Play developers and merchants (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Network members and distribution partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Public-sector / government Cloud customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr></tbody></table><p><strong>Read-through.</strong> No single advertiser or Cloud customer is disclosed as a &gt;10% customer, so no read-through can be tied to one customer's valuation: the tailwind/headwind thesis cannot be applied customer-by-customer here. In aggregate, if the large advertisers and Cloud buyers that fund Search, YouTube and Cloud were themselves trading at a discount to intrinsic, that would be a potential tailwind for ad and Cloud budgets — but an undervalued customer does not guarantee higher spending, which depends on that customer's own priorities and cash position, and the same logic in reverse applies if those buyers are stretched. The risk is therefore broad-based demand, not single-customer concentration.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — GOOGL</h2>
+<p><strong>Role: Enabler.</strong> Alphabet is both the largest AI spender and a seller of AI capacity: Cloud grew 103% in Q3 2026 and TPU systems are sold inside Cloud, while Gemini/AI Mode is being monetised in Search — evidence is the $30.7bn Cloud quarter and the $195–205bn 2026 capex programme.</p><p><strong>While the AI trade runs.</strong> Demand: While the AI trade runs, demand grows through Cloud and TPU sales to AI builders and through higher Search/YouTube engagement as AI features spread. Multiple: Its multiple is supported by Cloud growth and by the market treating Alphabet as an AI-infrastructure winner rather than a legacy advertiser.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in Cloud: AI customers delay or cancel capacity, TPU orders slow, and AI Mode's weaker monetisation versus classic Search becomes the visible drag; then the multiple compresses toward a pre-AI advertising multiple, with the pack's own warning that Q3 FCF was -$9.1bn and TTM FCF fell to $19.7bn from $53.3bn a quarter earlier; then the balance sheet — $125.1bn of long-term debt against $265.1bn of cash and securities, plus $924bn of purchase commitments — constrains further capex. Watch: Cloud growth decelerating from 103%, a cut to the 2027 capex step-up, and any Cloud customer concentration disclosure.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+  Equity Research — GOOGL (Alphabet Inc.) · Communication Services · Prices as of 30 Oct 2026 close · Report dated 1 Nov 2026 · Independently verified figures where marked; modelled prices are estimates.
+</footer>
+
+</div>
+<script>
+(function(){
+  /* label cells of wide tables from their headers (used by the mobile stacked layout) */
+  var wides = document.querySelectorAll('table.wide');
+  for (var w = 0; w < wides.length; w++){
+    var heads = wides[w].querySelectorAll('thead th');
+    var rows = wides[w].querySelectorAll('tbody tr');
+    for (var r = 0; r < rows.length; r++){
+      var cells = rows[r].children;
+      for (var c = 0; c < cells.length; c++){
+        if (heads[c]) cells[c].setAttribute('data-l', heads[c].textContent.trim());
+      }
+    }
+  }
+  var PRICE = 279.84;
+  var pf = document.getElementById('pf');
+  var wt = document.getElementById('wt');
+  var wtLbl = document.getElementById('wtLbl');
+  var outVal = document.getElementById('outVal');
+  var outSh = document.getElementById('outSh');
+  var outWhole = document.getElementById('outWhole');
+  function parseNum(s){ var n = parseFloat(String(s).replace(/[^0-9.]/g,'')); return isNaN(n) ? 0 : n; }
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function update(){
+    var total = parseNum(pf.value);
+    var w = parseFloat(wt.value);
+    wtLbl.textContent = w.toFixed(1) + '%';
+    var val = total * w / 100;
+    var shares = val / PRICE;
+    outVal.textContent = fmt(val);
+    outSh.textContent = shares.toLocaleString('en-US',{minimumFractionDigits:1, maximumFractionDigits:1});
+    outWhole.textContent = Math.floor(shares).toLocaleString('en-US');
+  }
+  pf.addEventListener('input', update);
+  pf.addEventListener('blur', function(){ var n = parseNum(pf.value); if(n>0) pf.value = n.toLocaleString('en-US'); update(); });
+  wt.addEventListener('input', update);
+  update();
+})();
+</script>
+</body>
+</html>

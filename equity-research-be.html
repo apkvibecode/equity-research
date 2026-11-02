@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — BE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:150px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:110px 1fr 64px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Industrials</span><span>Electrical Equipment · On-Site Power</span></div>
+  <h1>Bloom Energy <span class="tick">(NYSE: BE)</span></h1>
+  <p class="lede">A solid-oxide fuel-cell maker that has become, almost overnight, an AI power stock. Q3 2026 revenue more than doubled to $1.24B as data centres bought speed-to-power the grid cannot deliver — yet the quarter still burned $181M of free cash flow, and at $203 the share price already capitalises much of the bull case. Growth is real; so is the cash and volatility bill for it.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $203.17 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">BE — this report</span>
+    <span class="tab soon">Industrials global top 10 + BE (11 names) — see ranking note in §3</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$203.17</div><div class="vsub down">−8.61% on the day · 52-wk $75.70–$351.28 · ~40% below June peak ~$346</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$60.07B</div><div class="vsub">295.66M shares · Beta 3.65 — extreme volatility</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">n.m.</div><div class="vsub">P/E not meaningful — see §2. Valued on mature-margin model in §5</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus target</div><div class="vbig mono">~$264 <span class="up" style="font-size:16px">+30%</span></div><div class="vsub">Alternative feed (StockAnalysis) $284.88 — vendor spread is wide</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD — speculative buy only on weakness <span class="pill hold">Hold</span></div><div class="vsub">Base target $240 (+18%). Do not chase strength in a 3.65-beta name after a violent run.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD — speculative <span class="pill hold">Hold</span></div><div class="vsub">5-yr modelled weighted estimate ~$173 is below spot — downside-skewed, not a central expectation. See §5 warning.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">0.5% of portfolio</div><div class="vsub">Satellite speculation only. Risk 8/10 does not justify concentration in a 3.65-beta name.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Cash flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Bloom printed the growth quarter the bull case needed — and the cash-flow quarter the bear case predicted. Revenue hit a record, product revenue crossed $1B in a quarter for the first time, margins expanded sharply, and management raised full-year guidance for the <b>third time</b>. At the same time, working capital and capacity capex consumed more cash than operations generated. Both facts are the thesis.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th class="n">Year ago / guide</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="n">$1.24B ($1,235.8M)</td><td class="n">+138.1% YoY</td><td>Record quarter; product revenue &gt;$1B for the first time — data-centre demand is the driver</td></tr>
+      <tr><td>Operating margin</td><td class="n">23.1% non-GAAP · 18.2% GAAP</td><td class="n">vs 8.9% (prior-year comparator in pack)</td><td><b>Label matters:</b> 23.1% is <b>non-GAAP</b>; GAAP operating income was $225.4M (18.2%). Scale leverage is real on either basis</td></tr>
+      <tr><td>EPS</td><td class="n">GAAP $0.78 · non-GAAP $0.94</td><td class="n">vs −$0.10 GAAP a year ago</td><td>Clean swing to GAAP profitability in the quarter</td></tr>
+      <tr><td>Operating cash flow</td><td class="n">−$27.1M</td><td class="n">—</td><td>Negative despite record revenue — receivables / inventory build for growth</td></tr>
+      <tr><td>Capital expenditure</td><td class="n">$153.5M</td><td class="n">—</td><td>Capacity expansion to serve backlog</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">−$180.6M (≈ −$181M)</td><td class="n">OCF − capex</td><td>The central tension: hypergrowth is currently cash-consuming, not cash-generating</td></tr>
+      <tr><td>Cash &amp; equivalents (30 Sep)</td><td class="n">$2,486.7M (~$2.5B)</td><td class="n">—</td><td>Liquidity cushion exists, but burn rate and working capital decide how long it lasts</td></tr>
+      <tr><td>FY26 guidance (raised, 3rd time)</td><td class="n">Revenue $4.4–4.6B · non-GAAP EPS $3.10–$3.40</td><td class="n">~122% growth at midpoint</td><td>Guide implies a very large Q4; execution and collections both have to land</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Q3 figures independently verified against earnings-call transcript coverage and Fool reporting — see Sources. TTM revenue $3.83B (+110.6%) and share count 295.66M per StockAnalysis.</p>
+  <div class="callout warn"><div class="ct">Read this first — the price already knows the good news</div>
+  <p>Even after falling ~40% from its June peak (~$346) and −8.61% on 30 Oct alone, BE trades at a $60.07B market cap on $3.83B of TTM revenue. The 5-year modelled base case in §5 ($180) sits <i>below</i> today's price. That does not make the business weak — it means a buyer today is paying for bull-case execution in advance, with a 3.65 beta as the toll.</p></div>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 — profit up, cash down</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 280" width="100%" role="img" aria-label="Flow of Bloom Energy Q3 2026 revenue into operating income and negative free cash flow" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="90" width="190" height="66" fill="var(--navy)"/><text x="22" y="118" font-size="14" font-weight="700" fill="#fff">Revenue</text><text x="22" y="138" font-size="13" fill="#fff">$1,235.8M · +138.1%</text>
+      <rect x="300" y="30" width="220" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="314" y="52" font-size="13" font-weight="700" fill="var(--ink)">GAAP operating income</text><text x="314" y="70" font-size="12" fill="var(--ink2)">$225.4M · 18.2% margin</text>
+      <rect x="300" y="104" width="220" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="314" y="126" font-size="13" font-weight="700" fill="var(--ink)">Non-GAAP operating income</text><text x="314" y="144" font-size="12" fill="var(--ink2)">23.1% margin (≈ $285M)</text>
+      <rect x="300" y="178" width="220" height="56" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="314" y="200" font-size="13" font-weight="700" fill="var(--ink)">GAAP EPS $0.78</text><text x="314" y="218" font-size="12" fill="var(--ink2)">Non-GAAP EPS $0.94 · vs −$0.10 YoY (GAAP)</text>
+      <line x1="198" y1="110" x2="296" y2="62" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="198" y1="123" x2="296" y2="130" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="198" y1="136" x2="296" y2="200" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <rect x="620" y="30" width="220" height="56" fill="var(--red-soft)" stroke="var(--line2)"/><text x="634" y="52" font-size="13" font-weight="700" fill="var(--ink)">Operating cash flow</text><text x="634" y="70" font-size="12" fill="var(--ink2)">−$27.1M</text>
+      <rect x="620" y="104" width="220" height="56" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="634" y="126" font-size="13" font-weight="700" fill="var(--ink)">Capex</text><text x="634" y="144" font-size="12" fill="var(--ink2)">$153.5M</text>
+      <rect x="620" y="178" width="220" height="56" fill="var(--red-soft)" stroke="var(--line2)"/><text x="634" y="200" font-size="13" font-weight="700" fill="var(--ink)">Free cash flow</text><text x="634" y="218" font-size="12" fill="var(--ink2)">−$180.6M</text>
+      <line x1="520" y1="120" x2="616" y2="62" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <line x1="520" y1="132" x2="616" y2="130" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <line x1="520" y1="144" x2="616" y2="200" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <rect x="852" y="104" width="120" height="56" fill="var(--paper)" stroke="var(--line2)"/><text x="862" y="126" font-size="12" font-weight="700" fill="var(--ink)">Cash</text><text x="862" y="144" font-size="12" fill="var(--ink2)">$2,486.7M</text>
+    </svg>
+    <figcaption>All figures Q3 2026 as verified in the research pack. Non-GAAP operating income dollar figure is margin × revenue (≈), shown for scale; the verified disclosures are the 23.1% non-GAAP margin and $225.4M GAAP operating income. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Bloom sells <b>solid-oxide fuel-cell systems (Energy Servers)</b> that generate electricity on-site — primarily from natural gas today, with fuel flexibility as part of the pitch — plus the <b>long-term service agreements</b> that maintain them. In 2026 the demand story is overwhelmingly one customer problem: <b>AI data centres need power years before the grid can connect them</b>. Bloom sells time-to-power, not just kilowatt-hours.</p>
+  <h3>Revenue architecture</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th class="n">Evidence</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Product (fuel-cell systems)</td><td class="n">&gt;$1B in Q3 2026 (first time)</td><td>Upfront system sales; the growth engine. Lumpy, backlog-driven, and working-capital hungry — systems are built and installed before cash is fully collected</td></tr>
+      <tr><td>Service (long-term agreements)</td><td class="n">Agreements totalling ~$20B*</td><td>Recurring service attached to the installed base — the eventual margin and retention story, still being built out alongside the fleet</td></tr>
+      <tr class="total"><td>Total revenue</td><td class="n">TTM $3.83B · +110.6% · Q3 $1.24B</td><td>FY26 guide $4.4–4.6B (~122% growth) — growth is accelerating into the guide, not fading</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*Backlog framing: product backlog ~$6B (doubled in 2025) plus service agreements totalling ~$20B per MarketBeat. Treat the $20B as a <b>company / backlog definition, not audited revenue</b> — it is multi-year contracted value under Bloom's definitions, not recognised sales.</p>
+  <div class="geo">
+    <div>
+      <h3>What the growth is made of</h3>
+      <ul>
+        <li><b>AI data-centre demand dominates 2026 growth</b> — hyperscale and data-centre customers facing multi-year grid interconnection queues are paying for on-site generation that can be deployed far faster.</li>
+        <li><b>Oracle / data-centre validation</b> is cited in the research pack as a credibility marker — marquee deployments de-risk the technology for the next buyer.</li>
+        <li><b>Geographic split:</b> the pack does not carry a verified geographic revenue breakdown for BE — <b>omitted rather than estimated</b>. The business is US-centric in its current data-centre wave by narrative, but no sourced % is published here.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural pivots &amp; dependencies</h3>
+      <ul>
+        <li><b>From industrial / commercial niche to AI infrastructure supplier</b> — valuation, backlog and volatility all now key off data-centre capex cycles.</li>
+        <li><b>Scale-up in progress:</b> capex of $153.5M in Q3 alone funds capacity to convert the ~$6B product backlog; the service network must scale in parallel or installed-base economics suffer.</li>
+        <li><b>Supply chain:</b> fuel-cell stack manufacturing scale, natural-gas supply and pricing for customers, and data-centre construction timelines are the binding dependencies. Customer concentration is a named risk — a small number of very large buyers can swing any quarter.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The income statement has inflected; the cash-flow statement has not — yet. That gap is the entire financial debate. Bloom is profitable on a GAAP basis in Q3 ($0.78 EPS) with expanding margins, while consuming cash to fund the receivables, inventory and capacity that triple-digit growth requires.</p>
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price $203.17 (30 Oct 2026 close). Every figure sourced in Sources; modelled items are labelled estimates.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">n.m. (not meaningful)</td><td>Do <b>not</b> use trailing P/E here. Vendor feeds conflict irreconcilably: Finnhub shows TTM EPS −$0.37 (implying a spurious P/E of 113.9) while StockAnalysis shows TTM net income of $518M — one-offs and GAAP-vs-adjusted timing distort the trailing figure. The Fool noted ~133× trailing earnings on 23 Oct and ~82× expected 2026 earnings earlier. §5 therefore uses a revenue × mature-margin × mature-P/E model, transparently</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">~15.7×</td><td>Arithmetic on verified inputs: $60.07B cap ÷ $3.83B TTM revenue. A hypergrowth multiple — it leaves no room for a guidance miss</td></tr>
+      <tr><td>TTM revenue / growth</td><td class="n">$3.83B · +110.6%</td><td>Q3 alone was $1.24B (+138.1%); FY26 guide $4.4–4.6B annualises the acceleration</td></tr>
+      <tr><td>Operating margin (Q3)</td><td class="n">23.1% non-GAAP · 18.2% GAAP</td><td>Up from 8.9% comparator — genuine operating leverage as product volume scales, on either definition</td></tr>
+      <tr><td>Free cash flow (Q3)</td><td class="n">−$180.6M</td><td>OCF −$27.1M less capex $153.5M. Growth is funded from the balance sheet today</td></tr>
+      <tr><td>Cash &amp; equivalents</td><td class="n">$2,486.7M</td><td>At 30 Sep 2026. Adequate near-term liquidity; the question is burn trajectory if working capital keeps absorbing cash at Q3's pace</td></tr>
+      <tr><td>Beta / 52-week range</td><td class="n">3.65 · $75.70–$351.28</td><td>The range itself is the diagnostic: this stock can halve or double on positioning alone. Position sizing must assume it</td></tr>
+      <tr><td>Shares outstanding</td><td class="n">295.66M</td><td>The 5-year model in §5 assumes dilution to 0.32B shares — growth companies at negative FCF rarely hold share count frozen</td></tr>
+      <tr><td>Capital allocation</td><td class="n">No dividend / buyback in pack</td><td>The pack carries no verified dividend or buyback programme — capital is directed to capacity capex. Do not assume shareholder returns beyond price appreciation</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout bad"><div class="ct">The one number to watch — cash conversion</div>
+  <p>Q3 proved Bloom can sell and book profit. It has not yet proved it can <b>collect</b> at the same speed: OCF was −$27.1M in a $1.24B revenue quarter. Watch receivables and inventory in the next two prints. If OCF does not turn decisively positive as the FY26 guide converts, the $2.49B cash pile and capital markets — not operations — are funding the story, and dilution risk (modelled in §5) rises.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: emerging, not yet a cost moat.</b> Bloom's current advantage is <b>time-to-power</b> — deployable on-site generation versus multi-year grid waits — plus fuel flexibility and early marquee validation. Scale and the service network, the things that would make the moat durable, are still being built.</p>
+  <div class="callout"><div class="ct">Ranking basis — read before comparing</div>
+  <p>Universe framing for this series: <b>global top 10 by market cap (Motley Fool sector pages; rankings / metrics as of 5 Oct 2026, with live quote cards updating; prices at 30 Oct 2026 close)</b>, including OTC ADRs and state-controlled issuers. The Industrials list carries <b>11 names because BE, a named ticker, is added</b> — it is <b>not</b> in strict market-cap order as printed, and no strict order is claimed. A NYSE/Nasdaq-only list would be different (e.g. Boeing, Uber, Honeywell would enter).</p></div>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Time-to-power:</b> when a data centre's constraint is a grid queue measured in years, a deployable on-site system wins on calendar, not just cost — a genuine, if potentially temporary, pricing lever.</li>
+      <li><b>Fuel flexibility:</b> solid-oxide systems that can run on available fuels (and adapt as fuel strategy evolves) reduce a buyer's single-fuel exposure.</li>
+      <li><b>Validation:</b> Oracle / data-centre deployments give the technology reference customers in the exact segment driving demand.</li>
+      <li><b>Backlog visibility:</b> ~$6B product backlog (doubled in 2025) plus long-dated service agreements — revenue visibility most hypergrowth names lack (definitions caveat in §1 applies).</li>
+      <li><b>Service annuity in formation:</b> every installed server is a candidate multi-year service contract — the installed base compounds the recurring layer.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Not yet a cost moat:</b> the pack is explicit — scale and service network are being built, not built. Unit-cost leadership at scale is unproven.</li>
+      <li><b>The grid catches up:</b> time-to-power is worth most while interconnection queues are longest. Utility build-out, permitting reform, or rival on-site solutions (gas turbines, other fuel-cell makers, battery + grid hybrids) all compete for the same urgency premium.</li>
+      <li><b>Customer concentration:</b> AI data-centre demand is large but concentrated; losing or delaying one programme moves the quarter.</li>
+      <li><b>Fuel &amp; policy exposure:</b> natural-gas prices and clean-energy policy shape both customer economics and Bloom's positioning — neither is in management's control.</li>
+      <li><b>Capital as a barrier — both ways:</b> scaling manufacturing takes the capex now burning cash; better-capitalised rivals can out-spend on capacity if the market stays hot.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> situational and strong today — scarcity of power, not brand, sets the price. <b>Barriers to entry:</b> moderate — fuel-cell IP and manufacturing know-how are real, but the moat widens only if Bloom converts today's window into installed base, service density and cost leadership before alternatives close the time gap.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Backlog conversion:</b> the ~$6B product backlog converting to delivered, <i>collected</i> revenue — especially with OCF turning positive — is the single most valuable proof point.</li>
+        <li><b>2027 guidance / backlog disclosure:</b> a quantified 2027 outlook with fresh backlog growth would extend visibility beyond the current guide year.</li>
+        <li><b>Margin follow-through:</b> holding non-GAAP operating margin near Q3's 23.1% at larger volume proves the operating leverage is structural.</li>
+        <li><b>New marquee data-centre wins:</b> additional hyperscale-class validations broaden the customer base and reduce concentration risk.</li>
+        <li><b>Cash-flow inflection:</b> the first quarter of decisively positive FCF likely re-rates the name more than another revenue beat.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Cash burn / working capital:</b> Q3's pattern (receivables / inventory build, OCF −$27.1M, FCF −$180.6M) repeated at larger scale consumes the $2.49B cash cushion and raises dilution risk.</li>
+        <li><b>Multiple compression:</b> at ~15.7× TTM sales, the valuation has no shock absorber. The stock is already ~40% below its June peak (~$346) and fell 8.61% on 30 Oct — beta 3.65 cuts both ways, violently.</li>
+        <li><b>Customer concentration &amp; AI-capex cyclicality:</b> if data-centre build plans slip or consolidate to fewer suppliers, Bloom's growth rate — the whole valuation — slips with them.</li>
+        <li><b>Natural-gas price &amp; policy:</b> gas economics underpin customer payback; adverse price moves or policy shifts hit demand and narrative simultaneously.</li>
+        <li><b>Fuel-cell competition:</b> rival fuel-cell and on-site power technologies competing on cost as the urgency premium normalises.</li>
+        <li><b>Execution at 3× scale:</b> manufacturing, installation and service must all scale together; a quality or delivery failure at a marquee site damages the validation the moat rests on.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A guidance cut or a backlog stall <i>together with</i> continued negative operating cash flow. Either alone is survivable in a hypergrowth year; together they would mean Bloom is buying growth with its balance sheet without the demand visibility to justify it — and at ~15.7× sales, the multiple, not just the earnings, would do the falling.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: because trailing P/E is not meaningful (§2), all scenarios below are <b>modelled estimates</b> built as <b>revenue × mature net margin × mature P/E</b>, with every assumption shown — never verified facts. Cross-check: Street consensus sits around <b>~$264</b> (alternative feed $284.88), above our base — the Street is paying more for the bull case than this note does.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$130</div><div class="ret down">−36% vs $203.17</div><p>Backlog conversion slips, OCF stays negative, working capital forces dilutive funding, and the sales multiple compresses toward ordinary industrial-growth levels. In a 3.65-beta stock, this case needs no disaster — only disappointment.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · modelled</div><div class="price mono">$240</div><div class="ret up">+18% vs $203.17</div><p>FY26 guide ($4.4–4.6B) is delivered, 2027 guidance shows continued (slower) growth, margins hold near Q3 levels, and cash burn narrows visibly. Growth stays exceptional; the multiple stays demanding but stops expanding.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$310</div><div class="ret up">+53% vs $203.17</div><p>Backlog re-doubles, a cash-flow inflection lands early, and Bloom is re-priced as scarce AI-power infrastructure. Note: even the bull target sits below the $351.28 52-week high the market briefly paid.</p></div>
+  </div>
+  <p class="small">12–18-month scenario weights were not supplied with the research pack, so no probability-weighted 12–18-month figure is published — the three modelled prices above stand on their stated assumptions alone.</p>
+
+  <h3>5-year projection — frozen-parameter model (mature-margin method)</h3>
+  <p>Starting point: <b>FY26E revenue $4.5B</b> (midpoint of the $4.4–4.6B guide). Adaptation, stated openly as in the META note's method: share count is <b>not</b> frozen at today's 295.66M — it is set at <b>0.32B</b> in all cases to allow for dilution from funding growth; the mature P/E and net margin are the steady-state values for 2031, not today's distorted trailing figures.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Revenue CAGR</th><th class="n">2031 revenue</th><th class="n">2031 net margin</th><th class="n">2031 EPS*</th><th class="n">Mature P/E</th><th class="n">2031 price</th><th class="n">Vs $203.17</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">~12%</td><td class="n">$8.0B</td><td class="n">5%</td><td class="n">~$1.25</td><td class="n">25×</td><td class="n">$31</td><td class="n">−85%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">25%</td><td class="n">$13.7B</td><td class="n">12%</td><td class="n">$5.14</td><td class="n">35×</td><td class="n">$180</td><td class="n">−11%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">~30%</td><td class="n">$16.0B</td><td class="n">15%</td><td class="n">~$7.50</td><td class="n">40×</td><td class="n">$300</td><td class="n">+48%</td></tr>
+      <tr class="total"><td>Weighted (50 / 25 / 25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">~$173</td><td class="n">−15%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*EPS = 2031 revenue × net margin ÷ 0.32B shares. Base: $13.7B × 12% ÷ 0.32B = $5.14; × 35 = $180. Bull: $16.0B × 15% ÷ 0.32B = $7.50; × 40 = $300. Bear: $8.0B × 5% ÷ 0.32B = $1.25; × 25 = $31. Weighted: 0.50×$180 + 0.25×$300 + 0.25×$31 = $90 + $75 + $7.75 ≈ $173. All modelled estimates.</p>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">5-yr weighted — downside-skewed modelled estimate</div><div class="wv mono">≈ $173</div></div><p><b>Do not read $173 as the central 5-year expectation.</b> It is a <b>bear-weighted / downside case</b>: the bear scenario ($31, −85%) drags the average hard, and even the base case ($180) sits below today's $203.17. The honest translation is the pack's key warning — <b>at $203, the price already capitalises much of the bull case</b>. A buyer here needs bull execution, not base execution, to be paid. That asymmetry is why §6 sizes this name at 0.5%, not core weight.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees, and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; speculative buy only on weakness.</b> Base target $240 (+18%) against a bear of $130 (−36%) is not a chase-worthy risk/reward at full size after a run to $351 and back. Adds belong in deep pullbacks or after a positive-OCF print confirms cash conversion — whichever comes first.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold — speculative</span></td><td><b>Hold as a satellite speculation, not a core position.</b> The business may well compound — 25% base-case revenue CAGR is modelled — but the 5-year base price ($180) is below spot, so time alone does not rescue an overpaid entry. Entry price discipline matters more here than in any large-cap in this series.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim into strength above ~$300 without a cash-flow inflection (multiple doing all the work); exit the speculation on the §4 thesis-breaker — a guidance cut or backlog stall <i>with</i> continued negative OCF; hard-review any dilutive raise that pushes share count well beyond the modelled 0.32B.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>BE target: 0.5% of total portfolio — and no more.</b> A 3.65 beta means BE at 0.5% contributes roughly the volatility of a ~1.8% position in a beta-1 stock, with single-name, single-theme (AI power) concentration on top. Risk 8/10 means tolerating that ride in a satellite slot; it does not mean concentrating in it.</li>
+    <li><b>Fund it from the satellite / speculation sleeve</b>, never from the diversified core. If BE doubles, 0.5% becomes ~1% and still cannot dominate outcomes; if the bear case ($31) arrives, the portfolio loses ~0.4% — painful, not damaging. That asymmetry is the point of the cap.</li>
+    <li><b>Rebalance mechanically:</b> trim back to 0.5% after outsized runs (this name will offer the chance — it traded $75.70 to $351.28 within a year).</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">At the default $500,000 portfolio, 0.5% = $2,500 ≈ 12 shares at $203.17. The calculator updates the dollar amount and share count as you type; share counts are rounded down to whole shares.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>BE — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $203.17.</strong> <strong>DCF intrinsic: $29.</strong> Discount/premium vs DCF: <strong>+600.6%</strong> — i.e. the shares are trading 600.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$29</td><td>+600.6%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$0.44B</strong>; constant growth g <strong>11%</strong> for years 1–10; discount rate r <strong>12%</strong> (high-risk/speculative bucket); terminal g 3%. PV of projected FCF <strong>$4.19B</strong>; PV of terminal value <strong>$4.60B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-0.29B</strong>; divided by <strong>295.66m</strong> diluted shares = <strong>$29</strong>. Base FCF $0.44B = OCF $0.694B − capex $0.254B, TTM (Motley Fool; components UNVERIFIED as an independent check). Growth g 11% at r 12% (high-risk/speculative bucket): the pack's 5-year base case is 25% revenue CAGR, which cannot be used because g must be &lt; r; 11% is a methodology ceiling. Q3 2026 alone was FCF −$0.181B and 9M 2026 FCF was only +$0.042B (Sonde/10-Q), so the TTM base is thin and volatile — this DCF values current cash generation only, NOT the ~$6B product backlog or ~$20B service agreements, which is why it sits far below the price. Only $0.72B was binding remaining performance obligations at 30 Sep 2026; the ~$14B service book converts over 5–20 years and is terminable annually, and the ~$6B product book includes expected tax incentives — neither is a near-term cash-flow queue, so the DCF gap to price is a growth/execution bet, not a measurement error. Net cash −$0.29B (cash $2.49B − debt $2.78B, Fool/Kinfo; convertible-note treatment would change this — see NOTES.md). Shares 295.66m (pack/Fool).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://www.fool.com/quote/nyse/be/ , https://kinfo.com/asset/BE.US.USD , https://sondemarkets.com/research/be/ ; price 30 Oct 2026 close $203.17. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>BE — Top customers (B2B)</h2>
+<p>Bloom Energy is classified <strong>B2B</strong>: fuel-cell systems and long-term service agreements are sold to hyperscalers, utilities and large energy buyers. No revenue-share ranking is disclosed in the pack; the GW figures below are contracted/agreement sizes reported in 2026 coverage, NOT revenue shares.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Oracle Corporation — up to 2.8 GW master agreement (incl. Project Jupiter)</td><td></td><td>Covered ticker — DCF intrinsic: N/A (DCF withdrawn)</td></tr><tr><td>American Electric Power (AEP) — up to 1 GW supply agreement</td><td></td><td>Covered ticker — DCF intrinsic $137, discount/premium -5.0%</td></tr><tr><td>Equinix — 100+ MW deployed across 19 sites</td><td></td><td>Covered ticker — DCF intrinsic $901 discount/premium +12.5%</td></tr><tr><td>Google — via AEP 20-year PPA for a planned 702 MW Cheyenne project</td><td></td><td>Covered ticker — DCF intrinsic $137, discount/premium -5.0%</td></tr><tr><td>Amazon Web Services — via AEP Ohio deployments</td><td></td><td>Covered ticker — DCF intrinsic $137, discount/premium -5.0%</td></tr><tr><td>Brookfield Asset Management ($5B project-finance partnership)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>CoreWeave and other neocloud/colocation operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Bloom is the most customer-concentrated name in this batch: Oracle alone accounts for a multi-gigawatt agreement larger than Bloom's entire installed base to date, and the pack flags customer concentration as a key risk. If the covered customers in this table — above all Oracle and AEP — trade at discounts to intrinsic once filled in, that is a potential tailwind for conversion of those agreements into delivered systems; premiums are a potential headwind — but the caveat bites hardest here: an undervalued Oracle still has to choose Bloom over grid power or gas turbines site by site, and Bloom's own Q3 cash burn (FCF −$181m) shows that orders do not automatically become cash. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>BE — AI trade positioning</h2>
+<p><strong>Role: Enabler.</strong> Bloom Energy is the purest AI enabler in this batch: its fuel cells provide behind-the-meter power for AI data centres that cannot wait for grid connections.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: data-centre fuel-cell systems, with Oracle up to 2.8 GW and AEP up to 1 GW (see customers section) and Q3 2026 revenue $1.24B (+138% year on year). Multiple channel: BE's price already capitalises the bull case — the pack's own 5-year weighted value (~$173) sits below the $203.17 price, and the stock fell ~40% from its June peak (~$346) before this build — so an AI unwind would compress a multiple that is already volatile (beta 3.65, pack).</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: hyperscalers delay or cancel fuel-cell orders, or choose grid/gas-turbine power instead — Binding customer orders in filings were only $0.72B against ~$5.8B committed to suppliers (Sonde, Oct 2026), so conversion, not announcements, is the break point. Second, multiple compression: very high — a sentiment reversal could re-rate it toward the pack's bear case (~$31) regardless of near-term revenue. Third, balance sheet: high — Q3 FCF was −$181m on contract-asset build, net debt is small ($0.29B) but working capital and supplier commitments are the real leverage, amplified by Oracle concentration. Trigger to watch: an Oracle or AEP order delay/cancellation, a Q4 cash-flow miss, or a hyperscaler announcement of grid-power availability that removes the time-to-power edge.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price, market cap and Q3 figures are as of the 30 Oct 2026 close / Q3 2026 reporting, independently verified where the verification log in the research pack says so (see labels in §2 and §5). Scenario targets in §5 are this note's modelled estimates with assumptions shown, cross-checked against the consensus figures listed. Backlog $20B service figure is a company/backlog definition per MarketBeat, not audited revenue.</p>
+  <ol class="refs">
+    <li><a href="https://www.tradingkey.com/news/transcripts/262234441-tradingkey" target="_blank" rel="noopener">TradingKey — Q3 2026 earnings transcript: revenue $1,235.8M (+138.1%), margins, EPS, FY26 guide</a></li>
+    <li><a href="https://www.tradingview.com/news/gurufocus:045737b2c094b:0-bloom-energy-raises-outlook-but-investors-spot-a-new-risk/" target="_blank" rel="noopener">TradingView / GuruFocus — Q3 revenue confirmation and outlook raise</a></li>
+    <li><a href="https://tradersagency.com/blog/bloom-energy-posts-record-dollar124-billion-quarter-raises-guidance-a-third-time-yet-shares-slip-5percent-after-hours" target="_blank" rel="noopener">Traders Agency — GAAP operating income $225.4M (18.2%) vs non-GAAP 23.1%</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/27/bloom-energy-stock-has-plunged-despite-explosive-growth-is-it-time-to-buy/" target="_blank" rel="noopener">Motley Fool (27 Oct) — Q3 FCF −$180.6M bridge: OCF −$27.1M, capex $153.5M</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/23/bloom-energy-stock-sinks-despite-record-revenue-and-a-stellar-outlook-is-it-time-to-buy/" target="_blank" rel="noopener">Motley Fool (23 Oct) — record revenue, stellar outlook, trailing-multiple context</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/23/why-bloom-energy-stock-is-crashing-today/" target="_blank" rel="noopener">Motley Fool (23 Oct) — why the stock fell despite the beat</a></li>
+    <li><a href="https://kalkine.com/news/energy/bloom-energy-nyse-be-stock-moves-lower-data-center-demand-margins-and-raised-2026-guidance-in-focus" target="_blank" rel="noopener">Kalkine — cash &amp; equivalents $2,486.7M at 30 Sep 2026</a></li>
+    <li><a href="https://www.algovestiq.com/news/earnings/be-bloom-energy-q3-fy2026-earnings" target="_blank" rel="noopener">AlgoVestIQ — BE Q3 FY2026 earnings / FCF corroboration</a></li>
+    <li><a href="https://stockanalysis.com/stocks/be/" target="_blank" rel="noopener">StockAnalysis — BE overview: TTM revenue, shares 295.66M, consensus cross-check</a></li>
+    <li><a href="https://stockanalysis.com/stocks/be/history/" target="_blank" rel="noopener">StockAnalysis — BE price history: $203.17 close, 30 Oct 2026</a></li>
+    <li><a href="https://www.financecharts.com/sectors/industrials?columns=totalreturnytd&amp;sort=totalreturnytd-desc" target="_blank" rel="noopener">FinanceCharts — Industrials sector table: market cap $60.07B</a></li>
+    <li><a href="https://www.marketbeat.com/articles/ai-power-crunch-why-bloom-energy-is-the-hidden-winner/" target="_blank" rel="noopener">MarketBeat — AI power crunch; backlog framing (~$6B product, ~$20B service agreements, company definitions)</a></li>
+    <li><a href="https://finnhub.io/?q=%22BE%22" target="_blank" rel="noopener">Finnhub — BE quote: beta 3.65, 52-week range (P/E feed flagged not meaningful in §2)</a></li>
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Industrials Companies: global ranking basis (rankings / metrics as of 5 Oct 2026)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary prepared for information only, as of 1 Nov 2026, using the 30 Oct 2026 close as its price reference. Figures labelled “modelled estimate” are scenario outputs from the assumptions shown, not forecasts or verified facts. Figures the research pack could not verify (including any geographic revenue split) are omitted rather than estimated. Recommendations are research views, not guarantees and not personal investment advice; a 3.65-beta, negative-free-cash-flow growth stock can lose most of its value — size accordingly and consider advice from a licensed adviser for your own circumstances.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var map={};
+    links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('on');});
+          var a=map[e.target.id]; if(a)a.classList.add('on');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    links.forEach(function(a){var s=document.getElementById(a.getAttribute('href').slice(1)); if(s)obs.observe(s);});
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function calc(){
+    var v=parseFloat(pf.value)||0;
+    var amt=v*0.005;
+    var shares=Math.floor(amt/203.17);
+    out.innerHTML='Target 0.5% = <b>$'+fmt(amt)+'</b> · ≈ <b>'+fmt(shares)+' shares</b> at $203.17. Bear-case ($31) loss on this size ≈ <b>$'+fmt(amt*0.85)+'</b> — sized to be survivable by design.';
+  }
+  if(pf&&out){pf.addEventListener('input',calc); calc();}
+})();
+</script>
+</body>
+</html>

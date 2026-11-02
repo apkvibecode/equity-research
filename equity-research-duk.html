@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — DUK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Regulated Electric &amp; Gas · US Southeast / Midwest</span></div>
+  <h1>Duke Energy <span class="tick">(NYSE: DUK)</span></h1>
+  <p class="lede">The largest fully-regulated capital plan in US utilities — $103B over five years — meets the first hard test of who pays for data-centre load. Duke's earnings engine is rate-base growth, not pricing power: regulators grant the return, regulators can also delay it. The 3 Nov Florida vote on the large-load tariff is the near-term tell.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $127.39 close, Fri 30 Oct 2026</span>
+    <span><b>Next print:</b> Q3 2026 due 5 Nov 2026 — after this note's cutoff; no outcome assumed</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">DUK — this report</span>
+    <span class="tab soon">Utilities · XLU universe — see ranking note in §1</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$127.39</div><div class="vsub">Official 30 Oct 2026 close — <a href="https://finnhub.io/?q=%22DUK%22" target="_blank" rel="noopener">Finnhub</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$99.33B</div><div class="vsub">TipRanks / XLU basis, 30 Oct — see methodology note</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing / Forward P/E</div><div class="vbig mono">19.1× / 16.0×</div><div class="vsub">Trailing 19.13× · Forward 15.95× — FinanceCharts</div></div>
+  <div class="vcell span3"><div class="vlabel">Dividend</div><div class="vbig mono">3.35–3.6%</div><div class="vsub">$1.085/qtr declared 1 Oct 2026 (+1.9%) · $4.34 annualised</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Tariff vote (3 Nov) + funding overhang argue against chasing ahead of clarity.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Rate-base compounding to $120B by 2030 if approvals hold; modelled 5-yr weighted value $158.20*.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.5% of portfolio</div><div class="vsub">Defensive / income sleeve — ballast, not a growth engine. See §6.</div></div>
+</div>
+<p class="small" style="margin-top:6px">* All scenario prices in §5 are <b>modelled estimates</b> with assumptions shown — not verified facts. See §5 methodology note.</p>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#cashflow">Cash-flow gap</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">AT A GLANCE</span><h2>The investment case in one view</h2></div>
+  <p>Duke is a <b>pure regulated-utility compounder</b>: earnings grow when invested capital (rate base) grows and regulators allow a return on it. The company plan is unusually large — <b>$103B of capex over 2026–2030</b>, taking rate base to <b>$120B by 2030</b> — and unusually exposed to a new variable: <b>data-centre load</b>. Agreements total <b>7.8 GW (5.2 GW under construction)</b>, with data centres expected to be <b>~25% of Carolinas demand by 2030</b> on the company plan as reported. That is the growth story. The constraint is equally clear in the cash flow: in 2025, operating cash flow did not cover capex plus the dividend, leaving a <b>$4.97B funding gap</b> met from debt and equity — every year of the plan.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Key figure</th><th class="n">Value</th><th>Source / note</th></tr></thead>
+    <tbody>
+      <tr><td>Price (30 Oct 2026 close)</td><td class="n">$127.39</td><td>Finnhub — confirmed on independent verification</td></tr>
+      <tr><td>Market cap</td><td class="n">$99.33B</td><td>TipRanks XLU holdings, 30 Oct 2026 — vendor/method stated; Finnhub float-based values differ by up to ~$3B, do not mix vendors</td></tr>
+      <tr><td>Trailing / Forward P/E</td><td class="n">19.13× / 15.95×</td><td>FinanceCharts</td></tr>
+      <tr><td>2026 adjusted EPS guidance</td><td class="n">$6.55–$6.80</td><td>Company guidance — confirmed via Zacks; 5–7% growth through 2030 guided alongside it</td></tr>
+      <tr><td>Dividend</td><td class="n">$1.085 / qtr</td><td>Declared 1 Oct 2026, +1.9%; $4.34 annualised ≈ 3.4% at $127.39; peer-table yield quoted 3.35% to ~3.6% depending on price/date</td></tr>
+      <tr><td>5-year capital plan</td><td class="n">$103B</td><td>2026–2030 company plan — confirmed via Zacks</td></tr>
+      <tr><td>Data-centre agreements</td><td class="n">7.8 GW total</td><td>5.2 GW under construction — company plan as reported Oct 2026 (AInvest)</td></tr>
+      <tr class="hl"><td>2025 funding gap</td><td class="n">−$4.97B</td><td>OCF $12.35B − capex $14.02B − dividends $3.30B — see §2</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">Ranking &amp; universe note — read before comparing</div>
+  <p>This note sits in a <b>Top 10 US-listed Utilities (XLU universe, 30 Oct 2026)</b> set — <b>not a global ranking</b>. XLU is 100% US geography, so US-listed-only is defensible as an XLU methodology. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the top 10 and XEL / EXC would fall out. Market caps in this series use TipRanks values throughout for consistency. Source: <a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks XLU holdings</a> · <a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts global utilities</a>.</p></div>
+</section>
+
+<section id="cashflow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>2025 cash flow — the funding gap, visualised</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 260" width="100%" role="img" aria-label="Bar chart showing Duke Energy 2025 operating cash flow of 12.35 billion versus capex 14.02 billion plus dividends 3.3 billion, leaving a 4.97 billion funding gap" style="font-family:'Archivo',sans-serif">
+      <text x="8" y="22" font-size="13" font-weight="700" fill="var(--ink)">2025 cash in vs. cash committed ($B)</text>
+      <!-- OCF -->
+      <rect x="8" y="44" width="620" height="36" fill="var(--blue)"/>
+      <text x="18" y="67" font-size="13" font-weight="700" fill="#fff">Operating cash flow  $12.35B</text>
+      <!-- Capex -->
+      <rect x="8" y="96" width="704" height="36" fill="var(--gold)"/>
+      <text x="18" y="119" font-size="13" font-weight="700" fill="#fff">Capital expenditure  $14.02B</text>
+      <!-- Div -->
+      <rect x="8" y="148" width="166" height="36" fill="var(--ink2)"/>
+      <text x="18" y="171" font-size="13" font-weight="700" fill="#fff">Dividends  $3.30B</text>
+      <text x="184" y="171" font-size="12" fill="var(--ink2)">Total committed: $17.32B</text>
+      <!-- Gap callout -->
+      <rect x="8" y="202" width="962" height="42" fill="var(--red-soft)" stroke="var(--line2)"/>
+      <text x="20" y="220" font-size="13" font-weight="700" fill="var(--ink)">Funding gap  −$4.97B  — met from debt + equity issuance</text>
+      <text x="20" y="237" font-size="12" fill="var(--ink2)">$12.35B − $14.02B − $3.30B = −$4.97B. Capex alone exceeded operating cash flow in 2025.</text>
+    </svg>
+    <figcaption>2025 actuals as reported in the research pack (FounderNews summary of company filings). This is the central balance-sheet fact for DUK: the $103B plan is externally funded by construction, so cost of capital and equity dilution are earnings variables, not footnotes.</figcaption>
+  </figure>
+  <div class="bars" aria-label="Relative scale of 2025 cash flows">
+    <div class="bar-row"><span class="bl">Operating cash flow</span><div class="bar-track"><div class="bar-fill" style="width:71%"></div></div><span class="bv">$12.35B</span></div>
+    <div class="bar-row"><span class="bl">Capex</span><div class="bar-track"><div class="bar-fill gold" style="width:81%"></div></div><span class="bv">$14.02B</span></div>
+    <div class="bar-row"><span class="bl">Dividends</span><div class="bar-track"><div class="bar-fill" style="width:19%;background:var(--ink2)"></div></div><span class="bv">$3.30B</span></div>
+    <div class="bar-row"><span class="bl">Funding gap</span><div class="bar-track"><div class="bar-fill neg" style="width:29%"></div></div><span class="bv">−$4.97B</span></div>
+  </div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Duke Energy is a <b>fully-regulated electric and gas utility</b>. It does not sell a product at a market price; it invests in generation, transmission and distribution assets inside franchised service territories, and state commissions set the rates that give it an allowed return on that invested capital (the rate base). Revenue quality is therefore high and recurring, growth is capex-led, and the binding constraint is regulatory — every major earnings assumption in this note ultimately reduces to <i>will commissions approve the spend and the tariff that recovers it?</i></p>
+
+  <h3>Footprint — where Duke operates</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Territory</th><th>Role in the thesis</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Carolinas (NC / SC)</td><td>Largest territory and the data-centre story: data centres expected ~25% of Carolinas demand by 2030 on the company plan</td><td>Load-growth approvals; whether large-load customers fund their own interconnection costs</td></tr>
+      <tr><td>Florida</td><td>Second growth leg — and the live regulatory risk (see §4): large-load tariff under FL SB 484</td><td>PSC vote 3 Nov 2026 on the tariff as filed; refile terms if denied</td></tr>
+      <tr><td>Indiana · Ohio · Kentucky</td><td>Midwest regulated electric &amp; gas — steadier, slower-growth base that diversifies the Southeast load bet</td><td>Routine rate cases; gas distribution capex</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Territory list and model description from the verified research pack. The pack does not carry a verified revenue split by state or by electric vs. gas, so none is shown here rather than estimated — the segment economics that <i>are</i> verified are the rate-base and capex figures below.</p>
+
+  <h3>The growth engine — rate base, not volume pricing</h3>
+  <ul>
+    <li><b>$103B capital plan, 2026–2030</b> — described in the pack as the <b>largest fully-regulated capex plan in the industry</b> (company plan, reported Oct 2026; confirmed via Zacks). Source: <a href="https://www.ainvest.com/news/duke-energy-data-center-promise-depends-rate-psc-hasn-approved-2608/" target="_blank" rel="noopener">AInvest</a> · <a href="https://www.zacks.com/stock/news/2944871/can-duke-energys-investment-plan-deliver-years-of-earnings-growth" target="_blank" rel="noopener">Zacks verification</a>.</li>
+    <li><b>Rate base to $120B by 2030</b> on that plan — rate-base growth is the mechanical driver of regulated earnings: more approved capital in service, at an allowed return, is more EPS.</li>
+    <li><b>Earnings growth of 9.6% p.a. through the decade</b> is the figure attached to the plan in the same reporting — treat it as the <i>plan's</i> ambition, above the company's own <b>5–7% EPS growth guide through 2030</b> that accompanies the $6.55–$6.80 2026 guidance (Zacks). The gap between 5–7% guided and 9.6% plan-implied is exactly the regulatory-execution risk priced in §5.</li>
+    <li><b>Data-centre energy-service agreements: 7.8 GW total, 5.2 GW under construction.</b> This is contracted / in-build load, not a pipeline of enquiries — but converting it to earnings still requires the tariffs and interconnections in §4.</li>
+  </ul>
+
+  <h3>Structural pivot — from steady utility to load-growth utility</h3>
+  <ul>
+    <li><b>Load growth is back.</b> After two decades of flat US power demand, data-centre demand makes Duke a growth utility again — if, and only if, the “load creator pays” principle in new law (FL SB 484) lets Duke serve that load without shifting costs onto existing residential customers in a way commissions will not accept.</li>
+    <li><b>Scale of the queue vs. scale of what can be served:</b> in Florida, only <b>~55 MW is servable before settlement expiry</b> against a <b>smallest study request of 160 MW</b>, with <b>13 requests above 50 MW</b> (MGrid). The demand is real; the near-term servable capacity is the bottleneck.</li>
+    <li><b>Supply-chain dependencies:</b> as a regulated builder, Duke's critical path is large transformers, switchgear, gas turbines / generation equipment, and grid-interconnection capacity — long-lead electrical equipment is the industry-wide constraint on converting capex plans into in-service rate base on schedule. Delays do not cancel earnings, they defer them — but deferral at this funding cost matters (see §2).</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The P&amp;L looks like a textbook utility: mid-teens forward multiple, guided EPS growth, a rising dividend. The cash-flow statement is where this name differs from a sleepy compounder. <b>Duke outspends its operating cash flow by design for the whole plan period</b> — which makes it, in effect, a continuous issuer of debt and equity whose earnings per share depend on issuing that equity at a decent price and on commissions keeping allowed returns ahead of funding costs.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; cash-flow snapshot — price $127.39 (30 Oct 2026 close). Only figures carried in the verified pack are shown; metrics the pack does not verify (e.g. a point debt/equity ratio, EV/EBITDA) are omitted rather than estimated.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">19.13×</td><td>Full for a regulated utility — the market is already paying for load growth, not just for the dividend</td></tr>
+      <tr><td>Forward P/E</td><td class="n">15.95×</td><td>Gap to trailing reflects expected EPS growth into the rate-base build; delivery is regulatory, not commercial</td></tr>
+      <tr><td>2026 adj. EPS guidance</td><td class="n">$6.55–$6.80</td><td>Arithmetic midpoint is $6.675; the §5 model uses the pack's $6.67 starting EPS — the model starts from guidance, not from a heroic assumption</td></tr>
+      <tr><td>Guided EPS growth thru 2030</td><td class="n">5–7% p.a.</td><td>Company guide (Zacks) — the anchor for §5; the 9.6% plan figure in §1 is upside if execution is flawless</td></tr>
+      <tr><td>Dividend yield</td><td class="n">3.35% to ~3.6%</td><td>$1.085/qtr declared 1 Oct 2026 (+1.9%), $4.34 annualised. Range reflects price/date and source (Meyka peer table vs. annualised maths) — both shown, not blended</td></tr>
+      <tr><td>2025 operating cash flow</td><td class="n">$12.35B</td><td>The internal funding engine — large, stable, regulated</td></tr>
+      <tr><td>2025 capex</td><td class="n">$14.02B</td><td>Exceeds OCF by $1.67B <i>before</i> any dividend is paid</td></tr>
+      <tr><td>2025 dividends paid</td><td class="n">$3.30B</td><td>Protected in practice — cutting it would re-rate the stock as a broken income name</td></tr>
+      <tr class="hl"><td>2025 funding gap (OCF − capex − divs)</td><td class="n">−$4.97B</td><td>Met from debt + equity issuance — the pack's flagged “key balance-sheet warning”</td></tr>
+      <tr><td>5-yr capex plan (2026–30)</td><td class="n">$103B</td><td>≈ $20.6B/yr average vs. $14.02B spent in 2025 — the funding gap widens before it narrows, on the plan's own numbers</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: <a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio" target="_blank" rel="noopener">FinanceCharts (P/E)</a> · <a href="https://foundernews.eu/103-billion-spending-plan-outpaces-duke-energys-cash-flow-every-year/" target="_blank" rel="noopener">FounderNews (dividend, guidance, 2025 cash flows)</a> · <a href="https://www.zacks.com/stock/news/2944871/can-duke-energys-investment-plan-deliver-years-of-earnings-growth" target="_blank" rel="noopener">Zacks (guidance &amp; plan confirmation)</a>.</p>
+
+  <div class="callout bad"><div class="ct">The one number to watch — the funding gap, every year</div>
+  <p>The pack's own headline is the diagnosis: the <b>$103B spending plan outpaces Duke's cash flow every year</b>. That is normal for a growing utility in any single year; as a five-year structure it means: <b>(1)</b> ongoing equity issuance dilutes the EPS growth the capex is meant to create; <b>(2)</b> rising rates directly tax the investment case, because the spread between allowed return and funding cost is the profit; and <b>(3)</b> the dividend is funded, in cash terms, partly by capital markets — sustainable while markets stay open and the stock holds its multiple, fragile if either closes. None of this is a solvency warning. It is a <i>cost-of-capital</i> warning, and it is why §6 holds short-term rather than buys aggressively here.</p></div>
+
+  <h3>Capital allocation, in order of current priority</h3>
+  <ul>
+    <li><b>1. Rate-base capex</b> — $103B over five years dwarfs everything else; it <i>is</i> the strategy.</li>
+    <li><b>2. Dividend</b> — $3.3B/yr and growing slowly (+1.9% on the latest declaration): the income contract with the shareholder base is maintained, but growth in the payout is deliberately modest while capex peaks.</li>
+    <li><b>3. External funding as the balancing item</b> — debt first, equity as needed. Watch the equity leg: issuance below book or at a compressed multiple converts rate-base growth into flat EPS, which is the bear case in §5.</li>
+    <li><b>Buybacks</b> — not a feature of a company with a structural funding gap; none is assumed in any scenario here.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide but borrowed — the moat is the franchise, and the franchise is granted by regulators.</b> The pack puts it in one line: <i>“No pricing power beyond regulators — the moat is the rate case.”</i> Inside its territories Duke faces no direct competitor for wires and regulated generation; outside them, it competes for capital, for data-centre siting, and for regulatory goodwill against every other Southeast utility chasing the same load.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Franchised territories:</b> Carolinas, Florida, Indiana, Ohio, Kentucky — a legal monopoly on regulated service in each. A rival cannot overbuild Duke's wires; entry is by commission grant, not by investment.</li>
+      <li><b>Scale:</b> $99.33B market cap, #3 in the XLU top 10 (TipRanks, 30 Oct) behind NEE and SO — scale spreads fixed regulatory, financing and procurement costs over a $120B-by-2030 rate base.</li>
+      <li><b>Data-centre queue position:</b> 7.8 GW of energy-service agreements (5.2 GW under construction) in the Carolinas/Florida corridor — hyperscalers are queuing for Duke's territories (power availability, land, Southeast siting), and that queue is itself a scarce asset.</li>
+      <li><b>Revenue visibility:</b> regulated returns on approved capital are among the most forecastable earnings streams in the market — hence 5–7% guided EPS growth through 2030 can be stated at all.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>No pricing power:</b> prices are set in rate cases. Cost inflation, storm costs or funding costs that commissions will not pass through come straight out of earned return.</li>
+      <li><b>The moat is revocable at the margin:</b> the Florida PSC staff recommendation to deny the large-load tariff <i>as filed</i> (§4) is the moat's limit made concrete — Duke can be told to refile the very instrument its growth plan needs.</li>
+      <li><b>Peer competition for load &amp; capital:</b> NextEra (FPL in Florida), Southern Company, Dominion, AEP and Constellation all compete for the same data-centre siting decisions and the same utility-investor dollar; Duke has no structural edge over NEE in Florida itself.</li>
+      <li><b>Political exposure:</b> residential bill pressure is the binding political constraint on every rate case — “load creator pays” law (SB 484) exists precisely because commissions must be seen to protect existing customers from data-centre costs.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Duke is the <b>pure-play regulated growth utility</b> in the top tier — unlike NextEra (large unregulated renewables arm) or Constellation (merchant nuclear), essentially all of the thesis is regulated rate-base compounding. That purity is the attraction for an income/defensive sleeve and the limitation for upside: there is no unregulated earnings kicker, only execution on approvals.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="callout bad"><div class="ct">Immediate event — Florida PSC vote, 3 Nov 2026 (two days after this note)</div>
+  <p>Florida PSC staff on <b>22 Oct 2026 recommended commissioners DENY Duke Florida's large-load tariff as filed, with leave to refile</b> — a <b>staff recommendation, not a commission decision</b> as of 1 Nov. The commission vote is scheduled <b>3 Nov 2026</b> (Docket 20260064-EI). This is the <b>first tariff filed under FL SB 484</b> (effective 1 Jul 2026: “load creator pays”, 50 MW threshold). Context that decides how much it matters: only <b>~55 MW is servable before settlement expiry</b> vs. a <b>smallest study request of 160 MW</b>, with <b>13 requests &gt;50 MW</b>. A denial-as-filed with a workable refile path is a delay; a denial that strands the queue is a thesis event. Do not pre-position at full size ahead of it. Source: <a href="https://mgrid.org/2026/10/24/florida-psc-staff-tells-regulators-to-deny-duke-energys-50-mw-large-load-tariff-the-first-filed-under-sb-484/" target="_blank" rel="noopener">MGrid, 24 Oct 2026</a>.</p></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Florida tariff resolution</b> — approval, or a refiled tariff that passes, unblocks the Florida leg of the load-growth story and validates the SB 484 framework for the whole state.</li>
+        <li><b>Q3 2026 results, 5 Nov 2026</b> — first print after this note; the read is not the quarter itself but any update to the $103B plan's funding mix and to 2026 guidance ($6.55–$6.80).</li>
+        <li><b>Rate-base conversion</b> — 5.2 GW already under construction moving into service is the mechanical EPS escalator toward the $120B-by-2030 rate base.</li>
+        <li><b>Carolinas load delivery</b> — data centres reaching ~25% of Carolinas demand by 2030 (plan) would make Duke's 5–7% guide look conservative and support the bull case's 7% growth.</li>
+        <li><b>Rate relief / falling funding costs</b> — any decline in long rates widens the allowed-return-minus-funding-cost spread and re-rates the whole regulated group; DUK is a geared play on that spread.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Regulatory denial / delay (live):</b> the Florida staff recommendation is the template risk — each delayed tariff defers in-service dates and pushes earnings right while funding costs run now.</li>
+        <li><b>Funding gap + dilution:</b> a $4.97B gap in 2025, widening on the plan's own capex ramp (≈$20.6B/yr average vs. $14.02B in 2025). Persistent equity issuance at a soft price is the slow bear case: rate base grows, EPS doesn't.</li>
+        <li><b>Interest-rate exposure:</b> utilities are the market's bond proxy. A higher-for-longer long end compresses the multiple (19.1× trailing has room to fall) and raises the cost of the debt leg simultaneously — a double hit few other sectors face.</li>
+        <li><b>Execution on $103B:</b> long-lead equipment, interconnection queues and the 55 MW-servable constraint in Florida all say the same thing — announced capex is not in-service capex until commissions and construction say so.</li>
+        <li><b>Storm &amp; climate costs:</b> a Florida/Carolinas service territory carries hurricane restoration exposure that lands in rate cases with a lag and political friction attached. (General territory risk — no specific storm figure is carried in the verified pack.)</li>
+        <li><b>Data-centre demand concentration:</b> if hyperscaler build plans slow, Duke is left having pre-funded grid capacity for load that arrives late — the mirror image of the bull case, and the reason the “load creator pays” allocation matters so much.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warn"><div class="ct">What would break the thesis</div><p>A pattern, not a headline: <b>two or more major-jurisdiction tariff/rate outcomes in a row that push load costs onto Duke's balance sheet or strand the large-load queue</b>, while the funding gap forces equity issuance at a falling multiple. Either leg alone is the ordinary friction of regulated utilities. Together they turn 5–7% guided EPS growth into the bear case's 4.5% — growth that barely covers dilution.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><b>Methodology note — read first.</b> Every price in this section is a <b>modelled estimate</b>, not a verified fact, and is labelled as such per the verification protocol for this series: the independent verifier could not recompute weighted targets where scenario weights were not in the pack, so the weights used here are stated explicitly (Bear 25% / Base 50% / Bull 25% — the series convention) so the arithmetic can be checked. For a regulated utility the frozen-parameter model is run in its EPS form: <b>2031 price = current EPS × (1 + g)<sup>5</sup> × exit P/E</b>, with EPS growth <i>g</i> and the exit P/E frozen per case. This is the transparent adaptation of the standard “2031 revenue × net margin ÷ shares × P/E” format — for Duke, EPS growth <i>is</i> the rate-base-driven variable (revenue × margin ÷ shares collapses to EPS), and starting EPS is anchored to guidance: the pack's model base is $6.67, against an arithmetic guidance midpoint of $6.675 for the $6.55–$6.80 range.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25% · Estimate</div><div class="price mono">$110</div><div class="ret down">−13.6% vs $127.39</div><p>Florida tariff denied without a clean refile path; load queue stalls; equity issuance at a compressed multiple dilutes the guide toward the low end. The stock de-rates toward a pure bond-proxy valuation.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50% · Estimate</div><div class="price mono">$132</div><div class="ret up">+3.6% vs $127.39</div><p>Tariff resolved on a refile; guidance delivered; rate base compounds on plan. Price return is modest — most of the base-case return is the ~3.4% dividend. That is the honest shape of a fairly-valued utility.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25% · Estimate</div><div class="price mono">$145</div><div class="ret up">+13.8% vs $127.39</div><p>Tariff approved / quickly refiled and approved; Carolinas + Florida load converts on schedule; funding costs ease. Multiple holds near today's forward level on faster visible growth.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $130</div></div><p>0.25×$110 + 0.50×$132 + 0.25×$145 = $129.75 ≈ $130, or <b>+1.9%</b> price return — plus ~3.4% dividend yield for a total-return shape of roughly +5%. Near-term upside is carry, not re-rating: hence HOLD, not chase, in §6.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (2031, modelled estimates)</h3>
+  <p>Formula per case: <b>2031 EPS = $6.67 × (1 + g)<sup>5</sup></b>; <b>2031 price = 2031 EPS × exit P/E</b>. Growth and P/E are frozen per case; no mid-path re-rating is assumed. Check the arithmetic: Base — $6.67 × 1.06<sup>5</sup> = $6.67 × 1.338 = $8.93; × 18 = <b>$160.60</b>. Bull — $6.67 × 1.07<sup>5</sup> = $9.35; × 20 = <b>$187.00</b>. Bear — $6.67 × 1.045<sup>5</sup> = $8.30; × 15 = <b>$124.50</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">EPS growth / yr (g)</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Price CAGR from $127.39</th><th>What has to be true</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">4.5%</td><td class="n">$8.30</td><td class="n">15×</td><td class="n">$124.50</td><td class="n">−0.5%</td><td>Dilution + tariff friction eat the guide; growth lands below the 5–7% range; multiple settles at a discount bond-proxy level. Dividend still carries the total return.</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">6.0%</td><td class="n">$8.93</td><td class="n">18×</td><td class="n">$160.60</td><td class="n">+4.7%</td><td>Midpoint of the company's own 5–7% guide, delivered; rate base reaches ~$120B by 2030; exit multiple near today's trailing level.</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">7.0%</td><td class="n">$9.35</td><td class="n">20×</td><td class="n">$187.00</td><td class="n">+8.0%</td><td>Top of the guide, sustained; data-centre load converts without stranding costs on Duke; market pays a growth-utility premium.</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$158.20</td><td class="n">+4.4%</td><td>0.25×$124.50 + 0.50×$160.60 + 0.25×$187.00 = $158.20 — modelled estimate, weights as stated. Add ~3.4%/yr of dividends (before growth in the payout) for the total-return picture: high-single-digit annualised in the base case.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sanity anchors: base-case 6% EPS growth sits <i>inside</i> management's 5–7% guide — no heroics required; the bull case needs only the top of that same guide plus a 20× exit multiple the stock has traded at before in load-growth optimism. The bear case's sting is not collapse — regulated earnings rarely collapse — it is five years of price drift (−0.5%/yr) while dilution does its quiet work, with the dividend as the only return. All scenario prices are estimates with methodology shown, never verified facts.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. For this profile a regulated utility is not where return is manufactured — it is where equity risk is <i>diluted</i>: low correlation to the AI/tech core of the wider coverage set, a contractual-looking dividend, and earnings that do not depend on the ad cycle or the chip cycle. Size it as ballast, and it earns its place; size it as a growth name, and it will disappoint by design.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not add ahead of the 3 Nov PSC vote.</b> Weighted 12–18-mo value ≈ $130 is only +1.9% on price — the near-term return is the dividend. Add on a clean tariff outcome, or on weakness toward the $110 bear zone if the long-term funding story is intact, rather than at $127 with a binary vote two days out.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy as a defensive sleeve position, staged.</b> Modelled 5-yr weighted value $158.20 (+4.4%/yr price) plus ~3.4% starting yield is a high-single-digit total-return profile with utility-grade volatility — exactly the ballast role. Stage entry around the vote and the 5 Nov print rather than in one tranche.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the multiple runs well above ~20× forward without a guidance raise (valuation doing all the work); hard-review on a second consecutive adverse major-jurisdiction tariff outcome, or equity issuance that pushes guided EPS growth below ~4.5% (the bear-case line).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>DUK target: 2.5% of total portfolio.</b> A single regulated utility at 2.5% contributes steady income and genuine diversification against a tech-heavy book without capping the portfolio's growth engine — at risk 8/10, the equity risk budget belongs in higher-beta names; DUK's job is to lower the ride's volatility, not to lead it.</li>
+    <li><b>Check the look-through overlap:</b> broad US index funds already hold DUK via XLU-weight utility exposure (DUK is #3 in XLU). If the core is index-heavy, effective DUK exposure is modestly higher than the direct 2.5% — acceptable at this size; no adjustment needed below a 4% direct weight.</li>
+    <li><b>Income maths at target weight:</b> 2.5% × ~3.4% yield ≈ 0.09% of portfolio value per year from DUK dividends alone — small in isolation, but it is the most contract-like 0.09% in the book.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+
+  <h3>Where DUK sits in the wider framework (risk 8/10, mid-30s)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Sleeve</th><th class="n">Role of DUK</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Defensive / income (utilities, staples, healthcare)</td><td class="n">2.5% in DUK</td><td>DUK is a core holding <i>within</i> this sleeve, not the sleeve itself — pair with at least one non-utility defensive so the sleeve is not a pure rates bet</td></tr>
+      <tr><td>Growth core (mega-cap platforms, semis)</td><td class="n">—</td><td>DUK's low correlation to this sleeve is the point: its earnings driver (rate cases) shares no cycle with ads, cloud or chips</td></tr>
+      <tr><td>Rates sensitivity of the whole book</td><td class="n">Watch</td><td>DUK + any long-duration bonds fall together when long rates rise — count DUK on the rates side of the risk ledger, not only the equity side</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>DUK — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $127.39.</strong> <strong>DCF intrinsic: $149.</strong> Discount/premium vs DCF: <strong>-14.5%</strong> — i.e. the shares are trading 14.5% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$149</td><td>-14.5%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $7 per share — Pack EPS $6.67 (2026 guidance $6.55-$6.80) - regulated earnings proxy (proxy base UNVERIFIED as an independent check; the restatement below applies regardless). TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 6.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/DUK/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/duk/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>DUK — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Duke sells electricity and gas principally to households and small businesses through regulated Carolinas, Florida, Indiana, Ohio and Kentucky tariffs, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack discloses data-centre energy-service agreements totalling 7.8 GW (5.2 GW under construction) and data centres at ~25% of Carolinas demand by 2030, but names no individual data-centre customer, so no customer table is built.</p><p><strong>Key demand drivers:</strong> rate-base growth toward $120B by 2030 on the $103B five-year plan, the Florida PSC's 3 Nov 2026 vote on Duke Florida's large-load tariff (staff recommended denial as filed on 22 Oct 2026), and data-centre load materialisation in the Carolinas.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>DUK — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Duke has the largest fully-regulated capex plan in the industry at $103B over five years, with data-centre agreements of 7.8 GW (5.2 GW under construction) and data centres expected at ~25% of Carolinas demand by 2030.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Contracted data-centre load converts into rate-base growth toward $120B by 2030 and the pack's 9.6% p.a. earnings growth, since regulated earnings scale with approved rate base.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Duke's multiple (forward P/E 15.95 per pack, the lowest among the large regulated names here) already prices funding scepticism rather than AI euphoria, so the multiple channel is modest upside if the tariff and funding questions clear.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: the Florida PSC vote on 3 Nov 2026 — staff recommended denial of Duke Florida's large-load tariff as filed — and any Carolinas slippage in the 7.8 GW queue, stranding part of the $103B plan. Second, multiple compression: limited, since the multiple is already low, but a failed tariff refile would cap re-rating. Third, balance sheet: this is where it bites — the pack flags a $4.97B 2025 funding gap, so an AI unwind that raises funding costs while load disappoints forces more dilutive equity. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> The 3 Nov 2026 Florida PSC vote and any refile; Q3 results due 5 Nov 2026 (post-cutoff, not used here); and Carolinas data-centre agreement conversions from the 7.8 GW queue.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price and market-cap figures are as of the 30 Oct 2026 close. Key figures were independently verified for this series (verification log, 1 Nov 2026): the $103B plan, $6.55–$6.80 guidance and the Florida PSC staff recommendation / 3 Nov vote were each confirmed against a second source (Zacks / MGrid). Scenario targets in §5 are this report's modelled estimates — methodology and weights shown there — and are not sourced figures. Recommendations are research views, not guarantees, and not investment advice.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22DUK%22" target="_blank" rel="noopener">Finnhub — DUK $127.39 official close, 30 Oct 2026 (price confirmation)</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings &amp; market caps, 30 Oct 2026 (DUK $99.33B; ranking basis)</a></li>
+    <li><a href="https://www.financecharts.com/stocks/DUK/value/pe-ratio" target="_blank" rel="noopener">FinanceCharts — DUK trailing P/E 19.13× / forward 15.95×</a></li>
+    <li><a href="https://www.zacks.com/stock/news/2944871/can-duke-energys-investment-plan-deliver-years-of-earnings-growth" target="_blank" rel="noopener">Zacks — $103B plan (2026–2030) &amp; $6.55–$6.80 guidance confirmed; 5–7% growth thru 2030</a></li>
+    <li><a href="https://www.ainvest.com/news/duke-energy-data-center-promise-depends-rate-psc-hasn-approved-2608/" target="_blank" rel="noopener">AInvest — $103B plan, 7.8 GW agreements (5.2 GW under construction), ~25% of Carolinas demand by 2030, rate base $120B by 2030</a></li>
+    <li><a href="https://foundernews.eu/103-billion-spending-plan-outpaces-duke-energys-cash-flow-every-year/" target="_blank" rel="noopener">FounderNews — dividend $1.085/qtr (+1.9%), guidance, 2025 OCF $12.35B vs capex $14.02B + dividends $3.3B = $4.97B gap</a></li>
+    <li><a href="https://mgrid.org/2026/10/24/florida-psc-staff-tells-regulators-to-deny-duke-energys-50-mw-large-load-tariff-the-first-filed-under-sb-484/" target="_blank" rel="noopener">MGrid — Florida PSC staff recommendation to deny as filed (leave to refile), vote 3 Nov 2026, SB 484, 55 MW / 160 MW / 13 requests</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global utilities ranking (Iberdrola $163.31B, Enel $103.42B, National Grid $84.52B) — the US-only caveat in §1</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer.</b> This note is research and education, not investment advice and not a solicitation. Scenario prices are modelled estimates built on the stated frozen parameters; they will be wrong in detail even if the thesis is right. Regulated-utility earnings depend on commission decisions (including the 3 Nov 2026 Florida PSC vote) that had not occurred at the 1 Nov 2026 as-of date, and on Q3 2026 results due 5 Nov 2026, which are not reflected here. Verify any figure against the linked primary source before acting, and size positions to your own circumstances.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function render(){
+    var v=parseFloat(pf.value)||0;
+    var target=v*0.025, shares=target/127.39, income=target*0.034;
+    out.innerHTML='At <b>2.5%</b>, DUK position = <b>'+fmt(target)+'</b> ≈ <b>'+Math.floor(shares).toLocaleString('en-US')+' shares</b> at $127.39 · ≈ <b>'+fmt(income)+'/yr</b> of dividends at a ~3.4% yield (estimate, before payout growth).';
+  }
+  pf.addEventListener('input',render); render();
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=Array.prototype.map.call(links,function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var y=window.scrollY+90, cur=0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop<=y) cur=i; });
+    links.forEach(function(a,i){ a.style.color=i===cur?'var(--blue)':''; a.style.borderBottomColor=i===cur?'var(--blue)':'transparent'; });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — BRK.B</title>
+<style>
+  :root{
+    --bg:#f7f4ee; --surface:#fffdf8; --surface2:#efe9dc; --ink:#1c1a15; --ink2:#5a5546;
+    --line:#d9d2bf; --accent:#7a4a12; --accent2:#2e5e3f; --bad:#9c2b1e; --gold:#b98a2f;
+    --chip:#efe6d2; --bar-bg:#e7e0cd;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#141310; --surface:#1e1c17; --surface2:#28251d; --ink:#ece7da; --ink2:#a89f8a;
+      --line:#3a362a; --accent:#d9a45b; --accent2:#7fc493; --bad:#e07a68; --gold:#c9a24a;
+      --chip:#2c2820; --bar-bg:#33301f;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:Georgia,'Iowan Old Style','Times New Roman',serif;
+    font-size:17px;line-height:1.55;}
+  .sans{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif}
+  main{max-width:960px;margin:0 auto;padding:28px 20px 64px}
+  h1{font-size:clamp(30px,5.5vw,46px);line-height:1.08;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:24px;margin:44px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+  h3{font-size:18px;margin:22px 0 8px}
+  p{margin:0 0 12px}
+  a{color:var(--accent)}
+  .kicker{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);margin-bottom:10px}
+  .sub{color:var(--ink2);font-size:16px;max-width:70ch}
+  .verdict{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 6px}
+  .pill{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:600;
+    padding:8px 14px;border-radius:999px;background:var(--chip);border:1px solid var(--line)}
+  .pill.buy{border-color:var(--accent2);color:var(--accent2)}
+  .pill.hold{border-color:var(--gold);color:var(--accent)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0 4px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .stat .lab{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+  .stat .val{font-size:24px;font-weight:700;margin-top:2px}
+  .stat .note{font-size:13px;color:var(--ink2);margin-top:2px}
+  .warn{background:var(--surface2);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;padding:14px 18px;margin:18px 0}
+  .warn strong{color:var(--accent)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media (max-width:680px){.grid2{grid-template-columns:1fr}}
+  ul{margin:0 0 12px;padding-left:22px}
+  li{margin-bottom:7px}
+  table{width:100%;border-collapse:collapse;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14.5px;margin:12px 0 18px;background:var(--surface)}
+  th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right}
+  th:first-child,td:first-child{text-align:left}
+  thead th{border-bottom:2px solid var(--gold);font-size:12.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+  .pos{color:var(--accent2);font-weight:700}
+  .neg{color:var(--bad);font-weight:700}
+  .tablewrap{overflow-x:auto}
+  @media (max-width:680px){
+    .stacktable thead{display:none}
+    .stacktable tr{display:block;border-bottom:2px solid var(--line);padding:6px 0}
+    .stacktable td{display:flex;justify-content:space-between;border-bottom:none;padding:5px 10px;text-align:right}
+    .stacktable td::before{content:attr(data-l);font-weight:600;color:var(--ink2);text-align:left;margin-right:12px}
+  }
+  .bar-row{display:grid;grid-template-columns:92px 1fr 74px;align-items:center;gap:10px;margin:8px 0;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px}
+  .bar-track{background:var(--bar-bg);border-radius:6px;height:20px;position:relative}
+  .bar-fill{height:100%;border-radius:6px}
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;margin:16px 0}
+  .calc label{font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:14px;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+  .calc .out{font-size:20px;margin-top:14px}
+  .calc .out b{color:var(--accent2)}
+  .fine{font-size:13.5px;color:var(--ink2)}
+  .src{font-size:15px}
+  .src li{margin-bottom:6px}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .tag{display:inline-block;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:4px;background:var(--chip);color:var(--accent);vertical-align:middle;margin-left:6px}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">Equity Research · Financials · As of 1 Nov 2026</div>
+  <h1>Berkshire Hathaway — BRK.B</h1>
+  <p class="sub">The post-Buffett Berkshire: a float-funded holding company of insurers, a railroad, an energy
+  utility group and dozens of operating businesses, plus one of the largest listed-equity portfolios in the world.
+  Priced off the <strong>30 Oct 2026 close of $542.49</strong> (1 Nov 2026 was a weekend). Research views only —
+  not investment advice, not a guarantee.</p>
+
+  <div class="verdict">
+    <span class="pill hold">Short term (12–18 mo): HOLD</span>
+    <span class="pill buy">Long term (5 yr): BUY</span>
+    <span class="pill">Suggested weight: 4% of portfolio</span>
+    <span class="pill">Profile: mid-30s · risk 8/10</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="lab">Price · 30 Oct 2026</div><div class="val">$542.49</div><div class="note">Regular-session close</div></div>
+    <div class="stat"><div class="lab">Market cap</div><div class="val">$1.16T</div><div class="note">~2.14bn shares out</div></div>
+    <div class="stat"><div class="lab">TTM revenue</div><div class="val">$438.3B</div><div class="note">Per Motley Fool financials</div></div>
+    <div class="stat"><div class="lab">EPS (TTM)</div><div class="val">$39.68</div><div class="note">Per StockAnalysis</div></div>
+    <div class="stat"><div class="lab">Trailing P/E</div><div class="val">13.67×</div><div class="note">See warning below — misleading here</div></div>
+    <div class="stat"><div class="lab">Forward P/E</div><div class="val">23.90×</div><div class="note">Above trailing — unusual, explained below</div></div>
+    <div class="stat"><div class="lab">Price / Book</div><div class="val">~1.6×</div><div class="note">Per GreekSoup — the cleaner anchor</div></div>
+    <div class="stat"><div class="lab">Dividend</div><div class="val">None</div><div class="note">Berkshire pays no dividend</div></div>
+  </div>
+
+  <div class="warn">
+    <strong>Read the P/E with care.</strong> Berkshire's trailing P/E of 13.67× embeds unrealised gains and losses
+    on its huge equity portfolio, which flow through reported earnings under mark-to-market accounting. That is why
+    the forward P/E (23.90×) sits <em>above</em> the trailing one — analysts expect lower reported earnings ahead,
+    not because the stock suddenly got expensive. For Berkshire, price-to-book (~1.6×) and operating-earnings power
+    are the more honest gauges than either P/E.
+  </div>
+
+  <h2>1 · Business model &amp; segment breakdown</h2>
+  <p>Berkshire is not one business — it is a holding company that collects cash from mature operating companies and
+  redeploys it. Its core engines:</p>
+  <ul>
+    <li><strong>Insurance</strong> — GEICO (US auto insurance) and a large reinsurance operation. Insurance is the
+    heart of the model: premiums are collected up front and paid out later, creating <em>float</em> — other people's
+    money that Berkshire invests in the meantime at effectively negative cost when underwriting is disciplined.</li>
+    <li><strong>BNSF Railway</strong> — one of North America's largest freight railroads; steady, regulated,
+    capital-intensive cash generation.</li>
+    <li><strong>Berkshire Hathaway Energy</strong> — regulated utilities and energy infrastructure, another
+    long-duration, rate-regulated cash stream.</li>
+    <li><strong>Manufacturing, service &amp; retail</strong> — a wide bench of wholly owned operating companies
+    across industrial products, consumer goods, services and retail.</li>
+    <li><strong>The listed-equity portfolio and cash pile</strong> — a huge portfolio of publicly traded stocks
+    plus substantial cash, funded by float and retained operating earnings.</li>
+  </ul>
+  <p class="fine">No segment profit split was verified in this research pass, so this page deliberately does not
+  quote a single segment profit figure rather than present an unchecked one. Total TTM revenue of $438.3B
+  (Motley Fool) is the verified top line.</p>
+  <h3>The structural pivot: succession</h3>
+  <p>The defining change is at the top. <strong>Warren Buffett retired as CEO at the end of 2025 and Greg Abel took
+  over; Buffett then stepped down as chairman in September 2026</strong> (per Motley Fool). Berkshire is therefore,
+  for the first time in six decades, a company whose investment case rests on a system and a successor rather than
+  on Buffett personally. Funding and regulation follow the model: Berkshire is financed by insurance float and
+  operating cash flow — not bank deposits — and its insurance, utility and rail units are each regulated in their
+  own industries.</p>
+
+  <h2>2 · Financial health &amp; balance sheet diagnostics</h2>
+  <div class="tablewrap">
+  <table class="stacktable">
+    <thead><tr><th>Metric</th><th>Value</th><th>Reading</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Metric">Trailing P/E</td><td data-l="Value">13.67×</td><td data-l="Reading">Distorted by mark-to-market investment gains/losses — do not anchor on it</td></tr>
+      <tr><td data-l="Metric">Forward P/E</td><td data-l="Value">23.90×</td><td data-l="Reading">Higher than trailing because expected reported earnings are lower</td></tr>
+      <tr><td data-l="Metric">Price / Book</td><td data-l="Value">~1.6×</td><td data-l="Reading">The traditional Berkshire anchor; mid-range versus its own history of buying back stock near this zone</td></tr>
+      <tr><td data-l="Metric">EPS (TTM)</td><td data-l="Value">$39.68</td><td data-l="Reading">StockAnalysis figure; swings with portfolio marks</td></tr>
+      <tr><td data-l="Metric">Shares outstanding</td><td data-l="Value">~2.14bn</td><td data-l="Reading">Across classes, as reported by data vendors</td></tr>
+      <tr><td data-l="Metric">Dividend</td><td data-l="Value">None</td><td data-l="Reading">All cash is retained for reinvestment — income investors get nothing here</td></tr>
+      <tr><td data-l="Metric">Buybacks</td><td data-l="Value">Opportunistic<span class="tag">Estimate</span></td><td data-l="Reading">Repurchases happen when management judges the price attractive; there is no fixed buyback plan to model</td></tr>
+      <tr><td data-l="Metric">P/S · EV/EBITDA · FCF · Debt/Equity</td><td data-l="Value">Not verified<span class="tag">Open</span></td><td data-l="Reading">These four diagnostics were not confirmed in this research pass and are deliberately not quoted rather than estimated. For Berkshire they are also structurally awkward: EV/EBITDA and debt/equity blend insurance float, rail and utility debt into one ratio, and reported FCF swings with portfolio purchases — P/B and operating earnings remain the verified anchors above.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Balance-sheet character:</strong> Berkshire's moat-grade balance sheet is the point of the company —
+  a fortress of cash and liquid securities funded substantially by insurance float rather than debt-funded leverage.
+  Capital allocation is the product: operating cash flows in, and Abel's team decides between acquisitions, listed
+  equities, buybacks, or simply holding cash until prices cooperate. The open question of this era is not solvency —
+  it is whether the enormous cash position gets deployed at attractive returns or sits as a drag.</p>
+
+  <h2>3 · Competitive moat &amp; industry positioning</h2>
+  <div class="grid2">
+    <div>
+      <h3>What protects it</h3>
+      <ul>
+        <li><strong>Float-funded investing:</strong> insurance float gives Berkshire permanent, low-cost capital
+        that no ordinary asset manager can replicate.</li>
+        <li><strong>Scale:</strong> few buyers on earth can write a multi-billion-dollar cheque without financing
+        contingencies — Berkshire can, which wins deals.</li>
+        <li><strong>Diversified cash flows:</strong> insurance, rail, energy and manufacturing rarely slump in the
+        same way at the same time.</li>
+        <li><strong>Capital-allocation reputation:</strong> built under Buffett, now Abel's to keep — sellers of
+        good businesses have historically preferred Berkshire as a permanent home.</li>
+        <li><strong>Fortress balance sheet:</strong> the cash pile is both a shield in crises and an option on
+        other people's distress.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Who it competes with</h3>
+      <p>Berkshire competes business-by-business rather than as a whole: other large insurers and reinsurers in
+      insurance, the other Class I railroads against BNSF, regulated utility peers in energy, and every large
+      asset manager and conglomerate for acquisitions and listed equities. The honest assessment from the research:
+      <strong>no competitor replicates the float + portfolio + operating-company combination at this scale</strong> —
+      the moat is the structure itself, not any single product.</p>
+    </div>
+  </div>
+
+  <h2>4 · Catalysts &amp; downside risks</h2>
+  <div class="grid2">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>Cash deployment</strong> — a major acquisition or a large equity buying programme would convert
+        the cash drag into earnings power.</li>
+        <li><strong>Insurance pricing cycle</strong> — firm pricing at GEICO and in reinsurance flows almost
+        directly to underwriting profit and grows float.</li>
+        <li><strong>BNSF / energy earnings recovery</strong> — improvement in the rail and utility engines lifts
+        operating earnings, the number that matters most here.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Risks</h3>
+      <ul>
+        <li><strong>Succession execution under Abel</strong> — the first real test of the post-Buffett system;
+        any capital-allocation stumble reprices the reputation premium.</li>
+        <li><strong>Equity-portfolio concentration</strong> — the listed portfolio has historically been
+        concentrated (notably in Apple), so a single name can move reported results.</li>
+        <li><strong>Catastrophe losses</strong> — a severe hurricane or disaster season hits insurance earnings
+        directly.</li>
+        <li><strong>Utility regulation &amp; liability exposure</strong> — regulated returns can be squeezed, and
+        wildfire-type liabilities are a live risk for US utilities generally.</li>
+        <li><strong>Reported-earnings volatility</strong> — mark-to-market swings will keep printing alarming or
+        flattering headline EPS numbers that say little about the operating business.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5 · Scenario valuation &amp; price targets <span class="tag">Modelled estimates</span></h2>
+  <p>All scenario prices below are <strong>modelled estimates, not verified facts</strong>. Method: the frozen-parameter
+  format used across this series — starting revenue and share count held on today's base, only growth, net margin
+  and the exit P/E vary by case; 5-year weights are Base 50% / Bull 25% / Bear 25%.</p>
+
+  <h3>12–18 month horizon</h3>
+  <div class="bar-row"><span>Base target</span><div class="bar-track"><div class="bar-fill" style="width:72%;background:var(--gold)"></div></div><span>$580</span></div>
+  <p class="fine">Base case $580 vs $542.49 today = <span class="pos">+7%</span>. A modest expected move — consistent
+  with a Hold: the near-term story is cash drag and succession watching, not a re-rating.
+  <strong>Open item:</strong> only the base target was modelled for this horizon in the verified research pack;
+  no 12–18-month bull/bear targets were produced, so none are shown rather than invented — the full three-case
+  framework is in the 5-year table below.</p>
+
+  <h3>5-year projection (to 2031)</h3>
+  <div class="tablewrap">
+  <table class="stacktable">
+    <thead><tr><th>Case (weight)</th><th>Revenue growth/yr</th><th>Net margin</th><th>Exit P/E</th><th>2031 price</th><th>vs $542.49</th></tr></thead>
+    <tbody>
+      <tr><td data-l="Case">Base (50%)</td><td data-l="Growth">3%</td><td data-l="Margin">19.3%</td><td data-l="P/E">13.67×</td><td data-l="2031">$627</td><td data-l="vs today"><span class="pos">+16%</span></td></tr>
+      <tr><td data-l="Case">Bull (25%)</td><td data-l="Growth">5%</td><td data-l="Margin">21%</td><td data-l="P/E">15×</td><td data-l="2031">$824</td><td data-l="vs today"><span class="pos">+52%</span></td></tr>
+      <tr><td data-l="Case">Bear (25%)</td><td data-l="Growth">1%</td><td data-l="Margin">16%</td><td data-l="P/E">11×</td><td data-l="2031">$380</td><td data-l="vs today"><span class="neg">−30%</span></td></tr>
+      <tr><td data-l="Case"><strong>Probability-weighted</strong></td><td data-l="Growth">—</td><td data-l="Margin">—</td><td data-l="P/E">—</td><td data-l="2031"><strong>$614</strong></td><td data-l="vs today"><span class="pos">+13%</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Read the shape, not just the weighted number: Berkshire's modelled 5-year upside is deliberately unexciting —
+  low-single-digit growth on a $438B revenue base — and that is precisely its role in a risk-8/10 portfolio. It is
+  the ballast name: the bull case ($824) is "Abel deploys cash well and the engines recover," the bear case ($380)
+  is "succession disappoints, a catastrophe year lands, and the multiple compresses toward 11×." Even the bear case
+  is a drawdown, not a wipeout — the balance sheet sees to that.</p>
+
+  <h2>6 · Recommendation &amp; position sizing</h2>
+  <p><strong>Short term — Hold.</strong> At ~1.6× book with a new CEO, a large undeployed cash position and no
+  near-term catalyst beyond insurance pricing, there is no rush; the 12–18-month base case offers only ~+7%.</p>
+  <p><strong>Long term — Buy.</strong> The structure — float, diversification, fortress balance sheet — survives
+  the founder. For a mid-30s investor who can hold through the succession proof-period, Berkshire is a core-quality
+  compounder bought for resilience rather than excitement.</p>
+  <p><strong>Suggested weight: 4% of the total portfolio</strong> for the mid-30s, risk-8/10 profile — meaningful
+  ballast inside the Financials sleeve, sized so its low growth doesn't dilute the portfolio's higher-octane names.</p>
+
+  <div class="calc">
+    <label for="pf">Your total portfolio value (USD)</label>
+    <input id="pf" type="number" inputmode="decimal" min="0" value="100000" />
+    <div class="out">BRK.B at 4% → <b id="amt">$4,000</b> <span class="fine">(≈ <span id="sh">7.4</span> shares at $542.49)</span></div>
+    <p class="fine" style="margin-top:8px">Illustration only, using the suggested 4% weight and the 30 Oct 2026 close. Fractional shares assumed.</p>
+  </div>
+
+  <h2>Sources &amp; ranking basis</h2>
+  <ul class="src">
+    <li>Motley Fool — Berkshire Hathaway financials (TTM revenue $438.3B; succession timeline: Buffett retired as CEO end-2025, Abel succeeded, Buffett stepped down as chairman Sep 2026).</li>
+    <li>StockAnalysis — BRK.B statistics (EPS $39.68, share count): <a href="https://stockanalysis.com/stocks/brk.b/statistics/">stockanalysis.com/stocks/brk.b/statistics/</a></li>
+    <li>GreekSoup — BRK.B (price/book ~1.6×): <a href="https://greeksoup.ai/stocks/us/brk-b/">greeksoup.ai/stocks/us/brk-b/</a></li>
+  </ul>
+  <p class="fine"><strong>Ranking basis:</strong> FinanceCharts, last updated 30 Oct 2026; US-listed issuers only,
+  one issuer per company (BRK.A counted once as BRK.B; foreign-primary OTC names excluded). Market-cap and P/E
+  figures vary by vendor and share-count treatment — vendors are named above rather than blended. Figures were
+  independently cross-checked against a second source in the verification pass for this series; items the
+  verification could not confirm are labelled as estimates or omitted.</p>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Berkshire Hathaway (BRK.B)</h2>
+<p><strong>Price (30 Oct 2026 close): $542.49.</strong> <strong>DCF intrinsic: $358.</strong> Discount/premium vs DCF: <strong>+51.5%</strong> — i.e. the shares are trading 51.5% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$358</td><td>+51.5%</td><td>Base Operating-earnings proxy: Q2 2026 operating earnings ~$13bn annualised (~$52bn); reported EPS $39.68 embeds mark-to-market gains/losses and is NOT used as base. No excess-capital add-on (pack identifies none; cash/portfolio already in book value). Growth g 3%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $368.69bn + PV of terminal value $396.45bn + net cash / excess capital $0.00bn, ÷ 2.14bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/BRK.B/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Berkshire Hathaway (BRK.B)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No ranked top-7 customer list is disclosed for Berkshire, and none is forced here. Revenue is spread across insurance policyholders (GEICO and reinsurance counterparties), BNSF freight shippers, Berkshire Hathaway Energy utility customers, and manufacturing/service/retail buyers, plus returns on its listed-equity portfolio. No single customer group dominates the whole conglomerate, so concentration risk sits at segment level (a catastrophe year in insurance, a freight downturn at BNSF, or a regulated-utility ruling) rather than in one named buyer.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: because Berkshire has no single disclosed key customer whose valuation can be read across, the thesis cannot be applied customer-by-customer here; the relevant read is indirect — if the large listed companies in its portfolio and the industrial customers that ship on BNSF trade at a discount to intrinsic, that is a mild tailwind for portfolio value and freight demand, and vice versa — but an undervalued portfolio holding does not guarantee Berkshire will add to it, which depends on price, Abel’s capital-allocation priorities and cash deployment, not on the holding’s cheapness alone.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Berkshire Hathaway (BRK.B)</h2>
+<p><strong>Role: Low exposure (indirect beneficiary).</strong> While the AI trade runs, Berkshire benefits indirectly: its listed-equity portfolio and its operating businesses (rail freight, energy, manufacturing) gain from AI-driven corporate spending, and its insurers and industrials can use AI for underwriting, pricing and productivity — but the pack gives no AI revenue line for Berkshire itself, so this is second-order.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is muted: Berkshire trades on book value (~1.6x, pack) and operating-earnings power, not an AI multiple, so an AI de-rating does not mechanically compress a Berkshire AI premium that does not exist.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — portfolio holdings and BNSF freight tied to tech capex soften; (2) multiple — the portfolio’s market value falls with the market, hitting reported earnings through mark-to-market volatility (a pack-flagged risk); (3) balance sheet — low direct risk, given the fortress balance sheet and insurance float, though a catastrophe year coinciding with a market fall would compound the hit. Triggers to watch: a sharp fall in its largest listed holdings, a BNSF volume downturn, and any large deployment of cash at peak prices.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+    Prepared 1 Nov 2026 · Price reference: 30 Oct 2026 close · Sector: Financials · This page is research and
+    education, not investment advice. Scenario prices are modelled estimates with assumptions shown; they are not
+    predictions or guarantees. Verify figures against the linked sources before acting.
+  </footer>
+</main>
+<script>
+  (function(){
+    var inp=document.getElementById('pf'), amt=document.getElementById('amt'), sh=document.getElementById('sh');
+    function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+    function upd(){
+      var v=parseFloat(inp.value); if(isNaN(v)||v<0)v=0;
+      var a=v*0.04;
+      amt.textContent='$'+fmt(a);
+      sh.textContent=(a/542.49).toFixed(1);
+    }
+    inp.addEventListener('input',upd); upd();
+  })();
+</script>
+</body>
+</html>

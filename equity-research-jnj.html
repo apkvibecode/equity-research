@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — JNJ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --surface2:#f0ede7; --ink:#16130f; --muted:#6b6560; --line:#e2ddd4;
+  --accent:#b91c1c; --accent-soft:#fef2f2; --navy:#1e2a3a; --teal:#0f766e; --amber:#92400e; --amber-bg:#fffbeb;
+  --green:#15803d; --red:#b91c1c;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#131110; --surface:#1c1917; --surface2:#292524; --ink:#f5f0eb; --muted:#a8a09a; --line:#33302c; --accent:#f87171; --accent-soft:#2a1515; --navy:#cbd5e1; --amber-bg:#2a2008; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.6;font-size:16px}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:18px 0 0;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:none;color:var(--ink)}
+.pill.red{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hero{padding:28px 0 8px;border-bottom:2px solid var(--ink)}
+.hero h1{font-family:"IBM Plex Serif",serif;font-size:42px;line-height:1.05;margin:10px 0 8px;letter-spacing:-.02em}
+.hero h1 span{color:var(--accent)}
+.lede{font-size:18px;color:var(--muted);max-width:720px;margin:0}
+.pricegrid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:16px;margin:22px 0 6px}
+@media(max-width:760px){.pricegrid{grid-template-columns:1fr 1fr}.hero h1{font-size:34px}}
+.price-big{font-family:"IBM Plex Serif",serif;font-size:48px;line-height:1;font-weight:700}
+.price-sub{font-size:13px;color:var(--muted);margin-top:6px}
+.stat{border-top:2px solid var(--line);padding-top:10px}
+.stat b{display:block;font-size:22px;line-height:1.1}
+.stat span{font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.verdict{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+.verdict-card{flex:1;min-width:220px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.verdict-card h3{margin:0 0 4px;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.verdict-card strong{font-size:20px}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.04em}
+.badge.hold{background:var(--amber-bg);color:var(--amber);border:1px solid #fde68a}
+@media(prefers-color-scheme:dark){.badge.hold{border-color:#78350f}}
+.takeaway{background:var(--navy);color:#f8fafc;border-radius:var(--radius);padding:20px 22px;margin:8px 0 28px}
+@media(prefers-color-scheme:dark){.takeaway{background:#1e293b}}
+.takeaway h2{font-family:"IBM Plex Serif",serif;margin:0 0 8px;font-size:20px;color:#fff}
+.takeaway p{margin:0;opacity:.92;font-size:15.5px}
+section{margin:36px 0}
+section>h2{font-family:"IBM Plex Serif",serif;font-size:26px;margin:0 0 6px;letter-spacing:-.01em;border-bottom:1px solid var(--line);padding-bottom:10px}
+section>h2 small{font-family:"IBM Plex Sans",sans-serif;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:4px}
+.sub{color:var(--muted);margin-top:8px;max-width:760px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2,.grid3{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 10px;font-size:15px}
+.card p,.card li{font-size:14.5px;color:#3f3a36}
+@media(prefers-color-scheme:dark){.card p,.card li{color:#d6d0c9}}
+.card ul{margin:8px 0 0 18px;padding:0} .card li{margin:6px 0}
+.bar-row{margin:12px 0}
+.bar-label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:5px}
+.bar-label span:last-child{font-family:"IBM Plex Mono",monospace;font-weight:500}
+.bar{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px}
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13.5px;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.note{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:10px;padding:12px 14px;margin-top:12px}
+.warn{font-size:13.5px;background:var(--amber-bg);border:1px solid #fde68a;border-radius:10px;padding:12px 14px;color:#78350f}
+@media(prefers-color-scheme:dark){.warn{color:#fde68a;border-color:#78350f}}
+.toggle{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:3px}
+.toggle button{border:none;background:transparent;padding:7px 14px;border-radius:999px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer;color:var(--muted)}
+.toggle button.active{background:var(--ink);color:var(--bg)}
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:16px 0}
+.flow-box{flex:1;min-width:130px;background:var(--surface);border:1px solid var(--line);padding:14px;text-align:center}
+.flow-box:first-child{border-radius:12px 0 0 12px}.flow-box:last-child{border-radius:0 12px 12px 0}
+@media(max-width:760px){.flow{flex-direction:column}.flow-box{border-radius:10px!important;margin-bottom:6px}}
+.flow-box b{display:block;font-size:18px}.flow-box span{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.flow-arrow{align-self:center;padding:0 4px;color:var(--muted);font-weight:700}
+@media(max-width:760px){.flow-arrow{transform:rotate(90deg);align-self:center}}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
+.calc input[type=number]{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:18px;background:var(--bg);color:var(--ink)}
+.calc input[type=range]{width:100%;accent-color:var(--accent)}
+.kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:16px}
+@media(max-width:760px){.kpi{grid-template-columns:1fr 1fr}}
+.kpi div{background:var(--surface2);border-radius:10px;padding:12px}.kpi b{display:block;font-size:18px}.kpi span{font-size:12px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.sources{font-size:13.5px;color:var(--muted)} .sources li{margin:7px 0;word-break:break-all}
+.footer{border-top:1px solid var(--line);margin-top:40px;padding-top:16px;font-size:12.5px;color:var(--muted)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--surface2);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <span>Equity Research &nbsp;·&nbsp; Health Care &nbsp;·&nbsp; As of 1 Nov 2026</span>
+    <span class="pill">Price ref: 30 Oct 2026 close</span>
+  </div>
+
+  <header class="hero">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <span class="pill red">JNJ — NYSE</span>
+      <span class="pill">Johnson &amp; Johnson</span>
+      <span class="pill">#2 US Health Care by market cap*</span>
+    </div>
+    <h1>The defensive compounder,<br><span>priced like a growth stock.</span></h1>
+    <p class="lede">Diversified pharma + MedTech, a 64-year dividend record and $20.6B of free cash flow — held back near-term by a ~$7B talc-and-deals charge in Q3, Stelara erosion, and a MedTech business that has missed twice running. At 24.6× forward earnings, the quality is real but so is the price.</p>
+
+    <div class="pricegrid">
+      <div><div class="price-big">$273.20</div><div class="price-sub">Close, 30 Oct 2026 · Market cap $657.68B</div></div>
+      <div class="stat"><span>Forward P/E †</span><b>24.56×</b><small style="color:var(--muted)">Use this, not trailing — see below</small></div>
+      <div class="stat"><span>Dividend yield</span><b>1.96%</b><small style="color:var(--muted)">$5.36 / yr · 64 yrs of growth</small></div>
+      <div class="stat"><span>Suggested weight</span><b>2.0%</b><small style="color:var(--muted)">Of total portfolio · Risk 8/10, mid-30s</small></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin:10px 0 4px">* Ranking basis: US-domiciled top 10 only — FinanceCharts global Health Care list, last updated 30 Oct 2026, filtered to US-domiciled names. Global ranks differ (Roche, Novartis, Genmab and AstraZeneca sit between US names globally). DHR (11th US) and ISRG (12th US) are reserves, not top-10 members. &nbsp; † Forward P/E dataset marked UNVERIFIED in the independent verification log — provider figure via StockAnalysis, as of 1 Nov 2026; treat as an estimate, not a verified fact.</p>
+  </header>
+
+  <div class="verdict">
+    <div class="verdict-card"><h3>Short term · 12–18 months</h3><strong><span class="badge hold">HOLD</span></strong><p style="margin:8px 0 0;font-size:14px;color:var(--muted)">Base target $285 (+4.3%). Talc overhang and MedTech softness cap the near-term re-rating.</p></div>
+    <div class="verdict-card"><h3>Long term · 5 years</h3><strong><span class="badge hold">HOLD / BUY — HOLD</span></strong><p style="margin:8px 0 0;font-size:14px;color:var(--muted)">Hold what you own; add on weakness rather than chase at 24.6× forward. Modelled 5-yr weighted value $247 — see explanation in §5.</p></div>
+    <div class="verdict-card"><h3>Analyst consensus (for reference)</h3><strong>$279.41 average</strong><p style="margin:8px 0 0;font-size:14px;color:var(--muted)">Average target cited in the research pack, vs. $273.20 spot — essentially in line with the market.</p></div>
+  </div>
+
+  <div class="takeaway">
+    <h2>What matters in one paragraph</h2>
+    <p>Q3 2026 was operationally solid — sales $25.40B, +5.9% year on year, with Innovative Medicine +7.9% operationally on Tremfya (+68%) and Darzalex (~+16%) — but GAAP EPS was just $0.09 after ~$7B of charges for a proposed talc resolution ($5.52B pre-tax) and the Firefly Bio / Sail Biomedicines deals. That charge is why the trailing P/E of 41.49× is distorted and must not be used. The investment question is not whether J&amp;J is a good business — it is — but whether MedTech recovers and the talc overhang actually closes, at a valuation that already assumes a lot goes right.</p>
+  </div>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <h2><small>Section 1</small>Business Model &amp; Segment Breakdown</h2>
+    <p class="sub">Two segments since the 2023 spin-off of consumer health as Kenvue. Pharma (Innovative Medicine) is now almost two-thirds of sales and all of the growth; MedTech is the slower, more cyclical half.</p>
+
+    <div class="grid2" style="margin-top:18px">
+      <div class="card">
+        <h3>Q3 2026 sales — $25.40B, +5.9% YoY <span class="tag">Confirmed ✓</span></h3>
+        <div class="bar-row"><div class="bar-label"><span>Innovative Medicine</span><span>$16.76B · 66%</span></div><div class="bar"><i style="width:66%;background:#b91c1c"></i></div><p style="margin:4px 0 0;font-size:13px;color:var(--muted)">+7.7% reported, +7.9% operational</p></div>
+        <div class="bar-row"><div class="bar-label"><span>MedTech</span><span>$8.64B · 34%</span></div><div class="bar"><i style="width:34%;background:#1e2a3a"></i></div><p style="margin:4px 0 0;font-size:13px;color:var(--muted)">+2.5% operational — the lagging segment</p></div>
+        <div class="bar-row" style="margin-top:18px"><div class="bar-label"><span>United States</span><span>$14.96B · 59%</span></div><div class="bar"><i style="width:59%;background:#0f766e"></i></div><p style="margin:4px 0 0;font-size:13px;color:var(--muted)">+9.1% YoY</p></div>
+        <div class="bar-row"><div class="bar-label"><span>International</span><span>$10.44B · 41%</span></div><div class="bar"><i style="width:41%;background:#94a3b8"></i></div><p style="margin:4px 0 0;font-size:13px;color:var(--muted)">+1.5% YoY — China / Europe pricing is a cited MedTech headwind</p></div>
+      </div>
+      <div class="card">
+        <h3>Products driving — and dragging — growth</h3>
+        <table style="border:none;background:transparent">
+          <tr><th>Product</th><th class="num">Q3 sales</th><th class="num">YoY</th></tr>
+          <tr><td><b>Tremfya</b> (immunology)</td><td class="num">$2.40B</td><td class="num" style="color:var(--green)">+68%</td></tr>
+          <tr><td><b>Darzalex</b> (oncology)</td><td class="num">~$4.24B</td><td class="num" style="color:var(--green)">~+16%</td></tr>
+          <tr><td><b>Stelara</b> (immunology)</td><td class="num">$716m</td><td class="num" style="color:var(--red)">−54%</td></tr>
+        </table>
+        <p>Stelara's collapse on biosimilar competition was a ~690bp drag on Innovative Medicine growth — meaning the underlying portfolio grew materially faster than the headline +7.9%. Oncology depth (Darzalex, Carvykti, Tecvayli, Rybrevant) plus Tremfya's IBD expansion is the offset management is counting on.</p>
+        <p><b>FY26 guidance (raised at Q3, 13 Oct 2026):</b> sales $101.0–101.4B (midpoint $101.2B); adjusted EPS $11.05–11.15 (midpoint $11.10). <span class="tag">Confirmed ✓</span></p>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:16px">
+      <div class="card"><h3>Structural pivot</h3><p>Post-Kenvue (2023), J&amp;J is a pure pharma + devices company — higher growth and higher margin than the old three-segment group, but also more exposed to patent cliffs and device cycles, and without the consumer business as a shock absorber.</p></div>
+      <div class="card"><h3>Supply chain</h3><p>Global pharma and device manufacturing across the US, Europe, Puerto Rico and Asia. Device inputs, plus China and Europe pricing, are explicitly cited as MedTech headwinds — so MedTech margin is not purely a demand story.</p></div>
+      <div class="card"><h3>Where growth must come from</h3><p>Tremfya in inflammatory bowel disease, the oncology quartet, Spravato and Caplyta, and a MedTech recovery led by electrophysiology and Shockwave devices. If MedTech stays at ~+2.5%, group growth converges toward pharma alone.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 FINANCIAL -->
+  <section id="financials">
+    <h2><small>Section 2</small>Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <p class="sub">TTM figures via StockAnalysis as of 1 Nov 2026 unless stated. Use the toggle — J&amp;J's GAAP numbers right now are charge-depressed, and reading them at face value misleads in both directions.</p>
+    <div style="margin:14px 0"><span class="toggle" role="tablist"><button id="btnGaap" class="active" onclick="setView('gaap')">GAAP (as reported)</button><button id="btnAdj" onclick="setView('adj')">Underlying / Adjusted view</button></span></div>
+
+    <div id="viewGaap">
+      <div class="warn"><b>Read this first:</b> Trailing P/E <b>41.49×</b> and payout ratio <b>81.40%</b> are <b>inflated / distorted by the Q3 talc charge</b>. Q3 GAAP EPS was only $0.09 after ~$7B of charges. Do not value J&amp;J on the trailing multiple — use the forward P/E of 24.56× († unverified dataset, see note below).</div>
+      <div class="kpi">
+        <div><span>TTM Revenue</span><b>$99.34B</b><small>+7.80% YoY · FY25 $94.19B (+6.05%)</small></div>
+        <div><span>Net income (TTM)</span><b>$16.10B</b><small>EPS $6.58 · Net margin 16.20%</small></div>
+        <div><span>Gross / Operating margin</span><b>67.77% / 26.59%</b><small>GAAP, charge-depressed at net line</small></div>
+        <div><span>Free cash flow</span><b>$20.59B</b><small>FCF margin 20.73%</small></div>
+      </div>
+    </div>
+    <div id="viewAdj" style="display:none">
+      <div class="note" style="margin-top:0"><b>Underlying read:</b> Adjusted EPS guidance midpoint is $11.10 for FY26, which against TTM revenue implies an adjusted net margin of roughly <b>~26%</b> — versus 16.20% GAAP. That gap is the charge, not the business. The 5-year model in §5 therefore uses a normalised margin of 20% in the base case — deliberately <i>below</i> the implied adjusted ~26%, i.e. conservative. Forward P/E 24.56× implies forward EPS of ~$11.12, essentially the guidance midpoint — internally consistent, though the P/E dataset itself is unverified (see Sources &amp; Verification).</div>
+      <div class="kpi">
+        <div><span>Adj. EPS (FY26E mid)</span><b>$11.10</b><small>Guidance $11.05–11.15</small></div>
+        <div><span>Implied adj. margin</span><b>~26%</b><small>Estimate, derived from guidance</small></div>
+        <div><span>Forward P/E †</span><b>24.56×</b><small>P/S 6.62× · EV/EBITDA 19.86×</small></div>
+        <div><span>Free cash flow</span><b>$20.59B</b><small>Unaffected by the non-cash framing</small></div>
+      </div>
+    </div>
+
+    <div class="flow" aria-label="TTM income flow, derived from reported margins">
+      <div class="flow-box"><span>Revenue (TTM)</span><b>$99.34B</b></div><div class="flow-arrow">→</div>
+      <div class="flow-box"><span>Gross profit · 67.77%</span><b>~$67.3B</b></div><div class="flow-arrow">→</div>
+      <div class="flow-box"><span>Operating income · 26.59%</span><b>~$26.4B</b></div><div class="flow-arrow">→</div>
+      <div class="flow-box"><span>Net income (GAAP)</span><b>$16.10B</b></div>
+    </div>
+    <p style="font-size:12.5px;color:var(--muted);margin-top:-6px">Flow boxes marked ~ are arithmetic derived from the reported TTM margins; revenue and net income are as reported. R&amp;D was $14.67B in FY25 (FinanceCharts comparison data).</p>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <h3>Balance sheet — modest leverage</h3>
+        <div class="bar-row"><div class="bar-label"><span>Cash &amp; equivalents</span><span>$17.23B</span></div><div class="bar"><i style="width:39%;background:#0f766e"></i></div></div>
+        <div class="bar-row"><div class="bar-label"><span>Total debt</span><span>$44.65B</span></div><div class="bar"><i style="width:100%;background:#b91c1c"></i></div></div>
+        <p><b>Net debt $27.42B · Debt / equity 0.55×.</b> For a $657.68B company generating $20.59B of FCF, this is a comfortable, investment-grade balance sheet — leverage is not the risk in this name. The risk is what the cash gets spent on (see 2027 deal costs, §4).</p>
+      </div>
+      <div class="card">
+        <h3>Capital allocation</h3>
+        <ul>
+          <li><b>Dividend:</b> $5.36/yr, yield 1.96%, <b>64 consecutive years of growth</b>. GAAP payout 81.40% is charge-distorted; on adjusted EPS the payout is roughly half that.</li>
+          <li><b>Buybacks:</b> buyback yield <b>−0.80%</b> — share count actually <i>rose</i> +0.80% YoY. J&amp;J is not shrinking the share count; returns to holders come from the dividend and earnings growth, not repurchases.</li>
+          <li><b>R&amp;D:</b> $14.67B in FY25 — the real reinvestment engine, and the reason the pipeline in §4 exists.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">† <b>Verification status:</b> Forward P/Es across the Health Care pack were marked <b>UNVERIFIED as a dataset</b> by the independent verifier — no second provider was re-sourced in that pass. The 24.56× figure is shown with its provider (StockAnalysis) and date, and its implied EPS (~$11.12) does cross-check against FY26 adjusted EPS guidance ($11.05–11.15). Treat it as a provider estimate, not a verified fact.</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <h2><small>Section 3</small>Competitive Moat &amp; Industry Positioning</h2>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card"><h3>What protects it</h3><ul>
+        <li><b>Diversification as a moat in itself:</b> pharma + MedTech rarely trough together, which is why J&amp;J can sustain a 64-year dividend record through patent cliffs.</li>
+        <li><b>Scale in regulation &amp; manufacturing:</b> global pharma/device footprint (US, Europe, Puerto Rico, Asia) that smaller rivals cannot replicate quickly.</li>
+        <li><b>Franchise depth:</b> oncology (Darzalex, Carvykti, Tecvayli, Rybrevant), immunology (Tremfya), and devices (electrophysiology, Shockwave) — multiple large franchises, not one hero product.</li>
+        <li><b>Pricing power — real but capped:</b> innovative medicines price well until loss of exclusivity (Stelara is the live proof), and US IRA / MFN pricing pressure is a structural ceiling, not a one-off.</li>
+      </ul></div>
+      <div class="card"><h3>Who it competes with</h3><ul>
+        <li><b>Pharma:</b> Merck, AbbVie, Amgen, Roche — AbbVie is the direct immunology rival post-Stelara (Skyrizi / Rinvoq).</li>
+        <li><b>MedTech:</b> Medtronic, Boston Scientific, Stryker — faster-growing device peers against which J&amp;J MedTech's +2.5% operational growth looks slow.</li>
+        <li><b>Biosimilars:</b> the immediate Stelara threat — a −54% quarter shows how fast a mature biologic can erode once exclusivity goes.</li>
+      </ul><p style="margin-top:10px">Verdict on the moat: <b>wide, but not widening.</b> The pharma pipeline is genuinely strong; MedTech share and pricing are where the moat is thinnest.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS RISKS -->
+  <section id="catalysts">
+    <h2><small>Section 4</small>Catalysts &amp; Downside Risks</h2>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card" style="border-top:3px solid var(--teal)"><h3>▲ Catalysts</h3><ul>
+        <li><b>Tremfya IBD expansion</b> — building on +68% Q3 growth, the clearest near-term pharma upside lever.</li>
+        <li><b>Oncology + Spravato / Caplyta growth</b> — offsets Stelara erosion if the ~690bp drag fades as the comparison annualises.</li>
+        <li><b>MedTech recovery</b> — electrophysiology and Shockwave; even a return to mid-single-digit growth re-rates the group multiple.</li>
+        <li><b>Talc resolution actually closing</b> — converting an open-ended overhang into a known $5.52B pre-tax cost would remove the single biggest sentiment drag.</li>
+      </ul></div>
+      <div class="card" style="border-top:3px solid var(--accent)"><h3>▼ Risks</h3><ul>
+        <li><b>Talc overhang is not closed by a charge.</b> Q3 GAAP EPS was $0.09 after ~$7B of charges ($5.52B pre-tax proposed talc resolution + Firefly Bio / Sail Biomedicines). A proposed resolution is not a settled one.</li>
+        <li><b>MedTech missed expectations two quarters running</b> — a pattern, not a blip, until proven otherwise.</li>
+        <li><b>Stelara erosion</b> continues; biosimilar drag does not stop at one quarter.</li>
+        <li><b>IRA / MFN drug pricing</b> — US policy pressure on pharma prices is structural.</li>
+        <li><b>2027 deal costs flagged by management</b> — acquisition-related costs are already being pre-announced, which tempers the adjusted-EPS story.</li>
+        <li><b>Valuation:</b> at 24.56× forward, disappointments have further to fall than at a market multiple.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <h2><small>Section 5 — Modelled estimates</small>Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="sub">All targets and modelled prices below are <b>estimates with methodology shown — never verified facts</b> (per the verification log). Forward P/E is a provider figure († above).</p>
+
+    <h3 style="margin:20px 0 8px">12–18 month scenarios</h3>
+    <table>
+      <tr><th>Case</th><th>Target</th><th class="num">vs. $273.20</th><th>What has to happen</th></tr>
+      <tr><td><b>Bear</b></td><td class="num">$240</td><td class="num" style="color:var(--red)">−12.1%</td><td>Talc resolution stalls or grows; MedTech misses a third quarter; multiple compresses toward ~21×.</td></tr>
+      <tr><td><b>Base</b></td><td class="num">$285</td><td class="num" style="color:var(--green)">+4.3%</td><td>Guidance delivered ($101.2B sales, ~$11.10 adj. EPS); Tremfya/oncology offsets Stelara; MedTech stabilises.</td></tr>
+      <tr><td><b>Bull</b></td><td class="num">$310</td><td class="num" style="color:var(--green)">+13.5%</td><td>Talc overhang closes on the proposed terms; MedTech re-accelerates; IBD expansion beats.</td></tr>
+    </table>
+    <p class="note">Analyst average target in the pack: <b>$279.41</b> — between spot and the base case, i.e. the Street is not pricing a large near-term re-rating either. That is consistent with a HOLD, not a chase.</p>
+
+    <h3 style="margin:24px 0 8px">5-year projection — frozen-parameter model</h3>
+    <p style="font-size:14.5px;color:var(--muted);max-width:760px">Starting point: TTM revenue $99.34B, shares held frozen at 2,410m. Only revenue growth, normalised net margin and exit P/E vary by case. Normalised margin is an <b>estimate</b>: TTM GAAP margin (16.2%) is charge-depressed and adjusted EPS ($11.10) implies ~26%, so the base-case 20% is deliberately conservative.</p>
+    <table>
+      <tr><th>Case (weight)</th><th class="num">Rev. CAGR</th><th class="num">Net margin</th><th class="num">2031 revenue</th><th class="num">2031 EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr>
+      <tr><td><b>Bear (25%)</b></td><td class="num">2%</td><td class="num">16%</td><td class="num">~$109.7B</td><td class="num">~$7.28</td><td class="num">19×</td><td class="num"><b>$138</b></td></tr>
+      <tr><td><b>Base (50%)</b></td><td class="num">5%</td><td class="num">20%</td><td class="num">$126.8B</td><td class="num">$10.52</td><td class="num">24×</td><td class="num"><b>$253</b></td></tr>
+      <tr><td><b>Bull (25%)</b></td><td class="num">7%</td><td class="num">22%</td><td class="num">~$139.4B</td><td class="num">~$12.72</td><td class="num">27×</td><td class="num"><b>$343</b></td></tr>
+    </table>
+    <div class="warn" style="margin-top:14px"><b>Why the 5-year weighted value ($247) sits <i>below</i> today's $273.20 and below the $285 base target — read this before treating it as a sell call:</b> $247 = 50% × $253 (base) + 25% × $343 (bull) + 25% × $138 (bear). It is a <b>probability-weighted value including the bear case</b>, not a base-case price forecast. It lands below spot because this model is deliberately conservative on both inputs that matter — a 20% normalised margin versus ~26% implied by adjusted guidance, and a 24× exit multiple with no re-rating — while the bear case (2% growth, 16% margin, 19×) is heavily penalised. The verifier flagged exactly this pattern for JNJ (and ABBV / MRK / AMGN) and required this explanation. Interpretation: at $273.20 you are paying <i>above</i> a conservatively modelled weighted value — which supports HOLD / buy-on-weakness, not forced selling of a quality compounder.</div>
+
+    <div style="margin-top:16px">
+      <div class="bar-row"><div class="bar-label"><span>Bear $138</span><span>25% weight</span></div><div class="bar"><i style="width:40%;background:#b91c1c"></i></div></div>
+      <div class="bar-row"><div class="bar-label"><span>Weighted $247 · Spot $273.20</span><span>—</span></div><div class="bar"><i style="width:72%;background:#92400e"></i></div></div>
+      <div class="bar-row"><div class="bar-label"><span>Base $253</span><span>50% weight</span></div><div class="bar"><i style="width:74%;background:#1e2a3a"></i></div></div>
+      <div class="bar-row"><div class="bar-label"><span>Bull $343</span><span>25% weight</span></div><div class="bar"><i style="width:100%;background:#0f766e"></i></div></div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATION -->
+  <section id="recommendation">
+    <h2><small>Recommendation</small>Buy / Hold / Sell &amp; Portfolio Sizing</h2>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <h3>Verdict</h3>
+        <p><b>Short term (12–18 mo): HOLD.</b> Base upside is only +4.3% plus a 1.96% dividend, against a live talc overhang and a MedTech segment that has missed twice. There is no near-term catalyst that justifies adding aggressively at 24.56× forward.</p>
+        <p><b>Long term (5 yr): HOLD / BUY — overall HOLD.</b> Own it as a defensive compounder; add on weakness (the bear-case zone and any talc-headline dips) rather than at spot, where price already exceeds the conservatively weighted modelled value of $247.</p>
+        <p><b>Suggested size: 2.0% of total portfolio</b> for a mid-30s investor at risk 8/10. J&amp;J's job in that portfolio is ballast — low-beta income and quality — not return maximisation. Sizing it larger would spend growth budget on a name whose modelled base case ($253) is below today's price.</p>
+      </div>
+      <div class="calc">
+        <h3 style="margin-top:0">Position-size calculator</h3>
+        <label style="font-size:13px;font-weight:600;color:var(--muted)">TOTAL PORTFOLIO VALUE ($)</label>
+        <input type="number" id="pf" value="250000" min="0" step="1000" oninput="calc()">
+        <label style="font-size:13px;font-weight:600;color:var(--muted);display:block;margin-top:14px">JNJ WEIGHT — <span id="wtLabel">2.0%</span> (suggested)</label>
+        <input type="range" id="wt" min="0" max="6" step="0.25" value="2" oninput="calc()">
+        <div class="kpi">
+          <div><span>Position $</span><b id="posAmt">$5,000</b></div>
+          <div><span>Shares @ $273.20</span><b id="posShares">18.3</b></div>
+          <div><span>Est. dividend / yr</span><b id="posDiv">$98</b></div>
+          <div><span>At base $285</span><b id="posBase">$5,216</b></div>
+        </div>
+        <p style="font-size:12.5px;color:var(--muted);margin:12px 0 0">Illustrative only, using $273.20 spot, $5.36 dividend and the $285 base target. Fractional shares shown; not investment advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <h2><small>Provenance</small>Sources &amp; Verification</h2>
+    <p class="sub">Earnings and guidance facts for JNJ were marked <b>CONFIRMED</b> in the independent verification log (Q3 sales $25.399B / +5.9%, segments $16.757B / $8.642B, FY26 guidance $101.0–101.4B and adj. EPS $11.05–11.15, 30 Oct close $273.20 and $657.68B cap vs. FinanceCharts). Forward P/E and all modelled targets are labelled estimates above, per that log. Where the research pack and the verification log conflict, the log wins — no conflicts affected JNJ's headline figures.</p>
+    <ul class="sources">
+      <li>Q3 2026 results &amp; guidance — <a href="https://metricshour.com/blog/johnson-johnson-jnj-q3-2026-earnings-oct-13-2026/" target="_blank" rel="noopener">metricshour.com</a> · <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/johnson-und-johnson-raised-2026-guidance-johnson-und-johnson-stock-gains-1-04-percent/70414067" target="_blank" rel="noopener">ad-hoc-news.de</a></li>
+      <li>Earnings coverage — <a href="https://www.tradingkey.com/news/earnings/262213676-tradingkey" target="_blank" rel="noopener">tradingkey.com</a> · <a href="https://tickeron.com/earnings/JNJ/" target="_blank" rel="noopener">tickeron.com/earnings/JNJ</a></li>
+      <li>Valuation, margins, FCF, balance sheet (TTM) — <a href="https://stockanalysis.com/stocks/jnj/statistics/" target="_blank" rel="noopener">stockanalysis.com/stocks/jnj/statistics</a> · <a href="https://stockanalysis.com/stocks/jnj/revenue/" target="_blank" rel="noopener">stockanalysis.com/stocks/jnj/revenue</a></li>
+      <li>R&amp;D (FY25) — <a href="https://www.financecharts.com/compare/LLY,JNJ,NVO/income-statement/research-and-development-annual" target="_blank" rel="noopener">financecharts.com — LLY/JNJ/NVO R&amp;D comparison</a></li>
+      <li>Sector ranking basis &amp; market caps (30 Oct 2026) — <a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield" target="_blank" rel="noopener">financecharts.com/sectors/health_care</a></li>
+      <li>Q3 read-through, MedTech lag — <a href="https://www.insiderfinance.io/news/johnson-johnson-q3-2026-earnings-rise-medtech-lags" target="_blank" rel="noopener">insiderfinance.io</a></li>
+    </ul>
+    <div class="footer">
+      Research views as of 1 Nov 2026, price reference 30 Oct 2026 close (1 Nov 2026 was a weekend). For a mid-30s investor, risk score 8/10. This page is research and education, not investment advice and not a guarantee of future returns. Modelled scenario prices are estimates with assumptions shown. Verify figures independently before acting.
+      <br><br>Signed — Blaze, for Abhishek · Equity Research series: Health Care
+    </div>
+  </section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>JNJ — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $273.20.</strong> <strong>DCF intrinsic: $134.</strong> Discount/premium vs DCF: <strong>+103.9%</strong> — i.e. the shares are trading 103.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$134</td><td>+103.9%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$20.6B</strong>; constant growth g <strong>5%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$160.85B</strong>; PV of terminal value <strong>$190.27B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-27.42B</strong>; divided by <strong>2,410.00m</strong> diluted shares = <strong>$134</strong>. Base FCF $20.59B (pack, TTM). Growth g 5% = pack 5-year base CAGR. Net debt $27.42B (cash $17.23B − debt $44.65B). Equity $81.18B derived from debt ÷ D/E 0.55. DPS $5.36 (pack). TTM GAAP earnings are talc-charge depressed; FCF is the cleaner base used here.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $273.20. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>JNJ — Top customers (B2B, intermediated channel)</h2>
+<p>JNJ is classified <strong>B2B</strong>: the majority of its revenue reaches patients through businesses — wholesalers, pharmacy benefit managers (PBMs) and payers — rather than direct consumer sales. The research pack discloses no per-name customer ranking for this ticker, so the table below names the largest known channel customers without inventing shares or order.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum Rx (PBM & payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>CVS Health / Caremark (PBM & pharmacy)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government — Medicare / Medicaid and other federal purchasers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Hospitals, pharmacies and other providers (dispensing channel)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Because the three US wholesalers together intermediate the majority of US pharma distribution, their financial health matters more to this supplier than any single end-patient trend: if a covered customer in this table (UnitedHealth/Optum) trades at a discount to intrinsic once the coordinator fills in its figure, that would be a potential tailwind for volumes and contract stability, while a premium would be a potential headwind — but a wholesaler or PBM that looks cheap may simply be passing through payer price pressure, which is itself a headwind for drug pricing, so the read-through cuts both ways. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>Sources: research pack (channel description); for the wholesaler trio pattern, Lilly FY2025 10-K (McKesson, Cencora and Cardinal Health each a significant percentage of consolidated revenue, no other customer above 10%) — applied here only as the channel pattern, not as a per-name share for JNJ, which was not re-sourced in this batch.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>JNJ — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI-assisted drug discovery and MedTech surgical/robotics data, at the margin, within a diversified pharma + MedTech base. Multiple channel: JNJ's forward P/E of 24.56 in the pack is a defensive-pharma multiple, not an AI multiple.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a talc-litigation development or a MedTech slowdown, rather than an AI capex cut.</p>
+</div>
+</div>
+<script>
+function setView(v){
+  document.getElementById('viewGaap').style.display = v==='gaap' ? 'block' : 'none';
+  document.getElementById('viewAdj').style.display = v==='adj' ? 'block' : 'none';
+  document.getElementById('btnGaap').classList.toggle('active', v==='gaap');
+  document.getElementById('btnAdj').classList.toggle('active', v==='adj');
+}
+function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+function calc(){
+  var pf = parseFloat(document.getElementById('pf').value) || 0;
+  var wt = parseFloat(document.getElementById('wt').value) || 0;
+  document.getElementById('wtLabel').textContent = wt.toFixed(2).replace(/\.?0+$/,'') + '%';
+  var amt = pf * wt / 100;
+  var shares = amt / 273.20;
+  document.getElementById('posAmt').textContent = fmt(amt);
+  document.getElementById('posShares').textContent = shares.toFixed(1);
+  document.getElementById('posDiv').textContent = fmt(shares * 5.36);
+  document.getElementById('posBase').textContent = fmt(shares * 285);
+}
+calc();
+</script>
+</body>
+</html>

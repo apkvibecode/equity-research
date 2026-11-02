@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — COST</title>
+<style>
+  :root{
+    --bg:#f7f5f0; --surface:#ffffff; --surface2:#efece4; --ink:#1a1e24; --ink2:#4a5260;
+    --line:#d9d4c7; --accent:#8a5a12; --accent-ink:#7a4d0c; --green:#1d6b45; --red:#9e2b25;
+    --amber-bg:#fbf3df; --blue:#1f3a5f; --chip:#e9e4d6;
+    --serif: Georgia, "Times New Roman", serif;
+    --sans: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#12151a; --surface:#1a1e26; --surface2:#222733; --ink:#ece9e1; --ink2:#a8b0bf;
+      --line:#333a48; --accent:#d9a441; --accent-ink:#e8b95a; --green:#4cc38a; --red:#f07d76;
+      --amber-bg:#2a2416; --blue:#9db9dd; --chip:#262c39; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px 48px}
+  a{color:var(--accent-ink);text-decoration:underline;text-underline-offset:2px}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;margin:0}
+  .topbar{border-bottom:3px solid var(--ink);padding:22px 0 14px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+  h1{font-size:clamp(28px,5vw,44px);font-weight:700;margin:6px 0 4px}
+  h1 .tick{color:var(--accent-ink)}
+  .sub{color:var(--ink2);font-size:15px;max-width:760px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .tag{background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:3px 11px;font-size:12.5px;color:var(--ink)}
+  nav.anchors{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px}
+  nav.anchors a{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 12px;font-size:13px;text-decoration:none;color:var(--ink)}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0}
+  .stat{background:var(--surface);padding:14px 16px}
+  .stat .lab{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+  .stat .val{font-family:var(--serif);font-size:24px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+  .stat .note{font-size:12px;color:var(--ink2)}
+  .verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:18px 0}
+  @media(max-width:720px){.verdict{grid-template-columns:1fr}}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--ink);padding:16px 18px}
+  .vcard.buy{border-top-color:var(--green)} .vcard.hold{border-top-color:var(--accent)}
+  .vcard .lab{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+  .vcard .big{font-family:var(--serif);font-size:28px;font-weight:700;margin:4px 0}
+  .vcard p{margin:0;font-size:14px;color:var(--ink2)}
+  section{margin:34px 0}
+  section>h2{font-size:24px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:14px}
+  section>h2 .no{color:var(--accent-ink)}
+  h3{font-size:17px;margin:18px 0 6px}
+  p{margin:0 0 10px}
+  ul{margin:6px 0 12px;padding-left:20px} li{margin:4px 0}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:720px){.cols{grid-template-columns:1fr}}
+  table{width:100%;border-collapse:collapse;background:var(--surface);font-size:14.5px;margin:10px 0 16px}
+  th,td{padding:9px 12px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);border-bottom:2px solid var(--ink)}
+  .callout{background:var(--amber-bg);border:1px solid var(--line);padding:14px 16px;font-size:14.5px;margin:14px 0}
+  .callout strong{color:var(--accent-ink)}
+  .risk-up{border-left:4px solid var(--green);background:var(--surface);padding:12px 16px}
+  .risk-down{border-left:4px solid var(--red);background:var(--surface);padding:12px 16px}
+  .risk-up h3,.risk-down h3{margin-top:0}
+  .fig{background:var(--surface);border:1px solid var(--line);padding:16px;margin:14px 0}
+  .fig .cap{font-size:12.5px;color:var(--ink2);margin-top:8px}
+  .calc{background:var(--surface);border:1px solid var(--line);padding:18px}
+  .calc label{font-size:13px;color:var(--ink2);display:block;margin-bottom:6px}
+  .calc input{font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;width:220px;max-width:100%;background:var(--surface);color:var(--ink)}
+  .calc .out{font-family:var(--serif);font-size:22px;font-weight:700;margin-top:12px}
+  .calc .out small{display:block;font-family:var(--sans);font-weight:400;font-size:13px;color:var(--ink2)}
+  .foot{border-top:2px solid var(--ink);margin-top:40px;padding-top:14px;font-size:13px;color:var(--ink2)}
+  .src li{word-break:break-word}
+  .est{font-family:var(--mono);font-size:11px;background:var(--chip);border-radius:4px;padding:1px 6px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="topbar">
+    <div class="kicker">Equity Research · Consumer Staples · As of 1 Nov 2026</div>
+    <h1>Costco Wholesale <span class="tick">— COST</span></h1>
+    <p class="sub">Membership warehouse retail. Price reference: 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Prepared for a mid-30s investor, risk score 8/10. Research views only — not guarantees, not investment advice.</p>
+    <div class="meta-row">
+      <span class="tag">Sector: Consumer Staples</span>
+      <span class="tag">Ranking basis: FinanceCharts, last updated 30 Oct 2026 — WMT is #1 in this sector</span>
+      <span class="tag">Key figures independently verified against a second source</span>
+    </div>
+    <nav class="anchors" aria-label="Sections">
+      <a href="#business">1 · Business</a><a href="#financials">2 · Financials</a><a href="#moat">3 · Moat</a>
+      <a href="#catalysts">4 · Catalysts &amp; Risks</a><a href="#valuation">5 · Valuation</a><a href="#verdict">6 · Verdict &amp; Sizing</a><a href="#sources">Sources</a>
+    </nav>
+  </header>
+
+  <div class="stats" role="table" aria-label="Key statistics">
+    <div class="stat"><div class="lab">Price (30 Oct close)</div><div class="val">$1,012.28</div><div class="note">Confirmed — MarketBeat basis</div></div>
+    <div class="stat"><div class="lab">Market cap</div><div class="val">$448.6B</div><div class="note">MarketBeat $448.57B · Finnhub $440.74B — vendor-dependent</div></div>
+    <div class="stat"><div class="lab">Trailing P/E</div><div class="val">48.7×</div><div class="note">MarketBeat basis · Forward P/E 40.3×</div></div>
+    <div class="stat"><div class="lab">TTM revenue</div><div class="val">$303.15B</div><div class="note">Net income $9.23B · Net margin 3.0%</div></div>
+    <div class="stat"><div class="lab">Dividend yield</div><div class="val">0.58%</div><div class="note">Small regular dividend; specials historically</div></div>
+    <div class="stat"><div class="lab">Paid members</div><div class="val">81M</div><div class="note">2025 annual report, via Fool</div></div>
+  </div>
+
+  <div class="verdict">
+    <div class="vcard hold"><div class="lab">Short term · 12–18 months</div><div class="big">HOLD</div><p>Paying for perfection at 48.7× trailing earnings. 12–18m base target $1,086 (MarketBeat, Moderate Buy) is only ~7% above the price.</p></div>
+    <div class="vcard buy"><div class="lab">Long term · 5 years</div><div class="big">BUY</div><p>Membership compounding and renewal rates above 92% in the US &amp; Canada support the long-horizon case — with the multiple-sensitivity warning in §5.</p></div>
+    <div class="vcard"><div class="lab">Portfolio weight</div><div class="big">3%</div><p>Suggested weight of total portfolio for a mid-30s, risk 8/10 profile. Defensive compounder, not a growth sleeve anchor.</p></div>
+  </div>
+
+  <section id="business">
+    <h2><span class="no">1 ·</span> Business Model &amp; Segment Breakdown</h2>
+    <p>Costco is a membership warehouse club. Members pay an annual fee for access to bulk goods at thin markups, sold from no-frills warehouses with a deliberately limited assortment. The profit engine is not the merchandise margin — net margin is just 3.0% — it is the membership fee stream layered on top of enormous sales volume, plus the traffic that low prices reliably generate.</p>
+    <div class="cols">
+      <div>
+        <h3>Segments &amp; revenue streams</h3>
+        <ul>
+          <li><strong>Geography:</strong> US &amp; Canada (the core) and Other International. Renewal is reported for US/Canada separately from worldwide.</li>
+          <li><strong>Merchandise sales:</strong> fiscal Q4 2026 sales of <strong>$93.9B, +11.2%</strong> — but note that was a <strong>16-week quarter, so it is not like-for-like</strong> against peers' standard quarters. Fiscal Q2 2026 net sales were $68.2B, +9.1%, with adjusted comparable sales +6.7%.</li>
+          <li><strong>Membership fees:</strong> ~<strong>$5.91B in FY2026, +11%</strong>; Q2 2026 fees were $1.36B, +13.6%. This is the highest-quality revenue in the model — prepaid, recurring, and nearly pure profit at the margin.</li>
+          <li><strong>Ancillary businesses:</strong> e-commerce, pharmacy, travel and food courts extend the membership's value beyond the warehouse floor.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Membership &amp; supply chain</h3>
+        <ul>
+          <li><strong>81M paid members</strong> (2025 annual report, via Fool).</li>
+          <li><strong>Renewal: 92.1% in US/Canada, 89.7% worldwide</strong> — the single most important operating statistic in the story.</li>
+          <li><strong>Supply chain:</strong> bulk buying power, the Kirkland Signature private label, limited SKUs (which concentrates volume per item and strengthens negotiating leverage), and a treasure-hunt rotation that keeps trips frequent.</li>
+          <li><strong>Member mix:</strong> skews affluent, which supports traffic resilience when consumer spending softens.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Structural read:</strong> the model converts price trust into prepaid membership income. As long as renewal holds near 92% in the core market, fee growth compounds even when merchandise margins stay razor-thin by design.</div>
+  </section>
+
+  <section id="financials">
+    <h2><span class="no">2 ·</span> Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <table>
+      <thead><tr><th>Metric</th><th>Value</th><th>Basis / note</th></tr></thead>
+      <tbody>
+        <tr><td>Share price</td><td>$1,012.28</td><td>30 Oct 2026 close — confirmed, MarketBeat basis</td></tr>
+        <tr><td>Market cap</td><td>$448.6B</td><td>MarketBeat $448.57B; Finnhub $440.74B — name your vendor</td></tr>
+        <tr><td>Trailing P/E</td><td>48.7×</td><td>MarketBeat basis (48.76); Finnhub shows 47.77</td></tr>
+        <tr><td>Forward P/E</td><td>40.3×</td><td>Richest multiple in Consumer Staples</td></tr>
+        <tr><td>P/S (trailing)</td><td>~1.48×</td><td>Derived: $448.6B cap ÷ $303.15B TTM revenue</td></tr>
+        <tr><td>EV/EBITDA</td><td>Not shown</td><td>Not carried in the verified pack — omitted rather than estimated</td></tr>
+        <tr><td>TTM revenue</td><td>$303.15B</td><td>Trailing twelve months</td></tr>
+        <tr><td>Net income / margin</td><td>$9.23B / 3.0%</td><td>Thin by design — markup discipline, not weakness</td></tr>
+        <tr><td>Free cash flow (OCF − capex)</td><td>~$9.38B</td><td>Trailing, per InsiderMonkey — labelled estimate basis</td></tr>
+        <tr><td>Dividend yield</td><td>0.58%</td><td>Small regular dividend; special dividends historically</td></tr>
+        <tr><td>Buybacks</td><td>Modest</td><td>Capital returns are deliberately restrained</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Capital allocation:</strong> Costco returns cash conservatively — a small regular dividend (0.58% yield), special dividends historically, and modest buybacks. Most cash generation is retained to fund new warehouses and the working capital of a growing sales base. Trailing operating cash flow minus capex of ~$9.38B roughly matches net income of $9.23B, which is what you would expect from a retailer with this working-capital profile.</p>
+    <p><strong>Leverage note:</strong> the verified pack does not publish a debt-to-equity figure for COST, so none is presented here rather than estimated. The balance-sheet question for Costco is not leverage — it is whether a 3.0% net margin leaves enough cushion if wage or cost pressure rises (see §4).</p>
+
+    <div class="fig" aria-label="Income flow diagram">
+      <h3 style="margin-top:0">Income flow — trailing twelve months ($B)</h3>
+      <svg viewBox="0 0 720 190" width="100%" role="img" aria-label="Revenue 303.15 billion flows to costs and expenses of 293.92 billion and net income of 9.23 billion">
+        <rect x="10" y="55" width="150" height="80" rx="6" fill="var(--blue)" opacity="0.9"/>
+        <text x="85" y="88" text-anchor="middle" fill="#fff" font-size="13" font-weight="bold">TTM revenue</text>
+        <text x="85" y="110" text-anchor="middle" fill="#fff" font-size="15" font-weight="bold">$303.15B</text>
+        <path d="M160,80 C 260,80 280,45 380,45" stroke="var(--ink2)" stroke-width="14" fill="none" opacity="0.45"/>
+        <path d="M160,115 C 260,115 280,150 380,150" stroke="var(--green)" stroke-width="6" fill="none" opacity="0.7"/>
+        <rect x="380" y="15" width="330" height="60" rx="6" fill="var(--surface2)" stroke="var(--line)"/>
+        <text x="395" y="40" font-size="13" fill="var(--ink)">Costs &amp; expenses — combined residual</text>
+        <text x="395" y="62" font-size="15" font-weight="bold" fill="var(--ink)">$293.92B</text>
+        <rect x="380" y="120" width="330" height="60" rx="6" fill="var(--surface2)" stroke="var(--green)"/>
+        <text x="395" y="145" font-size="13" fill="var(--ink)">Net income (3.0% margin)</text>
+        <text x="395" y="167" font-size="15" font-weight="bold" fill="var(--ink)">$9.23B</text>
+      </svg>
+      <p class="cap">Built only from verified TTM figures: revenue $303.15B and net income $9.23B. Costs &amp; expenses is the combined residual ($303.15B − $9.23B), labelled as such — it bundles cost of goods, operating expenses, interest and tax, which the pack does not split. Membership fees of ~$5.91B sit inside revenue.</p>
+    </div>
+  </section>
+
+  <section id="moat">
+    <h2><span class="no">3 ·</span> Competitive Moat &amp; Industry Positioning</h2>
+    <ul>
+      <li><strong>Membership lock-in:</strong> a 92.1% US/Canada renewal rate is the moat made visible. Members prepay, then shop to justify the fee — traffic is structurally recurring, not re-won each quarter.</li>
+      <li><strong>Price trust:</strong> decades of markup discipline mean members default to Costco for big-ticket and bulk purchases without comparison shopping. That trust is slow to build and slow to lose.</li>
+      <li><strong>Kirkland Signature:</strong> the private label gives margin and differentiation simultaneously — quality comparable to national brands at warehouse prices, available nowhere else.</li>
+      <li><strong>Operational discipline &amp; scale:</strong> limited SKUs concentrate buying volume, bulk purchasing extracts supplier terms smaller rivals cannot match, and the affluent member mix spends more per trip.</li>
+      <li><strong>Position:</strong> in the Consumer Staples ranking (FinanceCharts, 30 Oct 2026), WMT is #1 in the sector. Costco's distinction is not scale — it is the quality and predictability of its earnings stream, which is exactly what the 48.7× multiple is paying for.</li>
+    </ul>
+  </section>
+
+  <section id="catalysts">
+    <h2><span class="no">4 ·</span> Catalysts &amp; Downside Risks</h2>
+    <div class="cols">
+      <div class="risk-up">
+        <h3>Catalysts</h3>
+        <ul>
+          <li>New warehouse openings, including international expansion.</li>
+          <li>E-commerce growth of +20%+.</li>
+          <li>Membership-fee growth (+11% in FY2026; +13.6% in Q2) — fee increases and tier upgrades flow almost directly to profit.</li>
+          <li>Continued member growth from the 81M base with renewal holding above 92% in the core market.</li>
+        </ul>
+      </div>
+      <div class="risk-down">
+        <h3>Downside risks</h3>
+        <ul>
+          <li><strong>Valuation is the risk:</strong> 48.7× trailing / 40.3× forward is the richest multiple in staples. There is no cushion for disappointment — even a good quarter can fall if it is merely good.</li>
+          <li>Gas-price and FX noise distort headline comparable sales.</li>
+          <li>Wage and cost pressure against a 3.0% net margin — a small cost slip is a large profit percentage.</li>
+          <li>Saturation in core US markets would slow the warehouse-growth engine the multiple assumes.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="valuation">
+    <h2><span class="no">5 ·</span> Scenario-Based Valuation &amp; Price Targets</h2>
+    <h3>12–18 month horizon</h3>
+    <p>Consensus base target: <strong>$1,086</strong> (MarketBeat, Moderate Buy) — about +7% from $1,012.28. The verified pack carries a base target only for this horizon; bull and bear 12–18m targets were not in the verified research, so none are shown rather than invented.</p>
+    <h3>5-year projection <span class="est">MODELLED ESTIMATE</span></h3>
+    <p>Frozen-parameter method, as used across this series: starting TTM revenue $303.15B and net income $9.23B; only growth, margin and exit P/E vary by case. Weights: Base 50% · Bull 25% · Bear 25%. Prices below are the research model's published outputs, kept as modelled. A hand recomputation from only the rounded growth/margin inputs shown gives slightly lower figures (base ≈ $1,487 vs the model's $1,522) — the residual gap reflects unrounded model inputs the pack does not disclose, so the case prices cannot be fully reproduced from this table alone.</p>
+    <table>
+      <thead><tr><th>Case (weight)</th><th>Revenue growth/yr</th><th>Net margin</th><th>Exit P/E</th><th>2031 price</th><th>vs $1,012.28</th></tr></thead>
+      <tbody>
+        <tr><td>Base (50%)</td><td>8%</td><td>3.0%</td><td>48.7×</td><td>$1,522</td><td>+50%</td></tr>
+        <tr><td>Bull (25%)</td><td>10%</td><td>3.2%</td><td>52×</td><td>$1,877</td><td>+85%</td></tr>
+        <tr><td>Bear (25%)</td><td>5%</td><td>2.8%</td><td>38×</td><td>$950</td><td>−6%</td></tr>
+        <tr><td><strong>Probability-weighted</strong></td><td colspan="3">0.50×$1,522 + 0.25×$1,877 + 0.25×$950</td><td><strong>$1,468</strong></td><td><strong>+45%</strong></td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Read this with care:</strong> the 5-year model sits far above the 12–18m consensus ($1,468 weighted vs $1,086) because it freezes a 48.7× multiple for five full years. Treat the 5-year figures as <strong>multiple-sensitive modelled estimates, not price forecasts</strong>. If the exit multiple merely normalises toward the bear case's 38×, most of the modelled upside disappears even if the business performs. The bear case price of $950 — below today's price despite five years of 5% growth — is the model's own warning about what you are paying.</div>
+  </section>
+
+  <section id="verdict">
+    <h2><span class="no">6 ·</span> Recommendation &amp; Portfolio Sizing</h2>
+    <ul>
+      <li><strong>Short term (12–18m): HOLD</strong> — you are paying for perfection. The consensus base offers ~7%; the risk/reward favours waiting for a multiple reset rather than chasing.</li>
+      <li><strong>Long term (5yr): BUY</strong> — membership compounding, 92%+ core renewal and fee growth justify owning it through a cycle, sized with respect for the entry multiple.</li>
+      <li><strong>Suggested weight: 3% of total portfolio</strong> (mid-30s, risk 8/10). A quality defensive holding — meaningful, but not a position whose valuation can dominate your outcome.</li>
+    </ul>
+    <div class="calc">
+      <label for="pv">Your total portfolio value ($)</label>
+      <input id="pv" type="number" inputmode="decimal" min="0" value="500000" aria-label="Your total portfolio value in dollars" />
+      <div class="out" id="calcOut">$15,000 in COST <small>≈ 14.8 shares at $1,012.28 · 3% target weight</small></div>
+    </div>
+  </section>
+
+  <section id="sources">
+    <h2>Methodology, Verification &amp; Sources</h2>
+    <p>Figures are as of 1 Nov 2026 with prices at the 30 Oct 2026 close. Key figures were independently verified against a second source before publication. Where vendors disagree, the vendor is named: COST's price, cap and P/E are confirmed on a MarketBeat basis (cap $448.57B, P/E 48.76); Finnhub shows cap $440.74B and P/E 47.77 — the artifact uses the rounded pack values ($448.6B, 48.7×) on the MarketBeat basis and flags the variance rather than mixing vendors silently. All scenario prices are modelled estimates with assumptions shown in §5, never verified facts. Sector ranking basis: FinanceCharts, last updated 30 Oct 2026.</p>
+    <ul class="src">
+      <li>Motley Fool — member count and renewal reporting (2025 annual report): fool.com (as cited in the research pack)</li>
+      <li>FinanceCharts — COST P/E ratio: <a href="https://www.financecharts.com/stocks/COST/value/pe-ratio">financecharts.com/stocks/COST/value/pe-ratio</a></li>
+      <li>MarketBeat — COST price, consensus target and rating: <a href="https://www.marketbeat.com/stocks/NASDAQ/COST/">marketbeat.com/stocks/NASDAQ/COST</a></li>
+      <li>InsiderMonkey — trailing operating cash flow minus capex (~$9.38B), as cited in the research pack</li>
+      <li>Finnhub — cross-check for price, cap and P/E variance (verification pass)</li>
+    </ul>
+    <div class="foot">Research views only, not guarantees, not investment advice. Prices and multiples are a dated snapshot (30 Oct 2026 close) and will have moved. Do your own diligence before acting. — Blaze</div>
+  </section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Costco (COST)</h2>
+<p><strong>Price (30 Oct 2026 close): $1,012.28.</strong> <strong>DCF intrinsic: $476.</strong> Discount/premium vs DCF: <strong>+112.7%</strong> — i.e. the shares are trading 112.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$476</td><td>+112.7%</td><td>Base Normal DCF: TTM FCF ~$9.38bn per pack (InsiderMonkey); corroborated ~$9.4bn. Net cash = cash $21.30bn - debt $10.18bn = +$11.12bn. Growth g 8%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $84.91bn + PV of terminal value $114.88bn + net cash / excess capital $11.12bn (definition note: lease-inclusive debt $10.18bn; ex-lease debt $6.162bn would give net cash $15.139bn — definition stated, not silently replaced), ÷ 0.44348bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/COST/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — Costco (COST)</h2>
+<p><strong>B2C note — no top-7 business-customer list.</strong> Consumer-facing, no top-7 business-customer list. Demand is driven by membership renewals and new sign-ups, warehouse traffic, and Kirkland Signature sales; the model is membership fees plus high-volume, low-margin goods.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Costco (COST)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Costco’s exposure is operational: AI can improve inventory, logistics and membership analytics, but the pack’s thesis is execution, warehouse traffic and Kirkland sales — not AI revenue — and Costco builds no AI infrastructure.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is the main AI-adjacent risk: at ~49x trailing earnings Costco carries one of the highest staples multiples, so a general growth de-rating would compress it even though its business is not AI-linked.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — membership and traffic prove resilient (staples demand is defensive), so demand breaks last, not first; (2) multiple — compression from ~49x toward a through-cycle level is the dominant risk; (3) balance sheet — low risk, with net cash of $11.12bn and no AI-capex debt. Triggers to watch: membership renewal rates, comparable sales, and any sign the market is de-rating quality compounders generally.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+</div>
+<script>
+  (function(){
+    var pv=document.getElementById('pv'), out=document.getElementById('calcOut');
+    function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+    function upd(){
+      var v=parseFloat(pv.value)||0, amt=v*0.03, sh=amt/1012.28;
+      out.innerHTML='$'+fmt(amt)+' in COST <small>≈ '+sh.toFixed(1)+' shares at $1,012.28 · 3% target weight</small>';
+    }
+    pv.addEventListener('input',upd); upd();
+  })();
+</script>
+</body>
+</html>

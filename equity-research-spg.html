@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SPG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{margin:12px 0;border:1px solid var(--line2);background:var(--card);overflow:hidden}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+@media (max-width:760px){
+  table{font-size:11.5px}
+  th,td{padding:6px 5px}
+  td.n,th.n{white-space:normal}
+}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:130px 1fr 84px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.est{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--amber-soft);color:var(--amber);text-transform:uppercase;vertical-align:middle}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Retail REITs · Malls &amp; Outlets</span></div>
+  <h1>Simon Property Group <span class="tick">(NYSE: SPG)</span></h1>
+  <p class="lede">The best mall portfolio in America, priced like a bond proxy with equity risk attached. SPG owns 250+ properties — malls, outlets and open-air centres — and its investment case rests on tenant curation and recycling tired department-store boxes into mixed-use value, set against the two risks that never leave a retail landlord: the consumer cycle and e-commerce. At $217.75 it sits just below the Street's $228.33 consensus target — close enough that this is a hold-and-wait-for-weakness name, not a chase.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $217.75 close, Fri 30 Oct 2026</span>
+    <span><b>Sector ranking basis:</b> Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe (market-cap ranking, not VNQ-weight order — VNQ weight differs only in swapping O (3.34%) ahead of PSA (3.11%))</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$217.75</div><div class="vsub">Confirmed on the official 30 Oct 2026 close (Finnhub)</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$70.46B</div><div class="vsub">#5 in the VNQ-universe real estate top 10 by market cap</div></div>
+  <div class="vcell span3"><div class="vlabel">Revenue · TTM</div><div class="vbig mono">$6.9B</div><div class="vsub">Trailing twelve months (Fool). P/S ≈ 10.2× on those two figures</div></div>
+  <div class="vcell span3"><div class="vlabel">Street consensus target</div><div class="vbig mono">$228.33 <span class="up" style="font-size:16px">+4.9%</span></div><div class="vsub">TipRanks consensus — only ~5% above the close</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Base target $230 is only +5.6%; the risk/reward is balanced, not compelling, at the close.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD / BUY on weakness <span class="pill hold">Hold</span></div><div class="vsub">Modelled 5-yr weighted value $254 (estimate) — accumulate below ~$200, not at any price.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.0% of portfolio</div><div class="vsub">Small satellite REIT position. Beta 1.33 is the highest in this real estate pack — size accordingly.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Simon Property Group is a retail real estate investment trust (REIT): it owns the buildings, signs retailers to leases, and earns rent — plus percentage rents and redevelopment gains when it upgrades a centre. The pack confirms the shape of the portfolio: <b>250+ properties spanning malls, outlet centres and open-air centres, with mixed-use redevelopment</b> layered on top (<a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Fool, largest real estate companies</a>).</p>
+
+  <h3>How the money is made</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>Mechanics</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Enclosed malls</td><td>Long leases to anchor and in-line retailers in top-tier regional malls; rent escalators and occupancy drive the base</td><td>Occupancy recovery and tenant sales productivity — a mall is only as good as its tenants' tills</td></tr>
+      <tr><td>Premium outlets</td><td>Outlet centres monetise value-seeking consumers and tourist flows; historically the most resilient retail format in downturns</td><td>Consumer resilience — outlet traffic holds up better than full-price retail when budgets tighten</td></tr>
+      <tr><td>Open-air centres</td><td>Neighbourhood and lifestyle centres; necessity- and service-anchored tenancy</td><td>Lower capex intensity than enclosed malls; steadier, less glamorous cash flow</td></tr>
+      <tr><td>Mixed-use redevelopment</td><td>Recycling vacated department-store boxes into residential, hotel, dining and entertainment uses</td><td>The growth engine in the thesis — each completed box conversion lifts the centre's rent base and footfall</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Segment revenue splits, geographic distribution and occupancy percentages were <b>not verified in this research pass</b> and are therefore omitted rather than estimated. That is an open item: SPG's own quarterly supplemental is the source to fill them from before relying on any segment-level claim.</p>
+
+  <h3>Structural pivots</h3>
+  <ul>
+    <li><b>From department-store dependence to mixed-use:</b> the redevelopment programme converts the portfolio's weakest boxes — former anchors — into higher-yielding mixed uses. This is the central structural pivot in the pack: the asset base is being re-tenanted away from the format e-commerce hurt most.</li>
+    <li><b>Tenant curation as strategy:</b> SPG's pitch to retailers is that placement in a top-tier Simon centre is itself distribution. Curating the tenant mix — replacing failing chains with experiential, dining and luxury tenants — is how occupancy and rent per square foot are defended.</li>
+    <li><b>Supply-chain dependencies (landlord version):</b> a REIT's “supply chain” is its tenant base and its construction pipeline. Tenant bankruptcies transmit directly into lost rent and re-leasing costs, and redevelopment returns depend on construction costs and contractor capacity — neither figure is quantified in the verified pack, so both are flagged as exposures, not numbers.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Read a REIT differently from an operating company. Depreciation on buildings makes GAAP net income a poor guide, so the sector values REITs on <b>Funds From Operations (FFO)</b> and Adjusted FFO — SPG's trailing P/E of 15.27× is shown below for completeness but, per the sector convention applied across this series, <b>trailing P/E must not be used to value a REIT</b>; P/FFO is the primary multiple (§5).</p>
+
+  <div class="tblwrap"><table>
+    <caption>Snapshot — price $217.75 (30 Oct 2026 close). Only figures confirmed in the verified research pack are shown; unverified items are marked, not filled in.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market capitalisation</td><td class="n">$70.46B</td><td>5th-largest name in the VNQ-universe US real estate top 10 by market cap (<a href="https://finnhub.io/?q=%22SPG%22" target="_blank" rel="noopener">Finnhub</a>)</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$6.9B</td><td>Trailing twelve months (Fool) — the rent base across 250+ properties</td></tr>
+      <tr><td>Price / Sales (derived)</td><td class="n">≈10.2×</td><td>Arithmetic on the two confirmed figures above ($70.46B ÷ $6.9B); high for a landlord, reflecting the premium-asset portfolio</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">15.27×</td><td>Reported by Finnhub — <b>not used for valuation here</b>; REIT GAAP earnings are distorted by property depreciation. Use P/FFO (§5)</td></tr>
+      <tr><td>Beta</td><td class="n">1.33</td><td>Highest beta in this real estate pack (Finnhub) — SPG trades more like a consumer-cyclical equity than a defensive landlord</td></tr>
+      <tr><td>FFO per share (base for §5 model)</td><td class="n">$12.50 <span class="est">Estimate</span></td><td><b>Not verified in this pass.</b> The 5-year model in §5 uses $12.50 as an explicitly labelled estimate; re-run the model on SPG's next reported FFO before acting on it</td></tr>
+      <tr><td>Dividend / payout</td><td class="n">Not verified</td><td>Dividend yield and FFO payout ratio were <b>not verified in this pass</b> and are omitted rather than guessed — a gap to close from SPG's dividend declarations</td></tr>
+      <tr><td>Leverage / debt profile</td><td class="n">Not in pack</td><td>Total debt, maturities and debt/equity were not supplied in the verified pack. No leverage figure is presented — check SPG's latest 10-Q balance sheet before treating any balance-sheet claim as established</td></tr>
+      <tr><td>Street consensus target</td><td class="n">$228.33</td><td>TipRanks consensus — +4.9% vs the $217.75 close, i.e. the Street sees a fairly-valued name, not a mispricing</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">Honest gap — what this note does not claim</div>
+  <p>Free cash flow, buyback/dividend history, R&amp;D-equivalent spend (for a REIT: development capex) and the debt stack were <b>not verified</b> for SPG in this research pass. Rather than fill the table with plausible-looking numbers, those diagnostics are left open. The valuation in §5 therefore leans on the two anchors that are confirmed — price/market cap and TTM revenue — plus an FFO base that is flagged as an estimate wherever it is used.</p></div>
+
+  <h3>Capital allocation — what can be said on the verified record</h3>
+  <ul>
+    <li><b>Redevelopment is the reinvestment channel:</b> capital is recycled into mixed-use conversion of department-store boxes and centre upgrades — the pack identifies this as a core value-creation lever, though no capex figure was verified.</li>
+    <li><b>REIT distribution requirement:</b> as a REIT, SPG must distribute the bulk of taxable income to shareholders — that structure, not a discretionary buyback programme, is the main cash-return mechanism for REITs generally. The specific dividend was not verified here (see table).</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: moderate-to-wide within retail real estate — it is an asset-quality moat, not a network moat.</b> You cannot replicate a portfolio of top-tier malls and premium outlets at any reasonable cost or timeline: zoning, land assembly and decades of tenant relationships are the barrier. What you cannot do is make shoppers come — that part of the moat is rented, renewed lease by lease.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Best-in-class portfolio:</b> the pack's assessment is explicit — top-tier assets, not average malls. In a shrinking industry, the flight to quality concentrates surviving tenant demand in exactly the centres SPG owns; B- and C-malls absorb the e-commerce damage first.</li>
+      <li><b>Tenant curation:</b> control over who trades next to whom lets Simon engineer footfall (luxury beside dining beside entertainment) in a way no single retailer or e-commerce platform replicates physically.</li>
+      <li><b>Redevelopment optionality:</b> owning the department-store boxes outright turns the industry's biggest liability — dead anchors — into mixed-use development sites SPG already controls.</li>
+      <li><b>Scale:</b> at $70.46B market cap across 250+ properties, SPG negotiates with national chains from strength and can cross-subsidise a weak centre through a cycle.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Named competitors: Kimco Realty (KIM), Regency Centers (REG) and Macerich (MAC)</b> — KIM and REG lean open-air/grocery-anchored (structurally steadier tenancy), MAC is the closest enclosed-mall comparator at weaker asset quality.</li>
+      <li><b>E-commerce is the real competitor:</b> every point of retail sales that moves online is rent SPG never collects. The defence — experiential and luxury tenancy — works, but it is a defence, not a growth engine.</li>
+      <li><b>No pricing power over the cycle:</b> rents reset at lease renewal against tenant sales. In a consumer downturn, SPG discovers its pricing power was the consumer's all along.</li>
+      <li><b>Highest beta in the pack (1.33):</b> the market itself prices SPG as the least defensive name in this real estate set — the moat does not damp the share price when risk appetite fades.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> SPG is the quality end of a structurally challenged sector. The correct comparison is not “malls vs the internet” but “top-tier physical retail vs everything below it” — on that axis Simon is winning share of a slowly shrinking pie, and redevelopment is how it converts that share into growth.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Consumer resilience:</b> the pack's lead catalyst. Resilient US consumer spending flows straight into tenant sales, percentage rents and renewal spreads.</li>
+        <li><b>Outlet &amp; mixed-use redevelopment completions:</b> each finished department-store-box conversion adds rent and diversifies a centre away from pure retail — visible, appraisable progress the market can price.</li>
+        <li><b>Occupancy recovery:</b> continued post-pandemic occupancy rebuilding in top-tier centres supports rent growth without new construction risk.</li>
+        <li><b>A verified FFO print above the $12.50 estimate</b> used in §5 would mechanically lift every modelled target — the single cheapest “catalyst” is the estimate turning out conservative.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Consumer downturn:</b> with beta 1.33, a spending slowdown hits SPG's tenants, its occupancy and its multiple simultaneously — the three are correlated, not independent.</li>
+        <li><b>Tenant bankruptcies:</b> retail chains fail in clusters; each failure means lost rent, dark space and re-leasing capex at the worst point in the cycle.</li>
+        <li><b>E-commerce structural pressure on B-malls:</b> Simon's portfolio is top-tier, but sentiment (and some assets) remain exposed to the sector's long shrink — the tail risk is the quality divide narrowing.</li>
+        <li><b>Rate sensitivity (sector-generic, flagged as such):</b> REIT valuations are discount-rate sensitive; no SPG-specific debt figure was verified in this pack, so this is stated as a sector exposure, not a measured SPG leverage claim.</li>
+        <li><b>Estimate risk in this very note:</b> the FFO base ($12.50) is unverified. If reported FFO is materially lower, the §5 five-year values fall proportionally — treat them as a formula, not a forecast.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A consumer downturn that produces a visible tenant-bankruptcy wave in top-tier centres — not B-malls, Simon's own tier. That would falsify the flight-to-quality premise the whole valuation rests on, and the bear case in §5 ($185 near-term, $183 modelled 5-yr) would become the base case.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><b>Method — and a transparent adaptation.</b> The standard frozen-parameter format in this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>. For a REIT that formula is not meaningful: GAAP net margin is distorted by building depreciation and trailing P/E (15.27×) must not be used for REIT valuation. The adaptation used here keeps the same discipline — one earnings base, one growth rate and one exit multiple, all frozen per case — but runs it on <b>FFO per share and P/FFO</b>: <i>2031 price = FFO/share<sub>base</sub> × (1+g)<sup>5</sup> × exit P/FFO</i>. The FFO base of <b>$12.50 is an estimate, not a verified figure</b> — every 5-year value below inherits that label.</p>
+
+  <h3>12–18-month targets <span class="est">Modelled estimates</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$185</div><div class="ret down">−15.0% vs $217.75</div><p>Consumer softens, a tenant-failure cluster dents occupancy, and the market de-rates the highest-beta REIT in the pack. Roughly a return to valuing SPG as a shrinking-sector landlord.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$230</div><div class="ret up">+5.6% vs $217.75</div><p>Consumer holds, redevelopment delivers on schedule, occupancy grinds up. Essentially the Street's $228.33 consensus with a rounding of conviction — the market has this case mostly priced.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$255</div><div class="ret up">+17.1% vs $217.75</div><p>Outlet strength plus visible mixed-use value creation re-rates SPG toward a premium-asset multiple; FFO comes in ahead of the $12.50 estimate and the beat compounds through the multiple.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $225</div></div><p>0.25×$185 + 0.50×$230 + 0.25×$255 = $225, or <b>+3.3%</b> from $217.75. Modest expected price upside — for a REIT, any dividend (not verified in this pass) would sit on top of this; on price alone, the near-term skew is close to symmetric, which is exactly what a HOLD means.</p></div>
+
+  <h3>Scenario values at a glance</h3>
+  <div class="bars" role="img" aria-label="Bar chart of 12 to 18 month scenario targets versus the current price">
+    <div class="bar-row"><span class="bl">Bear $185</span><div class="bar-track"><div class="bar-fill neg" style="width:72%"></div></div><span class="bv">−15.0%</span></div>
+    <div class="bar-row"><span class="bl">Price $217.75</span><div class="bar-track"><div class="bar-fill" style="width:85%;background:var(--gold)"></div></div><span class="bv">—</span></div>
+    <div class="bar-row"><span class="bl">Consensus $228</span><div class="bar-track"><div class="bar-fill" style="width:89%"></div></div><span class="bv">+4.9%</span></div>
+    <div class="bar-row"><span class="bl">Base $230</span><div class="bar-track"><div class="bar-fill" style="width:90%"></div></div><span class="bv">+5.6%</span></div>
+    <div class="bar-row"><span class="bl">Bull $255</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bv">+17.1%</span></div>
+  </div>
+
+  <h3>5-year projection — frozen-parameter model, REIT adaptation <span class="est">Modelled estimates</span></h3>
+  <p>Formula per case: <span class="mono">2031 price = $12.50 (FFO est.) × (1+g)<sup>5</sup> × exit P/FFO</span>. Only g and the exit multiple vary; the FFO base is frozen at the $12.50 estimate in all three cases.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">FFO growth / yr (g)</th><th class="n">2031 FFO/share</th><th class="n">Exit P/FFO</th><th class="n">2031 price</th><th class="n">vs close</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">1%</td><td class="n">≈$13.14</td><td class="n">14×</td><td class="n">$183</td><td class="n">−16%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">4%</td><td class="n">≈$15.21</td><td class="n">17×</td><td class="n">$258</td><td class="n">+18%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6%</td><td class="n">≈$16.73</td><td class="n">19×</td><td class="n">$317</td><td class="n">+46%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$254</td><td class="n">+17%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: $12.50 × 1.04<sup>5</sup> = $15.21, × 17 ≈ $259 (base, model publishes $258); $12.50 × 1.06<sup>5</sup> = $16.73, × 19 ≈ $318 (bull, model publishes $317); $12.50 × 1.01<sup>5</sup> = $13.14, × 14 ≈ $184 (bear, model publishes $183); the published case prices — rounded down to whole dollars in the source model — weight to 0.25×$183 + 0.50×$258 + 0.25×$317 = $254. All five-year figures are <b>modelled estimates built on an unverified FFO base</b> — if reported FFO is, say, 10% below $12.50, scale every 2031 price down by 10%. Price-only returns; dividends excluded because the dividend was not verified in this pass.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Research views only — not guarantees, and not personalised investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not chase.</b> Weighted 12–18-month value ≈ $225 is only +3.3% above the close and the Street target ($228.33) says the same. There is no mispricing to harvest at $217.75 — the position's job near-term is to wait for either a redevelopment/FFO catalyst or a better entry.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold / Buy on weakness</span></td><td><b>Accumulate only on weakness.</b> The modelled 5-yr weighted value of $254 (+17% price-only over five years) is a landlord's return, not a compounder's — respectable if bought well, thin if bought at a premium. The disciplined entry is the bear-case zone (≈$185–200), where the same base case offers ~+25–35% instead.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Review</span></td><td>Re-run this note when (1) SPG reports FFO — replace the $12.50 estimate with the actual and rescale §5; (2) a tenant-bankruptcy wave reaches top-tier centres (thesis-breaker, §4); (3) price crosses $255 (bull case reached — the asymmetry is gone).</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>SPG target: 1.0% of total portfolio.</b> A small satellite holding: enough to own the quality-retail recovery and redevelopment story, small enough that a beta-1.33 consumer-cyclical REIT cannot hurt the plan.</li>
+    <li><b>Why not more, at risk 8/10?</b> Risk tolerance licenses volatility, not concentration in a single-asset-class landlord whose 5-year modelled price return (+17% weighted, estimate-based) is the thinnest in this real estate pack. The 8/10 budget is better spent where the modelled asymmetry is larger; SPG earns its 1% as diversification into physical retail cash flows, not as a growth engine.</li>
+    <li><b>Within a real estate sleeve,</b> SPG at 1.0% of total portfolio pairs naturally with steadier landlords (open-air, logistics, healthcare) rather than doubling down on enclosed-mall exposure via MAC-type names.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: target position = 1.0% of the value entered; share count at the $217.75 reference close. In-memory only — nothing is stored or sent.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SPG — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $217.75.</strong> <strong>DCF intrinsic: $179.</strong> Discount/premium vs DCF: <strong>+21.6%</strong> — i.e. the shares are trading 21.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$179</td><td>+21.6%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $13.25 per share — FY2026 Real Estate FFO guidance midpoint $13.25 (raised Q2 2026, $13.20–$13.30); AFFO not disclosed. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 4.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/SPG/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/spg/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SPG — Top customers / tenants (B2B)</h2>
+<p>Tenants are this REIT's B2B customers: they pay the rent. Ranking is as disclosed in the source named below; where the source does not rank, this is labelled ranking-not-disclosed and no ranking is invented. Revenue-share % is shown only where disclosed.</p><table><tr><th>Tenant / customer</th><th>Share of rent / revenue</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>The Gap</td><td>2.8% of base minimum rent, US properties (1Q 2025 supplemental)</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Knitwell Group</td><td>1.8%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Tapestry</td><td>1.7%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Signet Jewelers</td><td>1.5%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>American Eagle Outfitters</td><td>1.5%</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>LVMH Fashion</td><td>1.4%</td><td>LVMUY — DCF intrinsic $97.19, discount/premium -11.6% (filled in by the coordinator after all intrinsics are computed)</td></tr><tr><td>Victoria's Secret & Co.</td><td>1.4%</td><td>not in coverage — no intrinsic on file</td></tr></table><p>Read-through: Simon's inline rent roll is highly diversified — the largest tenant is under 3% of base minimum rent — so no single tenant's valuation moves Simon's rent. If the filled-in intrinsic shows LVMH trading at a discount to intrinsic, that is a negligible direct tailwind (only 1.4% of rent) but a mildly positive signal for luxury-outlet demand; if it shows a premium, the direct headwind is equally small. The honest read is that Simon's fate turns on consumer spending, tenant bankruptcies and redevelopment execution, not on any tenant's discount or premium — and an undervalued tenant does not guarantee it opens more stores, since store decisions follow its own sales and margin outlook, not its share price versus intrinsic value.</p><p><em>Source: Simon Property Group 1Q 2025 supplemental, US Malls and Premium Outlets Top Tenants (sorted by % of total base minimum rent for US properties); 4Q 2025 supplemental confirms the same top three (Gap 2.6%, Knitwell 1.7%, LVMH 1.6%).</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SPG — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> Simon owns 250+ malls, outlets and open-air centres; its tenants are retailers and consumers, and the pack names no AI or data-centre exposure — AI reaches Simon only through consumer spending and retailer health.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Negligible direct channel: AI does not drive mall footfall, and any indirect channel (AI-driven productivity lifting consumer incomes, or AI tools in retail operations) is diffuse and unquantified in the pack.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Simon's multiple is a consumer/retail multiple (trailing P/E 15.27 per pack), not an AI multiple, so there is no AI premium to compress — the shares move on consumer resilience and occupancy, not on AI sentiment.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: nothing AI-specific breaks; the demand risks are consumer downturn, e-commerce pressure on B-malls and tenant bankruptcies (the pack's stated risks). Second, multiple compression: indirect only, via a general risk-off or rate-driven REIT de-rating, with the highest beta in the REIT pack here (1.33 per pack) amplifying any broad selloff. Third, balance sheet: $28.42B net debt against a mall portfolio whose redevelopment needs capital, so a consumer downturn plus higher rates is the real stress combination. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Consumer spending and retailer bankruptcy data; mall occupancy and redevelopment leasing; and broad REIT/rate moves rather than any AI-specific trigger.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price, market cap, trailing P/E and beta are the confirmed 30 Oct 2026 close figures (Finnhub, cross-checked against StockAnalysis in the independent verification log). The real estate ranking is by market cap at 30 Oct 2026 from the VNQ universe — VNQ weight order differs only in swapping O ahead of PSA; globally the same 10 names are the top 10 (Sun Hung Kai Properties is #11 globally at ~$40.22B, below VTR at $45.81B), and the next US name by market cap is Crown Castle (CCI, ~$38B), #11 behind Ventas (VTR) — not #11 by VNQ weight. Scenario targets in §5 are this report's modelled estimates, with methodology and the unverified FFO base flagged in place.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22SPG%22" target="_blank" rel="noopener">Finnhub — SPG quote: $217.75 close (30 Oct 2026), $70.46B market cap, 15.27× trailing P/E, beta 1.33</a></li>
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool — largest real estate companies: SPG portfolio (250+ properties) and TTM revenue $6.9B</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings (universe and weight order; O 3.34% ahead of PSA 3.11%) and SPG consensus target $228.33</a></li>
+    <li><a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/" target="_blank" rel="noopener">CompaniesMarketCap — global real estate market-cap ranking (Sun Hung Kai #11 globally, ~$40.22B)</a></li>
+    <li><a href="https://stockanalysis.com/etf/vnq/holdings/" target="_blank" rel="noopener">StockAnalysis — VNQ holdings by weight (CCI context: CBRE and Iron Mountain rank ahead of CCI by VNQ weight)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary prepared 1 Nov 2026 from the sources above, using the 30 Oct 2026 close as the price reference. Figures marked “estimate” — including the $12.50 FFO base and all scenario prices — are modelled estimates, not verified facts and not forecasts of what will happen. Dividend, leverage and segment-split figures that could not be verified are omitted and flagged as open items. Recommendations are research views for the stated investor profile, not guarantees and not personalised investment advice. Verify current figures before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=217.75, PCT=0.01;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(pf.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the 1.0% target position.';return;}
+    var dollars=v*PCT, shares=dollars/PRICE;
+    out.innerHTML='Target SPG position (1.0%): <b>$'+fmt(dollars)+'</b> &asymp; <b>'+fmt(shares)+' shares</b> at $217.75. Bear-case entry zone (&asymp;$185&ndash;200) would buy &asymp;<b>'+fmt(dollars/200)+'&ndash;'+fmt(dollars/185)+' shares</b> for the same dollars.';
+  }
+  pf.addEventListener('input',render);
+  render();
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=[];
+  links.forEach(function(a){var id=a.getAttribute('href');var el=document.querySelector(id);if(el)secs.push({a:a,el:el});});
+  function onScroll(){
+    var y=window.scrollY+80, cur=null;
+    secs.forEach(function(s){if(s.el.offsetTop<=y)cur=s;});
+    links.forEach(function(a){a.style.color='';a.style.borderBottomColor='transparent';});
+    if(cur){cur.a.style.color='var(--blue)';cur.a.style.borderBottomColor='var(--blue)';}
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

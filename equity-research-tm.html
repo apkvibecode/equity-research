@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — TM (Toyota Motor)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --surface2:#eef1f3; --ink:#14191d; --muted:#5b6770; --line:#dde2e6;
+  --accent:#c8102e; --accent-soft:#fdf0f2; --teal:#0f766e; --teal-soft:#e6f4f1; --amber:#92400e; --amber-soft:#fef6e3;
+  --good:#137333; --bad:#b3261e; --chip:#eef1f3;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1316; --surface:#171c20; --surface2:#1e2429; --ink:#e8edf0; --muted:#9aa7b0; --line:#2a333a; --accent:#ff5a6e; --accent-soft:#2b1a1e; --teal:#2dd4bf; --teal-soft:#122a27; --amber:#fbbf24; --amber-soft:#2a2110; --chip:#232b31; --good:#7bc98a; --bad:#f28b82; }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;line-height:1.55;font-size:16px}
+a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+h1,h2,h3{font-family:"IBM Plex Serif",Georgia,serif;line-height:1.15;margin:0}
+h2{font-size:1.55rem;margin-bottom:6px}
+h3{font-size:1.05rem;font-family:"IBM Plex Sans",sans-serif;font-weight:700}
+p{margin:8px 0}
+.small{font-size:.86rem;color:var(--muted)}
+.mono{font-family:"IBM Plex Mono",monospace}
+/* Header */
+.hero{background:var(--surface);border-bottom:3px solid var(--accent);padding:26px 0 22px;margin-bottom:0}
+.hero-inner{max-width:1060px;margin:0 auto;padding:0 18px}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.hero-top{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:flex-end;margin-top:8px}
+.hero h1{font-size:2.4rem}
+.hero h1 span{color:var(--accent)}
+.ticker-line{color:var(--muted);margin-top:4px;font-size:.98rem}
+.price-block{text-align:right}
+.price{font-size:2.3rem;font-weight:700;font-family:"IBM Plex Mono",monospace;line-height:1}
+.price-sub{font-size:.85rem;color:var(--muted);margin-top:4px}
+.verdict-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.pill{border-radius:999px;padding:6px 12px;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--surface2)}
+.pill strong{color:var(--accent)}
+.pill.teal strong{color:var(--teal)}
+/* Stat strip */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:20px 0 6px}
+.stat{background:var(--surface);padding:14px 16px}
+.stat b{display:block;font-size:1.25rem;font-family:"IBM Plex Mono",monospace}
+.stat span{font-size:.8rem;color:var(--muted);display:block;margin-top:2px;line-height:1.35}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.06em;padding:2px 6px;border-radius:4px;vertical-align:middle;margin-left:4px}
+.tag-est{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+.tag-ind{background:var(--chip);color:var(--muted);border:1px solid var(--line)}
+.tag-mod{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent)}
+/* Nav */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:8px;overflow-x:auto;white-space:nowrap;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{color:var(--ink);text-decoration:none;font-size:.86rem;font-weight:600;margin-right:16px;padding:6px 2px}
+nav.toc a:hover{color:var(--accent)}
+/* Cards / sections */
+section{padding:26px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:none}
+.sec-head{display:flex;gap:12px;align-items:baseline;margin-bottom:10px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-weight:700;color:var(--accent);font-size:.95rem;border:1.5px solid var(--accent);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:none;align-self:center}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.card h3{margin-bottom:6px}
+ul{margin:8px 0 8px 18px;padding:0}
+li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--surface2);font-size:.8rem;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr.total td{font-weight:700;background:var(--surface2)}
+.callout{border-radius:10px;padding:14px 16px;margin:14px 0;font-size:.94rem}
+.callout.amber{background:var(--amber-soft);border:1px solid var(--amber)}
+.callout.teal{background:var(--teal-soft);border:1px solid var(--teal)}
+.callout.red{background:var(--accent-soft);border:1px solid var(--accent)}
+.kv{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.94rem}
+.kv:last-child{border-bottom:none}
+.kv b{font-family:"IBM Plex Mono",monospace;text-align:right}
+.bar-row{display:grid;grid-template-columns:110px 1fr 52px;gap:10px;align-items:center;margin:8px 0;font-size:.88rem}
+.bar-track{background:var(--surface2);border-radius:999px;height:10px;overflow:hidden}
+.bar-fill{height:100%;background:var(--teal);border-radius:999px}
+.bar-fill.red{background:var(--accent)}
+/* Sankey */
+.sankey-wrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;overflow:hidden}
+.sankey-wrap svg{width:100%;height:auto;display:block}
+.sankey-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+/* Calculator */
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:end}
+.calc label{font-size:.85rem;font-weight:600;display:block;margin-bottom:6px}
+.calc input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);font-size:1.05rem;font-family:"IBM Plex Mono",monospace}
+.calc-out{background:var(--surface2);border-radius:10px;padding:14px 16px}
+.calc-out b{font-size:1.3rem;font-family:"IBM Plex Mono",monospace;display:block}
+footer{margin-top:28px;font-size:.84rem;color:var(--muted)}
+footer .card{font-size:.86rem}
+@media (max-width:760px){
+  .stats{grid-template-columns:1fr 1fr}
+  .grid2,.grid3,.calc{grid-template-columns:1fr}
+  .hero h1{font-size:1.9rem}
+  .price-block{text-align:left}
+  .price{font-size:1.9rem}
+  th,td{padding:8px 9px;font-size:.86rem}
+  .table-scroll{overflow-x:auto}
+}
+@media print{ nav.toc{display:none} body{background:#fff} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Equity Research · Consumer Discretionary · As of 1 Nov 2026</div>
+    <div class="hero-top">
+      <div>
+        <h1>Toyota Motor <span>— TM</span></h1>
+        <div class="ticker-line">NYSE ADR · World's largest carmaker by volume · Toyota / Lexus / Daihatsu</div>
+      </div>
+      <div class="price-block">
+        <div class="price">$195.71</div>
+        <div class="price-sub">ADR close, 30 Oct 2026 · Market cap $231.8B</div>
+      </div>
+    </div>
+    <div class="verdict-pills">
+      <div class="pill">Short term (12–18 mo): <strong>HOLD</strong></div>
+      <div class="pill teal">Long term (5 yr): <strong>HOLD / BUY</strong> — defensive auto</div>
+      <div class="pill">Suggested weight: <strong>2%</strong> of portfolio</div>
+      <div class="pill">Profile: mid-30s · risk 8/10</div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="toc" aria-label="Sections">
+    <a href="#business">1 · Business</a><a href="#financials">2 · Financials</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; Risks</a><a href="#valuation">5 · Valuation</a><a href="#recommendation">6 · Recommendation</a><a href="#sources">Sources &amp; Caveats</a>
+  </nav>
+
+  <div class="stats" role="group" aria-label="Key figures">
+    <div class="stat"><b>$195.71</b><span>ADR price — 30 Oct 2026 close. Source: Finnhub.</span></div>
+    <div class="stat"><b>$231.8B</b><span>Market cap (company basis) — FinanceCharts. Finnhub's ADR cap is distorted; do not use it.</span></div>
+    <div class="stat"><b>8.13× <span class="tag tag-ind">INDICATIVE</span></b><span>Trailing P/E (Finnhub). ADR / yen effects apply — treat as indicative, not precise.</span></div>
+    <div class="stat"><b>~3%</b><span>Dividend yield, historically. Buybacks modest. Source: research pack.</span></div>
+  </div>
+  <p class="small"><strong>Ranking basis:</strong> FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. <strong>Cut-off note — source-dependent tie at #10:</strong> FinanceCharts ranks Sony (SONY) #10 at $148.38B and Hesai (HESAY) #11 at $148.079B, while StockAnalysis puts HESAY at $151.28B, above SONY. Both are therefore included in this sector set (top 11) with the tie footnoted — HESAY is <em>not</em> an unambiguous #10. TM's own position is unaffected by that tie. All modelled prices on this page are <strong>modelled estimates</strong> with assumptions shown — not verified facts.</p>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <div class="sec-head"><div class="sec-num">1</div><h2>Business Model &amp; Segment Breakdown</h2></div>
+    <p>Toyota is the world's largest carmaker by volume. It sells vehicles under Toyota, Lexus (premium) and Daihatsu (small cars), and earns a second, steadier stream from financial services — loans and leases attached to vehicle sales. Its defining strategic choice is a <strong>hybrid-first bridge</strong>: dominate hybrid-electric vehicles (HEVs) now, ramp battery EVs slowly and cautiously, and invest behind the curve in solid-state batteries and software-defined vehicles rather than matching peers' all-in EV capital spending.</p>
+    <div class="grid3">
+      <div class="card"><h3>Core revenue streams</h3><ul><li><strong>Mass-market vehicles</strong> — Toyota brand cars, SUVs and trucks; the volume engine.</li><li><strong>Premium</strong> — Lexus, higher margin per unit.</li><li><strong>Small cars</strong> — Daihatsu, concentrated in Japan and emerging Asia.</li><li><strong>Financial services</strong> — financing and leasing; smooths earnings but carries its own balance sheet and credit exposure.</li></ul></div>
+      <div class="card"><h3>Geographic footprint</h3><ul><li><strong>Japan</strong> — home market and production / export base; results are yen-sensitive.</li><li><strong>North America</strong> — largest profit pool; trucks, SUVs and hybrids.</li><li><strong>Asia</strong> — growth market, but the fiercest Chinese-brand competition.</li><li><strong>Europe</strong> — smaller share, hybrid-led line-up.</li></ul><p class="small">The pack gives the geographic split qualitatively; no verified per-region revenue percentages were supplied, so none are shown.</p></div>
+      <div class="card"><h3>Pivot &amp; supply chain</h3><ul><li><strong>Pivot:</strong> hybrid-first, solid-state battery R&amp;D, software-defined vehicles, cautious EV capex vs. peers.</li><li><strong>Dependencies:</strong> semiconductors, battery materials, and a deep tiered supplier network built around the Toyota Production System — a strength in normal times, a concentration risk in a chip or materials shock.</li><li><strong>Currency:</strong> as a Japanese exporter reporting in yen and listed via a US ADR, the share price embeds yen / dollar moves as well as the business itself.</li></ul></div>
+    </div>
+
+    <h3 style="margin-top:20px">How the money flows — income diagram</h3>
+    <p class="small">Sankey-style flow on the pack's <strong>estimate</strong> revenue base. Widths are illustrative, drawn from the estimated ~9–10% operating margin — they are not reported segment figures.</p>
+    <div class="sankey-wrap">
+      <svg viewBox="0 0 920 300" role="img" aria-label="Income flow diagram: estimated revenue of about 310 billion dollars flows to costs of about 280 billion and operating profit of about 30 billion">
+        <!-- flows -->
+        <path d="M250,60 C420,60 420,70 580,70 L580,150 C420,150 420,140 250,140 Z" fill="#0f766e" opacity="0.28"/>
+        <path d="M250,140 C420,140 420,225 580,225 L580,245 C420,245 420,160 250,160 Z" fill="#c8102e" opacity="0.20"/>
+        <path d="M700,70 C770,70 770,95 830,95 L830,140 C770,140 770,130 700,130 Z" fill="#0f766e" opacity="0.45"/>
+        <!-- nodes -->
+        <rect x="30" y="55" width="14" height="110" rx="3" fill="#14191d"/>
+        <rect x="250" y="55" width="14" height="110" rx="3" fill="#0f766e"/>
+        <rect x="580" y="60" width="14" height="190" rx="3" fill="#14191d"/>
+        <rect x="700" y="60" width="14" height="80" rx="3" fill="#0f766e"/>
+        <rect x="830" y="88" width="14" height="60" rx="3" fill="#0f766e"/>
+        <!-- labels -->
+        <text x="52" y="95" font-size="15" font-weight="700" fill="currentColor">Revenue</text>
+        <text x="52" y="115" font-size="13" fill="currentColor">~$310B / yr</text>
+        <text x="52" y="133" font-size="11" fill="currentColor">ESTIMATE (¥45tn equiv.)</text>
+        <text x="272" y="100" font-size="14" font-weight="600" fill="currentColor">Costs of making &amp; selling</text>
+        <text x="272" y="120" font-size="12" fill="currentColor">~$280B — materials, labour, plants, SG&amp;A</text>
+        <text x="602" y="105" font-size="15" font-weight="700" fill="currentColor">Operating profit</text>
+        <text x="602" y="125" font-size="13" fill="currentColor">~$28–31B (margin ~9–10%, EST.)</text>
+        <text x="602" y="215" font-size="13" fill="currentColor">Below the line: interest, taxes,</text>
+        <text x="602" y="233" font-size="13" fill="currentColor">financial-services results → net income</text>
+        <text x="722" y="100" font-size="13" font-weight="600" fill="currentColor">Net profit (modelled</text>
+        <text x="722" y="118" font-size="13" fill="currentColor">base case: ~$28.7B)*</text>
+        <text x="852" y="112" font-size="12" fill="currentColor">→ EPS →</text>
+        <text x="852" y="130" font-size="12" fill="currentColor">valuation</text>
+      </svg>
+      <div class="sankey-note">* The modelled base case in §5 applies an 8% <em>net</em> margin to 2031 revenue — a forward modelling assumption, distinct from today's estimated ~9–10% <em>operating</em> margin. Both figures are estimates; the pack supplied no audited segment split to draw exact flows from.</div>
+    </div>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section id="financials">
+    <div class="sec-head"><div class="sec-num">2</div><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+    <p>Toyota's headline attraction is cheapness: a single-digit P/E on the world's largest carmaker. Read that number with care — it is an ADR figure with yen effects in it, and the revenue and margin lines beneath it in this pack are estimates that were <strong>not independently re-verified</strong>. They are labelled as such everywhere they appear.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Valuation &amp; scale</h3>
+        <div class="kv"><span>ADR price (30 Oct 2026)</span><b>$195.71</b></div>
+        <div class="kv"><span>Market cap (FinanceCharts)</span><b>$231.8B</b></div>
+        <div class="kv"><span>P/E — Finnhub <span class="tag tag-ind">INDICATIVE</span></span><b>8.13×</b></div>
+        <div class="kv"><span>Revenue <span class="tag tag-est">ESTIMATE</span></span><b>~$310B</b></div>
+        <div class="kv"><span>Operating margin <span class="tag tag-est">ESTIMATE</span></span><b>~9–10%</b></div>
+        <div class="kv"><span>ADR-equivalent shares (cap ÷ price, modelled)</span><b>~1.18B</b></div>
+        <p class="small">P/S and EV/EBITDA were not supplied in verified form for TM and are omitted rather than estimated silently. The ~$310B revenue figure is a ¥45tn equivalent — an estimate, not a re-verified reported number.</p>
+      </div>
+      <div class="card">
+        <h3>Cash, capital allocation &amp; leverage</h3>
+        <div class="kv"><span>Dividend yield (historical)</span><b>~3%</b></div>
+        <div class="kv"><span>Buybacks</span><b>Modest</b></div>
+        <div class="kv"><span>Auto operations (ex-financial services)</span><b>Net cash, historically</b></div>
+        <div class="kv"><span>R&amp;D focus</span><b>Solid-state batteries, SDV</b></div>
+        <p>Capital returns are steady rather than aggressive: a roughly 3% historical dividend does most of the work, with modest buybacks on top. The auto business has historically sat in a <strong>net-cash position once financial services are excluded</strong> — the financing arm naturally carries debt against its loan book, so a headline debt figure without that split would mislead. EV capex is deliberately cautious versus peers, which protects near-term free cash flow at the cost of transition speed (see §4).</p>
+      </div>
+    </div>
+    <div class="callout amber"><strong>Verification status — read before using these numbers:</strong> Price ($195.71) and company market cap ($231.8B) are confirmed in the verification log. The P/E of 8.13× is Finnhub's and is labelled <em>indicative</em> because ADR and yen translation effects apply. Revenue (~$310B) and operating margin (~9–10%) are explicitly marked <strong>estimate — not re-verified</strong> in the pack, and are presented that way here.</div>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <div class="sec-head"><div class="sec-num">3</div><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+    <div class="grid2">
+      <div class="card"><h3>Where the moat is real</h3><ul>
+        <li><strong>Manufacturing excellence</strong> — the Toyota Production System is the industry's reference for cost, quality and throughput; decades deep and hard to copy.</li>
+        <li><strong>Hybrid intellectual property</strong> — Toyota pioneered and still leads hybrid technology, exactly the technology currently bridging buyers who won't yet go full EV.</li>
+        <li><strong>Brand reliability</strong> — resale values and repeat purchase rest on a reliability reputation competitors spend heavily to match.</li>
+        <li><strong>Scale</strong> — largest volume carmaker globally: purchasing power, dealer reach, and the ability to spread battery / software R&amp;D over more units.</li>
+      </ul></div>
+      <div class="card"><h3>Limits &amp; competitors</h3><ul>
+        <li><strong>Pricing power is moderate</strong> — mass-market autos are competitive; Toyota's edge is cost and reliability more than price premiums, Lexus excepted.</li>
+        <li><strong>EV position is a follower's</strong> — the hybrid bridge pays today, but if EV adoption inflects faster than Toyota plans, the moat narrows.</li>
+        <li><strong>Competitors:</strong> Volkswagen, Hyundai-Kia, BYD (China EV price pressure), Tesla, GM / Ford.</li>
+        <li><strong>No regulatory moat</strong> — emissions and tariff rules are headwinds to manage, not advantages.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS / RISKS -->
+  <section id="catalysts">
+    <div class="sec-head"><div class="sec-num">4</div><h2>Catalysts &amp; Downside Risks</h2></div>
+    <div class="grid2">
+      <div class="card"><h3 style="color:var(--good)">Catalysts</h3><ul>
+        <li><strong>Hybrid demand</strong> — continued strength in HEVs, especially in North America, where Toyota's mix is richest.</li>
+        <li><strong>US production</strong> — local manufacturing cushions tariff exposure and supports North American margins.</li>
+        <li><strong>Solid-state batteries</strong> — a credible breakthrough would re-rate Toyota's EV story from laggard to contender.</li>
+        <li><strong>Re-rating on cheapness</strong> — at ~8× indicative earnings, even flat execution leaves room for multiple expansion.</li>
+      </ul></div>
+      <div class="card"><h3 style="color:var(--bad)">Risks</h3><ul>
+        <li><strong>EV transition speed</strong> — the core strategic bet. Too slow a ramp if buyers move faster than the hybrid bridge assumes.</li>
+        <li><strong>China competition</strong> — BYD and domestic brands compressing price and share in Asia.</li>
+        <li><strong>Tariffs</strong> — US trade policy on imported vehicles and parts.</li>
+        <li><strong>Yen</strong> — currency swings move both reported earnings and the ADR price, in either direction.</li>
+        <li><strong>Recalls</strong> — at Toyota's volume, a major recall is a recurring, material cost and reputational risk.</li>
+      </ul></div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <div class="sec-head"><div class="sec-num">5</div><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+    <p>All targets below are <span class="tag tag-mod">MODELLED ESTIMATE</span> — built by the frozen-parameter method: ADR-equivalent share count held at ~1.18B (market cap ÷ price), revenue grown at a case CAGR from the <em>estimated</em> $310B 2026E base, a case net margin applied, and the resulting EPS multiplied by a case P/E. Because the revenue base itself is an estimate, every output inherits that uncertainty. Weights: Base 50% / Bull 25% / Bear 25%.</p>
+
+    <h3 style="margin:14px 0 8px">12–18 month targets (modelled)</h3>
+    <div class="table-scroll"><table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">vs. $195.71</th><th>What has to happen</th></tr>
+      <tr><td><strong>Bear</strong></td><td class="num">$170</td><td class="num">−13%</td><td>Tariff or yen hit, China share loss, hybrid demand cools.</td></tr>
+      <tr><td><strong>Base</strong></td><td class="num">$215</td><td class="num">+10%</td><td>Hybrid strength holds, multiple stays near today's low level.</td></tr>
+      <tr><td><strong>Bull</strong></td><td class="num">$260</td><td class="num">+33%</td><td>Solid-state / US production news triggers a re-rating.</td></tr>
+    </table></div>
+
+    <h3 style="margin:20px 0 8px">5-year projection — frozen parameters (modelled, ADR basis)</h3>
+    <div class="table-scroll"><table>
+      <tr><th>Case (weight)</th><th class="num">Rev. CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">Net income</th><th class="num">EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+      <tr><td><strong>Base</strong> (50%)</td><td class="num">3%</td><td class="num">$359B</td><td class="num">8%</td><td class="num">$28.7B</td><td class="num">$24.30</td><td class="num">9×</td><td class="num"><strong>$219</strong></td></tr>
+      <tr><td><strong>Bull</strong> (25%)</td><td class="num">6%</td><td class="num">$415B</td><td class="num">10%</td><td class="num">$41.5B</td><td class="num">$35.20</td><td class="num">11×</td><td class="num"><strong>$387</strong></td></tr>
+      <tr><td><strong>Bear</strong> (25%)</td><td class="num">0%</td><td class="num">$310B</td><td class="num">5%</td><td class="num">$15.5B</td><td class="num">$13.10</td><td class="num">7×</td><td class="num"><strong>$92</strong></td></tr>
+      <tr class="total"><td>Probability-weighted (50/25/25)</td><td class="num" colspan="6">Modelled estimate — arithmetic: 219×0.50 + 387×0.25 + 92×0.25</td><td class="num">$229</td></tr>
+    </table></div>
+    <p class="small">Worked example (Base): $310B × 1.03⁵ = $359B revenue; × 8% net margin = $28.7B; ÷ 1.18B shares = $24.30 EPS; × 9× P/E = $219. The weighted $229 sits ~17% above the $195.71 reference price — modest upside, consistent with a defensive holding rather than a growth compounder. The bear case is severe (−53%) because it combines zero growth, margin compression to 5%, and de-rating to 7×; that asymmetry is why the suggested weight is small.</p>
+
+    <div class="card" style="margin-top:14px">
+      <h3>Scenario prices at a glance</h3>
+      <div class="bar-row"><span>5-yr Bear $92</span><div class="bar-track"><div class="bar-fill red" style="width:24%"></div></div><span class="mono">−53%</span></div>
+      <div class="bar-row"><span>Today $195.71</span><div class="bar-track"><div class="bar-fill" style="width:51%;background:var(--muted)"></div></div><span class="mono">—</span></div>
+      <div class="bar-row"><span>5-yr Base $219</span><div class="bar-track"><div class="bar-fill" style="width:57%"></div></div><span class="mono">+12%</span></div>
+      <div class="bar-row"><span>Weighted $229</span><div class="bar-track"><div class="bar-fill" style="width:59%"></div></div><span class="mono">+17%</span></div>
+      <div class="bar-row"><span>5-yr Bull $387</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="mono">+98%</span></div>
+    </div>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section id="recommendation">
+    <div class="sec-head"><div class="sec-num">6</div><h2>Recommendation &amp; Portfolio Fit</h2></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Verdict</h3>
+        <div class="kv"><span>Short term (12–18 mo)</span><b style="color:var(--amber)">HOLD</b></div>
+        <div class="kv"><span>Long term (5 yr)</span><b style="color:var(--teal)">HOLD / BUY</b></div>
+        <div class="kv"><span>Suggested portfolio weight</span><b>2%</b></div>
+        <p><strong>Why:</strong> Toyota is the defensive end of the auto sector — cheapest multiple in this set on an indicative basis, a ~3% historical dividend, a historically net-cash auto balance sheet, and the hybrid franchise that is winning the current phase of the transition. What it is not is a high-growth holding: the base case compounds revenue at only 3%, and the modelled 5-year weighted upside (+17%) is the lowest-octane profile in the sector set. In an 8/10-risk portfolio for a mid-30s investor, TM's job is ballast and income inside the Consumer Discretionary sleeve — sized at <strong>2%</strong> so the EV-transition and yen risks can never dominate the outcome, and added to on weakness toward the $170 bear zone rather than chased.</p>
+      </div>
+      <div class="card">
+        <h3>Position-size calculator</h3>
+        <div class="calc" style="grid-template-columns:1fr">
+          <div><label for="pv">Your total portfolio value ($)</label><input id="pv" type="number" inputmode="decimal" value="500000" min="0" step="1000"/></div>
+          <div class="calc-out"><span class="small">2% in TM ≈</span><b id="alloc">$10,000</b><span class="small" id="shares">≈ 51 ADR shares at $195.71</span></div>
+        </div>
+        <p class="small">Illustrative only — at the 30 Oct 2026 reference price. Research views, not investment advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <h2>Sources &amp; Caveats</h2>
+    <div class="card">
+      <h3>Sources</h3>
+      <ul>
+        <li>ADR price &amp; P/E (Finnhub): <a href="https://finnhub.io/?q=%22TM%22" target="_blank" rel="noopener">finnhub.io — TM</a> — price $195.71 confirmed in the independent verification log; P/E 8.13× is Finnhub's, indicative only.</li>
+        <li>Market cap &amp; sector ranking (FinanceCharts, updated 30 Oct 2026): <a href="https://www.financecharts.com/sectors/consumer_discretionary" target="_blank" rel="noopener">financecharts.com — Consumer Discretionary</a> — company cap $231.814B; also the source for the SONY / HESAY #10–#11 tie ($148.38B vs. $148.079B). StockAnalysis puts HESAY at $151.28B — the tie is source-dependent.</li>
+        <li>Business, moat, catalyst and risk descriptions: research pack for TM (sector: Consumer Discretionary), as of 1 Nov 2026, cross-checked against the sector verification log appended to it.</li>
+      </ul>
+      <h3 style="margin-top:14px">Caveats — please read</h3>
+      <ul>
+        <li><strong>Estimates, not verified facts:</strong> revenue (~$310B, ¥45tn equivalent) and operating margin (~9–10%) are labelled ESTIMATE / NOT re-verified in the source pack and are shown with that label throughout.</li>
+        <li><strong>ADR basis:</strong> TM trades in the US as an ADR. Prices, the P/E and all modelled targets are on an ADR basis and embed yen / dollar translation; Finnhub's ADR market-cap figure is distorted and was <em>not</em> used — the $231.8B cap is the FinanceCharts company figure.</li>
+        <li><strong>Modelled prices:</strong> every 12–18-month target and 5-year scenario / weighted price is a modelled estimate with its assumptions shown in §5 (weights 50/25/25). Scenario arithmetic could not be independently verified beyond the stated inputs, per the coordinator note in the pack.</li>
+        <li><strong>Dating:</strong> as of 1 Nov 2026; 1 Nov was a weekend, so the price reference is the 30 Oct 2026 regular-session close.</li>
+        <li><strong>Not investment advice:</strong> research views for a mid-30s, risk-8/10 profile. Open questions the pack leaves open — verified per-region revenue splits, P/S and EV/EBITDA, and an audited net-cash figure — are omitted or labelled rather than filled in.</li>
+      </ul>
+    </div>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TM (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $195.71.</strong> <strong>DCF intrinsic: $125.</strong> Discount/premium vs DCF: <strong>+56.6%</strong> — i.e. the shares are trading 56.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$125</td><td>+56.6%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $10.0bn. NORMALISED, HIGHLY UNCERTAIN: consolidated TTM levered FCF was negative (-$22.95bn, Kinfo) because it includes the captive financial-services arm. The base is $10.0bn of normalised automotive FCF (order of the FY2026 consolidated FCF ¥179.6bn ≈ $1.2bn is NOT used — it is post-finance/dividend; $10bn is an automotive normalisation assumption, labelled as such). Net cash is set to $0: consolidated net debt (-$195.1bn, cash $85.12bn - debt $280.25bn) is dominated by captive-finance debt and would make the DCF negative and meaningless for the auto business; excluding it and using nil is conservative and labelled UNVERIFIED. Growth g = 3% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $70.9bn + PV of terminal value $76.24bn + net cash $0.0bn, divided by 1.18bn diluted shares = <strong>$125</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://kinfo.com/asset/TM.US.USD</li><li>Finviz dividend estimate $6.55 per ADR (TTM $6.29)</li><li>https://www.fxempire.com/stocks/tm/profile</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — TM (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Vehicles are sold to consumers through dealers (dealers are the channel, not a concentrated customer set disclosed above 10% of revenue), plus fleet buyers in aggregate. Key demand drivers: global vehicle volumes, hybrid mix versus battery-electric transition, US tariff costs, and financing conditions for buyers.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TM</h2>
+<p><strong>Role: Low exposure / At-risk at the margin.</strong> Toyota's AI exposure is software-defined vehicles and manufacturing automation, not AI infrastructure: the pack's pivot is hybrid-first, solid-state R&D and cautious EV capex, with AI a feature of the vehicle rather than a revenue line.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows modestly through software and driver-assistance features supporting pricing; the multiple is supported by hybrid volumes and the dividend, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks little directly — vehicle demand follows rates, tariffs and consumer confidence, not AI sentiment; then the multiple compresses only modestly from ~8–9x earnings; then the balance sheet — consolidated debt dominated by the finance arm — matters more for funding than for AI. Watch: US tariff costs (¥1.38tn hit in FY2026 in the pack's data), hybrid versus BEV mix, and solid-state milestones.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+    <p>Equity Research — TM (Toyota Motor ADR) · Standalone report · Data as of 1 Nov 2026, prices at 30 Oct 2026 close · Prepared for a mid-30s investor, risk score 8/10 · Not investment advice.</p>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var pv=document.getElementById('pv'), alloc=document.getElementById('alloc'), shares=document.getElementById('shares');
+  var PRICE=195.71, W=0.02;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function upd(){
+    var v=parseFloat(pv.value); if(isNaN(v)||v<0)v=0;
+    var a=v*W; alloc.textContent=fmt(a);
+    shares.textContent='≈ '+Math.floor(a/PRICE).toLocaleString('en-US')+' ADR shares at $195.71';
+  }
+  pv.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

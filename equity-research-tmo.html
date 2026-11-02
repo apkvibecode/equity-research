@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TMO · Thermo Fisher Scientific</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f6f7; --surface:#ffffff; --surface2:#eef2f2; --ink:#14232e; --muted:#5b6b76; --line:#dce3e6;
+    --teal:#0c6b6b; --teal-dark:#084f4f; --teal-light:#e2f0ef; --amber:#b7791f; --amber-bg:#fdf3dd;
+    --green:#18794e; --green-bg:#e6f4ec; --red:#b42318; --red-bg:#fdecea; --blue:#1d4e79;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0e161c; --surface:#16222c; --surface2:#1c2c38; --ink:#e8eef1; --muted:#9db0bc; --line:#2a3d4a; --teal:#2db3b0; --teal-dark:#7fd1cf; --teal-light:#17393a; --amber-bg:#3a2f14; --green-bg:#143426; --red-bg:#3d1d1a; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;font-size:15.5px}
+  a{color:var(--teal);text-decoration-color:color-mix(in srgb, var(--teal) 40%, transparent);text-underline-offset:2px}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 18px 56px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .serif{font-family:"IBM Plex Serif",Georgia,serif}
+
+  /* top strip */
+  .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:16px 0 0;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .topbar .dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+  .basis{margin-top:12px;background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:12px 14px;font-size:13.5px;color:var(--muted)}
+  .basis strong{color:var(--ink)}
+
+  /* hero */
+  .hero{margin-top:16px;background:var(--teal-dark);color:#eef7f6;border-radius:18px;padding:26px 26px 22px;position:relative;overflow:hidden}
+  @media (prefers-color-scheme: dark){ .hero{background:#123a3d} }
+  .hero h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:clamp(26px,4.6vw,40px);line-height:1.08;margin:6px 0 8px;font-weight:700}
+  .hero .tickerline{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
+  .hero .sym{font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:.06em;background:rgba(255,255,255,.14);padding:3px 10px;border-radius:999px;font-size:13px}
+  .hero p.lede{margin:0;max-width:720px;color:#cfe6e3;font-size:15.5px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:20px}
+  @media(max-width:760px){.hero-grid{grid-template-columns:1fr}}
+  .pricebox{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:16px}
+  .pricebox .big{font-family:"IBM Plex Mono",monospace;font-size:38px;font-weight:600;line-height:1}
+  .pricebox .sub{font-size:12.5px;color:#bcd9d6;margin-top:6px}
+  .verdictbox{background:#fff;color:#14232e;border-radius:12px;padding:16px}
+  @media (prefers-color-scheme: dark){ .verdictbox{background:#e9f0f0;color:#12242b} }
+  .verdictbox h3{margin:0 0 10px;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:#5b6b76}
+  .vrow{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid #e2e8ea}
+  .vrow:first-of-type{border-top:none}
+  .vrow .k{font-size:13px;color:#5b6b76;font-weight:600}
+  .vrow .v{font-weight:700;text-align:right}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em}
+  .pill.buy{background:var(--green-bg);color:var(--green)}
+  .pill.hold{background:var(--amber-bg);color:var(--amber)}
+
+  /* KPI strip */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+  .kpi .label{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .kpi .val{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:600;margin-top:3px}
+  .kpi .note{font-size:12px;color:var(--muted);margin-top:2px}
+
+  section.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:16px}
+  section.card h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:21px;margin:0 0 4px;line-height:1.2}
+  section.card .secnum{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--teal);font-weight:600;letter-spacing:.06em}
+  section.card .intro{color:var(--muted);margin:4px 0 14px;max-width:760px}
+  h3.sub{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+  h3.sub:first-of-type{margin-top:6px}
+  p{margin:0 0 10px}
+  ul{margin:6px 0 10px;padding-left:18px}
+  li{margin:4px 0}
+  .small{font-size:13px;color:var(--muted)}
+  .callout{background:var(--teal-light);border-radius:10px;padding:13px 15px;font-size:14px;margin:12px 0}
+  .warn{background:var(--amber-bg);border-radius:10px;padding:13px 15px;font-size:14px;margin:12px 0}
+  .warn strong{color:var(--amber)}
+
+  /* tables */
+  .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+  th,td{padding:9px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
+
+  /* segment bars */
+  .segbar{display:flex;align-items:center;gap:10px;margin:7px 0}
+  .segbar .name{flex:0 0 210px;font-size:13.5px;font-weight:600}
+  .segbar .track{flex:1;background:var(--surface2);border-radius:999px;height:12px;overflow:hidden}
+  .segbar .fill{height:100%;background:var(--teal);border-radius:999px}
+  .segbar .amt{flex:0 0 118px;text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  @media(max-width:640px){ .segbar{flex-wrap:wrap} .segbar .name{flex:1 1 100%} .segbar .track{flex:1 1 60%} }
+
+  /* flow */
+  .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 4px}
+  @media(max-width:760px){.flow{grid-template-columns:repeat(2,1fr)}}
+  .flow .step{background:var(--surface2);border-radius:10px;padding:12px;text-align:center;position:relative}
+  .flow .step .fl{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .flow .step .fv{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:17px;margin-top:3px}
+  .flow .step .fp{font-size:12px;color:var(--muted)}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}}
+  .riskbox{border:1px solid var(--line);border-radius:12px;padding:16px}
+  .riskbox h4{margin:0 0 8px;font-size:13px;letter-spacing:.05em;text-transform:uppercase}
+  .riskbox.cat h4{color:var(--green)} .riskbox.risk h4{color:var(--red)}
+
+  /* scenario bars */
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+  @media(max-width:700px){.scen{grid-template-columns:1fr}}
+  .scard{border:1px solid var(--line);border-radius:12px;padding:15px}
+  .scard.bear{border-top:4px solid var(--red)} .scard.base{border-top:4px solid var(--teal)} .scard.bull{border-top:4px solid var(--green)}
+  .scard .t{font-size:12px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+  .scard .p{font-family:"IBM Plex Mono",monospace;font-size:26px;font-weight:600;margin:4px 0 2px}
+  .scard .d{font-size:13px;color:var(--muted)}
+  .scard .ret{font-weight:700;font-size:14px;margin-top:6px}
+
+  /* tabs for 5yr */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+  .tabs button{appearance:none;border:1px solid var(--line);background:var(--surface2);color:var(--ink);padding:8px 14px;border-radius:999px;font:inherit;font-size:13.5px;font-weight:600;cursor:pointer}
+  .tabs button[aria-selected="true"]{background:var(--teal);border-color:var(--teal);color:#fff}
+  .tabpanel{border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--surface)}
+  .tabpanel dl{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0}
+  @media(max-width:640px){.tabpanel dl{grid-template-columns:repeat(2,1fr)}}
+  .tabpanel dt{font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+  .tabpanel dd{margin:3px 0 0;font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:16px}
+
+  /* calculator */
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+  @media(max-width:700px){.calc{grid-template-columns:1fr}}
+  .calc label{font-size:13px;font-weight:600;display:block;margin-bottom:6px}
+  .calc input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:16px;background:var(--surface);color:var(--ink)}
+  .calc .out{background:var(--surface2);border-radius:12px;padding:16px}
+  .calc .out .row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .calc .out .row:last-child{border-bottom:none}
+  .calc .out .row b{font-family:"IBM Plex Mono",monospace}
+
+  .sources{font-size:13.5px}
+  .sources li{margin:6px 0;word-break:break-word}
+  footer{margin-top:18px;font-size:12.5px;color:var(--muted);text-align:center;padding:0 10px}
+  .tag{display:inline-block;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600;margin:2px 2px 2px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar"><span>Equity Research</span><span class="dot"></span><span>Health Care</span><span class="dot"></span><span>As of 1 Nov 2026</span><span class="dot"></span><span>Price ref: 30 Oct 2026 close</span></div>
+
+  <div class="basis"><strong>Ranking basis:</strong> US-domiciled top 10 only — FinanceCharts global Health Care list, last updated 30 Oct 2026, filtered to US-domiciled names. Global ranks differ (Roche, Novartis, Genmab, AstraZeneca sit between US names globally). On that basis TMO is a US top-10 member; Danaher (11th US) and Intuitive Surgical (12th US) are reserves, not top-10 members. Research views only — not guarantees, not investment advice. For a mid-30s investor, risk score 8/10.</div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tickerline"><span class="sym">NYSE · TMO</span><span style="font-size:13px;color:#bcd9d6;font-weight:600;letter-spacing:.04em">LIFE-SCIENCES TOOLS &amp; PHARMA SERVICES</span></div>
+    <h1>Thermo Fisher Scientific</h1>
+    <p class="lede">The picks-and-shovels compounder for biopharma: instruments, consumables, lab products and CDMO / pharma services under one roof. Q3 2026 beat on revenue and EPS and guidance was raised — the question is whether the new $9B Clario deal and a still-levered balance sheet leave enough room if lab funding tightens.</p>
+    <div class="hero-grid">
+      <div class="pricebox">
+        <div style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#bcd9d6;font-weight:600">Share price · 30 Oct 2026 close</div>
+        <div class="big" style="margin-top:8px">$697.00</div>
+        <div class="sub">Market cap $258.25B (StockAnalysis) · FinanceCharts basis $257.71B · ~125,000 employees, global</div>
+        <div style="margin-top:12px;display:flex;gap:14px;flex-wrap:wrap;font-size:13px">
+          <span>TTM revenue <b class="mono">$47.35B</b></span>
+          <span>TTM EPS <b class="mono">$18.97</b></span>
+          <span>FCF <b class="mono">$7.60B</b></span>
+        </div>
+      </div>
+      <div class="verdictbox">
+        <h3>Verdict — this report</h3>
+        <div class="vrow"><span class="k">Short term · 12–18 mo</span><span class="v"><span class="pill buy">BUY</span></span></div>
+        <div class="vrow"><span class="k">Long term · 5 yr</span><span class="v"><span class="pill buy">BUY</span></span></div>
+        <div class="vrow"><span class="k">12–18 mo base target</span><span class="v mono">$760</span></div>
+        <div class="vrow"><span class="k">5-yr weighted value*</span><span class="v mono">$754</span></div>
+        <div class="vrow"><span class="k">Suggested portfolio weight</span><span class="v">2.0% of total portfolio</span></div>
+        <p style="font-size:12px;color:#5b6b76;margin:10px 0 0">*Modelled estimate — see §5 for assumptions. Analyst average target $752.12.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="label">Trailing P/E</div><div class="val">36.74×</div><div class="note">TTM · StockAnalysis</div></div>
+    <div class="kpi"><div class="label">Forward P/E †</div><div class="val">25.89×</div><div class="note">Provider figure — see note †</div></div>
+    <div class="kpi"><div class="label">Price / Sales</div><div class="val">5.45×</div><div class="note">TTM</div></div>
+    <div class="kpi"><div class="label">EV / EBITDA</div><div class="val">24.20×</div><div class="note">TTM</div></div>
+    <div class="kpi"><div class="label">Net margin</div><div class="val">14.94%</div><div class="note">Gross 41.26% · Operating 19.06%</div></div>
+    <div class="kpi"><div class="label">FCF margin</div><div class="val">16.04%</div><div class="note">FCF $7.60B on $47.35B revenue</div></div>
+    <div class="kpi"><div class="label">Net debt</div><div class="val">$35.31B</div><div class="note">Debt $41.37B · Cash $6.06B · D/E 0.75</div></div>
+    <div class="kpi"><div class="label">Dividend yield</div><div class="val">0.27%</div><div class="note">Dividend $1.88 · Buyback yield 1.52%</div></div>
+  </div>
+  <p class="small" style="margin-top:8px">† Forward P/E: the verification pass could not independently re-source the forward P/E dataset to a second provider. Treat 25.89× as a <strong>provider forward P/E, unverified as a dataset</strong> (StockAnalysis, as of the 1 Nov 2026 pack), not as a figure derived from company guidance.</p>
+
+  <!-- 1 BUSINESS -->
+  <section class="card" id="business">
+    <div class="secnum">01 · BUSINESS MODEL &amp; SEGMENTS</div>
+    <h2>Four engines, one installed base</h2>
+    <p class="intro">Thermo Fisher sells the tools, consumables and outsourced services that drug discovery, development and manufacturing run on. The model is deliberately diversified: high-margin instruments create an installed base, and that base pulls through recurring consumables, reagents and services — which is why Laboratory Products &amp; Biopharma Services, the largest and least “instrument-cyclical” segment, now contributes over half of revenue.</p>
+
+    <div class="callout"><strong>Q3 2026 (reported 21 Oct 2026):</strong> Revenue <strong>$12.14B, +9% YoY</strong> (+6% organic), adjusted EPS <strong>$6.68, +15%</strong> — a beat versus the $6.40 consensus cited in coverage. Management <strong>raised FY26 guidance</strong> to revenue <strong>$47.7–48.2B</strong> and adjusted EPS <strong>$25.13–25.43</strong>. A tariff-refund benefit was noted in the quarter. The microbiology divestiture was completed in Q3 2026.</div>
+
+    <h3 class="sub">Q3 2026 segment breakdown</h3>
+    <div class="segbar"><span class="name">Lab Products &amp; Biopharma Services</span><span class="track"><span class="fill" style="width:100%"></span></span><span class="amt">$6.86B · +15%</span></div>
+    <div class="segbar"><span class="name">Life Sciences Solutions</span><span class="track"><span class="fill" style="width:40%"></span></span><span class="amt">$2.72B · +5.1%</span></div>
+    <div class="segbar"><span class="name">Analytical Instruments</span><span class="track"><span class="fill" style="width:29%"></span></span><span class="amt">$2.00B · +5.8%</span></div>
+    <div class="segbar"><span class="name">Specialty Diagnostics</span><span class="track"><span class="fill" style="width:16%"></span></span><span class="amt">$1.10B · −6.5%</span></div>
+    <p class="small">Segment figures are pre-eliminations; Laboratory Products &amp; Biopharma Services was 56.5% of revenue on that basis. Segment operating margins where disclosed in the pack: Life Sciences Solutions 37.6%, Analytical Instruments 26.9%, Specialty Diagnostics 31.0%. Specialty Diagnostics was the only decliner (−6.5%) — the soft spot to watch.</p>
+
+    <div class="tblwrap"><table>
+      <thead><tr><th>Segment</th><th>What it does</th><th class="num">Q3 rev</th><th class="num">YoY</th><th class="num">Margin</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Laboratory Products &amp; Biopharma Services</strong></td><td>Lab supply distribution, pharma services / CDMO — the recurring-revenue core</td><td class="num">$6.86B</td><td class="num pos">+15%</td><td class="num">—</td></tr>
+        <tr><td><strong>Life Sciences Solutions</strong></td><td>Reagents, consumables and instruments for research &amp; bioproduction</td><td class="num">$2.72B</td><td class="num pos">+5.1%</td><td class="num">37.6%</td></tr>
+        <tr><td><strong>Analytical Instruments</strong></td><td>Chromatography, mass spectrometry and related capital equipment — most cyclical</td><td class="num">$2.00B</td><td class="num pos">+5.8%</td><td class="num">26.9%</td></tr>
+        <tr><td><strong>Specialty Diagnostics</strong></td><td>Clinical &amp; specialty diagnostic products</td><td class="num">$1.10B</td><td class="num neg">−6.5%</td><td class="num">31.0%</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 class="sub">Structural pivots &amp; supply-chain dependencies</h3>
+    <ul>
+      <li><strong>Deals are reshaping the portfolio:</strong> Solventum’s purification &amp; filtration business acquired for <strong>$4B (Sep 2025)</strong>; <strong>Clario agreed at $9B (Oct 2025)</strong> — a large bet on clinical-trial / pharma-services data. The microbiology divestiture completed in Q3 2026 trims the other side of the portfolio.</li>
+      <li><strong>Revenue quality:</strong> the mix is tilting toward services and consumables (recurring) and away from pure capital equipment, which should damp — not remove — cyclicality.</li>
+      <li><strong>Geography:</strong> global footprint, ~125,000 employees. The pack does <strong>not</strong> carry a verified geographic revenue split — that is an <strong>open question</strong> in this report. What is flagged as a standing risk is exposure to <strong>China demand</strong> and to <strong>academic / government funding</strong>, both of which feed lab spending.</li>
+      <li><strong>Dependencies:</strong> purification/filtration capacity (now partly owned via Solventum), biopharma customers’ capex budgets, and government / academic grant funding cycles.</li>
+    </ul>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section class="card" id="financials">
+    <div class="secnum">02 · FINANCIAL HEALTH &amp; BALANCE SHEET</div>
+    <h2>Profitable, cash-generative — and carrying real debt</h2>
+    <p class="intro">On trailing numbers TMO is a mid-teens net-margin business converting a healthy share of sales into free cash flow. The trade-off is leverage built up through acquisitions: $41.37B of debt against $6.06B of cash, before the Clario deal’s full effect.</p>
+
+    <h3 class="sub">TTM income flow (revenue $47.35B · StockAnalysis)</h3>
+    <div class="flow">
+      <div class="step"><div class="fl">Revenue</div><div class="fv">$47.35B</div><div class="fp">TTM</div></div>
+      <div class="step"><div class="fl">Gross profit</div><div class="fv">$19.54B</div><div class="fp">41.26% margin*</div></div>
+      <div class="step"><div class="fl">Operating income</div><div class="fv">$9.03B</div><div class="fp">19.06% margin*</div></div>
+      <div class="step"><div class="fl">Net income</div><div class="fv">$7.07B</div><div class="fp">14.94% · EPS $18.97</div></div>
+      <div class="step"><div class="fl">Free cash flow</div><div class="fv">$7.60B</div><div class="fp">16.04% of revenue</div></div>
+    </div>
+    <p class="small">*Gross and operating dollar figures are derived by applying the pack’s TTM margins (41.26% / 19.06%) to TTM revenue of $47.35B; net income, EPS and FCF are as reported in the pack. FCF exceeding net income reflects the asset-light consumables/services mix and non-cash charges — a quality-of-earnings plus, provided it persists.</p>
+
+    <div class="twocol">
+      <div>
+        <h3 class="sub">Valuation multiples (TTM unless noted)</h3>
+        <div class="tblwrap"><table style="min-width:0">
+          <tbody>
+            <tr><td>Trailing P/E</td><td class="num">36.74×</td></tr>
+            <tr><td>Forward P/E †</td><td class="num">25.89×</td></tr>
+            <tr><td>Price / Sales</td><td class="num">5.45×</td></tr>
+            <tr><td>EV / EBITDA</td><td class="num">24.20×</td></tr>
+            <tr><td>Market cap</td><td class="num">$258.25B</td></tr>
+            <tr><td>Shares (model)</td><td class="num">370.52m</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Read: at $697 the stock prices in a recovery — the forward multiple (25.89×, provider figure, unverified as a dataset) is well below the trailing 36.74×, so the market is paying for the earnings growth implied by the raised FY26 guide (adj. EPS $25.13–25.43), not for trailing EPS of $18.97.</p>
+      </div>
+      <div>
+        <h3 class="sub">Balance sheet &amp; capital allocation</h3>
+        <div class="tblwrap"><table style="min-width:0">
+          <tbody>
+            <tr><td>Cash</td><td class="num">$6.06B</td></tr>
+            <tr><td>Total debt</td><td class="num">$41.37B</td></tr>
+            <tr><td><strong>Net debt</strong></td><td class="num"><strong>$35.31B</strong></td></tr>
+            <tr><td>Debt / Equity</td><td class="num">0.75</td></tr>
+            <tr><td>Dividend</td><td class="num">$1.88 · 0.27% yield</td></tr>
+            <tr><td>Buyback yield</td><td class="num">1.52%</td></tr>
+            <tr><td>R&amp;D</td><td class="num">Not in pack (NV)</td></tr>
+          </tbody>
+        </table></div>
+        <p class="small">Capital return is buyback-led: a 0.27% dividend yield is token for income purposes, so total shareholder return here must come from price appreciation plus the 1.52% buyback yield shrinking the share count. R&amp;D spend was not verified in the research pack (marked NV) and is therefore not stated as a figure — treat it as an open item, not zero.</p>
+      </div>
+    </div>
+
+    <div class="warn"><strong>Leverage watch:</strong> net debt of $35.31B is roughly 4.6× TTM free cash flow ($7.60B). That is manageable for a business this diversified, but the agreed $9B Clario acquisition will add to it — integration and leverage from M&amp;A is explicitly listed as a risk in §4, and it limits how aggressive buybacks can be if funding conditions tighten.</div>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section class="card" id="moat">
+    <div class="secnum">03 · COMPETITIVE MOAT &amp; INDUSTRY POSITIONING</div>
+    <h2>Breadth is the moat</h2>
+    <p class="intro">No single product defends TMO — the breadth does. A lab or drugmaker that buys instruments, consumables, distribution and outsourced services from one vendor faces real switching friction, and the installed base keeps pulling consumables through.</p>
+    <ul>
+      <li><strong>Installed base + consumables pull-through:</strong> instruments placed today generate years of reagents, consumables and service revenue — the highest-margin, most recurring part of the P&amp;L (Life Sciences Solutions runs at a 37.6% segment margin).</li>
+      <li><strong>Scale across the value chain:</strong> from discovery tools to CDMO / pharma services, TMO can follow a molecule from lab bench to manufacturing — few rivals span all of it.</li>
+      <li><strong>Distribution reach:</strong> Laboratory Products is the largest segment ($6.86B in Q3, +15%) — being the default channel into labs is itself a barrier.</li>
+      <li><strong>Pricing power:</strong> moderate-to-good in consumables and services (mission-critical, small share of a customer’s total cost); weaker in capital instruments, where purchases can simply be deferred.</li>
+    </ul>
+    <h3 class="sub">Primary competitors</h3>
+    <p><span class="tag">Danaher (DHR)</span><span class="tag">Agilent (A)</span><span class="tag">Waters (WAT)</span><span class="tag">Sartorius</span><span class="tag">Revvity (RVTY)</span></p>
+    <p class="small">Danaher is the closest philosophical rival (tools + services compounder, and 11th in the US ranking — a reserve in this series). Agilent and Waters press hardest in analytical instruments; Sartorius in bioprocessing; Revvity in diagnostics and life-sciences tools. TMO’s defence is not winning any one category — it is being present in all of them.</p>
+  </section>
+
+  <!-- 4 CATALYSTS & RISKS -->
+  <section class="card" id="catalysts">
+    <div class="secnum">04 · CATALYSTS &amp; DOWNSIDE RISKS</div>
+    <h2>Recovery story, funding-sensitive</h2>
+    <div class="twocol">
+      <div class="riskbox cat">
+        <h4>▲ Catalysts</h4>
+        <ul>
+          <li><strong>Biopharma capex recovery</strong> — instrument orders are the cyclical swing factor; Q3’s +5.8% in Analytical Instruments hints at stabilisation.</li>
+          <li><strong>Pharma-services growth</strong> — the largest segment grew +15% in Q3; sustained momentum there de-risks the model.</li>
+          <li><strong>Clario integration ($9B)</strong> — if closed and integrated cleanly, adds a clinical-research data/services growth leg.</li>
+          <li><strong>Guidance momentum</strong> — FY26 guide already raised once (revenue $47.7–48.2B; adj. EPS $25.13–25.43); further raises would support the forward multiple.</li>
+          <li><strong>Tariff-refund benefit</strong> noted in Q3 — a near-term margin tailwind, though not a structural one.</li>
+        </ul>
+      </div>
+      <div class="riskbox risk">
+        <h4>▼ Downside risks</h4>
+        <ul>
+          <li><strong>Academic / government funding cuts</strong> — a direct hit to lab demand; a standing exposure, not a tail risk.</li>
+          <li><strong>China demand</strong> — flagged exposure; a slowdown or further restrictions would weigh on growth.</li>
+          <li><strong>Capital-equipment cyclicality</strong> — instrument budgets are the first thing customers defer.</li>
+          <li><strong>Specialty Diagnostics decline</strong> — already −6.5% in Q3 despite a 31.0% margin; a second weak quarter would raise mix questions.</li>
+          <li><strong>Deal integration &amp; leverage</strong> — Solventum ($4B) plus Clario ($9B) on top of $35.31B net debt; execution slips would compound.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section class="card" id="valuation">
+    <div class="secnum">05 · SCENARIO VALUATION &amp; PRICE TARGETS</div>
+    <h2>What you’re paying for, in three cases</h2>
+    <p class="intro">All targets below are <strong>modelled estimates</strong>, not verified facts — methodology and assumptions are shown so you can re-run them. The verification pass could not confirm 12–18-month targets or 5-year weighted prices as a dataset; they are presented as this report’s model outputs.</p>
+
+    <h3 class="sub">12–18 month horizon (from $697.00)</h3>
+    <div class="scen">
+      <div class="scard bear"><div class="t">Bear</div><div class="p">$580</div><div class="d">Funding cuts bite, China softens, Clario leverage weighs; multiple compresses.</div><div class="ret neg">−16.8% vs $697</div></div>
+      <div class="scard base"><div class="t">Base</div><div class="p">$760</div><div class="d">Raised FY26 guide delivered; services momentum holds; modest re-rating toward the analyst average.</div><div class="ret pos">+9.0% vs $697</div></div>
+      <div class="scard bull"><div class="t">Bull</div><div class="p">$850</div><div class="d">Biopharma capex recovery + clean Clario close; growth re-accelerates.</div><div class="ret pos">+22.0% vs $697</div></div>
+    </div>
+    <p class="small">Analyst average target in the pack: <strong>$752.12</strong> — essentially on top of this report’s $760 base case, which is a useful sanity check, not independent confirmation of the model.</p>
+
+    <h3 class="sub">5-year projection — frozen-parameter model</h3>
+    <p class="small" style="color:var(--ink)">Starting point: TTM revenue <strong>$47.35B</strong>, shares <strong>370.52m</strong> held frozen. Only revenue CAGR, net margin and exit P/E vary by case. EPS = revenue × margin ÷ shares; price = EPS × P/E. Tap a case:</p>
+    <div class="tabs" role="tablist" aria-label="Five year scenarios">
+      <button role="tab" aria-selected="false" data-case="bear">Bear · 25%</button>
+      <button role="tab" aria-selected="true" data-case="base">Base · 50%</button>
+      <button role="tab" aria-selected="false" data-case="bull">Bull · 25%</button>
+    </div>
+    <div class="tabpanel" id="panel">
+      <dl>
+        <div><dt>Revenue CAGR</dt><dd id="f-cagr">6%</dd></div>
+        <div><dt>2031 revenue</dt><dd id="f-rev">$63.4B</dd></div>
+        <div><dt>Net margin</dt><dd id="f-margin">17%</dd></div>
+        <div><dt>2031 EPS</dt><dd id="f-eps">$29.07</dd></div>
+        <div><dt>Exit P/E</dt><dd id="f-pe">26×</dd></div>
+        <div><dt>2031 price</dt><dd id="f-price">$756</dd></div>
+      </dl>
+      <p class="small" id="f-desc" style="margin-top:12px">Steady compounding: services and consumables carry mid-single-digit growth, margins rebuild toward the high teens as mix improves, and the market still pays a quality-compounder multiple.</p>
+    </div>
+
+    <div class="tblwrap" style="margin-top:14px"><table>
+      <thead><tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">Net margin</th><th class="num">2031 rev</th><th class="num">2031 EPS</th><th class="num">P/E</th><th class="num">2031 price</th><th class="num">vs $697</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bear (25%)</strong></td><td class="num">3%</td><td class="num">13%</td><td class="num">$54.9B*</td><td class="num">$19.25*</td><td class="num">20×</td><td class="num">$385</td><td class="num neg">−44.8%</td></tr>
+        <tr><td><strong>Base (50%)</strong></td><td class="num">6%</td><td class="num">17%</td><td class="num">$63.4B</td><td class="num">$29.07</td><td class="num">26×</td><td class="num">$756</td><td class="num pos">+8.5%</td></tr>
+        <tr><td><strong>Bull (25%)</strong></td><td class="num">9%</td><td class="num">19%</td><td class="num">$72.9B*</td><td class="num">$37.37*</td><td class="num">30×</td><td class="num">$1,121</td><td class="num pos">+60.8%</td></tr>
+        <tr><td colspan="6"><strong>Probability-weighted value (25 / 50 / 25)</strong></td><td class="num"><strong>$754</strong></td><td class="num pos"><strong>+8.2%</strong></td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">*Bear and bull 2031 revenue / EPS are derived from the pack’s stated CAGR, margin, share count and price (price ÷ P/E = EPS; EPS × shares ÷ margin = revenue) and are shown for completeness; base-case revenue and EPS are as stated in the pack. Check: 0.25 × $385 + 0.50 × $756 + 0.25 × $1,121 = $754.50 ≈ <strong>$754</strong>. The honest read: the weighted 5-year value sits only ~8% above today’s price — the bull case does the heavy lifting, and the base case alone ($756) barely beats the 12–18-month base target ($760). That is why the sizing in §6 is a measured 2.0%, not a maximum-conviction weight.</p>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section class="card" id="recommendation">
+    <div class="secnum">06 · RECOMMENDATION &amp; POSITION SIZING</div>
+    <h2>Buy — sized like a compounder, not a moonshot</h2>
+    <div class="twocol">
+      <div>
+        <p><span class="pill buy">SHORT TERM · BUY</span> &nbsp;<span class="pill buy">LONG TERM · BUY</span></p>
+        <p>The Q3 beat, raised guidance and a forward multiple well below the trailing one support buying on the 12–18-month view, with the $760 base target (+9.0%) and $752.12 analyst average pointing the same way. Over 5 years the case rests on execution — Clario integration, services mix and debt discipline — rather than on a cheap starting price: the weighted value of $754 is only modestly above $697, so returns depend on landing nearer the bull case ($1,121) than the bear ($385).</p>
+        <p><strong>Suggested weight: 2.0% of the total portfolio</strong> for a mid-30s investor at risk 8/10 — a core-quality health-care holding, sized below the mega-cap tech names because the 5-year weighted upside is thinner and leverage is higher. Revisit if Specialty Diagnostics posts a second decline, if Clario terms change, or if net debt rises materially without FCF growth to match.</p>
+      </div>
+      <div class="calc">
+        <div>
+          <label for="pf">Your total portfolio value ($)</label>
+          <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+          <p class="small" style="margin-top:8px">Calculator uses the report’s 2.0% suggested weight and the $697.00 reference price. In-memory only — nothing is saved or sent.</p>
+        </div>
+        <div class="out" aria-live="polite">
+          <div class="row"><span>Allocation at 2.0%</span><b id="c-alloc">$10,000</b></div>
+          <div class="row"><span>Shares at $697.00</span><b id="c-shares">14.3</b></div>
+          <div class="row"><span>Value at base target $760</span><b id="c-base">$10,904</b></div>
+          <div class="row"><span>Value at 5-yr weighted $754</span><b id="c-w5">$10,818</b></div>
+          <div class="row"><span>Value at bear $580 (12–18 mo)</span><b id="c-bear">$8,321</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section class="card" id="sources">
+    <div class="secnum">SOURCES &amp; METHOD</div>
+    <h2>Sources, verification status &amp; open questions</h2>
+    <ul class="sources">
+      <li>Q3 2026 results, segment detail &amp; guidance — Zacks: <a href="https://www.zacks.com/stock/news/3012013/tmo-q3-earnings-revenues-beat-estimates-stock-down-in-pre-market" target="_blank" rel="noopener">zacks.com/stock/news/3012013 — TMO Q3 earnings &amp; revenues beat estimates</a></li>
+      <li>Q3 2026 earnings coverage — TradingKey: <a href="https://www.tradingkey.com/news/earnings/262228730-tradingkey" target="_blank" rel="noopener">tradingkey.com/news/earnings/262228730</a></li>
+      <li>TTM valuation, margins, FCF, balance sheet &amp; dividend — StockAnalysis: <a href="https://stockanalysis.com/stocks/tmo/statistics/" target="_blank" rel="noopener">stockanalysis.com/stocks/tmo/statistics</a></li>
+      <li>Ranking basis &amp; market-cap cross-check — FinanceCharts Health Care list (last updated 30 Oct 2026), as cited in the research pack: TMO $257.71B on that basis vs $258.25B on StockAnalysis — a vendor / share-count timing difference, not a discrepancy in the underlying price ($697.00, confirmed on the 30 Oct close in the verification pass).</li>
+    </ul>
+    <h3 class="sub">Verification status</h3>
+    <ul>
+      <li><strong>Confirmed in the independent verification pass:</strong> the 30 Oct 2026 close of $697.00 and the FinanceCharts market-cap basis.</li>
+      <li><strong>Labelled estimates:</strong> all 12–18-month targets and all 5-year scenario / weighted prices are modelled estimates with assumptions shown in §5 — they were unverified as a dataset in the verification pass.</li>
+      <li><strong>Provider figure, unverified as a dataset:</strong> forward P/E of 25.89× (see note † in the KPI strip).</li>
+      <li><strong>Open questions:</strong> verified geographic revenue split (not in the pack); R&amp;D spend (marked NV in the pack); Laboratory Products &amp; Biopharma Services segment margin (not disclosed in the pack).</li>
+    </ul>
+    <p class="small">Method for the 5-year model: revenue compounded at the case CAGR for 5 years from $47.35B, net margin applied, divided by a frozen 370.52m shares for EPS, multiplied by the case exit P/E. Share count, and therefore buyback benefit, is held frozen — conservative if the 1.52% buyback yield persists.</p>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>TMO — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $697.00.</strong> <strong>DCF intrinsic: $281.</strong> Discount/premium vs DCF: <strong>+148.0%</strong> — i.e. the shares are trading 148.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$281</td><td>+148.0%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$7.6B</strong>; constant growth g <strong>6%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$62.34B</strong>; PV of terminal value <strong>$77.21B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-35.31B</strong>; divided by <strong>370.52m</strong> diluted shares = <strong>$281</strong>. Base FCF $7.60B (pack, TTM). Growth g 6% = pack 5-year base CAGR. Net debt $35.31B (cash $6.06B − debt $41.37B). Equity $55.16B derived from debt ÷ D/E 0.75. DPS $1.88 (pack).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $697.00. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>TMO — Top customers (B2B)</h2>
+<p>Thermo Fisher is classified <strong>B2B</strong>: it sells instruments, consumables and services to laboratories and manufacturers, not to consumers. No ranked top-7 customer list is disclosed in the pack, so the table below is representative large customer types/names, ranking not disclosed and shares not disclosed.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Eli Lilly and Company (pharma/biotech customer)</td><td></td><td>Covered ticker — DCF intrinsic $456 discount/premium +210.9%</td></tr><tr><td>Amgen Inc. (pharma/biotech customer)</td><td></td><td>Covered ticker — DCF intrinsic $241 discount/premium +93.4%</td></tr><tr><td>Pfizer Inc. (pharma/biotech customer)</td><td></td><td>Covered ticker — DCF intrinsic $12.11, discount/premium +152.0%</td></tr><tr><td>AbbVie Inc. (pharma/biotech customer)</td><td></td><td>Covered ticker — DCF intrinsic $167 discount/premium +76.6%</td></tr><tr><td>Academic and government research institutions</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Clinical diagnostics laboratories and hospitals</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Industrial and applied-market manufacturers</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Thermo's demand is diversified across the whole pharma/biotech customer base rather than concentrated in one buyer, so the read-through is broad: if the covered pharma customers in this table trade at discounts to intrinsic once filled in, that supports R&amp;D and lab-spending budgets and is a potential tailwind for Thermo's Laboratory Products and Life Sciences Solutions segments; if they trade at premiums, budget discipline is the risk — but a cheap pharma customer may be cheap precisely because it is cutting R&amp;D, so the tailwind is not automatic. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>TMO — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Thermo Fisher sells the picks and shovels of life-science R&D: if AI accelerates drug discovery, lab spending rises — but only indirectly, and the pack's thesis is biopharma demand, not AI.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI-driven drug discovery programmes at pharma/biotech customers raise demand for instruments, consumables and contract services in Laboratory Products & Biopharma Services (pack: $6.86B in Q3 2026, +15%) and Life Sciences Solutions. Multiple channel: TMO's 25.89× forward P/E in the pack already prices a premium tools franchise; an AI-sentiment unwind would trim that premium even if lab budgets held.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: pharma R&D budgets are cut or delayed if AI-hype funding dries up, hitting instrument orders first (the most deferrable spend). Second, multiple compression: medium — from the current ~26× forward multiple toward a through-cycle tools multiple in the high-teens, a material but not catastrophic de-rating. Third, balance sheet: moderate — net debt $35.31B in the pack, but no AI-capex debt and no single-customer concentration; the risk is order deferral, not inventory write-downs. Trigger to watch: a pharma R&D budget freeze or a China/government-funding cut (standing pack risk) coinciding with AI-sentiment reversal.</p>
+</div>
+<footer>Equity Research — TMO · As of 1 Nov 2026 · Price reference 30 Oct 2026 close ($697.00) · Research views only, not investment advice. Verify figures against the linked sources before acting.</footer>
+</div>
+
+<script>
+(function(){
+  // 5-year scenario tabs
+  var cases = {
+    bear:{cagr:'3%', rev:'$54.9B', margin:'13%', eps:'$19.25', pe:'20×', price:'$385',
+      desc:'Funding cuts and soft China demand cap growth at 3%; margins slip on mix and deal costs, and the market de-rates TMO to a 20× exit multiple.'},
+    base:{cagr:'6%', rev:'$63.4B', margin:'17%', eps:'$29.07', pe:'26×', price:'$756',
+      desc:'Steady compounding: services and consumables carry mid-single-digit growth, margins rebuild toward the high teens as mix improves, and the market still pays a quality-compounder multiple.'},
+    bull:{cagr:'9%', rev:'$72.9B', margin:'19%', eps:'$37.37', pe:'30×', price:'$1,121',
+      desc:'Biopharma capex recovery plus a clean Clario contribution lifts growth to 9%; operating leverage takes net margin to 19% and the exit multiple re-rates to 30×.'}
+  };
+  var btns = document.querySelectorAll('.tabs button');
+  function setCase(key){
+    var c = cases[key]; if(!c) return;
+    document.getElementById('f-cagr').textContent = c.cagr;
+    document.getElementById('f-rev').textContent = c.rev;
+    document.getElementById('f-margin').textContent = c.margin;
+    document.getElementById('f-eps').textContent = c.eps;
+    document.getElementById('f-pe').textContent = c.pe;
+    document.getElementById('f-price').textContent = c.price;
+    document.getElementById('f-desc').textContent = c.desc;
+    btns.forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-case')===key ? 'true':'false'); });
+  }
+  btns.forEach(function(b){ b.addEventListener('click', function(){ setCase(b.getAttribute('data-case')); }); });
+
+  // Position-size calculator
+  var PRICE=697, WEIGHT=0.02;
+  var pf=document.getElementById('pf');
+  function fmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v=parseFloat(pf.value); if(isNaN(v)||v<0) v=0;
+    var alloc=v*WEIGHT, shares=alloc/PRICE;
+    document.getElementById('c-alloc').textContent=fmt(alloc);
+    document.getElementById('c-shares').textContent=shares.toLocaleString('en-US',{maximumFractionDigits:1});
+    document.getElementById('c-base').textContent=fmt(shares*760);
+    document.getElementById('c-w5').textContent=fmt(shares*754);
+    document.getElementById('c-bear').textContent=fmt(shares*580);
+  }
+  pf.addEventListener('input', calc); calc();
+})();
+</script>
+</body>
+</html>

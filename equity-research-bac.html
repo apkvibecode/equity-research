@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Equity Research — BAC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f4f4f1;
+        --surface: #ffffff;
+        --surface-2: #eceee9;
+        --ink: #16222f;
+        --muted: #5b6a78;
+        --line: #d8dcd4;
+        --navy: #0d2c4f;
+        --navy-soft: #e3eaf2;
+        --red: #a5232c;
+        --red-soft: #f7e7e7;
+        --green: #1e6b45;
+        --green-soft: #e2efe6;
+        --amber: #8a5a12;
+        --amber-soft: #f6ecd8;
+        --shadow: 0 1px 2px rgba(16, 30, 45, .06), 0 8px 24px rgba(16, 30, 45, .06);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1319;
+          --surface: #151e28;
+          --surface-2: #1b2734;
+          --ink: #e9eef3;
+          --muted: #9fb0bf;
+          --line: #2b3a48;
+          --navy: #7fa8d4;
+          --navy-soft: #1b2f47;
+          --red: #e08a90;
+          --red-soft: #3a2226;
+          --green: #7fc79c;
+          --green-soft: #1d2f26;
+          --amber: #ddb26a;
+          --amber-soft: #33291a;
+          --shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.3);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Public Sans", -apple-system, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 64px; }
+      h1, h2, h3 { font-family: "Newsreader", Georgia, serif; line-height: 1.15; margin: 0; }
+      h2 { font-size: 1.65rem; font-weight: 600; margin-bottom: 6px; }
+      h3 { font-size: 1.15rem; font-weight: 600; }
+      p { margin: 0 0 12px; }
+      a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; }
+      .muted { color: var(--muted); }
+      .small { font-size: .86rem; }
+
+      /* ---------- header / snapshot ---------- */
+      .kicker {
+        font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+        color: var(--red); margin-bottom: 10px;
+      }
+      .title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px; }
+      .title-row h1 { font-size: clamp(2rem, 5.5vw, 3rem); font-weight: 700; }
+      .ticker-chip {
+        font-family: "IBM Plex Mono", monospace; font-weight: 600; font-size: 1rem;
+        background: var(--navy); color: #fff; padding: 4px 12px; border-radius: 999px;
+      }
+      @media (prefers-color-scheme: dark) { .ticker-chip { color: #0d1319; } }
+      .subtitle { font-size: 1.06rem; color: var(--muted); max-width: 62ch; margin-top: 8px; }
+      .asof { font-size: .85rem; color: var(--muted); margin-top: 6px; }
+
+      .snapshot {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+        background: var(--line); border: 1px solid var(--line); border-radius: 12px;
+        overflow: hidden; margin: 24px 0 8px; box-shadow: var(--shadow);
+      }
+      .snapshot > div { background: var(--surface); padding: 14px 16px; }
+      .snapshot .lab { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+      .snapshot .val { font-family: "IBM Plex Mono", monospace; font-size: 1.35rem; font-weight: 600; margin-top: 3px; }
+      .snapshot .note { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+      @media (max-width: 640px) { .snapshot { grid-template-columns: repeat(2, 1fr); } }
+
+      /* ---------- verdict ---------- */
+      .verdict {
+        background: var(--surface); border: 1px solid var(--line); border-top: 4px solid var(--navy);
+        border-radius: 12px; padding: 20px 22px; margin: 20px 0 8px; box-shadow: var(--shadow);
+      }
+      .verdict-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
+      @media (max-width: 640px) { .verdict-grid { grid-template-columns: 1fr; } }
+      .verdict .cell .lab { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+      .verdict .cell .big { font-family: "Newsreader", Georgia, serif; font-size: 1.55rem; font-weight: 700; margin-top: 2px; }
+      .pill {
+        display: inline-block; font-size: .8rem; font-weight: 700; padding: 3px 12px; border-radius: 999px;
+        background: var(--amber-soft); color: var(--amber);
+      }
+
+      /* ---------- sections ---------- */
+      section { margin-top: 40px; }
+      .sec-head { border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 16px; }
+      .sec-head .num { font-family: "IBM Plex Mono", monospace; font-size: .85rem; color: var(--red); font-weight: 600; }
+      .card {
+        background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+        padding: 18px 20px; margin-bottom: 14px; box-shadow: var(--shadow);
+      }
+      .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+      @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
+      ul.tight { margin: 6px 0 4px; padding-left: 20px; }
+      ul.tight li { margin-bottom: 7px; }
+      ul.tight li::marker { color: var(--red); }
+
+      table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+      th, td { padding: 9px 10px; text-align: left; vertical-align: top; }
+      thead th {
+        font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+        border-bottom: 2px solid var(--line);
+      }
+      tbody tr + tr td { border-top: 1px solid var(--line); }
+      td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+      .tbl-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 6px 14px 12px; box-shadow: var(--shadow); margin-bottom: 14px; }
+
+      .tag {
+        display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+        padding: 2px 8px; border-radius: 999px; vertical-align: middle;
+      }
+      .tag.est { background: var(--amber-soft); color: var(--amber); }
+      .tag.nv { background: var(--surface-2); color: var(--muted); }
+
+      /* toggle */
+      .toggle { display: inline-flex; background: var(--surface-2); border-radius: 999px; padding: 3px; gap: 2px; }
+      .toggle button {
+        border: 0; background: transparent; color: var(--muted); font: inherit; font-size: .85rem; font-weight: 600;
+        padding: 5px 14px; border-radius: 999px; cursor: pointer;
+      }
+      .toggle button[aria-pressed="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow); }
+
+      .flow { width: 100%; height: auto; display: block; }
+      .fnote { font-size: .82rem; color: var(--muted); margin-top: 8px; }
+
+      /* calculator */
+      .calc { display: flex; flex-wrap: wrap; gap: 14px; align-items: end; }
+      .calc label { display: block; font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+      .calc input {
+        font: inherit; font-family: "IBM Plex Mono", monospace; padding: 9px 12px; width: 190px;
+        border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink);
+      }
+      .calc .out { font-family: "IBM Plex Mono", monospace; font-size: 1.05rem; font-weight: 600; }
+
+      .risk-head { color: var(--red); }
+      .cat-head { color: var(--green); }
+      footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 18px; }
+      footer li { margin-bottom: 6px; }
+      .disclaimer { font-size: .82rem; color: var(--muted); margin-top: 18px; }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+
+      <!-- ================= HEADER ================= -->
+      <div class="kicker">Equity Research · Financials Sector</div>
+      <div class="title-row">
+        <h1>Bank of America</h1>
+        <span class="ticker-chip">NYSE: BAC</span>
+      </div>
+      <p class="subtitle">The #2 US bank by scale — a deposit-and-payments franchise with Merrill wealth attached. Q3 2026 was a clean operating quarter buried under a $1.2bn regulatory settlement; the stock trades at ~11x earnings because its returns on capital still trail JPMorgan's by a wide margin.</p>
+      <p class="asof">Research as of <strong>1 Nov 2026</strong>. Prices are the <strong>30 Oct 2026</strong> regular-session close (1 Nov was a Sunday). Profile: mid-30s investor, risk score 8/10. Sector ranking basis: FinanceCharts, last updated 30 Oct 2026, US-listed issuers only.</p>
+
+      <div class="snapshot">
+        <div>
+          <div class="lab">Price · 30 Oct close</div>
+          <div class="val">$50.01</div>
+          <div class="note">Confirmed vs Finnhub &amp; MarketBeat</div>
+        </div>
+        <div>
+          <div class="lab">Market cap</div>
+          <div class="val">$348.3bn</div>
+          <div class="note">Finnhub ($349.9bn on MarketBeat)</div>
+        </div>
+        <div>
+          <div class="lab">Trailing P/E</div>
+          <div class="val">10.84×</div>
+          <div class="note">Finnhub</div>
+        </div>
+        <div>
+          <div class="lab">Q3 2026 EPS</div>
+          <div class="val">$0.91</div>
+          <div class="note">$1.08 adjusted, ex settlement</div>
+        </div>
+      </div>
+
+      <!-- ================= VERDICT ================= -->
+      <div class="verdict">
+        <h3>Verdict</h3>
+        <div class="verdict-grid">
+          <div class="cell">
+            <div class="lab">Short term · 12–18 months</div>
+            <div class="big"><span class="pill">Hold</span></div>
+            <p class="small muted" style="margin-top:6px">Modelled base target $58 (+16%). The settlement overhang and a 12.6% reported ROTCE argue for patience, not chasing.</p>
+          </div>
+          <div class="cell">
+            <div class="lab">Long term · 5 years</div>
+            <div class="big"><span class="pill">Hold</span></div>
+            <p class="small muted" style="margin-top:6px">Modelled probability-weighted value ~$63 vs $50.01 today — real but unspectacular compounding unless ROTCE closes the gap to JPM.</p>
+          </div>
+          <div class="cell">
+            <div class="lab">Suggested portfolio weight</div>
+            <div class="big mono">2%</div>
+            <p class="small muted" style="margin-top:6px">A supporting position inside the Financials sleeve for a mid-30s, risk-8/10 portfolio — not a core compounder at this return profile.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 1. BUSINESS MODEL ================= -->
+      <section>
+        <div class="sec-head"><span class="num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+        <p>Bank of America earns money the classic money-centre way: gather low-cost deposits at national scale, lend and intermediate against them, run payments and markets infrastructure for corporates, and manage wealth for households through Merrill. Trailing-twelve-month revenue is <strong>$119.2bn</strong> (Motley Fool figure, gross revenue basis). Four reported segments:</p>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Segment</th><th>What it does</th><th>Why it matters</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Consumer Banking</strong></td><td>US retail deposits, cards, mortgages and small-business banking through the branch and digital network</td><td>The cheap-deposit engine that funds the whole balance sheet</td></tr>
+              <tr><td><strong>Global Wealth &amp; Investment Management</strong></td><td>Merrill Lynch wealth management and Bank of America Private Bank</td><td>Fee-based, capital-light revenue; a structural growth leg</td></tr>
+              <tr><td><strong>Global Banking</strong></td><td>Corporate and investment banking, lending and treasury services for large companies</td><td>Cyclical — fees swing with deal and issuance volumes</td></tr>
+              <tr><td><strong>Global Markets</strong></td><td>Sales, trading and research across rates, FX, equities and credit</td><td>Benefits from volatility; consumes the most risk capital</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cols">
+          <div class="card">
+            <h3>Geography &amp; footprint</h3>
+            <p>Overwhelmingly a US business, with global markets and wealth operations layered on top for multinational clients. The physical network is still expanding: <strong>150+ new financial centres planned by end-2027</strong>, on top of <strong>$5bn+ of network investment since 2016</strong> (Motley Fool) — a deliberate bet that branches still win deposits even as banking goes digital-first.</p>
+          </div>
+          <div class="card">
+            <h3>Dependencies</h3>
+            <ul class="tight">
+              <li><strong>Deposits &amp; rates:</strong> earnings hinge on the deposit franchise and the level/shape of US interest rates — net interest income is the swing factor.</li>
+              <li><strong>US consumer credit:</strong> card and mortgage books make BAC a levered read on US household health.</li>
+              <li><strong>Capital-markets activity:</strong> Global Banking and Markets revenue rises and falls with issuance and trading volumes.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. FINANCIAL HEALTH ================= -->
+      <section>
+        <div class="sec-head"><span class="num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+
+        <p>Q3 2026 is the quarter to read carefully: reported numbers were hit by a <strong>$1.2bn non-tax-deductible OCC/FinCEN regulatory settlement charge ($0.17/share)</strong>. Toggle between the reported (GAAP) quarter and the underlying quarter excluding that charge:</p>
+
+        <div class="card">
+          <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;">
+            <h3>Q3 2026 — reported vs underlying</h3>
+            <div class="toggle" role="group" aria-label="Reported or adjusted basis">
+              <button id="btnGaap" aria-pressed="true">Reported</button>
+              <button id="btnAdj" aria-pressed="false">Ex settlement</button>
+            </div>
+          </div>
+          <div class="snapshot" style="margin:16px 0 4px; box-shadow:none;">
+            <div><div class="lab">Revenue</div><div class="val">$29.96bn</div><div class="note">+3% year over year</div></div>
+            <div><div class="lab">Net income</div><div class="val" id="qNi">$6.93bn</div><div class="note" id="qNiNote">−17% year over year</div></div>
+            <div><div class="lab">EPS</div><div class="val" id="qEps">$0.91</div><div class="note" id="qEpsNote">As reported</div></div>
+            <div><div class="lab">ROTCE</div><div class="val" id="qRotce">12.6%</div><div class="note" id="qRotceNote">Return on tangible common equity</div></div>
+          </div>
+          <p class="fnote">Adjusted net income (~$8.1bn) is derived by adding the $1.2bn non-tax-deductible charge back to reported net income; adjusted EPS of $1.08 and adjusted ROTCE of 14.9% are as reported by the company/coverage. Q3 figures independently confirmed in verification (revenue $29.958bn, net income $6.933bn, ROTCE 12.6%, $1.2bn charge at $0.17/share).</p>
+        </div>
+
+        <h3 style="margin:18px 0 8px;">Q3 2026 income flow</h3>
+        <div class="card">
+          <svg class="flow" viewBox="0 0 880 190" role="img" aria-label="Q3 2026 income flow: revenue of 29.96 billion dollars flows to net income of 6.93 billion, with 23.03 billion absorbed by expenses, credit costs and taxes including the 1.2 billion dollar settlement">
+            <defs>
+              <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"></path>
+              </marker>
+            </defs>
+            <rect x="10" y="55" width="210" height="80" rx="10" fill="var(--navy-soft)" stroke="var(--line)"></rect>
+            <text x="115" y="88" text-anchor="middle" font-size="13" fill="var(--muted)" font-weight="700">REVENUE</text>
+            <text x="115" y="118" text-anchor="middle" font-size="24" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono, monospace">$29.96bn</text>
+            <line x1="222" y1="82" x2="330" y2="52" stroke="var(--muted)" stroke-width="2" marker-end="url(#arr)"></line>
+            <line x1="222" y1="108" x2="330" y2="140" stroke="var(--muted)" stroke-width="2" marker-end="url(#arr)"></line>
+            <rect x="335" y="15" width="300" height="72" rx="10" fill="var(--red-soft)" stroke="var(--line)"></rect>
+            <text x="485" y="42" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">Expenses, credit costs &amp; taxes</text>
+            <text x="485" y="68" text-anchor="middle" font-size="19" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono, monospace">$23.03bn</text>
+            <rect x="335" y="108" width="300" height="72" rx="10" fill="var(--green-soft)" stroke="var(--line)"></rect>
+            <text x="485" y="135" text-anchor="middle" font-size="12.5" fill="var(--ink)" font-weight="600">Net income (reported)</text>
+            <text x="485" y="161" text-anchor="middle" font-size="19" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono, monospace">$6.93bn</text>
+            <rect x="660" y="108" width="210" height="72" rx="10" fill="var(--surface-2)" stroke="var(--line)"></rect>
+            <text x="765" y="135" text-anchor="middle" font-size="12" fill="var(--muted)" font-weight="700">OF WHICH: SETTLEMENT</text>
+            <text x="765" y="161" text-anchor="middle" font-size="19" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono, monospace">$1.2bn charge</text>
+            <line x1="637" y1="144" x2="655" y2="144" stroke="var(--muted)" stroke-width="2" marker-end="url(#arr)"></line>
+          </svg>
+          <p class="fnote">The $23.03bn middle block is a combined residual (revenue minus net income): operating expenses, credit provisions and taxes were not broken out in the verified research pack, and the $1.2bn settlement sits inside it. Excluding the settlement, underlying net income was ~$8.1bn.</p>
+        </div>
+
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / note</th></tr></thead>
+            <tbody>
+              <tr><td>Trailing P/E</td><td class="num mono">10.84×</td><td>Finnhub — the cheapest multiple among the US money-centre banks in this set</td></tr>
+              <tr><td>Forward P/E</td><td class="num"><span class="tag nv">Not verified</span></td><td>Not confirmed in this research pass — not shown rather than guessed</td></tr>
+              <tr><td>EV/EBITDA</td><td class="num">n.m.</td><td>Not meaningful for a bank — enterprise value and EBITDA do not describe a deposit-funded balance sheet</td></tr>
+              <tr><td>CET1 capital ratio</td><td class="num mono">10.9%</td><td>Q3 2026 — the core regulatory capital buffer</td></tr>
+              <tr><td>ROTCE (Q3)</td><td class="num mono">12.6% · 14.9% adj.</td><td>Reported vs ex-settlement; JPMorgan printed 20% in the same quarter</td></tr>
+              <tr><td>Dividend</td><td class="num">Payer</td><td>Yield not verified in this pass <span class="tag nv">Not verified</span></td></tr>
+              <tr><td>Capital return</td><td class="num"><span class="tag nv">Not verified</span></td><td>Buyback/dividend totals not confirmed in this pass</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Reading the balance sheet:</strong> for a bank, the diagnostics that matter are capital (CET1 10.9%), returns on tangible equity (12.6% reported, 14.9% clean), and the multiple the market pays for those returns. At 10.84× trailing earnings BAC is priced as the second-tier money-centre name — the discount to JPMorgan is, in substance, a discount for the ROTCE gap (12.6–14.9% vs 20%). Free-cash-flow and debt-to-equity framings used for industrials do not translate to a bank whose liabilities are its raw material (deposits); capital allocation shows up instead as dividends, buybacks and the $5bn+ branch-network investment since 2016.</p>
+      </section>
+
+      <!-- ================= 3. MOAT ================= -->
+      <section>
+        <div class="sec-head"><span class="num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+        <div class="cols">
+          <div class="card">
+            <h3>Where the moat is real</h3>
+            <ul class="tight">
+              <li><strong>Scale:</strong> the #2 US bank — deposit gathering, payments and markets infrastructure all get cheaper per dollar as scale rises.</li>
+              <li><strong>Deposit franchise:</strong> a national base of sticky, low-cost consumer and small-business deposits is the hardest asset in US banking to replicate.</li>
+              <li><strong>Merrill:</strong> one of the largest US wealth franchises, feeding fee income and cross-sold banking relationships.</li>
+              <li><strong>Branch + digital together:</strong> 150+ new financial centres by end-2027 on top of a leading digital platform — distribution competitors must match on both channels.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Where it is not</h3>
+            <ul class="tight">
+              <li><strong>Returns gap:</strong> ROTCE of 12.6% (14.9% clean) vs JPMorgan's 20% shows BAC converts its scale into profit less efficiently — pricing power exists, but cost and mix dilute it.</li>
+              <li><strong>Regulatory exposure:</strong> money-centre scale invites money-centre scrutiny — the $1.2bn OCC/FinCEN settlement is this quarter's proof.</li>
+              <li><strong>Competition:</strong> JPMorgan above it, Wells Fargo and Citigroup beside it, regionals below, and fintechs attacking payments and consumer niches from outside.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. CATALYSTS & RISKS ================= -->
+      <section>
+        <div class="sec-head"><span class="num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+        <div class="cols">
+          <div class="card">
+            <h3 class="cat-head">Catalysts</h3>
+            <ul class="tight">
+              <li><strong>NII recovery:</strong> net interest income rebuilding as the deposit base reprices and loan demand holds — the single biggest earnings lever.</li>
+              <li><strong>Wealth flows:</strong> continued Merrill inflows compound capital-light fee revenue.</li>
+              <li><strong>Cost discipline:</strong> any credible path of ROTCE toward the mid-to-high teens re-rates the multiple toward JPMorgan's.</li>
+              <li><strong>Branch expansion:</strong> 150+ new financial centres by end-2027 extend the deposit-gathering edge into growth markets.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3 class="risk-head">Downside risks</h3>
+            <ul class="tight">
+              <li><strong>Settlement overhang:</strong> the $1.2bn OCC/FinCEN charge may not be the last word on regulatory remediation costs.</li>
+              <li><strong>Persistent ROTCE gap:</strong> if returns stay well below JPMorgan's, the valuation discount is justified, not an opportunity.</li>
+              <li><strong>Rate &amp; credit sensitivity:</strong> a hard US consumer turn hits cards, mortgages and NII simultaneously.</li>
+              <li><strong>Investment-banking cyclicality:</strong> Global Banking and Markets fees can fall faster than costs in a deal drought.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. SCENARIOS ================= -->
+      <section>
+        <div class="sec-head"><span class="num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+        <p>All targets below are <strong>modelled estimates</strong> built with the frozen-parameter method: today's trailing P/E (10.84×, Finnhub) and share count held constant unless a case changes them; only revenue growth, net margin and the exit multiple vary. They are arithmetic on stated assumptions, not verified facts or predictions.</p>
+
+        <h3 style="margin:16px 0 8px;">12–18 month horizon</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Case</th><th class="num">Target</th><th class="num">vs $50.01</th><th>Basis</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Base</strong></td><td class="num mono">$58</td><td class="num mono">+16%</td><td>NII recovery and a clean (settlement-free) run of quarters partially close the ROTCE discount</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fnote">Only a base case was modelled for the 12–18 month horizon in this research pass; separate near-term bull/bear targets were not produced, so none are shown.</p>
+
+        <h3 style="margin:18px 0 8px;">5-year projection (to ~2031) <span class="tag est">Modelled estimate</span></h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Case</th><th class="num">Weight</th><th class="num">Revenue growth/yr</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">Implied EPS</th><th class="num">Price</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Bull</strong></td><td class="num mono">25%</td><td class="num mono">6%</td><td class="num mono">30%</td><td class="num mono">13×</td><td class="num mono">$7.31</td><td class="num mono"><strong>$95</strong></td></tr>
+              <tr><td><strong>Base</strong></td><td class="num mono">50%</td><td class="num mono">4%</td><td class="num mono">26.8%</td><td class="num mono">10.84×</td><td class="num mono">$5.63</td><td class="num mono"><strong>$61</strong></td></tr>
+              <tr><td><strong>Bear</strong></td><td class="num mono">25%</td><td class="num mono">1%</td><td class="num mono">22%</td><td class="num mono">8.5×</td><td class="num mono">$4.24</td><td class="num mono"><strong>$36</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Probability-weighted 5-year value: ~$63</strong> (0.50 × $61 + 0.25 × $95 + 0.25 × $36 = $63.25), vs $50.01 today — roughly +26% over five years before dividends. Implied EPS is each case's price divided by its exit P/E. The bull case needs ROTCE convergence toward JPMorgan plus a re-rating to 13×; the bear case is a credit/rate downturn compressing both margin (22%) and multiple (8.5×). Read the weighted figure as "steady, unspectacular compounding with a fat left tail if credit turns" — which is exactly why the long-term call is Hold at a 2% weight rather than a core Buy.</p>
+      </section>
+
+      <!-- ================= 6. RECOMMENDATION & SIZING ================= -->
+      <section>
+        <div class="sec-head"><span class="num">06</span><h2>Recommendation &amp; Position Sizing</h2></div>
+        <div class="card">
+          <p><strong>Short term (12–18 months): Hold.</strong> The modelled base target of $58 (+16%) is respectable, but the settlement overhang and a reported ROTCE of 12.6% mean the rerating depends on quarters BAC hasn't printed yet. <strong>Long term (5 years): Hold.</strong> A ~$63 weighted value against a $50.01 price is a mid-single-digit annualised path — acceptable inside a diversified Financials sleeve, not strong enough to anchor one.</p>
+          <p><strong>Sizing: 2% of total portfolio</strong> for a mid-30s investor at risk 8/10. BAC's role is ballast-plus-optionality: money-centre dividends and buyback capacity with a rerating kicker if the ROTCE gap closes. Size it as a satellite of the JPMorgan-led bank exposure, not a substitute for it.</p>
+          <div class="calc" style="margin-top:14px;">
+            <div>
+              <label for="pf">Your portfolio value ($)</label>
+              <input id="pf" type="number" inputmode="decimal" min="0" value="500000" />
+            </div>
+            <div>
+              <label>2% target position</label>
+              <div class="out" id="calcOut">—</div>
+            </div>
+          </div>
+          <p class="fnote">Calculator runs entirely on this page; nothing is saved or sent anywhere. Share count uses the 30 Oct 2026 close of $50.01.</p>
+        </div>
+      </section>
+
+      <!-- ================= SOURCES ================= -->
+      
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Bank of America (BAC)</h2>
+<p><strong>Price (30 Oct 2026 close): $50.01.</strong> <strong>DCF intrinsic: $49.99.</strong> Discount/premium vs DCF: <strong>+0.0%</strong> — i.e. the shares are trading 0.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$49.99</td><td>+0.0%</td><td>Base Distributable proxy: EPS $4.61 x 6.993bn = $32.26bn, x 0.683 (1 - g/ROTCE, ROTCE 12.6% pack Q3, g 4%). Bank OCF NOT used. Q3 included $1.2bn regulatory settlement; base uses trailing EPS as-is, flagged. Growth g 4%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $164.23bn + PV of terminal value $185.33bn + net cash / excess capital $0.00bn, ÷ 6.993bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/BAC/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Bank of America (BAC)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No single customer exceeds a disclosed 10% concentration for Bank of America, and no ranked top-7 is disclosed — none is invented here. Revenue spans Consumer Banking households, Merrill wealth clients, Global Banking corporates and Global Markets institutions, on TTM revenue of $119.2bn (pack). Q3 2026: revenue $29.96bn, net income $6.93bn, ROTCE 12.6% (14.9% adjusted), CET1 10.9%. The customer base is therefore the US consumer and corporate franchise, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: with no concentrated named customer, the thesis applies at franchise level — if Bank of America’s corporate and wealth clients are broadly undervalued, that supports lending, wealth flows and markets activity, and vice versa — but an undervalued client does not guarantee higher spending with the bank, which depends on that client’s own priorities and cash position.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Bank of America (BAC)</h2>
+<p><strong>Role: Low exposure.</strong> While the AI trade runs, Bank of America’s exposure is indirect: it lends to and banks AI builders and their suppliers, earns markets and wealth fees from AI-driven market activity, and can use AI for cost discipline — but the pack gives no AI revenue line, and its core is the US consumer deposit franchise and Merrill wealth.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is small: at ~11x trailing earnings there is no AI premium to strip; an unwind would affect BAC mainly through the general bank multiple and credit cycle, not an AI-specific de-rating.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — corporate borrowing and markets activity slow, and AI-exposed borrowers’ credit is tested; (2) multiple — modest compression from an already low multiple; (3) balance sheet — credit normalisation and the regulatory-settlement overhang (Q3 included a $1.2bn charge, pack) matter more than any AI-capex debt, which BAC does not carry directly. Triggers to watch: US consumer delinquencies, commercial-real-estate losses, and any new regulatory charge.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+<footer>
+        <h3>Sources &amp; verification notes</h3>
+        <ul class="tight">
+          <li>Q3 2026 results (revenue, net income, EPS, ROTCE, $1.2bn OCC/FinCEN settlement): company reporting as analysed at <a href="https://miracoup.com/bac-q3-2026-earnings-analysis/" target="_blank" rel="noopener">miracoup.com — BAC Q3 2026 earnings analysis</a>; independently confirmed in this project's verification pass.</li>
+          <li>Price, market cap and trailing P/E (30 Oct 2026): <a href="https://finnhub.io/?q=%22BAC%22" target="_blank" rel="noopener">Finnhub — BAC</a>. Market cap is vendor-dependent: $348.25bn (Finnhub) vs $349.85bn (MarketBeat); the pack figure of $346.2bn sits just below that range. P/E of 10.84× is the Finnhub figure and was confirmed.</li>
+          <li>TTM revenue ($119.2bn) and network investment (150+ new financial centres by end-2027; $5bn+ since 2016): The Motley Fool coverage, as carried in the verified research pack.</li>
+          <li>Sector ranking basis: FinanceCharts, last updated 30 Oct 2026; US-listed issuers only.</li>
+          <li>Forward P/E, dividend yield and capital-return totals were <em>not verified</em> in this pass and are labelled as such rather than estimated. All scenario prices are modelled estimates with assumptions shown in Section 5.</li>
+        </ul>
+        <p class="disclaimer">Research views for education only — not investment advice, and not a recommendation to buy or sell any security. Modelled targets depend entirely on the stated assumptions; bank earnings are sensitive to interest rates, credit conditions and regulatory outcomes that can change quickly. Verify current prices and filings before acting.</p>
+      </footer>
+
+    </main>
+
+    <script>
+      (function () {
+        // Reported vs ex-settlement toggle
+        var data = {
+          gaap: { ni: "$6.93bn", niNote: "−17% year over year", eps: "$0.91", epsNote: "As reported", rotce: "12.6%", rotceNote: "Return on tangible common equity" },
+          adj:  { ni: "~$8.1bn", niNote: "Ex $1.2bn settlement charge", eps: "$1.08", epsNote: "Ex $0.17/share settlement charge", rotce: "14.9%", rotceNote: "Ex settlement charge" }
+        };
+        var bG = document.getElementById("btnGaap"), bA = document.getElementById("btnAdj");
+        function setMode(mode) {
+          var d = data[mode];
+          document.getElementById("qNi").textContent = d.ni;
+          document.getElementById("qNiNote").textContent = d.niNote;
+          document.getElementById("qEps").textContent = d.eps;
+          document.getElementById("qEpsNote").textContent = d.epsNote;
+          document.getElementById("qRotce").textContent = d.rotce;
+          document.getElementById("qRotceNote").textContent = d.rotceNote;
+          bG.setAttribute("aria-pressed", mode === "gaap" ? "true" : "false");
+          bA.setAttribute("aria-pressed", mode === "adj" ? "true" : "false");
+        }
+        bG.addEventListener("click", function () { setMode("gaap"); });
+        bA.addEventListener("click", function () { setMode("adj"); });
+
+        // Position-size calculator (in-memory only)
+        var pf = document.getElementById("pf"), out = document.getElementById("calcOut");
+        function fmt(n) { return n.toLocaleString("en-US", { maximumFractionDigits: 0 }); }
+        function calc() {
+          var v = parseFloat(pf.value);
+          if (!isFinite(v) || v < 0) { out.textContent = "—"; return; }
+          var dollars = v * 0.02;
+          var shares = dollars / 50.01;
+          out.textContent = "$" + fmt(dollars) + "  ·  ≈ " + fmt(shares) + " shares";
+        }
+        pf.addEventListener("input", calc);
+        calc();
+      })();
+    </script>
+  </body>
+</html>

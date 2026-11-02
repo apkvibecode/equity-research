@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SIEGY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f5f1; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0a2e3d; --blue:#006e6e; --blue-soft:#e0efef;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#8a6d1b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#8fc9c9; --blue:#5ec2c2; --blue-soft:#17302f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn{border-left:4px solid var(--amber)} .warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:120px 1fr 86px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.badge{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.07em;padding:2px 7px;border-radius:4px;text-transform:uppercase;vertical-align:middle}
+.badge.unv{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+.badge.est{background:var(--blue-soft);color:var(--blue)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Industrials</span><span>Siemens AG · OTC ADR</span></div>
+  <h1>Siemens AG <span class="tick">(OTC: SIEGY)</span></h1>
+  <p class="lede">Europe&rsquo;s largest engineering company — industrial automation and digitalisation, smart infrastructure, mobility, plus a stake in Siemens Healthineers. The investment question is not whether Siemens owns the factory floor — it does — but whether a factory-automation recovery and grid digitalisation can outrun German manufacturing weakness, China exposure and conglomerate complexity at 24.9&times; earnings.</p>
+  <div class="byline">
+    <span><b>As of:</b> 1 Nov 2026</span>
+    <span><b>Price reference:</b> 30 Oct 2026 close</span>
+    <span><b>Primary listing:</b> Xetra: SIE — €265.65 on 30 Oct</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · SIEGY OTC · 30 Oct <span class="badge unv">Unverified</span></div><div class="vbig mono">$147.95</div><div class="vsub">OTC ADR print — thin, indicative; not an exchange close. Xetra SIE €265.65 for cross-check.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="badge unv">Unverified</span></div><div class="vbig mono">$225.6B</div><div class="vsub">Fool basis. Xetra basis €220.6B (MarketBeat) — FX / share-class difference.</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM P/E / P/S <span class="badge unv">Unverified</span></div><div class="vbig mono">24.9× / 2.5×</div><div class="vsub">TTM revenue $91.0B · Gross $35.8B · Div. yield ~2.0%</div></div>
+  <div class="vcell span3"><div class="vlabel">12–18 mo Base target <span class="badge est">Estimate</span></div><div class="vbig mono">$165 <span class="up" style="font-size:16px">+12%</span></div><div class="vsub">Modelled estimate — see §5. Bull $195 · Bear $125.</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Quality at a fair multiple; wait for automation-recovery evidence rather than paying up front.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Installed base + software stack compounds if digitalisation holds. 5-yr weighted modelled value ~$187.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Diversifying industrials holding, not a core compounder slot. Prefer Xetra line for liquidity where accessible.</div></div>
+</div>
+
+<div class="callout warn"><div class="ct">Verification &amp; ranking basis — read first</div>
+<p><b>Ranking:</b> GLOBAL top 10 by market cap (Motley Fool sector pages, rankings/metrics as of 5 Oct 2026 with live quote cards updating; prices at 30 Oct 2026 close), including OTC ADRs and state-controlled issuers. The Industrials list has <b>11 names</b> because BE (a named ticker) is added. The list is <b>NOT in strict market-cap order</b> as printed — do not read position as rank. A NYSE/Nasdaq-only list would be different (e.g. Boeing, Uber, Honeywell would enter).</p>
+<p><b>Verification:</b> In the independent verification pass for this sector, SIEGY&rsquo;s price, market cap and P/E were <b>NOT re-checked</b> — they are marked <span class="badge unv">Unverified</span> throughout this note and must not be read as independently verified. All 12–18-month targets and all 5-year prices are <b>modelled estimates</b> with methodology shown in §5, never verified facts. OTC prices are thin and indicative, not liquid exchange closes.</p></div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The position in one view</h2></div>
+  <p>Siemens is a <b>diversified industrial compounder</b>, not a single-cycle bet. The pack describes four legs — <b>industrial automation / digitalisation, smart infrastructure, mobility, plus the Healthineers stake</b> — under one balance sheet. That diversification is both the moat (an installed base no pure software rival can replicate) and the discount (conglomerate complexity is listed in the pack as a core risk). At the pack figures — $91.0B TTM revenue, $35.8B gross profit, 2.5&times; sales — you are paying a quality-industrial multiple for mid-single-digit modelled price compounding, plus a ~2.0% dividend yield while you wait.</p>
+  <figure>
+    <svg viewBox="0 0 980 210" width="100%" role="img" aria-label="Flow of Siemens TTM revenue into gross profit and costs" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="62" width="200" height="86" fill="var(--navy)"/><text x="22" y="94" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="22" y="114" font-size="13" fill="#fff">$91.0B</text><text x="22" y="132" font-size="11" fill="#fff" opacity=".85">Fool, EUR-converted · Unverified</text>
+      <rect x="360" y="22" width="240" height="66" fill="var(--green-soft)" stroke="var(--line2)"/><text x="374" y="48" font-size="13" font-weight="700" fill="var(--ink)">Gross profit — $35.8B</text><text x="374" y="68" font-size="12" fill="var(--ink2)">Implied gross margin ≈ 39.3% (derived)</text>
+      <rect x="360" y="112" width="240" height="66" fill="var(--chip)" stroke="var(--line2)"/><text x="374" y="138" font-size="13" font-weight="700" fill="var(--ink)">Cost of revenue — $55.2B</text><text x="374" y="158" font-size="12" fill="var(--ink2)">Derived: $91.0B − $35.8B</text>
+      <line x1="208" y1="88" x2="356" y2="58" stroke="var(--muted)" stroke-width="10" opacity=".35"/>
+      <line x1="208" y1="122" x2="356" y2="142" stroke="var(--muted)" stroke-width="14" opacity=".35"/>
+      <rect x="700" y="62" width="272" height="86" fill="var(--paper)" stroke="var(--line2)"/><text x="714" y="92" font-size="13" font-weight="700" fill="var(--ink)">What the pack does NOT give</text><text x="714" y="110" font-size="12" fill="var(--ink2)">No segment revenue split, no FCF,</text><text x="714" y="126" font-size="12" fill="var(--ink2)">no debt / buyback figures — omitted</text><text x="714" y="142" font-size="12" fill="var(--ink2)">here rather than estimated. See §2.</text>
+    </svg>
+    <figcaption>TTM figures per research pack (Fool, EUR-converted). Gross margin and cost of revenue are arithmetic derivations from the two pack figures, shown as such. No operating-income split is shown because the pack does not carry one.</figcaption>
+  </figure>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline figure (30 Oct 2026 ref)</th><th class="n">Value</th><th>Status &amp; source</th></tr></thead>
+    <tbody>
+      <tr><td>SIEGY (OTC ADR) price</td><td class="n">$147.95</td><td><span class="badge unv">Unverified</span> Pack / Fool basis; OTC thin print</td></tr>
+      <tr><td>Xetra SIE price / market cap</td><td class="n">€265.65 / €220.6B</td><td>MarketBeat — primary-listing cross-check</td></tr>
+      <tr><td>Market cap (USD basis)</td><td class="n">$225.6B</td><td><span class="badge unv">Unverified</span> Fool basis</td></tr>
+      <tr><td>TTM revenue / gross profit</td><td class="n">$91.0B / $35.8B</td><td>Fool, EUR-converted</td></tr>
+      <tr class="hl"><td>Recommendation</td><td class="n">Hold ST / Buy LT</td><td>Research view only — §6. Weight 1.5%</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Siemens sells <b>the operating system of the physical economy</b>: the automation that runs factories, the infrastructure that distributes power and runs buildings, the trains that move cities — increasingly wrapped in software and industrial AI — plus a healthcare-technology stake via Healthineers. The pack&rsquo;s one-line model is the honest summary: <i>industrial automation/digitalisation, smart infrastructure, mobility, plus Healthineers stake; Europe&rsquo;s largest engineering company (Fool).</i></p>
+  <h3>Core revenue streams (as described in the pack)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Leg</th><th>What it sells</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Industrial automation &amp; digitalisation</td><td>Factory automation hardware + the software stack on top of it; digitalisation and AI-native industrial software</td><td>The highest strategic value leg — software + hardware together is the moat claim in §3, and factory-automation recovery is the lead catalyst in §4</td></tr>
+      <tr><td>Smart infrastructure</td><td>Grid and building / infrastructure digitalisation</td><td>Exposed to the grid/digitalisation catalyst — electrification and grid spend are multi-year, policy-supported demand pools</td></tr>
+      <tr><td>Mobility</td><td>Rail / mobility systems</td><td>Long-cycle, order-book business; steadier than factory automation, slower to inflect</td></tr>
+      <tr><td>Healthineers stake</td><td>Listed healthcare-technology holding (stake, not a consolidated operating segment in the pack&rsquo;s description)</td><td>Diversifies the group away from pure industrial cyclicality; also a source of conglomerate-complexity debate — value is partly in a listed stake, not in operations</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Open question — segment split:</b> the research pack does <b>not</b> carry a quantified revenue or profit split by segment, nor a geographic revenue distribution. Both are therefore <b>omitted here rather than estimated</b>. Do not size any single leg from this note; use Siemens&rsquo; own segment reporting for that.</p>
+  <h3>Structural character &amp; dependencies</h3>
+  <ul>
+    <li><b>Recent structural pivot (per pack catalysts):</b> toward <b>AI-native industrial software</b> and digitalisation layered over the installed hardware base — the same direction as the moat description (automation software + hardware stack, industrial AI partnerships).</li>
+    <li><b>Geographic centre of gravity:</b> a European — specifically German — engineering champion. The pack flags <b>German/European manufacturing weakness</b> and <b>China exposure</b> as named risks; treat both as first-order sensitivities even without a quantified geographic split in the pack.</li>
+    <li><b>Supply-chain dependency, in pack terms:</b> Siemens is itself a supply-chain company — its customers&rsquo; capex cycles <i>are</i> its order book. Factory-automation demand, grid investment and mobility procurement are the dependencies; a manufacturing downturn transmits directly, with no consumer-revenue buffer of the kind a diversified conglomerate might otherwise claim — Healthineers aside.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>On the figures the pack does carry, Siemens screens as a <b>profitable, dividend-paying quality industrial at a full-but-not-extreme multiple</b>: 24.9&times; trailing earnings and 2.5&times; sales on $91.0B of TTM revenue. The honest limit of this section matters more than its length: the pack carries <b>no free-cash-flow, debt, leverage or buyback figures for SIEGY</b>, so no leverage or cash-conversion verdict is offered here. Presenting one would require inventing figures, which this note does not do.</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price reference 30 Oct 2026. All SIEGY price / cap / P/E figures marked Unverified per the independent verification log (not re-checked in that pass).</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E (TTM) <span class="badge unv">Unverified</span></td><td class="n">24.9×</td><td>Source: marketcapof.com SIEGY-family P/E page (see Sources). A quality-industrial multiple — the market is paying for durability and the software mix, not for a cyclical trough</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.5×</td><td>Pack figure. On $91.0B TTM revenue this is consistent with the $225.6B market-cap figure (derived check: 91.0 × 2.5 ≈ 227.5, within rounding / FX of 225.6)</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$91.0B</td><td>Fool, EUR-converted. Scale is not the question for Siemens; growth rate and mix are</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$35.8B</td><td>Fool, EUR-converted. Implied gross margin ≈ 39.3% (derived: 35.8 ÷ 91.0) — a hardware-plus-software blend, below pure-software margins, above pure-hardware</td></tr>
+      <tr><td>Dividend yield</td><td class="n">~2.0%</td><td>MarketBeat (Xetra line). For this profile the yield is a meaningful part of the 12–18-month return bridge — roughly a sixth of the +12% base-case price move, before any dividend growth</td></tr>
+      <tr><td>Market cap</td><td class="n">$225.6B / €220.6B</td><td><span class="badge unv">Unverified</span> USD figure (Fool) vs EUR figure (MarketBeat, Xetra). The gap is FX and basis, not an error to average away — quote the basis you use</td></tr>
+      <tr><td>Free cash flow / leverage / buybacks</td><td class="n">— not in pack</td><td><b>Omitted, not estimated.</b> No FCF generation, debt-to-equity, net-debt or capital-allocation figures for SIEGY were carried in the research pack or re-checked in verification. Any balance-sheet strength claim for SIEGY in this note would be unverified — check Siemens&rsquo; filings directly before sizing up</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><div class="ct">Reading the multiple</div>
+  <p>At 24.9&times; trailing earnings, Siemens is <b>not priced for a manufacturing recession, nor for an automation boom</b> — it is priced for steady execution. That is exactly why the recommendation in §6 splits by horizon: over 12–18 months there is no obvious multiple-expansion gift (hence Hold), while over 5 years even a 5% price CAGR base case (§5) plus a ~2% yield is a reasonable quality-compounder return if the moat holds (hence Buy for the long term, at a modest weight).</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat assessment: wide in automation, built on the installed base.</b> The pack states the moat compactly — <i>automation software + hardware stack, installed base, industrial AI partnerships (Capgemini, Canopus AI per Fool)</i> — and each element reinforces the others. Siemens is positioned in the pack&rsquo;s global Industrials universe alongside Caterpillar, GE Aerospace, RTX, GE Vernova, Eaton, Deere, Schneider Electric (SBGSF), Airbus (EADSY), CATL (CTATF) and Bloom Energy (BE) — a global, not US-only, peer set (see the ranking-basis box at the top of this note).</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Software + hardware stack:</b> selling both the automation hardware and the software that runs it raises switching costs beyond either layer alone — a plant standardised on Siemens does not re-platform casually.</li>
+      <li><b>Installed base:</b> decades of installed automation and infrastructure create service, upgrade and software-attach revenue that a new entrant cannot buy quickly at any price.</li>
+      <li><b>Industrial AI partnerships:</b> Capgemini and Canopus AI partnerships (per Fool, via the pack) extend the AI-native software push without Siemens having to build every AI capability in-house.</li>
+      <li><b>Scale &amp; breadth:</b> Europe&rsquo;s largest engineering company (Fool) — breadth across automation, infrastructure and mobility is itself a customer proposition for large industrial buyers who prefer one accountable vendor.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits</h4><ul>
+      <li><b>Conglomerate complexity</b> is a named pack risk: breadth can mean a holding-company discount, slower capital allocation and a Healthineers stake whose value the market may not fully credit inside SIEGY.</li>
+      <li><b>Cyclical, not structural, pricing power:</b> in factory automation, pricing power is real in an upcycle and contested in a downturn — German/European manufacturing weakness (pack risk) tests the moat precisely when it matters.</li>
+      <li><b>China exposure:</b> both a market and a competitive threat — local automation rivals compete on Siemens&rsquo; home turf of value-for-money engineering.</li>
+      <li><b>No pure-software economics:</b> the implied ~39.3% gross margin (derived) caps how far the multiple can stretch on a &ldquo;software re-rating&rdquo; story; the hardware base remains the larger half of the P&amp;L.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing-power verdict:</b> durable but cyclical — strongest where the software stack and installed base lock in, weakest where the customer&rsquo;s own factory utilisation is falling. <b>Barriers to entry:</b> high in installed automation (certification, installed base, service network); lower in standalone industrial software, where partnerships rather than ownership are Siemens&rsquo; current answer.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Factory automation recovery</b> — the lead pack catalyst. After a weak manufacturing stretch, any sustained recovery in factory orders flows directly to the highest-value leg of the business.</li>
+        <li><b>Grid / digitalisation spend</b> — smart-infrastructure demand tied to electrification and grid investment; a multi-year, policy-supported tailwind rather than a single-quarter event.</li>
+        <li><b>AI-native industrial software</b> — if the software + AI layer (including the Capgemini / Canopus AI partnerships) attaches at scale to the installed base, mix and margin both improve — the bull-case engine in §5.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>German / European manufacturing weakness</b> — the home-market cycle is the single largest named risk in the pack; a prolonged industrial recession in Europe hits orders, pricing and sentiment together.</li>
+        <li><b>China exposure</b> — demand softness and intensifying local competition in a market Siemens cannot simply exit without shrinking its global footprint.</li>
+        <li><b>Conglomerate complexity</b> — execution, capital-allocation and valuation-discount risk across automation, infrastructure, mobility and the Healthineers stake.</li>
+        <li><b>Liquidity / access risk (SIEGY specifically)</b> — the OTC ADR is a thin, indicative print, not a liquid exchange close (verification log). US investors sizing via SIEGY face wider spreads and less reliable price discovery than on Xetra.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout warn"><div class="ct">What would change the call</div><p>Evidence of a <b>sustained factory-automation order recovery</b> alongside grid orders would move the short-term call from Hold toward Buy — it is the missing proof point, not valuation, that holds the near-term rating back. Conversely, a further leg down in European manufacturing data with China softening at the same time would validate the bear case ($125) even at today&rsquo;s multiple.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b><span class="badge est">Modelled estimates</span></b> from the research pack — <b>not verified facts</b>. The verification log states explicitly that all 12–18-month base targets were not re-checked, and that no 5-year weighted price can be arithmetically re-checked without published scenario prices and weights. This note therefore <b>publishes the prices and weights</b> so the weighted figures can be checked: 12–18-month and 5-year weightings below use <b>Bear 25% / Base 50% / Bull 25%</b>, the same convention as the META sample in this series.</p>
+
+  <h3>12–18-month targets (from $147.95 reference)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$125</div><div class="ret down">−15.5% vs $147.95</div><p><b>Modelled estimate.</b> European manufacturing weakness deepens, China stays soft, no automation recovery — the multiple compresses and the conglomerate discount widens.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$165</div><div class="ret up">+12% vs $147.95 (pack)</div><p><b>Modelled estimate.</b> Gradual factory-automation recovery plus steady grid / digitalisation demand; execution holds, multiple roughly holds. Pack return stated as +12% (arithmetic: 165 ÷ 147.95 − 1 ≈ +11.5%, rounded).</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$195</div><div class="ret up">+31.8% vs $147.95 (derived)</div><p><b>Modelled estimate.</b> Automation recovery arrives with AI-native software attach; grid spend accelerates; the market pays a fuller software-mix multiple.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled</div><div class="wv mono">≈ $163</div></div><p>0.25×$125 + 0.50×$165 + 0.25×$195 = $162.50 ≈ <b>$163 (+10% vs $147.95)</b>. Derived from the pack&rsquo;s three scenario prices at the stated 25/50/25 weights — a modelled estimate, not a pack-supplied or verified figure. Add the ~2.0% dividend yield for the total-return picture.</p></div>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Method as specified for this series: <b>starting price held as the anchor, share count and basis frozen, only the price CAGR varies by case</b>. The pack supplies the base-case CAGR explicitly — <b>5% per year</b> — and the three 5-year prices. Bull and bear CAGRs below are <b>derived</b> from the pack&rsquo;s prices (shown so the arithmetic can be checked), not separately supplied. No revenue-growth, margin or exit-P/E split for SIEGY was carried in the pack, so none is invented here; the CAGR <i>is</i> the frozen parameter for this name.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight)</th><th class="n">Implied price CAGR / yr</th><th class="n">Maths</th><th class="n">5-yr price</th><th class="n">Return vs $147.95</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −4.1% (derived)</td><td class="n">$147.95 → $120</td><td class="n">~$120</td><td class="n">−18.9%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">5% (pack)</td><td class="n">$147.95 × 1.05⁵ = $147.95 × 1.276 ≈ $189</td><td class="n">$189</td><td class="n">+27.8%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +11.0% (derived)</td><td class="n">$147.95 → $250</td><td class="n">~$250</td><td class="n">+69.0%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">0.25×120 + 0.50×189 + 0.25×250 = $187</td><td class="n">~$187</td><td class="n">+26.4%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Pack weighted figure: <b>~$187</b> — reproduced exactly by the 25/50/25 weighting above (30 + 94.5 + 62.5 = 187), which is why those weights are stated. All 5-year prices are <b>modelled estimates</b>. Read the shape, not the precision: even the bull case is an ~11% price CAGR — this is a steady industrial compounder in every scenario, not a high-beta AI name. Dividend yield (~2.0%, MarketBeat) would add to each case&rsquo;s total return if maintained — the pack does not model it, so it is not added to the prices above.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile as specified: <b>mid-30s, risk score 8/10</b> — long accumulation horizon, equity-heavy, comfortable with drawdowns. Recommendations are <b>research views, not guarantees and not investment advice</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale (pack-based)</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td>Base-case upside is +12% on price (+ ~2% yield) against a −15.5% bear case, at a full 24.9&times; multiple with no automation-recovery proof yet. Fair, not compelling — hold existing exposure, add on weakness or on recovery evidence.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td>Installed base + software stack + grid digitalisation support the 5% base CAGR; weighted modelled value ~$187 (+26% on price over 5 years) plus dividends. A quality diversifier away from US mega-cap tech concentration.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing</h3>
+  <ul>
+    <li><b>Suggested weight: 1.5% of total portfolio</b> (pack recommendation for this profile). Deliberately modest: Siemens&rsquo; role in an 8/10-risk, mid-30s portfolio is <b>industrial / European diversification and dividend ballast</b>, not return engine — the 5-year base CAGR of 5% cannot carry a growth portfolio, and should not be asked to.</li>
+    <li><b>Instrument choice matters:</b> where accessible, the <b>Xetra SIE line (€265.65, 30 Oct)</b> is the primary, liquid listing; SIEGY is the OTC ADR with thin, indicative pricing. Size and limit orders accordingly.</li>
+    <li><b>Revisit triggers:</b> upgrade the weight only on (a) confirmed factory-automation recovery, or (b) a price move toward the $125 bear case with the moat intact — either improves the return maths more than any narrative change.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the 1.5% suggested weight to the value you enter. In-memory only — nothing is saved or sent anywhere.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SIEGY — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $147.95.</strong> <strong>DCF intrinsic: $93.</strong> Discount/premium vs DCF: <strong>+59.1%</strong> — i.e. the shares are trading 59.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$93</td><td>+59.1%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$10.8B</strong>; constant growth g <strong>5%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$84.37B</strong>; PV of terminal value <strong>$99.80B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-38.97B</strong>; divided by <strong>1,564.00m</strong> diluted shares = <strong>$93</strong>. Base FCF $10.80B = OCF $13.32B − capex $2.51B, TTM (TipRanks/Fool; originally EUR — treated here as the vendor-reported USD figure for the ADR, see OTC caveat). Growth g 5% = pack 5-year base CAGR. Net cash −$38.97B (cash $10.93B − debt $49.90B, TipRanks/Fool). Shares 1,564m ADR shares (TipRanks/MarketBeat). DPS $3.17 (TipRanks; Fool yield 2.14% × price agrees). OTC ADR — figures are vendor-reported USD approximations; treat as UNVERIFIED for precision.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://www.tipranks.com/stocks/siegy/statistics , https://twelvedata.com/markets/577711/stock/otc/siegy/statistics ; price 30 Oct 2026 close $147.95 (OTC ADR). All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SIEGY — Top customers (B2B)</h2>
+<p>Siemens is classified <strong>B2B</strong>: automation, smart infrastructure and mobility products are sold to manufacturers, utilities, transport operators and healthcare providers. No ranked customer list is disclosed in the pack.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Industrial manufacturers (factory automation and digitalisation)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Utilities and grid operators (smart infrastructure)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Rail and mobility operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Healthcare providers (via Siemens Healthineers)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Data-centre operators and builders</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Building owners and operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Governments and public infrastructure buyers</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Siemens' breadth across automation, grid and mobility means no single customer type dominates, which limits the read-through: there is no covered customer in this table whose discount or premium would, on its own, move Siemens' order intake. The relevant signal is instead the factory-automation cycle and grid/digitalisation spending in Europe and China flagged in the pack — a broad industrial recovery would be the tailwind, and a European manufacturing downturn the headwind, regardless of any single customer's valuation. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SIEGY — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Siemens is an AI beneficiary through factory automation and industrial software: AI-native manufacturing and grid digitalisation are explicit pack catalysts, alongside industrial AI partnerships.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: Digital Industries automation/software and Smart Infrastructure grid equipment for data centres and electrification, plus Mobility; the pack cites factory-automation recovery and AI-native industrial software as catalysts. Multiple channel: SIEGY's ~25× P/E in the pack embeds a digitalisation premium that an AI unwind would trim even if automation orders held.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: manufacturers defer automation upgrades and data-centre/grid projects slip if AI spending pauses, hitting Digital Industries first. Second, multiple compression: medium — from ~25× toward a through-cycle industrial multiple in the high-teens. Third, balance sheet: moderate — net debt $38.97B and conglomerate complexity (including the Healthineers stake) mean an unwind would test the sum-of-the-parts story rather than solvency. Trigger to watch: a European manufacturing downturn or a China-exposure setback coinciding with AI-sentiment reversal.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Every key figure in this note traces to the research pack for SIEGY (as of 1 Nov 2026, price reference 30 Oct 2026 close) and its independent verification log. Where the pack and the log conflict, the log wins — hence the Unverified labels on SIEGY price / cap / P/E. Scenario prices are modelled estimates from the pack, with weights and maths shown in §5.</p>
+  <ol class="refs">
+    <li><a href="https://www.marketbeat.com/stocks/ETR/SIE/" target="_blank" rel="noopener">MarketBeat — Siemens (Xetra: SIE): €265.65 on 30 Oct, market cap €220.6B, dividend yield ~2.0%</a></li>
+    <li><a href="https://marketcapof.com/stocks/smawf.us/pe-ratio/" target="_blank" rel="noopener">MarketCapOf — Siemens-family TTM P/E 24.9× (as carried in the pack)</a></li>
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Industrials Companies: global ranking basis (rankings/metrics as of 5 Oct 2026), Siemens model, TTM revenue $91.0B / gross $35.8B, P/S 2.5×, moat &amp; partnerships</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimers.</b> This note is research for information only — not investment advice, not a recommendation to any other investor, and not a guarantee of future returns. All price targets and 5-year prices are modelled estimates based on the assumptions and weights shown in §5; actual outcomes will differ. SIEGY price, market-cap and P/E figures are labelled Unverified because the independent verification pass for this sector did not re-check them. OTC ADR prices are thin and indicative. Verify figures against Siemens AG&rsquo;s own filings and your broker&rsquo;s live prices before acting. Past performance does not predict future performance.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function render(){
+    var v=parseFloat(input.value);
+    if(isNaN(v)||v<0){out.innerHTML='Enter a portfolio value to see the 1.5% sizing.';return;}
+    var target=v*0.015;
+    var shares=target/147.95;
+    out.innerHTML='At <b>1.5%</b>, target SIEGY position ≈ <b>'+fmt(target)+'</b> — about <b>'+shares.toFixed(1)+' shares</b> at the $147.95 reference price (before FX / ADR fees; Xetra sizing will differ).';
+  }
+  input.addEventListener('input',render); render();
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=Array.prototype.map.call(links,function(a){return document.querySelector(a.getAttribute('href'));});
+  function onScroll(){
+    var y=window.scrollY+120, idx=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)idx=i;});
+    links.forEach(function(a,i){a.classList.toggle('on',i===idx);});
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

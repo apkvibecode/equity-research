@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — XOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#102f3a; --blue:#0b5c6b; --blue-soft:#e0edef;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1214; --paper:#141a1d; --ink:#e8e6df; --ink2:#b9c2c6; --muted:#8b969b;
+    --line:#2a3338; --line2:#3a454b;
+    --navy:#a8cdd4; --blue:#6fb6c3; --blue-soft:#193038;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171e22; --chip:#1e282c;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)} .vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)} .up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)} section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)} p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)} li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0} .warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 86px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)} .bar-track{height:16px;background:var(--chip)} .bar-fill{height:100%;background:var(--blue)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px} @media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:118px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0} @media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.11em;text-transform:uppercase} .pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0} @media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600} .sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#193038;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700} .wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:64ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.05em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)} .pill.hold{background:var(--amber-soft);color:var(--amber)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.05em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)} .calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px} @media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:90ch}
+.est{font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--amber);text-transform:uppercase}
+@media print{nav.toc{position:static} body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Integrated Oil &amp; Gas</span></div>
+  <h1>ExxonMobil <span class="tick">(NYSE: XOM)</span></h1>
+  <p class="lede">The largest US oil company just printed the cleanest cash quarter in this coverage set: $25.7B of operating cash flow, $19.1B of free cash flow in Q3 alone, $9.4B handed straight back to shareholders, net debt cut — and a 44th consecutive annual dividend increase on top. XOM is not a growth story priced for perfection. It is an income-plus-buyback compounder whose low-cost Permian and Guyana barrels fund the return even when the oil price does nothing heroic.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $187.25 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026, reported 30 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <p class="small" style="margin-top:10px"><b>Ranking basis:</b> Global top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026; prices at 30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ. Names are not in strict market-cap order as printed in the source ranking.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$187.25</div><div class="vsub">Confirmed on StockAnalysis / Finnhub official-close feed</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$748.5B</div><div class="vsub">FinanceCharts — use this source; Finnhub caps differ for this name</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">22.6×</div><div class="vsub">P/S ~2.1–2.3× · TTM EPS $6.70 as reported by Finnhub</div></div>
+  <div class="vcell span3"><div class="vlabel">Q4 dividend</div><div class="vbig mono">$1.07</div><div class="vsub up">+4% · 44th annual increase · payable 10 Dec 2026</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base target $205 (+10%, modelled estimate). Cash return is immediate, not promised.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Income + buyback compounder. Modelled weighted 5-yr value ≈ $206 — price upside is modest; the return is the distributions along the way.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.5% of portfolio</div><div class="vsub">Energy anchor weight. See §6 for role and limits.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Cash flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>ExxonMobil beat adjusted expectations and — more importantly for this thesis — converted the beat into cash and then into shareholder returns in the same quarter. Adjusted EPS of <b>$4.23</b> came in ahead of the <b>$4.08</b> expected; free cash flow of <b>$19.1B</b> covered the quarter's <b>$9.4B</b> of distributions roughly twice over, with room left to cut net debt.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026</th><th class="n">Actual</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>GAAP earnings / EPS</td><td class="n">$15.4B / $3.72</td><td>Reported (GAAP) result — $15,413m / $3.72, confirmed against the company release</td></tr>
+      <tr class="hl"><td>Adjusted earnings / EPS</td><td class="n">$17.5B / $4.23</td><td>Beat vs $4.08 expected — the cleaner read on underlying operations</td></tr>
+      <tr><td>Operating cash flow</td><td class="n">$25.7B</td><td>The engine: cash generated before capex in a single quarter</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">$19.1B</td><td>After capex — implies ~$6.6B of capex in the quarter ($25.7B − $19.1B, arithmetic)</td></tr>
+      <tr><td>Shareholder distributions</td><td class="n">$9.4B</td><td>$4.3B dividends + $5.1B buybacks = ~49% of Q3 FCF (arithmetic) — the rest cut debt / built the balance sheet</td></tr>
+      <tr><td>Net debt change</td><td class="n">−$8B in Q3 · −$11B YTD</td><td>Deleveraging while paying out — the balance sheet is moving the right way at the same time as the dividend rises</td></tr>
+      <tr><td>Free cash flow, 9 months</td><td class="n">$39B, +90% YoY</td><td>The Q3 strength is a nine-month trend, not a one-quarter spike</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: ExxonMobil Q3 2026 results via BusinessWire (30 Oct 2026) and the Motley Fool earnings-call transcript / dividend coverage linked in Sources. Adjusted vs GAAP is labelled throughout — do not mix the two EPS figures.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 cash flow — where $25.7B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 270" width="100%" role="img" aria-label="Flow of ExxonMobil Q3 2026 operating cash flow into free cash flow, dividends, buybacks and debt reduction" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="88" width="190" height="64" fill="var(--navy)"/><text x="22" y="114" font-size="14" font-weight="700" fill="#fff">Operating cash flow</text><text x="22" y="134" font-size="13" fill="#fff">$25.7B</text>
+      <rect x="300" y="88" width="190" height="64" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="314" y="114" font-size="14" font-weight="700" fill="var(--ink)">Free cash flow</text><text x="314" y="134" font-size="12" fill="var(--ink2)">$19.1B (after ~$6.6B capex)</text>
+      <line x1="198" y1="120" x2="296" y2="120" stroke="var(--muted)" stroke-width="10" opacity=".35"/>
+      <rect x="590" y="18" width="210" height="52" fill="var(--green-soft)" stroke="var(--line2)"/><text x="604" y="40" font-size="13" font-weight="700" fill="var(--ink)">Dividends</text><text x="604" y="58" font-size="12" fill="var(--ink2)">$4.3B paid in Q3</text>
+      <rect x="590" y="88" width="210" height="52" fill="var(--green-soft)" stroke="var(--line2)"/><text x="604" y="110" font-size="13" font-weight="700" fill="var(--ink)">Buybacks</text><text x="604" y="128" font-size="12" fill="var(--ink2)">$5.1B in Q3</text>
+      <rect x="590" y="158" width="210" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="604" y="180" font-size="13" font-weight="700" fill="var(--ink)">Net debt reduction</text><text x="604" y="198" font-size="12" fill="var(--ink2)">Net debt −$8B in Q3</text>
+      <line x1="490" y1="104" x2="586" y2="48" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="490" y1="120" x2="586" y2="114" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="490" y1="136" x2="586" y2="180" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <rect x="590" y="228" width="382" height="34" fill="var(--paper)" stroke="var(--line2)"/><text x="604" y="250" font-size="12" font-weight="700" fill="var(--ink)">Distributions $9.4B ≈ 49% of Q3 FCF — payout and deleveraging together</text>
+    </svg>
+    <figcaption>All figures Q3 2026 from the company release via BusinessWire. Capex (~$6.6B) and the 49% payout share are arithmetic from the reported OCF, FCF and distribution figures, not separately reported lines. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>ExxonMobil is the <b>largest US oil company</b> — an integrated model that earns at every step from wellhead to forecourt, which is precisely why its cash flow holds up better across the oil cycle than a pure producer's. When crude falls, refining and chemicals margins often widen; when crude rises, upstream carries the quarter. Q3 2026 showed both engines firing at once.</p>
+
+  <h3>Segments</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment</th><th>What it does</th><th>Evidence in Q3 2026</th></tr></thead>
+    <tbody>
+      <tr><td>Upstream</td><td>Oil &amp; gas exploration and production — anchored by low-cost Permian (US shale) and Guyana (offshore) barrels</td><td>Segment earnings <b>$7.1B</b> in Q3 (per Finbold, as carried in the research pack)</td></tr>
+      <tr><td>Energy Products</td><td>Refining and fuels marketing — scale refining with high utilisation</td><td>Segment earnings <b>$7.2B</b> in Q3 (per Finbold) — the quarter's largest contributor, ahead of Upstream</td></tr>
+      <tr><td>Chemical Products</td><td>Petrochemicals and plastics feedstocks</td><td>Part of the integrated earnings base; no separate Q3 segment figure is carried in the verified pack, so none is presented here</td></tr>
+      <tr><td>Low Carbon Solutions</td><td>Carbon capture, hydrogen and lower-emission fuels — the transition option inside the portfolio</td><td>Strategic segment in the company's structure; treat as optionality, not a current earnings driver on the verified figures</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Segment earnings for Upstream and Energy Products are as reported in the research pack via Finbold; the pack does not carry verified Q3 figures for Chemical Products or Low Carbon Solutions, so this note does not invent them.</p>
+
+  <h3>Scale</h3>
+  <ul>
+    <li><b>TTM revenue $326–361B</b> — the range is real, not sloppiness: FinanceCharts reports $326.0B and Motley Fool $361.1B on different trailing-twelve-month windows. Either way, XOM is a ~$0.75 trillion market-cap company ($748.5B, FinanceCharts) selling at roughly <b>2.1–2.3× sales</b>.</li>
+    <li><b>Structural pivot — toward advantaged barrels:</b> the portfolio's centre of gravity has shifted to Permian and Guyana, the low-cost barrels the moat section prices. Growth capital follows those assets; higher-cost production is the funding source, not the future.</li>
+    <li><b>Supply-chain dependencies:</b> as an integrated major, XOM's critical dependencies are crude logistics, refining throughput and offshore/shale service capacity — and, on the other side, exposure to the same Middle East supply picture that lifted 2026 refining margins (see §4: what helps can unwind).</li>
+  </ul>
+
+  <div class="bars" aria-label="Q3 segment earnings comparison for the two segments with verified figures">
+    <div class="bar-row"><span class="bl">Energy Products</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$7.2B</span></div>
+    <div class="bar-row"><span class="bl">Upstream</span><div class="bar-track"><div class="bar-fill gold" style="width:99%"></div></div><span class="bv">$7.1B</span></div>
+  </div>
+  <p class="small">Q3 2026 segment earnings for the two segments with figures in the verified pack (Finbold). Near-parity between refining and upstream is the integrated model working as designed.</p>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>This is the strongest part of the XOM case, and Q3 made it stronger. Most energy names force a choice — pay the dividend <i>or</i> protect the balance sheet. ExxonMobil in Q3 did both, raised the dividend for next quarter, and pre-committed a <b>$20B buyback pace for 2027</b>.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $187.25 (30 Oct 2026 close).</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">22.6×</td><td>Finnhub — not cheap for an oil major in absolute terms; the market is paying for cash-return durability, not just the cycle</td></tr>
+      <tr><td>EPS (as reported by Finnhub)</td><td class="n">$6.70</td><td>Vendor figure as carried in the pack. <b>Reconciliation flag:</b> $187.25 ÷ $6.70 = 27.9×, not 22.6× — so the vendor's P/E and EPS rest on different bases or dates (22.6× implies EPS ≈ $8.29). Both are shown exactly as reported and neither is restated; Q3 alone printed $3.72 GAAP / $4.23 adjusted — do not annualise a single quarter</td></tr>
+      <tr><td>Price / Sales</td><td class="n">~2.1–2.3×</td><td>On TTM revenue of $326B (FinanceCharts) to $361B (Fool, different TTM window)</td></tr>
+      <tr><td>EV / EBITDA · forward P/E</td><td class="n">—</td><td>Not carried as verified figures in the research pack, so omitted rather than estimated here</td></tr>
+      <tr><td>Operating cash flow (Q3)</td><td class="n">$25.7B</td><td>Single-quarter cash generation at mega-cap tech scale, from a commodity business</td></tr>
+      <tr class="hl"><td>Free cash flow (Q3 / 9M)</td><td class="n">$19.1B / $39B</td><td>9M FCF +90% YoY — the year's defining financial fact for XOM</td></tr>
+      <tr><td>Dividend</td><td class="n">$1.07 for Q4</td><td>+4% (reported as +3.9% in Fool coverage), 44th consecutive annual increase, payable 10 Dec 2026. Annualised $4.28 ÷ $187.25 ≈ 2.3% yield at the reference price (arithmetic)</td></tr>
+      <tr><td>Buybacks</td><td class="n">$5.1B in Q3</td><td>Plus a $20B buyback pace planned for 2027 — a stated forward commitment, not a vague authorisation</td></tr>
+      <tr><td>Total distributions (Q3)</td><td class="n">$9.4B</td><td>≈49% of Q3 FCF — a payout ratio that leaves deleveraging room in the same quarter</td></tr>
+      <tr><td>Net debt</td><td class="n">−$8B Q3 · −$11B YTD</td><td>Net debt fell by those amounts — direction and pace both support the “balance sheet” leg of the moat</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good"><div class="ct">Capital allocation — the order is visible in the numbers</div>
+  <p>Q3's $19.1B of FCF split three ways at once: <b>$4.3B dividends, $5.1B buybacks, and an $8B net-debt reduction</b>. That is the whole investment case in one quarter — shareholders are paid in cash today, the share count shrinks for tomorrow, and the balance sheet that protects the dividend through an oil downturn gets stronger simultaneously. The 2027 commitment ($20B buyback pace, dividend raised again) says management intends to keep all three running.</p></div>
+
+  <h3>What to watch</h3>
+  <ul>
+    <li><b>FCF dependence on price:</b> +90% nine-month FCF growth was earned in a favourable margin environment (see the Middle East note in §4). The payout is covered at Q3 prices with room to spare; the honest question is coverage at materially lower crude — which is why the balance-sheet repair matters more than any single quarter's payout ratio.</li>
+    <li><b>The 22.6× P/E cuts both ways:</b> it already capitalises a lot of durability. If FCF normalises down from a margin peak, earnings — and the multiple the market will pay for them — can compress together.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide for an energy major — cost position plus integration plus balance sheet.</b> In commodities nobody has pricing power over the product; the moat is being the lowest-cost producer of it, integrated enough to earn when any single link in the chain is weak, and financed well enough to invest through downturns while rivals cut.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Low-cost barrels:</b> Permian and Guyana sit at the advantaged end of the global cost curve — the barrels that still make money when the oil price falls and marginal supply does not.</li>
+      <li><b>Refining scale &amp; utilisation:</b> Energy Products earning $7.2B in Q3 — level with Upstream — shows the downstream hedge working: refining margins can carry a quarter that crude alone would not.</li>
+      <li><b>Balance sheet:</b> net debt down $11B year-to-date while distributions rise. In a downturn, that is the difference between buying distressed assets and becoming one.</li>
+      <li><b>Dividend record as a signal:</b> 44 consecutive annual increases is a multi-decade, multi-cycle commitment device — management teams do not build that record unless the cash flows underneath it are structurally defended.</li>
+      <li><b>Scale:</b> $748.5B market cap, the largest US oil company — procurement, logistics, project execution and trading all compound at this size.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Commodity price-taker:</b> the product is fungible and the price is set globally. No cost moat survives a deep, sustained oil-price collapse intact — it only loses less than rivals.</li>
+      <li><b>Chevron and the US majors</b> compete for the same shale acreage, refining share and investor capital; international majors (Shell, TotalEnergies) and state producers set the global supply backdrop XOM cannot control.</li>
+      <li><b>State-controlled supply:</b> OPEC and national oil companies produce for fiscal and strategic goals, not shareholder returns — a competitor set that does not play by the moat's rules.</li>
+      <li><b>Energy-transition overhang:</b> Low Carbon Solutions is an option, not yet a second engine; long-dated demand risk for oil is a valuation discount the sector carries permanently.</li>
+      <li><b>Regulatory / litigation exposure:</b> climate litigation and regulation are standing risks for the largest Western major specifically — it is the most visible defendant and the most obvious regulatory target.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> XOM is the quality compounder of US energy — not the highest-beta way to play an oil rally, and not trying to be. Its edge is converting an uncontrollable commodity price into unusually controllable cash returns, cycle after cycle.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Guyana &amp; Permian growth</b> — continued ramp of the low-cost barrels raises the earnings base that is least sensitive to price, and supports further FCF growth from volume, not just margins.</li>
+        <li><b>Refining margins holding</b> — Q3's $7.2B Energy Products result shows what refining contributes when margins stay firm; persistence here is direct earnings upside.</li>
+        <li><b>The 2027 capital-return programme</b> — a $20B buyback pace plus the raised $1.07 quarterly dividend are already announced, dated catalysts: the cash return does not depend on a future decision.</li>
+        <li><b>Continued deleveraging</b> — at Q3's pace (−$8B in one quarter), each print that cuts net debt further hardens the dividend's downside protection and the quality premium in the multiple.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Oil-price collapse</b> — the master risk. Upstream earnings and FCF are geared to crude; a deep fall compresses FCF toward the distribution line and tests the payout-plus-deleveraging balancing act.</li>
+        <li><b>Middle East unwind</b> — Fool's coverage notes supply-disruption effects lifted 2026 margins. A normalisation of that disruption removes a tailwind that was never structural — margins earned in 2026 may not repeat.</li>
+        <li><b>Climate litigation &amp; regulation</b> — legal and policy costs are a recurring, hard-to-model drag for the sector's largest Western name.</li>
+        <li><b>Multiple compression</b> — at 22.6× trailing earnings, the stock prices in durable cash returns. A merely average year can de-rate the shares even without a crisis.</li>
+        <li><b>Geopolitics, both ways</b> — the same supply shocks that flatter margins can disrupt operations and logistics; energy is the sector most directly exposed to events no management team controls.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained oil-price fall deep enough that quarterly FCF approaches the ~$9–10B distribution run-rate. At that point the three-way split (dividend + buyback + deleveraging) cannot all continue, the buyback pace for 2027 gets revisited, and XOM re-prices from “cash compounder” back to “cyclical at 22×” — the bear case in §5.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><span class="est">Modelled estimates — not verified facts.</span> All targets below are this note's scenario model from the research pack, with prices and weights shown so the weighted figures can be checked arithmetically. Weights used throughout: <b>Bear 25% / Base 50% / Bull 25%</b>.</p>
+
+  <h3>12–18-month targets</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$155</div><div class="ret down">−17% vs $187.25</div><p>Oil price falls materially and the Middle East margin tailwind unwinds together; FCF compresses toward the payout line, the 2027 buyback pace is questioned, and the multiple de-rates from 22.6× toward cyclical levels.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$205</div><div class="ret up">+10% vs $187.25</div><p>Permian/Guyana volumes grow, refining stays solid without the disruption premium, and the announced returns ($1.07 dividend, $20B 2027 buyback pace) are delivered. Modest price upside plus the dividend is the expected return shape.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$240</div><div class="ret up">+28% vs $187.25</div><p>Crude and refining margins stay firm, Guyana/Permian growth beats, FCF sustains near the 2026 run-rate, and the market pays a fuller quality premium for the sector's most reliable cash return.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $201</div></div><p>0.25×$155 + 0.50×$205 + 0.25×$240 = $201.25, or about +7% price upside from $187.25 — before the ~2.3% annualised dividend yield implied by the $1.07 Q4 rate. For XOM, total return is the right lens: price alone understates the proposition.</p></div>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Method, as specified: parameters frozen at today's reference price with only the price path varying by case — no assumed buyback-driven share-count shrinkage or multiple expansion is smuggled in. The pack's base anchor is explicit: <b>2% annual price CAGR → $187.25 × 1.02⁵ = $187.25 × 1.104 ≈ $207</b>. Bull and bear endpoints are the pack's modelled estimates (~$270 / ~$140); implied CAGRs below are arithmetic from those endpoints.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Implied price CAGR / yr</th><th class="n">5-yr price</th><th class="n">vs $187.25</th><th>What has to be true</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −5.6%</td><td class="n">~$140</td><td class="n">−25%</td><td>A sustained low-price regime; distributions trimmed to defend the balance sheet; cyclical multiple</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+2%</td><td class="n">$207</td><td class="n">+11%</td><td>Mid-cycle oil, volume growth offsets price drift, dividend + buybacks continue — return comes mainly as cash distributions over the five years, not price</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +7.6%</td><td class="n">~$270</td><td class="n">+44%</td><td>Firm prices + Guyana/Permian delivery + sustained buybacks compound the per-share value</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">≈ +1.9%</td><td class="n">≈ $206</td><td class="n">+10%</td><td>0.25×$140 + 0.50×$207 + 0.25×$270 = $206 — modelled estimate, checkable from the prices and weights above</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Read the 5-year table correctly: a ~$206 weighted price is <i>not</i> a weak case for a holder who collects five years of dividends and buyback accretion along the way — but it does mean XOM's long-term return is income-led, not multiple-led. Anyone buying it expecting tech-style price compounding has bought the wrong stock. Illustrative model, not a forecast.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, risk score 8/10</b> — equity-heavy and able to ride commodity cycles without being forced to sell into one.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> The return is already contracted — raised dividend payable 10 Dec, $20B buyback pace set for 2027 — and Q3 FCF covered distributions ~2×. Weighted modelled value ≈ $201 plus the dividend. The main discipline: do not chase if crude spikes the share price well ahead of the base case without new cash-flow evidence.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy as the energy anchor.</b> Low-cost barrels, integration and a strengthening balance sheet make XOM the sector holding most likely to keep paying through a full cycle. Expect income-led total return (≈$206 weighted 5-yr price plus five years of distributions), not rapid price appreciation.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill hold">Review</span></td><td>Review if quarterly FCF falls toward the distribution run-rate for two consecutive quarters, if the 2027 buyback pace is cut, or if the dividend's annual-increase record is broken — any of those breaks the compounder premise, not just the quarter.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>XOM target: 2.5% of total portfolio.</b> That is an anchor weight for the energy sleeve — large enough for the dividend stream to be meaningful, small enough that a commodity down-cycle is a portfolio event, not a portfolio outcome.</li>
+    <li><b>Role:</b> ballast and income inside an 8/10-risk growth portfolio. XOM's cash returns are least correlated with the AI-capex names that dominate the rest of this coverage set — that diversification is the point of the position.</li>
+    <li><b>Reinvestment note:</b> the income-led thesis works best when distributions are reinvested (in XOM on weakness, or across the portfolio) rather than spent — compounding the payout is the return engine the 5-year model assumes you keep.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator is illustrative: 2.5% of the value you enter, and the approximate share count at the $187.25 reference price. It stores nothing and uses only the figure on this page.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — ExxonMobil (XOM)</h2>
+<p><strong>Price (30 Oct 2026 close): $187.25.</strong> <strong>DCF intrinsic: $101.</strong> Discount/premium vs DCF: <strong>+85.4%</strong> — i.e. the shares are trading 85.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$101</td><td>+85.4%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack Q3 2026 (Fool transcript); TipRanks XOM statistics https://www.tipranks.com/stocks/xom/statistics ; TwelveData https://twelvedata.com/markets/783775/stock/nyse/xom/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — ExxonMobil (XOM)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: ExxonMobil sells crude, natural gas, refined products and chemicals into global spot and term markets, and no single customer is disclosed as a concentration. Its buyers are refiners, chemical manufacturers, distributors, airlines and utilities — a diversified business/government customer base.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Refiners and petrochemical manufacturers (global)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Fuel distributors, retailers and airlines</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Utilities and industrial gas buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Traders and spot-market buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> With no disclosed customer concentration and no covered-ticker customer identified, the read-through is market-wide rather than single-name: undervalued refiners, chemical makers and utilities would be a potential tailwind to ExxonMobil&#x27;s product demand only if their undervaluation translated into higher throughput and orders — which depends on their own margins, inventories and capex priorities, not on their share price alone — while an overvalued, retrenching downstream would be a headwind through weaker crack spreads and chemical margins.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — ExxonMobil (XOM)</h2>
+<p><strong>Role: Beneficiary.</strong> Data-centre power demand is a genuine gas (and, via grid backup, diesel) demand channel for the world&#x27;s largest US oil company, and its Low Carbon Solutions unit sells directly into the emissions story around AI power.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 22.6 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price, market cap and Q3 2026 figures were independently verified on 1 Nov 2026 against a second source (see verification notes in the research pack); where vendors differ, the source used is named beside the figure. Scenario targets are modelled estimates, not sourced facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.businesswire.com/news/home/20261030473047/en/ExxonMobil-Announces-Third-Quarter-2026-Results" target="_blank" rel="noopener">BusinessWire — ExxonMobil Q3 2026 results: $15.4B / $3.72 GAAP, $17.5B / $4.23 adjusted, OCF $25.7B, FCF $19.1B, $1.07 dividend</a></li>
+    <li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/30/exxonmobil-xom-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">Motley Fool — XOM Q3 2026 earnings call transcript (30 Oct 2026)</a></li>
+    <li><a href="https://www.fool.com/investing/2026/11/01/exxon-just-raised-its-dividend-by-3-9-its-free-cash-flow-has-surged-90-this-year-here-s-what-that-gap-means/" target="_blank" rel="noopener">Motley Fool (1 Nov 2026) — dividend +3.9%, nine-month FCF +90%</a></li>
+    <li><a href="https://www.minichart.com.sg/2026/10/30/exxonmobil-posts-15-4b-3q26-earnings-19-1b-free-cash-flow-sets-20b-2027-buyback/" target="_blank" rel="noopener">Minichart — Q3 earnings, $19.1B FCF, $20B 2027 buyback pace</a></li>
+    <li><a href="https://stockanalysis.com/stocks/xom/history/" target="_blank" rel="noopener">StockAnalysis — XOM price history (30 Oct 2026 close $187.25)</a></li>
+    <li><a href="https://www.FinanceCharts.com/stocks/XOM/summary/price" target="_blank" rel="noopener">FinanceCharts — XOM market cap $748.5B and TTM revenue</a></li>
+    <li><a href="https://finnhub.io/?q=%22XOM%22" target="_blank" rel="noopener">Finnhub — XOM trailing P/E 22.6× and EPS as carried in the pack</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research for information only, dated 1 Nov 2026 with a price reference of the 30 Oct 2026 close. Buy/sell/hold views and portfolio weights are research opinions for the stated investor profile (mid-30s, risk 8/10), not guarantees, not personalised financial advice, and not a recommendation to any other reader. Modelled targets are estimates built on the stated scenario prices and weights; actual outcomes will differ, and energy equities are exposed to commodity prices that can move sharply. Verify figures against the linked primary sources before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  if(!input||!out) return;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.5% sizing.';return;}
+    var alloc=v*0.025, shares=alloc/187.25;
+    var sh=shares.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:1});
+    out.innerHTML='At <b>2.5%</b>: <b>$'+fmt(alloc)+'</b> in XOM ≈ <b>'+sh+' shares</b> at $187.25 (fractional; whole-share purchases will differ slightly).';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

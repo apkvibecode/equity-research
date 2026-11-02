@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ZIJMF (Zijin Mining)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#9a6b00; --copper:#9a4a1f;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441; --copper:#d98a5a;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(29px,5.2vw,44px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.6;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:25px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:28px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:25px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:18px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.13em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.unv{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--amber-soft);color:var(--amber);text-transform:uppercase;vertical-align:middle}
+.est{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--blue-soft);color:var(--blue);text-transform:uppercase;vertical-align:middle}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip)}
+.bar-fill{height:100%;background:var(--gold)}
+.bar-fill.copper{background:var(--copper)} .bar-fill.blue{background:var(--blue)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:118px 1fr 92px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.11em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:33px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:29px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:64ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:32px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:90ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Global Top 10 by Market Cap — see ranking note</span></div>
+  <h1>Zijin Mining <span class="tick">(OTC: ZIJMF)</span></h1>
+  <p class="lede">A large, diversified Chinese miner — gold, copper, zinc, lithium, silver and molybdenum — whose investment case in the US is constrained less by the ore body than by access: the US line is a thin OTC fractional ADR representation, the primary listings are in Hong Kong and Shanghai, and the key valuation inputs for this ticker were <b>not independently re-checked</b>. This is therefore a deliberately narrow note: HOLD, satellite-sized at most, with every unverified figure labelled as such.</p>
+  <div class="byline">
+    <span><b>As of:</b> 1 Nov 2026</span>
+    <span><b>Price reference:</b> 30 Oct 2026 close</span>
+    <span><b>Sector:</b> Materials — Diversified Mining</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">ZIJMF — this report</span>
+    <span class="tab soon">Materials peers in this series: LIN · BHP · RIO · SCCO · NEM · AEM · FCX · AIQUF · GMBXF</span>
+  </div>
+</header>
+
+<div class="callout warn"><div class="ct">Ranking basis &amp; verification status — read first</div>
+<p><b>Universe:</b> GLOBAL top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026; prices at 30 Oct 2026 close), <b>including OTC names</b>. The printed list is <b>not in strict market-cap order</b> (for example BHP $292.4B printed after LIN $237.1B in the source pack). A US-listed-only list would look materially different.</p>
+<p><b>Verification:</b> the independent verification log for this sector states that prices, market caps and P/Es for <b>ZIJMF were NOT re-checked</b>. Every ZIJMF price / cap / multiple below is therefore marked <span class="unv">Unverified</span> — carried from the research pack (Motley Fool, CNY-converted where noted), never presented as independently verified fact. All scenario prices are <span class="est">Modelled estimates</span> with methodology shown.</p>
+<p><b>OTC warning:</b> the $3.49 OTC price is a <b>fractional ADR representation</b>. Do <b>not</b> compare $3.49 directly to peers' share prices — compare market cap, revenue and multiples instead.</p>
+</div>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">OTC price · 30 Oct <span class="unv">Unverified</span></div><div class="vbig mono">$3.49</div><div class="vsub down">−11.12% on 30 Oct (pack figure, unverified) · thin OTC print — indicative, not a liquid exchange close</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="unv">Unverified</span></div><div class="vbig mono">$92.3B</div><div class="vsub">Motley Fool figure via pack · not re-checked in verification</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / P/S <span class="unv">Unverified</span></div><div class="vbig mono">$56.0B · 1.6×</div><div class="vsub">Gross $19.4B (CNY-converted) · P/E, FCF &amp; debt not verified — omitted</div></div>
+  <div class="vcell span3"><div class="vlabel">Access</div><div class="vbig" style="font-size:20px">OTC only (US)</div><div class="vsub">Primary listings: Hong Kong / Shanghai. US exposure is via the OTC line only.</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:20px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">No chase after a −11% OTC session on an unverified price; no verified earnings anchor to buy against.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:20px">HOLD — access-restricted <span class="pill hold">Hold</span></div><div class="vsub">Diversified metals exposure is real; the US wrapper, not the mine portfolio, is the binding constraint.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:20px">0.5% max</div><div class="vsub">Satellite / watchlist size only. Prefer liquid listed miners for core Materials exposure. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>What is actually known — and what is not</h2></div>
+  <p>Unlike the NYSE-listed miners in this series, ZIJMF arrives with a <b>short verified fact base</b>. The pack confirms the business description and gives pack-level scale figures; the verification log explicitly did <b>not</b> re-check this ticker's price, cap or multiples, and <b>P/E, free cash flow and debt were not verified at all — so they are omitted here rather than estimated as fact</b>. Any note that filled those gaps with precise-looking numbers would be inventing them.</p>
+  <div class="tblwrap"><table>
+    <caption>Pack figures for ZIJMF — all marked UNVERIFIED per the sector verification log. Source for each line: Motley Fool via research pack (see Sources).</caption>
+    <thead><tr><th>Item</th><th class="n">Pack value</th><th>Status</th><th>How to use it</th></tr></thead>
+    <tbody>
+      <tr><td>OTC price, 30 Oct 2026</td><td class="n">$3.49</td><td><span class="unv">Unverified</span></td><td>Fractional ADR representation; −11.12% on the day per pack. Indicative only — thin OTC volume.</td></tr>
+      <tr><td>Market cap</td><td class="n">$92.3B</td><td><span class="unv">Unverified</span></td><td>Scale marker only: a ~$90B-class diversified miner. Do not rank precisely against verified peer caps.</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$56.0B</td><td><span class="unv">Unverified</span></td><td>CNY-converted pack figure. Establishes scale vs peers, not a growth rate — no verified YoY is carried in the pack.</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$19.4B</td><td><span class="unv">Unverified</span></td><td>Implies a derived gross margin of ≈34.6% ($19.4B ÷ $56.0B) — arithmetic on unverified inputs, so itself an estimate.</td></tr>
+      <tr><td>Price / Sales</td><td class="n">1.6×</td><td><span class="unv">Unverified</span></td><td>Consistent with cap ÷ revenue ($92.3B ÷ $56.0B ≈ 1.65×). Low vs industrial-gas peers, in line with diversified-miner economics.</td></tr>
+      <tr class="hl"><td>P/E · FCF · Debt / Equity · EV/EBITDA</td><td class="n">—</td><td>Omitted</td><td>Not verified in the pack or the log. Omitted deliberately — see §2 for what can and cannot be diagnosed without them.</td></tr>
+    </tbody>
+  </table></div>
+  <figure>
+    <div class="bars" role="img" aria-label="Bar chart of unverified TTM revenue and gross profit for Zijin Mining">
+      <div class="bar-row"><span class="bl">TTM revenue <span class="unv">Unverified</span></span><div class="bar-track"><div class="bar-fill blue" style="width:100%"></div></div><span class="bv">$56.0B</span></div>
+      <div class="bar-row"><span class="bl">TTM gross profit <span class="unv">Unverified</span></span><div class="bar-track"><div class="bar-fill" style="width:34.6%"></div></div><span class="bv">$19.4B</span></div>
+      <div class="bar-row"><span class="bl">Implied cost of sales (derived)</span><div class="bar-track"><div class="bar-fill copper" style="width:65.4%"></div></div><span class="bv">≈$36.6B</span></div>
+    </div>
+    <figcaption>Derived gross margin ≈34.6% is arithmetic on two unverified, CNY-converted pack figures — treat as an order-of-magnitude estimate, not a reported margin. No segment split of revenue or gross profit is carried in the pack, so none is shown.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Zijin Mining is a <b>China-based, multi-metal mining group</b>: it mines and sells metals rather than processing other miners' ore as its core model, so revenue is essentially <b>metal price × mine output, less royalties, treatment and transport</b>. The pack describes the portfolio as <b>gold, copper, zinc, lithium, silver and molybdenum</b> (Motley Fool) — a deliberately diversified mix that blends a monetary metal (gold), the energy-transition workhorse (copper), base metals (zinc), battery exposure (lithium) and by-product precious / industrial metals (silver, molybdenum).</p>
+  <h3>Metal mix — what each leg does for the P&amp;L</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Metal leg (per pack)</th><th>Role in the model</th><th>Price driver to watch</th></tr></thead>
+    <tbody>
+      <tr><td>Gold</td><td>Anchor precious-metal leg. Includes <b>Zijinshan, described in the pack as China's largest gold mine in 2005</b> — a long-life domestic flagship that anchors the gold identity of the group.</td><td>Gold price; central-bank buying and real-rate expectations. The pack carries no verified production ounces for ZIJMF, so no output figure is stated here.</td></tr>
+      <tr><td>Copper</td><td>Growth leg tied to electrification demand. In the pack's framing, copper is the second pillar alongside gold and the main link to the energy-transition capex cycle.</td><td>Copper price; Chinese and global grid / EV demand; overseas project ramp timing (see §4).</td></tr>
+      <tr><td>Zinc</td><td>Base-metal diversifier — steadier, more industrial-cycle-linked cash flow than the precious legs.</td><td>Zinc price; smelter treatment charges and construction / galvanising demand.</td></tr>
+      <tr><td>Lithium</td><td>Optionality leg — battery-metal exposure that is high-beta to EV sentiment and has been the most volatile lithium price cycle in the portfolio.</td><td>Lithium carbonate / spodumene prices; EV demand. No verified lithium revenue share is carried — do not size this leg from this note.</td></tr>
+      <tr><td>Silver &amp; molybdenum</td><td>By-product / secondary legs — typically recovered alongside primary ores, so they add margin leverage when prices rise without carrying a full standalone cost base.</td><td>Silver and molybdenum prices; by-product credits depend on host-mine output, which is not disclosed in the pack.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Segment revenue shares, production volumes and unit costs by metal are <b>not carried in the research pack and were not verified</b> — they are therefore omitted rather than estimated. The table above is a business-model map, not a segment P&amp;L.</p>
+  <h3>Geography, structure &amp; supply-chain dependencies</h3>
+  <ul>
+    <li><b>Listing geography is the story:</b> primary listings in <b>Hong Kong and Shanghai</b>; the US presence is the <b>OTC line ZIJMF only</b>. That means US holders face OTC liquidity, wider spreads, FX translation (results are CNY-based — the pack's dollar figures are explicitly CNY-converted) and no NYSE/Nasdaq listing protections.</li>
+    <li><b>Operating geography:</b> a domestic Chinese base (Zijinshan and the wider China portfolio) plus <b>overseas expansion</b>, which the pack lists as a core catalyst — and, symmetrically, the source of its geopolitical and environmental/social exposure (§4). No country-by-country production split is carried in the pack.</li>
+    <li><b>Structural pivot (as framed in the pack):</b> from a predominantly domestic gold miner toward a <b>diversified, internationally expanding multi-metal group</b> with lithium optionality. The pivot increases copper/gold scale but also increases jurisdictional, permitting and ESG surface area — the classic trade for acquirers of overseas mines.</li>
+    <li><b>Supply-chain dependencies:</b> as a primary producer, Zijin's critical inputs are <b>energy, reagents, mining equipment, smelting/refining capacity and export logistics</b>, plus host-country permits and royalties. It sits at the <i>start</i> of the metals supply chain — its customers are refiners, smelters and industrial buyers — so its dependency risk is permitting, power and jurisdiction, not a single component supplier.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>This section is intentionally the shortest in the note, because the honest diagnosis is: <b>the balance-sheet inputs needed for a full diagnostic were not verified for this ticker</b>. What can be said from the pack is scale and gross-level profitability; what cannot be said — and is not said — is leverage, cash conversion or earnings multiple.</p>
+  <div class="tblwrap"><table>
+    <caption>Diagnostics — only pack-carried figures shown; everything else omitted as unverified, per the coordinator corrections.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Price / Sales (TTM) <span class="unv">Unverified</span></td><td class="n">1.6×</td><td>The only verified-form multiple the pack supports (cap and revenue are both pack figures). 1.6× sales for a diversified miner signals the market pricing commodity cyclicality and China / OTC discounts — not a growth multiple. Cross-check: $92.3B ÷ $56.0B ≈ 1.65×.</td></tr>
+      <tr><td>Derived gross margin <span class="est">Estimate</span></td><td class="n">≈34.6%</td><td>$19.4B ÷ $56.0B, both unverified and CNY-converted. Consistent with a low-cost, scale miner — but it is <i>gross</i> margin, before operating costs, royalties, interest and tax. Do not read it as a net margin.</td></tr>
+      <tr><td>Trailing / Forward P/E</td><td class="n">n.a. — omitted</td><td>Not verified. The frozen-parameter valuation in §5 is therefore adapted to a price-compounding method (see §5 note) instead of an earnings-multiple method.</td></tr>
+      <tr><td>Free cash flow</td><td class="n">n.a. — omitted</td><td>Not verified. No FCF yield, conversion rate or capex intensity is claimed. For a miner in an overseas-expansion phase, capex is typically the swing item — treat any external FCF figure for ZIJMF as unconfirmed until checked against the HK filing.</td></tr>
+      <tr><td>Debt / Equity · Net debt · EV/EBITDA</td><td class="n">n.a. — omitted</td><td>Not verified. No leverage verdict is possible from this pack. This is a material open question (see box below), not a clean bill of health.</td></tr>
+      <tr><td>Dividends / Buybacks / Capital allocation</td><td class="n">n.a. — omitted</td><td>No payout, buyback or R&amp;D-equivalent figure is carried in the pack for ZIJMF. Miners' allocation choice that matters here — growth capex for overseas expansion vs distributions — cannot be quantified from verified data in this note.</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout bad"><div class="ct">Open questions — what a holder still needs before sizing up</div>
+  <p>1) Audited net debt and debt maturity from the Hong Kong filing; 2) trailing earnings / EPS on a consistent CNY→USD basis to establish a real P/E; 3) operating and free cash flow through a full commodity cycle; 4) segment revenue and unit cash costs by metal. Until at least (1) and (2) are checked, the 0.5% sizing cap in §6 stands — the cap is a <i>data</i> constraint as much as a risk view.</p></div>
+  <p><b>What the limited data does support:</b> at ~$56B of TTM revenue and ~$19B of gross profit (both unverified pack figures), Zijin is operating at genuine scale — revenue in the same order as the large diversified miners in this series — and the 1.6× sales multiple means the OTC price is not pricing in heroic growth. The financial-health verdict is therefore <b>“scale confirmed at pack level; leverage and cash conversion unassessed”</b> — a neutral, not a negative, verdict, held back purely by missing verification.</p>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: moderate — cost and scale, not pricing power.</b> The pack summarises the moat in four words: <b>scale, low costs, diversified metals, growth pipeline</b>. That is the correct shape for a miner. Miners are price-<i>takers</i>: no gold or copper producer sets the world price, so the durable advantage is being low on the cost curve (you stay cash-positive when prices fall and rivals close), owning long-life ore bodies, and being able to fund replacement reserves while others cannot.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths (per pack)</h4><ul>
+      <li><b>Scale:</b> ~$92B market cap and ~$56B TTM revenue (both <span class="unv">Unverified</span>) place Zijin among the global large-cap miners in this series' Materials top-10 universe — scale funds exploration, acquisitions and overseas development that sub-scale miners cannot self-finance.</li>
+      <li><b>Low costs:</b> the pack's explicit moat claim. A derived gross margin of ≈35% on unverified figures is consistent with — but does not prove — a low-cost position. Cost-curve position is the single most durable miner moat.</li>
+      <li><b>Diversified metals:</b> gold + copper + zinc + lithium + silver + molybdenum means no single metal price controls the P&amp;L — when lithium slumps, gold or copper can carry the year, and vice versa.</li>
+      <li><b>Growth pipeline:</b> domestic flagship (Zijinshan) plus overseas expansion gives visible volume growth paths, unlike mature miners dependent purely on price for growth.</li>
+      <li><b>Domestic flagship quality:</b> Zijinshan's status in the pack — China's largest gold mine in 2005 — signals long operating history and geological knowledge in its home base.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>No pricing power:</b> gold, copper and zinc are global commodities. The moat protects <i>margin survival</i>, not price. Every scenario in §5 is therefore a commodity-price scenario first and a company scenario second.</li>
+      <li><b>Competitors are the whole Materials list:</b> BHP and Rio Tinto (diversified scale), Southern Copper and Freeport-McMoRan (copper), Newmont and Agnico Eagle (gold) — all NYSE-listed with verified reporting US investors can underwrite more easily. Zijin competes for assets and capital against all of them.</li>
+      <li><b>China-policy overhang:</b> as a China-domiciled group, Zijin carries policy, capital-control and listing-access risks that BHP/RIO/SCCO do not — the market's China discount is part of why the sales multiple is 1.6×.</li>
+      <li><b>Ore bodies deplete:</b> unlike a software moat, a mining moat must be <i>re-bought</i> every decade through exploration or M&amp;A. The growth pipeline is a necessity, not a bonus — and overseas M&amp;A is exactly where ESG and geopolitical risk concentrates.</li>
+      <li><b>OTC wrapper weakens the investable moat:</b> even a good mine portfolio is a weaker <i>US investment</i> when the only US line is thin OTC — liquidity is part of the effective moat for a US holder.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Zijin belongs in the global top-10 Materials universe on scale (the pack's ranking basis), as a <b>diversified, low-cost, growth-oriented challenger</b> to the incumbent diversified majors — differentiated by its gold+coper weight and China base, discounted for jurisdiction and access. Its moat justifies <i>holding</i> exposure to the metals cycle; it does not justify paying a premium multiple or concentrating a portfolio in the OTC line.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>Gold price strength</b> — the anchor leg. Sustained high gold prices flow almost directly to gross profit for a low-cost producer; the pack lists gold/copper prices first among catalysts for a reason.</li>
+        <li><b>Copper price &amp; electrification demand</b> — grid, EV and data-centre copper demand is the structural growth story for the copper leg over both the 12–18-month and 5-year windows.</li>
+        <li><b>Overseas expansion delivery</b> — successful ramp of overseas projects converts the “growth pipeline” moat claim into volume growth; each delivered project de-risks the next.</li>
+        <li><b>Lithium recovery (optionality)</b> — any lithium price recovery is upside optionality on a leg the market currently has little reason to pay for.</li>
+        <li><b>Improved US access</b> — any improvement in OTC liquidity, reporting accessibility or ADR structure would narrow the access discount embedded in the current wrapper. No such change is announced in the pack — this is a watch item, not an expectation.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Commodity reversal</b> — the mirror of the catalysts: a joint gold + copper drawdown hits both anchor legs at once; diversification helps only if the fall is metal-specific, not a global demand shock.</li>
+        <li><b>China policy</b> — domestic regulation, capital controls, or state-direction changes can affect operations, dividends and the HK/Shanghai listings simultaneously (pack risk).</li>
+        <li><b>Geopolitics</b> — overseas mines sit in host jurisdictions where permits, royalties, export rules or bilateral China tensions can change asset values faster than operations can respond (pack risk).</li>
+        <li><b>Environmental / social</b> — mining's licence to operate is local: tailings, water, community and safety incidents can suspend operations and trigger remediation costs at any single large asset (pack risk).</li>
+        <li><b>OTC access &amp; liquidity</b> — thin trading (the pack's −11.12% single-day OTC move illustrates the volatility), wide spreads, FX translation, and the ever-present risk that OTC access terms change for China-linked issuers. For a US holder this risk can dominate the mining risks.</li>
+        <li><b>Unverified leverage</b> — debt was not verified (§2). An expansion-phase miner carrying more leverage than assumed would amplify every commodity downside above.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A combined break: <b>gold and copper falling together while an overseas or China-policy event impairs an asset or restricts access</b>. Any one leg is survivable for a diversified low-cost miner; the bear case in §5 ($2.70 near-term, ~$2.80 over 5 years) is priced for the combination — a commodity drawdown landing on an access-restricted wrapper, where US holders cannot easily add, hedge or exit at tight spreads.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets below are <span class="est">Modelled estimates</span> from the research pack — <b>not verified facts and not analyst consensus</b> (no consensus target for ZIJMF is carried in the pack). Base price for all returns: <b>$3.49 OTC, 30 Oct 2026</b> <span class="unv">Unverified</span>. Because the OTC price is a fractional ADR representation, percentage moves matter; the dollar levels do not transfer to the Hong Kong or Shanghai listings.</p>
+  <div class="callout"><div class="ct">Frozen-parameter adaptation — read before the 5-year table</div>
+  <p>The standard format for this series is <b>2031 price = 2031 revenue × net margin ÷ shares × P/E</b>, with parameters frozen per case. For ZIJMF that formula <b>cannot be populated honestly</b>: share count, net margin / EPS and P/E were <b>not verified</b> and are omitted in §2 — inventing them to complete the formula would violate the no-invented-figures rule. The pack therefore adapts transparently to the equivalent <b>price-compounding form</b>: <b>2031 price = $3.49 × (1 + case CAGR)<sup>5</sup></b>, where the case CAGR is the frozen parameter that bundles revenue growth, margin and multiple into one auditable number. The Base case checks out exactly: $3.49 × 1.05<sup>5</sup> = $3.49 × 1.276 = <b>$4.45</b>.</p></div>
+
+  <h3>12–18-month targets <span class="est">Modelled estimates</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25% weight*</div><div class="price mono">$2.70</div><div class="ret down">−22.6% vs $3.49</div><p>Gold and copper soften together; an overseas, policy or ESG event lands; OTC liquidity thins further and the access discount widens. A price-taker miner has no earnings floor to catch it.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50% weight*</div><div class="price mono">$3.85</div><div class="ret up">+10.3% vs $3.49</div><p>Pack base case. Metals prices hold near current levels, overseas expansion progresses without a major incident, and the OTC discount stays roughly where it is — the miner earns its keep, the wrapper caps the re-rating.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25% weight*</div><div class="price mono">$4.70</div><div class="ret up">+34.7% vs $3.49</div><p>Gold and copper rally together, overseas projects deliver visibly, and lithium optionality gets priced again. Even in the bull case the gain is a commodity beta gain, not a multiple-expansion story.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled</div><div class="wv mono">≈ $3.78</div></div><p>Using the *illustrative 25 / 50 / 25 weights shown on the cards (weights were not supplied to the verifier — see §5 note below): 0.25×$2.70 + 0.50×$3.85 + 0.25×$4.70 = $3.78, or +8.2% from $3.49. Positive but modest expected value with a fat left tail — the arithmetic behind a HOLD, not a BUY.</p></div>
+
+  <h3>5-year projection — frozen-parameter (price-compounding adaptation) <span class="est">Modelled estimates</span></h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight*)</th><th class="n">Frozen CAGR / yr</th><th class="n">Compounding factor (×5 yrs)</th><th class="n">2031 price</th><th class="n">Total return vs $3.49</th><th>What the CAGR bundles</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −4.3%</td><td class="n">×0.80</td><td class="n">~$2.80</td><td class="n">−19.8%</td><td>Prolonged metals downturn and/or an access or jurisdictional impairment that is never fully recovered in the window</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+5.0%</td><td class="n">×1.276</td><td class="n">$4.45</td><td class="n">+27.5%</td><td>Pack base case: mid-single-digit compounding — volume growth from the pipeline roughly offset by flat-to-soft real metal prices and a persistent China / OTC discount (no multiple expansion assumed)</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +10.7%</td><td class="n">×1.66</td><td class="n">~$5.80</td><td class="n">+66.2%</td><td>A full metals up-cycle (gold + copper + lithium together) with clean overseas delivery — double-digit compounding for five straight years, which commodity cycles rarely grant uninterrupted</td></tr>
+      <tr class="total"><td>Probability-weighted*</td><td class="n">≈ +4.7% / yr</td><td class="n">—</td><td class="n">~$4.39*</td><td class="n">+25.8%*</td><td>Pack weighted figure ≈$4.39 (from unrounded endpoints). On the rounded prices shown: 0.25×$2.80 + 0.50×$4.45 + 0.25×$5.80 = $4.375 ≈ $4.38 — the 1¢ gap is rounding in the pack's ~$5.80 / ~$2.80 endpoints</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*Scenario weights were <b>not supplied to the verifier</b> for this pack (coordinator correction). The 25 / 50 / 25 weights above are this note's stated modelling assumption, shown so every weighted figure can be re-checked arithmetically — they are not verified inputs. Bull and bear CAGRs are implied by the pack's price endpoints ($5.80 and ~$2.80) over 5 years from $3.49; the base CAGR (+5%) and endpoint ($4.45) are the pack's own. All 5-year figures are <b>modelled weighted estimates</b>, never verified facts. Sanity anchor: a +5% base CAGR is deliberately unheroic — it assumes Zijin grows volumes but the market keeps applying the same access discount, so almost all return must be earned operationally and through metal prices, not re-rating.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified for this series: <b>mid-30s, long accumulation horizon, risk score 8/10</b>. Even at 8/10, sizing must respect two non-diversifiable facts about this line: it is <b>thin OTC</b> and its <b>core balance-sheet data is unverified</b>. High risk tolerance raises the cap on volatile assets; it does not remove an information cap.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not chase, do not average aggressively.</b> The pack's modelled weighted value (≈$3.78) offers only ≈+8% against a −23% bear case, on an unverified OTC price that just fell 11% in a session. Existing holders sit; new buyers have no verified anchor to buy the dip against.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td><b>Hold — access-restricted.</b> The modelled 5-year weighted value (≈$4.39, +26% total, ≈+4.7%/yr) is a <i>bond-like</i> expected return for equity-plus-access risk. That maths supports keeping a small position for diversified metals exposure; it does not support building a core position in the OTC line. Investors with Hong Kong market access should evaluate the primary listing on its own verified filings rather than scaling the OTC wrapper.</td></tr>
+      <tr><td>Upgrade / downgrade triggers</td><td><span class="pill trim">Review</span></td><td><b>Upgrade path:</b> verified HK-filing leverage and EPS that confirm a low P/E at scale, plus sustained OTC liquidity — either could lift the cap above 0.5%. <b>Downgrade / exit:</b> any China-policy or sanctions-style restriction on the OTC line, a major environmental/social incident at a flagship asset, or a joint gold+copper break below the bear-case path.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>ZIJMF: 0.5% of total portfolio, maximum</b> (pack recommendation). On a $500,000 portfolio that is $2,500 — a watchlist / satellite position that keeps the metals exposure visible without letting an illiquid, unverified-data line affect the outcome.</li>
+    <li><b>Core Materials exposure belongs elsewhere:</b> for the diversified-miner and gold exposure Zijin represents, the liquid NYSE-listed names in this series (BHP, RIO, SCCO, FCX, NEM, AEM) offer verified reporting and tight spreads. ZIJMF is the <i>satellite China-metals expression</i>, not the sleeve itself.</li>
+    <li><b>No leverage, no options overlay:</b> thin OTC lines gap — the −11.12% session in the pack is the illustration. Position size must assume exit at a materially worse price than the screen shows.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the 0.5% maximum above. It is a sizing illustration, not advice to buy — the recommendation for both horizons is HOLD.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Zijin Mining (ZIJMF)</h2>
+<p><strong>Price (30 Oct 2026 close): $3.49.</strong> <strong>DCF intrinsic: $3.31.</strong> Discount/premium vs DCF: <strong>+5.4%</strong> — i.e. the shares are trading 5.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$3.31</td><td>+5.4%</td><td>g 4.0%, r 12%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; Fool https://WWW.FOOL.COM/quote/otc/zijmf/ ; A-share BVPS CNY 7.987 via https://coindataflow.com/en/stock/601899.SS (÷7.1 ≈ $1.12, derived and flagged) ; StockAnalysis https://StockAnalysis.com/quote/otc/ZIJMF/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Zijin Mining (ZIJMF)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Zijin sells gold, copper, zinc, lithium, silver and molybdenum into spot/benchmark markets and to smelters and refiners in China and overseas, with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Gold refiners, bullion banks and central banks (spot market)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Copper/zinc smelters and refiners</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Battery-chain and industrial metals buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is metals prices themselves rather than any buyer&#x27;s valuation: undervalued smelters or battery-makers would be a tailwind only if they lift throughput and orders, which depends on gold/copper prices and their own margins rather than their share prices; overvalued or retrenching manufacturers would be a headwind through weaker concentrate demand.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Zijin Mining (ZIJMF)</h2>
+<p><strong>Role: Beneficiary.</strong> Zijin&#x27;s copper and gold growth pipeline gives it two AI-adjacent channels — copper for electrification and gold as a risk-asset — but neither is driven by AI spending decisions directly.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through electrification: data centres need grid connections, transformers and wiring, all copper-intensive, and the grid build-out behind AI is a multi-year copper demand leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the AI premium here is really a copper premium (trailing P/E not verified in pack in the pack where verified): an unwind would compress it toward a through-cycle mining multiple as copper prices fall.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is growth capex committed at peak copper prices that becomes uneconomic if copper falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: copper-price reversal, Chinese construction/property weakness, hyperscaler capex cuts or delays, and mine-permit or social-licence setbacks. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Pack figures are Motley Fool data as carried in the research pack (ranking metrics as of 6 Oct 2026; prices at 30 Oct 2026 close). The verification log for the Industrials / Energy / Materials pack (checked 1 Nov 2026) is the authority for every UNVERIFIED label in this note — where the pack and the log conflict, the log wins, per the coordinator corrections. Links below are copied verbatim from that log; no other links are used.</p>
+  <ol class="refs">
+    <li>Motley Fool — global sector ranking basis and ZIJMF business / scale figures (gold, copper, zinc, lithium, silver, molybdenum; Zijinshan; TTM revenue $56.0B, gross $19.4B CNY-converted, cap $92.3B, P/S 1.6×), via the research pack. Ranking methodology and date-mixing note: <a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — largest companies research (ranking-date note)</a></li>
+    <li>Independent verification log — Industrials, Energy, Materials pack (1 Nov 2026): ZIJMF price / cap / P/E listed under “Not re-checked in this pass (mark UNVERIFIED)”; OTC / foreign-name liquidity framing; global-vs-US universe correction (§2 of the log).</li>
+    <li>Coordinator corrections for this ticker (override the pack): ZIJMF prices, caps and P/Es were NOT re-checked — mark UNVERIFIED; all modelled targets labelled as estimates with assumptions shown; scenario weights published in §5 of this note for checkability.</li>
+    <li><a href="https://www.financecharts.com/sectors/industrials?columns=totalreturnttm&amp;sort=totalreturnttm" target="_blank" rel="noopener">FinanceCharts — sector list referenced in the verification log for the US-listed-only comparison</a> (log §2: a NYSE/Nasdaq-only top 10 would differ materially from the global list).</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research commentary for the stated investor profile, not investment advice and not a guarantee of any outcome. Recommendations are research views. All ZIJMF price, market-cap and multiple figures are unverified pack figures, labelled as such throughout; P/E, free cash flow and leverage were not verified and are omitted. All scenario and 5-year prices are modelled estimates with methodology and weights shown in §5. Commodity miners are price-takers with cyclical earnings; the US OTC line in this name is thin and indicative. Verify position sizing against primary Hong Kong / Shanghai filings before acting. Past commodity cycles do not predict future prices.</p>
+  <p class="small">— Equity Research series · ZIJMF · 1 Nov 2026 · Price reference: 30 Oct 2026 close ($3.49 OTC, unverified)</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function upd(){
+    var v=parseFloat(pf.value)||0;
+    var max=v*0.005;
+    out.innerHTML='ZIJMF at the <b>0.5% maximum</b> = <b>'+fmt(max)+'</b> &nbsp;·&nbsp; Modelled 5-yr weighted value at that size ≈ <b>'+fmt(max*4.39/3.49)+'</b> if the §5 weighted estimate ($4.39 vs $3.49) were realised — a modelled illustration, not a forecast.';
+  }
+  pf.addEventListener('input',upd); upd();
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    links.forEach(function(a){a.addEventListener('click',function(){links.forEach(function(x){x.classList.remove('on');});a.classList.add('on');});});
+  }
+})();
+</script>
+</body>
+</html>

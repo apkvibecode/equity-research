@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — 2222</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b; --petrol:#146356; --petrol-soft:#dff0e9;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441; --petrol:#5ec8a8; --petrol-soft:#14302a;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--petrol)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.6;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)} p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)} li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)} .petrol .ct{color:var(--petrol)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--petrol-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--petrol)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.blue{background:var(--blue)} .bar-fill.muted{background:var(--muted)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin:4px 0 2px}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:180px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)} .calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+.est{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);padding:1px 6px;border-radius:999px;white-space:nowrap}
+.unv{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red);border:1px solid var(--red);padding:1px 6px;border-radius:999px;white-space:nowrap}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Integrated Oil &amp; Gas · State-Controlled</span></div>
+  <h1>Saudi Aramco <span class="tick">(Tadawul: 2222)</span></h1>
+  <p class="lede">The world's top oil producer — 12.9 million barrels of oil equivalent a day in 2025, the second-largest proven crude reserves, and, in the research pack's words, the strongest upstream moat in the world. It is also the clearest <b>access</b> case in this series: listed only on the Saudi Exchange (Tadawul), state-owned with a tiny free float, and not a normal US brokerage buy. For a US account the pack's answer is unambiguous — <b>0% weight, and do not chase it via ADR proxies</b>.</p>
+  <div class="byline">
+    <span><b>As of:</b> 1 Nov 2026</span>
+    <span><b>Price reference:</b> 30 Oct 2026 close — <b>not carried for 2222 in the verified pack</b> (see §2)</span>
+    <span><b>Only price in pack:</b> SAR 25.92, as of 2 Oct 2026 (Motley Fool) <span class="unv">Unverified</span></span>
+    <span><b>Horizon:</b> 12–18 months + 5-year view</span>
+  </div>
+  <div class="tabs" aria-label="Coverage context">
+    <span class="tab active">2222 — this report</span>
+    <span class="tab soon">Energy — global list, see ranking note below</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price in pack · 2 Oct (Fool)</div><div class="vbig mono">SAR 25.92</div><div class="vsub"><span class="unv">Unverified</span> Not re-checked for 30 Oct in the verification log; not a 30 Oct close</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap · at 2 Oct (Fool)</div><div class="vbig mono">$1.64T</div><div class="vsub"><span class="unv">Unverified</span> Per Motley Fool via pack; not re-checked in the log</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / Gross profit (Fool)</div><div class="vbig mono">$485.8B / $250.0B</div><div class="vsub">Implied gross margin ≈51.5% (arithmetic: 250.0 ÷ 485.8)</div></div>
+  <div class="vcell span3"><div class="vlabel">Production · 2025</div><div class="vbig mono">12.9M boe/d</div><div class="vsub">World's top oil producer; 2nd-largest proven crude reserves (Fool, via pack)</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD — for holders <span class="pill hold">Hold</span></div><div class="vsub">Pack view. No US price target is meaningful — see §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Pack view. The moat is not the constraint; access and governance are.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">0% via US account</div><div class="vsub">Do not chase via ADR proxies. See §6.</div></div>
+</div>
+
+<div class="callout petrol"><div class="ct">Ranking basis — read first</div>
+<p><b>Global</b> top 10 by market cap (Motley Fool, metrics <b>as of 2 Oct 2026</b>, prices at the <b>30 Oct 2026 close</b>), <b>including state-controlled issuers</b>. A NYSE/Nasdaq-only list would differ. The list is <b>not in strict market-cap order</b> as printed — ranking date and price date are stamped separately throughout this note, or the two will look inconsistent.</p>
+<p style="margin-top:6px"><b>Access:</b> 2222 is <b>Saudi Aramco on the Tadawul (Saudi Exchange) only</b> — state-controlled, with a tiny free float (verification log §2). It is <b>not a normal US brokerage buy</b>. Every “Hold” in this note means <i>hold if you already hold it through a route that can trade Tadawul</i> — it is not an instruction to find a workaround route in.</p>
+</div>
+
+<div class="callout warn"><div class="ct">Verification status — 2222 specifically</div>
+<p>The independent verification log did <b>not</b> re-check 2222's price, market cap or P/E, and the pack carries <b>no verified P/E, free cash flow or debt figure for 30 Oct</b>. Accordingly, every 2222 price/cap figure in this note is labelled <span class="unv">Unverified</span>, and the missing diagnostics are shown as <b>omitted</b> in §2 rather than estimated. All scenario views in §5 are <span class="est">Modelled estimates</span> — the pack publishes <b>no price target</b> for 2222, so none is invented here.</p>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>Aramco in one view</h2></div>
+  <p>Aramco is an <b>integrated, state-owned oil company</b>: upstream production at a scale no listed peer matches, plus <b>refining and chemicals</b> downstream. On the pack's two TTM financial figures, it converts $485.8B of revenue into $250.0B of gross profit — an implied gross margin of roughly half of revenue, which is the low-cost reserve base showing up in the financials. Everything else about this name — valuation multiples, cash flow, leverage — is <b>not in the verified pack</b>, and this note says so at each point rather than filling the gap.</p>
+  <figure>
+    <svg viewBox="0 0 980 210" width="100%" role="img" aria-label="Trailing revenue 485.8 billion splitting into gross profit 250 billion and implied cost of sales 235.8 billion" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="62" width="190" height="76" fill="var(--navy)"/><text x="22" y="94" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="22" y="114" font-size="13" fill="#fff">$485.8B</text><text x="22" y="130" font-size="11" fill="#fff">Fool, via pack</text>
+      <line x1="198" y1="88" x2="360" y2="58" stroke="var(--muted)" stroke-width="16" opacity=".35"/>
+      <line x1="198" y1="116" x2="360" y2="138" stroke="var(--muted)" stroke-width="28" opacity=".35"/>
+      <rect x="372" y="26" width="260" height="62" fill="var(--petrol-soft)" stroke="var(--line2)"/><text x="388" y="50" font-size="13" font-weight="700" fill="var(--ink)">Gross profit — $250.0B</text><text x="388" y="70" font-size="12" fill="var(--ink2)">≈51.5% of revenue (250.0 ÷ 485.8)</text>
+      <rect x="372" y="106" width="260" height="62" fill="var(--chip)" stroke="var(--line2)"/><text x="388" y="130" font-size="13" font-weight="700" fill="var(--ink)">Implied cost of sales — $235.8B</text><text x="388" y="150" font-size="12" fill="var(--ink2)">Arithmetic residual: 485.8 − 250.0</text>
+      <rect x="680" y="26" width="288" height="142" fill="var(--paper)" stroke="var(--line2)"/><text x="696" y="52" font-size="13" font-weight="700" fill="var(--ink)">What this does — and doesn't — tell you</text><text x="696" y="74" font-size="12" fill="var(--ink2)">A ~51% gross margin is the low-cost-</text><text x="696" y="90" font-size="12" fill="var(--ink2)">reserve moat in one number. It is TTM,</text><text x="696" y="106" font-size="12" fill="var(--ink2)">per Fool via the pack — not a segment</text><text x="696" y="122" font-size="12" fill="var(--ink2)">margin, and not a net margin. P/E, FCF</text><text x="696" y="138" font-size="12" fill="var(--ink2)">and debt were not verified for 30 Oct</text><text x="696" y="154" font-size="12" fill="var(--ink2)">and are omitted — see §2.</text>
+    </svg>
+    <figcaption>TTM figures per Motley Fool as carried in the research pack. Gross margin and cost of sales are simple arithmetic on those two figures, shown so the split can be checked. The verification log did not re-check 2222's figures — treat them as pack figures, not independently verified values.</figcaption>
+  </figure>
+  <div class="bars" aria-label="Scale figures from the pack">
+    <div class="bar-row"><span class="bl">TTM revenue</span><div class="bar-track"><div class="bar-fill blue" style="width:100%"></div></div><span class="bv">$485.8B</span></div>
+    <div class="bar-row"><span class="bl">TTM gross profit</span><div class="bar-track"><div class="bar-fill" style="width:51%"></div></div><span class="bv">$250.0B</span></div>
+    <div class="bar-row"><span class="bl">Production, 2025</span><div class="bar-track"><div class="bar-fill gold" style="width:64%"></div></div><span class="bv">12.9M boe/d</span></div>
+  </div>
+  <p class="small">Bars are scaled to TTM revenue for the two financial rows; the production row is shown for scale of the operating footprint only and is not on the same axis in any economic sense. boe/d = barrels of oil equivalent per day.</p>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Aramco makes money the way an integrated national oil company does: it <b>produces hydrocarbons from the world's lowest-cost reserve base</b>, sells crude and products, and captures additional margin through <b>refining and chemicals</b> downstream. Ownership is the defining structural fact: it is <b>state-owned</b>, which aligns the company with Saudi state policy — including <b>dividends to the state</b> and OPEC+ production decisions — ahead of minority-shareholder optimisation. The pack frames those as features of the model, not footnotes to it.</p>
+
+  <h3>Operating structure — what the pack supports</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Component</th><th>What the pack carries</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Upstream (production)</td><td><b>12.9M boe/d in 2025</b> — the world's top oil producer; <b>2nd-largest proven crude reserves</b> (Fool, via pack)</td><td>Scale plus reserve life: production can be sustained and, within OPEC+ constraints, flexed — see spare capacity in §3</td></tr>
+      <tr><td>Downstream</td><td><b>Refining and chemicals</b>, integrated with upstream (pack model description)</td><td>Integration smooths, but does not remove, crude-price exposure: downstream margins partly offset upstream when crude falls, and vice versa</td></tr>
+      <tr><td>Ownership / listing</td><td><b>State-owned</b>; listed on <b>Tadawul (Saudi Exchange) only</b>; tiny free float (verification log §2)</td><td>Most shares never trade. The listed price is set by a small float, and company policy is state policy — both belong in any valuation, see §3–§5</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Open questions, stated plainly:</b> the verified pack does <b>not</b> carry a revenue or profit % split between upstream and downstream, a geographic revenue split, or a customer/route breakdown. Those splits are therefore <b>not shown here</b> rather than estimated. Any future version should take them only from an Aramco filing or results release.</p>
+
+  <h3>Structural pivots &amp; dependencies</h3>
+  <ul>
+    <li><b>OPEC+ as operating environment:</b> the pack lists OPEC+ policy first among catalysts/risks. For the world's largest producer with spare capacity, OPEC+ quotas and compliance decisions are effectively a volume policy set outside the company — revenue can move on a cartel decision with no change in Aramco's own costs or reserves.</li>
+    <li><b>Oil price as the master variable:</b> with no segment split in the pack, the honest summary is that realised oil price drives the upstream result that dominates the group; refining/chemicals integration dampens the swing rather than diversifying it away.</li>
+    <li><b>Dividends to the state:</b> listed in the pack alongside OPEC+ and oil price. A state owner with fiscal needs is a structural claimant on cash flow — for a minority holder, the dividend is both the return channel and a reminder of whose interests set it. No dividend amount, yield or payout ratio is carried in the pack, so none is shown in §2.</li>
+    <li><b>Supply-chain framing:</b> unlike a manufacturer, Aramco's critical “supply chain” is its own reserve base and production system — the dependency runs the other way: refiners and petrochemical buyers worldwide depend on its output, which is precisely the spare-capacity leverage described in §3. Export-route and regional-security exposure is carried as geopolitics in §4, not as a procurement risk.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>This is the thinnest financial section in the series, by design. The pack verifies <b>scale</b> — $1.64T market cap at 2 Oct, $485.8B TTM revenue, $250.0B TTM gross profit — and explicitly does <b>not</b> verify the diagnostics a balance-sheet judgement needs: <b>P/E, free cash flow and debt were not verified for 30 Oct and are omitted</b>. A note that invented a leverage or cash-flow view for Aramco would be worse than one that shows the gap. What can honestly be said: a ~51.5% implied gross margin on nearly half a trillion of revenue is consistent with the lowest-cost-producer claim in §3 — and that is as far as these figures go.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Pack figures — Motley Fool via the research pack. Read the date and verification columns before the values: none of these is a verified 30 Oct figure.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Date / source / status</th></tr></thead>
+    <tbody>
+      <tr><td>Share price</td><td class="n">SAR 25.92</td><td>As of <b>2 Oct 2026</b> (Fool, via pack) <span class="unv">Unverified</span> — the log did not re-check 2222 prices; <b>not</b> a 30 Oct close</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$1.64T</td><td>At <b>2 Oct 2026</b> (Fool, via pack) <span class="unv">Unverified</span> — not re-checked in the log</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$485.8B</td><td>Fool via pack. Cross-check: $1.64T ÷ $485.8B ≈ 3.4× sales (arithmetic on pack figures, both dated to the 2 Oct Fool snapshot)</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$250.0B</td><td>Fool via pack. Implied gross margin ≈ <b>51.5%</b> (250.0 ÷ 485.8, arithmetic); implied cost of sales ≈ $235.8B (residual)</td></tr>
+      <tr><td>Production (2025)</td><td class="n">12.9M boe/d</td><td>Fool via pack — operating scale, not a financial line</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tblwrap"><table>
+    <caption>Diagnostics the pack does not verify for 2222 — omitted here by design, not zero and not estimated.</caption>
+    <thead><tr><th>Item</th><th class="n">Status</th><th>Why it matters / what to pull before acting</th></tr></thead>
+    <tbody>
+      <tr><td>P/E (trailing &amp; forward), EV/EBITDA</td><td class="n">Not verified — omitted</td><td>Pack states this explicitly for 30 Oct. Without a verified earnings line and a verified 30 Oct price, no multiple in this note should be quoted as fact</td></tr>
+      <tr><td>Free cash flow / operating cash flow</td><td class="n">Not verified — omitted</td><td>For an oil major, FCF through the oil-price cycle is the dividend's funding source; pull it from Aramco's primary results before treating the Hold in §6 as cash-flow-supported</td></tr>
+      <tr><td>Cash, total debt, net cash/(debt), D/E</td><td class="n">Not verified — omitted</td><td>No leverage claim is made anywhere in this note</td></tr>
+      <tr><td>Dividend amount / yield / payout; buybacks</td><td class="n">Not in pack</td><td>The pack carries only “dividends to state” as a structural feature (§1). No yield or payout figure is shown, and no buyback claim is made</td></tr>
+      <tr><td>Capital allocation ranking</td><td class="n">Cannot be ranked</td><td>State ownership plus unverified cash flow/debt means a capital-allocation priority list would be invention. The state-dividend claim in §1 is the only allocation fact the pack supports</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">How to read the ~3.4× sales cross-check</div>
+  <p>The market-cap ÷ revenue arithmetic above uses <b>two pack figures from the same 2 Oct Fool snapshot</b>, so it is internally consistent — but both inputs are <span class="unv">Unverified</span> for 2222 in the log, and neither is a 30 Oct value. Use it only as a scale check (“a very large, gross-margin-rich producer on a low-single-digit sales multiple in that snapshot”), never as a verified 30 Oct valuation.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating (pack view): the strongest upstream moat in the world.</b> The pack's three named pillars — <b>lowest-cost reserves, spare capacity, and scale</b> — reinforce each other: low cost means Aramco earns at oil prices where higher-cost producers lose money; spare capacity means it can add volume when the market tightens, a lever no similarly sized rival holds in the same way; and 12.9M boe/d of scale spreads fixed costs across more barrels than any competitor. This is a <i>resource</i> moat, not a brand or network moat — it lasts as long as the reserves and the cost position do, and its main erosive forces are political and technological rather than competitive.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths (per pack)</h4><ul>
+      <li><b>Lowest-cost reserves:</b> the ~51.5% implied TTM gross margin (§2) is the financial fingerprint — margin defence at low oil prices is built into the geology, not into pricing tactics.</li>
+      <li><b>Spare capacity:</b> the ability to raise or hold back production gives Aramco — and, through it, Saudi Arabia — a swing-producer role in OPEC+ that converts directly into market influence.</li>
+      <li><b>Scale:</b> world's top producer (12.9M boe/d, 2025) with the 2nd-largest proven crude reserves — reserve life and volume that rivals cannot replicate by spending; the resource itself is the barrier to entry.</li>
+      <li><b>Integration:</b> refining and chemicals capture margin beyond the wellhead and partly cushion crude-price swings (§1).</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits</h4><ul>
+      <li><b>The moat belongs to the state first:</b> minority holders own a claim on a company whose production, investment and dividend decisions serve state and OPEC+ objectives. Governance and minority rights are listed in the pack as a risk, not a theoretical one — see §4.</li>
+      <li><b>Energy transition:</b> a resource moat defends share of the oil market, not the size of the oil market. Long-run demand erosion compresses the pool the moat draws from, however low the cost curve sits.</li>
+      <li><b>No pricing power in the usual sense:</b> crude is a globally priced commodity. Aramco's edge appears as <i>margin survival and volume influence</i>, not as setting its own price — OPEC+ discipline is collective, and can break down.</li>
+      <li><b>Concentration:</b> reserves, infrastructure and exports are geographically concentrated in one region — the geopolitical exposure in §4 is the moat's physical flip side.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> against other national and international oil producers, the pack places Aramco first on upstream economics — cost, reserves and spare capacity — and that ranking is not close on the figures carried here. The discount a minority, foreign, or US-based holder should apply is not to the moat but to <i>access and claim</i>: a tiny free float on a single foreign exchange, under state control. §5 and §6 price exactly that distinction.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts — for existing holders</h3>
+      <ul>
+        <li><b>OPEC+ policy turning supportive</b> — production discipline or quota decisions that support the oil price flow straight to the upstream result; the pack lists OPEC+ policy first for a reason.</li>
+        <li><b>Oil price strength</b> — the master variable (§1). Sustained higher realised prices expand the gross-profit pool on an essentially fixed low-cost base.</li>
+        <li><b>Dividends to the state — the holder's return channel</b> — as framed in the pack, distributions are a structural feature of the model. For a minority holder, a maintained or raised distribution is the tangible return while any price target remains unquotable (§5). No amount or yield is carried in the pack.</li>
+        <li><b>Spare capacity being used</b> — any period where tight markets let Aramco sell more volume at strong prices demonstrates the §3 moat in reported numbers rather than in description.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Geopolitics</b> — regional conflict can disrupt production, export routes or both; the same concentration that creates the moat creates the exposure.</li>
+        <li><b>Iran-war volatility</b> — flagged by Fool, via the pack, as a live source of oil-price and sentiment volatility around this name specifically.</li>
+        <li><b>Energy transition</b> — long-run demand erosion and transition policy compress the terminal value of even the lowest-cost reserves (§3).</li>
+        <li><b>Governance / minority rights</b> — state control with a tiny free float: decisions on production, capex and dividends are made for state objectives; minority holders have limited recourse and limited float liquidity.</li>
+        <li><b>Oil price weakness / OPEC+ breakdown</b> — the mirror of the catalysts: a sustained low price, or quota discipline collapsing into a volume contest, hits revenue on the whole 12.9M boe/d base at once.</li>
+        <li><b>Access risk (holder-specific)</b> — Tadawul-only listing, currency (SAR) exposure, and foreign-access rules can move or trap a non-Saudi holder's position independently of Aramco's operating results. The pack's response to this risk is the 0% US-account sizing in §6 — including its warning against ADR proxies.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>For a holder, the break is a combination rather than a single event: a <i>sustained</i> low oil price (or OPEC+ discipline collapsing) arriving together with a governance or access shock — restricted foreign access, an adverse minority-rights development, or a regional disruption. Any one alone is the known volatility of this name; together they attack the cash pool, the distribution, and the ability to exit, at the same time.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>The pack's valuation view for 2222 is explicit and unusual, and this section follows it exactly: <b>“No US price target meaningful.”</b> The reasons are structural, not an omission — the shares trade only on Tadawul in SAR, the free float is tiny, the only price in the pack (SAR 25.92) is a 2 Oct Fool snapshot that the verification log did <b>not</b> re-check, and there is no verified P/E, FCF or debt line to anchor a multiple. Publishing Bull/Base/Bear <i>prices</i> would require inventing every input. What follows instead is the full scenario framework in qualitative form, labelled as modelled estimates, with the missing numerical machinery shown as missing.</p>
+
+  <h3>12–18-month scenarios — qualitative (pack view: Hold for holders)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · <span class="est">Modelled estimate</span></div><div class="price">Oil &amp; access shock</div><p>Sustained weak oil price or an OPEC+ volume contest, compounded by geopolitics — including the Iran-war volatility Fool flags — or an adverse governance/access development. Cash pool and distribution come under pressure together. <b>No price is published:</b> there is no verified reference price to compute a return from.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · <span class="est">Modelled estimate</span></div><div class="price">Hold the position</div><p>OPEC+ discipline broadly holds, oil trades in a range that keeps the low-cost base highly profitable, and distributions continue as a structural feature. This is the pack's central case and the source of the 12–18-month <b>Hold (for holders)</b> view — a statement about an existing Tadawul position, not a US buy signal.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · <span class="est">Modelled estimate</span></div><div class="price">Tight market, spare capacity pays</div><p>A tight oil market rewards the one producer holding spare capacity: higher realised prices on sustained or increased volume, with the ~51.5% implied gross-margin structure (§2) converting price strength into gross profit at the highest rate in the industry. Even in this case the pack publishes <b>no US price target</b> — the access constraint in §6 binds before the upside does.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted price (12–18 mo)</div><div class="wv">Not published</div></div><p>No scenario weights and no scenario prices were supplied for 2222, and the pack states no US price target is meaningful. A weighted figure would be arithmetic on invented inputs, so — consistent with the verification log's instruction for all packs — <b>no weighted price is shown</b>. Judge the three cases above directly.</p></div>
+
+  <h3>5-year projection — frozen-parameter model: parameters not supplied</h3>
+  <p>Elsewhere in this series, the 5-year table freezes share count and varies revenue growth, net margin and exit P/E. For 2222 the pack supplies <b>none</b> of those parameters, and two of them cannot be sourced from what it does supply: there is no verified earnings or share-count line, and the only price is an unverified SAR snapshot on a foreign exchange. The table below shows the standard machinery with each input marked honestly — it is a statement of what a future, filing-based version would need, not a disguised estimate.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Frozen-parameter input</th><th class="n">Bear</th><th class="n">Base</th><th class="n">Bull</th><th>Status in the pack</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue growth / yr (5-yr)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>Not supplied — would be driven mainly by oil price and OPEC+ volumes, not by a company growth rate</td></tr>
+      <tr><td>2031 net margin</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>Not supplied — only a TTM <i>gross</i> margin (≈51.5%, arithmetic) is derivable; gross is not net</td></tr>
+      <tr><td>Share count (frozen)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>Not supplied — and the tiny free float makes per-share framing secondary to the state-held majority</td></tr>
+      <tr><td>Exit P/E</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td>Cannot be set — the pack verifies no P/E for 2222 at any date</td></tr>
+      <tr class="total"><td>5-yr price / weighted value</td><td class="n">—</td><td class="n">—</td><td class="n">Not published</td><td>Pack 5-yr view is <b>Hold</b> (§6), with no price attached <span class="est">Modelled estimate — qualitative</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">This is the one report in the Energy set where the 5-year output is a stance rather than a number. If Aramco's primary filings are pulled in a future pass — verified EPS, share count, FCF and debt — this table can be completed in the standard format without changing any other section's conclusions, because the recommendation (§6) is driven by access, not by the missing multiple.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile as specified: <b>mid-30s, risk score 8/10</b>. Recommendations below are the pack's <b>research views, not guarantees and not investment advice</b>. Note what the high risk score does <i>not</i> do here: it does not raise the weight. The constraint on 2222 is not volatility tolerance — it is that the stock cannot be bought normally through a US account at all.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call (pack)</th><th>Who it applies to</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>For holders</b> — i.e. anyone already holding 2222 through a Tadawul-capable route. For a US-account investor with no position, “Hold” means <b>hold off</b>: there is no position to hold and no recommended route to start one</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td>Same basis. The world's strongest upstream moat (§3) supports holding an existing position through the cycle; it does not create a US-accessible buy case</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing — 0% of total portfolio via a US account</h3>
+  <ul>
+    <li><b>Target weight: 0%</b> (pack). This is a deliberate zero, not a rounding of a small number: Tadawul-only listing, state control, tiny free float, and unverified US-relevant pricing together fail the access test for a US brokerage portfolio at any risk score.</li>
+    <li><b>Do not chase via ADR proxies</b> (pack, verbatim in substance). An unofficial or proxy route would add counterparty, liquidity and pricing-basis risk on top of a position whose reference price is already unverified in this research — the proxy would be the riskiest way to own the safest-cost oil asset.</li>
+    <li><b>Energy exposure belongs elsewhere in the set:</b> a mid-30s, 8/10 investor who wants the oil-price and integrated-major exposure in this thesis has US-listed Energy names in the same sector coverage to express it with verified prices and diagnostics. This note makes no allocation claim among them — each carries its own report and sizing.</li>
+    <li><b>If you already hold 2222 directly</b> (e.g. through a Saudi-market route outside the US account): the pack's Hold views above are the guidance, and §4's combined break condition — sustained low oil <i>plus</i> a governance/access shock — is the exit review trigger.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: applies the pack's 0% US-account target weight. A $0 result is the recommendation working as intended, not an error — see the sizing notes above.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Saudi Aramco (2222)</h2>
+<p><strong>Price (30 Oct 2026 close): SAR 25.92.</strong> <strong>DCF intrinsic: SAR 22.78.</strong> Discount/premium vs DCF: <strong>+13.8%</strong> — i.e. the shares are trading 13.8% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>SAR 22.78</td><td>+13.8%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack (Fool, 2 Oct metrics); Aramco H1 2026 IR figures via https://www.ad-hoc-news.de/boerse/news/corporate-news/analysts-set-sar-30-23-target-for-saudi-aramco-stock/70214825 and https://ts2.tech/en/aramco-stocks-224-billion-analyst-upside-rests-on-its-hormuz-workaround/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Saudi Aramco (2222)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No meaningful top-7 customer list is disclosed: Aramco sells crude, refined products and chemicals overwhelmingly through term contracts, spot sales and its own downstream system, with no single buyer disclosed as a concentration. Its economic counterparty of record is effectively the global refining system, and its controlling shareholder — the Government of Saudi Arabia — is a dividend recipient, not a customer.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Asian and European refiners (term + spot buyers)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Aramco&#x27;s own refining / chemicals system (internal offtake)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Global crude traders and spot-market buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Because no single customer dominates and none is a covered ticker, there is no single customer intrinsic to read through: an undervalued refiner would not by itself lift Aramco, whose price is set by crude benchmarks, OPEC+ policy and the state dividend — though a healthier refining system at a discount to its own value would be a mild tailwind to crude demand, while an overvalued, margin-squeezed refining system would be a headwind, and neither guarantees a change in Aramco&#x27;s volumes, which depend on OPEC+ quotas and its own spare-capacity decisions.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Saudi Aramco (2222)</h2>
+<p><strong>Role: Beneficiary.</strong> Data-centre and AI-infrastructure build-out, plus Saudi Arabia&#x27;s own AI investment programme, ultimately consumes more oil and gas for power and construction — while Aramco&#x27;s price is set by crude benchmarks and OPEC+ policy, not AI sentiment.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E not verified in pack in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are from the 2222 research pack (as of 1 Nov 2026; ranking and metrics as of 2 Oct 2026, Motley Fool; price reference convention 30 Oct 2026 close) and its independent verification log for the Industrials / Energy / Materials set. Where the pack and the log conflict, the log wins — applied throughout: the log marks 2222's price, market cap and P/E as <b>not re-checked</b>, and those labels are carried on every figure above. The pack carries no direct URL for the Fool figures on 2222, so none is invented here; the source is named with its date instead.</p>
+  <ol class="refs">
+    <li>Motley Fool — largest Energy companies ranking and 2222 figures, via the research pack (metrics as of 2 Oct 2026): share price SAR 25.92, market cap $1.64T, TTM revenue $485.8B, TTM gross profit $250.0B, production 12.9M boe/d (2025), 2nd-largest proven crude reserves, model / moat / catalyst / risk framing, and the Iran-war volatility flag. <span class="unv">Unverified</span> for price/cap in the independent log.</li>
+    <li>Independent verification log — Industrials, Energy, Materials pack (checked 1 Nov 2026): §1 “not re-checked” list covering 2222 price/cap/P/E; §2 classification of 2222 as Saudi Aramco, Tadawul-only, state-controlled, tiny free float, and the global-vs-US-listed ranking correction applied in the ranking note; §3 instruction that modelled targets be labelled estimates with methodology shown — applied in §5.</li>
+  </ol>
+  <div class="callout warn"><div class="ct">Open questions — not in the verified pack</div>
+  <p>Verified 30 Oct 2026 close · P/E (trailing &amp; forward) and EV/EBITDA · free &amp; operating cash flow · cash / debt / leverage · dividend amount, yield &amp; payout · upstream vs downstream revenue/profit split · geographic split · 5-year model parameters (growth, net margin, share count, exit P/E) · scenario prices &amp; weights. Each was omitted above rather than estimated. Pull them from Saudi Aramco's primary filings and the Tadawul listing before acting on this note.</p></div>
+  <p class="disc"><b>Disclaimer:</b> This is a research summary for information only — not investment advice, not a recommendation to any specific person, and not a guarantee of future returns. Scenario views are modelled estimates based on the stated pack assumptions; actual outcomes will differ. Securities listed only on foreign exchanges carry additional access, liquidity, currency, settlement and governance risks, and state-controlled issuers may act in the interests of the controlling state rather than minority holders. Verify figures against primary filings and your own broker's tradability before making any investment decision.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+    function onScroll(){
+      var y=window.scrollY+120, cur=null;
+      secs.forEach(function(s,i){ if(s.offsetTop<=y) cur=i; });
+      links.forEach(function(a,i){ a.style.color = i===cur ? 'var(--blue)' : ''; a.style.borderBottomColor = i===cur ? 'var(--blue)' : 'transparent'; });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function calc(){
+    if(!pf||!out) return;
+    var v=parseFloat(pf.value);
+    if(isNaN(v)||v<0){ out.innerHTML='Enter a portfolio value to see the 0% sizing.'; return; }
+    var target=v*0;
+    out.innerHTML='Target at <b>0%</b> via a US account: <b>$'+fmt(target)+'</b> — the pack recommends no US-account position in 2222 at any portfolio size, and no ADR-proxy substitute.';
+  }
+  if(pf){ pf.addEventListener('input', calc); calc(); }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — MS · Morgan Stanley</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --surface2:#eef1f4; --ink:#101820; --muted:#5b6b7d; --line:#dde3e9;
+  --navy:#0f2a44; --navy2:#173a5e; --accent:#1a5c8a; --gold:#b9975b; --gold-bg:#fdf6e3;
+  --green:#137547; --green-bg:#e6f4ec; --red:#b42318; --red-bg:#fdecea; --amber:#8a6100; --amber-bg:#fff3d6;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0c121a; --surface:#141d29; --surface2:#1a2636; --ink:#e8edf2; --muted:#9aabbe; --line:#263242; --navy:#dbe7f3; --navy2:#bcd2e8; --accent:#6db3e8; --gold:#d4b57a; --gold-bg:#2a2416; --green:#4cc38a; --green-bg:#132a1e; --red:#ff8a80; --red-bg:#2e1a18; --amber:#e8c547; --amber-bg:#2a2410; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;font-size:16px}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.wrap{max-width:980px;margin:0 auto;padding:20px 18px 48px}
+.topmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.breadcrumb{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.breadcrumb b{color:var(--ink)}
+.datepill{font-size:12.5px;background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:999px;color:var(--muted)}
+.hero{background:var(--navy);color:#fff;border-radius:18px;padding:26px 24px 22px;position:relative;overflow:hidden}
+@media (prefers-color-scheme: dark){ .hero{background:#162a44} }
+.hero h1{font-family:"IBM Plex Serif",Georgia,serif;font-size:38px;line-height:1.05;margin:6px 0 6px;letter-spacing:-.02em}
+@media(max-width:600px){.hero h1{font-size:32px}}
+.tickerline{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.06em;opacity:.85;text-transform:uppercase}
+.herosub{max-width:720px;opacity:.92;font-size:15.5px;margin:8px 0 0}
+.pricegrid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-top:20px}
+@media(max-width:700px){.pricegrid{grid-template-columns:1fr 1fr} .pricegrid .big{grid-column:1/-1}}
+.pbox{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:14px 14px 12px}
+.pbox label{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;opacity:.75;font-weight:600;margin-bottom:4px}
+.pbox strong{font-size:28px;line-height:1;font-family:"IBM Plex Serif",serif}
+.pbox span{display:block;font-size:13px;opacity:.85;margin-top:5px}
+.verdictrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:7px 11px;border-radius:999px;font-size:13px;font-weight:600;border:1px solid transparent}
+.pill.buy{background:#e6f4ec;color:#0f5c36;border-color:#bfe3cf}
+.pill.hold{background:var(--gold-bg);color:var(--amber);border-color:#e8d9a8}
+.pill.alloc{background:#fff;color:#0f2a44;border-color:#fff}
+@media (prefers-color-scheme: dark){ .pill.alloc{background:var(--surface2);color:var(--ink);border-color:var(--line)} }
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+@media(max-width:700px){.metrics{grid-template-columns:1fr 1fr}}
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.metric label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.metric b{display:block;font-size:20px;margin:3px 0 2px;font-family:"IBM Plex Serif",serif}
+.metric p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.4}
+section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px 20px 18px;margin:14px 0}
+section h2{font-family:"IBM Plex Serif",serif;font-size:21px;margin:0 0 4px;line-height:1.2}
+.kicker{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:6px}
+.lede{color:var(--muted);font-size:14.5px;margin:0 0 14px}
+h3{font-size:15px;margin:16px 0 6px}
+p{margin:8px 0}
+ul{margin:8px 0 8px 18px;padding:0} li{margin:5px 0}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.seg{grid-template-columns:1fr}}
+.segcard{background:var(--surface2);border-radius:10px;padding:14px}
+.segcard b{font-size:14px}
+.segcard p{font-size:13.5px;color:var(--muted);margin:6px 0 0}
+.callout{background:var(--gold-bg);border:1px solid #e8d9a8;border-radius:10px;padding:12px 14px;font-size:13.5px}
+@media (prefers-color-scheme: dark){ .callout{border-color:#4a3f22} }
+.callout b{color:var(--amber)}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:640px){ table,thead,tbody,tr,th,td{display:block;width:100%} thead{display:none} tr{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:8px} td{border:none;padding:4px 0} td.num{text-align:left} td::before{content:attr(data-l) " — ";font-weight:600;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em} }
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media(max-width:700px){.scenarios{grid-template-columns:1fr}}
+.sc{border-radius:12px;padding:16px;border:1px solid var(--line)}
+.sc.bear{background:var(--red-bg)} .sc.base{background:var(--surface2)} .sc.bull{background:var(--green-bg)}
+.sc label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700}
+.sc strong{display:block;font-family:"IBM Plex Serif",serif;font-size:30px;margin:6px 0 2px}
+.sc .up{font-weight:700;font-size:13px}
+.sc dl{margin:10px 0 0;font-size:13px;color:var(--muted)} .sc dt{font-weight:600;color:var(--ink);display:inline} .sc dd{display:inline;margin:0}
+.barwrap{margin:14px 0 4px}
+.barwrap svg{width:100%;height:auto;display:block}
+.calc{background:var(--surface2);border-radius:12px;padding:16px;margin-top:14px}
+.calc label{font-size:13px;font-weight:600}
+.calc input{width:100%;padding:11px 12px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-size:16px;margin:8px 0}
+.calcout{font-size:14px;line-height:1.6}
+.foot{font-size:12.5px;color:var(--muted);line-height:1.6}
+.sources{font-size:13px} .sources li{margin:6px 0;word-break:break-word}
+.badge{font-size:11px;font-weight:700;letter-spacing:.05em;padding:3px 7px;border-radius:999px;background:var(--green-bg);color:var(--green);border:1px solid currentColor;vertical-align:middle}
+.warn{font-size:12.5px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topmeta">
+    <div class="breadcrumb">Equity Research &nbsp;·&nbsp; <b>Financials</b> &nbsp;·&nbsp; NYSE: MS</div>
+    <div class="datepill">As of 1 Nov 2026 · Price ref: 30 Oct 2026 close</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tickerline">Morgan Stanley — NYSE: MS · Financials</div>
+    <h1>The wealth-led<br/>diversified bank</h1>
+    <p class="herosub">Less a deposit-lending bank than JPMorgan or Bank of America, more a fee engine: institutional markets and investment banking on one side, a scaled wealth franchise — E*TRADE and Smith Barney heritage — on the other. That mix is why the story turns on markets, deal flow and asset levels, not just rates.</p>
+    <div class="pricegrid">
+      <div class="pbox big"><label>Share price — 30 Oct close</label><strong>$184.30</strong><span>MarketBeat / Finnhub corroborated in verification</span></div>
+      <div class="pbox"><label>Consensus target — 12 mo</label><strong>$214.62</strong><span>MarketBeat · +16.4% vs $184.30</span></div>
+      <div class="pbox"><label>Trailing P/E</label><strong>14.22×</strong><span>Dividend yield 2.49%</span></div>
+    </div>
+    <div class="verdictrow">
+      <span class="pill buy">● Short term (12–18 mo): BUY</span>
+      <span class="pill buy">● Long term (5 yr): BUY</span>
+      <span class="pill alloc">Suggested weight: 2% of portfolio — mid-30s, risk 8/10</span>
+    </div>
+  </div>
+
+  <!-- KEY METRICS -->
+  <div class="metrics" aria-label="Key metrics">
+    <div class="metric"><label>Market cap</label><b>$282–291bn</b><p>$282.4bn in the research pack; $290.76bn on Finnhub. Vendor-divergent — see note †. Do not treat as a single verified figure.</p></div>
+    <div class="metric"><label>TTM revenue</label><b>$73.1bn</b><p>The Motley Fool, trailing twelve months. Definition as published by source.</p></div>
+    <div class="metric"><label>Q3 2026 EPS</label><b>$3.03</b><p>Beat $2.93 consensus (MarketBeat). Headline Q3 result in the pack.</p></div>
+    <div class="metric"><label>Trailing P/E</label><b>14.22×</b><p>As in pack; corroborated on spot-check in verification log.</p></div>
+    <div class="metric"><label>Dividend yield</label><b>2.49%</b><p>As in pack (MarketBeat basis).</p></div>
+    <div class="metric"><label>Reach</label><b>40+ countries</b><p>80,000+ staff (Fool). Global institutional + wealth footprint.</p></div>
+  </div>
+
+  <div class="callout"><b>How to read the numbers on this page:</b> Prices are the 30 Oct 2026 close (1 Nov was a weekend). Caps and P/Es vary by vendor — the verification log specifically flags MS market cap as vendor-divergent, so this page shows a range and names the vendor rather than presenting one cap as fact. All 5-year prices are <b>modelled estimates</b> with assumptions shown, never verified facts. EV/EBITDA and free cash flow are marked “not meaningful” for a bank/broker — see §2.</div>
+
+  <!-- 1 BUSINESS MODEL -->
+  <section>
+    <div class="kicker">01 — Business model &amp; segment breakdown</div>
+    <h2>Three fee businesses, one balance sheet</h2>
+    <p class="lede">Morgan Stanley earns primarily from markets, advice and assets under management — not from the large loan book that drives a traditional commercial bank.</p>
+    <div class="seg">
+      <div class="segcard"><b>Institutional Securities</b><p>Trading, sales, capital markets and investment banking for corporates, governments and institutions. The most cyclical leg — strongest when deal and trading volumes are high.</p></div>
+      <div class="segcard"><b>Wealth Management</b><p>Advice, brokerage and lending to households, including the E*TRADE self-directed platform and the Smith Barney heritage business. Asset levels and net new assets drive recurring fees.</p></div>
+      <div class="segcard"><b>Investment Management</b><p>Asset management across public and private markets. Revenue follows assets under management and investment performance / flows.</p></div>
+    </div>
+    <h3>Geography &amp; scale</h3>
+    <p>Operates in <strong>40+ countries with 80,000+ staff</strong> (Fool). The pack does not publish a geographic revenue split for MS, so none is shown here — inventing one would misstate the business.</p>
+    <h3>Structural pivots &amp; dependencies</h3>
+    <ul>
+      <li><strong>Pivot to wealth:</strong> The long-running shift toward wealth and investment management is intended to make earnings less dependent on trading cycles than a pure investment bank.</li>
+      <li><strong>Key dependencies:</strong> Markets and investment-banking fees, wealth asset levels, and interest rates — per the pack. A market correction hits all three at once: trading/IB slows, AUM falls, and fee income compresses.</li>
+      <li><strong>Less deposit-lending exposure</strong> than JPMorgan or Bank of America — a distinguishing feature, and a limit: MS participates less in traditional net-interest lending upside.</li>
+      <li><strong>Supply-chain analogue for a bank:</strong> Funding markets, market liquidity and client asset values function as the “supply chain” — when they freeze or fall, revenue follows quickly.</li>
+    </ul>
+  </section>
+
+  <!-- 2 FINANCIAL HEALTH -->
+  <section>
+    <div class="kicker">02 — Financial health &amp; balance-sheet diagnostics</div>
+    <h2>Valued on earnings and capital return, not cash-flow multiples</h2>
+    <p class="lede">For banks and brokers, the usual industrial diagnostics mislead. The pack is explicit on this, and this page follows it.</p>
+    <table>
+      <thead><tr><th>Metric</th><th class="num">Value</th><th>Note / source</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Metric">Price (30 Oct close)</td><td class="num" data-l="Value">$184.30</td><td data-l="Note">Corroborated — Finnhub / verification spot-check</td></tr>
+        <tr><td data-l="Metric">Market cap</td><td class="num" data-l="Value">$282.4bn / $290.76bn</td><td data-l="Note">Pack figure vs Finnhub — vendor-divergent †</td></tr>
+        <tr><td data-l="Metric">Trailing P/E</td><td class="num" data-l="Value">14.22×</td><td data-l="Note">Pack; spot-checked in verification log</td></tr>
+        <tr><td data-l="Metric">P/S (for context)</td><td class="num" data-l="Value">~3.9–4.0×</td><td data-l="Note">Derived: cap ÷ $73.1bn TTM revenue (Fool). Range reflects cap variance — treat as approximate.</td></tr>
+        <tr><td data-l="Metric">EV / EBITDA</td><td class="num" data-l="Value">Not meaningful</td><td data-l="Note">Pack: “EV/EBITDA not meaningful” for a bank/broker — debt is raw material, not just financing.</td></tr>
+        <tr><td data-l="Metric">Free cash flow</td><td class="num" data-l="Value">Not meaningful</td><td data-l="Note">Pack: use earnings + capital return instead. Amount not verified (n.v.) — none is presented as fact here.</td></tr>
+        <tr><td data-l="Metric">Dividend yield</td><td class="num" data-l="Value">2.49%</td><td data-l="Note">Pack / MarketBeat basis</td></tr>
+        <tr><td data-l="Metric">TTM revenue</td><td class="num" data-l="Value">$73.1bn</td><td data-l="Note">Fool, trailing twelve months</td></tr>
+        <tr><td data-l="Metric">Q3 2026 EPS</td><td class="num" data-l="Value">$3.03 vs $2.93 est.</td><td data-l="Note">Beat — MarketBeat consensus</td></tr>
+        <tr><td data-l="Metric">Consensus target</td><td class="num" data-l="Value">$214.62</td><td data-l="Note">MarketBeat — the 12–18 mo base case anchor in §5</td></tr>
+      </tbody>
+    </table>
+    <h3>Capital allocation — what can be said honestly</h3>
+    <p>The pack directs readers to <strong>earnings plus capital return</strong> (dividends and buybacks) rather than an FCF figure for MS, and marks the FCF amount as not verified. This page therefore does <strong>not</strong> publish a buyback total, R&amp;D figure, or debt-to-equity ratio that the pack does not carry. For a regulated bank, leverage is governed by regulatory capital rather than a corporate debt-to-equity ratio — comparing MS on an industrial D/E basis would be misleading, so none is shown.</p>
+    <p class="foot">† <strong>Market-cap caveat (from independent verification):</strong> Pack $282.4bn vs Finnhub $290.76bn for MS at the same $184.30 price — the difference is share-count treatment by vendor. Label the vendor; do not present either as the sole verified cap.</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section>
+    <div class="kicker">03 — Competitive moat &amp; industry positioning</div>
+    <h2>Scale in wealth, franchise in banking</h2>
+    <div class="grid2">
+      <div>
+        <h3 style="margin-top:0">Where the moat sits</h3>
+        <ul>
+          <li><strong>Wealth scale:</strong> A large, sticky wealth base — including E*TRADE’s self-directed reach and Smith Barney heritage — creates recurring, asset-linked fees and switching friction for advised clients.</li>
+          <li><strong>IB franchise:</strong> A long-standing investment-banking franchise gives MS a seat in large, complex deals that smaller rivals cannot easily contest.</li>
+          <li><strong>Diversified fee income:</strong> Trading + IB + wealth + asset management is more diversified than a pure trading house — when one fee pool dries up, others can carry the quarter, as the segment mix is designed to do.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Limits &amp; competitors</h3>
+        <ul>
+          <li><strong>Pricing power is cyclical, not structural:</strong> IB and trading fees are set by competition and volumes — MS cannot simply raise prices in a deal drought.</li>
+          <li><strong>Primary competitors:</strong> JPMorgan, Goldman Sachs, Bank of America, Citigroup and Wells Fargo in banking/markets; Charles Schwab and the large wealth managers in wealth.</li>
+          <li><strong>Barriers to entry are real but not absolute:</strong> Regulation, capital and client trust protect incumbents, yet technology platforms continue to pressure wealth pricing and distribution.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS & RISKS -->
+  <section>
+    <div class="kicker">04 — Catalysts &amp; downside risks</div>
+    <h2>What lifts it — and what hits all three legs at once</h2>
+    <div class="grid2">
+      <div>
+        <h3 style="margin-top:0;color:var(--green)">Catalysts</h3>
+        <ul>
+          <li><strong>Wealth net new assets</strong> — sustained inflows compound the fee base even without market gains.</li>
+          <li><strong>Investment-banking recovery</strong> — a reopening deal / IPO pipeline directly lifts Institutional Securities.</li>
+          <li><strong>Investment-management flows</strong> — positive flows and performance rebuild AUM-linked revenue.</li>
+          <li><strong>Q3 momentum as a signal:</strong> EPS $3.03 vs $2.93 expected shows operating leverage when markets cooperate.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0;color:var(--red)">Downside risks</h3>
+        <ul>
+          <li><strong>Deal / trading downturn</strong> — the classic MS risk: IB and markets revenue can fall sharply and quickly.</li>
+          <li><strong>Wealth margin pressure</strong> — fee compression, cash-sorting and competition squeeze the highest-quality earnings stream.</li>
+          <li><strong>Market correction hitting AUM and fees</strong> — falling asset levels reduce wealth and asset-management fees mechanically, even with no client outflows.</li>
+          <li><strong>Macro / rates exposure:</strong> The pack ties MS to rates and asset levels; a hard landing hits credit, markets and wealth simultaneously — diversification helps, it does not immunise.</li>
+        </ul>
+      </div>
+    </div>
+    <p class="warn">Geopolitical and regulatory detail beyond the pack is not asserted here. MS operates in 40+ countries, so cross-border regulation and market access are standing exposures for any global bank — treat specific regulatory outcomes as open questions unless sourced.</p>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section>
+    <div class="kicker">05 — Scenario-based valuation &amp; price targets <span class="badge">Modelled estimates</span></div>
+    <h2>12–18 months: $215 base · 5 years: $247 weighted</h2>
+    <p class="lede">Method shown so you can check it. 5-year model: starting earnings implied by $184.30 at 14.22× P/E, grown at the case revenue growth rate, at the case margin, re-rated at the case P/E. Weights: Base 50% / Bull 25% / Bear 25% — which recompute exactly to the pack’s $247 weighted figure (0.50×$236 + 0.25×$376 + 0.25×$140 = $247). All scenario prices are modelled estimates, not verified facts.</p>
+
+    <div class="barwrap" aria-label="Five year scenario prices chart">
+      <svg viewBox="0 0 720 190" role="img" aria-label="Bar chart: Bear 140 dollars, Base 236 dollars, Bull 376 dollars, Weighted 247 dollars, Current 184.30 dollars">
+        <line x1="70" y1="150" x2="700" y2="150" stroke="var(--line)" stroke-width="1"/>
+        <!-- scale: 400 = 560px, x0=70 -->
+        <rect x="70" y="18" width="196" height="22" rx="4" fill="#b42318" opacity="0.85"/><text x="78" y="33" fill="#fff" font-size="12" font-weight="700">BEAR $140</text>
+        <rect x="70" y="52" width="259" height="22" rx="4" fill="#5b6b7d"/><text x="78" y="67" fill="#fff" font-size="12" font-weight="700">CURRENT $184.30</text>
+        <rect x="70" y="86" width="330" height="22" rx="4" fill="#173a5e"/><text x="78" y="101" fill="#fff" font-size="12" font-weight="700">BASE $236</text>
+        <rect x="70" y="120" width="346" height="22" rx="4" fill="#b9975b"/><text x="78" y="135" fill="#fff" font-size="12" font-weight="700">WEIGHTED $247</text>
+        <!-- bull separate scale note: draw full -->
+        <rect x="430" y="18" width="96" height="124" rx="6" fill="#137547" opacity="0.12" stroke="#137547" stroke-dasharray="4 3"/><text x="442" y="42" fill="var(--green)" font-size="12" font-weight="700">BULL</text><text x="442" y="62" fill="var(--ink)" font-size="20" font-weight="700" font-family="IBM Plex Serif">$376</text><text x="442" y="82" fill="var(--muted)" font-size="12">+104% vs today</text><text x="442" y="100" fill="var(--muted)" font-size="12">g 8% · m 30%</text><text x="442" y="116" fill="var(--muted)" font-size="12">P/E 17×</text>
+      </svg>
+      <p class="foot" style="margin:2px 0 0">Bars to scale for Bear / Current / Base / Weighted. Bull shown as a callout to keep the chart readable at $376.</p>
+    </div>
+
+    <div class="scenarios">
+      <div class="sc bear"><label style="color:var(--red)">Bear — 25%</label><strong>$140</strong><div class="up" style="color:var(--red)">−24.0% vs $184.30</div><dl><dt>Growth:</dt> <dd>2%/yr</dd><br/><dt>Margin:</dt> <dd>23%</dd><br/><dt>P/E:</dt> <dd>11×</dd></dl><p style="font-size:13px;color:var(--muted);margin:8px 0 0">Deal/trading downturn persists; wealth margins compress; market falls into AUM.</p></div>
+      <div class="sc base"><label style="color:var(--accent)">Base — 50%</label><strong>$236</strong><div class="up" style="color:var(--accent)">+28.0% vs $184.30</div><dl><dt>Growth:</dt> <dd>5%/yr</dd><br/><dt>Margin:</dt> <dd>27.2%</dd><br/><dt>P/E:</dt> <dd>14.22× (held)</dd></dl><p style="font-size:13px;color:var(--muted);margin:8px 0 0">Steady wealth inflows and a normal IB cycle; valuation multiple unchanged.</p></div>
+      <div class="sc bull"><label style="color:var(--green)">Bull — 25%</label><strong>$376</strong><div class="up" style="color:var(--green)">+104.0% vs $184.30</div><dl><dt>Growth:</dt> <dd>8%/yr</dd><br/><dt>Margin:</dt> <dd>30%</dd><br/><dt>P/E:</dt> <dd>17×</dd></dl><p style="font-size:13px;color:var(--muted);margin:8px 0 0">IB boom + strong net new assets + re-rating as wealth mix rises.</p></div>
+    </div>
+
+    <table>
+      <thead><tr><th>Horizon</th><th class="num">Bear</th><th class="num">Base</th><th class="num">Bull</th><th class="num">Weighted</th></tr></thead>
+      <tbody>
+        <tr><td data-l="Horizon"><strong>12–18 months</strong></td><td class="num" data-l="Bear">—</td><td class="num" data-l="Base"><strong>$215</strong></td><td class="num" data-l="Bull">—</td><td class="num" data-l="Weighted">—</td></tr>
+        <tr><td data-l="Horizon"><strong>5 years (modelled)</strong></td><td class="num" data-l="Bear">$140</td><td class="num" data-l="Base">$236</td><td class="num" data-l="Bull">$376</td><td class="num" data-l="Weighted"><strong>$247</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:14px"><strong>12–18 mo read:</strong> The pack gives a single base anchor for this horizon — <strong>$215</strong>, which is the MarketBeat consensus target of $214.62 rounded — implying <strong>+16.7%</strong> from $184.30. No separate 12–18 mo bull/bear prices were supplied in the pack, so none are invented here. <strong>5-yr weighted $247 implies +34.0%</strong> over five years on the modelled assumptions above.</p>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section>
+    <div class="kicker">06 — Recommendation &amp; portfolio sizing</div>
+    <h2>Buy — short and long — at a controlled 2%</h2>
+    <div class="grid2">
+      <div>
+        <p style="margin-top:0"><span class="pill buy">Short term: BUY</span> &nbsp;<span class="pill buy">Long term: BUY</span></p>
+        <p><strong>Why buy, in the pack’s logic:</strong> A diversified fee model with a scaled wealth anchor, trading at 14.22× trailing earnings with a 2.49% yield, a Q3 EPS beat, and a consensus target ~16% above the price. The 5-year modelled weighted value ($247) also sits above today’s price even with the multiple held flat in the base case — the return does not require heroic re-rating.</p>
+        <p><strong>Why only 2%:</strong> MS is cyclical by design. In a risk-8/10 portfolio for a mid-30s investor, a single bank/broker at 2% gives real participation in an IB/wealth upcycle without letting a markets downturn dominate the whole portfolio. It is a satellite financial holding alongside larger, more diversified financial exposure — not the core itself.</p>
+      </div>
+      <div>
+        <div class="calc">
+          <label for="port">Position-size calculator — 2% weight</label>
+          <input id="port" type="number" inputmode="decimal" value="500000" min="0" step="1000" aria-label="Total portfolio value in dollars"/>
+          <div class="calcout" id="calcOut"></div>
+          <p class="foot" style="margin:8px 0 0">Illustrative only. Shares = (2% × portfolio) ÷ $184.30, rounded down. Excludes costs, taxes and price moves.</p>
+        </div>
+      </div>
+    </div>
+    <h3>Ranking basis for this sector page</h3>
+    <p class="foot">FinanceCharts, last updated 30 Oct 2026; US-listed issuers only, one issuer per company (BRK.A counted once as BRK.B; foreign-primary OTC names excluded). HOOD is discussed in this sector series as a named ticker ($76.6bn, #74 globally) — it is <em>not</em> top-10 and is included per instruction. MS itself is presented here as the Financials constituent covered in this artifact. Prices throughout = 30 Oct 2026 close.</p>
+  </section>
+
+  <!-- SOURCES -->
+  <section>
+    <div class="kicker">Sources, verification &amp; limits</div>
+    <h2>Where every number came from</h2>
+    <ul class="sources">
+      <li><strong>Research pack — MS:</strong> Model/segments, 40+ countries / 80,000+ staff, TTM revenue $73.1bn — The Motley Fool (as cited in the pack).</li>
+      <li><strong>Q3 EPS, consensus target, price, P/E, yield:</strong> MarketBeat — MS page: <a href="https://www.marketbeat.com/stocks/NYSE/MS/?AccountID=10790435&hash=DBE7362B334CD0ADCE62C5DD369164C664A4EF0C745F9960D23F064D56FB506918A3EB38254C6623BA413C46C6E2DC63DED36B9728F184F30FC432070F366D92&utm_source=newsletter&utm_medium=email&utm_campaign=newsletterclick" target="_blank" rel="noopener">marketbeat.com/stocks/NYSE/MS</a></li>
+      <li><strong>Independent verification (Financials):</strong> MS spot-check — price $184.30 and P/E 14.22 confirmed; market cap flagged vendor-divergent ($282.4bn pack vs $290.76bn Finnhub): <a href="https://finnhub.io/?q=%22MS%22" target="_blank" rel="noopener">finnhub.io — MS</a>. Where the pack and the verification log conflict, the log wins — applied here for market cap.</li>
+      <li><strong>Scenario model:</strong> Growth / margin / P/E assumptions and bull/base/bear prices are from the pack’s modelled valuation (§5). Weighted $247 recomputes with 50/25/25 weights as shown. Labelled as modelled estimates throughout, per coordinator correction.</li>
+    </ul>
+    <p class="warn"><strong>Open questions &amp; omissions — stated plainly:</strong> No geographic revenue split, no verified FCF amount, no buyback total, and no debt-to-equity ratio are published in the pack for MS, so none appear as facts on this page. EV/EBITDA is “not meaningful” for a bank/broker per the pack. &nbsp;·&nbsp; <strong>Disclaimer:</strong> Research views only, as of 1 Nov 2026, for a mid-30s investor profile with risk score 8/10 as specified in the brief. Not guarantees and not investment advice. Verify prices before acting — markets reopen after the 30 Oct reference close.</p>
+  </section>
+
+  <p class="foot" style="text-align:center;margin-top:18px">Equity Research — MS · Morgan Stanley (NYSE: MS) · Financials · Companion to the sector index artifact</p>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Morgan Stanley (MS)</h2>
+<p><strong>Price (30 Oct 2026 close): $184.30.</strong> <strong>DCF intrinsic: $172.</strong> Discount/premium vs DCF: <strong>+7.2%</strong> — i.e. the shares are trading 7.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$172</td><td>+7.2%</td><td>Base Distributable proxy: EPS $12.96 x 1.577bn = $20.44bn, x 0.779 (1 - g/ROTCE; ROTCE 22.6% Q3 2026 reported, g 5%). Bank OCF NOT used. Growth g 5%, discount r 10% (default 10%), terminal g 3%. PV of projected cash flows $124.33bn + PV of terminal value $147.08bn + net cash / excess capital $0.00bn, ÷ 1.577bn diluted shares.</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack at ~/workspace/research_notes/equity/MS/report.md including its coordinator corrections and verification log; supplementary figures as listed in NOTES.md (MarketBeat, TipRanks, FinanceCharts, InTickers, company Q3 2026 releases). These are modelled estimates, not price targets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Morgan Stanley (MS)</h2>
+<p><strong>B2B — no meaningful ranked top-7 exists, so no table is forced.</strong> No ranked top-7 customer list is disclosed for Morgan Stanley, and none is invented here. Revenue comes from Institutional Securities clients (corporates, institutions and governments), Wealth Management clients and Investment Management investors, on TTM revenue of $73.1bn (pack). Q3 2026 EPS was $3.03, beating $2.93 consensus. The ‘customers’ that matter are deal pipelines, trading counterparties and wealth asset levels, not seven names.</p>
+<p><strong>Read-through (with caveat):</strong> Read-through: with no concentrated named customer, the thesis applies at franchise level — if Morgan Stanley’s institutional and wealth clients are broadly undervalued, that is a potential tailwind for deal activity, trading and net new wealth assets, and vice versa — but an undervalued client does not guarantee more Morgan Stanley fees, which depend on that client’s own deal appetite and cash position.</p>
+<p><em>Note:</em> no customer in this section is named as a ranked top-7 customer, so no {INTR:} / {DP:} placeholders arise here; inventing a ranking or a revenue share would breach the sourcing rule. If a future 10-K discloses a &gt;10% customer, that name should be added with its placeholders at that point.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Morgan Stanley (MS)</h2>
+<p><strong>Role: Beneficiary.</strong> While the AI trade runs, Morgan Stanley benefits as adviser, underwriter and wealth manager to the AI complex: deal and trading recoveries lift Institutional Securities, and rising AI-stock wealth lifts wealth-management asset levels and fees — the pack’s catalysts are wealth net new assets and IB recovery, both AI-sensitive at the margin.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> The multiple channel is moderate: at ~14x trailing earnings Morgan Stanley carries no large AI premium, so an unwind compresses the general financial multiple and, more importantly, the asset base that fees are charged on.</p>
+<p><strong>When the AI trade unwinds:</strong> If the AI trade unwinds, what breaks in order is: (1) demand — deal announcements and trading volumes fall, and wealth AUM drops with AI-stock prices; (2) multiple — compression toward a through-cycle low-teens multiple; (3) balance sheet — limited direct AI-capex debt, but market-correction hits to AUM-linked fees are the balance-sheet-adjacent risk. Triggers to watch: IB fee trends, wealth net new assets turning negative, and a sharp fall in growth-stock valuations.</p>
+<p><em>Note:</em> no quantified AI sensitivity is claimed here; numbers above are only those supported by the research pack or the sourced figures in the intrinsic-value section, and the balance-sheet and trigger assessments are qualitative (high/medium/low) with reasoning as shown.</p>
+</div>
+</div>
+<script>
+(function(){
+  var inp=document.getElementById('port'), out=document.getElementById('calcOut');
+  function render(){
+    var v=parseFloat(inp.value||'0'); if(isNaN(v)||v<0)v=0;
+    var alloc=v*0.02, shares=Math.floor(alloc/184.30);
+    var fmt=function(n){return n.toLocaleString('en-US',{maximumFractionDigits:0})};
+    out.innerHTML='On a <strong>$'+fmt(v)+'</strong> portfolio, a 2% MS weight is <strong>$'+fmt(alloc)+'</strong> — about <strong>'+fmt(shares)+' shares</strong> at $184.30.<br/><span style="color:var(--muted)">At the 5-yr weighted modelled value of $247, that holding would be ~$'+fmt(shares*247)+' if the model played out — a modelled estimate, not a forecast.</span>';
+  }
+  inp.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

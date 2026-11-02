@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SCCO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+
+/* ---------- verdict strip ---------- */
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+
+/* ---------- nav ---------- */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* ---------- sections ---------- */
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+
+/* ---------- tables ---------- */
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+
+/* ---------- bars / visuals ---------- */
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.red{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+
+/* scenario cards */
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+
+/* calculator */
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+
+/* rating pills */
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.pill.unv{background:var(--amber-soft);color:var(--amber)}
+
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Copper &amp; Diversified Mining</span></div>
+  <h1>Southern Copper <span class="tick">(NYSE: SCCO)</span></h1>
+  <p class="lede">The purest large-cap copper proxy on the NYSE: the world's largest copper reserve base, low cash costs, and a Peruvian growth option — Tia Maria — that resumed in 2024 after years of environmental opposition. At 9.5× sales the stock already prices in strong copper; the question is whether reserve life and by-product credits justify paying a scarcity multiple for a single-commodity earnings stream.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $177.53 close, Fri 30 Oct 2026 <span class="pill unv">Unverified</span></span>
+    <span><b>Sector universe:</b> Global top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names — not in strict market-cap order as printed</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$177.53</div><div class="vsub">Finnhub-sourced; <b>not independently re-checked</b> in the verification pass — treat as unverified</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$149.9B</div><div class="vsub">Unverified (same source/pass as price)</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM</div><div class="vbig mono">27.4× P/E · 9.5× P/S</div><div class="vsub">EPS $5.13 (Finnhub, unverified) · P/S rich on sales — reflects copper-price leverage</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / gross profit</div><div class="vbig mono">$15.8B / $9.2B</div><div class="vsub">Motley Fool figures — implied gross margin ≈ 58%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base target $195 (+10%); copper leverage plus Tia Maria progress — see §5 (modelled estimates).</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled probability-weighted 5-yr value ≈ $224 vs $177.53 today — reserve life is the durability argument.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Satellite materials position — sized for single-commodity beta, not a core holding. See §6.</div></div>
+</div>
+
+<div class="callout warn"><div class="ct">Verification status — read first</div>
+<p>An independent verification pass was run over this sector's research pack on 1 Nov 2026. SCCO's <b>price, market cap and P/E were not re-checked</b> in that pass, so they are labelled <b>unverified</b> wherever they appear. All scenario targets and 5-year prices in §5 are <b>modelled estimates</b> with their assumptions and weights shown — they are not verified facts and not guarantees.</p></div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">TTM</span><h2>The business in one view</h2></div>
+  <p>Southern Copper mines copper and by-products from some of the longest-life ore bodies in the industry. The research pack ranks it <b>#1 in Mexico and Peru, #3 in the US and #4 in the world</b>, holding the <b>world's largest copper reserves</b> (Motley Fool). The trailing P&amp;L is a high-margin conversion of the copper price: $15.8B of revenue produced $9.2B of gross profit.</p>
+  <figure>
+    <svg viewBox="0 0 980 190" width="100%" role="img" aria-label="Flow of Southern Copper trailing twelve month revenue into cost of sales and gross profit" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="60" width="200" height="66" fill="var(--navy)"/><text x="24" y="88" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="24" y="108" font-size="13" fill="#fff">$15.8B</text>
+      <rect x="420" y="24" width="230" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="436" y="48" font-size="13" font-weight="700" fill="var(--ink)">Cost of sales (derived)</text><text x="436" y="66" font-size="12" fill="var(--ink2)">≈ $6.6B · revenue less gross profit</text>
+      <rect x="420" y="106" width="230" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="436" y="130" font-size="13" font-weight="700" fill="var(--ink)">Gross profit</text><text x="436" y="148" font-size="12" fill="var(--ink2)">$9.2B · ≈ 58% gross margin</text>
+      <line x1="208" y1="82" x2="416" y2="56" stroke="var(--muted)" stroke-width="5" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="208" y1="104" x2="416" y2="128" stroke="var(--muted)" stroke-width="9" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="740" y="60" width="232" height="66" fill="var(--paper)" stroke="var(--line2)"/><text x="756" y="86" font-size="13" font-weight="700" fill="var(--ink)">EPS (TTM) $5.13</text><text x="756" y="106" font-size="12" fill="var(--ink2)">Finnhub — unverified, see note above</text>
+      <line x1="650" y1="134" x2="736" y2="100" stroke="var(--muted)" stroke-width="4" opacity=".35" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>Revenue and gross profit: Motley Fool TTM figures carried in the research pack. Cost of sales is the arithmetic difference, labelled derived. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline figure</th><th class="n">Value</th><th>Source / status</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct 2026 close)</td><td class="n">$177.53</td><td>Finnhub — <b>unverified</b> (not re-checked in verification pass)</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$149.9B</td><td>Unverified (same status as price)</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">27.4×</td><td>Finnhub — <b>unverified</b></td></tr>
+      <tr><td>EPS (TTM)</td><td class="n">$5.13</td><td>Finnhub — unverified</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$15.8B</td><td>Motley Fool, via research pack</td></tr>
+      <tr><td>Gross profit (TTM)</td><td class="n">$9.2B</td><td>Motley Fool, via research pack</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">9.5×</td><td>Derived from the figures above — rich on sales, reflecting copper-price leverage</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>SCCO is a <b>single-commodity miner with by-product credits</b>: copper is the revenue engine, and by-products from the same ore bodies lower the effective cost of each pound of copper produced. The asset base sits in <b>Mexico and Peru</b> — the pack ranks SCCO #1 in both countries, #3 in the US and #4 globally — and the reserve position is the core of the story: the <b>world's largest copper reserves</b> (Motley Fool) mean the production profile does not depend on exploration success or acquisitions to persist.</p>
+
+  <h3>Revenue architecture</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Stream</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Copper (core)</td><td>Mined and refined copper sold at prices linked to the market copper price — revenue is therefore a leveraged function of the copper price, volumes and grades, not of anything management sets. This is why the stock trades at 9.5× sales: the market is paying for earnings power at today's copper price, not for the revenue line itself.</td></tr>
+      <tr><td>By-products</td><td>Metals recovered alongside copper from the same ore. By-product credits offset cash costs, which is a structural reason SCCO's unit costs sit low versus peers (see §3) — when by-product prices are firm, net cash cost per pound falls even if mine-site costs rise.</td></tr>
+      <tr class="total"><td>Total (TTM)</td><td>Revenue $15.8B · gross profit $9.2B (≈58% gross margin) — Motley Fool figures via the research pack.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Geographic footprint</h3>
+  <ul>
+    <li><b>Mexico and Peru</b> are the operating core — #1 producer position in each, per the pack. That concentration is both the moat (scale, infrastructure, reserve tenure) and the principal political exposure (see §4).</li>
+    <li><b>United States</b> — #3 position; a smaller part of the footprint but the listing and shareholder base are US (NYSE).</li>
+    <li><b>Ownership:</b> SCCO sits within the <b>Grupo México</b> group — the controlling parent's backing is treated in the pack as part of the moat (see §3), and it also means minority holders are along for the parent's capital-allocation ride.</li>
+  </ul>
+
+  <h3>Structural pivot — Tia Maria and the expansion pipeline</h3>
+  <ul>
+    <li><b>Tia Maria (Peru)</b> — the flagship growth project <b>resumed in 2024 despite environmental opposition</b>. It is the clearest single swing factor in the medium-term production story: progress supports the bull case; renewed stoppage is the bear case's trigger (see §4, §5).</li>
+    <li><b>Mexican and Peruvian expansions</b> — the pack flags expansions in both core countries as the growth pipeline beyond Tia Maria. No project-level volumes or capex figures were carried in the verified pack, so none are shown here.</li>
+  </ul>
+
+  <h3>Supply-chain dependencies</h3>
+  <ul>
+    <li><b>Water</b> — copper mining and concentrating in arid regions is water-intensive; water access is named in the pack as a live risk and is inseparable from the Peru social-licence question.</li>
+    <li><b>Energy, reagents and equipment</b> — standard large-mine input exposure; with no supplier-level data carried in the pack, no specific dependencies are asserted.</li>
+    <li><b>The copper price itself</b> — the dominant "input" is on the output side: SCCO sells an exchange-priced commodity, so revenue inherits copper's full cyclicality (single-commodity beta, §4).</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>What the verified pack supports is a <b>margin story, not a leverage story</b>: a ≈58% TTM gross margin on $15.8B of revenue is the signature of low cash costs meeting a firm copper price. The balance-sheet detail an institutional note would normally carry — cash, debt, free cash flow, dividend and buyback lines — was <b>not present in the research pack and was not verified</b>, so it is marked as an open item below rather than filled in.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $177.53 (30 Oct 2026 close, unverified). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">27.4×</td><td>Finnhub, <b>unverified</b>. A full multiple for a miner — defensible only if copper holds; miners are usually valued on through-cycle earnings, and 27.4× spot earnings embeds a strong spot price</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">9.5×</td><td>Rich on sales by any mining standard — the pack's own framing: it reflects copper-price leverage, i.e. the market capitalising today's margin structure, not a "cheap revenue" story</td></tr>
+      <tr><td>EPS (TTM)</td><td class="n">$5.13</td><td>Finnhub, unverified. <b>Internal-consistency flag:</b> as reported, the pack's figures do not reconcile — $177.53 ÷ $5.13 EPS implies ≈ 34.6×, not the quoted 27.4× P/E (which would imply EPS ≈ $6.48). The three figures are carried exactly as the source reported them and all treated as unverified; no reconciled substitute is asserted</td></tr>
+      <tr><td>Gross margin (TTM, implied)</td><td class="n">≈ 58%</td><td>$9.2B gross profit on $15.8B revenue (Motley Fool) — arithmetic on pack figures; the clearest single evidence of the low-cost position</td></tr>
+      <tr><td>Forward multiples (P/E, EV/EBITDA)</td><td class="n">—</td><td><b>Open item:</b> not carried in the pack; omitted rather than estimated here</td></tr>
+      <tr><td>Free cash flow / capital allocation (dividend, buybacks)</td><td class="n">—</td><td><b>Open item:</b> not carried in the verified pack; omitted rather than estimated here</td></tr>
+      <tr><td>Leverage / debt-to-equity, cash &amp; debt</td><td class="n">—</td><td><b>Open item:</b> not carried in the verified pack; omitted rather than estimated here. Grupo México backing (pack) is a qualitative support, not a substitute for the numbers</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">How to read a miner's multiple here</div>
+  <p>At 27.4× trailing earnings and 9.5× sales (both unverified, Finnhub), SCCO is priced like a growth asset, not a cyclical. That is the market paying upfront for reserve life and copper scarcity. It also means the de-rating risk in a copper correction is two-sided: earnings fall <i>and</i> the multiple compresses — the bear case in §5 is built on exactly that combination.</p></div>
+
+  <h3>Capital allocation — what is known</h3>
+  <ul>
+    <li><b>Growth capex is the visible priority:</b> Tia Maria's resumption (2024) and the Mexican/Peruvian expansion pipeline are where capital is being directed, per the pack.</li>
+    <li><b>Parent context:</b> as a Grupo México company, SCCO's allocation decisions sit inside a group framework — a stability positive for funding large projects, a governance consideration for minorities.</li>
+    <li><b>Not asserted:</b> dividend yield, payout ratio, buyback activity and R&amp;D-style spend are not in the verified pack and are deliberately not estimated in this note.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — but it is a resource moat, not a pricing moat.</b> SCCO cannot set the copper price; nobody in this industry can. What it owns is the right to produce copper, for a very long time, at a low cash cost — and in a commodity business, cost position plus reserve life <i>is</i> the moat, because the lowest-cost producer earns a margin in price environments where higher-cost rivals merely survive.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>World's largest copper reserves</b> (Motley Fool) — reserve life is the durability argument: the asset base does not deplete on any investment-relevant horizon, so today's cost position is not a wasting asset.</li>
+      <li><b>Low cash costs</b> — evidenced in the P&amp;L by the ≈58% TTM gross margin; by-product credits (§1) structurally subsidise the copper cost line.</li>
+      <li><b>Scale positions:</b> #1 in Mexico and Peru, #3 in the US, #4 in the world — scale brings infrastructure, permitting history and negotiating weight that a new entrant cannot replicate at any realistic cost.</li>
+      <li><b>Grupo México backing</b> — a controlling parent with mining at its core: funding depth for multi-year projects like Tia Maria and a long operating record in the same jurisdictions.</li>
+      <li><b>Barrier to entry is geology plus time:</b> a competing reserve of this scale cannot be manufactured — discovery, permitting and build-out run in decades, which is precisely the scarcity the 9.5× sales multiple is paying for.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>No pricing power:</b> copper is exchange-priced. The moat protects margin, never revenue — a copper correction flows straight into earnings (§4).</li>
+      <li><b>Competition is for assets and permits, not customers:</b> the rivals that matter are the other global majors in this sector universe — diversified names such as BHP and Rio Tinto and copper-weighted peers such as Freeport-McMoRan — competing on cost curves and project pipelines rather than price.</li>
+      <li><b>Jurisdiction is the soft underbelly:</b> the reserve base sits mainly in Peru and Mexico; social licence and water politics (Tia Maria's history is the proof) can strand value that geology says is there.</li>
+      <li><b>Controlled-company discount risk:</b> minorities hold a claim inside a Grupo México structure; group priorities, not SCCO's standalone optimum, can set the agenda.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> within copper, SCCO is the low-cost, longest-life pure play in this coverage universe — the name you own if the thesis is "copper price, held for years, with margin protection on the downside," rather than "diversified mining cash flows." That purity is why both the multiple and the bear-case drawdown are larger than for diversified peers.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Copper price strength</b> — the master catalyst. At 9.5× sales and a ≈58% gross margin structure, incremental copper price falls disproportionately to gross profit; the earnings torque runs in SCCO's favour while the price holds or rises.</li>
+        <li><b>Tia Maria execution</b> — continued progress on the project resumed in 2024 converts a long-stalled asset into a visible production growth line; each milestone de-risks the growth capex story.</li>
+        <li><b>Mexican/Peruvian expansions</b> — the broader pipeline in both core countries; delivery extends the reserve-life narrative from "long" to "growing."</li>
+        <li><b>By-product price firmness</b> — supports net cash costs and gross margin without any copper-price help.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Copper correction</b> — the single-commodity beta cuts both ways: earnings fall and the premium multiple (27.4× P/E, 9.5× P/S, unverified) compresses simultaneously. This is the bear case's engine.</li>
+        <li><b>Peru social licence</b> — Tia Maria resumed <i>despite</i> environmental opposition; community opposition in Peru has stopped projects before and can slow or re-stop this one.</li>
+        <li><b>Water</b> — access and competing claims on water in arid mining regions are a standing operational and permitting risk, tightly linked to the social-licence question.</li>
+        <li><b>Concentration</b> — Mexico/Peru jurisdiction concentration plus a single commodity: there is no second business to cushion either a political shock or a price shock.</li>
+        <li><b>Data caveat as a risk in itself:</b> key market figures in this note are unverified (§2); position sizing in §6 is deliberately small partly for that reason.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained copper correction arriving together with a Tia Maria reversal. Either alone is survivable — the cost position cushions price, and the reserve base outlasts a project delay. Together they remove both legs of the bull case (price torque and growth) while the premium multiple is still in the price.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b>modelled estimates</b> from the research pack — not verified facts, not guarantees. Method: scenario prices are set off the $177.53 reference close under stated copper/Tia Maria assumptions; probability weights are shown explicitly (Bear 25% / Base 50% / Bull 25%) so every weighted figure can be re-checked arithmetically.</p>
+
+  <h3>12–18-month targets</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$140</div><div class="ret down">−21% vs $177.53</div><p><b>Modelled estimate.</b> Copper corrects; earnings and the premium multiple compress together; Tia Maria progress stalls under social-licence pressure. The stock gives back the scarcity premium and trades as an ordinary cyclical.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$195</div><div class="ret up">+10% vs $177.53</div><p><b>Modelled estimate.</b> Copper holds near current levels; Tia Maria advances on its resumed footing; Mexican/Peruvian expansions proceed. Earnings power at today's margin structure supports a modest re-rating from an already-full starting multiple.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$235</div><div class="ret up">+32% vs $177.53</div><p><b>Modelled estimate.</b> Copper price strengthens and the gross-margin torque (§4) lifts earnings faster than the market expects; Tia Maria milestones land cleanly and the scarcity premium on the world's largest reserve base expands.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled</div><div class="wv mono">≈ $191</div></div><p>0.25×$140 + 0.50×$195 + 0.25×$235 = $191.25, or <b>+8%</b> from $177.53. The skew is mildly positive — the bull case gains roughly 1.5× what the bear case loses — which, combined with an already-full starting multiple, argues for a measured position rather than a core one (§6).</p></div>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Convention (same as the META sample and this season's other models): the reference price is compounded at a case-specific annual rate with the share count and margin structure <b>held frozen</b>; only the price CAGR varies by case. The base case is the pack's stated <b>5% CAGR</b>: $177.53 × 1.05⁵ = $177.53 × 1.276 ≈ <b>$227</b>. Bull and bear CAGRs below are the rates implied by the pack's scenario endpoints (≈ +11% and ≈ −4.6% respectively). <b>Scope note:</b> the research pack supplies price endpoints only — it does not carry per-case revenue growth, net margin, 2031 EPS or exit P/E assumptions — so this table is a price-only frozen-parameter projection; the fuller parameter grid used in the META sample is not reproduced here rather than filled with invented inputs. All figures are modelled estimates.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Price CAGR / yr</th><th class="n">2031 price</th><th class="n">Total return vs $177.53</th><th>Underlying assumption</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">≈ −4.6%</td><td class="n">~$140</td><td class="n">−21%</td><td>Copper corrects and stays lower; multiple compresses to ordinary-cyclical levels; Tia Maria value deferred indefinitely</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+5%</td><td class="n">~$227</td><td class="n">+28%</td><td>Copper broadly holds its level; margins stay near the current structure; expansions deliver volume without price help</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">≈ +11%</td><td class="n">~$300</td><td class="n">+69%</td><td>A structurally tighter copper market re-rates the reserve base; Tia Maria and expansions add a growth leg on top of price torque</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">≈ $224</td><td class="n">+26%</td><td>0.25×$140 + 0.50×$227 + 0.25×$300 = $223.5 ≈ $224 — modelled estimate</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Read the base case honestly: +5%/yr is a <i>modest</i> expected path for an 8/10-risk portfolio — the price of admission is that SCCO starts at 9.5× sales. The return case rests on copper torque (bull) rather than on the base path, which is exactly why §6 sizes this as a satellite, not a core holding.</p>
+
+  <figure>
+    <div class="bars" role="img" aria-label="Bar chart of scenario prices: bear 140, current 177.53, base 195, bull 235 for 12 to 18 months; 5-year bear 140, base 227, bull 300, weighted 224">
+      <div class="bar-row"><span class="bl">Price today</span><div class="bar-track"><div class="bar-fill gold" style="width:59%"></div></div><span class="bv">$177.53</span></div>
+      <div class="bar-row"><span class="bl">12–18 mo · Bear</span><div class="bar-track"><div class="bar-fill red" style="width:47%"></div></div><span class="bv">$140</span></div>
+      <div class="bar-row"><span class="bl">12–18 mo · Base</span><div class="bar-track"><div class="bar-fill" style="width:65%"></div></div><span class="bv">$195</span></div>
+      <div class="bar-row"><span class="bl">12–18 mo · Bull</span><div class="bar-track"><div class="bar-fill green" style="width:78%"></div></div><span class="bv">$235</span></div>
+      <div class="bar-row"><span class="bl">5-yr · Base</span><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div><span class="bv">$227</span></div>
+      <div class="bar-row"><span class="bl">5-yr · Bull</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bv">$300</span></div>
+      <div class="bar-row"><span class="bl">5-yr · Weighted</span><div class="bar-track"><div class="bar-fill gold" style="width:75%"></div></div><span class="bv">≈ $224</span></div>
+    </div>
+    <figcaption>Scenario prices are modelled estimates from the research pack (weights: Bear 25% / Base 50% / Bull 25%). The 5-year bear price ($140, ≈ −4.6%/yr) matches the 12–18-month bear — a copper correction is a level shift, not a slow drift.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations below are research views from the pack, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — at satellite size.</b> Modelled weighted value ≈ $191 (+8%) with positive skew (bull +32% vs bear −21%). The entry discipline matters more than the call: the multiple is full, so any copper-price wobble will offer better entries than chasing strength.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy and hold the reserve base.</b> Modelled weighted 5-yr value ≈ $224 (+26%, ≈ +4.7%/yr). The long case is durability — world's largest reserves, low cash costs — not speed: base-case compounding is deliberately modest.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim into a copper spike that pushes the modelled bull case ($235 near-term / ~$300 5-yr) into the price without reserve or volume news to support it; cut on a confirmed Tia Maria reversal or a copper break that invalidates the ≈58% gross-margin structure.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>SCCO target: 1.5% of total portfolio.</b> A satellite materials position: large enough to express the copper view, small enough that single-commodity beta — and the unverified status of the headline market figures — cannot dominate portfolio outcomes.</li>
+    <li><b>Role in the portfolio:</b> commodity torque and diversification away from the AI/tech complex, not income or compounding ballast. Pair it mentally with the diversified miners rather than adding copper exposure on top of them without counting the overlap.</li>
+    <li><b>Re-check before adding:</b> the open items in §2 (forward multiples, FCF, leverage, dividend) should be filled from primary filings before this position is grown beyond the 1.5% satellite size.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Southern Copper (SCCO)</h2>
+<p><strong>Price (30 Oct 2026 close): $177.53.</strong> <strong>DCF intrinsic: $84.</strong> Discount/premium vs DCF: <strong>+111.3%</strong> — i.e. the shares are trading 111.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$84</td><td>+111.3%</td><td>g 4.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; TwelveData https://twelvedata.com/markets/279117/stock/nyse/scco/statistics ; TipRanks https://www.tipranks.com/stocks/scco/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Southern Copper (SCCO)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Southern Copper sells copper and by-products (molybdenum, zinc, silver) to smelters, refiners, wire/cable and industrial manufacturers in Mexico, Peru, the US and export markets, with no single customer disclosed as a concentration. Its controlling shareholder Grupo México (GMBXF, in coverage) is a parent, not a customer, so no placeholder is claimed for it.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Copper smelters and refiners</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Wire, cable and electrical manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Industrial and construction buyers (via traders)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is copper demand from electrification, construction and manufacturing: undervalued smelters and wire-makers would be a tailwind only if they lift throughput and orders, which depends on copper prices and their own margins rather than their valuation; overvalued or retrenching manufacturers would be a headwind through weaker cathode demand.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Southern Copper (SCCO)</h2>
+<p><strong>Role: Beneficiary.</strong> Southern Copper is the purest copper-demand play on AI electrification in this batch: data-centre power infrastructure, grid expansion and EVs all pull copper, and SCCO holds the world&#x27;s largest copper reserves.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through electrification: data centres need grid connections, transformers and wiring, all copper-intensive, and the grid build-out behind AI is a multi-year copper demand leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the AI premium here is really a copper premium (trailing P/E 27.4 in the pack where verified): an unwind would compress it toward a through-cycle mining multiple as copper prices fall.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is growth capex committed at peak copper prices that becomes uneconomic if copper falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: copper-price reversal, Chinese construction/property weakness, hyperscaler capex cuts or delays, and mine-permit or social-licence setbacks. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Figures are carried from the SCCO research pack (compiled 1 Nov 2026) and its independent verification log for the Industrials / Energy / Materials sector. The verification log is the controlling source where the two differ: SCCO's price, market cap and P/E are recorded there as <b>not re-checked</b> and are labelled unverified throughout this note. Scenario prices are modelled estimates with methodology shown in §5.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22SCCO%22" target="_blank" rel="noopener">Finnhub — SCCO quote data: price $177.53, P/E 27.4, EPS $5.13 (as carried in the pack; unverified)</a></li>
+    <li>Motley Fool — sector ranking and TTM revenue ($15.8B) / gross profit ($9.2B), reserve and market-position claims; ranking basis: global top 10 by market cap, metrics as of 6 Oct 2026, including OTC names, not in strict market-cap order as printed (text reference from the research pack).</li>
+  </ol>
+  <p class="disc">This note is research commentary prepared for a single reader's education. It is not investment advice, not a solicitation, and not a guarantee of any outcome. Scenario targets are modelled estimates built on the assumptions stated beside them; copper prices, permitting outcomes in Peru and Mexico, and the unverified figures flagged above can each move the actual result materially. Verify any figure against the company's primary filings before acting on it.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=toc.querySelectorAll('a');
+    var map={};
+    links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(a){a.classList.remove('on');});
+          var a=map[e.target.id]; if(a) a.classList.add('on');
+        }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    Object.keys(map).forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){ return '$'+Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v=parseFloat(pf.value)||0;
+    var target=v*0.015;
+    var shares=target/177.53;
+    out.innerHTML='SCCO at <b>1.5%</b> of '+fmt(v)+' = <b>'+fmt(target)+'</b> ≈ <b>'+shares.toFixed(1)+' shares</b> at $177.53 (unverified reference price). Satellite sizing — see §6 for the reasoning and the re-check list before growing it.';
+  }
+  if(pf&&out){ pf.addEventListener('input',calc); calc(); }
+})();
+</script>
+</body>
+</html>

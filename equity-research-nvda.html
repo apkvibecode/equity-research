@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — NVDA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700;8..60,900&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f1; --surface:#ffffff; --surface2:#eef0e6; --ink:#14160f; --muted:#5a5e52; --line:#dddccf;
+  --accent:#3f6b00; --accent2:#76b900; --accent-soft:#e6f0c9; --gold:#8a6d00; --red:#9b2c1f; --green:#2f6b2a;
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f110c; --surface:#171a13; --surface2:#1e2218; --ink:#eceee3; --muted:#a8ada0; --line:#2d3126; --accent:#a8d94a; --accent2:#76b900; --accent-soft:#232d14; --gold:#d9b44a; --red:#e88a7a; --green:#8fd48a; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:15.5px;line-height:1.6}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.mono{font-family:"IBM Plex Mono",monospace}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:16px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.pill{border:1px solid var(--line);background:var(--surface);padding:6px 10px;border-radius:999px}
+.hero{padding:28px 0 8px;border-bottom:2px solid var(--ink)}
+.hero h1{font-family:"Source Serif 4",serif;font-weight:900;font-size:clamp(38px,6vw,64px);line-height:.95;margin:8px 0 10px;letter-spacing:-.02em}
+.hero h1 span{color:var(--accent)}
+.lede{font-size:17px;max-width:760px;color:var(--muted);margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:13px}
+.meta b{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.verified{margin:18px 0;background:var(--accent-soft);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.verified h3{margin:0 0 6px;font-size:13px;letter-spacing:.07em;text-transform:uppercase}
+.verified p{margin:4px 0;font-size:13.5px}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:16px 0}
+@media(max-width:760px){.strip{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.stat label{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:700;display:block}
+.stat strong{font-family:"Source Serif 4",serif;font-size:26px;line-height:1;display:block;margin:6px 0 2px}
+.stat small{color:var(--muted);font-size:12.5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+section{padding:28px 0;border-bottom:1px solid var(--line)}
+section h2{font-family:"Source Serif 4",serif;font-size:28px;line-height:1.1;margin:0 0 6px}
+.kicker{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:6px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card h3{margin:0 0 8px;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 6px;border-bottom:2px solid var(--ink)}
+td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right}
+.bar-row{margin:10px 0}
+.bar-label{display:flex;justify-content:space-between;font-size:13px;font-weight:600}
+.bar-track{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden;margin-top:4px}
+.bar-fill{height:100%;background:var(--accent2);border-radius:999px}
+.bar-fill.dark{background:var(--ink)}
+.callout{border-left:4px solid var(--accent2);background:var(--surface);padding:14px 16px;border-radius:0 12px 12px 0}
+.badge{display:inline-block;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.badge.buy{background:#dff0c2;color:#2f4d00}
+.badge.warn{background:#fde8c8;color:#6b4a00}
+@media(prefers-color-scheme:dark){.badge.buy{background:#2a3d12;color:#c8e88a}.badge.warn{background:#3d2f0e;color:#f0c86a}}
+ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:5px 0}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.calc{grid-template-columns:1fr}}
+input[type=number]{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font-size:16px;font-family:"IBM Plex Mono",monospace}
+.result{font-family:"IBM Plex Mono",monospace;font-size:14px}
+.foot{font-size:12.5px;color:var(--muted)}
+.sources{font-size:13px} .sources li{margin:6px 0;word-break:break-word}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:760px){.verdict{grid-template-columns:1fr}}
+.verdict div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.verdict strong{font-family:"Source Serif 4",serif;font-size:22px;display:block}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Equity Research &nbsp;·&nbsp; Information Technology</span><span class="pill">As of 1 Nov 2026 · Price: 30 Oct 2026 close</span></div>
+
+  <header class="hero">
+    <div class="kicker">NVIDIA Corporation — NASDAQ: NVDA</div>
+    <h1>NVIDIA <span>NVDA</span></h1>
+    <p class="lede">The AI infrastructure monopoly in hardware form — dominant in data-center GPUs and systems, with a software moat that competitors still have not replicated. The question at $204.64 is not whether the business is extraordinary, but whether peak margins and a 25× multiple already price it in.</p>
+    <div class="meta">
+      <div><b>Sector ranking basis</b>FinanceCharts “Biggest Tech Companies for Nov 2026”, updated 30 Oct 2026</div>
+      <div><b>Investor fit</b>Mid-30s · Risk 8/10</div>
+      <div><b>Note on peers</b>Samsung / SK Hynix in global ranking excluded — foreign listings, not in named set</div>
+    </div>
+  </header>
+
+  <div class="verified">
+    <h3>✓ Verified values — independently checked 1 Nov 2026</h3>
+    <p><strong>Price $204.64</strong> (30 Oct 2026 close) · <strong>Market cap $4.93T</strong> · <strong>TTM revenue $302.97B</strong> · <strong>TTM net income $192.88B</strong> · <strong>TTM free cash flow $127.01B</strong> — all confirmed identical across FinanceCharts / Insider Monkey / Trefis in the verification log. Where the pack and log conflicted, the log wins — see the corrected balance-sheet note in §2.</p>
+    <p class="foot">All 5-year and 12–18-month scenario prices below are <strong>modelled estimates</strong> with methodology shown — never verified facts. Scenario weights were not supplied to the verifier.</p>
+  </div>
+
+  <div class="strip">
+    <div class="stat"><label>Price · 30 Oct close</label><strong>$204.64</strong><small>Shares ~24.1B</small></div>
+    <div class="stat"><label>Market cap</label><strong>$4.93T</strong><small>Largest AI name</small></div>
+    <div class="stat"><label>Trailing / Forward P/E</label><strong>25.8× / ~24.9×</strong><small>See §2 caveat</small></div>
+    <div class="stat"><label>P / S (TTM)</label><strong>~16.3×</strong><small>$4.93T ÷ $303B TTM rev</small></div>
+    <div class="stat"><label>TTM FCF</label><strong>$127.0B</strong><small>OCF $134.36B</small></div>
+  </div>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <div class="kicker">01 — Business Model &amp; Segments</div>
+    <h2>One segment is the company</h2>
+    <p>NVIDIA sells accelerated computing: GPUs, full rack-scale systems (NVLink-interconnected), networking, and the CUDA software stack that makes the hardware usable. Fiscal Q2 FY27 (ended 26 Jul 2026) makes the concentration unmistakable.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Fiscal Q2 FY27 — revenue $96.22B, +106% YoY <span class="foot">(confirmed)</span></h3>
+        <div class="bar-row"><div class="bar-label"><span>Data Center</span><span class="mono">$89.02B · +117% · 92.5%</span></div><div class="bar-track"><div class="bar-fill" style="width:92.5%"></div></div></div>
+        <div class="bar-row"><div class="bar-label"><span>All other (Gaming, Pro Viz, Automotive)</span><span class="mono">~$7.2B · 7.5%</span></div><div class="bar-track"><div class="bar-fill dark" style="width:18%"></div></div></div>
+        <p class="foot">GAAP gross margin 75.0% (GAAP and non-GAAP identical that quarter, confirmed). Q3 guide: <strong>$108B ±2%</strong>, gross margin 74.0% ±50bp.</p>
+      </div>
+      <div class="card">
+        <h3>Inside Data Center — later coverage split</h3>
+        <table>
+          <tr><th>Sub-segment</th><th class="r">Revenue</th></tr>
+          <tr><td>Hyperscale (large cloud providers)</td><td class="r mono">$49B</td></tr>
+          <tr><td>ACIE — NeoClouds / enterprise / sovereign</td><td class="r mono">$40B · +138% YoY</td></tr>
+          <tr><td><strong>Total Data Center</strong></td><td class="r mono"><strong>$89B</strong></td></tr>
+        </table>
+        <p style="margin-top:10px">The ACIE line matters: demand is broadening beyond the hyperscalers into sovereign AI programmes and enterprise clouds — reducing, but not removing, customer-concentration risk.</p>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card"><h3>Secondary segments</h3><ul class="tight"><li><strong>Gaming</strong> — GeForce GPUs; historically the core, now a single-digit share of revenue.</li><li><strong>Professional Visualization</strong> — workstations / Omniverse.</li><li><strong>Automotive</strong> — DRIVE platform; small today, option value if autonomy scales.</li></ul></div>
+      <div class="card"><h3>Supply chain — the real bottleneck</h3><p>NVIDIA is fabless. It depends on <strong>TSMC</strong> for fabrication and CoWoS advanced packaging, and on <strong>HBM memory</strong> from SK Hynix, Micron and Samsung. Packaging and HBM — not wafer starts — have been the binding constraint on how fast Blackwell / Rubin systems can ship. Any TSMC disruption or HBM shortage hits NVIDIA revenue directly, with no in-house fallback.</p></div>
+    </div>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section id="financials">
+    <div class="kicker">02 — Financial Health &amp; Balance Sheet</div>
+    <h2>Peak profitability, fortress liquidity — read the labels carefully</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>Trailing twelve months (confirmed)</h3>
+        <table>
+          <tr><td>Revenue (TTM)</td><td class="r mono">$302.97B</td></tr>
+          <tr><td>Net income (TTM)</td><td class="r mono">$192.88B</td></tr>
+          <tr><td>Net margin</td><td class="r mono">63.7% — peak, not normalised</td></tr>
+          <tr><td>Operating cash flow</td><td class="r mono">$134.36B</td></tr>
+          <tr><td>Free cash flow</td><td class="r mono">$127.01B</td></tr>
+          <tr><td>Q2 gross margin</td><td class="r mono">75.0%</td></tr>
+        </table>
+        <div class="callout" style="margin-top:12px"><strong>Why the P/E misleads:</strong> trailing P/E 25.8× looks “cheap” for NVIDIA only because earnings exploded. The pack is explicit — it is <em>not</em> a value signal alone. On peak 63.7% margins, a normalisation to 55% (used in §5) mechanically raises the effective multiple.</div>
+      </div>
+      <div class="card">
+        <h3>Balance sheet — corrected per verification log</h3>
+        <table>
+          <tr><td>Cash, cash equivalents &amp; marketable securities</td><td class="r mono">$99.37B</td></tr>
+          <tr><td>— of which cash + marketable debt securities</td><td class="r mono">$56.6B</td></tr>
+          <tr><td>— of which marketable equity securities</td><td class="r mono">$42.8B</td></tr>
+          <tr><td>Long-term debt</td><td class="r mono">$32.37B</td></tr>
+          <tr><td>Current portion of debt</td><td class="r mono">$1.0B</td></tr>
+          <tr><td><strong>Total debt</strong></td><td class="r mono"><strong>~$33.37B</strong></td></tr>
+        </table>
+        <p class="foot">Source: 10-Q at 26 Jul 2026 — cash equiv. $22.443B + marketable debt $34.143B = $56.586B; + marketable equity $42.783B = $99.369B. Do not quote “$99.37B cash” without the split: $42.8B is equity securities (including locked-up stakes), not cash.</p>
+        <p>Net position is still deeply net-cash on any definition, and leverage is immaterial against $127B of annual FCF. Capital allocation is dominated by buybacks and reinvestment in the roadmap; there is no meaningful dividend story here — the return case is price appreciation.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <div class="kicker">03 — Competitive Moat &amp; Positioning</div>
+    <h2>CUDA is the moat; silicon is the product</h2>
+    <div class="grid2">
+      <div class="card"><h3>Why the moat holds</h3><ul class="tight"><li><strong>CUDA software ecosystem</strong> — two decades of libraries, developer habit and production code that does not port trivially to rivals.</li><li><strong>Systems, not chips</strong> — NVLink + networking lets NVIDIA sell the whole rack, capturing more value per deployment and raising switching costs.</li><li><strong>Roadmap cadence</strong> — annual architecture cycle (Blackwell → Rubin) forces competitors to chase a moving target.</li><li><strong>Scale</strong> — first call on scarce TSMC CoWoS and HBM supply.</li></ul></div>
+      <div class="card"><h3>Competitors</h3><table><tr><th>Threat</th><th>Nature</th></tr><tr><td><strong>AMD</strong></td><td>Merchant GPU rival (MI-series)</td></tr><tr><td><strong>Broadcom (AVGO)</strong></td><td>Custom ASICs for hyperscalers</td></tr><tr><td><strong>Hyperscaler in-house silicon</strong></td><td>Vertical integration by largest customers</td></tr><tr><td><strong>Intel</strong></td><td>Peripheral / turnaround challenger</td></tr></table><p class="foot" style="margin-top:8px">Pricing power is real while AI capex is supply-constrained. It weakens exactly when supply catches demand — the same moment margins normalise.</p></div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS RISKS -->
+  <section id="catalysts">
+    <div class="kicker">04 — Catalysts &amp; Downside Risks</div>
+    <h2>Execution story vs. payback question</h2>
+    <div class="grid2">
+      <div class="card" style="border-top:4px solid var(--green)"><h3>▲ Catalysts</h3><ul class="tight"><li><strong>Blackwell / Rubin ramp</strong> — next-generation systems sustaining the upgrade cycle.</li><li><strong>Sovereign AI</strong> — national programmes broadening the buyer base (ACIE +138%).</li><li><strong>Networking attach</strong> — systems selling pulls high-margin networking with it.</li><li><strong>Q3 guide $108B</strong> — delivery at/above guide re-proves demand duration.</li></ul></div>
+      <div class="card" style="border-top:4px solid var(--red)"><h3>▼ Risks</h3><ul class="tight"><li><strong>Customer concentration</strong> — hyperscalers dominate; a capex pause by 2–3 buyers is a revenue event.</li><li><strong>Custom-ASIC substitution</strong> — Broadcom / in-house silicon taking inference share first.</li><li><strong>Export controls</strong> — China restrictions can remove demand and invite local substitutes.</li><li><strong>AI-capex payback doubts</strong> — the October 2026 trigger across the sector: if buyers cannot show returns, orders get scrutinised.</li><li><strong>Margin normalisation</strong> — 75% gross / 63.7% net are peaks; §5 models 55% normalised, bear 45%.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <div class="kicker">05 — Scenario Valuation &amp; Price Targets · Modelled estimates</div>
+    <h2>What you have to believe for each price</h2>
+    <p><strong>5-year method (frozen parameters, as requested):</strong> starting revenue $303B (TTM), shares frozen at 24.1B, normalised net margin <strong>55%</strong> in base (below the 63.7% peak), only growth / margin / exit P/E vary by case. Horizon: 2031. Weights: Bear 25% / Base 50% / Bull 25%.</p>
+    <div class="card" style="overflow-x:auto">
+      <table>
+        <tr><th>5-Year Case</th><th class="r">Rev CAGR</th><th class="r">Net margin</th><th class="r">2031 Revenue</th><th class="r">2031 EPS</th><th class="r">Exit P/E</th><th class="r">Price</th><th class="r">vs $204.64</th></tr>
+        <tr><td><strong>Bear</strong> (25%)</td><td class="r mono">10%</td><td class="r mono">45%</td><td class="r mono">~$488B</td><td class="r mono">~$9.11</td><td class="r mono">18×</td><td class="r mono"><strong>$164</strong></td><td class="r mono">−19.9%</td></tr>
+        <tr><td><strong>Base</strong> (50%)</td><td class="r mono">22%</td><td class="r mono">55%</td><td class="r mono">$818B</td><td class="r mono">$18.67</td><td class="r mono">28×</td><td class="r mono"><strong>$523</strong></td><td class="r mono">+155.6%</td></tr>
+        <tr><td><strong>Bull</strong> (25%)</td><td class="r mono">30%</td><td class="r mono">60%</td><td class="r mono">~$1,125B</td><td class="r mono">~$28.00</td><td class="r mono">35×</td><td class="r mono"><strong>$980</strong></td><td class="r mono">+378.9%</td></tr>
+        <tr><td colspan="6"><strong>Probability-weighted (25/50/25) — modelled estimate</strong></td><td class="r mono"><strong>$548</strong></td><td class="r mono"><strong>+167.8%</strong></td></tr>
+      </table>
+      <p class="foot">Check: Base $818B × 55% = $450B net income ÷ 24.1B shares = $18.67 EPS × 28 = $523. Bull / Bear revenue and EPS are derived on the same frozen-share method from the pack’s stated growth, margin and P/E.</p>
+    </div>
+    <div class="card" style="margin-top:14px;overflow-x:auto">
+      <h3>12–18-month targets — modelled estimates</h3>
+      <table>
+        <tr><th>Case</th><th class="r">Target</th><th class="r">vs $204.64</th><th>What it assumes</th></tr>
+        <tr><td>Bear</td><td class="r mono">$150</td><td class="r mono">−26.7%</td><td>Capex-payback scare + margin slip de-rates the multiple</td></tr>
+        <tr><td>Base</td><td class="r mono">$245</td><td class="r mono">+19.7%</td><td>Guide delivered, Blackwell/Rubin on schedule</td></tr>
+        <tr><td>Bull</td><td class="r mono">$310</td><td class="r mono">+51.5%</td><td>Sovereign + enterprise demand extends the supercycle</td></tr>
+        <tr><td><strong>Weighted (25/50/25)</strong></td><td class="r mono"><strong>~$238</strong></td><td class="r mono"><strong>+16.1%</strong></td><td>Modelled estimate, not a consensus target</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section id="recommendation" style="border-bottom:none">
+    <div class="kicker">06 — Recommendation &amp; Portfolio Sizing</div>
+    <h2>Buy — both horizons, sized as the portfolio’s largest single AI bet</h2>
+    <div class="verdict">
+      <div><small class="foot">SHORT TERM · 12–18M</small><strong><span class="badge buy">Buy</span></strong><p style="margin:8px 0 0">Weighted 12–18m value ~$238 vs $204.64. Guide and ramp support it; expect volatility around capex headlines.</p></div>
+      <div><small class="foot">LONG TERM · 5 YEARS</small><strong><span class="badge buy">Buy</span></strong><p style="margin:8px 0 0">Weighted 5-yr modelled value $548. Even the bear case ($164) is only ~20% below today — the downside is cushioned by $127B FCF, the upside is not capped.</p></div>
+      <div><small class="foot">TARGET WEIGHT · RISK 8/10, MID-30S</small><strong class="mono">4.0%</strong><p style="margin:8px 0 0">Of total portfolio. Large enough to matter, small enough that a −27% bear-case drawdown costs the portfolio ~1.1 points.</p></div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <h3>Position-size calculator — at the 4.0% target weight</h3>
+      <div class="calc">
+        <div><label for="pv" style="font-size:13px;font-weight:700">Your total portfolio value ($)</label><input id="pv" type="number" value="500000" min="0" step="1000" style="margin-top:8px"/><p class="foot">Change the number — allocation and share count update live. Nothing is saved or sent anywhere.</p></div>
+        <div class="result" id="calcOut" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="card sources" style="margin-top:16px">
+      <h3>Sources — refer back here</h3>
+      <ul>
+        <li>FinanceCharts — revenue TTM comparison: <a href="https://www.financecharts.com/compare/AVGO,NVDA,MSFT/summary/revenue-ttm" target="_blank" rel="noopener">financecharts.com/compare/AVGO,NVDA,MSFT</a></li>
+        <li>Techi — Magnificent Seven stocks: <a href="https://www.techi.com/magnificent-seven-stocks/" target="_blank" rel="noopener">techi.com/magnificent-seven-stocks</a></li>
+        <li>StrongBuyAnalytics — NVDA peer margin / FCF table: <a href="https://strongbuyanalytics.com/stocks/AVGO" target="_blank" rel="noopener">strongbuyanalytics.com/stocks/AVGO</a></li>
+        <li>Finnhub — NVDA quote: <a href="https://finnhub.io/?q=%22NVDA%22" target="_blank" rel="noopener">finnhub.io</a></li>
+        <li>Verification: SEC 10-Q (26 Jul 2026): <a href="https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm" target="_blank" rel="noopener">sec.gov — NVDA 10-Q</a></li>
+        <li>Verification: Q2 / Q3 guide coverage: <a href="https://drillr.ai/article/nvda-nvidia-q3-fy2027-earnings-preview-rubin-memory-margin-cash-flow" target="_blank" rel="noopener">drillr.ai</a> · <a href="https://www.bitget.com/news/detail/12560605737130" target="_blank" rel="noopener">bitget.com</a> · <a href="https://fourweekmba.com/ai-nvidia-q2-fy2027-guide-margin-memory-tax/" target="_blank" rel="noopener">fourweekmba.com</a></li>
+        <li>Verification: TTM FCF / OCF: <a href="https://www.insidermonkey.com/news/is-nvidias-nvda-free-cash-flow-keeping-pace-with-its-reported-earnings-1849337/" target="_blank" rel="noopener">insidermonkey.com</a> · <a href="https://www.trefis.com/data/companies/NVDA" target="_blank" rel="noopener">trefis.com</a></li>
+      </ul>
+      <p class="foot">Research views only, as of 1 Nov 2026 — not guarantees and not investment advice. Ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. — Blaze</p>
+    </div>
+  </section>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>NVDA — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $204.64.</strong> <strong>DCF intrinsic: $166.</strong> Discount/premium vs DCF: <strong>+23.3%</strong> — i.e. the shares are trading 23.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$166</td><td>+23.3%</td></tr></table>
+<p><strong>Method 1 — DCF: $166.</strong> Base FCF $110.00B, constant growth g = 15% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $1,416.14B; Year-10 FCF = $445.01B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $2,524.55B. Equity value = PV of FCF + PV of terminal value + net cash ($66.00B — VARIANCE: provider debt/cash definitions differ wildly ($23.61B / $51.15B / $66.00B net) — not a hard correction) = $4,006.69B; divided by 24.1B diluted shares = $166. Base note: NORMALISED: pack TTM FCF $127.01B reflects a 63.7% net margin the pack itself calls 'peak, not normalised'; pack valuation uses a 55% normalised margin. 127.01 x 55/63.7 = $109.7B, rounded to $110B.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (FCF $127.01B, cash $99.37B, debt $33.37B per COORDINATOR CORRECTIONS) ; https://www.financecharts.com/compare/TSM,NVDA,AVGO/dividends/dividends ; https://www.alphaquery.com/stock/NVDA/fundamentals/quarterly/debt-equity-ratio</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NVDA — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of NVDA's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>Data Center GPUs/systems — hyperscale AI capacity</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Meta Platforms</td><td>Data Center GPUs/systems — AI training and inference</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Amazon</td><td>Data Center GPUs/systems — AWS AI capacity</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Alphabet (Google)</td><td>Data Center GPUs/systems — Google Cloud AI capacity</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Oracle</td><td>Data Center GPUs/systems — OCI AI hosting</td><td></td><td>N/A (DCF withdrawn)</td><td>N/A</td></tr><tr><td>OpenAI</td><td>Data Center GPUs/systems — model training (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>CoreWeave</td><td>Data Center GPUs/systems — neocloud capacity (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Nvidia's customer set is the hyperscaler core of the AI build-out, so the read-through runs through that group's own valuations: if the filled DCF intrinsics show those hyperscalers trading at discounts to intrinsic, that is a potential tailwind for Nvidia's order book, and premiums would be a headwind — but an undervalued customer does not guarantee higher spending, since each hyperscaler's capex depends on its own priorities, cash position and payback doubts of the kind that hit the tape in October. Concentration cuts both ways: the same few names that fund the Blackwell/Rubin ramp are the ones whose capex decisions can pause it. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>NVDA — AI trade positioning</h2>
+<p><strong>Role: Enabler — the central one.</strong> Nvidia is the company the AI trade is built on: Data Center revenue of $89.0B in fiscal Q2 (+117% YoY) on Blackwell/Rubin, with a $108B ±2% Q3 guide in the pack, and the CUDA software moat the pack cites as its core defence.</p>
+<p>While the AI trade runs, demand comes through hyperscaler and sovereign orders for GPUs and systems, with Data Center split $49B hyperscale plus $40B ACIE (NeoClouds/enterprise/sovereign, +138% YoY) in the pack's later coverage. On multiples, Nvidia's trailing P/E of ~25.8x looks cheap only because earnings exploded (pack: 63.7% net margin, flagged as peak); the multiple is therefore flattered by peak earnings, and any normalisation lifts it mechanically even if the price stands still.</p>
+<p>If the AI trade unwinds, demand breaks first through hyperscaler capex cuts, delays or cancellations, and through custom-ASIC substitution (Broadcom, in-house silicon) — the pack names both as live risks, plus export controls. Multiple compression follows from a through-cycle earnings base well below the 63.7% peak margin; the pack's own normalised 55% margin is the anchor. Balance-sheet risk is low in the conventional sense (pack correction: $99.37B of cash and securities against ~$33.37B of debt) but the off-balance-sheet items matter: $42.8B of marketable equity stakes and large ecosystem exposures the pack's coverage flags. Triggers to watch: hyperscaler capex guides, the Q3 print against the $108B guide, CoWoS/HBM supply signals, and any export-control tightening.</p>
+</div>
+</div>
+<script>
+(function(){
+  var pv=document.getElementById('pv'), out=document.getElementById('calcOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(pv.value)||0, alloc=v*0.04, shares=alloc/204.64;
+    out.innerHTML='Target allocation (4.0%): <strong>$'+fmt(alloc)+'</strong><br>At $204.64 that is ~<strong>'+fmt(shares)+' shares</strong><br><br>Bear-case check (12–18m $150): position → $'+fmt(shares*150)+' ('+ (v? ((shares*150-alloc)/v*100).toFixed(1):'0') +'% portfolio impact)<br>Base-case (5-yr $523): position → $'+fmt(shares*523);
+  }
+  pv.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — EXC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+.seggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0}
+@media (max-width:760px){.seggrid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.seggrid{grid-template-columns:1fr}}
+.seg{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.seg .sn{font-weight:800;color:var(--ink);font-size:14px}
+.seg .ss{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.seg p{font-size:13px;margin:4px 0 0}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Regulated Transmission &amp; Distribution</span></div>
+  <h1>Exelon <span class="tick">(NASDAQ: EXC)</span></h1>
+  <p class="lede">The purest “wires” utility in the US top 10 — no power generation, no commodity exposure, just six regulated monopolies moving electrons through Chicago, Philadelphia, Baltimore and Washington, DC. The equity story is therefore unusually simple: fund a $41.7B grid plan, earn the allowed return on it, and compound EPS at 5–7%. The debate is not demand. It is whether regulators in Pennsylvania, Maryland and Illinois let Exelon earn that return on time — KeyBanc’s “regulatory lag” warning is the whole bear case.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $46.16 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026 — adjusted EPS $0.87, beat</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">EXC — this report</span>
+    <span class="tab">Utilities · #10 of 10 in XLU universe</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$46.16</div><div class="vsub">Reference close for all targets in this note</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$47.65B</div><div class="vsub">TipRanks basis — see ranking note below · ~1.03B shares (derived)</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing / Forward P/E</div><div class="vbig mono">18.0× / 15.3×</div><div class="vsub">Cheapest forward P/E in the utilities group · P/S ~1.84× (derived)</div></div>
+  <div class="vcell span3"><div class="vlabel">Dividend</div><div class="vbig mono">3.64%</div><div class="vsub">$1.68 annualised · ~58% of FY26E EPS (derived) — the income anchor</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Cheapest forward multiple in the group, but regulatory lag caps any near-term re-rating. Base target $48.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — defensive compounder <span class="pill buy">Buy</span></div><div class="vsub">Modelled 5-yr weighted value ≈ $58.90 (estimate) vs $46.16 today, plus the dividend.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.0% of portfolio</div><div class="vsub">A ballast holding, not a growth engine — sized for stability inside an aggressive portfolio. See §6.</div></div>
+</div>
+
+<div class="callout warn"><div class="ct">Ranking &amp; market-cap basis — read first</div>
+<p>This note covers EXC as <b>#10 in the Top 10 US-listed Utilities drawn from XLU holdings as of 30 Oct 2026 (TipRanks)</b>. XLU is 100% US geography, so a US-listed-only universe is defensible <i>as an XLU methodology</i> — it is <b>not a global top 10</b>. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the list and XEL and EXC would fall out. All market caps in this series use one vendor (TipRanks) on one date; Finnhub float-based values differ by up to ~$3B for some names — vendors are never mixed in one table. Prices throughout are the <b>30 Oct 2026 official close</b>.</p></div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The position in one view</h2></div>
+  <p>Exelon reported <b>Q3 adjusted EPS of $0.87, a beat</b>, and <b>narrowed FY2026 guidance to $2.85–$2.91</b> (midpoint $2.88) — the anchor for every model in §5. Trailing revenue is <b>$25.94B (+6.7%)</b> with net income of <b>$2.64B (−6.5%)</b>: revenue is growing on rate-base investment while reported profit is being squeezed by the lag between spending the capital and being allowed to earn on it. That squeeze — investment now, recovery later — is the defining financial feature of a wires utility in a heavy capex cycle, and it is why the forward P/E (15.27×) sits well below the trailing P/E (18.02×).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline (TTM unless noted)</th><th class="n">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue (TTM)</td><td class="n">$25.94B · +6.7%</td><td>Rate-base growth flowing through — regulated revenue, not merchant volume</td></tr>
+      <tr><td>Net income (TTM)</td><td class="n">$2.64B · −6.5%</td><td>Down despite revenue growth: financing costs and regulatory lag bite before new rate cases catch up</td></tr>
+      <tr><td>Net margin (derived: $2.64B ÷ $25.94B)</td><td class="n">~10.2%</td><td>Derived from the two verified TTM figures above — thin by design; utilities earn on assets, not on sales</td></tr>
+      <tr><td>Q3 adjusted EPS</td><td class="n">$0.87 — beat</td><td>Operating print clean; use adjusted EPS for utilities, where storm, pension and mark-to-market items distort GAAP quarters</td></tr>
+      <tr class="hl"><td>FY2026 EPS guidance</td><td class="n">$2.85–$2.91 (mid $2.88)</td><td>Narrowed, not cut — management is holding the year despite the Pennsylvania / Maryland friction in §4</td></tr>
+      <tr><td>Dividend (annualised)</td><td class="n">$1.68 · 3.64% yield</td><td>~58% payout on the $2.88 guidance mid (derived) — covered, with headroom, by regulated earnings</td></tr>
+      <tr><td>Capital plan</td><td class="n">$41.7B</td><td>The growth engine: every dollar that enters rate base at an allowed return compounds EPS — if recovery is timely</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: StockAnalysis.com EXC page (price, market cap, multiples, TTM revenue / net income, dividend, Q3 EPS and FY26 guidance); capital plan via Zacks as cited in the research pack. Derived figures are arithmetic on those verified inputs and are labelled as such.</p>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Since the <b>Constellation Energy (CEG) spin-off</b>, Exelon is a <b>pure regulated transmission &amp; distribution company</b> — it owns the poles, wires, substations and meters, and earns a regulator-approved return on the capital invested in them (the “rate base”). It does <b>not</b> own generation and takes <b>no commodity price exposure</b>: customers buy the electrons, Exelon is paid for delivery. That makes EXC the <b>purest “wires” play in the utilities top 10</b> — lower upside than integrated peers when power prices spike, but also no earnings cliff when they fall.</p>
+
+  <h3>Six regulated utilities, one model</h3>
+  <div class="seggrid">
+    <div class="seg"><div class="ss">Illinois</div><div class="sn">ComEd</div><p>Chicago and northern Illinois. Large urban network; Illinois energy-transition politics are a standing variable (see §4).</p></div>
+    <div class="seg"><div class="ss">Pennsylvania</div><div class="sn">PECO</div><p>Philadelphia area. Currently the friction point: a withdrawn Pennsylvania rate case sits at the centre of the regulatory-lag debate.</p></div>
+    <div class="seg"><div class="ss">Maryland</div><div class="sn">BGE</div><p>Baltimore Gas &amp; Electric. Exposed to Maryland’s shift away from forward-looking ratemaking — slower recovery of new investment.</p></div>
+    <div class="seg"><div class="ss">DC / Maryland</div><div class="sn">Pepco</div><p>Washington, DC and surrounding Maryland. Dense, affluent, data-centre-adjacent load — among the best demand backdrops in US wires.</p></div>
+    <div class="seg"><div class="ss">Delaware / Maryland</div><div class="sn">Delmarva Power</div><p>Delmarva Peninsula distribution — smaller, steadier, classic regulated compounding.</p></div>
+    <div class="seg"><div class="ss">New Jersey</div><div class="sn">Atlantic City Electric</div><p>Southern New Jersey. Storm-hardening and grid-modernisation spend is a growing share of its rate-base story.</p></div>
+  </div>
+  <p class="small">Segment revenue splits by utility are not carried in the verified research pack for this note and are therefore not estimated here — the investment case does not depend on the split, because all six earn under the same regulated model.</p>
+
+  <h3>How the money is made</h3>
+  <ul>
+    <li><b>Revenue stream:</b> regulated delivery charges on customer bills, set in rate cases and formula-rate mechanisms. Revenue TTM is <b>$25.94B (+6.7%)</b> — growth comes from a larger rate base and approved recovery, not from selling more commodity.</li>
+    <li><b>Geographic distribution:</b> entirely US Mid-Atlantic and Midwest (IL, PA, MD, DC, DE, NJ). No international exposure, no currency risk — and, symmetrically, no diversification away from US state-level regulation.</li>
+    <li><b>Structural pivot:</b> the post-spin structure is the pivot. Exelon deliberately exited generation economics to become a rate-base compounder; the <b>$41.7B capital plan</b> (transmission, grid modernisation, reliability) is how that compounding is funded — rate base grows, allowed earnings grow with it.</li>
+    <li><b>Demand backdrop:</b> service territories sit in and around the <b>PJM grid</b>, adjacent to the Northern Virginia data-centre corridor. Large-load interconnection requests are a genuine volume tailwind for wires even without owning generation — every new data centre still needs delivery capacity, substations and transmission.</li>
+  </ul>
+
+  <h3>Supply-chain &amp; delivery dependencies</h3>
+  <ul>
+    <li><b>Grid equipment:</b> large power transformers, switchgear, breakers and cable are the long-lead bottlenecks for the entire US grid build-out — delivery slippage, not demand, is the practical constraint on converting the $41.7B plan into rate base on schedule.</li>
+    <li><b>Skilled labour &amp; contractors:</b> line crews, substation engineers and storm-restoration mutual-assistance networks. Cost inflation here flows into capex efficiency — how much rate base each dollar buys.</li>
+    <li><b>Capital markets:</b> a wires utility is a financing machine as much as an operating one. Continuous access to debt markets at investment-grade spreads is a core “input” — which is why the leverage profile in §2 matters more for EXC than for almost any non-financial.</li>
+    <li><b>Weather:</b> storm restoration costs are generally recoverable, but with a lag — another form of the same regulatory-timing risk that dominates §4.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Judge Exelon the way a utility should be judged: not on sales multiples, but on <b>earnings visibility, dividend cover, and the cost of carrying a large, permanent debt stack through a capex supercycle</b>. On those tests EXC looks sound but stretched — profitable and growing revenue, with earnings temporarily lagging the investment, funded by leverage that leaves little room for regulatory disappointment.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $46.16 (30 Oct 2026 close). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">18.02×</td><td>Mid-range for regulated utilities; flattered as a “cheapness” signal because TTM earnings are the lag-depressed ones</td></tr>
+      <tr><td>Forward P/E</td><td class="n">15.27×</td><td><b>Cheapest forward P/E in the utilities group</b> in this series — the market is pricing the regulatory lag, not ignoring it</td></tr>
+      <tr><td>Price / Sales (derived)</td><td class="n">~1.84×</td><td>$47.65B ÷ $25.94B. Low in absolute terms, normal for wires: revenue is a pass-through-heavy number, earnings sit on rate base</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">Not verified — omitted</td><td>Not carried in the verified pack for EXC; not estimated here rather than filled with an aggregator guess</td></tr>
+      <tr><td>Revenue / Net income (TTM)</td><td class="n">$25.94B / $2.64B</td><td>Revenue +6.7%, net income −6.5% — the lag in one line: investment and its financing arrive before the allowed return does</td></tr>
+      <tr><td>Return on equity</td><td class="n">~9.4%</td><td>Secondary aggregator figure — treat as approximate. ~9–10% is the regulated norm: allowed ROE, earned roughly on time, is the whole model</td></tr>
+      <tr><td>Debt / Equity</td><td class="n">1.77×</td><td>Secondary aggregator figure — treat as approximate. High in absolute terms, structural for utilities: rate base is debt-funded by design. The risk is spread widening, not solvency</td></tr>
+      <tr><td>Dividend</td><td class="n">$1.68 · 3.64%</td><td>~58% payout on FY26E EPS (derived) — sustainable for a regulated earner; dividend growth should track EPS growth, i.e. mid-single digits if the plan delivers</td></tr>
+      <tr><td>Capital allocation</td><td class="n">Capex-first</td><td>$41.7B plan absorbs the cash story: regulated capex first, dividend second, buybacks a distant third — normal for a wires name in a build cycle, and correct while allowed returns exceed the cost of capital</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="ct">Free cash flow — an honest gap</div>
+  <p>No verified free-cash-flow figure for EXC is carried in the research pack, so none is printed here. Directionally, investors should <i>expect</i> a heavy-capex regulated utility to run negative free cash flow after dividends during a $41.7B build — that is the model working as designed, funded in debt and equity markets, not a distress signal. What would be a warning signal is different: capex rising while <i>earned</i> ROE falls persistently below <i>allowed</i> ROE. That gap is the number to track in each rate-case outcome.</p></div>
+
+  <h3>Balance-sheet read</h3>
+  <ul>
+    <li><b>Leverage is the business model, managed — not low.</b> At D/E ~1.77× (approximate, secondary source), Exelon depends on regulators keeping allowed returns ahead of its borrowing costs. Rising long rates compress that spread from both sides: higher interest expense now, rate relief only at the next case.</li>
+    <li><b>Earnings quality is high, timing is the issue.</b> Regulated earnings are among the most predictable in the market — customers, volumes and allowed returns are all visible. The −6.5% TTM net-income print against +6.7% revenue shows the one soft spot: <i>when</i> earnings are recognised, not whether the demand exists.</li>
+    <li><b>R&amp;D is not a line that matters here.</b> Unlike the technology names in this series, EXC’s “investment” is physical rate base, not research spend. The equivalent discipline question is capex efficiency: dollars of rate base created per dollar spent.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide — but granted by regulators, not won in a market.</b> Each Exelon utility is the <b>only lawful wires provider in its territory</b>. No competitor can overbuild its network or undercut its delivery charge. The moat question for a regulated utility is therefore inverted: not “can rivals take share?” but “will the grantor of the monopoly — the state commission — keep the bargain attractive?” Pricing power, barriers to entry and competitive position all flow from that single relationship.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Legal monopolies in dense territories:</b> Chicago, Philadelphia, Baltimore, Washington DC — dense urban load is the cheapest to serve per customer and the hardest for load to leave. Density is a permanent cost advantage.</li>
+      <li><b>No commodity exposure:</b> with generation spun off into CEG, earnings do not swing with gas or power prices. In a volatile energy tape, EXC’s earnings path is the smoothest in the peer set.</li>
+      <li><b>Data-centre adjacency:</b> Pepco / BGE territories sit alongside the PJM / Northern Virginia data-centre build-out. Large-load growth raises throughput and justifies transmission investment — volume growth a wires utility rarely gets.</li>
+      <li><b>Barriers to entry are absolute:</b> duplicating a metropolitan distribution network is economically and legally impossible. The only “entry” is political — municipalisation campaigns — which is slow, rare and litigated.</li>
+      <li><b>Scale in regulation itself:</b> six jurisdictions diversify single-commission risk. A bad outcome in Harrisburg does not impair earnings in Springfield or Annapolis — the portfolio-of-regulators effect.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Pricing power is capped by law:</b> Exelon cannot raise delivery prices beyond what commissions allow. Its “pricing power” is really <i>recovery power</i> — and §4 shows that recovery is currently slowing in two key states.</li>
+      <li><b>Peers compete for capital, not customers:</b> <b>AEP, XEL and DUK</b> are the named comparators. They compete with EXC for the same utility-investor dollar — on EPS growth credibility, dividend growth and regulatory reputation. On forward P/E, EXC is the cheapest of the group; the question is whether it is cheap for a fixable reason.</li>
+      <li><b>Integrated peers have a second engine:</b> DUK and AEP retain generation and larger transmission footprints; if power-market or large-load economics favour integrated models, pure wires can look strategically narrower.</li>
+      <li><b>Behind-the-meter erosion:</b> rooftop solar, batteries and efficiency slowly shave volumetric growth. Rate design (fixed charges, decoupling) blunts this, but each fix needs — again — regulatory approval.</li>
+      <li><b>The moat has a counterparty:</b> every advantage above is revocable at the margin by commissions responding to bill pressure and politics. That is a weaker form of moat than, say, a network effect — durable, but negotiated continuously.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> EXC is the defensive end of the utilities spectrum — the name an investor owns for earnings smoothness and dividend, not for re-rating fireworks. Within the XLU top 10 it is #10 by market cap ($47.65B, TipRanks basis) and the cheapest on forward earnings, a combination that usually means “sound company, specific worry” — here, the worry is named and dated: rate-case outcomes in Pennsylvania and Maryland.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Transmission investment in PJM</b> — grid build-out for large loads earns at attractive, often federally-influenced returns and typically faces less state-level friction than distribution rate cases. The highest-quality growth in the $41.7B plan.</li>
+        <li><b>Grid modernisation recovery</b> — reliability, storm-hardening and smart-grid spend has broad political support (nobody campaigns against fewer outages); approvals here directly enlarge rate base.</li>
+        <li><b>Data-centre interconnection economics</b> — connection fees, dedicated substation builds and incremental throughput from data-centre load in and around Pepco / BGE territory. Even spillover demand from the Northern Virginia corridor helps.</li>
+        <li><b>Rate-case normalisation</b> — a constructive re-filing and outcome in Pennsylvania, or stabilisation of Maryland’s ratemaking approach, would remove the KeyBanc overhang and is the single most direct path from $46 toward the $48 base and $54 bull cases.</li>
+        <li><b>Guidance credibility compounding</b> — FY26 guidance was narrowed, not cut. Delivering $2.85–$2.91 and reaffirming a 5–7% EPS growth path (see §5) rebuilds the case for a forward multiple closer to peers.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Regulatory lag — the flagged, central risk (KeyBanc):</b> a <b>withdrawn Pennsylvania rate case</b> and <b>Maryland’s shift away from forward-looking ratemaking</b> both slow the conversion of capex into earnings, directly <b>challenging the 5–7% EPS growth target</b>. This is not a generic “regulation” boilerplate risk — it is specific, current and sourced.</li>
+        <li><b>Illinois politics</b> — ComEd operates in a state where utility legislation, ethics history and bill-pressure politics can change the earnings framework quickly. Single-state frameworks can be rewritten in one session.</li>
+        <li><b>$41.7B execution risk</b> — transformer and switchgear lead times, labour costs and project slippage can push rate-base additions (and therefore earnings) to the right while financing costs arrive on time.</li>
+        <li><b>Interest-rate exposure</b> — a permanently debt-funded model with D/E ~1.77× (approximate) refinances continuously. Higher-for-longer long rates raise interest expense immediately and are only recovered later, through the same lagged rate process.</li>
+        <li><b>Bill pressure &amp; affordability politics</b> — delivery charges rising to fund grid and data-centre build-outs land on household bills, including households that see no benefit from data centres. That political arithmetic is the root cause behind the Pennsylvania and Maryland friction.</li>
+        <li><b>Storm &amp; reliability events</b> — a major service failure in a dense territory invites regulatory penalties, disallowances and reputational damage with the very commissions Exelon must negotiate with.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A second consecutive year in which earned EPS growth falls materially below the 5–7% framework <i>because of</i> rate outcomes — i.e., Pennsylvania stays withdrawn or is refiled on punitive terms <i>and</i> Maryland’s backward-looking approach spreads. One state is diversification working; two-plus states moving the same way at once is the framework itself repricing, and the bear cases in §5 ($40 near term, ~$44.50 in five years) become the base expectation.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: for a regulated utility, value is <b>future EPS × the multiple that EPS visibility deserves</b>. All scenario prices below are <b>modelled estimates</b> — methodology and weights are shown so the arithmetic can be checked; they are not verified facts and not analyst consensus. Weights used throughout this section: <b>Bear 25% / Base 50% / Bull 25%</b>.</p>
+
+  <h3>12–18-month targets (from $46.16)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$40</div><div class="ret down">−13.3% vs $46.16</div><p><b>Modelled estimate.</b> Regulatory lag bites: Pennsylvania stays unresolved, Maryland recovery slows, EPS stalls near ~$2.90 (estimate) and the market pays only ~13–14× (estimate) for stalled growth. The 3.64% dividend cushions, but does not offset, the de-rating.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$48</div><div class="ret up">+4.0% vs $46.16</div><p><b>Modelled estimate.</b> FY26 lands at the $2.88 guidance mid, 2027 EPS grows mid-single digits to ~$3.05 (estimate) at ~15–16× (estimate) — roughly today’s forward multiple, held. Price return is modest; most of the base-case total return is the dividend.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$54</div><div class="ret up">+17.0% vs $46.16</div><p><b>Modelled estimate.</b> A constructive Pennsylvania outcome plus PJM transmission momentum restores confidence in 6–7% EPS growth; EPS ~$3.10 (estimate) at ~17–18× (estimate) closes most of the discount to peers AEP / XEL / DUK.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $47.50</div></div><p>0.25×$40 + 0.50×$48 + 0.25×$54 = $47.50, or <b>+2.9%</b> price return from $46.16 — plus ~3.6% dividend yield if held. That is a bond-like expected return profile, which is exactly the point of the name in this portfolio: it is not held for the 12–18-month price.</p></div>
+
+  <h3>5-year projection — frozen-parameter format, adapted for a regulated utility</h3>
+  <p><b>Adaptation, stated plainly:</b> the standard format in this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>, with parameters frozen per case. For a regulated wires utility that identity is run in its algebraically equivalent EPS form, because allowed returns drive EPS directly while revenue is a pass-through-heavy number that mixes commodity delivery costs Exelon does not control. The two are the same calculation: <b>EPS = revenue × net margin ÷ shares</b>. Here the frozen parameters per case are the <b>EPS growth rate</b> and the <b>exit P/E</b>; the share count is frozen (no buyback assumption), and the margin / revenue path is whatever the stated EPS growth implies at that frozen share count. Base EPS is <b>2026E $2.88</b> — the verified FY26 guidance midpoint — compounded for five years: <i>2031 EPS = $2.88 × (1+g)<sup>5</sup></i>, and <i>2031 price = 2031 EPS × exit P/E</i>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">EPS growth / yr (frozen)</th><th class="n">2031 EPS</th><th class="n">Exit P/E (frozen)</th><th class="n">2031 price</th><th class="n">Price CAGR from $46.16</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">3.5%</td><td class="n">~$3.42</td><td class="n">13×</td><td class="n">$44.50</td><td class="n">−0.7%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">5.5%</td><td class="n">~$3.76</td><td class="n">16×</td><td class="n">$60.20</td><td class="n">+5.5%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6.5%</td><td class="n">~$3.94</td><td class="n">18×</td><td class="n">$70.90</td><td class="n">+9.0%</td></tr>
+      <tr class="total"><td>Probability-weighted — modelled estimate</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $58.90</td><td class="n">~+5.0%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: $2.88 × 1.055<sup>5</sup> = $3.76 × 16 = $60.20 (base); $2.88 × 1.065<sup>5</sup> = $3.94 × 18 = $70.90 (bull); $2.88 × 1.035<sup>5</sup> = $3.42 × 13 = $44.50 (bear). Weighted: 0.25×$44.50 + 0.50×$60.20 + 0.25×$70.90 ≈ $58.90 (published weighted figure; cent-level rounding in the inputs). Growth anchors: base 5.5% and bull 6.5% sit inside / at the top of the 5–7% EPS growth framework that KeyBanc flags as challenged; bear 3.5% is that challenge materialising. Exit multiples: 16× base is a modest premium to today’s 15.27× forward — earned only if growth is delivered; 13× bear is a stalled-growth utility multiple. Price CAGRs exclude dividends; adding a ~3.6% yield (if maintained and grown with EPS) lifts base-case total return toward ~9%/yr. All 2031 figures are modelled estimates, not forecasts.</p>
+  <figure>
+    <svg viewBox="0 0 980 250" width="100%" role="img" aria-label="Bar chart of Exelon scenario prices: today 46.16 dollars, 12 to 18 month bear 40, base 48, bull 54, and 5-year weighted 58.90" style="font-family:'Archivo',sans-serif">
+      <line x1="70" y1="205" x2="950" y2="205" stroke="var(--line2)" stroke-width="1.5"/>
+      <rect x="110" y="93" width="110" height="112" fill="var(--muted)" opacity=".65"/><text x="165" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">$46.16</text><text x="165" y="228" text-anchor="middle" font-size="12" fill="var(--ink2)">Today</text>
+      <rect x="290" y="108" width="110" height="97" fill="var(--red)" opacity=".8"/><text x="345" y="95" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">$40</text><text x="345" y="228" text-anchor="middle" font-size="12" fill="var(--ink2)">Bear · 12–18 mo</text>
+      <rect x="470" y="89" width="110" height="116" fill="var(--blue)"/><text x="525" y="76" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">$48</text><text x="525" y="228" text-anchor="middle" font-size="12" fill="var(--ink2)">Base · 12–18 mo</text>
+      <rect x="650" y="74" width="110" height="131" fill="var(--green)" opacity=".85"/><text x="705" y="61" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">$54</text><text x="705" y="228" text-anchor="middle" font-size="12" fill="var(--ink2)">Bull · 12–18 mo</text>
+      <rect x="820" y="62" width="110" height="143" fill="var(--gold)"/><text x="875" y="49" text-anchor="middle" font-size="14" font-weight="700" fill="var(--ink)">$58.90</text><text x="875" y="228" text-anchor="middle" font-size="12" fill="var(--ink2)">5-yr weighted (est.)</text>
+    </svg>
+    <figcaption>Scenario prices are modelled estimates with the assumptions and 25/50/25 weights shown above — not analyst targets. The shape is the thesis: flat-to-modest near term, compounding only if the 5–7% EPS framework survives rate cases.</figcaption>
+  </figure>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b> — equity-heavy and comfortable with drawdowns in growth names. In that portfolio EXC’s job is specific: it is the <b>shock absorber</b>. It will almost never be the best performer in a risk-on year, and it is held so that the portfolio has one earnings stream that does not depend on AI capex, ad cycles or consumer demand.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> Cheapest forward P/E in the group (15.27×) already prices much of the regulatory lag, so there is no rush to sell — and no catalyst dated firmly enough to chase. Weighted 12–18-mo value ≈ $47.50 (estimate) plus the dividend is a hold’s return, not a buy’s. Add only if a constructive Pennsylvania outcome lands while the price is still near $46.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy as a defensive wires compounder.</b> Modelled 5-yr weighted value ≈ $58.90 (estimate, +~5.0%/yr price) plus a 3.64% starting yield growing with EPS is a high-single-digit total-return path with utility-grade volatility — exactly the ballast an 8/10-risk portfolio needs alongside its AI and growth exposure.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the shares re-rate above ~$54 (the bull case) with no improvement in rate outcomes — the discount that justifies holding will have closed. Exit and reassess on the §4 thesis-breaker: a second state framework turning adverse alongside Pennsylvania / Maryland, or a dividend freeze, which for a regulated utility is a confession, not a policy choice.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 1.0% of total portfolio</h3>
+  <ul>
+    <li><b>EXC target: 1.0% of total portfolio.</b> Deliberately small. At risk 8/10 the portfolio’s return engine is growth exposure elsewhere; EXC at 1% contributes dividend income and low-correlation stability without dragging the compounding rate. If the utilities sleeve is built out across this series (NEE, DUK, SO and peers), EXC is one name inside that sleeve, not the sleeve itself.</li>
+    <li><b>Why not more:</b> the 12–18-month weighted upside is only ~+2.9% on price (estimate). Oversizing a hold-case name at 8/10 risk is how portfolios quietly become 5/10 portfolios.</li>
+    <li><b>Why not zero:</b> no other sector in this series offers a legally monopolised, non-commodity earnings stream yielding 3.64% at the group’s cheapest forward multiple. As ballast per dollar of return given up, it is efficient.</li>
+    <li><b>Reinvestment note:</b> for a mid-30s accumulator, enrolling the dividend to reinvest compounds the one return component EXC reliably delivers while the rate-case story resolves.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 1.0% target above and the $46.16 reference price. Share counts are illustrative and rounded down to whole shares; it does not account for any EXC exposure already held inside index or utility funds.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>EXC — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $46.16.</strong> <strong>DCF intrinsic: $61.93.</strong> Discount/premium vs DCF: <strong>-25.5%</strong> — i.e. the shares are trading 25.5% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$61.93</td><td>-25.5%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $2.88 per share — 2026 EPS guidance midpoint $2.88 (pack: $2.85-$2.91) - regulated earnings proxy. TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 5.5% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/EXC/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/exc/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EXC — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Exelon is a pure regulated wires business (ComEd, PECO, BGE, Pepco and others) selling transmission and distribution principally to households and small businesses, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack notes data-centre interconnection in its territories but names no individual customer.</p><p><strong>Key demand drivers:</strong> transmission investment (PJM) and grid modernisation, data-centre interconnection fees, and regulatory lag flagged by KeyBanc (withdrawn Pennsylvania rate case, Maryland's move away from forward-looking ratemaking).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EXC — AI trade positioning</h2>
+<p><strong>Role: Beneficiary (wires).</strong> Exelon is the purest wires play in the group — no generation post-CEG spin — and its dense territories (Chicago, Philadelphia, PJM-adjacent) sit where data centres need interconnection, so AI demand reaches it as transmission investment and interconnection fees rather than power sales.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Data-centre interconnection queues and PJM transmission investment grow the regulated wires rate base with no commodity exposure, so AI load growth is converted into allowed-return earnings at low volatility.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Exelon trades at the cheapest forward P/E in the group (15.27 per pack), so the multiple channel is re-rating upside if transmission investment accelerates, not defence of an AI premium.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: data-centre interconnection queues stall or PJM transmission approvals slip, slowing the $41.7B capital plan cited in the pack. Second, multiple compression: limited, since the multiple is already the group's lowest, but regulatory lag would cap any re-rating. Third, balance sheet: TTM FCF is -$2.59B (the smallest deficit in the regulated group here), so funding stress is lower than peers', though the flagged Pennsylvania/Maryland regulatory setbacks remain the binding constraint. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> PJM transmission approvals; Pennsylvania rate-case developments after the withdrawn case; and Maryland ratemaking decisions.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are from the sources below, as verified in the research pack for this note (30 Oct 2026 close basis). Scenario targets in §5 are this note’s modelled estimates with methodology shown — they are not sourced figures. D/E (~1.77×) and ROE (~9.4%) are secondary-aggregator values and are flagged as approximate wherever used.</p>
+  <ol class="refs">
+    <li><a href="https://StockAnalysis.com/stocks/exc/" target="_blank" rel="noopener">StockAnalysis.com — EXC: price $46.16, market cap, P/E, TTM revenue &amp; net income, dividend, Q3 EPS &amp; FY26 guidance</a></li>
+    <li><a href="https://deepscope.com/stock/NASDAQ:EXC/?language=en" target="_blank" rel="noopener">DeepScope — EXC: D/E 1.77, ROE ~9.4% (secondary aggregator — approximate)</a></li>
+    <li><a href="https://www.perplexity.ai/finance/lists?preset=peers&symbol=FE" target="_blank" rel="noopener">Perplexity Finance peers note — KeyBanc regulatory-lag flag (PA rate case, MD ratemaking), $41.7B plan via Zacks, peer set</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings as of 30 Oct 2026 (ranking &amp; market-cap basis for the utilities top 10)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global utilities market caps (Iberdrola, Enel, National Grid context for the US-only ranking note)</a></li>
+    <li><a href="https://finnhub.io/?q=%22EXC%22" target="_blank" rel="noopener">Finnhub — EXC reference page (note: float-based market caps differ from TipRanks by up to ~$3B; not mixed in this note)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research and education, not investment advice and not a solicitation. Recommendations are research views, not guarantees; modelled scenario prices are estimates built on the stated frozen parameters and 25/50/25 weights, and actual outcomes will differ — for a regulated utility, most of all through rate-case decisions that have not yet been made. Figures are as of the 30 Oct 2026 close / 1 Nov 2026 publication basis; guidance, rate cases and market prices move. Verify any figure against its linked source before acting, and consider your own circumstances or a licensed adviser before investing.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function run(){
+    var v=parseFloat(pf.value)||0;
+    var target=v*0.01;
+    var shares=Math.floor(target/46.16);
+    out.innerHTML='At <b>1.0%</b>: target position <b>$'+fmt(target)+'</b> ≈ <b>'+fmt(shares)+' shares</b> at $46.16 · dividend at $1.68/share ≈ <b>$'+fmt(shares*1.68)+' / yr</b>';
+  }
+  pf.addEventListener('input',run); run();
+  var links=document.querySelectorAll('nav.toc a');
+  var secs=[];
+  links.forEach(function(a){var el=document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a,el:el});});
+  function onScroll(){
+    var y=window.scrollY+120, cur=null;
+    secs.forEach(function(s){ if(s.el.offsetTop<=y) cur=s; });
+    links.forEach(function(a){a.classList.remove('on');});
+    if(cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

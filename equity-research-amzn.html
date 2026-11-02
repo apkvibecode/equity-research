@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — AMZN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f5f0; --surface:#fffdf8; --surface2:#efeae0; --ink:#1c1a17; --ink2:#55504a; --ink3:#857e73;
+    --line:#ddd6c9; --accent:#b25f00; --accent-soft:#fdf0dd; --good:#1d7a4f; --bad:#b3372e; --warn:#9a6a00;
+    --chip:#f0e9db; --table-head:#efe9dc;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14120f; --surface:#1d1a16; --surface2:#27231d; --ink:#ece7de; --ink2:#b8b0a2; --ink3:#8d8578;
+      --line:#3a352c; --accent:#f0a13c; --accent-soft:#2e2413; --good:#4cc38a; --bad:#ff8a80; --warn:#e8b93e;
+      --chip:#2a261f; --table-head:#29251f;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55}
+  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 64px}
+  h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.15;margin:0}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.01em}
+  h2{font-size:clamp(22px,3.4vw,28px);font-weight:600;margin-bottom:10px}
+  h3{font-size:19px;font-weight:600;margin-bottom:6px}
+  p{margin:0 0 12px}
+  a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .meta-line{color:var(--ink2);font-size:13.5px;margin-top:8px}
+  .sector-tag{display:inline-block;background:var(--accent-soft);color:var(--accent);font-weight:600;font-size:12.5px;padding:3px 10px;border-radius:999px;letter-spacing:.04em;text-transform:uppercase}
+  header.top{border-bottom:2px solid var(--ink);padding-bottom:20px;margin-bottom:22px}
+  .price-row{display:flex;flex-wrap:wrap;gap:14px 34px;align-items:baseline;margin-top:16px}
+  .price-big{font-family:"IBM Plex Mono",monospace;font-size:clamp(30px,5vw,40px);font-weight:600}
+  .down{color:var(--bad);font-weight:600}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:20px 0}
+  .stat{background:var(--surface);padding:13px 15px}
+  .stat .k{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);font-weight:600}
+  .stat .v{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;margin-top:3px}
+  .stat .s{font-size:12.5px;color:var(--ink2)}
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:10px;padding:18px 20px;margin:22px 0}
+  .verdict .row{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:8px}
+  .verdict .item b{display:block;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+  .verdict .item span{font-size:18px;font-weight:700}
+  section{margin:34px 0}
+  .sec-num{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.08em}
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:12px 0 6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th{background:var(--table-head);text-align:left;padding:10px 12px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink2)}
+  td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+  .bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;margin:9px 0;font-size:14px}
+  .bar-track{background:var(--surface2);border-radius:6px;height:20px;overflow:hidden}
+  .bar-fill{background:var(--accent);height:100%;border-radius:6px}
+  .bar-fill.alt{background:#7a7264}
+  @media (prefers-color-scheme: dark){.bar-fill.alt{background:#a89a83}}
+  .bar-row .val{font-family:"IBM Plex Mono",monospace;text-align:right;font-weight:600}
+  @media (max-width:560px){.bar-row{grid-template-columns:118px 1fr 78px;font-size:13px}}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:700px){.two-col{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .panel ul{margin:6px 0 0;padding-left:18px}
+  .panel li{margin-bottom:7px}
+  .good-t{color:var(--good);font-weight:700}
+  .bad-t{color:var(--bad);font-weight:700}
+  .note{background:var(--accent-soft);border-radius:10px;padding:13px 16px;font-size:14px;margin:14px 0}
+  .note b{color:var(--accent)}
+  .foot-note{font-size:13px;color:var(--ink2)}
+  .sankey-wrap{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;overflow:hidden}
+  .sankey-wrap svg{width:100%;height:auto;display:block}
+  .calc{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+  .calc label{font-size:13px;font-weight:600;color:var(--ink2);display:block;margin-bottom:5px}
+  .calc input{font-family:"IBM Plex Mono",monospace;font-size:17px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:190px}
+  .calc .out{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:600}
+  .src-list{font-size:14px;padding-left:18px}
+  .src-list li{margin-bottom:6px;word-break:break-word}
+  footer{border-top:1px solid var(--line);margin-top:44px;padding-top:16px;font-size:13px;color:var(--ink2)}
+  .scroll-x{overflow-x:auto}
+  @media (max-width:640px){
+    .scroll-x table{min-width:0}
+    td.num,th.num{white-space:normal}
+    table{font-size:12.5px}
+    th,td{padding:7px 8px}
+    table.stack5, table.stack5 tbody, table.stack5 tr, table.stack5 td{display:block;width:100%}
+    table.stack5 tr:first-child{display:none}
+    table.stack5 tr{padding:8px 10px;border-top:1px solid var(--line)}
+    table.stack5 tr:first-of-type{border-top:none}
+    table.stack5 td{border-top:none;padding:3px 0;text-align:left !important;display:flex;justify-content:space-between;gap:14px}
+    table.stack5 td::before{font-family:"IBM Plex Sans",sans-serif;font-weight:600;color:var(--ink2);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;padding-top:2px}
+    table.stack5 td:nth-child(1)::before{content:"Case"}
+    table.stack5 td:nth-child(2)::before{content:"Revenue CAGR"}
+    table.stack5 td:nth-child(3)::before{content:"2031 revenue"}
+    table.stack5 td:nth-child(4)::before{content:"Net margin"}
+    table.stack5 td:nth-child(5)::before{content:"2031 EPS"}
+    table.stack5 td:nth-child(6)::before{content:"P/E"}
+    table.stack5 td:nth-child(7)::before{content:"2031 price"}
+    table.stack5 td[colspan]::before{content:""}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <span class="sector-tag">Consumer Discretionary · NASDAQ</span>
+  <h1>Amazon.com, Inc. (AMZN)</h1>
+  <p class="meta-line">Equity research as of <b>1 Nov 2026</b> · Price reference: <b>30 Oct 2026 regular-session close</b> (1 Nov was a weekend) · Prepared for a mid-30s investor, risk score 8/10 · Research views only — not guarantees, not investment advice.</p>
+  <div class="price-row">
+    <div><span class="price-big">$240.35</span> <span class="down">−1.41% on 30 Oct</span></div>
+    <div class="mono" style="font-size:15px;color:var(--ink2)">Closed $243.79 on 29 Oct; fell to ~$227 premarket on 30 Oct after the print before recovering into the close.</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat"><div class="k">Market cap</div><div class="v">$2.59T</div><div class="s">Enterprise value $2.79T</div></div>
+    <div class="stat"><div class="k">Trailing P/E</div><div class="v">19.43×</div><div class="s">Shares out 10.786B</div></div>
+    <div class="stat"><div class="k">TTM free cash flow</div><div class="v" style="color:var(--bad)">−$42.36B</div><div class="s">vs +$14.8B a year earlier</div></div>
+    <div class="stat"><div class="k">Long-term debt</div><div class="v">$173.1B</div><div class="s">at 30 Sep 2026 — see §2</div></div>
+    <div class="stat"><div class="k">Dividend</div><div class="v">None</div><div class="s">Buybacks modest</div></div>
+    <div class="stat"><div class="k">Suggested weight</div><div class="v">6%</div><div class="s">of total portfolio</div></div>
+  </div>
+</header>
+
+<div class="verdict">
+  <h3 style="font-family:'IBM Plex Sans',sans-serif;font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)">Verdict</h3>
+  <div class="row">
+    <div class="item"><b>Short term (12–18 mo)</b><span>HOLD</span></div>
+    <div class="item"><b>Long term (5 yr)</b><span style="color:var(--good)">BUY</span></div>
+    <div class="item"><b>Modelled 12–18 mo base</b><span class="mono">$285</span></div>
+    <div class="item"><b>Modelled 5-yr weighted</b><span class="mono">$300</span></div>
+  </div>
+  <p style="margin-top:12px;margin-bottom:0">Do not chase the dip aggressively: the operating business just printed a record margin, but the Q4 operating-income guide came in soft and free cash flow is deeply negative while capex runs at ~$220B a year. The long-term case rests on AWS — guided to grow above 40% in both 2027 and 2028 — converting that spending into cash.</p>
+</div>
+
+<section>
+  <div class="sec-num">SECTION 1</div>
+  <h2>Business model &amp; segment breakdown</h2>
+  <p>Amazon runs three engines: North America and International e-commerce (stores), Amazon Web Services (cloud), and a fast-growing advertising business layered over the stores. Q3 2026 (reported 29 Oct) was a record-margin quarter for the operating business:</p>
+  <div class="scroll-x"><table>
+    <tr><th>Q3 2026</th><th class="num">Value</th><th class="num">Year over year</th><th>Note</th></tr>
+    <tr><td>Net sales</td><td class="num">$201.944B</td><td class="num">+12%</td><td>Group total</td></tr>
+    <tr><td>Operating income</td><td class="num">$28.076B</td><td class="num">+61%</td><td>Record 13.9% operating margin</td></tr>
+    <tr><td>Net income / EPS</td><td class="num">$20.685B / $1.89</td><td class="num">down</td><td>Down y/y only because Q3 2025 included ~$9.5B of Anthropic investment gains</td></tr>
+    <tr><td>AWS net sales</td><td class="num">$45.984B</td><td class="num">+39%</td><td>$184B annualised run rate</td></tr>
+    <tr><td>AWS operating income</td><td class="num">$17.773B</td><td class="num">—</td><td>38.7% AWS margin — the group's profit engine</td></tr>
+    <tr><td>Advertising</td><td class="num">$19.64B</td><td class="num">+12%</td><td>High-margin overlay on the stores business</td></tr>
+  </table></div>
+  <h3 style="margin-top:18px">Scale of the reported lines vs total net sales</h3>
+  <div class="bar-row"><span>Total net sales</span><div class="bar-track"><div class="bar-fill alt" style="width:100%"></div></div><span class="val">$201.94B</span></div>
+  <div class="bar-row"><span>of which: AWS</span><div class="bar-track"><div class="bar-fill" style="width:22.8%"></div></div><span class="val">$45.98B</span></div>
+  <div class="bar-row"><span>of which: Advertising*</span><div class="bar-track"><div class="bar-fill" style="width:9.7%"></div></div><span class="val">$19.64B</span></div>
+  <p class="foot-note">Bar widths are proportional to share of Q3 net sales (AWS 22.8%, advertising 9.7%). *Advertising is reported across the stores segments rather than as a standalone segment, so it is a component of the sales already inside the total — the bars are for scale, not additive.</p>
+
+  <h3 style="margin-top:16px">Q3 2026 income flow</h3>
+  <div class="panel" role="img" aria-label="Income flow: net sales 201.9 billion, operating costs 173.9 billion derived residual, operating income 28.1 billion, tax and other 7.4 billion derived residual, net income 20.7 billion">
+    <div class="bar-row"><span>Net sales</span><div class="bar-track"><div class="bar-fill alt" style="width:100%"></div></div><span class="val">$201.94B</span></div>
+    <div class="bar-row"><span>Operating costs†</span><div class="bar-track"><div class="bar-fill" style="width:86.1%;background:#8d8578"></div></div><span class="val">$173.87B</span></div>
+    <div class="bar-row"><span>Operating income</span><div class="bar-track"><div class="bar-fill" style="width:13.9%;background:var(--good)"></div></div><span class="val">$28.08B</span></div>
+    <div class="bar-row"><span>Tax &amp; other†</span><div class="bar-track"><div class="bar-fill" style="width:3.7%;background:#8d8578"></div></div><span class="val">$7.39B</span></div>
+    <div class="bar-row"><span>Net income</span><div class="bar-track"><div class="bar-fill" style="width:10.2%;background:var(--good)"></div></div><span class="val">$20.69B</span></div>
+    <p class="foot-note" style="margin:8px 0 0">†Derived residuals — arithmetic from the reported lines (net sales − operating income = $173.868B; operating income − net income = $7.391B), labelled as such; they are not separately reported lines. Bar widths are proportional to net sales.</p>
+  </div>
+
+  <p style="margin-top:16px"><b>Structural pivots.</b> The centre of gravity is shifting to AI infrastructure: custom Trainium silicon and a data-centre buildout, with CEO Jassy guiding AWS growth above 40% in both 2027 and 2028. One calendar quirk mattered this quarter — Prime Day moved to Q2, which was a headwind for Q3 stores comparisons.</p>
+  <p><b>Supply-chain dependencies.</b> A global logistics network and third-party seller base, China sourcing exposed to tariffs, and — increasingly binding — semiconductor supply and electrical power for data centres.</p>
+</section>
+
+<section>
+  <div class="sec-num">SECTION 2</div>
+  <h2>Financial health &amp; balance sheet diagnostics</h2>
+  <div class="scroll-x"><table>
+    <tr><th>Metric</th><th class="num">Value</th><th>Reading</th></tr>
+    <tr><td>Trailing P/E</td><td class="num">19.43×</td><td>Moderate for Amazon — earnings are being held down by the investment cycle</td></tr>
+    <tr><td>Operating cash flow (TTM)</td><td class="num">$168.3B</td><td>The cash engine itself is intact</td></tr>
+    <tr><td>PP&amp;E purchases (TTM)</td><td class="num">$210.7B</td><td>Spending exceeds operating cash flow</td></tr>
+    <tr><td>Free cash flow (TTM)</td><td class="num" style="color:var(--bad)">−$42.357B</td><td>vs +$14.8B a year earlier — a ~$57B swing into negative</td></tr>
+    <tr><td>Cash capex guide</td><td class="num">~$220B (2026)</td><td>2027 guided "significantly higher"</td></tr>
+    <tr><td>Long-term debt</td><td class="num">$173.125B</td><td>30 Sep 2026, vs $65.648B at 31 Dec 2025</td></tr>
+    <tr><td>Q4 2026 guidance</td><td class="num">$240–247B sales</td><td>Operating income $28.5–33.5B; midpoint $31B vs ~$33B expected</td></tr>
+  </table></div>
+  <div class="note"><b>Verification correction — read the debt correctly.</b> The jump in long-term debt to $173.125B is <b>genuine new borrowing</b>, not an accounting reclassification: proceeds from long-term debt were $115.1B in the first nine months of 2026 ($48.102B in Q3 alone), face value is $180.9B including a $17.5B term loan drawn in September. Amazon is deliberately levering up to fund the AI buildout — leverage is rising fast, and that is the single biggest change in this balance sheet in years.</div>
+  <p><b>Capital allocation.</b> No dividend, and buybacks are modest — essentially all available cash, plus new debt, is going into capital expenditure. That is a bet, not a return of capital: shareholders are funding the AI buildout and will be paid only if AWS growth and margins convert it back into free cash flow later.</p>
+</section>
+
+<section>
+  <div class="sec-num">SECTION 3</div>
+  <h2>Competitive moat &amp; industry positioning</h2>
+  <p>Amazon's moat is a stack rather than a single wall: AWS's scale plus its custom silicon roadmap, a logistics network competitors would need decades and hundreds of billions to replicate, Prime membership lock-in, advertising data drawn from actual purchase intent, and marketplace network effects between buyers and third-party sellers.</p>
+  <p><b>Primary competitors:</b> Microsoft (Azure) and Google Cloud in cloud/AI; Walmart and Target in US retail; Shopify in merchant infrastructure; TikTok Shop in social commerce. The sharpest contest is AWS vs Azure vs Google Cloud, where the AI capex race is being fought — which is also where the balance-sheet risk in §2 comes from.</p>
+</section>
+
+<section>
+  <div class="sec-num">SECTION 4</div>
+  <h2>Catalysts &amp; downside risks</h2>
+  <div class="two-col">
+    <div class="panel">
+      <h3><span class="good-t">▲</span> Catalysts</h3>
+      <ul>
+        <li>AWS growth guided <b>above 40% in both 2027 and 2028</b> — if delivered, the capex debate flips</li>
+        <li>Advertising guided to high-teens growth in Q4</li>
+        <li>Stores margin expansion — Q3's record 13.9% group margin shows operating leverage is real</li>
+        <li>Trainium custom silicon lowering AI compute cost vs buying third-party accelerators</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3><span class="bad-t">▼</span> Risks</h3>
+      <ul>
+        <li><b>Capex vs free cash flow</b> — the direct cause of the post-print fall ($243.79 → ~$227 premarket)</li>
+        <li>Q4 operating-income guide midpoint $31B vs ~$33B expected</li>
+        <li>Debt-funded spending: $173.1B long-term debt and rising; 2027 capex "significantly higher" than ~$220B</li>
+        <li>Tariffs on China-sourced goods; antitrust exposure; AI capacity and power constraints</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-num">SECTION 5</div>
+  <h2>Scenario valuation &amp; price targets</h2>
+  <p class="foot-note">All prices in this section are <b>modelled estimates</b> — not verified facts and not analyst consensus. Methodology is shown so the arithmetic can be checked. Base 2026E revenue $820B (TTM ~$800B); share count drifts from 10.79B down modestly on buybacks as shown per case.</p>
+
+  <h3>5-year projection (to 2031)</h3>
+  <div class="scroll-x"><table class="stack5">
+    <tr><th>Case (weight)</th><th class="num">Revenue CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">2031 EPS</th><th class="num">P/E</th><th class="num">2031 price</th></tr>
+    <tr><td><b>Bull</b> (25%)</td><td class="num">16%</td><td class="num">$1,722B</td><td class="num">11%</td><td class="num">$17.87</td><td class="num">28×</td><td class="num"><b>$500</b></td></tr>
+    <tr><td><b>Base</b> (50%)</td><td class="num">12%</td><td class="num">$1,445B</td><td class="num">9%</td><td class="num">$12.15</td><td class="num">24×</td><td class="num"><b>$292</b></td></tr>
+    <tr><td><b>Bear</b> (25%)</td><td class="num">7%</td><td class="num">$1,151B</td><td class="num">6%</td><td class="num">$6.40</td><td class="num">18×</td><td class="num"><b>$115</b></td></tr>
+    <tr><td colspan="6"><b>Probability-weighted (50 / 25 / 25)</b></td><td class="num"><b>$300</b></td></tr>
+  </table></div>
+  <p class="foot-note">Check the base case: $1,445B × 9% = $130B net income ÷ 10.70B shares = $12.15 EPS × 24 = $292. Weighted: 0.50×$292 + 0.25×$500 + 0.25×$115 = $300. The spread between bull ($500) and bear ($115) is the honest story here — the outcome hinges almost entirely on whether the capex converts.</p>
+
+  <h3 style="margin-top:20px">12–18-month targets (modelled estimates)</h3>
+  <div class="scroll-x"><table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">vs $240.35</th><th>Basis</th></tr>
+    <tr><td>Bull</td><td class="num">$340</td><td class="num" style="color:var(--good)">+41%</td><td>AWS acceleration confirmed, FCF inflects back toward positive</td></tr>
+    <tr><td>Base</td><td class="num">$285</td><td class="num" style="color:var(--good)">+19%</td><td>Guide delivered, capex concern fades gradually</td></tr>
+    <tr><td>Bear</td><td class="num">$200</td><td class="num" style="color:var(--bad)">−17%</td><td>Another soft guide, debt and negative FCF dominate</td></tr>
+  </table></div>
+  <p class="foot-note">For reference only, the MarketBeat consensus target carried in the research pack is $320.86 — above this report's modelled base case.</p>
+</section>
+
+<section>
+  <div class="sec-num">SECTION 6</div>
+  <h2>Recommendation &amp; position sizing</h2>
+  <p><b>Short term — HOLD.</b> Capex, negative FCF and the soft Q4 operating-income guide argue against chasing the dip aggressively, even though the quarter itself was strong. <b>Long term — BUY.</b> AWS at a $184B run rate growing 39% — with 40%+ guided for two more years — plus a record-margin stores business is a durable compounder if the spending converts.</p>
+  <p><b>Suggested weight: 6% of the total portfolio</b> for a mid-30s investor at risk 8/10 — a core-sized position, held below the very largest single-name weights because the debt-funded capex cycle adds a risk the old Amazon didn't have.</p>
+  <div class="panel">
+    <h3 style="margin-bottom:12px">Position-size calculator</h3>
+    <div class="calc">
+      <div><label for="pf">Total portfolio value ($)</label><input id="pf" type="number" value="500000" min="0" step="1000" inputmode="numeric"></div>
+      <div><label>Target weight</label><div class="out">6%</div></div>
+      <div><label>Amount in AMZN</label><div class="out" id="amt">—</div></div>
+      <div><label>Shares at $240.35</label><div class="out" id="sh">—</div></div>
+    </div>
+    <p class="foot-note" style="margin:10px 0 0">Illustrative only, at the 30 Oct 2026 close. Runs entirely on this page — nothing is saved or sent anywhere.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-num">APPENDIX</div>
+  <h2>Ranking basis &amp; sources</h2>
+  <p class="foot-note"><b>Ranking basis:</b> FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. Sector cutoff note: #10 in Consumer Discretionary is a <b>source-dependent tie</b> — FinanceCharts ranks SONY #10 ($148.38B) and Hesai (HESAY) #11 ($148.079B), while StockAnalysis puts HESAY at $151.28B, above SONY. Both are included in the sector set (top 11) with the tie footnoted; HESAY is not an unambiguous #10.</p>
+  <p class="foot-note"><b>Verification:</b> Key Q3 figures (sales, operating income and margin, AWS, TTM FCF, Q4 guide) and the debt build were independently cross-checked against a second source (ad-hoc-news earnings coverage and the EvidInvest filing read-back) on 1 Nov 2026. Modelled scenario prices are estimates with methodology shown in §5, never verified facts.</p>
+  <ul class="src-list">
+    <li>Amazon Q3 2026 filed lines (EvidInvest) — <a href="https://evidinvest.com/blog/amzn-q3-2026-nine-filed-lines-before-the-print-2026-10-28" target="_blank" rel="noopener">evidinvest.com</a></li>
+    <li>Amazon Q3 2026 read-back &amp; hyperscaler capex lines, incl. debt proceeds (EvidInvest) — <a href="https://evidinvest.com/blog/amzn-q3-2026-read-back-and-four-hyperscaler-capex-lines-2026-10-30" target="_blank" rel="noopener">evidinvest.com</a></li>
+    <li>Amazon Q3 earnings coverage &amp; verification cross-check — <a href="https://www.ad-hoc-news.de/boerse/news/corporate-news/amazon-com-stock-faces-mixed-q3-report-as-aws-growth-accelerates/70433826" target="_blank" rel="noopener">ad-hoc-news.de</a></li>
+    <li>Amazon after Q3 earnings: buy the dip, sell or hold (Zacks) — <a href="https://www.zacks.com/commentary/3019984/amazon-amzn-stock-after-q3-earnings-buy-the-dip-sell-or-hold" target="_blank" rel="noopener">zacks.com</a></li>
+    <li>Amazon Q3 earnings report — <a href="https://en.shiftdelete.net/amazon-q3-earnings/" target="_blank" rel="noopener">shiftdelete.net</a></li>
+    <li>AMZN market cap &amp; price (StockAnalysis) — <a href="https://stockanalysis.com/stocks/amzn/market-cap/" target="_blank" rel="noopener">stockanalysis.com</a></li>
+    <li>AMZN price, market cap &amp; analyst target reference (MarketBeat) — <a href="https://www.marketbeat.com/stocks/NASDAQ/AMZN/" target="_blank" rel="noopener">marketbeat.com</a></li>
+  </ul>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — AMZN (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $240.35.</strong> <strong>DCF intrinsic: $25.</strong> Discount/premium vs DCF: <strong>+861.4%</strong> — i.e. the shares are trading 861.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$25</td><td>+861.4%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $15.0bn. NORMALISED: reported TTM FCF was -$42.357bn (pack, verified) after ~$220bn 2026 capex. A negative base cannot be projected, so the base is normalised to $15.0bn — the prior-year TTM level (+$14.8bn a year earlier, pack). This is a normalisation assumption, not a reported figure; the DCF therefore prices a return to pre-spike cash generation, not current cash burn. Growth g = 9% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $142.7bn + PV of terminal value $201.45bn + net cash $-73.49bn, divided by 10.786bn diluted shares = <strong>$25</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.alphaspread.com/security/nasdaq/amzn/financials/balance-sheet/total-equity</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — AMZN (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>Third-party sellers / merchants on the marketplace (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>AWS enterprise customers (group)</td><td></td><td>Includes covered customers such as Netflix — see $50.03 / +24.1% — but no ranked AWS customer list is disclosed, so no single share is shown.</td></tr><tr><td>Netflix (NFLX) — AWS customer (publicly known)</td><td></td><td>$50.03 / +24.1%</td></tr><tr><td>Advertisers on Amazon properties (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>AWS public-sector customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Logistics / fulfilment customers using Amazon services (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Prime members (consumers; shown for completeness, not business customers)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr></tbody></table><p><strong>Read-through.</strong> Amazon discloses no single AWS or marketplace customer above 10% of revenue, so the one named, covered read-through is Netflix: if NFLX were trading at a discount to its intrinsic value, that would be a potential tailwind for its AWS spend in principle, and a premium would be the reverse — but an undervalued customer does not guarantee higher spending, which depends on Netflix's own priorities and cash position, and one customer cannot move AWS. The broader point is the same for the seller and advertiser groups: their health drives marketplace and ads revenue, but only in aggregate.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — AMZN</h2>
+<p><strong>Role: Enabler.</strong> Amazon is a central AI enabler: AWS grew 39% in Q3 2026 to $46.0bn, with Trainium and data-centre build driving a ~$220bn 2026 capex programme, and management guided AWS growth above 40% in 2027 and 2028.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through AWS AI workloads and custom-silicon sales, plus advertising and stores margin; the multiple is supported by AWS growth re-rating the whole group.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in AWS: AI customers delay or cancel capacity and the guided >40% growth fails; then the multiple compresses from the current ~19x trailing earnings toward a through-cycle retail/cloud multiple; then the balance sheet — long-term debt $173.1bn against cash $55.8bn at 30 Sep 2026, after $115.1bn of new borrowing in nine months — constrains the 2027 capex step-up. Watch: AWS growth versus the >40% guide, TTM FCF (already -$42.4bn), and Q4 operating-income guidance delivery.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+  Equity Research — AMZN · As of 1 Nov 2026 · Prices as of the 30 Oct 2026 close. Figures are drawn from the sources above and independently cross-checked where noted; scenario prices are modelled estimates with assumptions shown, not predictions. This page is research commentary for education, not investment advice.
+</footer>
+
+</div>
+<script>
+  (function(){
+    var pf=document.getElementById('pf'), amt=document.getElementById('amt'), sh=document.getElementById('sh');
+    var PRICE=240.35, W=0.06;
+    function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+    function update(){
+      var v=parseFloat(pf.value);
+      if(!isFinite(v)||v<0){amt.textContent='—';sh.textContent='—';return;}
+      var a=v*W;
+      amt.textContent=fmt(a);
+      sh.textContent=Math.floor(a/PRICE).toLocaleString('en-US');
+    }
+    pf.addEventListener('input',update);
+    update();
+  })();
+</script>
+</body>
+</html>

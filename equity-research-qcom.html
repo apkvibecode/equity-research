@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — QCOM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbfaf7; --surface:#ffffff; --surface2:#f3f1ea; --ink:#101828; --muted:#52607a; --faint:#7a8698;
+  --line:#e3ded0; --line2:#d6d0bf;
+  --blue:#0b4f9e; --blue-soft:#e9f0fa; --blue-ink:#0a3f80;
+  --green:#027a48; --green-bg:#ecfdf3; --red:#b42318; --red-bg:#fef3f2; --amber:#b54708; --amber-bg:#fffaeb;
+  --gold:#8a6d1b;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d1219; --surface:#141c28; --surface2:#1a2434; --ink:#eef1f6; --muted:#a7b2c3; --faint:#7f8b9e;
+    --line:#27344a; --line2:#33445f;
+    --blue:#6ea8fe; --blue-soft:#1b2c4a; --blue-ink:#bcd7ff;
+    --green:#32d583; --green-bg:#0e2e22; --red:#f97066; --red-bg:#3a1714; --amber:#fdb022; --amber-bg:#33270a;
+    --gold:#e5c45c;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 64px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.serif{font-family:"Source Serif 4",Georgia,serif}
+
+/* top meta */
+.topmeta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:18px 0 0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--faint)}
+.topmeta .dot{width:3px;height:3px;border-radius:50%;background:var(--line2)}
+.topmeta .live{color:var(--blue)}
+
+/* header */
+header{padding:18px 0 8px;border-bottom:3px solid var(--ink)}
+.tickerline{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px}
+h1{font-family:"Source Serif 4",Georgia,serif;font-size:clamp(40px,7vw,62px);line-height:.95;margin:0;letter-spacing:-.02em;font-weight:700}
+.ticker-badge{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:15px;background:var(--ink);color:var(--bg);padding:5px 10px;border-radius:4px;letter-spacing:.06em}
+.exchange{color:var(--muted);font-size:14px}
+.thesis{font-size:clamp(18px,2.6vw,21px);line-height:1.45;margin:16px 0 6px;max-width:760px}
+.thesis strong{color:var(--blue-ink)}
+.subthesis{color:var(--muted);font-size:15px;max-width:760px;margin:0 0 14px}
+
+/* price strip */
+.pricestrip{display:flex;flex-wrap:wrap;gap:0;border:1px solid var(--line);background:var(--surface);border-radius:10px;overflow:hidden;margin:18px 0 0}
+.ps{flex:1 1 140px;padding:14px 16px;border-right:1px solid var(--line)}
+.ps:last-child{border-right:none}
+.ps label{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--faint);margin-bottom:4px}
+.ps b{font-size:22px;line-height:1;font-family:"IBM Plex Mono",monospace;font-weight:600;letter-spacing:-.02em}
+.ps span{display:block;font-size:12.5px;color:var(--muted);margin-top:4px}
+.down{color:var(--red)} .up{color:var(--green)}
+
+/* verdict */
+.verdict{display:grid;grid-template-columns:1.25fr .85fr;gap:0;border:1.5px solid var(--ink);border-radius:12px;overflow:hidden;margin:20px 0;background:var(--surface)}
+.verdict-main{padding:20px 22px}
+.verdict-main h2{margin:0 0 4px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+.verdict-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.vbox{background:var(--surface2);border-radius:8px;padding:14px 16px}
+.vbox label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.vbox .call{font-family:"Source Serif 4",serif;font-size:30px;font-weight:700;line-height:1.1;margin:4px 0}
+.vbox p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+.call.buy{color:var(--green)}
+.verdict-side{background:var(--blue);color:#fff;padding:20px 22px;display:flex;flex-direction:column;justify-content:center}
+@media (prefers-color-scheme: dark){.verdict-side{background:#1d3f74}}
+.verdict-side label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;opacity:.85}
+.verdict-side .pct{font-family:"Source Serif 4",serif;font-size:52px;line-height:1;font-weight:700;margin:6px 0 4px}
+.verdict-side p{margin:0;font-size:13.5px;line-height:1.55;opacity:.92}
+.verdict-note{grid-column:1/-1;border-top:1px solid var(--line);padding:10px 22px;font-size:12.5px;color:var(--muted);background:var(--surface)}
+
+/* sections */
+section{margin-top:38px}
+.sec-head{display:flex;gap:14px;align-items:baseline;border-bottom:1px solid var(--line2);padding-bottom:10px;margin-bottom:16px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--blue);background:var(--blue-soft);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.sec-head h2{font-family:"Source Serif 4",serif;font-size:26px;margin:0;line-height:1.15}
+.sec-head p{margin:0 0 0 auto;font-size:13px;color:var(--faint);text-align:right;max-width:260px}
+@media(max-width:640px){.sec-head p{display:none}}
+h3{font-size:16px;margin:22px 0 6px}
+p{margin:0 0 12px}
+.lead{font-size:17px}
+.small{font-size:13.5px;color:var(--muted)}
+ul.tight{margin:6px 0 14px;padding-left:20px}
+ul.tight li{margin-bottom:6px}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:720px){.two-col,.verdict,.verdict-grid{grid-template-columns:1fr}.ps{flex-basis:44%;border-bottom:1px solid var(--line)}}
+
+/* business diagram */
+.flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin:16px 0}
+@media(max-width:720px){.flow{grid-template-columns:1fr}.flow .arrow{transform:rotate(90deg);justify-self:center}}
+.flow-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.flow-card h4{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue-ink)}
+.flow-card ul{margin:0;padding-left:18px;font-size:14px;color:var(--muted)}
+.flow-card .big{font-family:"IBM Plex Mono",monospace;font-size:20px;font-weight:600;color:var(--ink)}
+.arrow{align-self:center;font-size:20px;color:var(--faint)}
+
+/* metric table */
+.mtable{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14.5px}
+.mtable th,.mtable td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+.mtable th{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);background:var(--surface2)}
+.mtable tr:last-child td{border-bottom:none}
+.mtable td.num{font-family:"IBM Plex Mono",monospace;font-weight:600;white-space:nowrap}
+.mtable td.note{color:var(--muted);font-size:13.5px}
+.callout{border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.55;margin:14px 0}
+.callout.warn{background:var(--amber-bg);color:var(--ink);border:1px solid color-mix(in srgb, var(--amber) 35%, transparent)}
+.callout.info{background:var(--blue-soft);border:1px solid color-mix(in srgb, var(--blue) 25%, transparent)}
+.callout b{font-weight:700}
+
+/* risk cards */
+.riskcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.riskcard h4{margin:0 0 10px;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.riskcard.up h4{color:var(--green)} .riskcard.down h4{color:var(--red)}
+.riskcard ul{margin:0;padding-left:18px;font-size:14.5px}
+.riskcard li{margin-bottom:8px}
+.riskcard li span{color:var(--muted)}
+
+/* scenario cards */
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+@media(max-width:720px){.scenarios{grid-template-columns:1fr}}
+.scen{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.scen.base{border:2px solid var(--blue)}
+.scen label{font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:800}
+.scen.bear label{color:var(--red)} .scen.base label{color:var(--blue)} .scen.bull label{color:var(--green)}
+.scen .price{font-family:"Source Serif 4",serif;font-size:40px;font-weight:700;line-height:1;margin:8px 0 2px}
+.scen .move{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.scen dl{margin:12px 0 0;font-size:13.5px}
+.scen dl div{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px dashed var(--line)}
+.scen dt{color:var(--muted)} .scen dd{margin:0;font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:right}
+.weighted{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;background:var(--ink);color:var(--bg);border-radius:10px;padding:16px 18px;margin:14px 0}
+.weighted .wprice{font-family:"Source Serif 4",serif;font-size:34px;font-weight:700;line-height:1}
+.weighted p{margin:0;font-size:13.5px;opacity:.85;max-width:520px}
+
+/* calculator */
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0}
+.calc h3{margin-top:0}
+.calc-row{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+.field{flex:1 1 220px}
+.field label{display:block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;font-size:18px;font-family:"IBM Plex Mono",monospace;border:1.5px solid var(--line2);border-radius:8px;background:var(--bg);color:var(--ink)}
+.calc-out{flex:1 1 260px;background:var(--surface2);border-radius:8px;padding:12px 16px;font-size:14px}
+.calc-out b{font-family:"IBM Plex Mono",monospace}
+
+/* sources */
+.sources{font-size:13.5px;color:var(--muted)}
+.sources li{margin-bottom:6px;word-break:break-all}
+footer{margin-top:44px;border-top:1px solid var(--line2);padding-top:16px;font-size:12.5px;color:var(--faint);line-height:1.6}
+.pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;padding:2px 8px;border-radius:999px;background:var(--amber-bg);color:var(--amber);border:1px solid color-mix(in srgb, var(--amber) 30%, transparent);vertical-align:middle}
+.pill.ok{background:var(--green-bg);color:var(--green);border-color:color-mix(in srgb, var(--green) 30%, transparent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topmeta">
+    <span class="live">Equity Research</span><span class="dot"></span>
+    <span>Information Technology</span><span class="dot"></span>
+    <span>As of 1 Nov 2026</span><span class="dot"></span>
+    <span>Price ref: 30 Oct 2026 close</span>
+  </div>
+
+  <header>
+    <div class="tickerline">
+      <h1>Qualcomm</h1>
+      <span class="ticker-badge">NASDAQ: QCOM</span>
+      <span class="exchange">Semiconductors · Modems, Snapdragon &amp; patent licensing</span>
+    </div>
+    <p class="thesis">The sector laggard — <strong>down 11.12% in a single session on 30 Oct and −3.7% year-to-date</strong> — trading at under 20× earnings while it tries to prove it is more than a handset chip company. That de-rating is both the opportunity and the warning.</p>
+    <p class="subthesis">For a mid-30s investor at risk score 8/10. Research views only — not guarantees, not investment advice. Ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026,” last updated 30 Oct 2026; prices are the 30 Oct 2026 close. Samsung / SK Hynix appear in that source’s global ranking but are excluded from detail (foreign listings, not in the named set).</p>
+  </header>
+
+  <div class="pricestrip" aria-label="Key figures">
+    <div class="ps"><label>Price · 30 Oct close</label><b>$164.79</b><span class="down">▼ 11.12% on the day</span></div>
+    <div class="ps"><label>Year to date</label><b class="down">−3.7%</b><span>Laggard in this tech pack</span></div>
+    <div class="ps"><label>Trailing P/E</label><b>19.0×</b><span>Range 19.03–19.07 by source</span></div>
+    <div class="ps"><label>Price / Sales</label><b>3.97×</b><span>On ~$44.28B annual sales</span></div>
+    <div class="ps"><label>Dividend yield</label><b>2.23%</b><span>Income alongside growth</span></div>
+    <div class="ps"><label>Street consensus</label><b>Hold</b><span>Target $205.83 · +24.9% vs close</span></div>
+  </div>
+
+  <div class="verdict">
+    <div class="verdict-main">
+      <h2>Verdict — QCOM</h2>
+      <div class="verdict-grid">
+        <div class="vbox">
+          <label>Short term · 12–18 months</label>
+          <div class="call buy">Buy</div>
+          <p>Base-case target $195 (+18%). The 30 Oct sell-off reset expectations; consensus at $205.83 sits above the base case.</p>
+        </div>
+        <div class="vbox">
+          <label>Long term · 5 years</label>
+          <div class="call buy">Buy</div>
+          <p>Modelled weighted value $274 vs $164.79 today — if auto / IoT / PC diversification offsets handset and Apple-modem pressure.</p>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-side">
+      <label>Suggested portfolio weight</label>
+      <div class="pct">1.0%</div>
+      <p>Of total portfolio, for the profile above. A satellite position — sized for a real but concentrated licensing and handset risk, not a core holding.</p>
+    </div>
+    <div class="verdict-note">Market cap shown in the research pack as ~$175.97B on ~1.068B shares <span class="pill">Price confirmed · cap not independently re-sourced</span> — the $164.79 close was independently confirmed in the verification pass; the standalone cap figure was not, so treat it as a pack figure, not a verified fact. All scenario prices below are <b>modelled estimates</b> with methodology shown.</div>
+  </div>
+
+  <!-- 1 BUSINESS -->
+  <section id="business">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2><p>Chipsets + licensing, pivoting beyond handsets</p></div>
+    <p class="lead">Qualcomm makes money two ways: selling silicon, and licensing the patents inside almost every mobile device — whether or not that device uses a Qualcomm chip.</p>
+
+    <div class="flow" aria-label="How Qualcomm makes money">
+      <div class="flow-card">
+        <h4>End markets</h4>
+        <ul>
+          <li><b>Handsets</b> — the historic core</li>
+          <li><b>Automotive</b> — cockpit &amp; connectivity</li>
+          <li><b>IoT</b> — industrial &amp; consumer devices</li>
+          <li><b>PC</b> — Snapdragon compute / AI PCs</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-card">
+        <h4>Two engines</h4>
+        <ul>
+          <li><b>QCT — chipsets:</b> Snapdragon platforms, modems &amp; RF front-end</li>
+          <li><b>QTL — licensing:</b> royalties on patented modem / cellular IP</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+      <div class="flow-card">
+        <h4>Scale</h4>
+        <div class="big">$44.28B</div>
+        <ul><li>Annual sales cited (MarketBeat)</li><li>Earnings last reported 29 Jul 2026</li></ul>
+      </div>
+    </div>
+
+    <h3>The structural pivot</h3>
+    <p>Handset concentration is the central vulnerability — smartphone volumes are mature, and Qualcomm’s largest historical customer ecosystem is actively building alternatives (see §3). The pivot underway is deliberate diversification <em>away</em> from that concentration into three adjacencies:</p>
+    <ul class="tight">
+      <li><b>Automotive</b> — digital cockpit, connectivity and driver-assistance silicon, where design wins lock in for a vehicle platform’s life.</li>
+      <li><b>IoT</b> — a broad, fragmented market where modem + compute bundles fit naturally.</li>
+      <li><b>PC &amp; on-device AI</b> — Snapdragon in AI PCs and AI running locally on handsets, which — if it drives a handset upgrade cycle — helps the core business too, rather than only diversifying away from it.</li>
+    </ul>
+    <p class="small">Supply-chain note carried from the pack: Qualcomm is a fabless designer — it depends on foundry capacity for its silicon rather than owning fabs, and on handset OEM demand (heavily exposed to China handset and licensing conditions, §4) for both engines. The pack does not break out a segment revenue split or geographic distribution for QCOM, so none is shown here rather than estimated.</p>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section id="financials">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2><p>Cheap on trailing multiples — after a violent de-rating</p></div>
+    <p>At $164.79, QCOM is one of the cheapest large-cap names in this tech pack on trailing earnings — under 20× — with a dividend yield above 2%. The question the multiple is asking is whether today’s earnings base survives Apple’s modem insourcing and a saturated handset market.</p>
+
+    <table class="mtable">
+      <thead><tr><th>Metric</th><th>Value</th><th>Reading</th></tr></thead>
+      <tbody>
+        <tr><td>Price (30 Oct 2026 close) <span class="pill ok">Confirmed</span></td><td class="num">$164.79</td><td class="note">−11.12% on the day; −3.7% YTD</td></tr>
+        <tr><td>Market capitalisation</td><td class="num">~$175.97B</td><td class="note">Pack figure on ~1.068B shares — not independently re-sourced in the verification pass; treat as approximate</td></tr>
+        <tr><td>Shares outstanding (model basis)</td><td class="num">~1.068B</td><td class="note">Held frozen in the 5-year model (§5)</td></tr>
+        <tr><td>Trailing P/E</td><td class="num">19.03–19.07×</td><td class="note">Range reflects source variance in the pack</td></tr>
+        <tr><td>Price / Sales</td><td class="num">3.97×</td><td class="note">On annual sales of $44.28B (MarketBeat)</td></tr>
+        <tr><td>Dividend yield</td><td class="num">2.23%</td><td class="note">Meaningful income for a tech name — supports the total-return case while the pivot proves out</td></tr>
+        <tr><td>Consensus rating / target</td><td class="num">Hold · $205.83</td><td class="note">Target implies +24.9% vs the 30 Oct close</td></tr>
+        <tr><td>Model net margin (base case)</td><td class="num">21%</td><td class="note">Assumption used in the §5 valuation model — a modelled input, not a reported figure</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout warn"><b>What the pack does not give — stated plainly:</b> no EV/EBITDA, free-cash-flow, debt-to-equity, buyback or R&amp;D figures for QCOM were carried in the verified research pack, so this section does not fill those gaps with estimates. The balance-sheet read here rests on what is sourced: valuation multiples, yield, sales scale and share count. If you want the full leverage / FCF diagnostic for QCOM specifically, that needs a separate sourced pass before it can be printed as fact.</div>
+
+    <h3>Capital return signal</h3>
+    <p>The 2.23% dividend yield is the tangible capital-allocation fact in the pack: unlike the cash-burning AI-infrastructure names elsewhere in this sector, QCOM already returns cash to shareholders while trading at a value multiple. Combined with a sub-20× P/E, the market is pricing QCOM as a maturing licensing-and-chip business — the bull case is that auto, IoT and PC growth re-rates it; the bear case is that the multiple is correctly pricing erosion of the handset / licensing base.</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section id="moat">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2><p>Patents and modems — with an expiry clock</p></div>
+    <div class="two-col">
+      <div>
+        <h3 style="margin-top:0">Where the moat is real</h3>
+        <ul class="tight">
+          <li><b>Modem &amp; RF IP.</b> Cellular modem and radio-frequency engineering is among the hardest silicon to replicate; Qualcomm’s lead there underpins both chip sales and licensing.</li>
+          <li><b>Patent licensing (QTL).</b> Royalties are collected on devices regardless of whose chip is inside — a high-margin annuity while the patent estate and licensing regime hold.</li>
+          <li><b>Snapdragon ecosystem.</b> Deep Android OEM integration, developer familiarity and a full platform (compute + modem + RF) that is hard for a point competitor to displace all at once.</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Who is attacking it</h3>
+        <ul class="tight">
+          <li><b>Apple — in-house modems.</b> Named in the pack as an <em>existential licensing risk over time</em>: every Apple device that moves to an Apple modem removes both a potential chip sale and weakens the licensing narrative.</li>
+          <li><b>MediaTek</b> — the direct Android chipset rival, pressing on price and share.</li>
+          <li><b>Broadcom &amp; Samsung</b> — adjacent silicon and in-house (Exynos / foundry) competition respectively.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout info"><b>Pricing-power read:</b> licensing gives Qualcomm unusual pricing power today, but it is <em>rented</em> power — it depends on patents staying essential, licence terms surviving legal / regulatory challenge, and customers not designing around it. The moat is wide in modems, narrower everywhere Apple and MediaTek are investing. That asymmetry is exactly why the stock trades at 19× while AI-silicon peers trade far higher.</div>
+  </section>
+
+  <!-- 4 CATALYSTS / RISKS -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2><p>Diversification vs insourcing</p></div>
+    <div class="two-col">
+      <div class="riskcard up">
+        <h4>▲ Catalysts</h4>
+        <ul>
+          <li><b>Automotive &amp; IoT growth</b> <span>— the diversification revenue that reduces handset dependence, quarter by quarter.</span></li>
+          <li><b>AI-PC adoption</b> <span>— Snapdragon PC wins would open a market Qualcomm historically did not contest.</span></li>
+          <li><b>On-device AI handset cycle</b> <span>— AI features driving phone upgrades lift both chipset content and volumes.</span></li>
+          <li><b>Re-rating from a low base</b> <span>— at 19× with a $205.83 consensus target, even delivery (not over-delivery) closes part of the gap.</span></li>
+        </ul>
+      </div>
+      <div class="riskcard down">
+        <h4>▼ Downside risks</h4>
+        <ul>
+          <li><b>Apple modem insourcing</b> <span>— the single largest structural risk to both QCT and QTL over time.</span></li>
+          <li><b>China exposure</b> <span>— handset demand and licensing conditions in China affect both engines simultaneously.</span></li>
+          <li><b>Handset saturation</b> <span>— a mature, slow-growth core market caps the legacy business even in a good year.</span></li>
+          <li><b>De-rating speed</b> <span>— 30 Oct’s −11.12% session is the pack’s own evidence of how fast a miss or guide-down is punished in this name.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section id="valuation">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2><p>All targets are modelled estimates — methodology shown</p></div>
+
+    <h3>12–18-month targets</h3>
+    <div class="scenarios">
+      <div class="scen bear"><label>Bear · 12–18m</label><div class="price">$130</div><div class="move down">−21.1% vs $164.79</div><p class="small" style="margin-top:10px">Apple insourcing accelerates, China / handset softness persists, and the de-rating continues.</p></div>
+      <div class="scen base"><label>Base · 12–18m</label><div class="price">$195</div><div class="move up">+18.3% vs $164.79</div><p class="small" style="margin-top:10px">Diversification grows, handsets stabilise, and the multiple recovers part-way toward the $205.83 consensus.</p></div>
+      <div class="scen bull"><label>Bull · 12–18m</label><div class="price">$240</div><div class="move up">+45.6% vs $164.79</div><p class="small" style="margin-top:10px">Auto / IoT / AI-PC inflect visibly and the market re-rates QCOM as a diversified platform, not a handset name.</p></div>
+    </div>
+
+    <h3>5-year projection — frozen-parameter model</h3>
+    <p class="small">Method, exactly as modelled in the pack: starting revenue $44.3B, shares held frozen at 1.068B, only revenue growth, net margin and exit P/E vary by case. Price = (Revenue × Margin ÷ Shares) × P/E. This is a <b>modelled estimate</b>, not a verified fact and not a forecast guarantee.</p>
+    <div class="scenarios">
+      <div class="scen bear">
+        <label>Bear · 5-yr · 25% weight</label><div class="price">$109</div><div class="move down">−33.9% vs today</div>
+        <dl>
+          <div><dt>Revenue growth / yr</dt><dd>2%</dd></div>
+          <div><dt>2031 revenue</dt><dd>~$48.9B</dd></div>
+          <div><dt>Net margin</dt><dd>17%</dd></div>
+          <div><dt>Implied EPS</dt><dd>~$7.79</dd></div>
+          <div><dt>Exit P/E</dt><dd>14×</dd></div>
+        </dl>
+      </div>
+      <div class="scen base">
+        <label>Base · 5-yr · 50% weight</label><div class="price">$256</div><div class="move up">+55.3% vs today</div>
+        <dl>
+          <div><dt>Revenue growth / yr</dt><dd>8%</dd></div>
+          <div><dt>2031 revenue</dt><dd>$65.1B</dd></div>
+          <div><dt>Net margin</dt><dd>21%</dd></div>
+          <div><dt>Implied EPS</dt><dd>$12.80</dd></div>
+          <div><dt>Exit P/E</dt><dd>20×</dd></div>
+        </dl>
+        <p class="small" style="margin-top:10px">Check: $65.1B × 21% = $13.67B ÷ 1.068B shares = $12.80 × 20 = $256.</p>
+      </div>
+      <div class="scen bull">
+        <label>Bull · 5-yr · 25% weight</label><div class="price">$477</div><div class="move up">+189.5% vs today</div>
+        <dl>
+          <div><dt>Revenue growth / yr</dt><dd>13%</dd></div>
+          <div><dt>2031 revenue</dt><dd>~$81.6B</dd></div>
+          <div><dt>Net margin</dt><dd>24%</dd></div>
+          <div><dt>Implied EPS</dt><dd>~$18.34</dd></div>
+          <div><dt>Exit P/E</dt><dd>26×</dd></div>
+        </dl>
+      </div>
+    </div>
+    <div class="weighted">
+      <div><div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;opacity:.75">Probability-weighted · 5-yr · 25 / 50 / 25</div><div class="wprice">$274</div></div>
+      <p>0.25 × $109 + 0.50 × $256 + 0.25 × $477 = $274 — about +66% vs the $164.79 close over five years in the model. Read it as “the diversification maths works if auto / IoT / PC offset handset erosion” — the bear case, at $109, is the world where Apple’s modem and handset saturation win. Modelled estimate throughout.</p>
+    </div>
+
+    <div class="calc">
+      <h3>Position-size calculator — at the suggested 1.0%</h3>
+      <div class="calc-row">
+        <div class="field"><label for="pf">Your total portfolio ($)</label><input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="250000"></div>
+        <div class="calc-out" id="calcOut" aria-live="polite"></div>
+      </div>
+      <p class="small" style="margin:10px 0 0">Uses the 30 Oct close of $164.79 and the 1.0% weight from the verdict. Fractional shares shown for scale; round down in practice and keep the rest as cash.</p>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Sources &amp; Verification Notes</h2><p>Every figure above traces to one of these</p></div>
+    <ul class="sources">
+      <li>MarketBeat — QCOM stock page (sales, consensus, multiples): <a href="https://www.marketbeat.com/stocks/NASDAQ/QCOM/" target="_blank" rel="noopener">marketbeat.com/stocks/NASDAQ/QCOM</a></li>
+      <li>Finnhub — QCOM quote / statistics feed (30 Oct close $164.79, independently confirmed in the verification pass): <a href="https://finnhub.io/?q=%22QCOM%22" target="_blank" rel="noopener">finnhub.io/?q="QCOM"</a></li>
+      <li>Global Banking &amp; Finance — “Qualcomm (QCOM) falls” (30 Oct 2026 session): <a href="https://www.globalbankingandfinance.com/qualcomm-qcom-falls-2026-10-30/" target="_blank" rel="noopener">globalbankingandfinance.com/qualcomm-qcom-falls-2026-10-30</a></li>
+      <li>Ranking basis: FinanceCharts, “Biggest Tech Companies for Nov 2026,” last updated 30 Oct 2026.</li>
+    </ul>
+    <div class="callout warn"><b>Verification status, honestly:</b> the $164.79 close was independently confirmed against a second source. The ~$175.97B market-cap figure was <b>not</b> independently re-sourced in that pass and is labelled as a pack figure wherever it appears. All 12–18-month and 5-year prices are modelled estimates — the 5-year model’s inputs, weights (25/50/25) and arithmetic are shown in §5 so you can check them; they are not verified facts. Open gap: EV/EBITDA, FCF, leverage, buyback and R&amp;D figures were not in the verified pack and are omitted rather than estimated (§2).</div>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>QCOM — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $164.79.</strong> <strong>DCF intrinsic: $201.</strong> Discount/premium vs DCF: <strong>-18.0%</strong> — i.e. the shares are trading 18.0% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$201</td><td>-18.0%</td></tr></table>
+<p><strong>Method 1 — DCF: $201.</strong> Base FCF $10.42B, constant growth g = 8% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $94.33B; Year-10 FCF = $22.50B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $127.62B. Equity value = PV of FCF + PV of terminal value + net cash ($-6.97B) = $214.98B; divided by 1.068B diluted shares = $201. Base note: TTM FCF $10.42B (OCF $12.40B less capex $1.99B, Fool/Kinfo). g 8% = pack base CAGR.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://kinfo.com/asset/QCOM.US.USD ; https://www.fool.com/quote/nasdaq/qcom/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>QCOM — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of QCOM's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Apple</td><td>Snapdragon modems/RF — modem insourcing is the key risk</td><td></td><td>$204</td><td>+68.9%</td></tr><tr><td>Samsung</td><td>Snapdragon chipsets + licensing (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Xiaomi</td><td>Snapdragon chipsets (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Oppo</td><td>Snapdragon chipsets (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Vivo</td><td>Snapdragon chipsets (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Honor</td><td>Snapdragon chipsets (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Automotive OEMs (undisclosed individually)</td><td>Snapdragon Digital Chassis — diversified auto pipeline, no ranked list disclosed</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Qualcomm's read-through is handset and auto demand through Apple and the Android OEMs, most of which are private or not in coverage, so the filled Apple intrinsic is the main covered signal: a discount at Apple would be a potential tailwind for modem/RF volumes, a premium a headwind. An undervalued customer does not guarantee higher Qualcomm spending — it depends on that customer's own handset cycle, its in-house modem plans (Apple insourcing is the pack's existential risk) and its cash position — and China handset/licensing exposure sits outside any single customer figure. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>QCOM — AI trade positioning</h2>
+<p><strong>Role: Beneficiary — on-device AI, second-order.</strong> Qualcomm is a second-order AI beneficiary: on-device AI (Snapdragon, AI PCs) and diversification into auto/IoT, per the pack's pivot away from handset concentration, rather than a data-center AI supplier.</p>
+<p>While the AI trade runs, demand comes through premium handset AI features, AI-PC adoption and the auto pipeline (a $7B run rate cited in coverage), plus the HUMAIN 200MW AI-rack and Amazon custom-silicon deals the pack's coverage flags. On multiples, Qualcomm is the laggard in the pack (trailing P/E ~19x, consensus Hold, YTD −3.7%), so the AI narrative has not yet re-rated it — the opportunity and the warning, per the pack.</p>
+<p>If the AI trade unwinds, demand breaks first through handset softness and the fiscal 2027 'air pocket' the pack's coverage names (consensus EPS dipping as Apple modem revenue exits), with auto/IoT growth too small to offset it. Multiple compression follows from an already modest multiple toward a through-cycle handset multiple. The balance sheet is solid ($8.30B cash against $15.27B debt, net debt ~$7B) and the $3.68 dividend is covered ~2.4x by FCF, so the break is a growth story, not a solvency one. Triggers to watch: the 4 Nov 2026 print, Apple modem-insourcing milestones, China handset share versus MediaTek, and auto/IoT order conversion.</p>
+</div>
+<footer>
+    Equity Research — QCOM · As of 1 Nov 2026 · Price reference: 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Prepared for a mid-30s investor profile, risk score 8/10. This page is research and education only; it is not investment advice, a solicitation, or a guarantee of future results. Modelled scenarios use frozen share count and the stated growth / margin / multiple assumptions — actual outcomes will differ, and the bear cases shown are real possibilities, including loss of principal.
+  </footer>
+</div>
+
+<script>
+(function(){
+  var PRICE = 164.79, WEIGHT = 0.01;
+  var input = document.getElementById('pf');
+  var out = document.getElementById('calcOut');
+  function fmt(n){ return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}); }
+  function render(){
+    var v = parseFloat(input.value);
+    if(!isFinite(v) || v < 0){ out.innerHTML = 'Enter a portfolio value to see the 1.0% position size.'; return; }
+    var pos = v * WEIGHT;
+    var shares = pos / PRICE;
+    out.innerHTML = 'Position at <b>1.0%</b>: <b>' + fmt(pos) + '</b><br>≈ <b>' + shares.toFixed(2) + ' shares</b> at $164.79 · remainder stays in cash / other holdings.';
+  }
+  input.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>

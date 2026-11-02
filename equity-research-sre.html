@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SRE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+@media (max-width:760px){.tblwrap{overflow-x:visible} table{min-width:0!important} th,td{padding:7px 8px;font-size:12.5px}}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.neg{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:118px 1fr 76px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Regulated Utilities + LNG Infrastructure</span></div>
+  <h1>Sempra <span class="tick">(NYSE: SRE)</span></h1>
+  <p class="lede">The only top-10 US utility with material LNG-export earnings leverage. Underneath the ticker sit two regulated anchors — California (SDG&amp;E, SoCalGas) and Texas (Oncor, ~80% owned) — plus Sempra Infrastructure's Gulf Coast liquefaction bet (Cameron LNG, Port Arthur LNG). That mix earns Sempra the richest trailing multiple in the regulated group ex-Entergy, and it cuts both ways: you get Texas growth and contracted LNG cash flows, and you pay for California wildfire politics to get them.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $86.06 close, Fri 30 Oct 2026</span>
+    <span><b>Ranking basis:</b> #7 in XLU top 10 by market cap, 30 Oct 2026 (TipRanks)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">SRE — this report</span>
+    <span class="tab">Utilities sector — XLU universe</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$86.06</div><div class="vsub">NYSE: SRE · Utilities</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$56.27B</div><div class="vsub">TipRanks XLU basis · ≈654M shares implied</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">24.85×</div><div class="vsub">Highest in regulated group ex-ETR · Fwd P/E not verified — see §2</div></div>
+  <div class="vcell span3"><div class="vlabel">Analyst target (TipRanks)</div><div class="vbig mono">$97.73 <span class="up" style="font-size:16px">+13.6%</span></div><div class="vsub">Via TipRanks XLU holdings page — see Sources</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Full multiple already prices in LNG + Texas. Wait for a better entry or proof on wildfire recovery.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">LNG + Texas optionality is real and hard to replicate. Staged build — see §6.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Single-name utility sleeve position. See §6 for the calculator.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The name in one view</h2></div>
+  <p>Sempra is the <b>#7 US-listed utility by market cap</b> in the XLU universe at 30 Oct 2026 — behind NextEra ($175.57B), Southern ($107.80B), Duke ($99.33B), Constellation ($92.96B), AEP ($70.90B) and Dominion ($58.59B), ahead of Entergy ($52.61B), Xcel ($51.23B) and Exelon ($47.65B). Market caps in this report are on the <b>TipRanks basis</b> throughout; Finnhub's float-based values differ by up to ~$3B for some names, so vendors are never mixed in one table.</p>
+  <div class="callout warn"><div class="ct">Ranking scope — read this first</div>
+  <p>This is a <b>Top 10 US-listed Utilities ranking (XLU universe, 30 Oct 2026) — not a global ranking.</b> XLU is 100% US geography, so US-listed-only is defensible as an XLU methodology. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the top 10, and Xcel and Exelon would fall out. Source: <a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts global utilities</a>.</p></div>
+
+  <h3>Where Sempra sits in the XLU top 10 — market cap, 30 Oct 2026 (TipRanks)</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">NEE — NextEra</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$175.57B</span></div>
+    <div class="bar-row"><span class="bl">SO — Southern</span><div class="bar-track"><div class="bar-fill" style="width:61%"></div></div><span class="bv">$107.80B</span></div>
+    <div class="bar-row"><span class="bl">DUK — Duke</span><div class="bar-track"><div class="bar-fill" style="width:57%"></div></div><span class="bv">$99.33B</span></div>
+    <div class="bar-row"><span class="bl">CEG — Constellation</span><div class="bar-track"><div class="bar-fill" style="width:53%"></div></div><span class="bv">$92.96B</span></div>
+    <div class="bar-row"><span class="bl">AEP</span><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div><span class="bv">$70.90B</span></div>
+    <div class="bar-row"><span class="bl">D — Dominion</span><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><span class="bv">$58.59B</span></div>
+    <div class="bar-row"><span class="bl">SRE — Sempra ★</span><div class="bar-track"><div class="bar-fill gold" style="width:32%"></div></div><span class="bv">$56.27B</span></div>
+    <div class="bar-row"><span class="bl">ETR — Entergy</span><div class="bar-track"><div class="bar-fill" style="width:30%"></div></div><span class="bv">$52.61B</span></div>
+    <div class="bar-row"><span class="bl">XEL — Xcel</span><div class="bar-track"><div class="bar-fill" style="width:29%"></div></div><span class="bv">$51.23B</span></div>
+    <div class="bar-row"><span class="bl">EXC — Exelon</span><div class="bar-track"><div class="bar-fill" style="width:27%"></div></div><span class="bv">$47.65B</span></div>
+  </div>
+  <p class="small">Source: <a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks XLU holdings, 30 Oct 2026</a>. Independently confirmed in the verification pass on the TipRanks basis. Do not compare these caps directly against Finnhub float-based caps without noting the method difference.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Headline metric</th><th class="n">Value</th><th>Source / note</th></tr></thead>
+    <tbody>
+      <tr><td>Price (30 Oct 2026 close)</td><td class="n">$86.06</td><td>Finnhub quote reference — see Sources</td></tr>
+      <tr><td>Market cap</td><td class="n">$56.27B</td><td>TipRanks XLU basis; confirmed in verification</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">24.85×</td><td>Finnhub — highest trailing P/E in the regulated group ex-ETR (pack)</td></tr>
+      <tr><td>Implied trailing EPS (estimate)</td><td class="n">~$3.46</td><td><b>Estimate:</b> $86.06 ÷ 24.85 — derived, not a reported EPS figure; anchor for §5</td></tr>
+      <tr><td>Implied shares (arithmetic)</td><td class="n">≈654M</td><td>$56.27B ÷ $86.06 — arithmetic across the two sourced figures above</td></tr>
+      <tr><td>Analyst target</td><td class="n">$97.73</td><td>TipRanks, via XLU holdings page — +13.6% vs the close</td></tr>
+      <tr class="hl"><td>Forward P/E · dividend · debt</td><td class="n">Not verified</td><td>Not verified in this research pass — deliberately omitted rather than estimated. See §2 open questions.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Sempra is <b>three businesses under one holding company</b>, and pricing it as a plain regulated utility misses the point in both directions. Two legs are classic regulated rate-base compounding. The third — LNG export infrastructure — is a contracted, commodity-adjacent growth business that no other name in the XLU top 10 owns at material scale.</p>
+
+  <h3>The three legs</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Leg</th><th>What it is</th><th>How it earns</th><th>Why it matters now</th></tr></thead>
+    <tbody>
+      <tr><td>California utilities — SDG&amp;E + SoCalGas</td><td>San Diego Gas &amp; Electric (electric + gas distribution in the San Diego region) and Southern California Gas (the large Southern California gas distribution utility), both regulated by the California Public Utilities Commission (CPUC).</td><td>Allowed return on rate base, set through CPUC general rate cases and cost-recovery mechanisms. Earnings quality depends on timely recovery — including, critically, wildfire-related costs (see §4).</td><td>The stability anchor and the political risk in one package. California offers scale and a large investment runway (grid hardening, electrification), but every dollar of recovery is argued in a politically charged forum.</td></tr>
+      <tr><td>Texas — Oncor (~80% owned)</td><td>Sempra's ~80% interest in Oncor Electric Delivery, the Texas transmission &amp; distribution utility. Oncor is a wires-only business — it does not sell the commodity in Texas's competitive retail market.</td><td>Regulated T&amp;D returns on a fast-growing rate base. Texas population, industrial and data-centre load growth is among the strongest in the US utility footprint.</td><td>The growth engine inside the regulated book. Texas growth is the cleanest bull-case driver that does not depend on commodity prices or CPUC politics — and geographic diversification away from California is structural, not cosmetic.</td></tr>
+      <tr><td>Sempra Infrastructure — LNG + Mexico energy</td><td>Gulf Coast LNG export liquefaction — Cameron LNG and Port Arthur LNG — plus Mexico energy infrastructure, held through Sempra Infrastructure.</td><td>Long-term liquefaction contracts, largely take-or-pay in structure (pack context — <b>verify contract tenor and counterparty detail before acting</b>). Fees are contracted rather than spot-exposed, but the value of expansion phases and re-contracting still tracks global LNG demand and pricing.</td><td>The differentiator. Phase 2 / export expansion is the optionality the 24.85× multiple is paying for. It is also the leg that imports geopolitical and global gas-price exposure into an otherwise domestic regulated earnings stream.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Open question, stated plainly: the research pack does not carry a verified segment revenue or earnings split (California vs Texas vs Infrastructure) or a geographic revenue table, so none is shown here rather than estimated. The three-leg structure above is what the pack supports; check Sempra's latest 10-Q segment disclosure for the current earnings mix before sizing a position.</p>
+
+  <h3>Geographic distribution</h3>
+  <ul>
+    <li><b>California:</b> regulated electric and gas distribution — the largest political and regulatory exposure, including wildfire liability frameworks (§4).</li>
+    <li><b>Texas:</b> Oncor's T&amp;D territory — the fastest underlying load-growth market in the portfolio, regulated at state level in a structurally different (wires-only, competitive retail) market design.</li>
+    <li><b>US Gulf Coast + Mexico:</b> LNG export terminals on the Gulf Coast selling into global (Europe / Asia) demand, plus Mexico energy infrastructure — the only internationally exposed earnings in the group, and the source of both the premium and the geopolitical risk.</li>
+  </ul>
+
+  <h3>Recent structural pivots</h3>
+  <ul>
+    <li><b>From pure utility toward utility-plus-infrastructure:</b> the centre of investment gravity has shifted toward LNG liquefaction capacity (Port Arthur build-out, Cameron expansion optionality) alongside — not instead of — regulated rate-base growth in California and Texas.</li>
+    <li><b>Texas as the hedge:</b> Oncor's growth deliberately balances a California book whose returns are increasingly contested politically. Two large, dissimilar regulatory regimes is the portfolio construction inside the company itself.</li>
+    <li><b>No merchant-generation pivot:</b> unlike Constellation's merchant nuclear economics, Sempra's non-regulated exposure runs through contracted infrastructure fees — lower upside torque than merchant power, materially lower downside torque too.</li>
+  </ul>
+
+  <h3>Supply-chain &amp; dependency notes</h3>
+  <ul>
+    <li><b>LNG:</b> liquefaction trains depend on specialised EPC contractors, cryogenic equipment and long-lead components shared with every other Gulf Coast export project — construction timelines, not demand, are the near-term constraint on Phase 2 value. Feed-gas supply and pipeline access into the terminals are the operating dependency.</li>
+    <li><b>Regulated grids (CA + TX):</b> as across the sector, large transformers, switchgear and skilled labour gate the pace at which approved capex becomes rate base. (Industry-level context; the pack carries no Sempra-specific procurement figures, so none are quantified here.)</li>
+    <li><b>Gas distribution (SoCalGas):</b> California's long-run decarbonisation policy is a structural demand question for the gas network specifically — a slow-moving, but real, dependency on state energy policy that the electric and Texas legs do not share.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Read this section honestly: the verified pack for Sempra is <b>thin on balance-sheet detail</b>, and this report would rather show you the gap than fill it with plausible-looking numbers. What is confirmed is the valuation level — and the valuation level is itself the main financial-health finding: at <b>24.85× trailing earnings</b>, Sempra trades at the <b>highest trailing P/E in the regulated group ex-Entergy</b>. The market is not pricing Sempra as a bond proxy. It is pricing contracted LNG growth and Texas rate-base compounding on top of a regulated base — which means the margin for execution error is thinner than at any peer priced in the high-teens.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $86.06 (30 Oct 2026 close). Only verified figures are shown as values; everything else is marked.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">24.85×</td><td>Finnhub. A growth multiple on a utility earnings base — the LNG/Texas premium, quantified. Any de-rating toward a plain-regulated multiple is a price risk even if earnings grow (§5 bear case models exactly this, at 17×).</td></tr>
+      <tr><td>Implied trailing EPS (estimate)</td><td class="n">~$3.46</td><td><b>Estimate</b> — $86.06 ÷ 24.85. This is the frozen starting EPS for the §5 five-year model, labelled as an estimate there too.</td></tr>
+      <tr><td>Market cap</td><td class="n">$56.27B</td><td>TipRanks basis (XLU holdings). Finnhub float-based caps differ by up to ~$3B for some sector names — do not mix vendors in one comparison.</td></tr>
+      <tr><td>Analyst target (TipRanks)</td><td class="n">$97.73</td><td>+13.6% vs the close. Note how close it sits to this report's modelled base case of $98 (§5) — the near-term upside case is a low-teens return, not a re-rating story.</td></tr>
+      <tr><td>Forward P/E</td><td class="n">Not verified</td><td>Not verified in this pass — omitted. Without it, do not assume the forward multiple is materially lower than trailing; that depends on an EPS growth path this pack does not verify.</td></tr>
+      <tr><td>Dividend yield / payout</td><td class="n">Not verified</td><td>Not verified in this pass — omitted. For a regulated utility the dividend is normally part of total return; verify the current declared dividend and payout ratio from Sempra's own release before counting any income component (the §5 returns below are price-only for this reason).</td></tr>
+      <tr><td>Leverage / debt-to-equity · FCF · buybacks</td><td class="n">Not verified</td><td>Not verified in this pass — omitted. Utilities in heavy build phases are typically levered and externally funded, and LNG construction adds project-level capital intensity on top — treat leverage, free cash flow after capex, and any capital-return programme as <b>open items to pull from the latest 10-Q</b>, not as known quantities.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">What the multiple is telling you</div>
+  <p>At 24.85× trailing, Sempra must <i>grow into</i> its price: even the base case in §5 assumes the exit multiple <b>compresses to 20×</b> over five years, with EPS compounding doing all the work. That is a healthy, honest structure for a long-term hold — earnings growth minus multiple drag — but it caps the arithmetic: the five-year base case is only $88.40, barely above today's price (explained fully in §5). The near-term $98 base target and the TipRanks $97.73 target both imply the market keeps paying a premium multiple for another 12–18 months. If that premium goes, the bear cases — not the base cases — become the anchor.</p></div>
+
+  <h3>Capital allocation — what can and cannot be said</h3>
+  <ul>
+    <li><b>Growth capex dominates by construction:</b> three simultaneous build programmes — California grid hardening and electrification, Oncor's Texas T&amp;D expansion, and Gulf Coast liquefaction (Port Arthur) — compete for the same balance sheet. The pack carries no verified capex total for Sempra, so none is asserted here; the allocation <i>contest</i> itself is the diagnostic.</li>
+    <li><b>Project vs. rate-base funding:</b> regulated capex is recovered through rates over decades; LNG capex is recovered through long-term contracts. Both are “contracted” in different senses — one by regulators, one by counterparties — and the credit question is how much debt stacks up before either recovery stream matures. Unverified here; check the 10-Q.</li>
+    <li><b>Dividend and buybacks:</b> not verified in this pass. Do not model an income return or a buyback bid for SRE from this report.</li>
+  </ul>
+  <p class="small">Open questions to close before acting: forward EPS consensus and forward P/E; total and net debt, and debt/equity; the declared dividend and payout ratio; latest free cash flow after capex; LNG contract tenor and counterparty mix. All are available in Sempra's filings — they are simply not part of the verified pack this report is built from, and are flagged rather than filled in.</p>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide regulated franchises, plus a contracted-infrastructure moat that peers cannot copy quickly.</b> Sempra's distinctiveness is the <i>combination</i>: most utilities own one regulatory regime's worth of risk. Sempra owns two large, dissimilar ones — California and Texas — and bolts on LNG liquefaction capacity that took a decade of permitting and construction to create. Each leg's moat is a different kind of barrier.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Two-state regulatory diversification:</b> California (CPUC) and Texas (Oncor) earnings answer to different regulators, different market designs and different politics. A bad outcome in Sacramento does not impair Austin — the pack's central moat point, and the direct answer to Sempra's own biggest risk (§4).</li>
+      <li><b>Exclusive regulated franchises:</b> SDG&amp;E, SoCalGas and Oncor operate natural-monopoly service territories. Demand is grown with the territory, not won from a rival utility.</li>
+      <li><b>LNG barriers to entry are time, permits and capital:</b> Cameron and Port Arthur sit on permitted Gulf Coast sites with liquefaction capacity in place or under construction. A competitor cannot replicate that position quickly at any price — new US export capacity faces multi-year permitting and construction lead times.</li>
+      <li><b>Contracted LNG cash flows:</b> long-term, largely take-or-pay liquefaction contracts (pack context — verify tenor before acting) convert a commodity-adjacent asset into something closer to infrastructure fees, dampening spot gas-price exposure on the contracted portion.</li>
+      <li><b>Texas load growth as a structural tailwind:</b> Oncor's territory growth — population, industry, data centres — compounds rate base without Sempra having to win market share.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>No pricing power where it matters most:</b> regulated returns are granted by commissions, not taken in a market. California in particular has shown willingness to contest recovery — the moat protects the franchise, not the return on it.</li>
+      <li><b>Named utility competitors:</b> Duke Energy (DUK) and Southern Company (SO) are the pack's peer set — larger regulated bases competing for the same utility investor dollar, generally at lower trailing multiples, which is the standing valuation challenge to SRE.</li>
+      <li><b>LNG competition is global and sector-crossing:</b> the relevant LNG rival is Cheniere Energy — an Energy-sector name, not a Utilities peer — plus global export capacity. Sempra's liquefaction edge is real but contested by specialists whose entire business is this one asset class.</li>
+      <li><b>Wildfire liability can pierce the moat:</b> California's wildfire framework can impose costs that no franchise exclusivity protects against — a liability regime, not a competitive one, is the sharpest threat to the California leg's economics.</li>
+      <li><b>Gas-network transition risk:</b> SoCalGas's distribution moat assumes continued gas demand in a state actively legislating electrification — a slow erosion risk unique to this leg.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> #7 by size, #1 by business-mix distinctiveness. Sempra is the top-10 utility an investor buys specifically to own LNG-export leverage with a regulated floor under it — and the 24.85× trailing multiple (highest in the regulated group ex-ETR) says the market already knows it. There is no “undiscovered” discount here; the question is purely whether the contracted growth arrives fast enough to justify a premium that peers do not command.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>LNG Phase 2 / export expansion</b> — Cameron expansion and Port Arthur progress: each final-investment-decision, construction milestone or new long-term contract converts “optionality” into contracted earnings, which is exactly what the premium multiple needs to see.</li>
+        <li><b>Texas growth (Oncor)</b> — continued large-load and population-driven rate-base growth in Texas is the lowest-drama catalyst: contracted by demography, diversified away from California politics.</li>
+        <li><b>California wildfire-cost recovery frameworks</b> — constructive CPUC / legislative outcomes on how wildfire mitigation and liability costs are recovered would de-risk the California leg's earnings quality and could compress the risk premium embedded in the stock.</li>
+        <li><b>Global LNG demand (Europe / Asia)</b> — sustained import demand in Europe and Asia supports both utilisation economics and the value of expansion capacity and re-contracting.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>California wildfire liability &amp; politics</b> — the lead risk. Liability exposure, contested cost recovery, and a politically charged CPUC process can each hit earnings, cash flow or the multiple — and adverse precedents tend to arrive as step-changes, not drifts.</li>
+        <li><b>LNG global price / geopolitical exposure</b> — the contracted book dampens spot exposure, but expansion value, re-contracting and Mexico infrastructure earnings remain tied to global gas markets and to Europe/Asia demand politics. A global LNG supply wave or demand shock reprices the growth leg first.</li>
+        <li><b>Multiple compression</b> — at 24.85× trailing (highest in the regulated group ex-ETR), Sempra has the furthest to fall if utility multiples normalise or if LNG growth disappoints. The §5 bear cases are primarily multiple stories (17×), not earnings-collapse stories — that is the shape of the risk.</li>
+        <li><b>Execution across three build programmes</b> — California grid work, Texas T&amp;D and Gulf Coast liquefaction compete for capital, contractors and management attention simultaneously; delays push earnings to the right while the premium multiple stays in the present.</li>
+        <li><b>Rate &amp; funding sensitivity</b> — capital-intensive utilities carry refinancing exposure as a class; Sempra's specific leverage is unverified in this pack (§2), so treat the size of this risk as an open item rather than a quantified one.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A California wildfire-liability outcome that lands materially on shareholders <i>without</i> a credible recovery framework, arriving while LNG expansion slips. Either alone is absorbable — Texas and the regulated base carry one bad leg. Together they remove both the “regulated floor” and the “growth premium” justifications at once, and the stock's anchor becomes the bear-case 17× on a slower EPS path: $68–$74 territory in the §5 models.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <b>modelled estimates</b> — the research pack's scenario set, with weights and methodology shown so every number can be re-derived and checked. They are not verified facts. Cross-check: the TipRanks analyst target of <b>$97.73</b> sits essentially on top of the modelled 12–18-month base case ($98) — near-term expectations are aligned between the street figure carried in the pack and this model.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$74</div><div class="ret down">−14.0% vs $86.06</div><p>Wildfire-cost recovery disappoints in California and/or LNG expansion slips; the premium multiple bleeds toward plain-regulated levels. Earnings hold roughly together — this is a de-rating case, consistent with the risk shape in §4.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$98</div><div class="ret up">+13.9% vs $86.06</div><p>Texas rate base compounds, LNG milestones land on schedule, California recovery stays constructive-but-unresolved. The premium multiple broadly holds on delivered growth — matching the TipRanks target of $97.73.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$108</div><div class="ret up">+25.5% vs $86.06</div><p>LNG Phase 2 contracts/FID land early, a wildfire-recovery framework de-risks California, and the market extends the premium for the only LNG-levered name in the group.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $94.50</div></div><p>0.25×$74 + 0.50×$98 + 0.25×$108 = $94.50, or <b>+9.8%</b> price return from $86.06 (price-only — no dividend component is modelled, as the yield is unverified in this pack, §2). Positive but not lopsided: the bear case (−14%) is a genuine de-rating, not a tail event.</p></div>
+
+  <h3>5-year projection — frozen-parameter format</h3>
+  <p>Standard format for this series: <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>, parameters frozen per case. For Sempra the pack runs it in the algebraically equivalent EPS form — <i>2031 price = starting EPS × (1+g)<sup>5</sup> × exit P/E</i> — because no verified revenue / margin / share-count series is carried, and no such figure is invented to force the revenue form. Starting EPS is an <b>estimate</b>: $86.06 ÷ 24.85 trailing P/E = <b>~$3.46</b>. EPS growth <i>g</i> stands in for the combined revenue-growth × margin effect, net of any dilution; the exit P/E is frozen per case. <b>Every case assumes the exit multiple is below today's 24.85×</b> — that compression assumption drives the headline anomaly explained below.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">EPS growth g / yr</th><th class="n">2031 EPS (est.)</th><th class="n">Exit P/E (frozen)</th><th class="n">2031 price (est.)</th><th class="n">Total vs $86.06</th><th class="n">Price CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">3%</td><td class="n">~$4.01</td><td class="n">17×</td><td class="n">$68.20</td><td class="n">−20.8%</td><td class="n">−4.6%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">5%</td><td class="n">~$4.42</td><td class="n">20×</td><td class="n">$88.40</td><td class="n">+2.7%</td><td class="n">+0.5%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6.5%</td><td class="n">~$4.74</td><td class="n">22×</td><td class="n">$104.30</td><td class="n">+21.2%</td><td class="n">+3.9%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$87.40</td><td class="n">+1.6%</td><td class="n">+0.3%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic (base): $3.46 × 1.05<sup>5</sup> = ~$4.42, × 20 = $88.40. Weighted: 0.25×$68.20 + 0.50×$88.40 + 0.25×$104.30 = $87.33 ≈ $87.40 as carried in the pack (rounding in the starting EPS estimate). All outputs are modelled estimates. Price-only: no dividend return is added, because the yield is unverified in this pack — for a regulated utility, a maintained dividend would normally add a material income component on top of these price figures, so treat the 5-year totals as a floor defined by price alone, and verify the dividend before judging total return.</p>
+
+  <div class="callout warn"><div class="ct">Why the 5-year weighted price ($87.40) sits below the 12–18-month base target ($98) — explained, not hidden</div>
+  <p>The independent verification pass flagged exactly this: Sempra is one of three utilities whose 5-year weighted price falls below its 12–18-month base target. It is a <b>plausibility flag, not an arithmetic error</b>, and the mechanism is visible in the table above. The 12–18-month base ($98) assumes the market <i>keeps paying</i> today's premium — roughly 24–28× current earnings. The 5-year model assumes it does not: every case's frozen exit P/E (17× / 20× / 22×) sits <b>below today's 24.85× trailing</b>, so five years of 3–6.5% EPS compounding is mostly or entirely consumed by multiple normalisation. In the base case, EPS grows ~28% cumulatively while the multiple falls ~20% — the two nearly cancel, leaving $88.40. Read the pair of numbers together as the report's central tension: <b>near term, Sempra is a “premium holds” trade; long term, on these frozen parameters, it is an earnings-delivery story whose price return is thin unless the bull case (LNG-led 6.5% growth at a still-premium 22×) is the one that happens</b> — plus whatever dividend income (unverified here) accrues along the way. If you believe the LNG premium multiple persists at 24×+ for five years, your 5-year value is materially above $87.40 — but that is a different assumption, not this model.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Research views only — not guarantees, not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold.</b> Weighted modelled value ≈ $94.50 (+9.8% price-only) is a fair, not compelling, near-term return for carrying the group's richest regulated multiple into unresolved California wildfire-recovery questions. Existing holders: hold. New money: the bear-case entry zone ($74–80) offers a materially better risk/reward than chasing at $86 with a 24.85× multiple.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — staged, for the optionality, with eyes open.</b> The long call rests on LNG + Texas: contracted liquefaction growth and Oncor's load growth are scarce, durable assets, and the bull case ($104.30) plus any verified dividend stream is what a 5-year holder is actually underwriting. Note honestly that the frozen-parameter <i>weighted</i> 5-year price ($87.40) is only +1.6% price-only — this Buy is a bull-case-weighted, income-plus-optionality view, not a base-case-compounding view (see §5 callout). Build in tranches, and re-underwrite if the multiple compresses without EPS delivery.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill trim">Trim</span></td><td>Review on: an adverse California wildfire-liability outcome without a recovery framework; LNG Phase 2 slippage or lost contracts; the trailing multiple expanding further (high-20s) without EPS upgrades — at that point even the bull case is in the price. Verify the open §2 items (dividend, leverage, forward EPS) at the next filing before adding.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>SRE target: 1.5% of total portfolio</b> (the research pack's suggested sizing for this profile). In an 8/10-risk, growth-tilted portfolio, utilities are the defensive sleeve; Sempra at 1.5% is a full single-name position within that sleeve, sized for its LNG-optionality kicker — larger than a pure bond-proxy role would justify, capped because its multiple and California exposure make it the least “defensive” of the defensives.</li>
+    <li><b>Role discipline:</b> hold SRE for regulated stability plus contracted LNG growth. Do not let it drift into a core growth position on a good LNG headline — the premium multiple is the risk, and 1.5% keeps a de-rating to the bear case a portfolio dent (~−0.3% at the −20.8% five-year bear), not a portfolio event.</li>
+    <li><b>Pairing note:</b> within a utilities sleeve, SRE's LNG/Texas profile complements a plain regulated compounder (e.g., a transmission- or Southeast-regulated name) better than it substitutes for one — the diversification Sempra owns internally (CA vs TX vs LNG) is mirrored at sleeve level.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the 1.5% target above, price-only (no dividend yield is shown, as it is unverified in this pack). It is an illustration of the sizing framework, not a recommendation to transact.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>SRE — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $86.06.</strong> <strong>DCF intrinsic: $71.60.</strong> Discount/premium vs DCF: <strong>+20.2%</strong> — i.e. the shares are trading 20.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$71.60</td><td>+20.2%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $3.46 per share — TTM EPS $3.46 (pack) - regulated earnings proxy. TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 5.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/SRE/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/sre/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SRE — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Sempra sells gas and electricity principally to households and small businesses through California utilities (SDG&E, SoCalGas) and Texas (Oncor, ~80% owned), alongside LNG export volumes sold under long-term contracts, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack names no LNG offtaker or large customer with a revenue share.</p><p><strong>Key demand drivers:</strong> California and Texas regulated rate-base growth, LNG export contracting and global LNG demand, and California wildfire-cost recovery frameworks.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>SRE — AI trade positioning</h2>
+<p><strong>Role: Beneficiary (moderate).</strong> Sempra's AI exposure is indirect: Texas growth through Oncor (~80% owned) benefits from data-centre load in Texas, and its LNG export business benefits from global energy demand, but the pack names no AI-specific contract or load figure for Sempra.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Texas data-centre and industrial load growth lifts Oncor's regulated earnings, while LNG liquefaction contracts (largely take-or-pay per pack context) provide contracted export volumes that are resilient to short-term power-market swings.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Sempra already trades at the highest trailing P/E in the regulated group ex-ETR (24.85 per pack), so the multiple embeds LNG and Texas optionality rather than a pure AI premium; an AI boom supports it only modestly.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: Texas data-centre load slows or LNG demand softens on European/Asian weakness, hitting the two growth legs in turn. Second, multiple compression: from the group's highest trailing multiple toward peers if LNG Phase 2 or Texas growth disappoints. Third, balance sheet: TTM FCF is -$5.24B and California wildfire liability remains an overhang, so a higher cost of capital compounds both risks. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Oncor load-growth data and Texas interconnection queues; LNG contracting and global gas-price trends; and California wildfire-cost recovery decisions.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price and trailing P/E: Finnhub quote reference (30 Oct 2026 close basis). Market-cap ranking and analyst target: TipRanks XLU holdings, 30 Oct 2026 — market caps are TipRanks-basis throughout and were confirmed against TipRanks in the independent verification pass; Finnhub float-based caps differ by up to ~$3B for some names and are not mixed into any table. Global-ranking context: FinanceCharts. Forward P/E, dividend and debt were not verified in this pass and are omitted rather than estimated. Scenario targets and the 5-year model are modelled estimates with weights and methodology shown in §5.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22SRE%22" target="_blank" rel="noopener">Finnhub — SRE quote reference: $86.06 close, trailing P/E 24.85</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings: ranking, market caps ($56.27B for SRE) and analyst target ($97.73), 30 Oct 2026</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global utilities ranking (Iberdrola / Enel / National Grid context for the US-only label)</a></li>
+  </ol>
+  <p class="disc">Disclaimer: This report is research and education, not investment advice and not a guarantee of any outcome. Prices are as of the 30 Oct 2026 close. Figures are drawn from the sources above; estimates (implied EPS, all scenario targets and 5-year modelled prices) are labelled as estimates with methodology shown, and unverified items (forward P/E, dividend, leverage, free cash flow, segment splits, LNG contract tenor) are flagged as open questions rather than filled in. Recommendations are research views for the stated investor profile. Verify any figure that matters — in particular the open items in §2 — against Sempra's own filings before acting. Past performance does not predict future returns.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var price=86.06, pct=1.5;
+  var inp=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(inp.value)||0;
+    var amt=v*pct/100;
+    var shares=price>0?amt/price:0;
+    out.innerHTML='Target SRE position at <b>'+pct+'%</b>: <b>'+fmt(amt)+'</b> &nbsp;·&nbsp; ≈ <b>'+shares.toFixed(1)+' shares</b> at $'+price.toFixed(2)+'.';
+  }
+  inp.addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>

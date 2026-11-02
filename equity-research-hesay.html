@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Equity Research — HESAY · Hermès</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3ee;--surface:#fffdfa;--surface2:#efe8de;--ink:#1c1712;--muted:#6f655a;--line:#ddd2c4;--accent:#c14e12;--accent2:#8a2f08;--gold:#b8933f;--green:#1a7a3a;--red:#b42318;--amber:#9a6700;--chip:#fdf0e6}
+@media(prefers-color-scheme:dark){:root{--bg:#141110;--surface:#1e1a17;--surface2:#2a2420;--ink:#f2ebe3;--muted:#a89a8c;--line:#3a322b;--accent:#e8733a;--accent2:#f0956a;--gold:#d4af5f;--green:#4cc26a;--red:#f08070;--amber:#e0a83e;--chip:#33231a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
+a{color:var(--accent2)} .wrap{max-width:1080px;margin:0 auto;padding:20px 18px 56px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+h1{font-family:Fraunces,serif;font-size:clamp(34px,6vw,58px);line-height:.95;margin:6px 0 8px} h1 em{font-style:italic;color:var(--accent)}
+.sub{color:var(--muted);max-width:720px;font-size:15px}
+.hero{display:grid;grid-template-columns:1.4fr .9fr;gap:16px;margin-top:18px}@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.price{font-family:JetBrains Mono,monospace;font-size:42px;font-weight:700}.up{color:var(--green);font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px}.kpi b{display:block;font-size:18px}.kpi span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.tag{display:inline-block;background:var(--chip);border:1px solid var(--line);padding:3px 9px;border-radius:999px;font-size:12px;font-weight:600;margin:2px 2px 2px 0}
+.est{font-size:10px;font-weight:800;letter-spacing:.06em;background:#fff3cd;color:#7a5a00;border:1px solid #e6c96a;padding:1px 6px;border-radius:99px;vertical-align:middle}@media(prefers-color-scheme:dark){.est{background:#3a2f10;color:#f0d48a;border-color:#6b5a1e}}
+.verified{font-size:10px;font-weight:800;letter-spacing:.06em;background:#e6f4ea;color:#176b2e;border:1px solid #9fd3a8;padding:1px 6px;border-radius:99px;vertical-align:middle}@media(prefers-color-scheme:dark){.verified{background:#173322;color:#7de09a;border-color:#2f6b42}}
+h2{font-family:Fraunces,serif;font-size:28px;margin:34px 0 6px}h3{font-size:16px;margin:16px 0 6px}
+.section-note{color:var(--muted);font-size:14px;max-width:760px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:table}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+.num{text-align:right;font-family:JetBrains Mono,monospace;font-size:13px} td.num,th.num{text-align:right}
+.bar{height:10px;border-radius:99px;background:var(--surface2);overflow:hidden}.bar i{display:block;height:100%;background:var(--accent)}
+.callout{border-left:4px solid var(--gold);background:var(--surface);border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0 12px 12px 0;padding:14px 16px;margin:14px 0;font-size:14px}
+.warn{border-left-color:var(--red)}
+ul{margin:6px 0 6px 18px;padding:0}li{margin:5px 0}
+.verdict{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.pill{padding:10px 14px;border-radius:12px;font-weight:800;border:1px solid var(--line);background:var(--surface)}.pill small{display:block;font-weight:600;color:var(--muted)}
+input[type=number]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:16px;font-weight:700}
+button{background:var(--accent);color:#fff;border:0;padding:12px 16px;border-radius:10px;font-weight:700;cursor:pointer;width:100%}
+.src{font-size:13px;color:var(--muted);word-break:break-all}.src li{margin:6px 0}
+footer{margin-top:36px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+.scroll{overflow-x:auto} @media(max-width:760px){.scroll table{min-width:640px}}
+</style>
+</head>
+<body><main class="wrap">
+<div class="eyebrow">Equity Research · Consumer Discretionary · As of 1 Nov 2026</div>
+<h1>Hermès <em>HESAY</em></h1>
+<p class="sub">Ultra-luxury, vertically integrated French craftsmanship — Birkin &amp; Kelly scarcity, the highest operating margin in luxury, and arguably the strongest pricing power in this pack. Priced off the <strong>30 Oct 2026 close</strong> (1 Nov was a weekend). Research views only — not investment advice, not a guarantee.</p>
+
+<div class="hero">
+<div class="card"><div style="color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Hermès International — OTC ADR (HESAY)</div>
+<div class="price">$144.37 <span class="up" style="font-size:18px">+2.03% on 30 Oct</span></div>
+<p style="margin:6px 0;color:var(--muted);font-size:14px">Market cap <strong style="color:var(--ink)">$148.5B</strong> (FinanceCharts company cap $148.452B). Paris-listed parent; HESAY is the US ADR — ADR multiples are <em>indicative</em>, not primary-listing precision.</p>
+<span class="tag">Consumer Discretionary</span><span class="tag">Ultra-luxury</span><span class="tag">Net cash — ESTIMATE</span><span class="tag">Dividend &lt;1%</span>
+<div class="callout warn"><strong>Ranking — read this first.</strong> This is a <strong>source-dependent tie, not a clean #10</strong>. FinanceCharts (updated 30 Oct 2026) ranks <strong>SONY #10 at $148.38B</strong> and <strong>HESAY #11 at $148.079B</strong>, while StockAnalysis puts HESAY at <strong>$151.28B</strong>, above SONY. Both are included in the sector set as a top-11 — HESAY must not be read as an unambiguous #10.</div>
+</div>
+<div class="card"><div style="font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Verdict — mid-30s, risk 8/10</div>
+<div class="verdict"><div class="pill">HOLD<small>Short term · 12–18 mo</small></div><div class="pill" style="border-color:var(--green)">BUY — quality<small>Long term · 5 years</small></div><div class="pill">1.5%<small>Suggested portfolio weight</small></div></div>
+<p style="font-size:14px;margin:8px 0">Long-term BUY on quality — but <strong>do not chase after a −41.8% YTD de-rating without a China / Asia catalyst</strong>. The fall has already done part of the valuation work; it has not removed luxury-cycle risk.</p>
+<label style="font-size:12px;font-weight:700">Your portfolio value ($) — see what 1.5% means
+<input type="number" id="pf" value="250000" min="0" step="1000"></label>
+<div id="calc" style="margin-top:10px;font-size:14px"></div>
+</div>
+</div>
+
+<div class="kpis">
+<div class="kpi"><span>Price · 30 Oct 2026</span><b>$144.37</b><small>+2.03% on the day <span class="verified">VERIFIED</span></small></div>
+<div class="kpi"><span>P/E (ADR, Finnhub)</span><b>29.34×</b><small>Indicative — ADR basis <span class="verified">SOURCED</span></small></div>
+<div class="kpi"><span>Revenue</span><b>~€15B</b><small>2026E basis <span class="est">ESTIMATE</span></small></div>
+<div class="kpi"><span>Operating margin</span><b>~40%+</b><small>Highest in luxury <span class="est">ESTIMATE — NOT RE-VERIFIED</span></small></div>
+<div class="kpi"><span>Year to date</span><b style="color:var(--red)">−41.8%</b><small>Finnhub — de-rating already reflected</small></div>
+<div class="kpi"><span>3-yr revenue CAGR</span><b>7.9%</b><small>Per sector summary table</small></div>
+<div class="kpi"><span>Free cash flow</span><b>Positive</b><small><span class="est">ESTIMATE</span> — not filing-verified</small></div>
+<div class="kpi"><span>Balance sheet</span><b>Net cash</b><small><span class="est">ESTIMATE</span> — see §2 caveat</small></div>
+</div>
+
+<h2>1 · Business model &amp; segment breakdown</h2>
+<p class="section-note">Hermès sells scarcity, not volume. Limited distribution and waitlists are the business model — they protect price, margin and brand heat at the cost of capped near-term growth.</p>
+<div class="grid2">
+<div class="card"><h3>Core revenue streams</h3><ul>
+<li><strong>Leather goods — the engine.</strong> Birkin and Kelly handbags with genuine waitlists; leather is the profit core and the brand halo.</li>
+<li><strong>Silk &amp; textiles</strong> — scarves and ties, an accessible entry point that recruits future leather buyers.</li>
+<li><strong>Ready-to-wear &amp; accessories, watches, perfumes &amp; beauty, home / tableware</strong> — broadening the client wallet without mass distribution.</li>
+</ul><h3>Structural features</h3><ul><li><strong>Vertically integrated French craftsmanship</strong> — own ateliers, controlled supply, artisan training pipeline. Capacity, not demand, is the binding constraint.</li><li><strong>Limited distribution</strong> — no discounting culture, tightly controlled stores.</li></ul></div>
+<div class="card"><h3>Geography &amp; dependencies</h3><ul><li><strong>Asia is the largest region</strong> (per research pack) — which is why an Asia / China recovery is the swing catalyst, and a luxury downturn there is the swing risk.</li><li>Global footprint across Europe, the Americas and Asia; euro-reporting company sold via a dollar ADR — <strong>FX moves the ADR even when the Paris business is unchanged</strong>.</li></ul><h3>Supply-chain dependencies</h3><ul><li>High-grade leather supply and trained artisan capacity — both slow to scale by design.</li><li>Succession / craft capacity is named explicitly as a risk in the pack: you cannot hire Hermès hands at market speed.</li></ul>
+<div class="callout">No segment revenue split was filing-verified in this research run. This page does <strong>not</strong> invent one — leather-led mix and Asia-largest geography are the pack's verified qualitative claims.</div></div>
+</div>
+
+<h2>2 · Financial health &amp; balance-sheet diagnostics</h2>
+<p class="section-note">Hermès screens as the quality outlier: ~40%+ operating margin (estimate) at a 29× ADR P/E after a −42% YTD fall. The honesty box matters here — several balance-sheet lines were not re-verified from filings in this run and are labelled ESTIMATE throughout.</p>
+<div class="scroll"><table><tr><th>Metric</th><th class="num">Value</th><th>Basis / status</th></tr>
+<tr><td>Price (30 Oct 2026 close)</td><td class="num">$144.37</td><td>Finnhub / StockScan price history <span class="verified">VERIFIED</span></td></tr>
+<tr><td>Market capitalisation</td><td class="num">$148.5B</td><td>FinanceCharts company cap $148.452B; StockAnalysis $151.28B — vendor-dependent (see tie note)</td></tr>
+<tr><td>P/E</td><td class="num">29.34×</td><td>Finnhub, ADR basis — <em>indicative only</em></td></tr>
+<tr><td>Revenue (2026E modelling base)</td><td class="num">~€15B</td><td><span class="est">ESTIMATE</span> — not re-verified</td></tr>
+<tr><td>Operating margin</td><td class="num">~40%+</td><td><span class="est">ESTIMATE</span> — described as highest in luxury; not re-verified</td></tr>
+<tr><td>Net cash / debt</td><td class="num">Net cash</td><td><span class="est">ESTIMATE</span></td></tr>
+<tr><td>Dividend yield</td><td class="num">&lt;1%</td><td>Pack figure — income is not the reason to own HESAY</td></tr>
+<tr><td>Free cash flow</td><td class="num">Positive</td><td><span class="est">ESTIMATE</span> in sector summary</td></tr>
+<tr><td>3-year revenue CAGR</td><td class="num">7.9%</td><td>Sector summary table</td></tr>
+<tr><td>YTD performance</td><td class="num">−41.8%</td><td>Finnhub — a major de-rating already in the price</td></tr>
+</table></div>
+<div class="callout warn"><strong>Verification gap — do not paper over it.</strong> Precise cash, debt, debt-to-equity, R&amp;D and segment profit for HESAY were <strong>not re-verified from the latest annual report / filings</strong> in this run. Treat every balance-sheet line above marked ESTIMATE as an estimate, not a filing fact. P/S and EV/EBITDA were not supplied for HESAY and are therefore <strong>omitted rather than invented</strong>.</div>
+<h3>Income flow — modelled from the estimate base (not a filed quarter)</h3>
+<p class="section-note">Unlike the mega-cap tech names, there is no filed Q3 flow in this pack for Hermès. The diagram below simply visualises the pack's own estimates: ~€15B revenue at ~40%+ operating margin. FX is ignored and the ADR model uses 1.03B ADR-equivalent shares (cap ÷ price).</p>
+<svg viewBox="0 0 720 190" width="100%" role="img" aria-label="Modelled income flow: 15 billion euro revenue splits to about 6 billion operating profit and 9 billion costs" style="background:var(--surface);border:1px solid var(--line);border-radius:12px">
+<rect x="20" y="60" width="150" height="70" rx="10" fill="#c14e12"/><text x="95" y="90" text-anchor="middle" fill="#fff" font-weight="700" font-size="14">Revenue</text><text x="95" y="110" text-anchor="middle" fill="#fff" font-size="13">~€15B EST.</text>
+<path d="M170 80 C 260 70, 300 50, 380 50" stroke="#1a7a3a" stroke-width="16" fill="none" opacity=".55"/><path d="M170 110 C 260 120, 300 135, 380 135" stroke="#b42318" stroke-width="22" fill="none" opacity=".4"/>
+<rect x="380" y="22" width="200" height="56" rx="10" fill="#1a7a3a"/><text x="480" y="45" text-anchor="middle" fill="#fff" font-weight="700" font-size="13">Operating profit</text><text x="480" y="63" text-anchor="middle" fill="#fff" font-size="12">~€6B · ~40%+ margin EST.</text>
+<rect x="380" y="108" width="200" height="56" rx="10" fill="#6f655a"/><text x="480" y="131" text-anchor="middle" fill="#fff" font-weight="700" font-size="13">Costs &amp; production</text><text x="480" y="149" text-anchor="middle" fill="#fff" font-size="12">~€9B · residual EST.</text>
+<text x="600" y="50" font-size="12" fill="currentColor">Artisan, leather,</text><text x="600" y="66" font-size="12" fill="currentColor">stores, craft</text>
+</svg>
+<p style="font-size:12px;color:var(--muted)">Capital allocation read: a net-cash, sub-1%-yield name reinvests in craft capacity and brand, not in buyback-fuelled EPS. You own it for compounding quality, not cash return.</p>
+
+<h2>3 · Competitive moat &amp; industry positioning</h2>
+<div class="grid2"><div class="card"><h3>Why the moat is real</h3><ul><li><strong>Scarcity as strategy</strong> — waitlists for Birkin / Kelly signal excess demand at current prices; Hermès can raise prices without training clients to wait for discounts.</li><li><strong>Craftsmanship barrier</strong> — vertically integrated ateliers take years to replicate; competitors can copy a design, not the artisan base.</li><li><strong>Brand &amp; pricing power</strong> — described in the pack as <em>arguably the strongest pricing power in the pack</em>.</li></ul></div>
+<div class="card"><h3>Competitors &amp; limits</h3><ul><li><strong>LVMH</strong> (scale, portfolio breadth), <strong>Richemont</strong> (hard luxury / jewellery), <strong>Chanel</strong> (private, direct rival in leather &amp; fragrance).</li><li>Moat limit: pricing power does not repeal the luxury cycle — a downturn still hits volumes and the multiple, as −41.8% YTD shows.</li><li>No technological moat to defend and no regulatory moat — the asset is cultural, which is durable but unquantifiable.</li></ul></div></div>
+
+<h2>4 · Catalysts &amp; downside risks</h2>
+<div class="grid2"><div class="card"><h3 style="color:var(--green)">Catalysts</h3><ul><li>Further <strong>price rises</strong> absorbed by waitlist demand.</li><li><strong>Leather capacity</strong> additions converting backlog into revenue.</li><li><strong>Asia recovery</strong> — the largest region turning from headwind to tailwind.</li><li>Multiple stabilisation after the YTD de-rating if earnings hold at ~40% margins.</li></ul></div>
+<div class="card"><h3 style="color:var(--red)">Risks</h3><ul><li><strong>Luxury downturn</strong> — discretionary at the very top end is still discretionary.</li><li>The <strong>−41.8% YTD fall already reflects de-rating</strong> — a cheaper stock is not automatically a cheap stock.</li><li><strong>Succession / craft capacity</strong> — artisan pipeline and leadership depth.</li><li><strong>FX</strong> — euro business, dollar ADR; currency can mask or exaggerate the underlying move.</li></ul></div></div>
+
+<h2>5 · Scenario valuation &amp; price targets</h2>
+<p class="section-note">All targets below are <strong>MODELLED ESTIMATES</strong> — never verified facts, never analyst consensus, never company guidance. Methodology is shown in full so you can check the arithmetic. FX is ignored; ADR-equivalent shares = 1.03B (market cap ÷ price); 2026E revenue base = €15B (estimate).</p>
+<h3>12–18 month targets (ADR)</h3>
+<div class="scroll"><table><tr><th>Case</th><th class="num">Target</th><th class="num">vs $144.37</th><th>Read</th></tr>
+<tr><td>Bear</td><td class="num">$120</td><td class="num">−17%</td><td>Luxury softness persists; no Asia catalyst</td></tr>
+<tr><td><strong>Base</strong></td><td class="num"><strong>$160</strong></td><td class="num">+11%</td><td>Quality holds, modest re-rating</td></tr>
+<tr><td>Bull</td><td class="num">$200</td><td class="num">+39%</td><td>Asia recovery + price rises land together</td></tr></table></div>
+<h3>5-year projection (to 2031) — frozen-parameter format, 50% Base / 25% Bull / 25% Bear</h3>
+<div class="scroll"><table><tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin*</th><th class="num">Implied EPS</th><th class="num">P/E</th><th class="num">Price</th></tr>
+<tr><td>Base (50%)</td><td class="num">7%</td><td class="num">€21B</td><td class="num">28%</td><td class="num">€5.73</td><td class="num">28×</td><td class="num"><strong>$160</strong></td></tr>
+<tr><td>Bull (25%)</td><td class="num">11%</td><td class="num">€25B</td><td class="num">32%</td><td class="num">€7.77</td><td class="num">34×</td><td class="num"><strong>$264</strong></td></tr>
+<tr><td>Bear (25%)</td><td class="num">1%</td><td class="num">€16B</td><td class="num">22%</td><td class="num">€3.42</td><td class="num">22×</td><td class="num"><strong>$75</strong></td></tr>
+<tr><td colspan="6"><strong>Probability-weighted price</strong> (0.50×160 + 0.25×264 + 0.25×75 = $164.75 → <strong>$165</strong>)</td><td class="num"><strong>$165</strong></td></tr></table></div>
+<p style="font-size:13px;color:var(--muted)">*Margin in the model is the pack's scenario margin applied to 2031 revenue (e.g. Base: €21B × 28% = €5.9B ÷ 1.03B shares = €5.73 × 28× → $160). Note the tension honestly: the weighted 5-year price ($165) is barely above the 12–18-month base ($160) — the model says most of the near-term re-rating, if it comes, is multiple recovery, not five years of compounding at today's ADR multiple. That is a reason to size it at 1.5%, not 5%.</p>
+<div class="card"><h3 style="margin-top:0">Targets vs today</h3>
+<div style="display:grid;gap:8px;font-size:13px">
+<div>Bear (5-yr) $75 <div class="bar"><i style="width:28%;background:var(--red)"></i></div></div>
+<div>Today $144.37 <div class="bar"><i style="width:55%;background:var(--muted)"></i></div></div>
+<div>Base / 12–18 mo $160 <div class="bar"><i style="width:61%"></i></div></div>
+<div>Weighted (5-yr) $165 <div class="bar"><i style="width:63%;background:var(--gold)"></i></div></div>
+<div>Bull (5-yr) $264 <div class="bar"><i style="width:100%;background:var(--green)"></i></div></div>
+</div></div>
+
+<h2>6 · Recommendation &amp; portfolio sizing</h2>
+<div class="grid2"><div class="card"><h3>Short term (12–18 mo): HOLD</h3><p style="font-size:14px">Quality, but do not chase a −42% YTD name without a China catalyst. Base case is only +11% — not enough compensation to force the trade before Asia confirms.</p><h3>Long term (5 yr): BUY</h3><p style="font-size:14px">The strongest pricing power in the pack, a net-cash profile (estimate) and a scarce-asset brand justify owning it as a small quality compounder — sized so a luxury downturn cannot hurt the whole portfolio.</p></div>
+<div class="card"><h3>Sizing at the suggested 1.5%</h3><table><tr><th>Portfolio</th><th class="num">1.5% =</th><th class="num">≈ ADRs at $144.37</th></tr>
+<tr><td>$100,000</td><td class="num">$1,500</td><td class="num">10</td></tr><tr><td>$250,000</td><td class="num">$3,750</td><td class="num">26</td></tr><tr><td>$500,000</td><td class="num">$7,500</td><td class="num">52</td></tr><tr><td>$1,000,000</td><td class="num">$15,000</td><td class="num">104</td></tr></table>
+<p style="font-size:13px;color:var(--muted)">Sector context from the research pack: cap combined Communication Services + Consumer Discretionary at ~35–40% of the total portfolio. Individual sector suggestions sum to ~51% if every name were held at full size — do not hold all of them at max simultaneously.</p></div></div>
+
+<h2>Comparative matrix — Consumer Discretionary pack (30 Oct 2026)</h2>
+<p class="section-note">From the sector summary table. P/E is trailing unless marked forward; ADR multiples are indicative. All 5-year prices are modelled estimates on each name's stated assumptions (50/25/25 unless noted).</p>
+<div class="scroll"><table><tr><th>Ticker</th><th class="num">Price</th><th class="num">Mkt cap</th><th class="num">P/E</th><th class="num">12–18 mo base</th><th class="num">5-yr weighted</th><th>Short / Long</th></tr>
+<tr><td>AMZN</td><td class="num">$240.35</td><td class="num">$2.59T</td><td class="num">19.4×</td><td class="num">$285</td><td class="num">$300</td><td>HOLD / BUY</td></tr>
+<tr><td>TSLA</td><td class="num">$399.81</td><td class="num">$1.58T</td><td class="num">439–491×*</td><td class="num">$400</td><td class="num">$249</td><td>HOLD / HOLD</td></tr>
+<tr><td>HD</td><td class="num">$329.20</td><td class="num">$328.4B</td><td class="num">23.3×</td><td class="num">$360</td><td class="num">$445</td><td>HOLD / BUY</td></tr>
+<tr><td>BABA</td><td class="num">$98.04</td><td class="num">$243.7B</td><td class="num">22.1×</td><td class="num">$125</td><td class="num">$198</td><td>HOLD / BUY</td></tr>
+<tr><td>TM (ADR)</td><td class="num">$195.71</td><td class="num">$231.8B</td><td class="num">8.1× ADR</td><td class="num">$215</td><td class="num">$229 ADR</td><td>HOLD / HOLD-BUY</td></tr>
+<tr><td>LVMUY (Paris)</td><td class="num">€387.00 Paris</td><td class="num">$211.8B</td><td class="num">17.6× Paris</td><td class="num">—†</td><td class="num">—†</td><td>HOLD / BUY</td></tr>
+<tr><td>IDEXY (ADR)</td><td class="num">$15.68</td><td class="num">$196.3B</td><td class="num">26.1×</td><td class="num">$18</td><td class="num">$17.75 ADR</td><td>HOLD / BUY</td></tr>
+<tr><td>MCD</td><td class="num">$258.12</td><td class="num">$182.7B</td><td class="num">21.1×</td><td class="num">$290</td><td class="num">$355</td><td>HOLD / BUY</td></tr>
+<tr><td>TJX</td><td class="num">$140.31‡</td><td class="num">$154.3B</td><td class="num">25.9×</td><td class="num">$165</td><td class="num">$200</td><td>BUY / BUY</td></tr>
+<tr style="background:var(--chip)"><td><strong>HESAY (ADR)</strong></td><td class="num"><strong>$144.37</strong></td><td class="num"><strong>$148.5B</strong></td><td class="num"><strong>29.3× ADR</strong></td><td class="num"><strong>$160</strong></td><td class="num"><strong>$165 ADR</strong></td><td><strong>HOLD / BUY</strong></td></tr>
+</table></div>
+<p style="font-size:12px;color:var(--muted)">* TSLA's 439–491× range reflects vendor EPS differences ($0.81 vs $0.91 implied) on depressed TTM net income of $3.22B — shown with its basis, per the verification log. † LVMH: the pack's modelled €950/€951 was flagged by independent verification as an unjustified outlier vs the €387.00 Paris close (30 Oct) and is <strong>not published here as a base case</strong>. ‡ TJX price corrected to $140.31 by the verification log (Finnhub / StockAnalysis / FinancialContent); $140.34 appears only on MarketBeat. SONY ($148.38B, FinanceCharts) is the omitted near-tie at the Consumer Discretionary cutoff — see the ranking note at the top.</p>
+
+<h2>Sources &amp; verification</h2>
+<div class="card"><p style="font-size:14px;margin-top:0">Figures were independently verified for this sector on 1 Nov 2026; where the research pack and the verification log conflict, <strong>the log wins</strong> and the corrections are applied above. Modelled targets are estimates with methodology shown — they were not, and cannot be, verified as facts.</p>
+<ul class="src">
+<li>Ranking &amp; caps — https://www.financecharts.com/sectors/consumer_discretionary?columns=custom-growth</li>
+<li>Price — https://finnhub.io/?q=%22HESAY%22 · https://stockscan.io/stocks/HESAY/price-history</li>
+<li>Sector context — https://www.fool.com/research/largest-consumer-discretionary-companies/</li>
+<li>Communication Services ranking (cross-reference) — https://www.financecharts.com/sectors/communication_services?columns=custom-growth</li>
+</ul>
+<p style="font-size:13px;color:var(--muted)"><strong>Open questions:</strong> filing-verified cash, debt, D/E and segment profit for HESAY; a filing-verified revenue / margin print to replace the ~€15B / ~40%+ estimates; and confirmation of the Asia recovery that the long-term BUY ultimately depends on.</p></div>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — HESAY (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $144.37.</strong> <strong>DCF intrinsic: $92.</strong> Discount/premium vs DCF: <strong>+56.9%</strong> — i.e. the shares are trading 56.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$92</td><td>+56.9%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $4.74bn. TTM FCF (TipRanks: OCF $5.81bn - capex $1.07bn = $4.74bn; TwelveData levered FCF $5.49bn is close). ADR-equivalent shares 1.056bn (TipRanks). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $38.88bn + PV of terminal value $48.16bn + net cash $10.03bn, divided by 1.056bn diluted shares = <strong>$92</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.tipranks.com/stocks/hesay/statistics</li><li>Trailing annual dividend rate $2.10 (TwelveData; yield ~1.46% x $144.37). Forward $3.01 and TipRanks $1.52 are on different ADR bases and are not used — see NOTES.md.</li><li>https://twelvedata.com/markets/107873/stock/otc/hesay/statistics</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — HESAY (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Revenue is ultra-luxury purchases by individual clients through a tightly controlled store network, with no single wholesale or business customer disclosed above 10%. Key demand drivers: high-end leather-goods demand and waitlist dynamics, Asian client demand, and pricing discipline.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — HESAY</h2>
+<p><strong>Role: Low exposure.</strong> Hermès' AI exposure is minimal: the pack's thesis is craftsmanship scarcity, waitlists and pricing discipline, with FCF of $4.7bn TTM and net cash of $10.0bn.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows not at all through AI — ultra-luxury demand follows wealth and scarcity, not technology sentiment; the multiple is supported by leather-goods scarcity, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first only if the unwind becomes a wealth or luxury-consumer downturn; then the multiple compresses toward a through-cycle luxury multiple; then the balance sheet — net cash — is a cushion. Watch: leather-goods demand, Asian client flows, and any change in waitlist discipline.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>Equity Research — HESAY (Hermès ADR) · As of 1 Nov 2026 · Price reference: 30 Oct 2026 close · For a mid-30s investor, risk score 8/10 · Research views only, not guarantees, not investment advice. — Blaze</footer>
+</main>
+<script>
+function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+function calc(){var v=parseFloat(document.getElementById('pf').value)||0;var amt=v*0.015;var sh=amt/144.37;document.getElementById('calc').innerHTML='At <strong>1.5%</strong>: <strong>$'+fmt(amt)+'</strong> ≈ <strong>'+fmt(sh)+' ADRs</strong> at $144.37. At the 5-yr weighted estimate of $165 that position would be ~$'+fmt(sh*165)+' — a modelled estimate, not a promise.';}
+document.getElementById('pf').addEventListener('input',calc);calc();
+</script>
+</body></html>

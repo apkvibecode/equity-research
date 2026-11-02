@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — GMBXF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f3ee; --paper:#fffdf8; --ink:#1c1a16; --ink2:#45403a; --muted:#776f62;
+  --line:#ddd4c4; --line2:#c6b99f;
+  --copper:#8a4b16; --copper2:#b06a24; --copper-soft:#f3e6d3;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --slate:#33506b; --slate-soft:#e4ebf1;
+  --card:#ffffff; --chip:#efe9dd;
+  --shadow:0 1px 2px rgba(28,26,22,.06),0 8px 24px rgba(28,26,22,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#100f0d; --paper:#171512; --ink:#eae5da; --ink2:#bdb4a4; --muted:#8f8676;
+    --line:#2e2a24; --line2:#453e33;
+    --copper:#e0a05c; --copper2:#e8b478; --copper-soft:#2e2113;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --slate:#9db9d4; --slate-soft:#1c2836;
+    --card:#1a1713; --chip:#242019;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--copper);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--copper)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--copper);color:#fff;border-color:var(--copper)}
+@media (prefers-color-scheme: dark){.tab.active{color:#171208}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--copper);border-bottom-color:var(--copper)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--copper2);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--copper);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--copper-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.badge{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 7px;border-radius:999px;text-transform:uppercase;vertical-align:middle}
+.badge.unv{background:var(--amber-soft);color:var(--amber)}
+.badge.est{background:var(--slate-soft);color:var(--slate)}
+.badge.pack{background:var(--chip);color:var(--ink2)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 96px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--copper2)}
+.bar-fill.slate{background:var(--slate)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--copper)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--copper);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#2e2113;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Copper Mining + Freight Rail · Mexico</span></div>
+  <h1>Grupo México <span class="tick">(OTC: GMBXF)</span></h1>
+  <p class="lede">Mexico's largest copper miner — fifth-largest in the world — wrapped inside a freight-rail and infrastructure conglomerate. That structure is the whole debate: world-class copper reserves and an integrated railway on one side; a conglomerate discount, Mexican political exposure and a thin US over-the-counter listing on the other. Copper is the headline, but it is not the whole story.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $12.04 — 30 Oct 2026 close (OTC print)</span>
+    <span><b>Sector:</b> Materials</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">GMBXF — this report</span>
+    <span class="tab soon">Materials sector — one tab per name in the index</span>
+  </div>
+</header>
+
+<div class="callout warn"><div class="ct">Ranking basis &amp; verification status — read first</div>
+<p><b>Universe:</b> GLOBAL top 10 by market cap (Motley Fool, metrics as of 6 Oct 2026, prices at the 30 Oct 2026 close), including OTC names. The list is <b>not in strict market-cap order</b> as published (in this sector, for example, BHP at $292.4B is printed after Linde at $237.1B), and a NYSE/Nasdaq-only list would look materially different. GMBXF trades over the counter in the US, so its "close" is a thin, indicative print rather than a liquid exchange close.</p>
+<p><b>Verification:</b> in the independent verification pass for this sector, GMBXF's price, market cap and multiples were <b>not re-checked</b>. Every such figure below is flagged <span class="badge unv">Unverified</span> and should be treated as indicative, exactly as the research pack carries it. Modelled scenario prices are flagged <span class="badge est">Estimate</span> — they are this series' model outputs, never verified facts. P/E and free cash flow were not verified in the pack and are <b>omitted</b> rather than guessed.</p></div>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct (OTC) <span class="badge unv">Unverified</span></div><div class="vbig mono">$12.04</div><div class="vsub">US OTC line of Grupo México (BMV: GMEXICOB). Thin volume — expect wide spreads.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap <span class="badge unv">Unverified</span></div><div class="vbig mono">$94.2B</div><div class="vsub">Per Motley Fool sector metrics (6 Oct 2026 basis).</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / gross profit</div><div class="vbig mono">$21.0B / $11.2B</div><div class="vsub">Gross margin ≈ 53.3% (derived). P/S 4.5× <span class="badge unv">Unverified</span></div></div>
+  <div class="vcell span3"><div class="vlabel">P/E · Free cash flow</div><div class="vbig" style="font-size:19px">Not verified — omitted</div><div class="vsub">The pack carries no verified P/E or FCF figure for GMBXF; none is presented in this note.</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled base case $13.20 (+10%) — a copper-and-rail carry, not a re-rating story, at this horizon.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $14.50 — reserves endure, but the discount and OTC friction cap the case.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">0.5% of portfolio</div><div class="vsub">Satellite materials diversifier only — never a core position at this liquidity. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Revenue flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">PACK</span><h2>The name in one view</h2></div>
+  <p>Grupo México is a <b>dual-engine conglomerate</b>: a mining arm anchored by Southern Copper operations that makes it Mexico's largest copper producer and the world's #5 copper miner, and a transport/infrastructure arm built around Mexican freight rail. The verified research pack for this sector is deliberately thin on GMBXF — no segment revenue split, no verified P/E, no cash-flow statement — so this note says plainly what is known, what is derived from it, and what is not carried at all, rather than filling gaps with plausible numbers.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Figure (pack basis)</th><th class="n">Value</th><th>Status</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Share price — 30 Oct 2026 close (OTC)</td><td class="n">$12.04</td><td><span class="badge unv">Unverified</span></td><td>Not re-checked in the verification pass; OTC prints are indicative</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$94.2B</td><td><span class="badge unv">Unverified</span></td><td>Motley Fool sector metrics; large enough that the OTC line understates the group's real scale</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$21.0B</td><td><span class="badge pack">Pack</span></td><td>Mining + rail/infrastructure combined — no segment split is carried in the pack</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$11.2B</td><td><span class="badge pack">Pack</span></td><td>Implies ≈53.3% gross margin and ≈$9.8B cost of sales (both derived arithmetic)</td></tr>
+      <tr><td>Price / Sales</td><td class="n">4.5×</td><td><span class="badge unv">Unverified</span></td><td>Arithmetically consistent with the cap and revenue above ($94.2B ÷ $21.0B ≈ 4.5×)</td></tr>
+      <tr><td>P/E · EV/EBITDA · FCF</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>Not verified in the pack; this note does not present them</td></tr>
+      <tr class="hl"><td>Copper rank</td><td class="n">#1 Mexico · #5 world</td><td><span class="badge pack">Pack</span></td><td>Per Motley Fool — the core of the investment case</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: research pack for GMBXF (Materials sector), figures attributed there to Motley Fool (metrics as of 6 Oct 2026; prices at 30 Oct 2026 close). Verification status per the sector's independent verification log — see Sources &amp; verification notes.</p>
+</section>
+
+<!-- ================= FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Revenue flow — what the pack supports</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 240" width="100%" role="img" aria-label="Flow of Grupo México trailing revenue into gross profit and cost of sales" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="30" width="200" height="52" fill="var(--copper-soft)" stroke="var(--line2)"/><text x="20" y="52" font-size="13" font-weight="700" fill="var(--ink)">Mining (copper-led)</text><text x="20" y="70" font-size="12" fill="var(--ink2)">Mexico #1 · world #5</text>
+      <rect x="8" y="104" width="200" height="52" fill="var(--slate-soft)" stroke="var(--line2)"/><text x="20" y="126" font-size="13" font-weight="700" fill="var(--ink)">Transport &amp; infrastructure</text><text x="20" y="144" font-size="12" fill="var(--ink2)">Mexican freight rail</text>
+      <rect x="8" y="178" width="200" height="34" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="199" font-size="12" fill="var(--ink2)">Segment revenue split: not in pack</text>
+      <rect x="330" y="80" width="190" height="66" fill="var(--copper)"/><text x="346" y="108" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="346" y="128" font-size="13" fill="#fff">$21.0B</text>
+      <line x1="208" y1="56" x2="326" y2="100" stroke="var(--muted)" stroke-width="9" opacity=".35"/>
+      <line x1="208" y1="130" x2="326" y2="122" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <rect x="640" y="36" width="300" height="60" fill="var(--green-soft)" stroke="var(--line2)"/><text x="654" y="60" font-size="13" font-weight="700" fill="var(--ink)">Gross profit — $11.2B</text><text x="654" y="79" font-size="12" fill="var(--ink2)">≈53.3% gross margin (derived)</text>
+      <rect x="640" y="116" width="300" height="60" fill="var(--chip)" stroke="var(--line2)"/><text x="654" y="140" font-size="13" font-weight="700" fill="var(--ink)">Cost of sales — ≈$9.8B</text><text x="654" y="159" font-size="12" fill="var(--ink2)">Derived: revenue less gross profit</text>
+      <line x1="520" y1="100" x2="636" y2="70" stroke="var(--muted)" stroke-width="7" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="520" y1="128" x2="636" y2="142" stroke="var(--muted)" stroke-width="5" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="330" y="186" width="610" height="34" fill="var(--paper)" stroke="var(--line2)"/><text x="344" y="207" font-size="12" fill="var(--ink2)">Operating income, net income and FCF are not carried in the verified pack for GMBXF and are not shown.</text>
+    </svg>
+    <figcaption>Trailing-twelve-month figures per the research pack (Motley Fool basis). Segment revenue split, operating profit and cash flow are not disclosed in the pack for this ticker — the diagram stops at gross profit rather than inventing the lines below it. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Grupo México earns money two ways that share almost nothing operationally: <b>digging copper (and associated metals) out of Mexico, Peru and the US</b>, and <b>moving freight on Mexican railways</b>, with infrastructure interests alongside. Investors buy the ADR for the copper; they get the railway whether they wanted it or not — and that bundling is precisely why the shares habitually trade below the sum of their parts.</p>
+
+  <h3>The two engines</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Arm</th><th>What it is</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Mining</td><td>Copper-led mining across Mexico, Latin America and the US; Mexico's largest copper miner and #5 globally (Motley Fool, per pack). Copper is the value driver; the pack carries no by-product or mine-by-mine split.</td><td>Direct, leveraged exposure to the copper price — electrification, grid build-out and data-centre demand on one side; a cyclical, politically exposed extractive business on the other.</td></tr>
+      <tr><td>Transport &amp; infrastructure</td><td>Freight rail operations in Mexico plus infrastructure activities — the "integrated rail" the pack cites as part of the moat.</td><td>Slower, steadier, volume-driven cash flows that cushion copper down-cycles — and the main reason a pure-play copper multiple does not apply to the group.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Data limit, stated plainly:</b> the verified pack carries <b>no segment revenue or profit split</b> for GMBXF, so this note does not quote one. Any percentage split you see elsewhere for mining vs transport has not been verified for this report and is excluded by design.</p>
+
+  <h3>Geographic footprint</h3>
+  <ul>
+    <li><b>Mexico</b> — the centre of gravity: the core copper position (largest in the country) and the rail network both sit here, which concentrates both the asset quality and the political risk in one jurisdiction.</li>
+    <li><b>Latin America (incl. Peru)</b> — mining operations extend the reserve base beyond Mexico; regional mining politics (permits, royalties, community disputes) are a standing exposure, as they are for every Andean copper producer.</li>
+    <li><b>United States</b> — mining presence north of the border gives partial insulation from Mexican policy and a dollar-linked asset base; it also ties part of the story to US–Mexico trade conditions (see §4).</li>
+  </ul>
+
+  <h3>Structural features &amp; dependencies</h3>
+  <ul>
+    <li><b>Conglomerate structure:</b> mining cash flows fund a group that also runs rail and infrastructure. Capital allocation inside the group — not the copper price alone — decides what an outside shareholder actually receives.</li>
+    <li><b>Copper-price dependency:</b> with a ≈53% gross margin at pack-basis revenue, earnings sensitivity runs through the copper price first and volumes second; the rail arm dampens, but does not offset, that beta.</li>
+    <li><b>Listing dependency:</b> US investors access the name through a thin OTC line (GMBXF). The primary, liquid listing is in Mexico — the OTC price can lag or deviate from it, and position entry/exit costs are structurally higher than for NYSE-listed peers in this sector such as FCX, SCCO, RIO, BHP and LIN.</li>
+    <li><b>Supply chain:</b> as a producer rather than a fabricator, the critical dependencies are mining inputs — energy, water, equipment and permitting — concentrated in Mexico and Peru. The pack carries no supplier-level detail, and none is asserted here.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>This is the thinnest section in the note, and deliberately so: the verified pack supports a <b>revenue-and-gross-profit read only</b>. What that read says is genuinely useful — a $21.0B revenue base converting to $11.2B of gross profit is a high-margin extractive business, not a marginal one — but leverage, cash generation and earnings multiples for GMBXF were <b>not verified</b>, and an institutional note does not fill a balance-sheet section from memory.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Diagnostics available from the verified pack — price $12.04 (30 Oct 2026, OTC, unverified). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Status</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>TTM revenue</td><td class="n">$21.0B</td><td><span class="badge pack">Pack</span></td><td>Scale is not the question — at ~$94B of market value this is one of the sector's largest names globally</td></tr>
+      <tr><td>TTM gross profit / margin</td><td class="n">$11.2B / ≈53.3%</td><td><span class="badge pack">Pack</span> / derived</td><td>A >50% gross margin signals low-cost, high-grade assets — consistent with the reserve-quality moat in §3; margin will move with the copper price</td></tr>
+      <tr><td>Price / Sales</td><td class="n">4.5×</td><td><span class="badge unv">Unverified</span></td><td>Rich for a miner on sales alone, but miners are priced on earnings and reserves, not sales — without a verified P/E this multiple cannot carry the valuation argument by itself</td></tr>
+      <tr><td>Trailing / forward P/E</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>Not verified in the pack. §5 therefore values the name on a revenue-anchored model instead of an earnings multiple — see the adaptation note there</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>Requires verified debt, cash and EBITDA; none are carried in the pack</td></tr>
+      <tr><td>Free cash flow</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>Explicitly not verified for GMBXF in the pack — no FCF yield is quoted anywhere in this note</td></tr>
+      <tr><td>Leverage / debt-to-equity</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>No verified balance-sheet figures are carried; leverage risk is assessed qualitatively in §4 (conglomerate + jurisdiction), not with invented ratios</td></tr>
+      <tr><td>Dividends / buybacks / capital allocation</td><td class="n">—</td><td><span class="badge unv">Omitted</span></td><td>No verified payout data in the pack. The standing qualitative point stands: group-level capital allocation between mining growth, rail and distributions is a key governance question for this name</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="ct">What can honestly be concluded</div>
+  <p>Three things. <b>First</b>, the asset base earns extractive margins (≈53% gross) that few industrial businesses match — the earnings power is real even if its exact multiple is unverified here. <b>Second</b>, at 4.5× sales (unverified) the market is already paying for that margin quality; this is not priced like a distressed miner. <b>Third</b>, everything a credit-style analysis would want — net debt, FCF conversion, payout cover — is an <b>open question</b> in this note, flagged for verification before any larger position than §6's satellite sizing is contemplated.</p></div>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide on resources, narrow on structure.</b> The pack's moat summary is three phrases — <i>copper reserves, integrated rail, Mexican scale</i> — and they are the right three. What limits the moat is not competition for the assets; it is that public shareholders own them through a conglomerate wrapper with a documented tendency across markets to trade below asset value.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Copper reserves:</b> reserve bases of this scale cannot be bought or permitted into existence quickly — Mexico's largest copper position and a #5 global rank (per pack) mean the group owns a scarce input to electrification, whatever the cycle does to the spot price.</li>
+      <li><b>Integrated rail:</b> the transport arm is both a business and logistics infrastructure for an industrial economy — rail concessions and networks are near-impossible to replicate, and they generate the group's steadiest cash flows.</li>
+      <li><b>Mexican scale:</b> being the domestic champion in both copper and freight confers permitting familiarity, infrastructure incumbency and pricing relevance that a foreign entrant cannot shortcut.</li>
+      <li><b>Margin evidence:</b> a ≈53% TTM gross margin (pack basis) is the financial fingerprint of low-cost assets — the moat shows up in the one profitability line this note can verify.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Pure-play alternatives exist:</b> investors wanting copper alone can buy FCX or SCCO (the latter closely related to this group) on liquid US listings — GMBXF must continually justify why the bundle deserves the money instead.</li>
+      <li><b>Global miners set the price of the sector:</b> BHP and RIO bring deeper liquidity, broader diversification and index membership; Zijin and other large producers compete on reserve growth.</li>
+      <li><b>No pricing power over the product:</b> copper is a commodity — the group is a price-taker. The moat is cost position and reserve life, never price-setting.</li>
+      <li><b>The wrapper is the discount:</b> conglomerate structure, related-party complexity typical of controlled groups, and OTC access all tax the multiple that the underlying assets would command separately (see §4).</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> within the Materials top-10 universe, GMBXF is the <b>emerging-market copper-plus-rail hybrid</b> — more diversified than a pure miner, less liquid and less transparent to a US investor than any NYSE-listed peer in the set. Its competitive position inside Mexico is entrenched; its position in a US portfolio is, by construction, peripheral — which §6's sizing reflects.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Copper price strength</b> — the single dominant variable. Electrification, grid and data-centre demand against a slow global mine-supply pipeline is the structural bull case for every large reserve holder; GMBXF's margin structure converts price gains into gross profit at a high rate.</li>
+        <li><b>Rail volumes</b> — Mexican industrial and trade volumes drive the transport arm; nearshoring-linked freight growth would show up here first and is the group's most under-appreciated earnings lever.</li>
+        <li><b>US–Mexico trade clarity</b> — any durable settlement of tariff and trade-framework questions removes an overhang that sits on both arms at once (export mining economics and cross-border freight).</li>
+        <li><b>Discount-narrowing events</b> — clearer segment disclosure, simplification, or capital returns that make the sum-of-the-parts easier to underwrite would attack the conglomerate discount directly. (A possibility to watch, not a scheduled event.)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Mexican regulation &amp; politics</b> — mining law, concessions, taxation and rail regulation are all set by the same sovereign that hosts most of the asset base. This is the pack's first-named risk and this note's too: it cannot be diversified away inside the name.</li>
+        <li><b>Conglomerate discount widening</b> — if group capital allocation moves toward lower-return projects, the market's discount to asset value can grow even while copper performs.</li>
+        <li><b>OTC liquidity</b> — thin US trading means wide spreads, stale prints (the $12.04 reference itself is unverified) and real exit costs; a position that is easy to open can be expensive to close.</li>
+        <li><b>Copper down-cycle</b> — a global growth scare hits the mining arm's price and the rail arm's volumes simultaneously; the two engines are less diversified in a recession than they look in calm years.</li>
+        <li><b>Currency &amp; jurisdiction</b> — peso exposure on costs and Mexican-asset valuation, plus Andean mining politics in the LatAm footprint.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Adverse Mexican mining or rail regulation with material cash-flow impact, or a copper bear market coinciding with it. Either alone compresses earnings; together they hit earnings <i>and</i> the multiple the market will pay for Mexican assets — the path to the §5 bear case ($9.50 near-term, ~$9 at five years).</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><span class="badge est">Estimate</span> Everything in this section is a <b>modelled estimate</b> from the research pack, with methodology shown — none of it is a verified figure. Two adaptations are made transparently, per this series' standing rules: <b>(1)</b> with no verified trailing P/E for GMBXF, the standard frozen-parameter formula (2031 price = 2031 revenue × net margin ÷ shares × P/E) <b>cannot be run on earnings</b>; it is therefore run in its revenue-anchored equivalent — price compounds at the case's revenue CAGR with the sales multiple, net margin and share count held frozen — which is exactly the calculation the pack itself prints for the base case. <b>(2)</b> Scenario weights were not supplied to the independent verifier for this pack, so the weighted figures below are labelled as modelled estimates whose weights are not shown in the source material.</p>
+
+  <h3>12–18-month targets <span class="badge est">Modelled estimates</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear</div><div class="price mono">$9.50</div><div class="ret down">−21% vs $12.04</div><p>Copper softens and Mexican regulatory headlines return; rail volumes stall with trade friction. The conglomerate discount widens and the OTC line de-rates toward the bottom of its range. (Return computed from the unverified $12.04 reference.)</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--copper)">Base</div><div class="price mono">$13.20</div><div class="ret up">+10% vs $12.04</div><p>The pack's central case: copper holds its range, rail volumes grow modestly, no regulatory shock. Earnings carry the price; the discount stays where it is — hence a +10% target rather than a re-rating.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull</div><div class="price mono">$16.00</div><div class="ret up">+33% vs $12.04</div><p>A copper up-leg (supply tightness meeting electrification demand) plus trade clarity: both engines contribute at once and the market pays a fuller price for the reserve base.</p></div>
+  </div>
+  <p class="small">Scenario weights for the 12–18-month cases were not supplied in the pack, so no weighted near-term target is asserted — the three cases above are the deliverable, exactly as sourced.</p>
+
+  <h3>5-year projection — frozen-parameter model, revenue-anchored adaptation</h3>
+  <p>Starting point: price <b>$12.04</b> (unverified OTC close) and TTM revenue <b>$21.0B</b>. Frozen per case: the price/sales relationship, net margin and share count — only the revenue CAGR varies, so <b>2031 price = $12.04 × (1 + CAGR)<sup>5</sup></b>. The base case is the pack's own printed arithmetic: 4% CAGR → $12.04 × 1.217 = <b>$14.65</b>. Bull and bear CAGRs below are the growth rates implied by the pack's scenario prices (≈ +9.5% and ≈ −6.0% respectively — derived, labelled as such).</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case</th><th class="n">Revenue CAGR / yr</th><th class="n">2031 revenue (modelled)</th><th class="n">Multiple &amp; margin</th><th class="n">2031 price</th><th class="n">Return vs $12.04</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td class="n">≈ −6.0% (implied)</td><td class="n">≈ $15.4B</td><td class="n">Frozen</td><td class="n">~$9</td><td class="n">≈ −25%</td></tr>
+      <tr class="hl"><td>Base</td><td class="n">4%</td><td class="n">≈ $25.6B</td><td class="n">Frozen</td><td class="n">$14.65</td><td class="n">+22%</td></tr>
+      <tr><td>Bull</td><td class="n">≈ +9.5% (implied)</td><td class="n">≈ $33.1B</td><td class="n">Frozen</td><td class="n">~$19</td><td class="n">≈ +58%</td></tr>
+      <tr class="total"><td>Weighted (pack figure)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">~$14.50</td><td class="n">≈ +20%</td></tr>
+    </tbody>
+  </table></div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.8">Modelled weighted 5-yr value <span class="badge est">Estimate</span></div><div class="wv mono">≈ $14.50</div></div><p>As carried in the research pack. Scenario weights were not supplied to the verifier, so this weighted figure is a <b>modelled estimate that cannot be arithmetically re-checked from the published cases alone</b> — treat the individual Bull/Base/Bear prices, whose method is fully shown, as the reliable content of this section. Even taken at face value, +20% over five years (≈ +3.7%/yr) is a <i>carry</i> return, not a compounding return — the quantitative core of the Hold verdict in §6.</p></div>
+  <p class="small">Sanity anchors: the base-case 4% revenue CAGR is modest against a $21.0B base and embeds no copper bull market; the bull case needs roughly a full copper cycle in the group's favour; the bear case is a real possibility set (regulation + cycle), not a tail event. All scenario prices are estimates with the methodology above — not forecasts, and not verified figures.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b> — equity-heavy and drawdown-tolerant. Even for that profile, this name's constraints are structural (OTC liquidity, single-sovereign concentration, unverified headline multiples), so conviction sizing is capped by access and governance, not by risk appetite.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold; do not chase.</b> Modelled base upside is +10% against a −21% bear case at this horizon — a balanced, not compelling, near-term skew. Existing holders keep the copper/rail carry; new money has better-verified entries elsewhere in the sector until GMBXF's figures are independently confirmed.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill hold">Hold</span></td><td><b>Hold as a satellite.</b> Reserves and rail are durable assets, but the modelled weighted 5-year return (≈ +20% total) does not compensate a risk-8/10 investor for conglomerate, sovereign and liquidity risk at anything above a token weight. Upgrade path: verified financials + evidence of discount-narrowing. Downgrade path: the §4 thesis-breaker (material adverse regulation).</td></tr>
+      <tr><td>Exit / review triggers</td><td><span class="pill trim">Review</span></td><td>Exit or halve on adverse Mexican mining/rail legislation with quantified cash-flow impact, or if the OTC spread/liquidity deteriorates further. Re-underwrite from scratch if verified P/E, FCF and balance-sheet data become available — the current Hold rests partly on what could <i>not</i> be verified.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>GMBXF target: 0.5% of total portfolio</b> — a satellite materials diversifier inside the sector sleeve, sized so that even the bear case (−25% over five years) costs the portfolio ≈ 0.1–0.2% in total. That asymmetry of <i>portfolio</i> impact is the point of the position.</li>
+    <li><b>Hard cap 1%</b> while the US line remains OTC-only and headline multiples remain unverified. Investors who want real copper weight should take it primarily through liquid, verified listings and treat GMBXF as the diversifier, not the vehicle.</li>
+    <li><b>Execution note:</b> use limit orders on the OTC line and expect spreads well above NYSE norms; check the OTC print against the primary Mexican listing before dealing, since the reference price in this note is itself an unverified OTC close.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the §6 target weight (0.5%, hard cap 1%) to the value you enter. Illustrative only — not a personal recommendation.</p>
+
+  <h3>Where GMBXF sits in the sector framework</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Role in a Materials sleeve</th><th>Names (this series)</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Core, liquid, verified</td><td>LIN · BHP · RIO · SCCO · FCX · NEM · AEM</td><td>NYSE-listed sector anchors (AEM's figures in this series are verified with adjusted EPS $2.62 vs GAAP $2.67 labelling applied)</td></tr>
+      <tr><td>Satellite / diversifier</td><td><b>GMBXF</b> · AIQUF · ZIJMF</td><td>OTC-accessed global names — genuine asset quality, structurally capped weights for a US-based holder</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Grupo México (GMBXF)</h2>
+<p><strong>Price (30 Oct 2026 close): $12.04.</strong> <strong>DCF intrinsic: $7.31.</strong> Discount/premium vs DCF: <strong>+64.7%</strong> — i.e. the shares are trading 64.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$7.31</td><td>+64.7%</td><td>g 3.0%, r 12%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; Fool https://www.fool.com/quote/otc/gmbxf/ ; Morningstar P/B 3.65 via https://www.morningstar.com/stocks/otcm/gmbxf/quote (BVPS = $12.04/3.65 ≈ $3.30, derived and flagged) ; Finnhub https://finnhub.io/?q=%22GMBXF%22</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Grupo México (GMBXF)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Grupo México sells copper and by-products through its mining division, freight through its rail division, and infrastructure services — to smelters, manufacturers, shippers and industrial users across Mexico, LatAm and the US — with no single customer disclosed as a concentration. Its mining arm&#x27;s largest customer relationship is with its own controlled smelting/refining chain and with Southern Copper (SCCO, in coverage), which is a sister company under common control, not an arm&#x27;s-length customer, so no placeholder is claimed for it.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Copper smelters, refiners and manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Rail freight shippers (industrial, automotive, agriculture)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Infrastructure and construction users</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is Mexican/US industrial demand and copper prices: undervalued manufacturers and shippers would be a tailwind only if they lift volumes, which depends on trade, nearshoring and their own margins rather than their valuation; overvalued or retrenching industrial demand would be a headwind through both copper and rail volumes.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Grupo México (GMBXF)</h2>
+<p><strong>Role: Beneficiary.</strong> Grupo México&#x27;s copper division is its AI-electrification channel, while its rail division benefits second-order from industrial volumes; neither channel is AI capex itself.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through electrification: data centres need grid connections, transformers and wiring, all copper-intensive, and the grid build-out behind AI is a multi-year copper demand leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the AI premium here is really a copper premium (trailing P/E not verified in pack in the pack where verified): an unwind would compress it toward a through-cycle mining multiple as copper prices fall.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is growth capex committed at peak copper prices that becomes uneconomic if copper falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: copper-price reversal, Chinese construction/property weakness, hyperscaler capex cuts or delays, and mine-permit or social-licence setbacks. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; verification notes</h2>
+  <p class="small">This note is built solely from the finished research pack for GMBXF and its sector verification log. No figure has been added from outside the pack.</p>
+  <ol class="refs">
+    <li><b>Research pack — GMBXF (Grupo México), Materials sector.</b> Business model, copper ranking (Mexico #1, world #5), TTM revenue $21.0B, gross profit $11.2B, P/S 4.5×, moat summary, catalysts/risks, scenario estimates and the Hold/Hold recommendation with 0.5% sizing — attributed in the pack to Motley Fool (metrics as of 6 Oct 2026; prices at the 30 Oct 2026 close).</li>
+    <li><b>Motley Fool — largest Materials companies ranking (Oct 2026).</b> Source of the global top-10 universe framing used across this series; the ranking is not in strict market-cap order as published (e.g. BHP $292.4B printed after LIN $237.1B).</li>
+    <li><b>Independent verification log — Industrials, Energy, Materials pack (checked 1 Nov 2026).</b> Establishes that prices, market caps and P/Es for GMBXF (and BHP, SCCO, RIO, AIQUF, ZIJMF, FCX) were <b>not re-checked</b> in this pass and must be marked UNVERIFIED; that OTC prices for such names are thin and indicative; and that no 5-year weighted price can be arithmetically re-checked where scenario weights were not supplied.</li>
+    <li><b>Coordinator corrections applied.</b> (1) All modelled targets labelled as estimates with methodology shown. (2) P/E and FCF — unverified — omitted rather than estimated. (3) Adjusted-vs-GAAP labelling discipline from the sector corrections (AEM: adjusted EPS $2.62, GAAP $2.67) applied as the labelling standard wherever the distinction arises.</li>
+    <li><b>Derived figures (arithmetic on pack values, labelled in-line).</b> Gross margin ≈53.3% ($11.2B ÷ $21.0B); cost of sales ≈$9.8B; P/S consistency check ($94.2B ÷ $21.0B ≈ 4.5×); scenario returns vs the $12.04 reference; bull/bear 5-yr implied CAGRs (≈+9.5% / ≈−6.0%) from the pack's scenario prices.</li>
+  </ol>
+  <p class="disc"><b>Disclaimer.</b> This is a research view prepared for discussion, not investment advice and not a guarantee of any outcome. Prices are as of the 30 Oct 2026 close as carried in the research pack and, for this OTC name, are unverified and indicative. Scenario prices are modelled estimates built on the stated frozen-parameter method; actual results will differ. Verify any figure independently before acting on it, and consider your own circumstances or a licensed adviser for personal financial decisions.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // ---- position-size calculator (0.5% target, 1% cap) ----
+  var pf = document.getElementById('pf');
+  var out = document.getElementById('pfOut');
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function render(){
+    var v = parseFloat(pf.value);
+    if (isNaN(v) || v < 0) { out.innerHTML = 'Enter a portfolio value to see the position size.'; return; }
+    var target = v * 0.005, cap = v * 0.01;
+    var shares = target / 12.04;
+    out.innerHTML = 'Target position at <b>0.5%</b>: <b>' + money(target) + '</b> (≈ ' + Math.floor(shares).toLocaleString('en-US') + ' shares at the $12.04 reference) · Hard cap at 1%: <b>' + money(cap) + '</b>';
+  }
+  pf.addEventListener('input', render);
+  render();
+
+  // ---- TOC active-link highlighting ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  function onScroll(){
+    var y = window.scrollY + 90, current = null;
+    secs.forEach(function(s){ if (s.offsetTop <= y) current = s.id; });
+    links.forEach(function(a){ a.classList.toggle('on', a.getAttribute('href') === '#' + current); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

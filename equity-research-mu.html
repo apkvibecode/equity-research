@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f4f2ec; --surface:#fffdf8; --surface2:#ece8dd; --ink:#1c1a15; --ink2:#55503f;
+    --line:#d8d2c2; --accent:#0f5c4d; --accent-soft:#dcebe4; --warn:#9a5b00; --warn-soft:#f7e8c8;
+    --danger:#9c2b1e; --danger-soft:#f6ddd8; --good:#0f5c4d; --good-soft:#dcebe4;
+    --bar-bear:#b4563f; --bar-base:#0f5c4d; --bar-bull:#2e7d5b; --bar-wtd:#8a6d1f; --bar-cur:#3a3a3a;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#12140f; --surface:#1b1e17; --surface2:#262a20; --ink:#ece8da; --ink2:#b3ad9c;
+      --line:#3a3e31; --accent:#5cc4a7; --accent-soft:#1e332b; --warn:#e0a83e; --warn-soft:#3a2f14;
+      --danger:#e88a7a; --danger-soft:#3d211c; --good:#5cc4a7; --good-soft:#1e332b;
+      --bar-bear:#d97a5f; --bar-base:#5cc4a7; --bar-bull:#7fc98f; --bar-wtd:#d9b84a; --bar-cur:#c9c4b4;
+      color-scheme: dark;
+    }
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;font-size:16px;line-height:1.55}
+  .wrap{max-width:1020px;margin:0 auto;padding:20px 18px 64px}
+  h1,h2,h3{font-family:"IBM Plex Serif",Georgia,serif;line-height:1.2;margin:0}
+  h1{font-size:clamp(30px,5vw,44px);font-weight:700}
+  h2{font-size:clamp(21px,3.4vw,27px);font-weight:600}
+  h3{font-size:17px;font-weight:600}
+  p{margin:0 0 12px}
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+  .small{font-size:13px;color:var(--ink2)}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:8px}
+  header.top{padding:14px 0 6px}
+  .lede{font-size:17px;color:var(--ink2);max-width:72ch;margin-top:10px}
+  .verdict-strip{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 6px}
+  .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+  .chip b{color:var(--accent)}
+  .chip.warn b{color:var(--warn)}
+  .alert{background:var(--warn-soft);border:1px solid var(--warn);border-radius:10px;padding:14px 16px;margin:16px 0}
+  .alert p:last-child{margin-bottom:0}
+  .alert .t{font-weight:700;color:var(--warn);margin-bottom:4px}
+  section{margin-top:34px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;color:var(--accent);font-weight:600}
+  .grid{display:grid;gap:14px}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  @media (max-width:820px){.stats{grid-template-columns:repeat(2,1fr)}}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .stat .k{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+  .stat .v{font-family:"IBM Plex Mono",monospace;font-size:24px;font-weight:600;margin-top:4px}
+  .stat .n{font-size:12.5px;color:var(--ink2);margin-top:3px}
+  .down{color:var(--danger)} .up{color:var(--good)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .cols2{grid-template-columns:1fr 1fr}
+  @media (max-width:760px){.cols2{grid-template-columns:1fr}}
+  ul.tight{margin:0;padding-left:20px} ul.tight li{margin-bottom:7px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:2px 7px;vertical-align:middle}
+  .badge.conf{background:var(--good-soft);color:var(--good)}
+  .badge.est{background:var(--warn-soft);color:var(--warn)}
+  .badge.open{background:var(--danger-soft);color:var(--danger)}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);border-bottom:2px solid var(--ink)}
+  td.num,th.num{font-family:"IBM Plex Mono",monospace}
+  .table-wrap{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:6px 14px 12px;overflow:hidden}
+  @media (max-width:700px){
+    table,thead,tbody,tr,th,td{display:block}
+    thead{display:none}
+    tr{border-bottom:2px solid var(--ink);padding:8px 0}
+    td{border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:14px;text-align:right}
+    td::before{content:attr(data-label);font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2);font-weight:600;text-align:left}
+    td:first-child{font-weight:700}
+  }
+  .toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--surface)}
+  .toggle button{border:0;background:transparent;color:var(--ink2);font:inherit;font-size:14px;font-weight:600;padding:8px 16px;cursor:pointer}
+  .toggle button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  @media (prefers-color-scheme: dark){.toggle button[aria-pressed="true"]{color:#0d1512}}
+  .chart-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+  .chart-card svg{width:100%;height:auto;display:block}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--ink2);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+  .calc{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){.calc{grid-template-columns:1fr}}
+  label.f{display:block;font-size:13px;font-weight:600;color:var(--ink2);margin-bottom:6px}
+  input[type=number]{width:100%;font:inherit;font-family:"IBM Plex Mono",monospace;font-size:18px;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+  .calc-out{background:var(--surface2);border-radius:8px;padding:14px}
+  .calc-out .v{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+  .sources{font-size:13.5px} .sources li{margin-bottom:6px;word-break:break-word}
+  footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="eyebrow">Equity Research · Information Technology · Semiconductors — Memory</div>
+  <h1>Micron Technology (MU)</h1>
+  <p class="lede">The purest AI-infrastructure cyclical in the market: DRAM, NAND and high-bandwidth memory (HBM) for AI accelerators. Report dated <strong>1 Nov 2026</strong>; all prices are the <strong>30 Oct 2026 regular-session close</strong> (1 Nov was a weekend). For a mid-30s investor, risk score 8/10. Research views only — not guarantees, not investment advice.</p>
+  <div class="verdict-strip">
+    <span class="chip">Short term (12–18m): <b>Hold</b></span>
+    <span class="chip">Long term (5y): <b>Hold — trade the cycle</b></span>
+    <span class="chip warn">Portfolio weight: <b>2.0%</b></span>
+    <span class="chip warn">Do not anchor on the <b>11.8×</b> peak P/E</span>
+  </div>
+</header>
+
+<div class="grid stats" role="group" aria-label="Key snapshot">
+  <div class="stat"><div class="k">Price · 30 Oct close</div><div class="v">$884.74</div><div class="n"><span class="down">−5.30% on the day</span> · <span class="badge conf">Confirmed</span></div></div>
+  <div class="stat"><div class="k">Market cap</div><div class="v">~$999.8B</div><div class="n">Fell back just below $1T in October · <span class="badge conf">Confirmed</span></div></div>
+  <div class="stat"><div class="k">Trailing P/E / EPS</div><div class="v">11.77× / $74.34</div><div class="n">Peak-cycle EPS — see §2 before trusting this · <span class="badge conf">Confirmed</span> (vendor P/E prints 11.77–11.92 by snapshot; price ÷ EPS ≈ 11.9×)</div></div>
+  <div class="stat"><div class="k">Performance</div><div class="v">+210% YTD</div><div class="n">1-yr +295% · October alone <span class="down">−16.92%</span></div></div>
+  <div class="stat"><div class="k">Net margin (peer table)</div><div class="v">63.8%</div><div class="n">Peak-cycle print, not normalised · StrongBuy peer row</div></div>
+  <div class="stat"><div class="k">ROE (peer table)</div><div class="v">88.3%</div><div class="n">Peak-cycle print, not normalised</div></div>
+  <div class="stat"><div class="k">Fiscal Q4 gross margin</div><div class="v">87%</div><div class="n">Record memory margin — supports the “peak” read</div></div>
+  <div class="stat"><div class="k">Model base revenue</div><div class="v">$60B</div><div class="n">Starting point for the 5-yr model · <span class="badge est">Modelled estimate</span></div></div>
+</div>
+
+<div class="alert" role="note">
+  <p class="t">Read this first: the 5-year weighted value ($853) sits below the current price ($884.74) — that is deliberate, not a typo</p>
+  <p>The scenario model is bear-weighted on purpose. Micron is priced off peak-cycle earnings (EPS $74.34, net margin 63.8%). The model instead uses a <em>normalised</em> 35% margin on a $60B revenue base. When you blend a bear case in which the memory cycle simply stops growing (0% CAGR, 20% margin, 10×) at 25% weight, the weighted outcome lands below today’s price. That is the honest maths of buying a cyclical at the top of its cycle — see §5 for the full workings.</p>
+</div>
+
+<section aria-labelledby="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2 id="s1">Business Model &amp; Segment Breakdown</h2></div>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>What Micron sells</h3>
+      <p style="margin-top:8px">Micron makes memory — the two commodity families plus the AI premium tier:</p>
+      <ul class="tight">
+        <li><strong>DRAM</strong> — the working memory in servers, PCs and phones; sold into a three-player global oligopoly (Micron, Samsung, SK Hynix).</li>
+        <li><strong>NAND</strong> — flash storage for SSDs and devices; more fragmented and historically more price-volatile than DRAM.</li>
+        <li><strong>HBM (high-bandwidth memory)</strong> — stacked DRAM packaged next to AI accelerators. This is the AI-infrastructure exposure: every leading AI chip needs HBM, and supply is tight and technically hard, which is why margins are at records.</li>
+      </ul>
+      <p style="margin-top:10px">In one line: general memory sets the cycle, HBM sets the AI premium on top of it. AI-server memory <em>content per box</em> (more HBM stacks, more DRAM per server) is the volume driver; memory <em>pricing</em> is the margin driver.</p>
+    </div>
+    <div class="card">
+      <h3>What is — and isn’t — verified here</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><span class="badge open">Open question</span> <strong>No detailed segment split was verified in this pass.</strong> This report deliberately does not invent an HBM-vs-commodity revenue split. The HBM vs commodity DRAM mix is the single most important number to pull from the next 10-Q — it decides how much of today’s margin is structural (HBM) vs cyclical (commodity pricing).</li>
+        <li><strong>Supply-chain dependency:</strong> leading-edge memory fabrication concentrated in Micron’s own fabs, inside a supply chain where the other two majors sit in South Korea — so Korean/Chinese geopolitics transmit straight into pricing (see §4).</li>
+        <li><strong>Demand dependency:</strong> AI capex from the hyperscalers and accelerator vendors. If AI data-centre spending pauses, HBM orders and DRAM pricing fall together — there is no defensive segment to hide in.</li>
+        <li><strong>Structural mitigant:</strong> about <strong>~35% of Micron’s revenue is secured by long-term contracts through 2030</strong> (per the verification pass, citing industry coverage) — contracts soften, but do not remove, a price downturn.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2 id="s2">Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The whole diagnostic story is one contrast: <strong>peak</strong> numbers vs <strong>normalised</strong> numbers. Flip the toggle — the same company looks cheap or expensive depending on which earnings you capitalise.</p>
+  <p>
+    <span class="toggle" role="group" aria-label="Peak versus normalised view">
+      <button type="button" id="btnPeak" aria-pressed="true">Peak-cycle view</button>
+      <button type="button" id="btnNorm" aria-pressed="false">Normalised view</button>
+    </span>
+  </p>
+  <div class="grid stats" style="margin-top:6px">
+    <div class="stat"><div class="k" id="k1">Trailing P/E (on EPS $74.34)</div><div class="v" id="v1">11.77×</div><div class="n" id="n1">Looks cheap — because the “E” is at a cycle peak.</div></div>
+    <div class="stat"><div class="k" id="k2">Net margin</div><div class="v" id="v2">63.8%</div><div class="n" id="n2">Peer-table print at record pricing.</div></div>
+    <div class="stat"><div class="k" id="k3">Return on equity</div><div class="v" id="v3">88.3%</div><div class="n" id="n3">Peak earnings on a normal equity base.</div></div>
+    <div class="stat"><div class="k" id="k4">Implied EPS basis</div><div class="v" id="v4">$74.34</div><div class="n" id="n4">TTM EPS. Vendor P/E prints differ by snapshot: Finnhub 11.77×, MarketBeat 11.92×; price ÷ EPS ≈ 11.9×.</div></div>
+  </div>
+
+  <div class="grid cols2" style="margin-top:14px">
+    <div class="card">
+      <h3>Why the trailing P/E misleads here</h3>
+      <p style="margin-top:8px">The verification pass confirmed the figures themselves (price $884.74, EPS $74.34, YTD +210% — cross-checked on Finnhub and MarketBeat, not a decimal or split artefact). One snapshot note: Finnhub prints the trailing P/E as 11.77× while MarketBeat prints 11.92× and price ÷ TTM EPS is ≈11.9× — the vendors compute the multiple off slightly different EPS snapshots; the difference does not change any conclusion here. It also confirmed the <em>interpretation</em>: with fiscal Q4 gross margin at a record 87%, forward P/E around 5–8× on still-rising estimates, and a history of violent reversals (DRAM prices fell ~68% peak-to-trough into 2023; NAND fell ~60% and DRAM ~40% in 2018–19), a low trailing P/E at peak earnings is the classic cyclical trap. The cheapness is in the denominator, and the denominator is the thing that mean-reverts.</p>
+      <p>On the model’s normalised earnings instead — $60B revenue × 35% margin = $21.0B net income ÷ 1.13B shares = <strong>$18.58 EPS</strong> — today’s price is <strong>~47.6×</strong> normalised earnings. <span class="badge est">Modelled estimate</span> Same stock, same day: 11.8× peak, ~47.6× normalised. Position sizing should use the second number.</p>
+    </div>
+    <div class="card">
+      <h3>Cash generation &amp; capital intensity</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>Capex-heavy, FCF volatile:</strong> memory fabs are among the most capital-intensive plants in tech. Free cash flow swings with the cycle — enormous at peak pricing, thin or negative when Micron builds capacity into a downturn. No single FCF figure is quoted in this report because a peak-quarter figure would mislead in exactly the way the P/E does.</li>
+        <li><strong>Capital allocation reality:</strong> in memory, capex is not discretionary in the way a software buyback is — falling behind on process nodes loses the next cycle. Expect investment through the cycle and treat shareholder returns as the residual, not the priority.</li>
+        <li><strong>Leverage read:</strong> the verified pack for this pass did not carry a confirmed debt/cash pair for Micron, so none is printed rather than guessed. <span class="badge open">Open question</span> Pull cash, debt and net leverage from the latest 10-Q before any add — it matters because memory downcycles are survived on the balance sheet.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2 id="s3">Competitive Moat &amp; Industry Positioning</h2></div>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>The moat: oligopoly + process + HBM</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>Three-player DRAM oligopoly</strong> (Micron, Samsung, SK Hynix). Rational supply discipline among three players is the reason this cycle’s pricing has held — and the moat is structural, not brand-based: a new fab costs tens of billions and years.</li>
+        <li><strong>HBM technology &amp; process:</strong> stacking, yields and qualification with accelerator vendors are hard-won. Being qualified into AI platforms is a genuine barrier — but it is shared with SK Hynix (the HBM leader) and Samsung, not exclusive to Micron.</li>
+        <li><strong>Scale:</strong> at ~$1.0T market cap and +295% in a year, Micron is priced as core AI infrastructure, which cuts both ways — expectations are now the risk.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>The limits of the moat</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>No pricing power over the cycle:</strong> memory is a commodity at the margin. Micron is a price-<em>taker</em> when supply loosens; the oligopoly softens downturns, it does not abolish them.</li>
+        <li><strong>CXMT (China)</strong> is the specific emerging threat named in this pass — its progress was the cited overhang behind October’s −16.92% slide. A fourth, state-backed supplier attacks exactly the oligopoly discipline the moat rests on.</li>
+        <li><strong>Competitors:</strong> Samsung and SK Hynix (DRAM/HBM), the broader NAND field, and CXMT emerging. In HBM, share shifts between the big three move Micron’s AI premium directly.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2 id="s4">Catalysts &amp; Downside Risks</h2></div>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>HBM pricing and volume</strong> — contract renewals at record pricing, and rising HBM content per AI accelerator generation.</li>
+        <li><strong>AI server memory content</strong> — more DRAM per server compounds with server volumes.</li>
+        <li><strong>Supply discipline holding</strong> — if the big three keep capex rational, peak-ish pricing lasts longer than the bear case assumes (this is the entire bull case).</li>
+        <li><strong>Long-term contracts</strong> — ~35% of revenue secured through 2030 gives a floor under a soft patch.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Downside risks</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>DRAM price collapse (the classic)</strong> — the template already printed in October: −16.92% in a month, −5.30% on 30 Oct alone, market cap back below $1T.</li>
+        <li><strong>CXMT share gains</strong> — new commodity supply into exactly the segments where pricing is set.</li>
+        <li><strong>China/Korea geopolitics</strong> — export controls, fab geography and Korean supply concentration.</li>
+        <li><strong>Inventory correction</strong> — customers double-order at peaks; the unwind hits volumes and price simultaneously.</li>
+        <li><strong>Peak-earnings multiple compression</strong> — even without a price collapse, earnings merely <em>stopping growing</em> removes the reason to pay up (the model’s bear case is 0% growth, and it produces $106).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2 id="s5">Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p class="small">All scenario prices on this page are <strong>modelled estimates</strong> — scenario weights were not supplied to the independent verifier, so no weighted figure here is a verified fact. Methodology is shown in full so you can re-run it with your own assumptions. Current price for reference: <span class="mono">$884.74</span> (30 Oct 2026 close).</p>
+
+  <h3 style="margin:16px 0 10px">12–18 month scenarios</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Case</th><th>Target</th><th>vs $884.74</th><th>What has to happen</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Case">Bull</td><td class="num" data-label="Target">$1,300</td><td class="num" data-label="vs current">+46.9%</td><td data-label="What has to happen">HBM pricing holds, AI content growth continues, no CXMT disruption — peak extends</td></tr>
+        <tr><td data-label="Case">Base</td><td class="num" data-label="Target">$950</td><td class="num" data-label="vs current">+7.4%</td><td data-label="What has to happen">Strong but normalising pricing; earnings stay high, multiple drifts down</td></tr>
+        <tr><td data-label="Case">Bear</td><td class="num" data-label="Target">$500</td><td class="num" data-label="vs current">−43.5%</td><td data-label="What has to happen">Pricing rolls over or an inventory correction starts; October’s slide, extended</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="margin:22px 0 10px">5-year projection — frozen-parameter model <span class="badge est">Modelled estimate</span></h3>
+  <p>Starting point: revenue <strong>$60B</strong>, shares <strong>1.13B</strong> held frozen, margin and exit P/E per case. Normalised base margin is <strong>35%</strong> — deliberately <em>not</em> the 63.8% peak print. Formula: 2031 revenue = $60B × (1 + CAGR)<sup>5</sup>; EPS = revenue × margin ÷ 1.13B; price = EPS × P/E.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Case (weight)</th><th>Rev CAGR</th><th>Net margin</th><th>2031 revenue</th><th>2031 EPS</th><th>Exit P/E</th><th>2031 price</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Case (weight)">Base (50%)</td><td class="num" data-label="Rev CAGR">18%</td><td class="num" data-label="Net margin">35%</td><td class="num" data-label="2031 revenue">$137B</td><td class="num" data-label="2031 EPS">$42.48</td><td class="num" data-label="Exit P/E">20×</td><td class="num" data-label="2031 price"><strong>$850</strong></td></tr>
+        <tr><td data-label="Case (weight)">Bull (25%)</td><td class="num" data-label="Rev CAGR">25%</td><td class="num" data-label="Net margin">45%</td><td class="num" data-label="2031 revenue">~$183B</td><td class="num" data-label="2031 EPS">~$72.90</td><td class="num" data-label="Exit P/E">22×</td><td class="num" data-label="2031 price"><strong>$1,604</strong></td></tr>
+        <tr><td data-label="Case (weight)">Bear (25%)</td><td class="num" data-label="Rev CAGR">0%</td><td class="num" data-label="Net margin">20%</td><td class="num" data-label="2031 revenue">$60B</td><td class="num" data-label="2031 EPS">$10.62</td><td class="num" data-label="Exit P/E">10×</td><td class="num" data-label="2031 price"><strong>$106</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:12px"><strong>Probability-weighted 5-year price: $853</strong> (0.25 × $1,604 + 0.50 × $850 + 0.25 × $106 = $852.50 ≈ $853) — <strong>below</strong> the $884.74 close. Why this is legitimate, not a typo: even the base case ($850) sits under today’s price, because the market is already capitalising peak earnings as if they were permanent, while the model normalises the margin to 35% and still grows revenue at 18% a year for five years. Micron has to <em>beat a strong base case</em> just to stand still. That asymmetry — +81% to the bull, −88% to the bear — is the definition of a late-cycle cyclical, and it is why the recommendation below is a trading hold, not an anchor holding.</p>
+
+  <div class="chart-card" style="margin-top:16px">
+    <h3>5-year scenario prices vs current price ($)</h3>
+    <div id="chart5y"></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--bar-bear)"></span>Bear $106</span>
+      <span><span class="sw" style="background:var(--bar-base)"></span>Base $850</span>
+      <span><span class="sw" style="background:var(--bar-wtd)"></span>Weighted $853</span>
+      <span><span class="sw" style="background:var(--bar-cur)"></span>Current $884.74</span>
+      <span><span class="sw" style="background:var(--bar-bull)"></span>Bull $1,604</span>
+    </div>
+    <p class="small" style="margin-top:8px">Bars drawn from the scenario table above (single data source for marks and labels). Axis starts at zero. The weighted bar landing just <em>left</em> of the current-price bar is the point of this report.</p>
+  </div>
+</section>
+
+<section aria-labelledby="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2 id="s6">Recommendation &amp; Portfolio Sizing</h2></div>
+  <div class="grid cols2">
+    <div class="card">
+      <h3>Verdict</h3>
+      <ul class="tight" style="margin-top:8px">
+        <li><strong>Short term (12–18m): Hold.</strong> Base target $950 is only +7.4% away while the bear is −43.5% — the near-term odds do not pay for adding after a +210% YTD run and an October that already showed the downside template.</li>
+        <li><strong>Long term (5y): Hold — trade the cycle, do not anchor on the peak P/E.</strong> A weighted $853 vs $884.74 today means the model sees roughly zero expected 5-year price progress with enormous dispersion. This is a position to size tactically and trim into strength, not a set-and-forget compounder.</li>
+        <li><strong>Portfolio weight: 2.0%</strong> of total portfolio for a mid-30s, risk-8/10 profile — a deliberate satellite size for a name whose bear case is −88%: big enough to matter if the AI memory supercycle extends, small enough that a classic DRAM collapse is survivable without touching the plan.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Position-size calculator</h3>
+      <p class="small">Target weight 2.0% at the 30 Oct close of $884.74. In-memory only — nothing is saved or sent.</p>
+      <div class="calc" style="margin-top:10px">
+        <div>
+          <label class="f" for="pfVal">Total portfolio value ($)</label>
+          <input type="number" id="pfVal" value="500000" min="0" step="1000" inputmode="decimal" />
+          <label class="f" for="wtPct" style="margin-top:12px">MU weight (%)</label>
+          <input type="number" id="wtPct" value="2.0" min="0" max="100" step="0.1" inputmode="decimal" />
+        </div>
+        <div class="calc-out" aria-live="polite">
+          <div class="k small" style="text-transform:uppercase;letter-spacing:.06em;font-weight:600">MU allocation</div>
+          <div class="v" id="outAmt">$10,000</div>
+          <div class="k small" style="text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-top:10px">≈ Shares at $884.74</div>
+          <div class="v" id="outSh">11.3</div>
+          <p class="small" style="margin-top:10px" id="outNote">Bear-case check: at $106, this position would be worth ~$1,198 (−88%) — about 0.24% of the portfolio. That is the loss the 2.0% size is designed to absorb.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>MU — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $884.74.</strong> <strong>DCF intrinsic: $717.</strong> Discount/premium vs DCF: <strong>+23.4%</strong> — i.e. the shares are trading 23.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$717</td><td>+23.4%</td></tr></table>
+<p><strong>Method 1 — DCF: $717.</strong> Base FCF $30.00B, constant growth g = 10% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $300.00B; Year-10 FCF = $77.81B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $441.43B. Equity value = PV of FCF + PV of terminal value + net cash ($68.27B) = $809.70B; divided by 1.13B diluted shares = $717. Base note: NORMALISED (peak-cycle): FY2026 FCF was $59.0B (OCF $89.68B less capex $30.71B, FY2026 10-K) versus $1.7B in FY2025; the pack calls the 63.8% net margin a peak-cycle print. Base = average of the two years (~$30.3B), rounded to $30B. Net cash uses cash + marketable investments $73.45B less debt $5.18B; $12.75B of repayable customer deposits are excluded from debt and flagged as a creditor-like claim in the AI section.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://thefilingdesk.net/reports/micron-technology-fy2026/ (FY2026 10-K) ; https://portfoliosavvy.com/fin/0000723125-micron-technology-inc</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MU — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of MU's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Nvidia</td><td>HBM for AI accelerators</td><td></td><td>$166</td><td>+23.3%</td></tr><tr><td>Microsoft</td><td>Data-center DRAM/NAND — hyperscale memory</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Alphabet (Google)</td><td>Data-center DRAM/NAND</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Amazon</td><td>Data-center DRAM/NAND — AWS</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Meta Platforms</td><td>Data-center DRAM/NAND</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Apple</td><td>Mobile/client memory</td><td></td><td>$204</td><td>+68.9%</td></tr><tr><td>Dell Technologies</td><td>Client and server memory (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Micron's demand runs through the same hyperscaler and accelerator buyers as the rest of the AI memory chain, so discounts at those filled customer intrinsics would be a potential tailwind for HBM pricing and volume, while premiums would warn of a memory-order slowdown. But an undervalued customer does not guarantee higher memory spending — it depends on that customer's own priorities, inventory position and cash, and memory's history is that price, not customer health alone, decides Micron's year. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MU — AI trade positioning</h2>
+<p><strong>Role: Beneficiary — the purest memory cyclical in the pack.</strong> Micron's HBM and DRAM ride AI server memory content: the pack calls memory 'the purest AI-infrastructure cyclical', and FY2026 printed revenue of $133.2B (+256%) with operating margin at 74.6% — a peak-cycle print the pack explicitly warns against annualising.</p>
+<p>While the AI trade runs, demand comes through HBM volumes and pricing for AI accelerators, with the pack noting October's drawdown (−16.92% in the month) even before any demand break, on CXMT-progress worries. On multiples, the trailing P/E of 11.77x is the trap the pack names: it is misleadingly low at the cycle peak, and the multiple will look expensive the moment earnings normalise.</p>
+<p>If the AI trade unwinds, demand breaks first through DRAM/NAND price collapse — the classic memory-cycle break — with HBM pricing following, and customer inventory corrections amplifying it. Multiple compression is then violent in both directions: earnings fall faster than price, so P/E rises even as the shares fall. The balance sheet has been transformed by the peak (cash and marketable investments $73.45B against $5.18B of debt) but $12.75B of repayable customer deposits (2029–2031) are a creditor-like claim the headline net-cash figure hides. Triggers to watch: DRAM/NAND spot pricing, HBM contract pricing, CXMT share gains, and customer inventory commentary.</p>
+</div>
+<footer>
+  <h3 style="margin-bottom:10px">Sources, ranking basis &amp; verification</h3>
+  <p class="small"><strong>Ranking basis:</strong> FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung and SK Hynix appear in that source’s global ranking but are excluded from detail here (foreign listings, not in the named set). <strong>Verification:</strong> price, market cap, trailing P/E, EPS and YTD were independently re-sourced on 1 Nov 2026 (Finnhub vs MarketBeat) and confirmed; the “peak-earnings trap” reading is labelled as interpretation, supported by record margins and prior DRAM/NAND collapses, with the long-term-contract mitigant disclosed. All scenario prices are modelled estimates with the methodology shown above — not verified facts.</p>
+  <ul class="sources">
+    <li>Finnhub — MU quote (price, P/E 11.77, EPS $74.34, YTD): <a href="https://finnhub.io/?q=%22MU%22" target="_blank" rel="noopener">finnhub.io/?q=%22MU%22</a></li>
+    <li>MarketBeat — MU earnings/quote cross-check (TTM EPS $74.21, P/E 11.92): <a href="https://www.marketbeat.com/stocks/NASDAQ/MU/earnings/" target="_blank" rel="noopener">marketbeat.com/stocks/NASDAQ/MU/earnings</a></li>
+    <li>StrongBuy peer table (MU row: net margin 63.8%, ROE 88.3%), via AVGO peer page: <a href="https://strongbuyanalytics.com/stocks/AVGO" target="_blank" rel="noopener">strongbuyanalytics.com/stocks/AVGO</a></li>
+    <li>Mitrade — October 2026 market-cap ranking (MU back below $1T): <a href="https://www.mitrade.com/insights/news/live-news/article-8-2220136-20261031" target="_blank" rel="noopener">mitrade.com/insights/news/live-news/article-8-2220136-20261031</a></li>
+    <li>30 Oct close changes (vendor data, video): <a href="https://www.youtube.com/watch?v=p4_Z2-uPfG4" target="_blank" rel="noopener">youtube.com/watch?v=p4_Z2-uPfG4</a></li>
+    <li>Memory supercycle / long-term contracts context: <a href="https://www.ldeepai.com/tech-hub/memory-supercycle-2026-dram-nand-enterprise-ssd-price-surge/" target="_blank" rel="noopener">ldeepai.com — memory supercycle 2026</a></li>
+    <li>Record memory margins (MU fiscal Q4 GM 87%): <a href="https://www.fool.com/investing/2026/10/24/micron-sandisk-record-memory-margins-winner/" target="_blank" rel="noopener">fool.com — Micron/SanDisk record memory margins</a></li>
+  </ul>
+  <p class="small">Prepared 1 Nov 2026 from the verified research pack for MU. Figures are as of the 30 Oct 2026 close unless labelled modelled estimates. This is research commentary for education, not investment advice and not a recommendation tailored to any individual.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  "use strict";
+  var PRICE = 884.74, BEAR = 106;
+
+  /* Peak vs normalised toggle */
+  var views = {
+    peak: {
+      k1:"Trailing P/E (on EPS $74.34)", v1:"11.77×", n1:"Looks cheap — because the “E” is at a cycle peak.",
+      k2:"Net margin", v2:"63.8%", n2:"Peer-table print at record pricing.",
+      k3:"Return on equity", v3:"88.3%", n3:"Peak earnings on a normal equity base.",
+      k4:"Implied EPS basis", v4:"$74.34", n4:"TTM EPS. Vendor P/E prints differ by snapshot: Finnhub 11.77×, MarketBeat 11.92×; price ÷ EPS ≈ 11.9×."
+    },
+    norm: {
+      k1:"P/E on normalised EPS $18.58", v1:"~47.6×", n1:"Modelled: $60B rev × 35% margin ÷ 1.13B shares = $18.58 EPS.",
+      k2:"Net margin (model assumption)", v2:"35%", n2:"The margin the 5-year base case uses — not the 63.8% peak.",
+      k3:"Return on equity", v3:"—", n3:"Not normalised in this pass; peak print (88.3%) should not be extrapolated.",
+      k4:"Implied EPS basis", v4:"$18.58", n4:"Modelled estimate from the §5 starting assumptions."
+    }
+  };
+  var btnP = document.getElementById('btnPeak'), btnN = document.getElementById('btnNorm');
+  function setView(name){
+    var d = views[name];
+    ['k1','v1','n1','k2','v2','n2','k3','v3','n3','k4','v4','n4'].forEach(function(id){
+      document.getElementById(id).textContent = d[id];
+    });
+    btnP.setAttribute('aria-pressed', name==='peak' ? 'true':'false');
+    btnN.setAttribute('aria-pressed', name==='norm' ? 'true':'false');
+  }
+  btnP.addEventListener('click', function(){ setView('peak'); });
+  btnN.addEventListener('click', function(){ setView('norm'); });
+
+  /* 5-year scenario bar chart — hand-authored SVG from one data array */
+  var data = [
+    {label:'Bear', value:106, color:'var(--bar-bear)'},
+    {label:'Base', value:850, color:'var(--bar-base)'},
+    {label:'Weighted', value:853, color:'var(--bar-wtd)'},
+    {label:'Current', value:884.74, color:'var(--bar-cur)'},
+    {label:'Bull', value:1604, color:'var(--bar-bull)'}
+  ];
+  var W = 760, H = 300, padL = 86, padR = 14, padT = 26, padB = 34;
+  var maxV = 1800; /* next clean tick above max data value 1604 */
+  var plotW = W - padL - padR, plotH = H - padT - padB;
+  function x(v){ return padL + (v / maxV) * plotW; }
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Bar chart of 5-year scenario prices: bear 106 dollars, base 850, weighted 853, current 884.74, bull 1604">';
+  [0,450,900,1350,1800].forEach(function(t){
+    var gx = x(t);
+    svg += '<line x1="'+gx+'" y1="'+padT+'" x2="'+gx+'" y2="'+(padT+plotH)+'" stroke="var(--line)" stroke-width="1"/>';
+    svg += '<text x="'+gx+'" y="'+(H-12)+'" text-anchor="middle" font-size="11" fill="var(--ink2)" font-family="IBM Plex Mono, monospace">$'+t+'</text>';
+  });
+  var rowH = plotH / data.length;
+  data.forEach(function(d, i){
+    var y = padT + i*rowH + rowH*0.22, bh = rowH*0.56, w = Math.max(2,(d.value/maxV)*plotW);
+    svg += '<text x="'+(padL-6)+'" y="'+(y+bh*0.72)+'" text-anchor="end" font-size="12.5" font-weight="600" fill="var(--ink)">'+d.label+'</text>';
+    svg += '<rect x="'+padL+'" y="'+y+'" width="'+w+'" height="'+bh+'" rx="3" fill="'+d.color+'"/>';
+    svg += '<text x="'+(padL+w+7)+'" y="'+(y+bh*0.72)+'" font-size="12.5" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono, monospace">$'+(d.value%1? d.value.toFixed(2) : d.value.toLocaleString('en-US'))+'</text>';
+  });
+  svg += '</svg>';
+  document.getElementById('chart5y').innerHTML = svg;
+
+  /* Position-size calculator */
+  var pf = document.getElementById('pfVal'), wt = document.getElementById('wtPct');
+  var outAmt = document.getElementById('outAmt'), outSh = document.getElementById('outSh'), outNote = document.getElementById('outNote');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var p = parseFloat(pf.value) || 0, w = parseFloat(wt.value) || 0;
+    var amt = p * w / 100, sh = amt / PRICE, bearVal = sh * BEAR;
+    outAmt.textContent = fmt(amt);
+    outSh.textContent = sh.toLocaleString('en-US',{maximumFractionDigits:1});
+    outNote.textContent = 'Bear-case check: at $106, this position would be worth ~' + fmt(bearVal) +
+      ' (−88%) — about ' + (p>0 ? (bearVal/p*100).toFixed(2) : '0.00') + '% of the portfolio. That is the loss the ' +
+      w.toFixed(1) + '% size is designed to absorb.';
+  }
+  pf.addEventListener('input', calc); wt.addEventListener('input', calc); calc();
+})();
+</script>
+</body>
+</html>

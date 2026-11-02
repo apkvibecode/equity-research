@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — LRCX (Lam Research)</title>
+<style>
+  :root{
+    --bg:#f7f5f1; --surface:#ffffff; --surface2:#efece6; --ink:#1c1a17; --ink2:#55504a;
+    --line:#ddd6cb; --accent:#0f5e4d; --accent-soft:#e3efe9; --amber:#9a6a12; --amber-soft:#f6ecd4;
+    --red:#a33327; --red-soft:#f7e4e0; --green:#0f5e4d; --green-soft:#e3efe9;
+    --chart-base:#0f5e4d; --chart-bull:#3d8b6d; --chart-bear:#c08552;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14120f; --surface:#1e1b17; --surface2:#26221d; --ink:#ece7de; --ink2:#a89f92;
+      --line:#3a352d; --accent:#4db894; --accent-soft:#1d2f28; --amber:#d9a441; --amber-soft:#332a17;
+      --red:#e07a6a; --red-soft:#37211d; --green:#4db894; --green-soft:#1d2f28;
+      --chart-base:#4db894; --chart-bull:#7cc4a6; --chart-bear:#d9a06a;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    font-size:16.5px;line-height:1.55;}
+  .sans{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  main{max-width:880px;margin:0 auto;padding:28px 20px 64px}
+  h1{font-size:34px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:22px;margin:38px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--accent);font-weight:700}
+  h3{font-size:17px;margin:20px 0 6px;font-weight:700}
+  p{margin:8px 0}
+  .lede{color:var(--ink2);font-size:17px;margin:0 0 4px}
+  .meta-line{color:var(--ink2);font-size:13.5px;margin-bottom:18px}
+  a{color:var(--accent)}
+  .snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:18px 0 6px}
+  .stat{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .stat .k{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2)}
+  .stat .v{font-size:21px;font-weight:700;margin-top:2px}
+  .stat .s{font-size:12.5px;color:var(--ink2)}
+  .down{color:var(--red)} .up{color:var(--green)}
+  .verdict{background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;padding:16px 18px;margin:20px 0}
+  .verdict h2{border:none;margin:0 0 8px;padding:0;font-size:19px}
+  .verdict-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .verdict .tag{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    font-size:12px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:999px;background:var(--accent);color:#fff}
+  @media (prefers-color-scheme: dark){.verdict .tag{color:#0d1512}}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14.5px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);vertical-align:top}
+  th:first-child,td:first-child{text-align:left}
+  thead th{border-bottom:2px solid var(--ink2);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2)}
+  .tbl-wrap{overflow-x:auto}
+  .callout{background:var(--amber-soft);border:1px solid var(--amber);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px}
+  .note{background:var(--surface2);border-radius:10px;padding:12px 16px;margin:14px 0;font-size:15px}
+  ul{margin:8px 0 8px 20px;padding:0}
+  li{margin:5px 0}
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .calc label{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:13px;color:var(--ink2);display:block;margin-bottom:6px}
+  .calc input{font-size:18px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:220px;max-width:100%}
+  .calc .out{font-size:19px;font-weight:700;margin-top:10px}
+  .chartbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:14px 0}
+  .chartbox figcaption{font-size:13px;color:var(--ink2);margin-top:8px}
+  .src{font-size:14px}
+  .src li{margin:6px 0;word-break:break-word}
+  .disc{font-size:13px;color:var(--ink2);border-top:1px solid var(--line);margin-top:36px;padding-top:14px}
+  @media (max-width:640px){ table{font-size:12.5px} th,td{padding:6px 6px} h1{font-size:28px} }
+  .pill{display:inline-block;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;font-size:11.5px;
+    padding:2px 9px;border-radius:999px;border:1px solid var(--amber);color:var(--amber);margin-left:6px;vertical-align:middle}
+</style>
+</head>
+<body>
+<main>
+  <h1>Lam Research (LRCX) — Equity Research</h1>
+  <p class="lede">Etch and deposition equipment for the world's fabs — a direct proxy on TSMC, Intel, Samsung and Micron capital spending.</p>
+  <p class="meta-line sans">Sector: Information Technology · As of 1 Nov 2026 · Prices are the 30 Oct 2026 regular-session close (1 Nov was a weekend) · Prepared for a mid-30s investor, risk score 8/10 · Research views only — not investment advice, not a guarantee.</p>
+
+  <div class="snap">
+    <div class="stat"><div class="k">Price (30 Oct close)</div><div class="v">$239.11</div><div class="s down">−6.01% on the day</div></div>
+    <div class="stat"><div class="k">Market cap</div><div class="v">$317.78B</div><div class="s">Finnhub basis; ~1.33B shares</div></div>
+    <div class="stat"><div class="k">Trailing P/E</div><div class="v">37.61×</div><div class="s">EPS $5.76 (as reported)</div></div>
+    <div class="stat"><div class="k">Year to date</div><div class="v up">+39.7%</div><div class="s">1-year: +51.9%</div></div>
+    <div class="stat"><div class="k">Consensus target</div><div class="v">$360.23</div><div class="s">MarketBeat — see caveat below</div></div>
+  </div>
+  <p class="meta-line sans">Sector ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung and SK Hynix appear in that source's global ranking but are excluded from detail (foreign listings, not in the named set).</p>
+
+  <div class="callout"><strong>Read the target carefully:</strong> the $360.23 consensus target cited by MarketBeat sits well above spot. The research pack flags it as reflecting equipment-cycle optimism — it is a cited consensus figure, <em>not</em> a verified forecast.</div>
+
+  <section class="verdict">
+    <h2>Verdict</h2>
+    <div class="verdict-grid">
+      <div><span class="tag">SHORT TERM (12–18M): BUY</span><p style="margin-top:8px">Modelled 12–18-month base case of $285 is ~19% above the $239.11 close, with a bull case at $360.</p></div>
+      <div><span class="tag">LONG TERM (5Y): BUY</span><p style="margin-top:8px">Modelled 5-year probability-weighted value of ~$318 vs $239.11 today, on the scenario maths in Section 5.</p></div>
+      <div><span class="tag">POSITION SIZE: 1.5%</span><p style="margin-top:8px">Suggested share of total portfolio for the mid-30s, risk-8/10 profile this series is written for.</p></div>
+    </div>
+    <div class="calc">
+      <label for="pv">Your total portfolio value (USD)</label>
+      <input id="pv" type="number" inputmode="decimal" min="0" step="1000" value="500000" aria-label="Your total portfolio value (USD)" />
+      <div class="out" id="calcOut"></div>
+      <p class="sans" style="font-size:13px;color:var(--ink2);margin:6px 0 0">At 1.5% sizing and the $239.11 reference price. Share count is indicative only — prices move.</p>
+    </div>
+  </section>
+
+  <h2>1. Business Model &amp; Segment Breakdown</h2>
+  <p>Lam Research sells the etch and deposition equipment that fabs use to build advanced chips. Every leading-edge logic node and every memory layer added by TSMC, Intel, Samsung or Micron runs through tools of exactly this kind, which makes Lam's order book a direct read on the industry's capital-spending cycle: when the big fabs accelerate capex, Lam's revenue follows; when they pause, it follows just as fast.</p>
+  <p>The business has two natural halves — new <strong>Systems</strong> equipment sold into fab build-outs, and the <strong>Customer Support</strong> business that services the installed base of tools already running in fabs. The support side is the steadier, annuity-like stream; the systems side is where the cycle lives.</p>
+  <div class="note"><strong>Open question — stated plainly:</strong> the verified research pack for this pass does <em>not</em> contain a confirmed Systems vs Customer Support revenue split, and no geographic split was verified either. Q1 FY27 earnings were reported on 21 Oct 2026 (per MarketBeat). The segment mix is to be verified from the 10-Q before it is quoted — it is deliberately not estimated here.</div>
+  <p><strong>Supply-chain position:</strong> Lam sits one step removed from chip demand itself. Its customers are a small number of very large fabs, so its fortunes hinge on a handful of capex budgets — and on export-control rules that govern which tools can be shipped to China fabs (see Section 4).</p>
+
+  <h2>2. Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Metric</th><th>Value</th><th>Basis / note</th></tr></thead>
+    <tbody>
+      <tr><td>Share price</td><td>$239.11</td><td>30 Oct 2026 close, −6.01% on the day — independently confirmed in verification</td></tr>
+      <tr><td>Market capitalisation</td><td>$317.78B</td><td>Finnhub basis. MarketBeat's figure is $298.69B — a ~6% gap from a different share count; provider variance, flagged in verification</td></tr>
+      <tr><td>Shares outstanding</td><td>~1.33B</td><td>1.329B used in the valuation model</td></tr>
+      <tr><td>Trailing P/E</td><td>37.61×</td><td>As reported in the research pack — see the basis note below the table</td></tr>
+      <tr><td>EPS</td><td>$5.76</td><td>As reported; implies a net margin of ~36% on the model's $21B revenue estimate</td></tr>
+      <tr><td>Revenue (model input)</td><td>~$21B <span class="pill">ESTIMATE</span></td><td>Starting point for the Section 5 scenarios — an estimate, not a verified reported figure</td></tr>
+      <tr><td>Performance</td><td>+39.7% YTD · +51.9% 1-yr</td><td>To 30 Oct 2026</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note"><strong>Basis note on the P/E and EPS pair:</strong> the pack's two figures do not reconcile on a single EPS basis — $239.11 ÷ $5.76 EPS = ~41.5×, while the reported 37.61× P/E implies EPS of ~$6.36. The two numbers evidently come from different provider EPS bases (e.g. GAAP vs adjusted). Both are shown exactly as reported; do not mix them in one calculation.</div>
+  <p><strong>What the multiples say:</strong> at roughly 38–42× trailing earnings (depending on EPS basis), Lam is priced as a growth-cyclical, not a value stock — the market is paying today for the equipment up-cycle continuing. That is a reasonable price if leading-edge and advanced-packaging tool intensity keeps rising, and an exposed one if fab capex pauses, because both the earnings and the multiple would compress together.</p>
+  <p><strong>Balance-sheet detail:</strong> the verified pack for this pass does not carry confirmed cash, debt, free-cash-flow, dividend or buyback figures for Lam, so none are printed here rather than filled in from memory. The capital-allocation and leverage picture should be confirmed from the Q1 FY27 10-Q — the same filing that resolves the open segment question in Section 1.</p>
+
+  <h2>3. Competitive Moat &amp; Industry Positioning</h2>
+  <ul>
+    <li><strong>Etch leadership:</strong> Lam is a leader in etch — one of the most process-critical steps in chipmaking — where accumulated process know-how is hard to replicate.</li>
+    <li><strong>Installed-base annuity:</strong> every tool shipped adds to a service and support base that keeps paying after the sale, softening the equipment cycle's swings.</li>
+    <li><strong>Barriers to entry:</strong> decades of process recipes, fab qualification cycles and customer trust make displacement slow; a fab does not casually re-qualify a new etch supplier mid-node.</li>
+    <li><strong>Competitors:</strong> Applied Materials (the closest broad rival), Tokyo Electron, and ASML — adjacent rather than direct, since ASML's strength is lithography, not etch/deposition.</li>
+  </ul>
+  <p><strong>Pricing power:</strong> real but cyclical. In an up-cycle, leading-edge tools are scarce and Lam can hold price; in a downturn, the same customers defer orders rather than negotiate — volume, not price, is the swing factor.</p>
+
+  <h2>4. Catalysts &amp; Downside Risks</h2>
+  <h3>Catalysts</h3>
+  <ul>
+    <li>Rising tool intensity at leading-edge nodes and in advanced packaging — more etch/deposition steps per wafer means more Lam content per fab dollar.</li>
+    <li>Continued China fab build-out adding to equipment demand.</li>
+    <li>The memory up-cycle: Lam's named customer set includes Micron and Samsung, so memory capex recovery feeds straight into orders.</li>
+  </ul>
+  <h3>Risks</h3>
+  <ul>
+    <li><strong>Fab capex pause:</strong> the single biggest risk — Lam is a capex proxy, and a spending pause at two or three mega-customers hits revenue quickly.</li>
+    <li><strong>China export controls:</strong> tighter US controls on advanced tool shipments to China would remove a demand source and is a standing geopolitical exposure.</li>
+    <li><strong>Customer concentration:</strong> a short list of very large buyers means individual budget decisions move the numbers.</li>
+    <li><strong>Memory-cycle cutbacks:</strong> memory makers have historically cut capex hard and fast in downturns.</li>
+  </ul>
+
+  <h2>5. Scenario-Based Valuation &amp; Price Targets</h2>
+  <p>All scenario prices below are <strong>modelled estimates</strong> — the methodology and every assumption are shown so the arithmetic can be checked. They are not verified facts and not forecasts. Starting point: revenue ~$21B (estimate), 1.329B shares held frozen, net margin and exit P/E varying by case, 25% bear / 50% base / 25% bull weights.</p>
+
+  <h3>12–18-month targets</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Case (weight)</th><th>Target</th><th>vs $239.11</th></tr></thead>
+    <tbody>
+      <tr><td>Bull (25%)</td><td>$360</td><td class="up">+51%</td></tr>
+      <tr><td>Base (50%)</td><td>$285</td><td class="up">+19%</td></tr>
+      <tr><td>Bear (25%)</td><td>$180</td><td class="down">−25%</td></tr>
+      <tr><td><strong>Probability-weighted</strong></td><td><strong>~$278</strong></td><td class="up"><strong>+16%</strong></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>5-year projection (frozen-parameter model)</h3>
+  <div class="tbl-wrap"><table>
+    <thead><tr><th>Case (weight)</th><th>Revenue growth/yr</th><th>Net margin</th><th>2031 revenue</th><th>2031 EPS</th><th>Exit P/E</th><th>2031 price</th></tr></thead>
+    <tbody>
+      <tr><td>Base (50%)</td><td>14%</td><td>34%</td><td>$40.4B</td><td>$10.33</td><td>30×</td><td><strong>$310</strong></td></tr>
+      <tr><td>Bull (25%)</td><td>20%</td><td>36%</td><td>~$52B</td><td>~$14.16</td><td>38×</td><td><strong>$538</strong></td></tr>
+      <tr><td>Bear (25%)</td><td>5%</td><td>28%</td><td>~$27B</td><td>~$5.65</td><td>20×</td><td><strong>$113</strong></td></tr>
+      <tr><td colspan="6"><strong>Probability-weighted 5-year value</strong></td><td><strong>$318</strong></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sans" style="font-size:13.5px;color:var(--ink2)">Base-case check: $21B × 1.14⁵ = $40.4B revenue; × 34% margin = $13.7B net income; ÷ 1.329B shares = $10.33 EPS; × 30 = $310. Weighted: 0.25×$538 + 0.50×$310 + 0.25×$113 = $318. Bull and bear revenue/EPS cells are derived from the same stated growth, margin and share-count assumptions.</p>
+
+  <figure class="chartbox" style="margin:14px 0">
+    <div class="sans" style="font-weight:700;font-size:14px;margin-bottom:8px">Modelled revenue path, 2026 → 2031 ($B) — estimates from the scenario assumptions above</div>
+    <svg viewBox="0 0 640 240" width="100%" role="img" aria-label="Line chart of modelled Lam Research revenue under bull, base and bear growth assumptions">
+      <line x1="52" y1="200" x2="616" y2="200" stroke="var(--line)" stroke-width="1"/>
+      <line x1="52" y1="130" x2="616" y2="130" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+      <line x1="52" y1="60" x2="616" y2="60" stroke="var(--line)" stroke-width="1" stroke-dasharray="3 4"/>
+      <text x="46" y="204" text-anchor="end" font-size="11" fill="var(--ink2)">$20B</text>
+      <text x="46" y="134" text-anchor="end" font-size="11" fill="var(--ink2)">$40B</text>
+      <text x="46" y="64" text-anchor="end" font-size="11" fill="var(--ink2)">$60B</text>
+      <text x="52" y="222" font-size="11" fill="var(--ink2)">2026 (~$21B est.)</text>
+      <text x="616" y="222" text-anchor="end" font-size="11" fill="var(--ink2)">2031</text>
+      <polyline points="52,197 165,182 277,164 390,143 503,118 616,87" fill="none" stroke="var(--chart-bull)" stroke-width="2.5"/>
+      <polyline points="52,197 165,186 277,174 390,161 503,146 616,129" fill="none" stroke="var(--chart-base)" stroke-width="2.5"/>
+      <polyline points="52,197 165,193 277,189 390,185 503,181 616,176" fill="none" stroke="var(--chart-bear)" stroke-width="2.5"/>
+      <text x="610" y="79" text-anchor="end" font-size="12" font-weight="700" fill="var(--chart-bull)">Bull 20% → ~$52B</text>
+      <text x="610" y="121" text-anchor="end" font-size="12" font-weight="700" fill="var(--chart-base)">Base 14% → $40.4B</text>
+      <text x="610" y="168" text-anchor="end" font-size="12" font-weight="700" fill="var(--chart-bear)">Bear 5% → ~$27B</text>
+    </svg>
+    <figcaption>Modelled estimates only — straight compounding of the stated annual growth rates from the ~$21B estimated starting revenue. Not reported results, not guidance.</figcaption>
+  </figure>
+
+  <p><strong>How to read it:</strong> even the base case only compounds to ~$310–318 over five years (~6% a year from $239.11) because the starting multiple (~38× trailing) already prices in much of the up-cycle — the return case rests on the cycle lasting, not on the stock being cheap. The bear case ($113) is what a genuine capex pause does to a name priced this way, which is exactly why the suggested position is a modest 1.5% rather than a core holding.</p>
+
+  <h2>6. Recommendation &amp; Portfolio Fit</h2>
+  <ul>
+    <li><strong>Short term (12–18 months): Buy.</strong> Weighted modelled value ~$278 vs $239.11 spot; the −6% drop on 30 Oct came in a broad tape, not on Lam-specific verified bad news in this pack.</li>
+    <li><strong>Long term (5 years): Buy.</strong> Etch leadership plus the installed-base annuity justify owning the cycle — sized for its volatility.</li>
+    <li><strong>Sizing: 1.5% of total portfolio</strong> for the mid-30s, risk-8/10 profile. Lam is a high-beta equipment name inside a technology sleeve that already carries foundry and chip-design exposure; 1.5% gives it room to matter without letting a capex pause dominate the outcome.</li>
+  </ul>
+
+  <h2>Sources</h2>
+  <ul class="src">
+    <li>Finnhub — LRCX quote &amp; statistics (price, market cap basis): <a href="https://finnhub.io/?q=%22LRCX%22">finnhub.io/?q="LRCX"</a></li>
+    <li>MarketBeat — LRCX stock page (Q1 FY27 earnings date, consensus target): <a href="https://www.marketbeat.com/stocks/NASDAQ/LRCX/">marketbeat.com/stocks/NASDAQ/LRCX</a></li>
+    <li>Video reference cited in the research pack: <a href="https://www.youtube.com/watch?v=p4_Z2-uPfG4">youtube.com/watch?v=p4_Z2-uPfG4</a></li>
+  </ul>
+  <p class="sans" style="font-size:13.5px;color:var(--ink2)">Verification note: the 30 Oct 2026 close of $239.11 was independently re-confirmed in this series' verification pass. Every scenario price is a modelled estimate with assumptions shown in Section 5; the segment revenue split and balance-sheet detail are open questions flagged in Sections 1–2, pending the Q1 FY27 10-Q.</p>
+
+  <p class="disc">This report is research and education, not investment advice and not a recommendation tailored to any individual. Figures are as of the 30 Oct 2026 close and were drawn from the sources listed above; modelled scenarios rest on the stated assumptions and will differ from actual outcomes. Verify current prices and filings before acting.</p>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>LRCX — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $239.11.</strong> <strong>DCF intrinsic: $144.</strong> Discount/premium vs DCF: <strong>+66.0%</strong> — i.e. the shares are trading 66.0% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$144</td><td>+66.0%</td></tr></table>
+<p><strong>Method 1 — DCF: $144.</strong> Base FCF $6.54B, constant growth g = 12% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $72.31B; Year-10 FCF = $20.31B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $115.23B. Equity value = PV of FCF + PV of terminal value + net cash ($3.70B) = $191.24B; divided by 1.329B diluted shares = $144. Base note: TTM FCF $6.54B (OCF $7.58B less capex $1.04B, TipRanks). g 12% vs pack base 14%, tempered for equipment cyclicality.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://www.tipranks.com:443/stocks/lrcx/statistics ; https://tickerscout.ai/lrcx/ ; https://stockstotrade.com/news/lamresearchcorporation-lrcx-news-2026_09_18-2/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>LRCX — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of LRCX's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>TSMC</td><td>Etch + deposition systems — leading-edge fabs</td><td></td><td>$335</td><td>+21.2%</td></tr><tr><td>Samsung</td><td>Etch + deposition systems (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Intel</td><td>Etch + deposition systems (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Micron</td><td>Etch + deposition for memory fabs</td><td></td><td>$717</td><td>+23.4%</td></tr><tr><td>SK Hynix</td><td>Etch + deposition for memory fabs (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Kioxia</td><td>Etch + deposition for NAND fabs (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>GlobalFoundries</td><td>Etch + deposition systems (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Lam's read-through is fab capex through TSMC, Micron and the memory/foundry majors: discounts at the filled TSMC and Micron intrinsics would support etch and deposition orders, while premiums would warn of a tool-order pause. An undervalued customer does not guarantee higher tool spending — it depends on that customer's own node ramp, yields and cash position — and Lam's pack risk is precisely a fab capex pause plus China export controls, which can override customer health. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>LRCX — AI trade positioning</h2>
+<p><strong>Role: Enabler — etch and deposition for the AI fab build.</strong> Lam sells the etch and deposition tools fabs need for leading-edge and advanced-packaging ramps: the pack calls it 'a direct TSMC/Intel/Samsung/Micron capex proxy', with fiscal 2026 revenue of $23.23B (Systems 64%, Customer Support 36% in filing-based coverage).</p>
+<p>While the AI trade runs, demand comes through leading-edge tool intensity and advanced-packaging orders, with Q1 FY27 reported 21 Oct 2026 in the pack. On multiples, Lam trades at ~37.6x trailing earnings in the pack (consensus target $360.23 cited, well above spot), so equipment-cycle optimism is already in the price.</p>
+<p>If the AI trade unwinds, demand breaks first through fab capex pauses — memory cutbacks first, then logic push-outs — with Systems revenue falling faster than the Customer Support annuity. Multiple compression follows toward a through-cycle equipment multiple. The balance sheet is a mitigant ($7.44B cash and marketable securities against $3.74B debt) but customer concentration in a handful of fabs is the structural risk, plus China export controls. Triggers to watch: TSMC/Samsung/Micron capex guides, Lam's Systems order intake, and any export-control tightening.</p>
+</div>
+</main>
+<script>
+  (function(){
+    var pv=document.getElementById('pv'), out=document.getElementById('calcOut');
+    function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+    function run(){
+      var v=parseFloat(pv.value);
+      if(isNaN(v)||v<0){out.textContent='Enter a portfolio value to see the position size.';return;}
+      var dollars=v*0.015, shares=dollars/239.11;
+      out.textContent='1.5% position ≈ $'+fmt(dollars)+'  ·  ≈ '+fmt(shares)+' shares at $239.11';
+    }
+    pv.addEventListener('input',run); run();
+  })();
+</script>
+</body>
+</html>

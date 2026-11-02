@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — RTX</title>
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --surface2:#efede7; --ink:#1a1e26; --muted:#5b6472; --line:#ddd8cc;
+  --accent:#8c1d2f; --accent-ink:#ffffff; --gold:#9a7b1e; --green:#1c6b3c; --red:#a62b1f; --amber:#8a5a00;
+  --chip:#f0ebe0; --table-head:#222a38; --table-head-ink:#f3efe6;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101318; --surface:#171b22; --surface2:#1e232d; --ink:#ece8de; --muted:#a7adba; --line:#2c333f;
+    --accent:#d06070; --accent-ink:#171b22; --gold:#c9a84c; --green:#5cb87e; --red:#e07a6a; --amber:#d9a94a;
+    --chip:#232936; --table-head:#232936; --table-head-ink:#ece8de; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Sans 3",-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15.5px;line-height:1.55}
+h1,h2,h3,.serif{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+a:hover{text-decoration-thickness:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:20px 18px 48px}
+.topbar{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:baseline;font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-bottom:3px double var(--line);padding-bottom:10px}
+.topbar b{color:var(--ink)}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.05;margin:14px 0 4px;font-weight:700}
+h1 .tick{color:var(--accent)}
+.sub{color:var(--muted);font-size:15px;max-width:72ch;margin:0 0 14px}
+.verdict-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.verdict{flex:1 1 220px;background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--green);padding:12px 14px}
+.verdict.long{border-top-color:var(--accent)}
+.verdict .lab{font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.verdict .val{font-family:Georgia,serif;font-size:24px;font-weight:700;margin:2px 0}
+.verdict p{margin:0;font-size:13.5px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}
+.stat{background:var(--surface);padding:10px 12px}
+.stat .k{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:2px}
+.stat .n{font-size:12px;color:var(--muted)}
+.note{background:var(--chip);border:1px solid var(--line);padding:11px 14px;font-size:13.5px;margin:14px 0}
+.note b{color:var(--ink)}
+section{margin:30px 0 0}
+h2{font-size:22px;margin:0 0 4px;padding-bottom:6px;border-bottom:2px solid var(--ink)}
+h2 .no{color:var(--accent);margin-right:8px}
+h3{font-size:16.5px;margin:18px 0 6px}
+p{margin:8px 0}
+.lede{font-size:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);padding:14px 16px}
+.card h3{margin-top:0}
+ul{margin:6px 0 6px 18px;padding:0}
+li{margin:5px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums;margin:10px 0}
+caption{text-align:left;font-size:12.5px;color:var(--muted);padding:4px 0}
+th{background:var(--table-head);color:var(--table-head-ink);text-align:left;padding:8px 10px;font-size:12.5px;letter-spacing:.03em}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr td.num,th.num{text-align:right}
+.tablewrap{overflow-x:auto}
+.pos{color:var(--green);font-weight:700}.neg{color:var(--red);font-weight:700}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;border-radius:20px;vertical-align:middle}
+.tag.est{color:var(--amber)}.tag.conf{color:var(--green)}
+.small{font-size:13px;color:var(--muted)}
+.calc{background:var(--surface);border:1px solid var(--line);padding:16px;margin:14px 0}
+.calc label{font-weight:700;font-size:14px;display:block;margin-bottom:6px}
+.calc input{width:100%;max-width:320px;font:inherit;font-size:18px;padding:9px 10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.calc .out{font-size:17px;margin-top:10px}
+.calc .out b{font-size:22px}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:92px 1fr 74px;gap:10px;align-items:center;margin:7px 0;font-size:13.5px}
+.bar-track{background:var(--surface2);height:20px;position:relative}
+.bar-fill{height:100%}
+.bar-fill.bear{background:var(--red)}.bar-fill.base{background:var(--gold)}.bar-fill.bull{background:var(--green)}.bar-fill.now{background:var(--muted)}
+.bar-row .amt{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+footer{margin-top:36px;border-top:3px double var(--line);padding-top:14px;font-size:13px;color:var(--muted)}
+.sources{columns:2;column-gap:28px}
+@media(max-width:680px){.sources{columns:1}}
+.sources li{break-inside:avoid}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<div class="topbar"><span><b>Equity Research</b> · Industrials — Aerospace &amp; Defence</span><span>As of 1 Nov 2026</span><span>Price ref: 30 Oct 2026 close</span></div>
+
+<h1>RTX Corporation <span class="tick">(RTX)</span></h1>
+<p class="sub">Aerospace and defence prime built on three franchises — Pratt &amp; Whitney, Collins Aerospace and Raytheon. A quality compounder priced for perfection: the engine aftermarket and air-defence backlog carry the thesis, the GTF powder-metal overhang caps it.</p>
+
+<div class="verdict-row">
+  <div class="verdict"><div class="lab">Short term · 12–18 months</div><div class="val">BUY</div><p>Base target $225 (+13% vs $199.80). Accumulate rather than chase — see §5.</p></div>
+  <div class="verdict long"><div class="lab">Long term · 5 years</div><div class="val">BUY</div><p>Modelled weighted value ~$264. Core-quality defence holding, sized small.</p></div>
+  <div class="verdict"><div class="lab">Suggested weight · risk 8/10, mid-30s</div><div class="val">2.0%</div><p>Of total portfolio. Diversifier, not a return engine — see §6.</p></div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="k">Close · 30 Oct 2026</div><div class="v">$199.80</div><div class="n">Confirmed — <a href="https://StockAnalysis.com/stocks/rtx/history/">StockAnalysis</a></div></div>
+  <div class="stat"><div class="k">Market cap</div><div class="v">$269.6bn</div><div class="n">Pack figure, not spot-checked — <a href="https://finnhub.io/?q=%22RTX%22">Finnhub</a></div></div>
+  <div class="stat"><div class="k">Trailing P/E</div><div class="v">32.1×</div><div class="n">EPS $4.96 as reported* — <a href="https://finnhub.io/?q=%22RTX%22">Finnhub</a></div></div>
+  <div class="stat"><div class="k">Price / Sales</div><div class="v">2.9×</div><div class="n">On TTM revenue below</div></div>
+  <div class="stat"><div class="k">TTM revenue</div><div class="v">$93.5bn</div><div class="n">Gross profit $19.0bn — <a href="https://www.fool.com/research/largest-industrials-companies/">Motley Fool</a></div></div>
+  <div class="stat"><div class="k">Implied gross margin</div><div class="v">~20.3%</div><div class="n">$19.0bn ÷ $93.5bn (derived)</div></div>
+</div>
+
+<div class="note"><b>Ranking basis — read first.</b> RTX sits in a <b>global</b> top-10-by-market-cap Industrials universe (Motley Fool sector pages; rankings and metrics as of 5 Oct 2026, with live quote cards updating; prices here at the 30 Oct 2026 close), including OTC ADRs and state-controlled issuers. The Industrials list runs to 11 names because Bloom Energy (BE), a named ticker, is added. The list is <b>not</b> in strict market-cap order as printed. A NYSE/Nasdaq-only list would look materially different — Boeing, Uber and Honeywell, for example, would enter. Ranking date and price date are stated separately because they differ.</div>
+
+<section id="s1">
+<h2><span class="no">1</span>Business Model &amp; Segment Breakdown</h2>
+<p class="lede">RTX sells to two customer sets at once — commercial airlines and airframers on one side, the US and allied governments on the other — through three reporting franchises named in the research pack (<a href="https://www.fool.com/research/largest-industrials-companies/">Motley Fool</a>):</p>
+<div class="grid2">
+  <div class="card"><h3>Pratt &amp; Whitney — engines</h3><p>Commercial and military aircraft engines, including the GTF (geared turbofan) family. The economic engine of the group over time is not the original engine sale — typically low-margin — but the decades-long <b>aftermarket</b>: spares, shop visits and long-term service agreements on the installed base. That is why the GTF inspection issue in §4 matters so much: the same fleet that creates the annuity creates the liability.</p></div>
+  <div class="card"><h3>Collins Aerospace — systems &amp; avionics</h3><p>Avionics, interiors, mission systems and aerostructures sold to both commercial and defence customers. Collins is the diversification leg: it participates in the commercial aerospace upcycle (aircraft production and cabin content) without being a pure engine bet, and it carries a substantial aftermarket stream of its own.</p></div>
+  <div class="card"><h3>Raytheon — missiles &amp; air defence</h3><p>Missiles, air-defence systems, sensors and related defence electronics. Revenue here is programme- and budget-driven: multi-year government contracts, replenishment of expended munitions, and allied demand for air defence. It is the leg most directly exposed to defence budgets — and to fixed-price programme execution risk.</p></div>
+  <div class="card"><h3>What the pack does — and does not — break out</h3><p>The verified pack gives group-level figures only: TTM revenue <b>$93.5bn</b> and gross profit <b>$19.0bn</b>. It does <b>not</b> carry a verified segment revenue split or a geographic revenue split for RTX, so none is printed here rather than estimated. <b>Open question:</b> segment-level revenue, segment margins and the commercial-vs-defence mix should be taken from RTX's own segment disclosure before any sizing increase above the 2.0% weight in §6.</p></div>
+</div>
+<h3>Structural points</h3>
+<ul>
+<li><b>Dual-market balance.</b> Commercial aerospace (engines, avionics, aftermarket) and defence (missiles, air defence) rarely peak together; that offset is the core reason RTX is held as a diversifier rather than a cyclical trade.</li>
+<li><b>Aftermarket weight.</b> Engine and systems aftermarket is recurring, high-margin and tied to flight hours and fleet age — the highest-quality revenue in the group, and the stream the GTF recovery restores.</li>
+<li><b>Government-customer dependency.</b> Raytheon — and military engines at Pratt &amp; Whitney — depend on US and allied defence appropriations, contract timing and programme execution. The pack names defence budgets as a primary catalyst and margin pressure on defence programmes as a primary risk; both flow from the same dependency.</li>
+<li><b>Supply-chain exposure.</b> The pack's named supply-chain issue is specific, not generic: the <b>GTF powder-metal / inspection overhang</b> — a materials-quality issue in powdered-metal parts that forces accelerated engine inspections and removals. Treat generic “supply chain” language with suspicion; this is the documented one.</li>
+</ul>
+</section>
+
+<section id="s2">
+<h2><span class="no">2</span>Financial Health &amp; Balance Sheet Diagnostics</h2>
+<p>Only figures carried in the verified pack are shown. Where the pack carries no verified figure — free cash flow, net debt, dividend, buyback — the line is marked as an open item instead of being filled with an estimate.</p>
+<div class="tablewrap"><table>
+<caption>Key figures — price reference 30 Oct 2026 close. P/E independently spot-checked in verification (see Sources); market cap is the pack figure.</caption>
+<thead><tr><th>Metric</th><th class="num">Value</th><th>Basis / source</th></tr></thead>
+<tbody>
+<tr><td>Share price (30 Oct 2026 close)</td><td class="num">$199.80</td><td>Confirmed vs StockAnalysis / TipRanks in verification log</td></tr>
+<tr><td>Market capitalisation</td><td class="num">$269.6bn</td><td><a href="https://finnhub.io/?q=%22RTX%22">Finnhub</a>, via pack — <span class="tag est">Not spot-checked</span> in verification</td></tr>
+<tr><td>Trailing P/E</td><td class="num">32.1×</td><td>Finnhub, via pack; spot-checked to 32.05 in verification</td></tr>
+<tr><td>EPS (as reported in pack)</td><td class="num">$4.96</td><td>Finnhub, via pack — see reconciliation note below*</td></tr>
+<tr><td>TTM revenue</td><td class="num">$93.5bn</td><td>Motley Fool, via pack</td></tr>
+<tr><td>TTM gross profit</td><td class="num">$19.0bn</td><td>Motley Fool, via pack (≈20.3% gross margin, derived)</td></tr>
+<tr><td>Price / sales</td><td class="num">2.9×</td><td>Pack figure; consistent with $269.6bn ÷ $93.5bn</td></tr>
+<tr><td>Free cash flow · leverage · dividend · buyback</td><td class="num">—</td><td><span class="tag est">Open item</span> Not carried as verified figures in the pack — omitted, not estimated</td></tr>
+</tbody></table></div>
+<p class="small"><b>* Reconciliation note — read before using the P/E and EPS together.</b> As reported in the pack, the two figures do not arithmetically reconcile at the $199.80 close: $199.80 ÷ $4.96 ≈ 40.3×, whereas a 32.1× multiple implies EPS of ≈$6.22. The pack presents both as Finnhub figures without stating the EPS basis for each, so they evidently rest on different EPS definitions or windows (for example an adjusted vs a reported EPS). Both are reproduced here exactly as sourced — the P/E was the figure spot-checked in verification (to 32.05) — but they must <b>not</b> be combined: do not derive one from the other, and treat any per-share maths in this note as resting on the price and the P/E, not on the $4.96 EPS line.</p>
+<h3>Reading the diagnostics</h3>
+<ul>
+<li><b>Valuation is full, not cheap.</b> At 32.1× trailing earnings and 2.9× sales, RTX is priced as a quality compounder, not as a cyclical at trough. That multiple leaves little room for programme or GTF disappointment — which is precisely why the bear case in §5 is a de-rating case, not a collapse case.</li>
+<li><b>Gross margin is structurally modest.</b> ~20.3% TTM gross margin reflects the mix: original-equipment engine sales and fixed-price defence work are low-gross-margin activities, with profit concentrated in aftermarket and services. Margin expansion, if it comes, comes from mix — more aftermarket, less OE drag — not from pricing alone.</li>
+<li><b>What cannot be concluded from this pack.</b> Without verified cash-flow and balance-sheet lines, no claim is made here about leverage headroom, cash conversion or shareholder returns. Any version of this note that quotes an RTX debt figure or FCF yield without a primary source should be treated as unverified.</li>
+</ul>
+</section>
+
+<section id="s3">
+<h2><span class="no">3</span>Competitive Moat &amp; Industry Positioning</h2>
+<p>The pack summarises the moat in one line — <i>“Defence contracts, engine IP, aftermarket; high barriers, government-customer stickiness”</i> — and it holds up well unpacked:</p>
+<ul>
+<li><b>Engine intellectual property and certification.</b> A certified commercial or military engine programme takes decades and enormous capital to replicate, and certification itself is a regulatory barrier. Competitors cannot enter by spending one capex cycle.</li>
+<li><b>The installed base is the moat.</b> Every engine in service is a multi-decade service relationship. Switching an engine type means re-certifying an aircraft — effectively impossible mid-programme — so aftermarket share is structurally sticky.</li>
+<li><b>Government-customer stickiness.</b> Air-defence and missile franchises are embedded in allied force structures, training and stockpiles. Replenishment and upgrade work flows to the incumbent by default; displacement requires a full competition and requalification.</li>
+<li><b>Scale across three franchises.</b> Engines, avionics/systems and missiles share government relationships, engineering talent and programme-management infrastructure that single-line rivals cannot match.</li>
+</ul>
+<p><b>Limits to the moat.</b> The moat protects share, not margins. Fixed-price defence contracts transfer cost-overrun risk to RTX; a dominant engine position also concentrates liability, as the GTF powder-metal issue shows — when the installed base has a materials problem, there is no one else to share the cost. Pricing power is real in aftermarket and spares, and weak where the customer is a monopsonist government buyer running a competition.</p>
+</section>
+
+<section id="s4">
+<h2><span class="no">4</span>Catalysts &amp; Downside Risks</h2>
+<div class="grid2">
+<div class="card"><h3>Catalysts</h3><ul>
+<li><b>Defence budgets.</b> Sustained US and allied defence spending, including replenishment, directly feeds Raytheon orders.</li>
+<li><b>Air-defence demand.</b> Ongoing allied demand for missile defence and interceptors is the pack's named demand driver for the Raytheon leg.</li>
+<li><b>GTF aftermarket recovery.</b> As the inspection cycle works through, grounded aircraft return to service and the high-margin aftermarket stream normalises — the single clearest earnings-recovery lever in the pack.</li>
+<li><b>Commercial aerospace content.</b> Aircraft production and cabin/systems content support Collins, independent of the defence cycle.</li>
+</ul></div>
+<div class="card"><h3>Downside risks</h3><ul>
+<li><b>GTF powder-metal / inspection overhang.</b> Further findings, faster inspection requirements or higher compensation to airlines would extend both the cost and the reputational drag.</li>
+<li><b>Defence margin pressure.</b> Fixed-price programme economics: cost inflation or execution slippage falls on RTX, not the customer.</li>
+<li><b>Programme execution.</b> Large, long-duration programmes across all three segments — delays compound into penalties, rework and customer friction.</li>
+<li><b>Valuation risk.</b> At 32.1× trailing earnings, a merely “fine” year can still de-rate the stock; the bear case needs no disaster, only disappointment.</li>
+</ul></div>
+</div>
+</section>
+
+<section id="s5">
+<h2><span class="no">5</span>Scenario-Based Valuation &amp; Price Targets</h2>
+<p><span class="tag est">Modelled estimates</span> All targets below are modelled estimates from the research pack, with methodology shown — they are not verified facts and not guarantees. The verification log confirms the $199.80 reference price only; the 12–18-month targets were explicitly <b>not</b> re-checked in verification and are labelled accordingly.</p>
+
+<h3>12–18-month scenarios (horizon: roughly late 2027 – spring 2028)</h3>
+<div class="tablewrap"><table>
+<thead><tr><th>Case</th><th class="num">Target</th><th class="num">vs $199.80</th><th>What has to be true</th></tr></thead>
+<tbody>
+<tr><td><b>Bull</b></td><td class="num">$260</td><td class="num pos">+30%</td><td>GTF inspection cycle clears on schedule, aftermarket recovers strongly, air-defence orders convert without margin slippage; multiple holds or expands.</td></tr>
+<tr><td><b>Base</b></td><td class="num">$225</td><td class="num pos">+13%</td><td>Pack base case: steady defence demand, gradual GTF normalisation, no major programme charge. Multiple broadly unchanged.</td></tr>
+<tr><td><b>Bear</b></td><td class="num">$175</td><td class="num neg">−12%</td><td>GTF costs extend, defence margins compress on fixed-price work, and the 32× multiple de-rates toward the mid-20s.</td></tr>
+</tbody></table></div>
+
+<div class="bars" role="img" aria-label="Bar chart: current price 199 dollars 80, bear target 175, base target 225, bull target 260">
+<div class="bar-row"><span>Bear</span><div class="bar-track"><div class="bar-fill bear" style="width:58%"></div></div><span class="amt">$175</span></div>
+<div class="bar-row"><span>Today</span><div class="bar-track"><div class="bar-fill now" style="width:67%"></div></div><span class="amt">$199.80</span></div>
+<div class="bar-row"><span>Base</span><div class="bar-track"><div class="bar-fill base" style="width:75%"></div></div><span class="amt">$225</span></div>
+<div class="bar-row"><span>Bull</span><div class="bar-track"><div class="bar-fill bull" style="width:87%"></div></div><span class="amt">$260</span></div>
+</div>
+
+<h3>5-year frozen-parameter projection</h3>
+<p class="small">Method, in the established format: start from the 30 Oct 2026 close of $199.80, hold today's valuation parameters frozen, and vary only the price-compounding rate by case. The pack's base case uses a <b>6% annual CAGR</b>: $199.80 × 1.06<sup>5</sup> = $199.80 × 1.338 ≈ <b>$267</b>. Bull and bear prices are the pack's modelled counterparts on faster and slower compounding paths. No scenario weights were supplied to the independent verifier for this pack, so the weighted figure is shown as the pack's modelled estimate with that caveat attached.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Case</th><th>Assumption</th><th class="num">5-yr price (est.)</th><th class="num">Total vs today</th></tr></thead>
+<tbody>
+<tr><td><b>Bull</b></td><td>Aftermarket supercycle + sustained air-defence demand; compounding well above base</td><td class="num">~$355</td><td class="num pos">+78%</td></tr>
+<tr><td><b>Base</b></td><td>6% price CAGR, parameters frozen</td><td class="num">$267</td><td class="num pos">+34%</td></tr>
+<tr><td><b>Bear</b></td><td>GTF overhang and defence margin pressure persist; multiple de-rates and stays down</td><td class="num">~$165</td><td class="num neg">−17%</td></tr>
+<tr><td><b>Weighted (pack estimate)</b></td><td>Pack's probability-weighted modelled figure — weights not supplied for verification</td><td class="num"><b>~$264</b></td><td class="num pos">+32%</td></tr>
+</tbody></table></div>
+<p class="small">Read the 5-year table as arithmetic under stated assumptions, not as a forecast: a 6% compounder at a frozen multiple is a deliberately plain model, and RTX's actual path will be set by GTF resolution and defence margins, not by the exponent.</p>
+</section>
+
+<section id="s6">
+<h2><span class="no">6</span>Recommendation &amp; Portfolio Sizing</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Horizon</th><th>View</th><th>Rationale in one line</th></tr></thead>
+<tbody>
+<tr><td>Short term (12–18 months)</td><td><b>BUY</b></td><td>Base case +13% with a defined −12% bear case; risk/reward is acceptable for a risk-8/10 profile, but the full multiple argues for accumulating on weakness rather than paying up on strength.</td></tr>
+<tr><td>Long term (5 years)</td><td><b>BUY</b></td><td>Installed-base aftermarket plus air-defence franchise compound through cycles; modelled weighted value ~$264 vs $199.80 today.</td></tr>
+</tbody></table></div>
+<p><b>Suggested weight: 2.0% of total portfolio</b> for a mid-30s investor with risk score 8/10. RTX's role in that portfolio is ballast with growth: a defence-and-aftermarket cash compounder whose drivers (defence budgets, flight hours) correlate weakly with the technology-heavy names elsewhere in the portfolio. 2.0% is enough for the position to matter if the bull case plays out, and small enough that a GTF-driven bear case (−12% near term, −17% on the 5-year bear path) costs roughly 0.25–0.35% of portfolio value — a tolerable drawdown for the diversification bought. Revisit the weight only once the open items in §2 (segment split, cash flow, leverage) are filled from primary disclosure.</p>
+
+<div class="calc">
+<label for="pv">Position-size calculator — what 2.0% means in dollars</label>
+<input id="pv" type="number" inputmode="decimal" min="0" step="1000" value="500000" aria-describedby="calcOut">
+<div class="out" id="calcOut" aria-live="polite"></div>
+<p class="small">Illustrative only, using the pack's $199.80 reference price and the 2.0% suggested weight. Share count is rounded down to whole shares. This calculator stores nothing and sends nothing.</p>
+</div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>RTX — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $199.80.</strong> <strong>DCF intrinsic: $92.</strong> Discount/premium vs DCF: <strong>+117.2%</strong> — i.e. the shares are trading 117.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$92</td><td>+117.2%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$9.1B</strong>; constant growth g <strong>6%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$74.65B</strong>; PV of terminal value <strong>$92.45B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-43.35B</strong>; divided by <strong>1,349.44m</strong> diluted shares = <strong>$92</strong>. Base FCF $9.10B (UNVERIFIED as an independent check — guidance-based, labelled) = midpoint of FY2026 company free-cash-flow guidance $9.0–$9.2B (InTickers, from Q3 guidance raise); a secondary source puts TTM levered FCF at ~$9.88B (Congress.net), so the guidance base is the conservative, company-guided figure. Growth g 6% = pack 5-year base CAGR. Net cash −$43.35B (cash $11.79B − debt $55.14B at 30 Jun 2026, Roic AI). Shares 1,349.44m (MarketBeat/StockAnalysis). DPS $2.92 annualised ($0.73/quarter declared 29 Oct 2026, StockAnalysis).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://stockanalysis.com/stocks/rtx/ , https://www.marketbeat.com/stocks/NYSE/RTX/ , http://intickers.com/reports/rtx/ ; price 30 Oct 2026 close $199.80. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>RTX — Top customers (B2B, government customers stated as such)</h2>
+<p>RTX is classified <strong>B2B</strong>: roughly half its revenue comes from governments. The shares below are from RTX's Q3 2026 10-Q customer-type breakdown as reported by TenderAlpha/CSIMarket.</p>
+<p><strong>largest known customers — government customers stated as such; Q3 2026 shares from the 10-Q breakdown.</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>US Government — direct sales (incl. US Department of Defense)</td><td>35.5% of Q3 2026 sales</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Foreign Military Sales through the US Government</td><td>8.6% of Q3 2026 sales</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Foreign governments — direct commercial sales</td><td>7.0% of Q3 2026 sales</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Commercial aerospace and other commercial sales (airlines, airframers, MRO)</td><td>48.9% of Q3 2026 sales</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Airbus SE (airframer, within commercial aerospace)</td><td></td><td>Covered ticker — DCF intrinsic $25.04, discount/premium +113.3%</td></tr><tr><td>The Boeing Company (airframer, within commercial aerospace)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Commercial airlines (engine/aftermarket, within commercial aerospace)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Government customers together were 51.1% of Q3 2026 sales, so RTX's demand is anchored by defence budgets rather than by any listed company's valuation: the government rows have no intrinsic on file by construction. Within the commercial half, if Airbus trades at a discount to intrinsic once filled in, that is a potential tailwind for Collins/Pratt &amp; Whitney aftermarket and new-engine demand; a premium is a potential headwind — but an undervalued airframer still has to convert its own backlog into deliveries, so the tailwind is conditional. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>RTX — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> RTX's demand is defence budgets and commercial flying hours; AI matters only through defence sensing/processing content and through the general economic cycle, not as a product line in the pack.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: air-defence and sensing systems whose content grows with defence modernisation, plus commercial aftermarket demand that rises with travel — neither is an AI capex line. Multiple channel: RTX's 32.1× P/E in the pack is a defence/aerospace premium multiple that a broad market unwind would compress, but there is no AI-specific premium to remove.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: defence budgets are the last to be cut in a market unwind, so demand breaks late — commercial aftermarket softens first if travel demand falls. Second, multiple compression: medium — from ~32× toward a through-cycle defence multiple in the low-20s. Third, balance sheet: moderate — net debt $43.35B at Jun 2026 and a $340B backlog (Q3 2026, pack coverage) provide cover, with no AI-capex debt or hyperscaler concentration. Trigger to watch: a US defence-budget delay or a commercial-aviation downturn, not an AI capex announcement.</p>
+</div>
+<footer>
+<h3 style="margin-top:0">Sources</h3>
+<ul class="sources">
+<li>Reference price $199.80 (30 Oct 2026 close) — confirmed in the independent verification log against <a href="https://StockAnalysis.com/stocks/rtx/history/">StockAnalysis RTX price history</a> and TipRanks. A MarketBeat print of $200.09 is a $0.29 feed difference and is not used.</li>
+<li>P/E 32.1× and EPS $4.96 — <a href="https://finnhub.io/?q=%22RTX%22">Finnhub (RTX)</a>, via the research pack; the verification log spot-checked the P/E to 32.05 via Finnhub, i.e. corroboration from the pack's own source rather than a fully independent second feed.</li>
+<li>Segment model (Pratt &amp; Whitney, Collins Aerospace, Raytheon), TTM revenue $93.5bn, gross profit $19.0bn, and the global Industrials ranking basis (rankings/metrics as of 5 Oct 2026) — <a href="https://www.fool.com/research/largest-industrials-companies/">Motley Fool, largest Industrials companies</a>.</li>
+<li>Market cap $269.6bn and P/S 2.9× — <a href="https://finnhub.io/?q=%22RTX%22">Finnhub</a> via the research pack; not among the market caps independently spot-checked in the verification log (which covered CAT, GE, XOM, CVX and AEM), so treat them as pack-sourced and unverified. The pack's P/E and EPS lines also do not reconcile with each other at the $199.80 close — see the reconciliation note in §2.</li>
+<li>Scenario targets ($225 / $260 / $175; 5-year $267 / ~$355 / ~$165; weighted ~$264) and the Buy/Buy recommendation with a 2.0% weight — modelled estimates from the research pack; the verification log states that 12–18-month base targets were not re-checked and that no 5-year weighted price could be arithmetically re-checked without scenario weights.</li>
+</ul>
+<p><b>Method &amp; limits.</b> This note is built solely from the RTX research pack dated 1 Nov 2026 and its appended independent verification log; where the two conflict, the log wins, and every correction the log issues for RTX has been applied. Figures the pack does not carry as verified — segment revenue splits, geographic mix, free cash flow, leverage, dividends and buybacks — are flagged as open items and omitted rather than estimated. All scenario prices are modelled estimates with assumptions shown.</p>
+<p><b>Disclaimer.</b> Research views only — not guarantees, not personalised investment advice. Prices are as of the 30 Oct 2026 close; markets move, and any decision should be re-checked against current filings and prices.</p>
+<p>— Blaze · Equity Research — RTX · 1 Nov 2026</p>
+</footer>
+
+</main>
+<script>
+(function(){
+  var input=document.getElementById('pv'), out=document.getElementById('calcOut');
+  var PRICE=199.80, W=0.02;
+  function fmt(n){return n.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value);
+    if(!isFinite(v)||v<0){out.textContent='Enter a portfolio value to see the 2.0% position size.';return;}
+    var amt=v*W, shares=Math.floor(amt/PRICE);
+    out.innerHTML='2.0% of '+fmt(v)+' = <b>'+fmt(amt)+'</b> &nbsp;·&nbsp; ≈ '+shares.toLocaleString('en-US')+' shares at $199.80';
+  }
+  input.addEventListener('input',render);
+  render();
+})();
+</script>
+</body>
+</html>

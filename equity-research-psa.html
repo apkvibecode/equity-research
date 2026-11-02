@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — PSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 84px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Real Estate</span><span>Self-Storage · Specialised REITs</span></div>
+  <h1>Public Storage <span class="tick">(NYSE: PSA)</span></h1>
+  <p class="lede">The largest self-storage owner-operator on earth is also the sector's textbook quality compounder: a nationally rented street-corner utility paid for by the month. The question at $324.77 is not whether the business is good — it is. It is whether a stock already up about 25% year-to-date, and 14.4% in a single month, has left any margin of safety for a year in which housing turnover, new Sun Belt supply and the path of interest rates all still matter.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $324.77 close, Fri 30 Oct 2026</span>
+    <span><b>Latest detailed print in pack:</b> Q2 2026 (core FFO $4.17) · Q3 reported 26 Oct 2026*</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">PSA — this report</span>
+    <span class="tab soon">Real Estate top 10 — sibling reports in this series</span>
+  </div>
+  <p class="small" style="margin-top:10px">Ranking basis: <b>Top 10 US-listed real estate names by market cap at 30 Oct 2026, drawn from the VNQ universe</b> (VNQ tracks the MSCI US IMI / Real Estate index). This is a market-cap ranking, <i>not</i> VNQ-weight order — by VNQ weight, Realty Income (O, 3.34%) sits ahead of PSA (3.11%); by market cap PSA ($60.68B) ranks ahead of O. The same 10 names are also the global top 10 (Sun Hung Kai Properties is #11 globally at ~$40.22B), but the US-only label is retained for consistency. *Q3 2026: REITNotes records results reported 26 Oct 2026 with guidance raised — the detail of that print was <b>not verified</b> in the research pack and is flagged as unverified wherever it appears below; it is not used in any figure in §5.</p>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$324.77</div><div class="vsub up">+2.43% on the day (prev. close $317.06) · +25% YTD · +14.4% in 1 month</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$60.68B</div><div class="vsub">Largest self-storage REIT · Top-10 US real estate by market cap</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/FFO (primary)</div><div class="vbig mono">19.5×</div><div class="vsub">On annualised Q2 core FFO of $16.68 · Trailing P/E 31.9× shown for reference only — not used for REIT valuation</div></div>
+  <div class="vcell span3"><div class="vlabel">Dividend</div><div class="vbig mono">$12.00 <span style="font-size:15px">/ yr</span></div><div class="vsub">Yield 3.69% at the reference price (vendor range 3.69–3.87%) · Q2 payout 71.9% of core FFO</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">After +25% YTD and +14.4% in one month, the 12–18-month base case ($330) offers only +1.6% price upside. Hold, do not chase.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — on weakness <span class="pill buy">Buy</span></div><div class="vsub">Scale, brand and pricing power compound through a supply cycle; probability-weighted 5-year modelled value ≈ $362 (estimate).</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">A defensive, income-bearing satellite — sized as a diversifier, not a growth engine. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">FFO flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">2026</span><h2>The story in one view</h2></div>
+  <p>Public Storage is the sector's quality anchor, and 2026 has been a re-rating year: the shares are up <b>about 25% year-to-date</b> and <b>14.4% in the last month alone</b>, closing October at <b>$324.77</b>. The operating engine underneath that move is steady rather than spectacular — quarterly core FFO per share of <b>$4.24 in Q1 2026</b> and <b>$4.17 in Q2 2026</b> — which is exactly why the short-term call is Hold: the price has run ahead of the FFO line, and the 12–18-month base case in §5 ($330) is now barely above the market.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Key verified figures</th><th class="n">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct 2026 close)</td><td class="n">$324.77</td><td>Confirmed on the official close (+2.43% vs $317.06 prior close). Note: pre-close snapshots from some vendors differ — the official 4pm close is used throughout</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$60.68B</td><td>Puts PSA in the top 10 US-listed real estate names by market cap; vendor float methods vary, so one basis is used consistently</td></tr>
+      <tr><td>Facilities / customers</td><td class="n">4,500+ / ~2M</td><td>Largest self-storage owner/operator; US plus seven European nations via Shurgard</td></tr>
+      <tr><td>Core FFO per share — Q1 2026</td><td class="n">$4.24</td><td>Core FFO (funds from operations) is the REIT earnings measure that matters — see §2</td></tr>
+      <tr class="hl"><td>Core FFO per share — Q2 2026</td><td class="n">$4.17</td><td class="n">Payout 71.9%</td></tr>
+      <tr><td>Annualised core FFO (Q2 × 4)</td><td class="n">$16.68</td><td>The frozen base for the 5-year model in §5 — labelled an annualisation, not a full-year actual</td></tr>
+      <tr><td>Dividend (annualised)</td><td class="n">$12.00</td><td>$3.00 per quarter; 71.9% of Q2 core FFO — covered, with headroom (see §2)</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">31.93×</td><td>Reported for completeness only. For REITs this multiple is distorted by depreciation and is <b>not</b> used for valuation in this report</td></tr>
+      <tr><td>Q3 2026</td><td class="n">Reported 26 Oct*</td><td>*Guidance raised per REITNotes note — <b>detail not verified</b>; no Q3 figure is relied on anywhere in this report</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: price and trailing P/E — Finnhub / StockAnalysis close data; FFO and dividend — REITNotes PSA page; scale — Motley Fool research on largest real estate companies. Full links in Sources.</p>
+</section>
+
+<!-- ================= FFO FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>From quarterly FFO to the dividend — the cash logic</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 290" width="100%" role="img" aria-label="Flow diagram showing Public Storage quarterly core FFO annualising to $16.68 per share, of which $12.00 is paid as dividend, leaving $4.68 retained, and the share price of $324.77 equal to 19.5 times annualised FFO" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="30" width="185" height="54" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="52" font-size="13" font-weight="700" fill="var(--ink)">Core FFO — Q1 2026</text><text x="20" y="70" font-size="12" fill="var(--ink2)">$4.24 per share</text>
+      <rect x="8" y="102" width="185" height="54" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="124" font-size="13" font-weight="700" fill="var(--ink)">Core FFO — Q2 2026</text><text x="20" y="142" font-size="12" fill="var(--ink2)">$4.17 per share</text>
+      <rect x="8" y="196" width="185" height="62" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="218" font-size="13" font-weight="700" fill="var(--ink)">Scale behind the FFO</text><text x="20" y="236" font-size="12" fill="var(--ink2)">4,500+ facilities · ~2M customers</text><text x="20" y="251" font-size="12" fill="var(--ink2)">US + Shurgard (7 EU nations)</text>
+      <rect x="300" y="66" width="190" height="66" fill="var(--navy)"/><text x="316" y="94" font-size="14" font-weight="700" fill="#fff">Annualised core FFO</text><text x="316" y="114" font-size="13" fill="#fff">$16.68 (Q2 × 4)</text>
+      <line x1="193" y1="57" x2="296" y2="88" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="193" y1="129" x2="296" y2="110" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <rect x="580" y="26" width="200" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="594" y="48" font-size="13" font-weight="700" fill="var(--ink)">Dividend — $12.00 / yr</text><text x="594" y="66" font-size="12" fill="var(--ink2)">71.9% of Q2 core FFO · 3.69% yield</text>
+      <rect x="580" y="100" width="200" height="56" fill="var(--chip)" stroke="var(--line2)"/><text x="594" y="122" font-size="13" font-weight="700" fill="var(--ink)">Retained FFO — $4.68 / yr</text><text x="594" y="140" font-size="12" fill="var(--ink2)">Funds growth, buybacks &amp; buffer</text>
+      <line x1="490" y1="88" x2="576" y2="58" stroke="var(--muted)" stroke-width="7" opacity=".35"/>
+      <line x1="490" y1="112" x2="576" y2="124" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <rect x="580" y="196" width="392" height="62" fill="var(--paper)" stroke="var(--line2)"/><text x="594" y="220" font-size="13" font-weight="700" fill="var(--ink)">Price $324.77 = 19.5× annualised core FFO</text><text x="594" y="239" font-size="12" fill="var(--ink2)">Trailing P/E of 31.9× is not the REIT yardstick — P/FFO is (see §2 and §5)</text>
+    </svg>
+    <figcaption>All per-share figures are verified pack figures: Q1 core FFO $4.24, Q2 core FFO $4.17 with a 71.9% payout, dividend $12.00 annualised (REITNotes). Retained FFO ($16.68 − $12.00 = $4.68) and the 19.5× P/FFO (324.77 ÷ 16.68) are arithmetic on those figures. Flow widths are indicative, not to scale.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Public Storage runs the simplest business model in listed real estate — and one of the most profitable. It owns and operates self-storage facilities: small, individually rented units let on <b>short, typically month-to-month leases</b> to households and small businesses. That lease structure is the whole investment case in miniature. Rents can be re-priced continuously — up on existing tenants through scheduled increases, and at market on new move-ins — with almost no tenant-improvement or leasing-commission cost when a unit turns. There are no long leases locking in yesterday's rent, and no single tenant who matters.</p>
+
+  <h3>What the pack verifies about the footprint</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Element</th><th class="n">Scale</th><th>Mechanics</th></tr></thead>
+    <tbody>
+      <tr><td>Facilities</td><td class="n">4,500+</td><td>The largest self-storage portfolio in the industry — density in a local market is itself a marketing asset: more sites means more visibility, more referral and transfer traffic, and lower per-unit overhead</td></tr>
+      <tr><td>Customers</td><td class="n">~2 million</td><td>Extreme granularity: the revenue base is millions of small monthly payments, not a handful of corporate leases. Idiosyncratic churn is diversifiable; what moves the whole book is system-wide occupancy and achieved rent</td></tr>
+      <tr><td>United States</td><td class="n">Core</td><td>The overwhelming centre of gravity — demand is driven by life events (moves, divorce, downsizing, death, small-business overflow) rather than by any single industry cycle</td></tr>
+      <tr><td>Europe — Shurgard</td><td class="n">7 nations</td><td>European exposure held through Shurgard. A genuine second geography, but small next to the US book — it diversifies, it does not transform</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Segment revenue, occupancy and same-store splits by geography were not broken out in the verified research pack for this report, so no segment percentages are shown rather than estimated. The verified operating figures available are the consolidated core FFO per share ($4.24 Q1, $4.17 Q2 2026) used throughout §2 and §5.</p>
+
+  <div class="geo">
+    <div>
+      <h3>How the money is actually made</h3>
+      <ul>
+        <li><b>Move-in pricing:</b> street rates are set dynamically by facility, unit size and local competitor pricing — the pack specifically identifies <b>pricing algorithms</b> as part of PSA's edge (§3).</li>
+        <li><b>Existing-customer increases:</b> long-stay tenants receive periodic rent increases. Because the alternative is the cost and hassle of moving stored goods, acceptance is high — this is where storage economics beat almost every other property type.</li>
+        <li><b>Ancillary income:</b> tenant insurance, locks and packing supplies attach to the core rent at very high incremental margin (qualitative — no verified figure in the pack, so none is quoted).</li>
+        <li><b>Third-party management &amp; acquisitions:</b> scale lets PSA manage or acquire independent facilities and re-brand them onto its platform and pricing engine.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural features &amp; dependencies</h3>
+      <ul>
+        <li><b>Demand is housing-turnover-linked:</b> moves are the single biggest trigger for renting storage. A frozen housing market (high mortgage rates locking owners in place) suppresses move-in volumes even when the economy is fine — this is PSA's key macro transmission channel (§4).</li>
+        <li><b>Supply is local and lumpy:</b> anyone with land and a permit can build storage, and developers did — heavily in the Sun Belt. New supply near an existing facility pressures occupancy and street rates for the years it takes to lease up.</li>
+        <li><b>Operating leverage is high, capex is low:</b> facilities need little ongoing capital versus offices or malls, so a high share of rental cash flow converts to FFO — visible in the 71.9% dividend payout still leaving $4.68/share of retained FFO (§2).</li>
+        <li><b>Rate sensitivity is structural:</b> as a REIT, PSA is valued off the spread between its FFO yield and bond yields; the equity re-rates and de-rates with the long end of the curve even when operations are unchanged.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p><b>Read this section in FFO, not earnings.</b> GAAP net income for a REIT is weighed down by depreciation on buildings that, in storage's case, typically hold or grow their value — which is why PSA's trailing P/E prints at <b>31.93×</b> while the cash earnings multiple the market actually prices is <b>19.5×</b> annualised core FFO. Funds from operations (FFO) adds back real-estate depreciation; <i>core</i> FFO strips out non-recurring items. Every valuation judgement in §5 is made on P/FFO and P/AFFO, per REIT convention. Using the 31.9× P/E to call PSA “expensive versus the market” would be a category error.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Diagnostics snapshot — price $324.77 (30 Oct 2026 close). Only figures verified in the research pack are shown; balance-sheet lines not in the pack (debt schedule, cash, interest cover) are omitted rather than estimated.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Price / core FFO (annualised Q2)</td><td class="n">19.5×</td><td>324.77 ÷ $16.68. This is the primary multiple. §5's scenarios span 16× (bear) to 21× (bull) — the current price already sits near the top half of that range</td></tr>
+      <tr><td>Trailing P/E (reference only)</td><td class="n">31.93×</td><td>Distorted by non-cash depreciation, as for all equity REITs. Shown so the reader is not confused by data-provider headlines; <b>not</b> used in any target</td></tr>
+      <tr><td>Core FFO / share — Q1 2026</td><td class="n">$4.24</td><td>Quarterly run-rate entering the year</td></tr>
+      <tr><td>Core FFO / share — Q2 2026</td><td class="n">$4.17</td><td>Slightly below Q1 — the FFO line was essentially flat in H1 while the share price rose ~25% YTD. That gap is the whole short-term valuation debate</td></tr>
+      <tr><td>Annualised core FFO (Q2 × 4)</td><td class="n">$16.68</td><td>An annualisation of one quarter, used as the frozen base in §5 — labelled as such, not presented as a reported full-year figure</td></tr>
+      <tr><td>Dividend (annualised)</td><td class="n">$12.00</td><td>$3.00 quarterly. Yield 3.69% at $324.77; vendor range 3.69–3.87% reflects price/date differences, not a dividend change</td></tr>
+      <tr><td>Dividend payout (Q2)</td><td class="n">71.9% of core FFO</td><td>Covered 1.39× by quarterly core FFO. For a REIT — which must distribute the bulk of taxable income — a ~72% FFO payout is comfortable, not stretched: it leaves ~28% retained for investment without leaning on the balance sheet</td></tr>
+      <tr><td>Retained FFO (annualised, arithmetic)</td><td class="n">$4.68 / share</td><td>$16.68 − $12.00. The internal funding engine: retained FFO plus storage's low maintenance capex is what finances growth at PSA without continuous equity issuance</td></tr>
+      <tr><td>Price momentum</td><td class="n">+25% YTD · +14.4% 1M</td><td>A re-rating, not an FFO surge, drove 2026 returns. Momentum at this speed into a flat FFO quarter is a valuation risk, not an operating one</td></tr>
+      <tr><td>Q3 2026 (26 Oct)</td><td class="n">Guidance raised*</td><td>*Per a REITNotes note recorded in the pack; the Q3 figures themselves were <b>not verified</b> and are therefore not quoted or modelled here. If the raised guidance is confirmed in the filing, the FFO base in §5 would be re-run</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">What is deliberately missing here — and why</div>
+  <p>The verified pack for PSA does not carry a debt maturity schedule, net-debt figure, interest-coverage ratio or credit rating, and this report does not invent them. The balance-sheet read is therefore made through the metrics that <i>are</i> verified: dividend cover of 1.39× quarterly core FFO, a 71.9% payout that retains $4.68/share a year, and a business model whose low maintenance capex is precisely why storage REITs have historically carried investment-grade balance sheets comfortably. Treat any leverage-specific claim about PSA from another source as unverified until checked against the 10-Q.</p></div>
+
+  <h3>Capital allocation, as evidenced by the verified figures</h3>
+  <ul>
+    <li><b>Dividend first, by law and by habit:</b> $12.00/share annualised is the anchor distribution. At a 71.9% FFO payout it is set at a level the current FFO run-rate covers without strain.</li>
+    <li><b>Retention is meaningful:</b> ~$4.68/share a year of retained FFO — roughly $1 of every $3.57 of FFO — funds development, redevelopment and acquisitions internally, reducing dependence on issuing equity at whatever multiple the market happens to offer.</li>
+    <li><b>The AFFO caveat:</b> FFO does not deduct recurring maintenance capex or straight-line rent adjustments; AFFO does, and trades at a higher multiple for the same price. Storage's maintenance capex is low versus other property types, so PSA's FFO-to-AFFO leakage is smaller than most REITs' — but any precise P/AFFO figure would be an estimate on this pack, so none is quoted.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide within its niche — scale, brand and data, in that order.</b> Self-storage is a fragmented industry of mostly single-site and small-chain operators. Against that base, the pack identifies PSA's edge precisely: <b>brand/scale, pricing algorithms, and a fragmented competitor base</b>. PSA does not win because its boxes are better; it wins because a customer searching for storage finds Public Storage first, trusts the orange brand, and is quoted a price set by an algorithm trained on ~2 million customers' behaviour across 4,500+ facilities — data no regional operator can replicate.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Scale as distribution:</b> 4,500+ facilities means PSA is physically present in more local searches, drives more direct (non-aggregator) traffic, and spreads its marketing and technology spend over the industry's largest base.</li>
+      <li><b>Pricing algorithms:</b> street rates and existing-customer increases set facility-by-facility from portfolio-wide data. In a business where revenue = occupancy × achieved rate, a small pricing edge compounded over millions of units is the moat in cash form.</li>
+      <li><b>Brand trust in a distress purchase:</b> people rent storage during stressful life events and store things they value. A known national brand converts at a premium to an unknown local shed — and supports the rate increases in §1.</li>
+      <li><b>Fragmented competition:</b> most rivals are mom-and-pop operators without dynamic pricing, national marketing or cheap capital. PSA can also <i>buy</i> them — fragmentation is both a competitive cushion and an acquisition pipeline.</li>
+      <li><b>Portfolio granularity:</b> ~2M customers on monthly terms means no tenant concentration, no lease-expiry cliff, and continuous re-pricing — a cash-flow profile closer to a consumer subscription book than to conventional real estate.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Extra Space Storage (EXR)</b> — the closest scaled rival, with the same playbook (dynamic pricing, third-party management platform). The moat is versus the fragmented tail, not versus EXR.</li>
+      <li><b>CubeSmart (CUBE)</b> — the other scaled listed operator named in the pack; competes facility-by-facility in overlapping markets.</li>
+      <li><b>Local supply is the real competitor:</b> a new facility opening a mile away does more damage than any national rival's strategy — and zoning for storage is comparatively permissive, so the barrier to local entry is low.</li>
+      <li><b>No lock-in:</b> month-to-month leases cut both ways. Customers can leave with 30 days' notice and comparison-shop on price-transparent aggregators; the moat is convenience and inertia, not contract.</li>
+      <li><b>Shurgard is sub-scale abroad:</b> seven European nations is optionality, not a second moat — European storage penetration and market structure differ and PSA's brand advantage is thinner there.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> real but cyclical at the margin — the algorithm can optimise the split between occupancy and rate, but it cannot create demand in a market digesting new supply or a frozen housing market. <b>Barriers to entry:</b> low for one facility, very high for PSA's combination of brand, data and 4,500-site density. <b>Positioning:</b> the sector's defensive quality name — the REIT investors pay up for precisely because its FFO is among the least cyclical in real estate, which is both the bull case and, at 19.5× FFO after a 25% run, the valuation problem.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Occupancy/rate recovery after the supply wave</b> — the pack's central catalyst. As the recent wave of new completions is absorbed, same-store occupancy stabilises and the pricing algorithm can push rate again; even low-single-digit FFO growth at a sustained multiple carries the base case.</li>
+        <li><b>Q3 guidance raise — if confirmed in detail</b> — REITNotes records Q3 (26 Oct 2026) guidance as raised, but the detail is <b>unverified</b>. Confirmation in the filing would lift the $16.68 annualised FFO base this report is forced to work from, and with it every target in §5.</li>
+        <li><b>Housing-market thaw:</b> any easing in mortgage rates that unlocks home sales directly feeds move-in volumes — PSA's highest-beta positive macro channel.</li>
+        <li><b>Momentum and flows:</b> +25% YTD and +14.4% in a month brings index and momentum-fund sponsorship; in REITs, sustained re-rating phases can run further than fundamentals alone suggest.</li>
+        <li><b>Dividend credibility:</b> a covered, retained-FFO-funded $12.00 dividend yielding 3.69% becomes more attractive in any falling-rate tape, drawing income buyers toward the name.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>New supply in the Sun Belt</b> — the pack's headline operating risk. Storage development concentrated in high-growth Sun Belt markets; lease-up of that supply pressures occupancy and street rates in exactly the markets that were supposed to grow fastest.</li>
+        <li><b>Housing-turnover sensitivity:</b> moves drive storage demand. If high mortgage rates keep housing transactions frozen, move-ins stay soft regardless of how well PSA prices — a demand problem no algorithm fixes.</li>
+        <li><b>Rate sensitivity (valuation):</b> at 19.5× FFO with a 3.69% yield, PSA's equity competes with bonds. A renewed rise in long yields compresses the multiple mechanically — the bear case in §5 is mostly this multiple moving to 16×, not an operating collapse.</li>
+        <li><b>Valuation after the run:</b> the FFO line was flat in H1 2026 (Q1 $4.24 → Q2 $4.17) while the price rose ~25%. Any disappointment — a soft guide, a weak occupancy print — meets a stock with no valuation cushion.</li>
+        <li><b>Consumer stress:</b> storage is postponable at the margin — customers downsize units, share, or give up units under budget pressure, and delinquency/auction volumes rise in a hard landing.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Two developments, either sufficient: (1) the Sun Belt supply wave re-accelerates instead of being absorbed, pushing occupancy down for consecutive quarters with FFO per share falling year-on-year — that converts the bear case from a multiple story into an earnings story; or (2) long-term rates rise enough that a 3.69% yield at 19.5× FFO simply cannot compete, de-rating the shares toward $285 and below without anything going “wrong” at the company at all. PSA's biggest risk at $324.77 is not the business — it is the price already paid for it.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><b>Method — adapted transparently for a REIT.</b> The standard format in this series (2031 price = 2031 revenue × net margin ÷ shares × P/E) does not work for PSA: REIT “earnings” are dominated by non-cash depreciation, the trailing P/E of 31.93× is not meaningful, and no verified revenue/margin/share-count series exists in the pack to freeze. The same frozen-parameter discipline is therefore applied in the units REITs are actually priced on: <b>2031 price = 2031 core FFO per share × P/FFO</b>, where 2031 FFO = today's annualised core FFO grown at a frozen rate per case. Every input is shown; every output is a <b>modelled estimate</b>, not a verified fact.</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$285</div><div class="ret down">−12.2% vs $324.77</div><p>Sun Belt supply bites, housing turnover stays frozen, long yields rise: FFO stagnates and the market pays a trough multiple. Consistent with ~16× on a flat ~$16.7 FFO line plus a further rate wobble. The dividend ($12/yr, +3.7 pts of return if held) cushions but does not offset it.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$330</div><div class="ret up">+1.6% vs $324.77</div><p>Supply is gradually absorbed, occupancy stabilises, FFO grows low-single-digits and the multiple holds near today's ~19×. Price upside is minimal — the honest conclusion after a +25% year — with the 3.69% yield doing most of the total-return work.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$365</div><div class="ret up">+12.4% vs $324.77</div><p>Rate recovery plus a housing thaw lifts FFO growth toward mid-single-digits, the Q3 guidance raise is confirmed and extended, and falling bond yields let the market pay ~20–21×. Includes no heroic assumptions — this is the operating recovery case, not a bubble case.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $328</div></div><p>0.25×$285 + 0.50×$330 + 0.25×$365 = $327.50, or <b>+0.8%</b> from $324.77, before the ~3.7% dividend yield. That is the quantitative case for the short-term Hold: the expected price return is roughly zero, the income is real, and the skew only turns attractive on a pullback toward the bear-case zone.</p></div>
+
+  <h3>5-year projection — frozen-parameter FFO model</h3>
+  <p>Starting point (frozen base): <b>annualised core FFO $16.68/share</b> (Q2 2026 core FFO $4.17 × 4). Only two parameters vary by case: the FFO growth rate <i>g</i> and the exit P/FFO multiple. Formula per case: <b>2031 FFO = $16.68 × (1+g)<sup>5</sup>; 2031 price = 2031 FFO × P/FFO</b>. Weights were not part of the verified pack, so the weighted figure is shown <i>with</i> its weights (Bear 25% / Base 50% / Bull 25%) so the arithmetic can be checked.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">FFO growth g / yr</th><th class="n">2031 core FFO</th><th class="n">Exit P/FFO</th><th class="n">2031 price</th><th class="n">Total vs $324.77</th><th class="n">CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">0%</td><td class="n">$16.68</td><td class="n">16×</td><td class="n">$267</td><td class="n">−17.8%</td><td class="n">−3.8%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">3%</td><td class="n">~$19.34</td><td class="n">19×</td><td class="n">$367</td><td class="n">+13.0%</td><td class="n">+2.5%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">5%</td><td class="n">~$21.29</td><td class="n">21×</td><td class="n">$447</td><td class="n">+37.6%</td><td class="n">+6.6%</td></tr>
+      <tr class="total"><td>Probability-weighted (25/50/25)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $362</td><td class="n">+11.5%</td><td class="n">+2.2%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the arithmetic: base — $16.68 × 1.03<sup>5</sup> = $19.34 × 19 = ≈$367; bull — $16.68 × 1.05<sup>5</sup> = $21.29 × 21 = ≈$447; bear — $16.68 × 16 = ≈$267. Weighted: 0.25×267 + 0.50×367 + 0.25×447 = $362.00 (research pack states $362.10 on unrounded inputs). <b>All scenario prices are modelled estimates.</b> Price-only CAGRs exclude dividends: five years of a maintained $12.00 dividend would add $60/share of cash return on top — the main reason a “flat” price path for a REIT is not a flat investment. The base case's 3% FFO growth and 19× exit multiple are deliberately undemanding: they assume the supply wave costs PSA its faster historical growth but not its franchise.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified for this series: <b>mid-30s, long accumulation horizon, risk score 8/10</b>. PSA's role in such a portfolio is specific: it is not where the 8/10 risk budget is spent — it is one of the assets that lets the rest of the portfolio take risk, a defensive, dividend-paying real-asset compounder whose returns arrive as income plus low-single-digit FFO growth rather than as multiple expansion.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold existing positions; do not chase.</b> +25% YTD and +14.4% in one month has pulled the base case ($330) to within 1.6% of the price. The probability-weighted 12–18-month price value is ≈$328. Add only on a pullback toward $285–300, where the bear case is priced in and the yield approaches 4%.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — accumulated patiently, ideally on weakness.</b> The franchise (scale, brand, pricing data over ~2M customers) compounds through supply cycles; the weighted 5-year modelled value is ≈$362 <i>plus</i> ~$60 of dividends over the period at the current rate. Build the position in tranches rather than at a post-run high.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the shares run through the $365 bull case without an FFO upgrade to justify it (multiple doing all the work); cut on consecutive quarters of falling FFO/share with declining occupancy (thesis-breaker, §4), or if the payout ratio pushes sustainably above ~85% of core FFO, which would signal the dividend is being defended rather than earned.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>PSA target: 1.5% of total portfolio.</b> A single specialised REIT is a satellite, not a core holding — 1.5% is enough for its income and diversification to register, small enough that a sector-wide de-rating is a nuisance, not an event.</li>
+    <li><b>Role, stated plainly:</b> at a 3.69% yield with a 71.9% payout, PSA is ballast. In an 8/10-risk portfolio dominated by growth equities, it is one of the few positions expected to pay the investor through a flat market rather than only at the exit.</li>
+    <li><b>Mind the overlap:</b> PSA is a top-10 VNQ constituent (~3.11% by weight) and sits in broad REIT and dividend funds. If the portfolio already holds VNQ or a REIT fund, count that look-through exposure against the 1.5% before buying directly.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Recommendations are research views, not guarantees and not personalised financial advice. The 1.5% suggestion is the research pack's figure for the stated profile (mid-30s, risk 8/10).</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>PSA — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $324.77.</strong> <strong>DCF intrinsic: $242.</strong> Discount/premium vs DCF: <strong>+34.2%</strong> — i.e. the shares are trading 34.2% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$242</td><td>+34.2%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $17.00 per share — FY2026 core FFO guidance midpoint $17.00 (raised 26 Oct 2026, $16.90–$17.10); FFO used; AFFO not disclosed. REIT cash flow is FFO/AFFO-based, not GAAP EPS, because depreciation depresses REIT earnings. Growth g = 3.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value = PV of projected cash flow + net cash per share.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/PSA/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/psa/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>PSA — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Public Storage's customers are ~2 million individual storage renters (plus small businesses), not businesses under contract — the pack describes 4,500+ facilities and ~2m customers. There is no top-7 business-customer list to build, and inventing one from facility-level renters would be meaningless; PSA is therefore treated as B2C-like for this task.</p><p><strong>Key demand drivers:</strong> housing turnover (moves drive storage demand), occupancy and rate recovery after the Sun Belt supply wave, and new-supply absorption in its markets.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>PSA — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> Public Storage owns 4,500+ self-storage facilities serving ~2m mostly individual customers; the pack names no AI or data-centre exposure, and storage demand follows housing turnover, not compute demand.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Essentially none: AI does not drive moves, downsizing or business storage demand in any direct way, and any indirect channel (AI-driven job moves or business formation) is diffuse and unquantified in the pack.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> PSA's multiple is a storage/rate multiple, not an AI multiple, so there is no AI premium to compress; the shares move on occupancy/rate recovery after the Sun Belt supply wave and on rates.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: nothing AI-specific breaks; the demand risks are new Sun Belt supply and housing-turnover sensitivity. Second, multiple compression: indirect only, via a general rate-driven REIT de-rating (the 10-year above 5% already pressures rate-sensitive REITs). Third, balance sheet: moderate at $11.63B net debt, with development and acquisition spending as the swing factor if rates stay high. No quantified sensitivity is claimed.</p>
+<p><strong>Trigger(s) to watch:</strong> Housing-turnover and Sun Belt supply data; storage occupancy and rate trends; and broad REIT/rate moves rather than any AI-specific trigger.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price reference is the official 30 Oct 2026 close. Where the independent verification log corrected or qualified the research pack, the log's version is used (ranking basis, CCI ordering context, and the treatment of all modelled prices as estimates). Market caps are stated on a single consistent basis; vendor float methods differ by up to a few billion dollars on some names. Q3 2026 detail marked “not verified” in the pack is flagged as such in the text and used in no calculation.</p>
+  <ol class="refs">
+    <li><a href="https://www.fool.com/research/largest-real-estate-companies/" target="_blank" rel="noopener">Motley Fool Research — largest real estate companies: PSA scale (4,500+ facilities, ~2M customers, Shurgard in 7 EU nations)</a></li>
+    <li><a href="https://finnhub.io/?q=%22PSA%22" target="_blank" rel="noopener">Finnhub — PSA: price $324.77, market cap $60.68B, trailing P/E 31.93</a></li>
+    <li><a href="https://www.reitnotes.com/reit/symbol/PSA" target="_blank" rel="noopener">REITNotes — PSA: core FFO Q2 $4.17 (payout 71.9%), Q1 $4.24, dividend; Q3 reported 26 Oct 2026 note (detail unverified)</a></li>
+    <li><a href="https://marketcapof.com/stocks/psa.us/dividends/" target="_blank" rel="noopener">MarketCapOf — PSA dividend $12.00 annualised, yield range</a></li>
+    <li><a href="https://stockinvest.us/stock/PSA?chart=12" target="_blank" rel="noopener">StockInvest — PSA 30 Oct 2026 close $324.77, +2.43% vs $317.06 (verification log)</a></li>
+    <li><a href="https://www.globalbankingandfinance.com/public-storage-psa-rises-2026-10-30/" target="_blank" rel="noopener">Global Banking &amp; Finance — PSA rises on 30 Oct 2026 (verification log)</a></li>
+    <li><a href="https://www.tipranks.com/etf/vnq/holdings" target="_blank" rel="noopener">TipRanks — VNQ holdings: weight order (O 3.34% ahead of PSA 3.11%) vs market-cap ranking</a></li>
+    <li><a href="https://public.com/stocks/vnq" target="_blank" rel="noopener">Public.com — VNQ holdings cross-check</a></li>
+    <li><a href="https://companiesmarketcap.com/real-estate/largest-real-estate-companies-by-market-cap/?page=2/" target="_blank" rel="noopener">CompaniesMarketCap — global real estate ranking (Sun Hung Kai #11 globally, ~$40.22B)</a></li>
+    <li><a href="https://stockanalysis.com/etf/vnq/holdings/" target="_blank" rel="noopener">StockAnalysis — VNQ weights (CCI context: CBRE and Iron Mountain ahead of CCI by weight)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> Research snapshot as of 1 Nov 2026, built from the public sources above and an independently verified research pack; coordinator corrections from that verification override the pack where they conflict and have been applied. Scenario prices in §5 are modelled estimates with stated assumptions (frozen-parameter FFO model: annualised core FFO $16.68 grown at 0%/3%/5% and multiplied by 16×/19×/21× P/FFO), not forecasts or guarantees. Figures labelled “not verified” (notably Q3 2026 detail beyond the fact of a reported guidance raise) are not relied on in any calculation. Position sizing assumes the stated profile (mid-30s, risk 8/10) and should be re-checked against your actual portfolio, including fund look-through, before acting. This is research, not personalised investment advice.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v = parseFloat(pf.value) || 0;
+    var target = v*0.015, price = 324.77, shares = Math.floor(target/price), div = shares*12;
+    out.innerHTML = 'PSA at <b>1.5%</b> = <b>' + fmt(target) + '</b> (≈ ' + shares + ' shares at $324.77), paying ≈ <b>' + fmt(div) + '/yr</b> in dividends at $12.00/share. Count any VNQ/REIT-fund look-through against this 1.5% first.';
+  }
+  pf.addEventListener('input', calc); calc();
+
+  var links = document.querySelectorAll('#toc a');
+  var secs = [];
+  links.forEach(function(a){ var el = document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a, el:el}); });
+  function spy(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s){ if (s.el.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, {passive:true}); spy();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CVX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f4ef; --paper:#fffdf7; --ink:#141a1f; --ink2:#3d4752; --muted:#6d7682;
+  --line:#ddd6c6; --line2:#c6bda6;
+  --navy:#0f2a44; --blue:#0b4f7a; --blue-soft:#e2ecf3;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#9a6b12;
+  --card:#ffffff; --chip:#eee9dc;
+  --shadow:0 1px 2px rgba(20,26,31,.06),0 8px 24px rgba(20,26,31,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1114; --paper:#151a1f; --ink:#e9e7de; --ink2:#b8bfc9; --muted:#8b94a1;
+    --line:#2a313a; --line2:#3a434f;
+    --navy:#a8c2dd; --blue:#6db0d8; --blue-soft:#1a2a38;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d23; --chip:#1e262e;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1114}}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 84px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 70px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1a2a38;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1114}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Integrated Oil &amp; Gas</span></div>
+  <h1>Chevron <span class="tick">(NYSE: CVX)</span></h1>
+  <p class="lede">Q3 2026 was Chevron at its most integrated: a refining surge — downstream earnings of $4.9B against $1.1B a year earlier — layered on top of resilient upstream earnings turned a strong oil quarter into an exceptional cash quarter: $16.0B of operating cash flow, $12.0B of free cash flow, and total debt cut to $33.5B. The investment question is no longer whether Chevron can generate cash — it demonstrably can — but how much of this quarter was cycle (refining margins) versus structure (Permian, Tengiz, Hess), and what oil price the $235.52 share price already assumes.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $235.52 close, Fri 30 Oct 2026</span>
+    <span><b>Latest print:</b> Q3 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">CVX — this report</span>
+    <span class="tab">Energy · Integrated</span>
+  </div>
+  <p class="small" style="margin-top:10px">Ranking basis: <b>GLOBAL top 10 by market cap</b> (Motley Fool, metrics as of 2 Oct 2026, prices at 30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ. Not in strict market-cap order as printed. All scenario prices in §5 are <b>modelled estimates</b> with methodology shown — never verified facts.</p>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$235.52</div><div class="vsub">Confirmed on Finnhub / TIKR feed (≤$0.10 vendor variance) <a href="https://www.tikr.com/blog/chevron-halved-its-net-debt-in-six-months-why-wall-street-thinks-that-was-smart" target="_blank" rel="noopener">[TIKR]</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$465.3B</div><div class="vsub">FinanceCharts-based; implies ~1.98B shares <a href="https://www.financecharts.com/sectors/industrials?columns=custom-growth" target="_blank" rel="noopener">[FinanceCharts]</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM P/E / P/S</div><div class="vbig mono">22.6× / 2.2×</div><div class="vsub">Div. yield ~3.0% · TTM revenue $208.7B <a href="https://finnhub.io/?q=%22CVX%22" target="_blank" rel="noopener">[Finnhub]</a></div></div>
+  <div class="vcell span3"><div class="vlabel">Q3 2026 · Adj. EPS / Revenue</div><div class="vbig mono">$5.28 · $67.8B</div><div class="vsub up">EPS +185% YoY · Revenue +36.3% YoY</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base $255 (+8%). Cash return + balance-sheet repair support the near term; refining tailwind is the swing factor.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $258. A cash-compounder / income holding, not a growth compounder — see §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.5% of portfolio</div><div class="vsub">Energy diversifier inside the equity sleeve. See §6 for role and calculator.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Cash flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>Chevron beat on the driver the headline names — <b>strong refining margins</b> — but the full print is broader: upstream earnings rose <b>72.6%</b> as well, revenue rose <b>36.3%</b> to <b>$67.8B</b> (from $49.7B a year earlier), and adjusted EPS more than doubled. Keep the two EPS definitions separate: the market trades on the adjusted number, the GAAP number is what was actually reported.</p>
+  <div class="toggle" role="group" aria-label="Adjusted versus GAAP view">
+    <button id="btnAdj" class="on" type="button">Adjusted view</button>
+    <button id="btnGaap" type="button">As reported (GAAP)</button>
+  </div>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 (quarter ended 30 Sep)</th><th class="n">Actual</th><th class="n">Year ago</th><th class="n">Change</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="n">$67.8B</td><td class="n">$49.7B</td><td class="n">+36.3%</td><td>Scale of the beat — both price/volume and refining <a href="https://WWW.ZACKS.COM/stock/news/3019847/chevron-q3-earnings-beat-estimates-on-strong-refining-margins" target="_blank" rel="noopener">[Zacks]</a></td></tr>
+      <tr><td>Earnings per share</td><td class="n" data-adj="$5.28 adj." data-gaap="$5.06 GAAP">$5.28 adj.</td><td class="n" data-adj="$1.85 adj." data-gaap="—">$1.85 adj.</td><td class="n" data-adj="+185.4%" data-gaap="GAAP basis">+185.4%</td><td data-adj="Adjusted EPS $5.28 — the consensus-comparable figure" data-gaap="GAAP EPS $5.06 — use this for strict reported comparison">Adjusted EPS $5.28 — the consensus-comparable figure</td></tr>
+      <tr><td>Upstream earnings</td><td class="n">$5.7B</td><td class="n">—</td><td class="n">+72.6%</td><td>Permian / Gulf / Tengiz production economics held up</td></tr>
+      <tr class="hl"><td>Downstream earnings</td><td class="n">$4.9B</td><td class="n">$1.1B</td><td class="n">~4.5×</td><td>The quarter's swing factor — refining margins, not oil price alone</td></tr>
+      <tr><td>Operating cash flow</td><td class="n">$16.01B</td><td class="n">—</td><td class="n">—</td><td>Cash engine confirmed in the primary release <a href="https://www.morningstar.com/news/business-wire/20261030587778/chevron-reports-third-quarter-2026-results" target="_blank" rel="noopener">[Business Wire via Morningstar]</a></td></tr>
+      <tr><td>Capital expenditure</td><td class="n">~$4.0B</td><td class="n">—</td><td class="n">−9.7%</td><td>Capex fell while cash flow surged — discipline, not expansion</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">$12.00B</td><td class="n">—</td><td class="n">—</td><td>FCF $12.003B. <b>Adjusted</b> FCF is higher at $14.243B — do not conflate the two</td></tr>
+      <tr><td>Shareholder returns in quarter</td><td class="n">$6.0B</td><td class="n">—</td><td class="n">—</td><td>Dividends $3.5B + buybacks $2.5B = 50% of the quarter's FCF</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: Q3 figures via Zacks earnings coverage and Chevron's Q3 2026 results release (Business Wire, carried by Morningstar / Longbridge). Verification confirmed adj. EPS, revenue, OCF, FCF, cash and debt against the primary release — see Sources.</p>
+</section>
+
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 cash flow — where $67.8B of revenue went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 290" width="100%" role="img" aria-label="Flow of Chevron Q3 2026 revenue into segment earnings, operating cash flow, capex, free cash flow and shareholder returns" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="28" width="188" height="54" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="50" font-size="13" font-weight="700" fill="var(--ink)">Upstream earnings</text><text x="20" y="68" font-size="12" fill="var(--ink2)">$5.7B · +72.6% YoY</text>
+      <rect x="8" y="100" width="188" height="54" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="122" font-size="13" font-weight="700" fill="var(--ink)">Downstream earnings</text><text x="20" y="140" font-size="12" fill="var(--ink2)">$4.9B · vs $1.1B YoY</text>
+      <rect x="8" y="172" width="188" height="44" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="192" font-size="13" font-weight="700" fill="var(--ink)">Revenue base</text><text x="20" y="208" font-size="12" fill="var(--ink2)">$67.8B · +36.3% YoY</text>
+      <rect x="300" y="92" width="176" height="66" fill="var(--navy)"/><text x="316" y="120" font-size="14" font-weight="700" fill="#fff">Operating cash flow</text><text x="316" y="140" font-size="13" fill="#fff">$16.01B in Q3</text>
+      <line x1="196" y1="55" x2="296" y2="110" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <line x1="196" y1="127" x2="296" y2="122" stroke="var(--muted)" stroke-width="7" opacity=".35"/>
+      <line x1="196" y1="194" x2="296" y2="140" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <rect x="580" y="22" width="196" height="52" fill="var(--green-soft)" stroke="var(--line2)"/><text x="594" y="44" font-size="13" font-weight="700" fill="var(--ink)">Free cash flow</text><text x="594" y="62" font-size="12" fill="var(--ink2)">$12.00B (adj. $14.24B*)</text>
+      <rect x="580" y="90" width="196" height="48" fill="var(--chip)" stroke="var(--line2)"/><text x="594" y="111" font-size="13" font-weight="700" fill="var(--ink)">Capex</text><text x="594" y="128" font-size="12" fill="var(--ink2)">~$4.0B · −9.7% YoY</text>
+      <rect x="580" y="154" width="196" height="48" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="594" y="175" font-size="13" font-weight="700" fill="var(--ink)">Returned to holders</text><text x="594" y="192" font-size="12" fill="var(--ink2)">Div $3.5B + buyback $2.5B</text>
+      <line x1="476" y1="110" x2="576" y2="52" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="476" y1="125" x2="576" y2="112" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <line x1="476" y1="140" x2="576" y2="176" stroke="var(--muted)" stroke-width="4" opacity=".35"/>
+      <rect x="580" y="228" width="392" height="46" fill="var(--paper)" stroke="var(--line2)"/><text x="594" y="248" font-size="13" font-weight="700" fill="var(--ink)">Cash $12.80B · Total debt $33.53B · Net debt ≈ $20.7B</text><text x="594" y="265" font-size="12" fill="var(--ink2)">Debt down from $40.8B at end-2025 — deleveraging while paying out</text>
+    </svg>
+    <figcaption>*Adjusted FCF $14.243B is Chevron's adjusted figure and is <b>not</b> the same as FCF $12.003B. Segment earnings are earnings contributions, not revenue splits. Flow widths are indicative, not to scale. All figures Q3 2026 — see Sources.</figcaption>
+  </figure>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Chevron is a classic <b>integrated major</b>: it earns at every step from wellhead to pump, so a weak link in one part of the chain is often offset in another. Q3 is the textbook illustration — upstream did very well, downstream did exceptionally well, and the combination produced cash that neither segment alone would have delivered. That integration is the business model, not a diversification footnote.</p>
+
+  <h3>Segment economics — Q3 2026 earnings</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">Upstream</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$5.7B</span></div>
+    <div class="bar-row"><span class="bl">Downstream</span><div class="bar-track"><div class="bar-fill gold" style="width:86%"></div></div><span class="bv">$4.9B</span></div>
+  </div>
+  <p class="small">Upstream + downstream = $10.6B of segment earnings before corporate, interest, tax effects and other items — do not add them and call it net income. The point is the <i>balance</i>: downstream was 46% of the two-segment total this quarter, against a much smaller share a year earlier ($1.1B downstream). When refining carries almost half the earnings, earnings quality is more cyclical than the headline suggests.</p>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Engine</th><th>What it is</th><th>Why it matters now</th></tr></thead>
+    <tbody>
+      <tr><td>Permian Basin (upstream)</td><td>Low-cost US shale — Chevron's volume and cost anchor</td><td>Short-cycle barrels that can flex with price; the core of the “low-cost” moat claim in §3</td></tr>
+      <tr><td>Gulf of Mexico / Gulf (upstream)</td><td>Deepwater production, long-life, high-margin barrels</td><td>Long-plateau cash flow that balances shale decline rates</td></tr>
+      <tr><td>Tengiz, Kazakhstan (upstream)</td><td>One of the world's giant fields; expansion / ramp is a named catalyst</td><td>Growth barrels outside the US; also the clearest geopolitical concentration in the portfolio (§4)</td></tr>
+      <tr><td>LNG &amp; international gas</td><td>Liquefied natural gas portfolio linked to global gas pricing</td><td>Diversifies away from pure crude exposure; gas often holds up when oil does not</td></tr>
+      <tr><td>Downstream — refining &amp; marketing</td><td>Refining, fuels marketing, chemicals-adjacent downstream</td><td>Q3 earnings $4.9B on strong margins; US refineries ran ~1.09m b/d at ~98% utilisation per the Trefis summary of Q3 — treat utilisation as summary-sourced, not primary-release</td></tr>
+      <tr><td>Hess (integrated in)</td><td>Acquired Hess assets — Guyana / Bakken exposure now inside Chevron</td><td>Integration benefits are a listed catalyst; execution and synergy delivery are still to be proven in prints after Q3</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="geo">
+    <div>
+      <h3>Scale — trailing twelve months</h3>
+      <ul>
+        <li><b>TTM revenue $208.7B</b>, <b>gross profit $67.5B</b> (Motley Fool figures carried in the research pack) — an implied gross margin of ~32%. Q3 alone ($67.8B) ran well above the TTM quarterly average (~$52B), which is another way of seeing how strong — and how untypical — the quarter was.</li>
+        <li><b>Geography is the risk map:</b> US (Permian, Gulf, refining) for cost and cash, Kazakhstan (Tengiz) for growth, global LNG for diversification. The pack does not carry a verified geographic revenue split for CVX, so none is shown here rather than estimated.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural pivots &amp; dependencies</h3>
+      <ul>
+        <li><b>Disciplined capex over growth capex:</b> Q3 capex ~$4.0B, <b>down 9.7%</b> while OCF hit $16B. Chevron is harvesting, not chasing volume — the opposite posture to a shale-growth story.</li>
+        <li><b>Hess integration:</b> the portfolio pivot of this cycle. Benefits (Guyana growth, portfolio high-grading) are prospective; costs and integration risk are immediate.</li>
+        <li><b>Supply-chain dependencies:</b> oilfield services and rig availability in the Permian, deepwater equipment lead times in the Gulf, export routes out of Kazakhstan (pipeline transit), and refining turnaround / maintenance capacity. None is quantified in the verified pack — flagged here as dependencies, not sized.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout"><div class="ct">Reading the model correctly</div><p>Do not annualise Q3. A quarter with downstream at ~4.5× last year's level and revenue +36% is a <i>peak-combination</i> quarter. The durable claims are narrower and still good: upstream earnings power grew, the balance sheet improved, and capex stayed controlled while both happened. §5's scenarios are built on that narrower claim.</p></div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The balance sheet is the strongest part of this story in Q3 — stronger, arguably, than the P&amp;L, because P&amp;L strength here is partly cyclical while balance-sheet repair is permanent until management reverses it. Debt fell by roughly <b>$7.3B</b> in under a year while Chevron still returned $6.0B to shareholders in a single quarter.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot — price $235.52 (30 Oct 2026 close). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">22.6×</td><td>Finnhub 22.58×, confirmed in verification. Full for an integrated major — the market is paying for cash quality and the dividend, not for growth</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.2×</td><td>$465.3B cap ÷ $208.7B TTM revenue = 2.23× — consistent</td></tr>
+      <tr><td>TTM revenue / gross profit</td><td class="n">$208.7B / $67.5B</td><td>Implied gross margin ~32% (Fool figures in pack)</td></tr>
+      <tr><td>Dividend yield</td><td class="n">~3.0%</td><td>FinanceCharts figure in pack. Q3 dividends paid were $3.5B — the yield is funded from FCF, not from borrowing, in this quarter at least</td></tr>
+      <tr><td>Cash &amp; equivalents (30 Sep)</td><td class="n">$12.80B</td><td>$12,804m in the primary release — confirmed</td></tr>
+      <tr><td>Total debt</td><td class="n">$33.53B</td><td>$33,534m — confirmed. Down from $40.8B at end-2025</td></tr>
+      <tr class="hl"><td>Net debt (debt − cash)</td><td class="n">≈ $20.7B</td><td>Arithmetic on the two confirmed figures above. Net debt / market cap ≈ 4.5% — light leverage for an integrated major</td></tr>
+      <tr><td>Q3 operating cash flow</td><td class="n">$16.01B</td><td>$16,014m — confirmed against the primary release</td></tr>
+      <tr><td>Q3 free cash flow</td><td class="n">$12.00B</td><td>$12,003m — confirmed. Adjusted FCF $14.24B is a different, higher figure; this report uses $12.0B throughout</td></tr>
+      <tr><td>Q3 capex</td><td class="n">~$4.0B</td><td>−9.7% YoY (Zacks). OCF − capex ≈ FCF is internally consistent: $16.0B − $4.0B ≈ $12.0B ✓</td></tr>
+      <tr><td>Capital returned (Q3)</td><td class="n">$6.0B</td><td>Dividends $3.5B + buybacks $2.5B = 50% of Q3 FCF — a sustainable payout ratio <i>in a strong quarter</i>; the test is a weak oil quarter</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Capital allocation, as revealed by Q3</h3>
+  <ul>
+    <li><b>1. Deleveraging first:</b> $40.8B → $33.5B of debt since end-2025 is the clearest priority signal. Every dollar of debt retired is a permanent reduction in the oil price Chevron needs to break even on cash.</li>
+    <li><b>2. Dividend protected and paid:</b> $3.5B in the quarter. For income holders, the relevant question is cover — Q3 FCF covered dividends + buybacks together 2.0×.</li>
+    <li><b>3. Buybacks as the flex:</b> $2.5B in Q3. Buybacks, not the dividend, are the variable that should (and historically does) shrink first if oil falls.</li>
+    <li><b>4. Capex held flat-to-down:</b> −9.7% YoY in a boom quarter is discipline. Watch whether Hess integration tempts it upward — capex inflation is a named risk in §4.</li>
+  </ul>
+  <div class="callout warn"><div class="ct">What is NOT in this table — and why</div><p>The research pack does not carry verified forward P/E, EV/EBITDA, or debt-to-equity for CVX, so they are <b>omitted rather than estimated</b>. Net debt (≈$20.7B) and trailing multiples above are the leverage picture the verified figures support. If a forward multiple matters to your decision, pull it from a single consistent vendor — mixing vendors is how the $6.63 EPS figure in early data (inconsistent with the confirmed 22.6× P/E at $235.52, which implies ~$10.42) creeps into notes like this one. It is excluded here for exactly that reason.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: moderate-to-wide for an oil major — cost position and integration, not brand or network effects.</b> In commodities the product is fungible, so there is no pricing power over the barrel itself. The moat is being the producer/refiner who still makes money at oil prices where others do not, and owning enough of the chain to capture margin wherever it appears in a given quarter.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Low-cost resource base:</b> Permian + Tengiz are named in the pack as the low-cost core. Low cost = survival and cash generation through the down-cycle, which is the only moat test that matters in oil.</li>
+      <li><b>Integration as a hedge:</b> Q3 proved it live — when refining margins spiked, downstream ($4.9B) captured value that a pure upstream producer would have missed entirely.</li>
+      <li><b>Refining execution:</b> US refineries ~1.09m b/d at ~98% utilisation (Trefis summary of Q3). Near-full utilisation in a high-margin quarter is operational alpha, not luck.</li>
+      <li><b>Balance-sheet strength:</b> net debt ≈ $20.7B on a $465B market cap lets Chevron sustain the dividend and buy counter-cyclically while leveraged peers retrench.</li>
+      <li><b>Scale in LNG and the Gulf:</b> long-life, high-margin barrels and gas diversification that smaller E&amp;Ps cannot replicate at any reasonable cost of capital.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>No pricing power over crude:</b> Chevron is a price-taker on its main product. ExxonMobil (XOM) — larger, with Q3 earnings of $15.4B and FCF of $19.1B confirmed in the same verification pass — sets the competitive benchmark in this sector, and CVX trades at the same trailing P/E (both 22.6×) despite the smaller scale.</li>
+      <li><b>State-controlled giants</b> (the global top-10 universe includes them) compete with sovereign cost of capital and reserves no listed major can match on volume.</li>
+      <li><b>Refining is rented margin:</b> crack spreads are set by industry capacity and demand, not by Chevron. Q3's $4.9B can normalise as fast as it appeared — see §4.</li>
+      <li><b>Energy-transition overhang:</b> terminal-value debate caps the multiple for every integrated major; 22.6× already embeds more optimism than the sector's history would suggest.</li>
+      <li><b>Concentration:</b> Tengiz (Kazakhstan transit) and Venezuela/regulatory exposure are single-point geopolitical risks inside an otherwise diversified portfolio.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Chevron is the #2 US integrated major by market cap in this universe ($465.3B vs ExxonMobil's $748.5B, FinanceCharts-confirmed) — close enough to contest “best-in-class operator” on cost and returns, not close enough to claim scale leadership. Own it for cost position + integration + balance sheet, not for dominance.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Tengiz ramp</b> — incremental low-cost growth barrels; delivery on schedule supports the upstream growth leg without Permian-style decline pressure.</li>
+        <li><b>Refining margins holding</b> — even partial persistence of Q3-level margins (not full persistence) beats what a normalised-margin model assumes.</li>
+        <li><b>Hess integration benefits</b> — synergies, Guyana exposure and portfolio high-grading flowing into reported prints.</li>
+        <li><b>Continued deleveraging</b> — another leg down from $33.5B of debt lowers breakevens and supports dividend growth capacity.</li>
+        <li><b>Capital-return continuity</b> — $6.0B returned in Q3; repetition at anything near that pace is a ~5%+ annual cash yield on the market cap (dividends + buybacks), before any price move.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Oil price</b> — the master variable. Every scenario in §5 is, underneath, an oil-price scenario. A sustained fall compresses upstream earnings, FCF and buyback capacity simultaneously.</li>
+        <li><b>Refining-margin normalisation</b> — the single largest Q3-specific risk: downstream fell <i>to</i> $1.1B a year ago from levels like today's; it can go back. That is a ~$3.8B quarterly earnings swing on one variable.</li>
+        <li><b>Venezuela / regulatory</b> — named in the pack: licence, sanctions and fiscal-regime shifts can impair specific assets and complicate the growth portfolio.</li>
+        <li><b>Kazakhstan transit (Tengiz)</b> — export-route dependence is a geopolitical single point of failure for a core growth asset.</li>
+        <li><b>Capex inflation</b> — oilfield-service and project-cost inflation would break the “disciplined capex” leg (Q3: −9.7%) that the FCF story rests on, especially with Hess integration spend layered in.</li>
+        <li><b>Multiple risk</b> — at 22.6× trailing, CVX has less valuation cushion than its own history as a ~mid-teens-multiple sector name would imply; disappointment de-rates as well as downgrades.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Oil falling <i>and</i> refining margins normalising in the same two quarters — the integration hedge works when one leg offsets the other; it does not work when both legs fall together. That combination takes FCF from $12B/quarter toward dividend-cover stress and forces the buyback (the flex) to zero. Watch the pair, not either alone.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets below are <b>modelled estimates</b> from the research pack — not verified facts and not analyst consensus (no consensus target for CVX is carried in the verified pack, so none is quoted). Method for the near term: scenario prices as modelled in the pack, weighted 25 / 50 / 25. Method for the 5-year view: the frozen-parameter convention used across this series — share count and net margin held frozen, only revenue growth and the exit multiple vary — with the pack's price outcomes ($260 / $335 / $175) reproduced and cross-checked.</p>
+
+  <h3>12–18-month targets — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$195</div><div class="ret down">−17% vs $235.52</div><p>Oil softens and refining margins normalise together (§4 thesis-breaker). Downstream earnings revert toward the ~$1B run-rate, FCF halves, buybacks pause. The stock de-rates toward a through-cycle energy multiple.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$255</div><div class="ret up">+8% vs $235.52</div><p>The pack's base case (+8%). Refining gives back part — not all — of Q3's spike; Tengiz ramps; Hess benefits begin; debt falls further; the $6B/quarter return pace moderates but continues. Price return + ~3% dividend yield ≈ low-double-digit total return.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$295</div><div class="ret up">+25% vs $235.52</div><p>Oil holds, refining margins stay elevated into 2027, Tengiz + Hess deliver visibly, and the market pays a quality premium for the cleanest balance sheet among US majors. Requires the cycle to cooperate — it is a cycle case, not an execution case.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled</div><div class="wv mono">≈ $250</div></div><p>0.25×$195 + 0.50×$255 + 0.25×$295 = <b>$250</b>, or +6% price (+~9% with the ~3% dividend) from $235.52. Modest expected price upside with real income on top — that <i>is</i> the CVX proposition. Anyone needing growth-stock upside should not be here; anyone needing ballast with a yield should.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Starting point: <b>TTM revenue $208.7B</b>, share count <b>frozen at ~1.98B</b> (implied by $465.3B ÷ $235.52), <b>net margin frozen at ~10%</b> — approximately today's implied level (P/E 22.6× at $235.52 implies EPS ≈ $10.42, i.e. net income ≈ $20.6B on $208.7B of revenue). Only revenue CAGR and the exit P/E vary. The pack frames the base case directly as <b>2% CAGR → $235.52 × 1.104 = $260</b>; the table below shows the earnings arithmetic that lands on the same prices.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">Net margin (frozen)</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Price CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">−2%</td><td class="n">~10%</td><td class="n">~$189B</td><td class="n">~$9.74</td><td class="n">18×</td><td class="n">~$175</td><td class="n">−5.8%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">+2%</td><td class="n">~10%</td><td class="n">~$230B</td><td class="n">~$11.82</td><td class="n">22×</td><td class="n">~$260</td><td class="n">+2.0%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">+5%</td><td class="n">~10%</td><td class="n">~$266B</td><td class="n">~$14.02</td><td class="n">24×</td><td class="n">~$335</td><td class="n">+7.3%</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $258</td><td class="n">+1.8%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check: 0.25×$175 + 0.50×$260 + 0.25×$335 = $257.50 ≈ <b>$258</b> — the pack's weighted figure. Price CAGRs exclude dividends: adding the ~3.0% yield (if maintained) takes the base-case <i>total</i> return to roughly +5%/yr and the weighted total return to roughly +4.8%/yr. That is a bond-plus / income-plus profile, and §6 sizes it accordingly. Illustrative model, not a forecast.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Modelled weighted value $250 vs $235.52, plus ~3% yield, with Q3 evidence of cash generation, deleveraging and disciplined capex all pointing the same way. The position does not need a heroic oil price to work in the base case — it needs the cycle to not break (§4).</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy — as an income / ballast holding, sized small.</b> Weighted 5-yr price ≈ $258 is only +1.8%/yr of price appreciation; the return case is price + dividend + buyback yield compounding, plus genuine diversification away from a tech-heavy book. Do not mistake it for a growth holding.</td></tr>
+      <tr><td>Review / trim triggers</td><td><span class="pill trim">Trim</span></td><td>Review on: two consecutive quarters of downstream earnings back near ~$1B <i>with</i> upstream also falling; debt rising again above ~$40B; capex guidance stepping up sharply for Hess/projects without FCF cover; or the shares reaching the bull case ($295) without a matching rise in oil/refining fundamentals.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile — 2.5% of total portfolio</h3>
+  <ul>
+    <li><b>Target weight: 2.5%</b> (research pack recommendation for this profile). At 2.5%, CVX is a diversifier, not a driver: a full bear case (−26% over 5 years on price) costs the total portfolio ~0.65% — tolerable noise for the income and non-tech exposure it adds.</li>
+    <li><b>Role in the book:</b> energy is one of the few sectors that can rise when a tech-led portfolio falls (oil-shock / inflation regimes). For a risk-8/10, mid-30s investor whose other holdings in this series are heavily AI/tech, that negative-correlation option is the real reason to own it — the yield is the carrying payment while you hold the option.</li>
+    <li><b>Dividend reinvestment:</b> at ~3.0% yield, reinvested dividends on a 2.5% position add ~0.075%/yr to portfolio value mechanically — small, but it compounds and it is the part of the CVX return least dependent on the oil price deck.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: 2.5% target weight at $235.52/share. Share count is rounded down to whole shares; the remainder stays as cash. Illustrative only.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Chevron (CVX)</h2>
+<p><strong>Price (30 Oct 2026 close): $235.52.</strong> <strong>DCF intrinsic: $169.</strong> Discount/premium vs DCF: <strong>+39.4%</strong> — i.e. the shares are trading 39.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$169</td><td>+39.4%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack Q3 2026 (Zacks); Chevron equity $189,883m / 1,962m shares at 30 Jun 2026 via https://chartsview.co.uk/research/energy/chevron-corporation-cvx-research ; https://twelvedata.com/markets/151023/stock/nyse/cvx/statistics</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Chevron (CVX)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Chevron sells crude, LNG, refined products and chemicals to refiners, utilities, distributors and industrial buyers worldwide, with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Refiners and LNG buyers (utilities, Asian importers)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Fuel distributors and retailers (incl. Chevron/Texaco/Caltex channels)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Petrochemical and industrial buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through runs through LNG and refining demand as a whole: undervalued utilities and refiners could support Chevron&#x27;s LNG and product volumes, but only if they convert balance-sheet headroom into actual offtake — an undervalued customer does not guarantee higher spending — while overvalued, margin-pressed buyers would be a headwind through weaker realised prices.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Chevron (CVX)</h2>
+<p><strong>Role: Beneficiary.</strong> LNG and natural gas for data-centre power is Chevron&#x27;s clearest AI demand channel, via its LNG portfolio and Gulf/Permian gas, while its refining arm benefits only indirectly from construction and backup-fuel demand.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 22.6 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Price, market cap and multiples were independently verified on 1 Nov 2026 against a second feed (see verification notes in-line). Q3 2026 figures are from Chevron's results release as carried below. Scenario targets in §5 are this series' modelled estimates — the pack's figures, with weights and arithmetic shown so they can be checked — and are not sourced from analyst consensus.</p>
+  <ol class="refs">
+    <li><a href="https://WWW.ZACKS.COM/stock/news/3019847/chevron-q3-earnings-beat-estimates-on-strong-refining-margins" target="_blank" rel="noopener">Zacks — Chevron Q3 earnings beat on strong refining margins: adj. EPS $5.28 (+185%), revenue $67.8B (+36.3%), upstream $5.7B, downstream $4.9B, capex, returns</a></li>
+    <li><a href="https://www.morningstar.com/news/business-wire/20261030587778/chevron-reports-third-quarter-2026-results" target="_blank" rel="noopener">Chevron Q3 2026 results — Business Wire via Morningstar: OCF $16,014m, FCF $12,003m, adj. FCF $14,243m, cash $12,804m, debt $33,534m</a></li>
+    <li><a href="https://longbridge.com/en/news/303726687" target="_blank" rel="noopener">Longbridge — Chevron Q3 2026 results release (corroborating primary-release figures)</a></li>
+    <li><a href="https://finnhub.io/?q=%22CVX%22" target="_blank" rel="noopener">Finnhub — CVX quote: price $235.52, trailing P/E 22.58×</a></li>
+    <li><a href="https://www.tikr.com/blog/chevron-halved-its-net-debt-in-six-months-why-wall-street-thinks-that-was-smart" target="_blank" rel="noopener">TIKR — CVX 30 Oct close $235.52 (second feed) and net-debt trajectory</a></li>
+    <li><a href="https://www.financecharts.com/sectors/industrials?columns=custom-growth" target="_blank" rel="noopener">FinanceCharts — market caps: CVX $465.334B, XOM $748.459B; dividend yield ~3.0% (pack)</a></li>
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — global top-10 ranking basis (metrics as of early Oct 2026; ranking universe includes international / state-controlled issuers)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimers &amp; method notes.</b> (1) Verification status: Q3 EPS (adj. $5.28, GAAP $5.06), revenue, OCF, FCF, cash, debt, the 30 Oct close, market cap and trailing P/E were confirmed in the independent verification pass for this sector; adjusted FCF ($14.24B) is labelled “adjusted” wherever it appears and is never used as FCF. US refinery throughput/utilisation (~1.09m b/d, ~98%) is carried from a Trefis summary of Q3, not the primary release, and is labelled as such. Forward P/E and EV/EBITDA were not in the verified pack and are omitted. (2) All 12–18-month and 5-year prices are modelled estimates with assumptions and weights shown in §5. (3) Recommendations are research views for the stated profile (mid-30s, risk 8/10), not guarantees, not personalised investment advice. Energy equities are commodity-price exposed; past cash generation does not guarantee future dividends, buybacks or prices.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // GAAP / Adjusted toggle
+  var btnAdj=document.getElementById('btnAdj'), btnGaap=document.getElementById('btnGaap');
+  function setView(mode){
+    document.querySelectorAll('[data-adj]').forEach(function(el){
+      var v=el.getAttribute(mode==='adj'?'data-adj':'data-gaap');
+      if(v) el.textContent=v;
+    });
+    btnAdj.classList.toggle('on',mode==='adj');
+    btnGaap.classList.toggle('on',mode==='gaap');
+  }
+  btnAdj.addEventListener('click',function(){setView('adj')});
+  btnGaap.addEventListener('click',function(){setView('gaap')});
+
+  // Position-size calculator — 2.5% target, $235.52 reference
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=235.52, W=0.025;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0})}
+  function calc(){
+    var v=parseFloat(pf.value);
+    if(!isFinite(v)||v<0){out.innerHTML='Enter a portfolio value to see the 2.5% sizing.';return;}
+    var target=v*W, shares=Math.floor(target/PRICE), invested=shares*PRICE;
+    var annualDiv=invested*0.03;
+    out.innerHTML='Target CVX position (2.5%): <b>$'+fmt(target)+'</b> &middot; ≈ <b>'+fmt(shares)+' shares</b> ($'+fmt(invested)+' invested at $235.52) &middot; indicative dividend at ~3.0% yield: <b>~$'+fmt(annualDiv)+'/yr</b> if the yield is maintained.';
+  }
+  pf.addEventListener('input',calc);
+  calc();
+})();
+</script>
+</body>
+</html>

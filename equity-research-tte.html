@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TTE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+
+/* ---------- masthead ---------- */
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+
+/* ---------- stock tabs ---------- */
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+
+/* ---------- verdict strip ---------- */
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+
+/* ---------- nav ---------- */
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* ---------- sections ---------- */
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+
+/* ---------- tables ---------- */
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{ text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+
+/* ---------- bars / visuals ---------- */
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 74px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 64px}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+
+/* scenario cards */
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+
+/* calculator */
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+
+/* rating pills */
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Integrated Oil, Gas, LNG &amp; Power</span></div>
+  <h1>TotalEnergies <span class="tick">(NYSE: TTE)</span></h1>
+  <p class="lede">The European integrated major that behaves most like a cash-return machine: a world-scale LNG book, a refining system that just printed a record quarter, and a balance sheet that cut net debt from $24.6B to $13.8B in a year. Q3 2026 adjusted net income of $9.1B (+127% year on year) was powered by exceptional refining margins and LNG trading — the question for the next 12–18 months is how much of that windfall is repeatable once margins normalise, and the ~9–10× earnings multiple says the market already assumes very little of it is.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $95.33 close, Fri 30 Oct 2026 (see verification note)</span>
+    <span><b>Latest print:</b> Q3 2026, reported 29 Oct 2026</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">TTE — this report</span>
+    <span class="tab soon">Sector ranking, top-5 comparisons &amp; portfolio spreads — in the coverage index</span>
+  </div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$95.33</div><div class="vsub">Finnhub feed via research pack — <b>not independently re-verified</b> (see note below). Paris line set a record €81.63 on 19 Oct 2026.</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$188.8B</div><div class="vsub">Pack figure, unverified · ≈1.98B shares implied by price ÷ cap</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM P/E / P/S</div><div class="vbig mono">9.4× / ~1.0×</div><div class="vsub">Pack figures (Finnhub / Motley Fool), unverified · TTM revenue $196.4B</div></div>
+  <div class="vcell span3"><div class="vlabel">Q3 2026 print</div><div class="vbig mono">$9.1B adj. NI</div><div class="vsub up">+51% QoQ · +127% YoY · Revenue $66.8B, +37% YoY</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Single-digit multiple, $5B of buybacks authorised for Q4 2026 + Q1 2027, dividend growing ~6%/yr. Modelled base target $105 (+10%).</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — income-led <span class="pill buy">Buy</span></div><div class="vsub">The return engine is cash handed back, not multiple expansion: modelled weighted 5-yr price ≈ $104 plus ~4%/yr of dividends (est.).</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">A satellite energy/income slot, not a core compounder — sized for commodity-cycle volatility. See §6.</div></div>
+</div>
+
+<div class="callout warn"><div class="ct">Verification status — read before using the headline numbers</div>
+<p>An independent verification pass covered this sector's earnings sets and most 30 Oct closes, but <b>TTE's price, market cap and P/E were not re-checked</b> in that pass — they are single-source (Finnhub, via the research pack) and are marked <b>“unverified”</b> wherever they appear. One pack figure failed an internal consistency check and is <b>not used</b>: a TTM EPS of $5.93 cannot coexist with a $95.33 price at 9.4× (which implies ≈$10.1 of EPS) or with $19.5B of net income in the first nine months of 2026 alone (≈$9.9/share on ~1.98B shares). The Q3 2026 operating figures in the snapshot are cross-checked across several independent reports of the company's 29 Oct release. <b>All scenario prices in §5 are modelled estimates</b> with their assumptions and weights shown — they are not verified facts and not guarantees.</p>
+<p class="small" style="margin-top:6px"><b>Sector ranking basis:</b> global top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026, prices at the 30 Oct 2026 close), including state-controlled issuers. A NYSE/Nasdaq-only list would differ, and the ranking is not in strict market-cap order as published. TTE itself is NYSE-listed (primary listing Paris).</p>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">Q3 2026</span><h2>The quarter in one view</h2></div>
+  <p>TotalEnergies' Q3 was a demonstration of why the integrated model exists. Crude softened sequentially, yet group profit rose 51% quarter on quarter because <b>refining margins spiked, LNG trading captured gas-price volatility, and downstream posted a record</b>. Adjusted EPS of $4.03 landed a fraction below the Zacks consensus of $4.11 — but adjusted net income of $9.1B beat the ~$8.3B average analyst expectation reported in trade coverage, and management raised the full-year cash-flow outlook to more than $42B.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Q3 2026 (quarter ended 30 Sep)</th><th class="n">Actual</th><th class="n">Comparison</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Total revenues</td><td class="n">$66.82B</td><td class="n">+37.2% YoY</td><td>Well above the $53.7B Zacks consensus — refining margins and higher gas prices did the work</td></tr>
+      <tr><td>Adjusted net income</td><td class="n">$9.1B</td><td class="n">+51% QoQ · +127% YoY</td><td>Vs ~$8.3B average expectation; year-ago quarter was $4.0B</td></tr>
+      <tr><td>Adjusted EPS (diluted)</td><td class="n">$4.03 (€3.50)</td><td class="n">+127.7% YoY</td><td>1.95% below Zacks consensus of $4.11 — a rounding-level miss against a doubled profit</td></tr>
+      <tr><td>GAAP net income</td><td class="n">$8.26B</td><td class="n">+52% QoQ</td><td>After −$0.8B of adjustments, incl. $1.9B of impairments (offshore wind; Hanwha TotalEnergies Petrochemical stake) partly offset by $1.5B of stock/fair-value effects</td></tr>
+      <tr><td>Adjusted EBITDA</td><td class="n">$17.81B</td><td class="n">+35% QoQ</td><td>Vs $10.30B a year ago</td></tr>
+      <tr><td>Cash flow from operations</td><td class="n">$15.39B</td><td class="n">+84.3% YoY</td><td>$12.3B excluding working capital; a $3.1B working-capital inflow flattered the headline</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">&gt;$6B after dividends</td><td class="n">—</td><td>Company's own framing: FCF after the dividend still exceeded $6B in the quarter</td></tr>
+      <tr><td>Net debt / gearing (30 Sep)</td><td class="n">$13.79B / 9.1%</td><td class="n">From $19.71B / — at end-Q2</td><td>Net debt was $24.6B and gearing 17.3% a year ago — the balance sheet is the quiet story of 2026</td></tr>
+      <tr><td>Shareholder returns in quarter</td><td class="n">$3.7B</td><td class="n">$2.2B div. + $1.5B buyback</td><td>Third interim dividend confirmed at €0.90/share, +5.9% vs 2025; $2.5B buybacks authorised for Q4 2026 and again for Q1 2027</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Sources: TotalEnergies Q3 2026 results (29 Oct 2026) as reported by Zacks, Rigzone, Defense World, AlphaSense and EuropeSays — full links in Sources. Return on equity 19.6% and return on average capital employed 17.4% for the quarter, per the company's call commentary.</p>
+</section>
+
+<!-- ================= INCOME FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>Q3 2026 income flow — where the $9.7B of segment profit came from</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 320" width="100%" role="img" aria-label="Flow of TotalEnergies Q3 2026 segment adjusted net operating income into group adjusted and GAAP net income" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <!-- sources: segment ANOI -->
+      <rect x="8" y="16" width="200" height="46" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="36" font-size="13" font-weight="700" fill="var(--ink)">Refining &amp; Chemicals</text><text x="20" y="53" font-size="12" fill="var(--ink2)">$3.60B · 37% of segment profit</text>
+      <rect x="8" y="76" width="200" height="46" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="20" y="96" font-size="13" font-weight="700" fill="var(--ink)">Exploration &amp; Production</text><text x="20" y="113" font-size="12" fill="var(--ink2)">$3.16B · 2.47 Mboe/d output</text>
+      <rect x="8" y="136" width="200" height="46" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="156" font-size="13" font-weight="700" fill="var(--ink)">Integrated LNG</text><text x="20" y="173" font-size="12" fill="var(--ink2)">$1.90B · doubled QoQ</text>
+      <rect x="8" y="196" width="200" height="42" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="215" font-size="13" font-weight="700" fill="var(--ink)">Integrated Power</text><text x="20" y="231" font-size="12" fill="var(--ink2)">$0.60B · +13% QoQ</text>
+      <rect x="8" y="252" width="200" height="42" fill="var(--chip)" stroke="var(--line2)"/><text x="20" y="271" font-size="13" font-weight="700" fill="var(--ink)">Marketing &amp; Services</text><text x="20" y="287" font-size="12" fill="var(--ink2)">$0.47B · −7% QoQ</text>
+      <!-- centre -->
+      <rect x="330" y="110" width="210" height="76" fill="var(--navy)"/><text x="346" y="138" font-size="14" font-weight="700" fill="#fff">Segment adj. net op. income</text><text x="346" y="158" font-size="13" fill="#fff">$9.71B · +41% QoQ</text><text x="346" y="176" font-size="12" fill="#fff">Revenue $66.82B · Adj. EBITDA $17.81B</text>
+      <line x1="208" y1="39" x2="326" y2="128" stroke="var(--muted)" stroke-width="9" opacity=".35"/>
+      <line x1="208" y1="99" x2="326" y2="140" stroke="var(--muted)" stroke-width="8" opacity=".35"/>
+      <line x1="208" y1="159" x2="326" y2="152" stroke="var(--muted)" stroke-width="5" opacity=".35"/>
+      <line x1="208" y1="217" x2="326" y2="164" stroke="var(--muted)" stroke-width="2" opacity=".35"/>
+      <line x1="208" y1="273" x2="326" y2="174" stroke="var(--muted)" stroke-width="2" opacity=".35"/>
+      <!-- outcomes -->
+      <rect x="650" y="60" width="322" height="56" fill="var(--green-soft)" stroke="var(--line2)"/><text x="664" y="84" font-size="13" font-weight="700" fill="var(--ink)">Adjusted net income $9.1B</text><text x="664" y="102" font-size="12" fill="var(--ink2)">EPS $4.03 diluted · +127% YoY</text>
+      <rect x="650" y="140" width="322" height="56" fill="var(--amber-soft)" stroke="var(--line2)"/><text x="664" y="164" font-size="13" font-weight="700" fill="var(--ink)">Adjustments −$0.8B</text><text x="664" y="182" font-size="12" fill="var(--ink2)">$1.9B impairments partly offset by $1.5B fair-value/stock effects</text>
+      <rect x="650" y="220" width="322" height="56" fill="var(--paper)" stroke="var(--line2)"/><text x="664" y="244" font-size="13" font-weight="700" fill="var(--ink)">GAAP net income $8.26B</text><text x="664" y="262" font-size="12" fill="var(--ink2)">9M 2026 net income $19.5B, +91% YoY — already above all of FY25 ($13.1B)</text>
+      <line x1="540" y1="136" x2="646" y2="92" stroke="var(--muted)" stroke-width="6" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="540" y1="160" x2="646" y2="166" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+      <line x1="806" y1="196" x2="806" y2="216" stroke="var(--muted)" stroke-width="3" opacity=".35" marker-end="url(#ar)"/>
+    </svg>
+    <figcaption>Segment figures are adjusted net operating income (ANOI) as reported for Q3 2026; the five segments sum to $9.73B vs the reported $9.71B (rounding and corporate items). Flow widths are indicative, not to scale. Sources: company Q3 2026 results via Zacks, Rigzone, Defense World and EuropeSays (see Sources).</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>TotalEnergies is a French integrated energy major — it rebranded from Total in 2021 to signal the pivot from pure oil and gas toward a <b>multi-energy model</b>: hydrocarbons (upstream + LNG), refining and marketing, and a growing electricity business (renewables plus flexible gas-fired generation, via the TTEP joint venture with EPH). The economic logic is a hedge stack: when crude is soft, refining and trading tend to earn more; when gas prices spike, the LNG portfolio and trading desk capture the spread; and the power business grows through both cycles. Q3 2026 was the model working exactly as designed.</p>
+
+  <h3>Segment profit mix — Q3 2026 adjusted net operating income ($9.71B total)</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">Refining &amp; Chemicals</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$3.60B</span></div>
+    <div class="bar-row"><span class="bl">Exploration &amp; Production</span><div class="bar-track"><div class="bar-fill" style="width:88%"></div></div><span class="bv">$3.16B</span></div>
+    <div class="bar-row"><span class="bl">Integrated LNG</span><div class="bar-track"><div class="bar-fill gold" style="width:53%"></div></div><span class="bv">$1.90B</span></div>
+    <div class="bar-row"><span class="bl">Integrated Power</span><div class="bar-track"><div class="bar-fill green" style="width:17%"></div></div><span class="bv">$0.60B</span></div>
+    <div class="bar-row"><span class="bl">Marketing &amp; Services</span><div class="bar-track"><div class="bar-fill" style="width:13%"></div></div><span class="bv">$0.47B</span></div>
+  </div>
+
+  <div class="tblwrap"><table>
+    <thead><tr><th>Segment</th><th class="n">Q3 2026 ANOI</th><th class="n">Share</th><th>Mechanics &amp; the quarter</th></tr></thead>
+    <tbody>
+      <tr><td>Refining &amp; Chemicals</td><td class="n">$3.60B</td><td class="n">37%</td><td>External sales of $30.78B (vs $21.21B a year ago). Operating income rose more than fivefold YoY on <b>exceptional refining margins</b> and ~10% higher throughput. Together with Marketing &amp; Services, downstream earned ~$4.1B — a quarterly record. This is the segment least likely to repeat at this level.</td></tr>
+      <tr><td>Exploration &amp; Production</td><td class="n">$3.16B</td><td class="n">33%</td><td>Hydrocarbon production of <b>2.47 Mboe/d, +3% QoQ</b>; CFFO $5.4B. ANOI fell 2% sequentially as lower oil prices offset higher gas prices, and Middle East disruptions trimmed output — the pack flags low-cost upstream as a core strength, which is what funds everything else at mid-cycle prices.</td></tr>
+      <tr><td>Integrated LNG</td><td class="n">$1.90B</td><td class="n">20%</td><td>CFFO $1.7B. Profit <b>doubled quarter on quarter</b> (from $0.8B) on higher gas prices and trading. TotalEnergies is one of the world's largest LNG portfolio players — production plus a global trading book — so it monetises price <i>volatility</i>, not just price levels.</td></tr>
+      <tr><td>Integrated Power</td><td class="n">$0.60B</td><td class="n">6%</td><td>ANOI +13% QoQ; operating cash flow nearly $0.8B (+7% QoQ) with a full quarter of TTEP (the EPH joint venture). Net power production <b>17.9 TWh, +42% YoY</b>. Still small in profit terms — this is the growth option, not the earnings base.</td></tr>
+      <tr><td>Marketing &amp; Services</td><td class="n">$0.47B</td><td class="n">5%</td><td>Fuel retail and lubricants; ANOI −7% QoQ. The steady, low-growth cash contributor inside the downstream record.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Geography, structure and dependencies</h3>
+  <ul>
+    <li><b>Domicile and listing:</b> French-domiciled, primary listing in Paris with the NYSE ADR (TTE) as the US line. That domicile is the origin of the single biggest non-commodity risk: French and EU fiscal and regulatory policy (see §4).</li>
+    <li><b>The structural pivot:</b> the 2021 rebrand marked the shift from an oil major to an integrated energy company — LNG as the transition fuel where it claims leadership, plus a build-out in renewables and flexible power. Execution shows up in the numbers: power output +42% YoY and a full-quarter TTEP contribution in Q3, against $1.9B of Q3 impairments that included offshore wind — the pivot is real but not painless.</li>
+    <li><b>Supply-chain and asset dependencies:</b> earnings hinge on (i) upstream access and uptime across its producing regions — Middle East disruption already cost output in Q3; (ii) LNG liquefaction and shipping capacity to move cargoes to the highest-priced market; (iii) a European refining system whose margins are set by global product markets and which just benefited from exceptional conditions; and (iv) commodity prices themselves — Brent and European gas are the two variables no management action controls.</li>
+    <li><b>Trading as connective tissue:</b> the integrated trading operation sits across oil, gas, LNG and power, and is a structural reason TotalEnergies' earnings hold up better in volatile, dislocated markets than a pure producer's would — Q3's LNG and downstream prints are the evidence.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The balance sheet is the strongest part of this story and the least cyclical. Net debt has been cut by more than $10B in a year, gearing is in single digits, and the company is funding a ~$15B investment programme, a growing dividend and $5B of authorised buybacks out of operating cash flow — while <i>raising</i> its full-year cash-flow outlook. The offset: Q3's cash generation was flattered by a $3.1B working-capital inflow and by refining margins management itself describes as exceptional.</p>
+
+  <h3>Valuation snapshot (30 Oct 2026 close — pack figures, unverified)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (NYSE ADR)</td><td class="n">$95.33</td><td>Finnhub via research pack — <b>unverified</b>: not re-checked in the sector verification pass</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$188.8B</td><td>Pack figure — <b>unverified</b>; implies ≈1.98B shares at $95.33</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">9.4×</td><td>Pack figure (Finnhub) — <b>unverified</b>. Internally consistent with ≈$10.1 of TTM EPS at $95.33, and with $19.5B of 9M 2026 net income (≈$9.9/share)</td></tr>
+      <tr><td>Price / sales</td><td class="n">~1.0×</td><td>On TTM revenue of $196.4B (pack, Motley Fool). Note Q3 revenue alone annualises well above the TTM figure — 2026 pricing and refining conditions are far stronger than the trailing average</td></tr>
+      <tr><td>TTM gross profit / margin</td><td class="n">$60.2B / 30.7%</td><td>Gross profit per the pack (Motley Fool); margin computed from pack revenue. Integrated-major economics: thin per-unit margins on a huge revenue base</td></tr>
+      <tr><td>Trailing EPS (feed figure)</td><td class="n">—</td><td><b>Omitted as unreliable:</b> the pack's $5.93 EPS conflicts with the 9.4× P/E at $95.33 and with reported 9M earnings; flagged rather than published</td></tr>
+      <tr><td>Dividend</td><td class="n">€0.90/share quarterly</td><td>Third interim dividend for 2026, +5.9% vs 2025. If the rate annualises (€3.60), the yield is ≈4% at the current price — <b>estimate</b>, FX-dependent</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Cash generation and capital allocation — Q3 2026</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Item</th><th class="n">Q3 2026</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Cash flow from operations</td><td class="n">$15.39B</td><td>+84.3% YoY; $12.3B excluding working capital (the cleaner run-rate), +25% QoQ</td></tr>
+      <tr><td>Net investments (capex)</td><td class="n">$3.28B</td><td>$11.2B over nine months; full-year 2026 guidance held at ~$15B — discipline is being kept even in a windfall year</td></tr>
+      <tr class="hl"><td>Free cash flow</td><td class="n">&gt;$6B after dividends</td><td>Company framing; the surplus went to debt reduction (net debt −$5.9B in the quarter)</td></tr>
+      <tr><td>Shareholder returns</td><td class="n">$3.7B</td><td>$2.2B dividends + $1.5B buybacks in the quarter. Stated policy: return <b>40% of cash flow</b> to shareholders; $2.5B buybacks authorised for Q4 2026 and $2.5B for Q1 2027</td></tr>
+      <tr><td>FY26 cash-flow outlook</td><td class="n">&gt;$42B, ~$43B</td><td>Raised at the Q3 print — contingent on market conditions holding, per management</td></tr>
+      <tr><td>Returns on capital</td><td class="n">ROE 19.6% · ROACE 17.4%</td><td>Quarter figures per company commentary — flattered by the same exceptional margins; mid-cycle returns are lower</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Leverage profile</h3>
+  <ul>
+    <li><b>Net debt $13.79B at 30 Sep 2026</b>, down from $19.71B at end-Q2 and $24.6B a year earlier. Against a ~$189B market cap (unverified) and &gt;$42B of guided annual cash flow, leverage is modest by any integrated-major standard.</li>
+    <li><b>Gearing 9.1%</b>, improved four points in the quarter and down from 17.3% at end-Q3 2025. Cash and equivalents stood at <b>$34.21B</b> (30 Sep), up from $26.20B at end-2025.</li>
+    <li><b>What this buys:</b> at single-digit gearing, TotalEnergies can sustain the dividend and buyback through a normal oil downturn without borrowing to pay shareholders — the historical failure mode of European majors. The balance sheet is a reason the bear case in §5 is a de-rating story, not a distress story.</li>
+  </ul>
+  <div class="callout warn"><div class="ct">Quality-of-earnings caution</div><p>Three flattering items sit inside Q3: a <b>$3.1B working-capital inflow</b> (reversible), <b>exceptional refining margins</b> (mean-reverting), and the fact that the TTM valuation base ($196.4B revenue) badly lags the current run-rate. Read the 9.4× P/E as “cheap against mid-cycle earnings power,” not as “the market is giving away Q3's annualised profit” — it isn't, because Q3's profit isn't the run-rate.</p></div>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p>An integrated major's moat is not a brand or a network effect — it is <b>portfolio breadth plus cost position plus trading reach</b>, and TotalEnergies scores well on all three within its peer set of ExxonMobil, Chevron, Shell, BP and Eni.</p>
+  <ul>
+    <li><b>LNG leadership (the core moat).</b> One of the world's largest LNG portfolios, spanning liquefaction stakes, long-term contracts and a global trading book. LNG is the scarcest skill set in the energy transition — capital-intensive, decade-long projects, deep buyer relationships in Europe and Asia — and it converts gas-price volatility from a risk into a profit source, as Q3's doubled LNG profit showed.</li>
+    <li><b>Low-cost upstream.</b> The research pack identifies low-cost production as a structural strength: at 2.47 Mboe/d, the upstream keeps generating cash at crude prices where higher-cost peers merely break even. Cost position, not size, is what survives downturns.</li>
+    <li><b>Integration as a natural hedge.</b> Upstream, LNG, refining, marketing and power in one P&amp;L means the segments' cycles partially cancel — Q3 is the proof: soft crude, record group profit. Standalone refiners and pure E&amp;Ps cannot replicate this without M&amp;A they cannot afford at TTE's scale.</li>
+    <li><b>Trading capability.</b> Integrated trading across oil, gas, LNG and power is a genuine barrier: it takes decades of market presence, credit lines and physical asset backing. It is also why “pricing power” for TTE means something different than for a consumer company — it is the power to route physical molecules to the highest-value market in real time.</li>
+    <li><b>Power optionality.</b> Integrated Power (renewables + flexible generation via TTEP) is only ~6% of segment profit today, but it is the fastest-growing piece (+42% power output YoY) and the main claim on a re-rating if electricity earnings scale. It is an option, not yet a moat.</li>
+  </ul>
+  <h3>Where the moat is thin</h3>
+  <ul>
+    <li><b>No pricing power over the core commodity.</b> Brent and TTF gas prices are set globally; TTE is a price-taker on most of its revenue. The moat defends margin and cash conversion, not price.</li>
+    <li><b>Political exposure is the anti-moat.</b> As France's flagship energy company, TotalEnergies is a standing target for windfall taxes and regulatory intervention in a way US-domiciled ExxonMobil and Chevron are not — a structural reason European majors trade at lower multiples than US peers on similar assets.</li>
+    <li><b>Scale gap to the US supermajors.</b> At ~$189B market cap (unverified), TTE is roughly a quarter of ExxonMobil's size — less capacity to absorb a major project failure or to win a bidding war for tier-one assets.</li>
+  </ul>
+  <div class="callout"><div class="ct">Positioning verdict</div><p>Within global energy, TTE is the <b>highest-quality European integrated</b> on this pack's evidence: the LNG book and trading desk are best-in-class outside the US supermajors, the upstream is low-cost, and the balance sheet now matches the story. The valuation gap to US peers (≈9–10× vs low-20s P/E for XOM/CVX on the pack's verified comparators) is compensation for domicile and commodity risk, not an obvious mispricing — closing it requires the power business to scale and French fiscal risk to stay quiet.</p></div>
+</section>
+
+<!-- ================= 4 CATALYSTS & RISKS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="proscons">
+    <div class="pc bull"><h4>Catalysts — next 12–18 months</h4><ul>
+      <li><b>Buyback execution:</b> $2.5B authorised for Q4 2026 and $2.5B for Q1 2027 under the 40%-of-cash-flow return policy — a visible, dated bid under the share price, accretive at a single-digit P/E.</li>
+      <li><b>Dividend momentum:</b> interim dividend +5.9% to €0.90/share; management has flagged it may lift the final dividend if needed to hit the 40% return target.</li>
+      <li><b>LNG cycle:</b> continued strength in gas prices and trading keeps the segment that doubled in Q3 contributing at an elevated level; management guided to sustain tailwinds through 2026.</li>
+      <li><b>Production growth:</b> output +3% QoQ to 2.47 Mboe/d with Middle East disruption still in the base — normalisation of disrupted volumes is upside to volumes.</li>
+      <li><b>Power scaling:</b> Integrated Power compounding (ANOI +13% QoQ, output +42% YoY, TTEP consolidated for a full quarter) is the only credible path to multiple re-rating.</li>
+      <li><b>Balance-sheet optionality:</b> at 9.1% gearing, further net-debt reduction or stepped-up returns are both affordable — either is a positive headline.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Downside risks</h4><ul>
+      <li><b>Refining-margin mean reversion (the big one):</b> Q3's record downstream was driven by exceptional margins. Normalisation takes the largest segment profit line down sharply even with no operational failure.</li>
+      <li><b>Commodity prices:</b> a sustained Brent/gas decline hits E&amp;P and LNG simultaneously; integration cushions but does not immunise.</li>
+      <li><b>French / EU regulation and taxation:</b> windfall taxes, carbon policy and political pressure on a French champion are recurring, un-modelable risks flagged in the research pack.</li>
+      <li><b>Transition execution:</b> Q3 already carried $1.9B of impairments including offshore wind — evidence that parts of the renewables build-out are not earning their cost of capital. More write-downs would damage the pivot narrative.</li>
+      <li><b>Russia legacy:</b> residual exposure and write-off overhang from the pre-2022 Russian position remain a flagged pack risk — low cash impact now, but a headline and compliance tail.</li>
+      <li><b>Geopolitics in producing regions:</b> Middle East disruption already trimmed Q3 output; the asset base is inherently exposed to regions the company does not control.</li>
+    </ul></div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>Two things together: refining margins normalising <i>while</i> crude and gas fall — the combination that removes the integration hedge — or a French/EU fiscal intervention that materially raises the take on TTE's earnings. Either alone compresses earnings toward the bear case; a windfall-tax regime that investors conclude is permanent would compress the multiple as well, and that is the scenario in which a 9.4× P/E turns out to have been the warning, not the opportunity.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>Method: scenario ranges anchored on the research pack's estimates, with the weighting convention stated openly so every weighted figure can be re-computed. <b>Every price in this section is a modelled estimate, not a verified fact and not a guarantee.</b> For an integrated major, the honest drivers are the commodity deck, refining margins and the cash-return policy — the cases below are differentiated on exactly those, not on heroic growth assumptions.</p>
+
+  <h3>12–18-month targets (to roughly mid-2028) — modelled estimates</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$80</div><div class="ret down">−16% vs $95.33</div><p>Refining margins normalise hard, crude softens, and a French fiscal measure lands. Earnings fall back toward mid-cycle, the multiple stays at a European-major discount, and the buyback only cushions the decline. Dividends still get paid — that is the floor's foundation.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$105</div><div class="ret up">+10% vs $95.33</div><p>Margins normalise partially, LNG and trading stay firm, production grows low-single-digits, and the 40% cash-return policy is delivered in full. Modest re-rating from a depressed base as the balance-sheet story (gearing &lt;10%) seasons. Pack base estimate: $105.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$125</div><div class="ret up">+31% vs $95.33</div><p>Dislocated energy markets persist into 2027, LNG trading repeats a strong year, Integrated Power scales faster than expected, and the market begins pricing TTE closer to US-peer quality on returns. Requires both commodity help and execution — hence 25%, not more.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled estimate</div><div class="wv mono">≈ $104</div></div><p>0.25×$80 + 0.50×$105 + 0.25×$125 = $103.75 ≈ $104, or <b>+9%</b> price appreciation from $95.33 — <i>before</i> roughly 4%/yr of dividends (est.). The skew is mildly positive and the carry is real; the honest summary is “a bond-like return with equity upside optionality,” not a multi-bagger setup.</p></div>
+
+  <h3>5-year projection — frozen-parameter model</h3>
+  <p>Conventions, matching the format used across this research series: starting revenue is the pack's TTM <b>$196.4B</b>; share count is <b>held frozen at ≈1.98B</b> (implied by the pack's price and market cap — buybacks would in practice shrink it, making this conservative); the exit P/E is <b>frozen at 10×</b> in all three cases, close to today's unverified 9.4×, so no case is allowed to win by multiple expansion. Only revenue growth and net margin vary. All outputs are modelled estimates.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Price CAGR from $95.33</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">0%</td><td class="n">7.0%</td><td class="n">~$196B</td><td class="n">~$6.94</td><td class="n">10×</td><td class="n">~$70</td><td class="n">−6.0%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">3%</td><td class="n">9.2%</td><td class="n">~$228B</td><td class="n">~$10.55</td><td class="n">10×</td><td class="n">~$105</td><td class="n">+2.0%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">6%</td><td class="n">10.2%</td><td class="n">~$263B</td><td class="n">~$13.55</td><td class="n">10×</td><td class="n">~$135</td><td class="n">+7.2%</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $104</td><td class="n">+1.8%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Cross-checks: the base case reproduces the pack's own 5-year anchor (2% price CAGR → $95.33 × 1.104 ≈ $105) and the weighted result (≈$104) matches the pack's weighted estimate. Read the table correctly: <b>price appreciation is deliberately modest — the investment case is total return</b>. Add ≈4%/yr of dividends (estimate, at the current €0.90 quarterly rate) and the base case compounds at roughly 6%/yr, the weighted case at roughly 6%/yr with a fatter right tail. A buyer who needs price growth alone should not own this stock; a buyer harvesting cash returns at a single-digit multiple should.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon (25+ years to retirement), self-rated risk tolerance 8/10</b> — equity-heavy and comfortable with cyclical drawdowns. Recommendations are research views, not guarantees and not personalised financial advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Single-digit earnings multiple, a raised FY26 cash-flow outlook (&gt;$42B), $5B of dated buybacks and a growing dividend give the position carry while the thesis plays out. The honest caveat: Q3's refining windfall will not repeat at this level, so judge the next prints on LNG, upstream volumes and cash returns — not on whether downstream matches a record.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy as an income compounder, sized small.</b> The modelled weighted 5-yr price (≈$104) barely beats today's price — the return is the ~4%/yr dividend (est.) plus buyback accretion on a shrinking share count, with LNG and power growth as the upside option. Own it for cash returned, not for re-rating.</td></tr>
+      <tr><td>Trim / exit triggers</td><td><span class="pill trim">Trim</span></td><td>Trim if the multiple expands toward US-peer levels without Integrated Power scaling to justify it (the discount closing is the exit, not the hold); cut on a permanent-looking French/EU windfall-tax regime, on gearing rising back above ~20%, or on two consecutive years of impairments in the power build-out — evidence the transition spend is destroying value.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>TTE target: 1.5% of total portfolio.</b> Energy is a cyclical satellite in an 8/10-risk portfolio dominated by growth compounders; 1.5% is enough for the dividend stream and LNG exposure to register, small enough that a 30–40% commodity drawdown costs the portfolio well under 1%.</li>
+    <li><b>Count the overlap:</b> broad European and global index funds already hold TotalEnergies, and any direct holdings of other integrated majors (XOM, CVX, SHEL) stack the same commodity bet. Keep total integrated-energy exposure — direct plus look-through — in the low single digits unless energy is a deliberate overweight.</li>
+    <li><b>Currency note:</b> the NYSE ADR removes trading friction but not economics — earnings and the dividend are euro-anchored (€0.90/share declared in euros), so a weak euro trims the USD return even when the business performs.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Sector-level allocation — where TTE sits inside the energy sleeve, the top-5-per-sector comparison and the 12–18-month and 5-year portfolio spreads — is covered in the index artifact for this research series; this report carries the single-name view only.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TotalEnergies (TTE)</h2>
+<p><strong>Price (30 Oct 2026 close): $95.33.</strong> <strong>DCF intrinsic: $115.16.</strong> Discount/premium vs DCF: <strong>-17.2%</strong> — i.e. the shares are trading 17.2% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$115.16</td><td>-17.2%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; Q3 2026 results https://www.morningstar.com/news/business-wire/20261029575258/totalenergies-se-third-quarter-2026-results ; Digrin https://www.digrin.com/stocks/detail/TTE/financials (assets $313.4bn − liabilities $182.6bn at Jun 2026 = $130.8bn equity; BVPS $130.8bn/2.30bn ≈ $56.87, approximate)</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — TotalEnergies (TTE)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: TotalEnergies sells LNG, crude, refined products, power and chemicals to utilities, refiners, traders and industrial buyers, with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>LNG and power buyers — utilities in Europe and Asia</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Refiners, traders and chemical manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Retail, aviation and industrial fuel buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through runs through LNG/power contracting: undervalued utilities would be a potential tailwind to TotalEnergies&#x27; LNG and Integrated Power volumes only if they commit to new contracts, which depends on their own demand and credit rather than their valuation; overvalued buyers pulling back would be a headwind through softer realisations.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TotalEnergies (TTE)</h2>
+<p><strong>Role: Beneficiary.</strong> TotalEnergies&#x27; LNG and its growing Integrated Power business (production +20% in Q3 2026) are direct suppliers to the data-centre power complex in Europe and Asia.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 9.4 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Headline market figures (price, market cap, P/E, TTM revenue and gross profit) are from the research pack for this series — Finnhub and Motley Fool data as of the 30 Oct 2026 close — and are labelled unverified where the independent verification pass did not re-check them (see the note under the verdict strip). Q3 2026 operating figures are from TotalEnergies' results released 29 Oct 2026, as carried by the coverage below. Scenario targets in §5 are this report's model, built on the pack's estimates with weights and assumptions shown.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22TTE%22" target="_blank" rel="noopener">Finnhub — TTE quote data behind the pack's price, market cap, P/E and EPS figures (unverified in this pass)</a></li>
+    <li><a href="https://WWW.ZACKS.COM/stock/news/3018906/tte-q3-earnings-miss-estimates-middle-east-crisis-impacts-production" target="_blank" rel="noopener">Zacks — Q3 2026: EPS $4.03 vs $4.11 consensus, revenue $66.82B (+37.2%), segment detail, cash and dividend</a></li>
+    <li><a href="https://www.rigzone.com/news/totalenergies_expects_to_sustain_tailwinds_behind_blockbuster_q3-29-oct-2026-184961-article/" target="_blank" rel="noopener">Rigzone — adjusted net income $9.1B (+51% QoQ), GAAP net income $8.26B, adj. EBITDA $17.81B, net debt $13.79B, gearing 9.1%</a></li>
+    <li><a href="https://www.defenseworld.net/2026/10/31/totalenergies-q3-earnings-call-highlights.html" target="_blank" rel="noopener">Defense World — Q3 earnings-call highlights: segment ANOI, FY26 cash-flow outlook &gt;$42B, $3.7B shareholder returns, ROE 19.6% / ROACE 17.4%</a></li>
+    <li><a href="https://www.europesays.com/france/101751/" target="_blank" rel="noopener">EuropeSays — segment ANOI detail, net debt path ($24.6B → $13.8B), 9M net income $19.5B vs FY25 $13.1B, dividend and buyback authorisations</a></li>
+    <li><a href="https://www.alpha-sense.com/earnings/tte/" target="_blank" rel="noopener">AlphaSense — Q3 2026 earnings analysis: CFFO $12.3B, production 2.47 Mboe/d, Integrated Power cash flow, 40%-of-cash-flow return policy</a></li>
+    <li><a href="https://africabusinessinsight.com/totalenergies-posts-us9-1bn-quarterly-profit-as-refining-and-lng-earnings-surge/" target="_blank" rel="noopener">Africa Business Insight — adjusted profit +51% QoQ / +127% YoY, refining contribution, gearing below 10%</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> Research snapshot as of 1 Nov 2026, built from the public sources above. Prices, multiples and commodity markets move daily and will stale quickly. Scenario prices are an illustrative model with stated assumptions — research views, not forecasts, guarantees or personalised financial advice. Position sizing assumes the stated profile (mid-30s, risk 8/10, no near-term need for the funds) and should be re-checked against your actual portfolio, including index-fund look-through and any other energy holdings, before acting.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // Position-size calculator (in-memory only)
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v = parseFloat(pf.value) || 0;
+    var t = v*0.015, price = 95.33;
+    out.innerHTML = 'TTE at <b>1.5%</b> = <b>' + fmt(t) + '</b> (≈ ' + Math.floor(t/price) + ' shares at $95.33). Satellite range 1–2% = ' + fmt(v*0.01) + ' – ' + fmt(v*0.02) + '. At the current interim dividend (€0.90/share quarterly), the 1.5% position would return roughly ' + fmt(t*0.04) + '/yr in dividends (estimate, FX-dependent).';
+  }
+  pf.addEventListener('input', calc); calc();
+
+  // Scrollspy
+  var links = document.querySelectorAll('#toc a');
+  var secs = [];
+  links.forEach(function(a){ var el = document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a, el:el}); });
+  function spy(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s){ if (s.el.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, {passive:true}); spy();
+})();
+</script>
+</body>
+</html>

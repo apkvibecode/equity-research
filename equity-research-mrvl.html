@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MRVL (Marvell Technology)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#f7f6f2;
+    --surface:#ffffff;
+    --surface-2:#efede6;
+    --ink:#17201d;
+    --ink-2:#4c5a55;
+    --ink-3:#7d8a85;
+    --line:#ddd9cd;
+    --line-strong:#c6c1b2;
+    --accent:#0b6e5d;
+    --accent-soft:#e2efe9;
+    --neg:#b23a26;
+    --neg-soft:#f9e9e4;
+    --warn:#9a6a12;
+    --warn-soft:#f7efd8;
+    --pos:#0b6e5d;
+    --shadow:0 1px 2px rgba(23,32,29,.06), 0 8px 24px rgba(23,32,29,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101413;
+      --surface:#181d1b;
+      --surface-2:#1f2623;
+      --ink:#e8ece9;
+      --ink-2:#a9b5b0;
+      --ink-3:#7e8b86;
+      --line:#2c3531;
+      --line-strong:#3d4843;
+      --accent:#3ec9a7;
+      --accent-soft:#17352c;
+      --neg:#f0836b;
+      --neg-soft:#3a211a;
+      --warn:#e5b95c;
+      --warn-soft:#38300f;
+      --pos:#3ec9a7;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.3);
+    }
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, sans-serif;
+    font-size:16px; line-height:1.6;
+  }
+  .mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums;}
+  .wrap{max-width:880px; margin:0 auto; padding:0 20px 72px;}
+  a{color:var(--accent); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+
+  /* ---------- header ---------- */
+  header{padding:36px 0 0;}
+  .kicker{
+    font-family:"IBM Plex Mono", monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--ink-3); display:flex; flex-wrap:wrap; gap:6px 14px;
+  }
+  .kicker b{color:var(--accent); font-weight:600;}
+  h1{
+    font-family:"Source Serif 4", Georgia, serif; font-weight:700;
+    font-size:clamp(30px, 5.4vw, 44px); line-height:1.12; margin:12px 0 6px; letter-spacing:-.01em;
+  }
+  h1 .tick{color:var(--accent);}
+  .sub{color:var(--ink-2); font-size:16.5px; max-width:64ch; margin:0;}
+  .pricebar{
+    display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 22px;
+    margin:22px 0 0; padding:18px 20px; background:var(--surface);
+    border:1px solid var(--line); border-radius:10px; box-shadow:var(--shadow);
+  }
+  .pricebar .px{font-family:"IBM Plex Mono",monospace; font-size:34px; font-weight:600; line-height:1;}
+  .pricebar .chg{font-family:"IBM Plex Mono",monospace; font-size:16px; font-weight:600; color:var(--neg);}
+  .pricebar .asof{color:var(--ink-3); font-size:13px; margin-left:auto; text-align:right;}
+  .stats{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; margin-top:14px;
+  }
+  .stat{background:var(--surface); padding:14px 16px;}
+  .stat .lab{font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:600;}
+  .stat .val{font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:600; margin-top:3px;}
+  .stat .note{font-size:12.5px; color:var(--ink-2); margin-top:2px;}
+  @media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+
+  .alert{
+    margin-top:16px; padding:14px 18px; border-radius:10px;
+    background:var(--warn-soft); border:1px solid var(--warn);
+    font-size:14.5px; line-height:1.55;
+  }
+  .alert b{color:var(--warn);}
+
+  /* ---------- sections ---------- */
+  section{margin-top:44px;}
+  h2{
+    font-family:"Source Serif 4", Georgia, serif; font-size:24px; font-weight:700;
+    margin:0 0 4px; display:flex; align-items:baseline; gap:12px;
+  }
+  h2 .no{
+    font-family:"IBM Plex Mono",monospace; font-size:13px; font-weight:600; color:var(--accent);
+    border:1px solid var(--accent); border-radius:50%; width:26px; height:26px; flex:0 0 auto;
+    display:inline-flex; align-items:center; justify-content:center; transform:translateY(-2px);
+  }
+  .sec-lede{color:var(--ink-2); margin:0 0 14px; font-size:15.5px;}
+  p{margin:0 0 12px;}
+  ul{margin:0 0 12px; padding-left:20px;}
+  li{margin-bottom:7px;}
+  li::marker{color:var(--accent);}
+  strong{font-weight:600;}
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    padding:18px 20px; box-shadow:var(--shadow); margin-bottom:14px;
+  }
+  .card h3{margin:0 0 8px; font-size:16px; font-weight:600;}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:640px){ .grid2{grid-template-columns:1fr;} }
+  .tag{
+    display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; padding:2px 8px; border-radius:99px;
+    background:var(--accent-soft); color:var(--accent); vertical-align:2px;
+  }
+  .tag.est{background:var(--warn-soft); color:var(--warn);}
+  .tag.unconf{background:var(--neg-soft); color:var(--neg);}
+  .gap{
+    border:1px dashed var(--line-strong); border-radius:10px; padding:14px 18px;
+    color:var(--ink-2); font-size:14.5px; background:transparent;
+  }
+  .gap b{color:var(--ink);}
+
+  /* ---------- tables ---------- */
+  .tblwrap{overflow-x:auto; border:1px solid var(--line); border-radius:10px; background:var(--surface); box-shadow:var(--shadow);}
+  table{border-collapse:collapse; width:100%; min-width:560px; font-size:14.5px;}
+  th, td{padding:11px 14px; text-align:right; border-bottom:1px solid var(--line); vertical-align:top;}
+  th{font-size:12px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:600; background:var(--surface-2);}
+  td:first-child, th:first-child{text-align:left;}
+  tr:last-child td{border-bottom:none;}
+  td.num, td .num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums;}
+  tr.weighted td{font-weight:600; background:var(--accent-soft);}
+  @media (max-width:640px){
+    table{min-width:0;}
+    thead{display:none;}
+    tbody tr{display:block; padding:10px 14px; border-bottom:1px solid var(--line);}
+    tbody tr:last-child{border-bottom:none;}
+    tbody td{display:flex; justify-content:space-between; align-items:baseline; gap:18px; padding:4px 0; border-bottom:none; text-align:right;}
+    tbody td::before{content:attr(data-label); color:var(--ink-3); font-size:11px; font-weight:600; letter-spacing:.07em; text-transform:uppercase; text-align:left; flex:0 0 auto;}
+    tbody td:first-child{font-size:15.5px;}
+    tbody td:first-child::before, tbody td[colspan]::before{content:none;}
+    tbody td.desc{display:block; text-align:left; color:var(--ink-2); font-size:13.5px;}
+  }
+  tr.bull td:first-child{box-shadow:inset 3px 0 0 var(--pos);}
+  tr.bear td:first-child{box-shadow:inset 3px 0 0 var(--neg);}
+  .up{color:var(--pos); font-weight:600;}
+  .down{color:var(--neg); font-weight:600;}
+
+  /* ---------- scenario bars ---------- */
+  .bars{margin:16px 0 4px; display:grid; gap:10px;}
+  .bar-row{display:grid; grid-template-columns:118px 1fr 74px; align-items:center; gap:12px; font-size:13.5px;}
+  .bar-row .bl{color:var(--ink-2); font-weight:500;}
+  .bar-track{height:14px; background:var(--surface-2); border-radius:4px; position:relative;}
+  .bar-fill{height:100%; border-radius:4px; background:var(--accent);}
+  .bar-fill.bull{background:var(--pos); opacity:.85;}
+  .bar-fill.bear{background:var(--neg); opacity:.8;}
+  .bar-fill.wtd{background:var(--ink-3);}
+  .bar-row .bv{font-family:"IBM Plex Mono",monospace; font-weight:600; text-align:right;}
+  .bar-now{position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--ink);}
+  .bar-now-lab{font-size:11px; color:var(--ink-3); margin-top:2px;}
+  @media (max-width:560px){ .bar-row{grid-template-columns:92px 1fr 64px;} }
+
+  /* ---------- verdict ---------- */
+  .verdict{
+    background:var(--surface); border:1px solid var(--line); border-left:5px solid var(--accent);
+    border-radius:10px; padding:20px 22px; box-shadow:var(--shadow);
+  }
+  .verdict .row{display:flex; flex-wrap:wrap; gap:10px 28px; margin-bottom:10px;}
+  .verdict .item .lab{font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); font-weight:600;}
+  .verdict .item .v{font-family:"Source Serif 4",serif; font-size:22px; font-weight:700;}
+  .verdict .item .v.hold{color:var(--warn);}
+  .verdict .item .v.buy{color:var(--pos);}
+  .calc{margin-top:16px; border-top:1px solid var(--line); padding-top:16px;}
+  .calc label{font-size:13.5px; color:var(--ink-2); display:block; margin-bottom:6px;}
+  .calc .inrow{display:flex; flex-wrap:wrap; gap:10px; align-items:center;}
+  .calc input{
+    font-family:"IBM Plex Mono",monospace; font-size:16px; padding:9px 12px; width:180px;
+    border:1px solid var(--line-strong); border-radius:8px; background:var(--bg); color:var(--ink);
+  }
+  .calc .out{font-size:15px;}
+  .calc .out b{font-family:"IBM Plex Mono",monospace;}
+
+  footer{margin-top:52px; border-top:1px solid var(--line); padding-top:20px; font-size:13.5px; color:var(--ink-2);}
+  footer h3{font-size:13px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin:0 0 10px;}
+  footer ol{margin:0 0 16px; padding-left:20px;}
+  footer li{margin-bottom:5px; overflow-wrap:anywhere;}
+  .fineprint{font-size:12.5px; color:var(--ink-3); line-height:1.55;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">
+    <span><b>Equity Research</b></span>
+    <span>Information Technology · Semiconductors</span>
+    <span>As of 1 Nov 2026</span>
+  </div>
+  <h1>Marvell Technology <span class="tick">(MRVL)</span></h1>
+  <p class="sub">Data-center infrastructure silicon — custom AI ASICs, electro-optics, networking, storage and interconnect. A high-multiple AI-infrastructure name whose October run to ~$282 fully retraced in the month-end sell-off, and which now carries a large, unconfirmed M&amp;A overhang.</p>
+
+  <div class="pricebar">
+    <div class="px">$196.40</div>
+    <div class="chg">−10.05% on 30 Oct · −13% on 29 Oct</div>
+    <div class="asof">30 Oct 2026 regular-session close<br/>1 Nov 2026 was a weekend — no newer close</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="lab">Market cap</div><div class="val">$172.22B</div><div class="note">~0.877B shares outstanding</div></div>
+    <div class="stat"><div class="lab">Trailing P/E</div><div class="val">65.2×</div><div class="note">As reported by data providers; TTM EPS $3.07 on the same feeds (the pair is provider-computed and does not divide exactly)</div></div>
+    <div class="stat"><div class="lab">Latest quarter</div><div class="val">$2.739B rev</div><div class="note">Fiscal Q2 2027, +37% YoY</div></div>
+    <div class="stat"><div class="lab">Consensus target</div><div class="val">$327.36</div><div class="note">MarketBeat — +67% vs the close</div></div>
+  </div>
+
+  <div class="alert">
+    <b>Unconfirmed overhang — read this first.</b> Bloomberg reported on 28 Oct 2026 that Marvell is in <b>advanced, unconfirmed talks</b> to acquire Lumentum, possibly in an all-stock deal. No agreement, price, premium or terms have been disclosed, and neither company has commented. The ~$83B figure in circulation was Lumentum's approximate <i>market value</i> at the time — <b>not</b> a deal price. Nothing in this report models the transaction as fact; it is treated throughout as a binary overhang that would transform Marvell's leverage and share count if it were ever signed.
+  </div>
+</header>
+
+<section>
+  <h2><span class="no">1</span>Business model &amp; segment breakdown</h2>
+  <p class="sec-lede">Marvell sells the silicon that moves and processes data inside AI data centres — increasingly designed <i>with</i> a specific hyperscaler rather than sold off a catalogue.</p>
+  <p><strong>Core revenue streams.</strong> Custom ASICs (accelerators and infrastructure chips designed for individual cloud customers), electro-optics (the optical interconnect that links AI clusters), networking, storage controllers, and broader interconnect products. The growth engine is the data-centre portfolio: fiscal Q2 2027 revenue (reported Aug 2026) was <strong>$2.739B, up 37% year over year</strong>, driven by that portfolio.</p>
+  <p><strong>Recent structural pivot.</strong> Marvell has re-centred itself on data-centre infrastructure and custom silicon for hyperscalers, positioning as the second source behind Broadcom in custom AI ASICs and as a key supplier of the optical layer AI clusters need to scale. Its 6 Oct 2026 Investor Day drove the stock to ~$282 — a run that fully retraced in the October sell-off, leaving the price ~30% below that peak at the 30 Oct close.</p>
+  <p><strong>Supply-chain dependencies.</strong> Like other fabless designers, Marvell depends on external foundry capacity for leading-edge wafers and on advanced packaging and optical-component supply; its custom-silicon model also ties revenue timing to a small number of hyperscaler programmes, each of which can ramp, pause or shift to a rival designer.</p>
+  <div class="gap"><b>Open question — segment &amp; geographic split:</b> the verified research pack carries the consolidated quarterly figure but no audited revenue split by product line or geography, so none is printed here rather than estimated into place. The data-centre portfolio is identified as the growth driver; its exact share of revenue is not stated in the sourced material.</div>
+</section>
+
+<section>
+  <h2><span class="no">2</span>Financial health &amp; balance-sheet diagnostics</h2>
+  <p class="sec-lede">Profitable and growing fast, but priced for it: at 65× trailing earnings, the valuation — not the income statement — is the risk.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Valuation snapshot <span class="tag">30 Oct close</span></h3>
+      <ul>
+        <li>Price <span class="mono"><strong>$196.40</strong></span>; market cap <span class="mono"><strong>$172.22B</strong></span> on ~0.877B shares.</li>
+        <li>Trailing P/E <span class="mono"><strong>65.2×</strong></span>; TTM EPS <span class="mono"><strong>$3.07</strong></span> (provider figures).</li>
+        <li>Price/sales ≈ <span class="mono"><strong>16.4×</strong></span> on the model's $10.5B revenue base (see §5) — a multiple that requires the AI-infrastructure ramp to persist.</li>
+        <li>Street consensus target <span class="mono"><strong>$327.36</strong></span> (MarketBeat), ~67% above the close — set largely before the late-October drawdown and the Lumentum reports.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Momentum &amp; the October drawdown</h3>
+      <ul>
+        <li>Investor Day (6 Oct) run to ~<span class="mono"><strong>$282</strong></span>, then a full retrace.</li>
+        <li><span class="mono"><strong>−13%</strong></span> on 29 Oct and <span class="mono"><strong>−10.05%</strong></span> on 30 Oct — more than a fifth of the market value gone in two sessions (about −22% compounded), on sector-wide selling compounded by the reported Lumentum talks.</li>
+        <li>Two-day moves of that size at a 65× multiple are a reminder the stock trades on expectations, not on trailing cash flows.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="gap"><b>Open question — balance-sheet detail:</b> the verified pack for this ticker does not carry cash, debt, free-cash-flow or buyback figures for Marvell, so no leverage or FCF ratios are printed here. That gap matters doubly because the reported Lumentum talks — if they ever became a signed deal — would be the single largest determinant of Marvell's future leverage and dilution. Treat any leverage claim about MRVL from other sources as unverified against this pack.</div>
+</section>
+
+<section>
+  <h2><span class="no">3</span>Competitive moat &amp; industry positioning</h2>
+  <p class="sec-lede">A real but contested moat: deep hyperscaler design-ins and optics expertise, against the strongest custom-silicon rival in the industry.</p>
+  <ul>
+    <li><strong>Custom-silicon design capability.</strong> Winning a hyperscaler ASIC programme means years of co-design and a socket that is hard to displace mid-generation — the core of Marvell's pricing power.</li>
+    <li><strong>Electro-optics position.</strong> Optical interconnect is a bottleneck layer for scaling AI clusters; Marvell's optics franchise is strategically scarce enough that the reported Lumentum talks — whatever their status — underline how valuable the market believes that layer to be.</li>
+    <li><strong>Hyperscaler relationships.</strong> Repeat design relationships with the largest cloud buyers give visibility, but also concentration: a single programme loss is material.</li>
+    <li><strong>Primary competitors.</strong> <strong>Broadcom</strong> — the dominant custom-ASIC rival and the benchmark Marvell is priced against; <strong>Nvidia</strong> in accelerated infrastructure; <strong>Cisco</strong> in networking; <strong>Credo</strong> in high-speed interconnect.</li>
+  </ul>
+  <p>The moat question in one line: Marvell does not need to beat Broadcom outright — it needs to remain the credible second source hyperscalers use to keep Broadcom honest, and to keep its optics lead. Losing either leg compresses the multiple quickly.</p>
+</section>
+
+<section>
+  <h2><span class="no">4</span>Catalysts &amp; downside risks</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>Custom-AI design wins</strong> — new or expanded hyperscaler ASIC programmes are the largest single revenue lever.</li>
+        <li><strong>Optics ramp</strong> — continued build-out of AI clusters pulls demand for electro-optics and interconnect.</li>
+        <li><strong>Investor-Day roadmap delivery</strong> — the October event set the expectations the stock ran on; hitting those milestones is the path back toward them.</li>
+        <li><strong>Resolution of the Lumentum question</strong> — even a clean "no deal" removes the overhang that is currently suppressing the multiple.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Downside risks</h3>
+      <ul>
+        <li><strong>Lumentum execution/dilution <span class="tag unconf">unconfirmed</span></strong> — if the reported talks became a signed, largely stock-funded acquisition of a company valued around $83B against Marvell's ~$173B market cap, dilution would be severe and integration risk high. This is a reported-talks scenario, not an announced deal.</li>
+        <li><strong>Broadcom competition</strong> — the dominant rival can contest every custom-ASIC socket Marvell targets.</li>
+        <li><strong>Customer concentration</strong> — hyperscaler programmes are large and few; a delay or loss lands directly on revenue.</li>
+        <li><strong>Valuation</strong> — at 65× trailing earnings, any growth disappointment is punished, as the ~22% two-day drawdown just demonstrated.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="no">5</span>Scenario valuation &amp; price targets</h2>
+  <p class="sec-lede">All figures in this section are <span class="tag est">modelled estimates</span> — built from the stated assumptions, not verified facts and not analyst consensus.</p>
+
+  <h3 style="margin:18px 0 8px; font-size:16.5px;">12–18 month targets</h3>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Case</th><th>Target</th><th>vs $196.40</th><th>What has to happen</th></tr></thead>
+      <tbody>
+        <tr class="bull"><td><strong>Bull</strong></td><td class="num" data-label="Target">$320</td><td class="num up" data-label="vs $196.40">+63%</td><td class="desc">Lumentum overhang clears, custom-AI wins land, multiple re-rates toward the street's view</td></tr>
+        <tr><td><strong>Base</strong></td><td class="num" data-label="Target">$240</td><td class="num up" data-label="vs $196.40">+22%</td><td class="desc">Data-centre growth continues near the recent +37% pace; no deal, no programme loss</td></tr>
+        <tr class="bear"><td><strong>Bear</strong></td><td class="num" data-label="Target">$130</td><td class="num down" data-label="vs $196.40">−34%</td><td class="desc">A dilutive deal is signed, or a key programme slips and the multiple de-rates</td></tr>
+        <tr class="weighted"><td>Probability-weighted (25/50/25)</td><td class="num" data-label="Target">$232.50</td><td class="num" data-label="vs $196.40">+18%</td><td class="desc">Computed from the three cases at the stated weights</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:13.5px; color:var(--ink-2); margin-top:8px;">For reference, the MarketBeat consensus target of $327.36 sits just above even the bull case here — the street is more optimistic than this model, largely on pre-drawdown assumptions.</p>
+
+  <h3 style="margin:22px 0 8px; font-size:16.5px;">5-year projection — frozen-parameter model</h3>
+  <p>Starting point: revenue base <span class="mono"><strong>$10.5B</strong></span> (estimate) and <span class="mono"><strong>0.877B shares</strong></span> held frozen. Only growth, net margin and the exit P/E vary by case. Note the frozen share count deliberately excludes any Lumentum-related issuance — a signed stock deal would break this model's central assumption, which is precisely why the recommendation below is staged.</p>
+  <div class="tblwrap">
+    <table>
+      <thead><tr><th>Case (likelihood)</th><th>Revenue growth/yr</th><th>Net margin</th><th>2031 revenue</th><th>2031 EPS</th><th>Exit P/E</th><th>2031 price</th></tr></thead>
+      <tbody>
+        <tr class="bull"><td><strong>Bull</strong> (25%)</td><td class="num" data-label="Rev growth/yr">35%</td><td class="num" data-label="Net margin">28%</td><td class="num" data-label="2031 revenue">$47.1B</td><td class="num" data-label="2031 EPS">$15.03</td><td class="num" data-label="Exit P/E">45×</td><td class="num" data-label="2031 price"><strong>$676</strong></td></tr>
+        <tr><td><strong>Base</strong> (50%)</td><td class="num" data-label="Rev growth/yr">25%</td><td class="num" data-label="Net margin">20%</td><td class="num" data-label="2031 revenue">$32.0B</td><td class="num" data-label="2031 EPS">$7.31</td><td class="num" data-label="Exit P/E">35×</td><td class="num" data-label="2031 price"><strong>$256</strong></td></tr>
+        <tr class="bear"><td><strong>Bear</strong> (25%)</td><td class="num" data-label="Rev growth/yr">10%</td><td class="num" data-label="Net margin">10%</td><td class="num" data-label="2031 revenue">$16.9B</td><td class="num" data-label="2031 EPS">$1.93</td><td class="num" data-label="Exit P/E">20×</td><td class="num" data-label="2031 price"><strong>$39</strong></td></tr>
+        <tr class="weighted"><td colspan="6">Probability-weighted 5-year value</td><td class="num" data-label="Weighted value">$307</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bars" aria-hidden="true">
+    <div class="bar-row"><span class="bl">Bull</span><div class="bar-track"><div class="bar-fill bull" style="width:100%"></div><div class="bar-now" style="left:29%"></div></div><span class="bv">$676</span></div>
+    <div class="bar-row"><span class="bl">Weighted</span><div class="bar-track"><div class="bar-fill wtd" style="width:45.4%"></div><div class="bar-now" style="left:29%"></div></div><span class="bv">$307</span></div>
+    <div class="bar-row"><span class="bl">Base</span><div class="bar-track"><div class="bar-fill" style="width:37.9%"></div><div class="bar-now" style="left:29%"></div></div><span class="bv">$256</span></div>
+    <div class="bar-row"><span class="bl">Bear</span><div class="bar-track"><div class="bar-fill bear" style="width:5.8%"></div><div class="bar-now" style="left:29%"></div></div><span class="bv">$39</span></div>
+  </div>
+  <p class="bar-now-lab">Black tick = 30 Oct close, $196.40. The spread between bull ($676) and bear ($39) is unusually wide — that <i>is</i> the story of this stock right now: a genuine AI-infrastructure franchise carrying a binary, unconfirmed deal overhang on top of a 65× multiple.</p>
+  <p><strong>How to read the bear case:</strong> $39 is not a rounding error — it is what the maths gives if growth slows to 10%, margins normalise to 10% and the market pays a mature-semiconductor 20×. At today's multiple, most of the price is expectation; the bear case prices the expectation away.</p>
+</section>
+
+<section>
+  <h2><span class="no">6</span>Recommendation &amp; portfolio sizing</h2>
+  <p class="sec-lede">Profile assumed throughout: mid-30s investor, risk score 8/10, long horizon.</p>
+  <div class="verdict">
+    <div class="row">
+      <div class="item"><div class="lab">Short term (12–18m)</div><div class="v hold">Hold</div></div>
+      <div class="item"><div class="lab">Long term (5 yr)</div><div class="v buy">Buy</div></div>
+      <div class="item"><div class="lab">Portfolio weight</div><div class="v">1.0%</div></div>
+      <div class="item"><div class="lab">Weighted 5-yr value</div><div class="v">$307 <span style="font-size:14px; color:var(--ink-3); font-family:'IBM Plex Mono',monospace;">est.</span></div></div>
+    </div>
+    <p style="margin-bottom:6px;"><strong>Short term — Hold, because of the overhang, not the business.</strong> Until the Lumentum question resolves, any position is partly a bet on an unconfirmed transaction. The two-day, ~22% drawdown also argues against chasing momentum in either direction at a 65× multiple.</p>
+    <p style="margin-bottom:0;"><strong>Long term — Buy, sized small.</strong> The 5-year weighted value of ~$307 (+56% vs the close) reflects a real custom-silicon and optics franchise. But the bear case ($39) is severe enough that position size, not conviction, is the control: <strong>1.0% of the total portfolio</strong> — a satellite position you add to only if the deal overhang clears or the multiple compresses on fundamentals rather than headlines.</p>
+    <div class="calc">
+      <label for="pv">Position-size check — enter your total portfolio value:</label>
+      <div class="inrow">
+        <input id="pv" type="number" inputmode="decimal" min="0" value="250000" step="1000" aria-label="Total portfolio value in dollars" />
+        <div class="out" id="calcOut" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>MRVL — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $196.40.</strong> <strong>DCF intrinsic: $69.</strong> Discount/premium vs DCF: <strong>+184.6%</strong> — i.e. the shares are trading 184.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$69</td><td>+184.6%</td></tr></table>
+<p><strong>Method 1 — DCF: $69.</strong> Base FCF $1.72B, constant growth g = 15% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $22.14B; Year-10 FCF = $6.96B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $39.47B. Equity value = PV of FCF + PV of terminal value + net cash ($-1.36B) = $60.25B; divided by 0.877B diluted shares = $69. Base note: TTM FCF $1.72B = sum of last four quarters (Oct 2025 $0.51B + Jan 2026 $0.26B + Apr 2026 $0.48B + Jul 2026 $0.47B, TwelveData). g capped at 15% (pack base CAGR 25%).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://twelvedata.com/markets/905276/stock/nasdaq/mrvl/statistics ; https://twelvedata.com/markets/905276/stock/nasdaq/mrvl/financials/cash-flow?period=quarterly</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MRVL — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of MRVL's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>Custom AI silicon + interconnect</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Alphabet (Google)</td><td>Custom AI silicon + electro-optics</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Meta Platforms</td><td>Custom AI silicon + networking</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Amazon</td><td>Custom silicon + networking — AWS</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Cisco</td><td>Networking / interconnect components</td><td></td><td>$56</td><td>+86.6%</td></tr><tr><td>Nokia</td><td>Networking infrastructure (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Ericsson</td><td>Networking infrastructure (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Marvell's read-through is hyperscaler custom-silicon spending, concentrated in the same few names as Broadcom's: discounts at those filled customer intrinsics would be a potential tailwind for custom-AI wins and optics ramp, while premiums would be a headwind. An undervalued customer does not guarantee higher Marvell spending — it depends on that customer's own custom-silicon roadmap, its Broadcom alternative and its cash position — and Marvell carries the additional binary overhang of the unconfirmed Lumentum talks, which no customer intrinsic captures. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MRVL — AI trade positioning</h2>
+<p><strong>Role: Enabler — custom silicon and optics challenger.</strong> Marvell is Broadcom's challenger in custom AI silicon: fiscal Q2 2027 revenue of $2.739B (+37% YoY) driven by the data-center portfolio, with the pack's investment case built on custom-AI wins and the optics ramp.</p>
+<p>While the AI trade runs, demand comes through hyperscaler custom-accelerator programmes and electro-optics for AI clusters, with management's $18B fiscal 2028 revenue outlook cited in coverage as the prize. On multiples, Marvell trades at ~65x trailing earnings in the pack (consensus target $327.36 cited), so the custom-silicon ramp is heavily pre-priced.</p>
+<p>If the AI trade unwinds, demand breaks first through custom-program delays or share loss to Broadcom, with optics orders following AI-cluster build-outs down. Multiple compression follows from 65x toward a through-cycle fabless multiple. The balance sheet is manageable ($3.93B cash against $5.29B debt) but the binary overhang dominates: Bloomberg's 28 Oct 2026 report of advanced, unconfirmed talks to acquire Lumentum (possibly all-stock; $83B was Lumentum's approximate market value, NOT consideration, per the coordinator correction) would transform leverage and dilution if signed — it must not be modelled as a deal. Triggers to watch: custom-win announcements, the Lumentum-talk status, and hyperscaler capex guides.</p>
+</div>
+<footer>
+  <h3>Sources</h3>
+  <ol>
+    <li>Finnhub — MRVL quote &amp; statistics (price, market cap, P/E, EPS): <a href="https://finnhub.io/?q=%22MRVL%22">finnhub.io/?q="MRVL"</a></li>
+    <li>MarketBeat — MRVL analyst consensus target ($327.36): <a href="https://www.marketbeat.com/stocks/NASDAQ/MRVL/">marketbeat.com/stocks/NASDAQ/MRVL</a></li>
+    <li>InvestMoat — MRVL company/stock profile: <a href="https://www.investmoat.com/stocks/mrvl">investmoat.com/stocks/mrvl</a></li>
+    <li>InsightMark Research — custom AI ASIC market statistics 2026: <a href="https://insightmarkresearch.com/insights/custom-ai-asic-statistics-2026-market-size-investment-growth">insightmarkresearch.com</a></li>
+    <li>Lumentum talks coverage (Bloomberg report, 28 Oct 2026): <a href="https://tech-insider.org/marvell-lumentum-acquisition-talks-221b-83b-ai-optics-2026/">tech-insider.org — Marvell–Lumentum acquisition talks</a>; <a href="https://www.heygotrade.com/en/news/marvell-mrvl-stock-news-october-30-2026/">heygotrade.com — MRVL news, 30 Oct 2026</a></li>
+  </ol>
+  <p class="fineprint"><strong>Basis &amp; verification.</strong> Sector ranking basis: FinanceCharts, "Biggest Tech Companies for Nov 2026" (last updated 30 Oct 2026); all prices are the 30 Oct 2026 close. Figures were cross-checked against an independent verification pass on 1 Nov 2026; the verification corrections are applied throughout — most materially, the Lumentum item is reported talks only, with no agreed deal or price. Scenario prices in §5 are modelled estimates with their assumptions shown; they are not verified facts, analyst targets, or guarantees. Items the verified pack did not cover (segment/geographic revenue split; cash, debt and free-cash-flow detail) are flagged as open questions in place rather than filled in.</p>
+  <p class="fineprint">Research views for a mid-30s investor with a risk score of 8/10, as of 1 Nov 2026. Not investment advice.</p>
+</footer>
+
+</div>
+<script>
+  (function(){
+    var price = 196.40, weight = 0.01;
+    var input = document.getElementById('pv');
+    var out = document.getElementById('calcOut');
+    function fmt(n){ return n.toLocaleString('en-US', {maximumFractionDigits: n < 100 ? 2 : 0}); }
+    function render(){
+      var pv = parseFloat(input.value);
+      if (!isFinite(pv) || pv <= 0){ out.textContent = 'Enter a portfolio value to size the 1.0% position.'; return; }
+      var dollars = pv * weight;
+      var shares = dollars / price;
+      out.innerHTML = 'At <b>1.0%</b>: position ≈ <b>$' + fmt(dollars) + '</b> ≈ <b>' + fmt(shares) + ' shares</b> at $196.40.';
+    }
+    input.addEventListener('input', render);
+    render();
+  })();
+</script>
+</body>
+</html>

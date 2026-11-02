@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — RIO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#3d2317; --blue:#8c3a1b; --blue-soft:#f3e6dc;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#e0b48f; --blue:#e08a5f; --blue-soft:#33221a;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+nav.toc a.on{color:var(--blue);border-bottom-color:var(--blue)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.neg{background:var(--red)} .bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 78px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#33221a;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.unv{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.08em;padding:1px 7px;border-radius:999px;background:var(--amber-soft);color:var(--amber);text-transform:uppercase;vertical-align:middle;margin-left:6px}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ================= MASTHEAD ================= -->
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Materials</span><span>Mining · Iron Ore, Copper, Aluminium, Lithium</span></div>
+  <h1>Rio Tinto <span class="tick">(NYSE: RIO)</span></h1>
+  <p class="lede">The earnings engine has quietly flipped. In H1 2026 copper — not iron ore — carried the growth: copper EBITDA rose 84% while iron ore EBITDA slipped 1%, and group net earnings jumped 47%. Rio is still priced like a pure iron-ore annuity at a low-teens earnings multiple on the pack's figures, but the portfolio underneath it is becoming a copper-and-energy-transition miner, with Simandou and Oyu Tolgoi as the two big volume stories into 2028.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $81.89 close, Fri 30 Oct 2026 <span class="unv">Unverified</span></span>
+    <span><b>Latest print:</b> H1 2026 (half year ended 30 Jun 2026)</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="callout warn" style="margin-top:14px"><div class="ct">Verification status — read first</div>
+  <p>The H1 2026 figures in this note were confirmed in the independent verification pass and are sourced below. The <b>30 Oct price, market cap, P/E, EPS and TTM revenue were not re-checked</b> in that pass (single-source: Finnhub / Motley Fool), so they are flagged <span class="unv">Unverified</span> wherever they appear — treat them as indicative, not confirmed. All scenario prices in §5 are <b>modelled estimates</b> with their assumptions shown, never verified facts.</p></div>
+  <div class="callout" style="margin-top:10px"><div class="ct">Ranking basis</div>
+  <p>RIO sits in this series as part of the <b>global top 10 by market cap for Materials</b> (Motley Fool, metrics as of 6 Oct 2026, prices at 30 Oct 2026 close), including OTC names. The list is <b>not in strict market-cap order as printed</b> — for example BHP ($292.4B) is printed after LIN ($237.1B) — and ranking metrics are dated 6 Oct while prices are dated 30 Oct, so the two should not be read as a single snapshot. A US-listed-only list would differ; RIO itself is NYSE-listed.</p></div>
+</header>
+
+<!-- ================= VERDICT STRIP ================= -->
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$81.89</div><div class="vsub">NYSE: RIO (ADR) <span class="unv">Unverified</span></div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">~$103B</div><div class="vsub">$102.7B (Motley Fool) / $107.2B (Finnhub) — sources differ <span class="unv">Unverified</span></div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/E / P/S</div><div class="vbig mono">11.9× / 1.7×</div><div class="vsub">EPS $6.08 (Finnhub) <span class="unv">Unverified</span> · TTM revenue $61.8B</div></div>
+  <div class="vcell span3"><div class="vlabel">H1 2026 · verified</div><div class="vbig mono">+$14.8B <span style="font-size:15px">EBITDA</span></div><div class="vsub">Underlying EBITDA +28% · Net earnings $6.66B, +47% · Net debt $14.06B</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled base target $92 (+12%) — estimate. Copper momentum plus a 43% interim dividend raise support the near-term case.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled probability-weighted 5-yr value ≈ $99 — estimate. Simandou (60 Mtpa, target H2 2028) and Oyu Tolgoi underpin volume growth.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">A satellite materials position, not a core holding — commodity price-taker economics cap the weight. See §6.</div></div>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#flow">Income flow</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#matrix">7 · Matrix row</a><a href="#sources">Sources</a>
+</nav>
+
+<!-- ================= SNAPSHOT ================= -->
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">H1 2026</span><h2>The half year in one view</h2></div>
+  <p>Rio's H1 2026 print is a mix-shift story. Group revenue rose 15% and underlying EBITDA 28%, but the composition matters more than the totals: <b>copper EBITDA of $5.7B, up 84%</b>, nearly caught <b>iron ore EBITDA of $6.8B, down 1%</b>. A decade ago that ordering was unthinkable. Free cash flow rose 75% to $3.8B, net debt stood at $14.06B, and the interim dividend was raised 43% to $2.11 — management signalling confidence in the cash position even while funding Simandou.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>H1 2026 (half year ended 30 Jun 2026)</th><th class="n">Actual</th><th class="n">Change YoY</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td class="n">$31.03B</td><td class="n">+15%</td><td>Growth led by copper volumes and prices, not iron ore</td></tr>
+      <tr><td>Underlying EBITDA</td><td class="n">$14.83B</td><td class="n">+28%</td><td>Margin expansion on the copper mix shift</td></tr>
+      <tr><td>Copper EBITDA</td><td class="n">$5.7B</td><td class="n">+84%</td><td>The growth engine — Oyu Tolgoi ramp at the centre of it</td></tr>
+      <tr><td>Iron ore EBITDA</td><td class="n">$6.8B</td><td class="n">−1%</td><td>Still the largest single contributor, but flat — price and cost pressure offset Pilbara volumes</td></tr>
+      <tr class="hl"><td>Net earnings</td><td class="n">$6.66B</td><td class="n">+47%</td><td>Leverage of the EBITDA gain down to the bottom line</td></tr>
+      <tr><td>Free cash flow</td><td class="n">$3.8B</td><td class="n">+75%</td><td>Strong conversion in the half, even with growth capex running</td></tr>
+      <tr><td>Net debt</td><td class="n">$14.06B</td><td class="n">—</td><td>Modest against ~$30B of annualised EBITDA — see §2</td></tr>
+      <tr><td>Interim dividend</td><td class="n">$2.11 / share</td><td class="n">+43%</td><td>A large raise — the clearest signal in the print about cash confidence</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Source: Rio Tinto H1 2026 results as reported by TickerOn (linked in Sources). These figures were confirmed in the independent verification pass. Segment revenue splits beyond the EBITDA figures above were not in the verified pack and are not shown.</p>
+</section>
+
+<!-- ================= INCOME FLOW ================= -->
+<section id="flow">
+  <div class="sec-head"><span class="sec-num">FLOW</span><h2>H1 2026 income flow — where $31.0B went</h2></div>
+  <figure>
+    <svg viewBox="0 0 980 300" width="100%" role="img" aria-label="Flow of Rio Tinto H1 2026 revenue into segment EBITDA, group EBITDA, net earnings and free cash flow" style="font-family:'Archivo',sans-serif">
+      <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--muted)"/></marker></defs>
+      <rect x="8" y="86" width="170" height="66" fill="var(--navy)"/><text x="24" y="114" font-size="14" font-weight="700" fill="#fff">Revenue</text><text x="24" y="134" font-size="13" fill="#fff">$31.03B · +15%</text>
+      <rect x="300" y="26" width="200" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="314" y="48" font-size="13" font-weight="700" fill="var(--ink)">Iron ore EBITDA</text><text x="314" y="66" font-size="12" fill="var(--ink2)">$6.8B · −1% YoY</text>
+      <rect x="300" y="96" width="200" height="52" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="314" y="118" font-size="13" font-weight="700" fill="var(--ink)">Copper EBITDA</text><text x="314" y="136" font-size="12" fill="var(--ink2)">$5.7B · +84% YoY</text>
+      <rect x="300" y="166" width="200" height="52" fill="var(--chip)" stroke="var(--line2)"/><text x="314" y="188" font-size="13" font-weight="700" fill="var(--ink)">All other (combined residual)</text><text x="314" y="206" font-size="12" fill="var(--ink2)">≈ $2.3B — aluminium, lithium,</text><text x="314" y="220" font-size="12" fill="var(--ink2)">minerals &amp; corporate, combined</text>
+      <line x1="178" y1="104" x2="296" y2="56" stroke="var(--muted)" stroke-width="7" opacity=".35"/>
+      <line x1="178" y1="119" x2="296" y2="119" stroke="var(--muted)" stroke-width="6" opacity=".35"/>
+      <line x1="178" y1="134" x2="296" y2="186" stroke="var(--muted)" stroke-width="3" opacity=".35"/>
+      <rect x="600" y="86" width="180" height="66" fill="var(--green-soft)" stroke="var(--line2)"/><text x="614" y="112" font-size="13" font-weight="700" fill="var(--ink)">Underlying EBITDA</text><text x="614" y="132" font-size="12" fill="var(--ink2)">$14.83B · +28%</text>
+      <line x1="500" y1="119" x2="596" y2="119" stroke="var(--muted)" stroke-width="8" opacity=".35" marker-end="url(#ar)"/>
+      <rect x="600" y="196" width="372" height="72" fill="var(--paper)" stroke="var(--line2)"/><text x="614" y="220" font-size="13" font-weight="700" fill="var(--ink)">Net earnings $6.66B (+47%) · FCF $3.8B (+75%)</text><text x="614" y="239" font-size="12" fill="var(--ink2)">Net debt $14.06B · Interim dividend $2.11 (+43%)</text><text x="614" y="257" font-size="12" fill="var(--ink2)">Gap EBITDA → earnings: D&amp;A, finance, tax &amp; minorities (not split in source)</text>
+    </svg>
+    <figcaption>The "all other" bar is a combined residual ($14.83B EBITDA less iron ore $6.8B and copper $5.7B ≈ $2.33B), not a reported segment figure — the verified pack does not split aluminium, lithium and corporate costs. Flow widths are indicative, not to scale. All figures H1 2026.</figcaption>
+  </figure>
+</section>
+
+<!-- ================= 1 BUSINESS ================= -->
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Rio Tinto is a diversified miner operating across <b>34 countries</b>, but its profit pool has historically been dominated by one asset system: the Pilbara iron ore complex in Western Australia. The investment case in 2026 is that this is changing — copper is scaling fast, aluminium and lithium add energy-transition exposure, and Simandou in Guinea will add a second world-scale iron ore province. Rio sells commodities at market prices; it does not set them. Volume, cost position and portfolio mix are the only levers it controls.</p>
+
+  <h3>Segment economics — H1 2026 EBITDA</h3>
+  <div class="bars">
+    <div class="bar-row"><span class="bl">Iron ore (Pilbara)</span><div class="bar-track"><div class="bar-fill gold" style="width:100%"></div></div><span class="bv">$6.8B · −1%</span></div>
+    <div class="bar-row"><span class="bl">Copper</span><div class="bar-track"><div class="bar-fill" style="width:84%"></div></div><span class="bv">$5.7B · +84%</span></div>
+    <div class="bar-row"><span class="bl">All other (residual)</span><div class="bar-track"><div class="bar-fill green" style="width:34%"></div></div><span class="bv">≈$2.3B</span></div>
+  </div>
+  <p class="small">Iron ore and copper together are $12.5B of the $14.83B H1 underlying EBITDA — about 84%. Everything else (aluminium, lithium, other minerals, corporate) is the ≈$2.3B combined residual. H1 2026, verified figures.</p>
+
+  <div class="geo">
+    <div>
+      <h3>The four commodity legs</h3>
+      <ul>
+        <li><b>Iron ore — Pilbara:</b> the cash engine. Scale and low unit costs keep it profitable through the cycle, but H1 EBITDA was flat (−1%) — the segment now funds the transition rather than driving growth.</li>
+        <li><b>Copper:</b> the growth engine. EBITDA +84% in H1 on the Oyu Tolgoi underground ramp in Mongolia; copper is the metal most directly levered to electrification demand.</li>
+        <li><b>Aluminium:</b> part of the residual above; a steadier, more downstream-linked business that diversifies the earnings mix away from bulk commodities.</li>
+        <li><b>Lithium:</b> the option leg — strategically aligned with batteries, but earnings are hostage to a volatile lithium price (see §4).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Structural pivots (2026–28)</h3>
+      <ul>
+        <li><b>Copper / aluminium / lithium pivot:</b> capital and growth are being re-pointed from pure iron ore toward energy-transition metals — H1's EBITDA mix is the first print where that pivot is visible in the numbers, not just the strategy slides.</li>
+        <li><b>Simandou (Guinea):</b> a 60 Mtpa iron ore project targeting H2 2028 — the largest new iron ore supply source in a generation, and Rio's second iron ore province. It diversifies geography but adds Guinea execution and political risk.</li>
+        <li><b>Productivity:</b> a $1.8B run-rate productivity target — cost-out that, if delivered, drops almost entirely to EBITDA in a price-taker business.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Geographic footprint &amp; dependencies</h3>
+  <ul>
+    <li><b>Operations in 34 countries</b>, with the profit core concentrated in Australia (Pilbara iron ore), Mongolia (Oyu Tolgoi copper) and, from 2028, Guinea (Simandou). A geographic revenue split was not in the verified pack and is not estimated here.</li>
+    <li><b>Demand dependency:</b> iron ore economics are set by seaborne demand — overwhelmingly Asian steel production — and by the benchmark iron ore price, over which Rio has no control. A sustained fall in that price is the single largest earnings sensitivity (§4).</li>
+    <li><b>Supply-chain dependencies:</b> large-scale mining is energy-, diesel-, rail- and port-intensive; Pilbara's integrated rail/port system is itself part of the moat (§3), while Simandou requires new rail and port infrastructure in Guinea — a build dependency as much as a mining one.</li>
+  </ul>
+</section>
+
+<!-- ================= 2 FINANCIALS ================= -->
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>Two different confidence levels run through this section, and the table separates them. The <b>H1 2026 figures are verified</b>: strong EBITDA growth, 75% FCF growth, net debt of $14.06B and a 43% interim dividend raise. The <b>market multiples are unverified</b> single-source figures (Finnhub / Motley Fool) that the verification pass did not re-check — they are shown because a research note needs them, but flagged accordingly.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Valuation &amp; balance-sheet snapshot. Price reference $81.89 (30 Oct 2026 close). Status column states the verification level of each line.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Status</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Share price (30 Oct close)</td><td class="n">$81.89</td><td><span class="unv">Unverified</span></td><td>Single-source; not re-checked in the verification pass</td></tr>
+      <tr><td>Market cap</td><td class="n">$102.7B / $107.2B</td><td><span class="unv">Unverified</span></td><td>Motley Fool and Finnhub differ by ~$4.5B — use as a range, not a point</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">11.9×</td><td><span class="unv">Unverified</span></td><td>As printed by Finnhub alongside EPS of $6.08. Note the pair does not reconcile at the $81.89 reference price ($81.89 ÷ $6.08 ≈ 13.5×) — the vendor's P/E and EPS snapshots are evidently from different dates, one more reason both are flagged unverified. Either way: cheap versus the broad market, normal for a price-taker miner at mid-cycle earnings</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">1.7×</td><td><span class="unv">Unverified</span></td><td>TTM revenue $61.8B, gross profit $18.4B (Motley Fool)</td></tr>
+      <tr><td>EV / EBITDA, forward P/E</td><td class="n">—</td><td>Omitted</td><td>Not in the verified pack; not estimated here rather than invented</td></tr>
+      <tr><td>H1 revenue / underlying EBITDA</td><td class="n">$31.03B / $14.83B</td><td>Verified</td><td>+15% / +28% YoY — operating leverage from the copper mix</td></tr>
+      <tr><td>H1 net earnings</td><td class="n">$6.66B</td><td>Verified</td><td>+47% YoY</td></tr>
+      <tr><td>H1 free cash flow</td><td class="n">$3.8B</td><td>Verified</td><td>+75% YoY — growth capex (Simandou, Oyu Tolgoi) is being funded while FCF still expands</td></tr>
+      <tr><td>Net debt</td><td class="n">$14.06B</td><td>Verified</td><td>≈0.5× annualised H1 EBITDA ($14.83B × 2) — modest leverage for a major miner; the balance sheet is not the risk in this story</td></tr>
+      <tr><td>Interim dividend</td><td class="n">$2.11 / share</td><td>Verified</td><td>+43% YoY — ≈2.6% of the $81.89 reference price from the interim alone; full-year yield not stated in the pack</td></tr>
+      <tr><td>Productivity programme</td><td class="n">$1.8B run-rate target</td><td>Per pack</td><td>Cost-out target; delivery would be worth roughly 6% of annualised EBITDA if fully realised</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout good"><div class="ct">Balance-sheet read</div>
+  <p>Net debt of <b>$14.06B</b> against H1 underlying EBITDA of <b>$14.83B in six months</b> is a lightly levered miner. That matters for the dividend: a 43% interim raise to $2.11 was declared from a position of FCF growth (+75%), not by stretching the balance sheet. The constraint on returns from here is not solvency — it is the commodity price deck and the Simandou capex bill.</p></div>
+
+  <h3>Capital allocation, as the H1 print shows it</h3>
+  <ul>
+    <li><b>1. Growth capex</b> — Simandou and the Oyu Tolgoi ramp are the priority claims on cash; both are multi-year and largely pre-committed once under way.</li>
+    <li><b>2. Dividends</b> — the +43% interim raise says shareholder returns are being grown alongside, not after, the build.</li>
+    <li><b>3. Balance sheet</b> — net debt held at a modest $14.06B; no buyback programme is described in the verified pack, so none is assumed here.</li>
+  </ul>
+</section>
+
+<!-- ================= 3 MOAT ================= -->
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: wide on cost and scale, narrow on price.</b> Mining moats are not brands or networks — they are ore bodies, cost curves and infrastructure. Rio's moat is that its core assets sit low on the global cost curve and cannot be replicated: nobody can build another Pilbara. What Rio does <i>not</i> have is pricing power — it is a price-taker in every commodity it sells, which is why the multiple in §2 sits in the low teens and not at 25×.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Pilbara scale and cost position:</b> one of the world's largest, lowest-cost iron ore systems, with integrated rail and port infrastructure that smaller rivals cannot economically duplicate.</li>
+      <li><b>Tier-1 ore bodies:</b> asset quality — grade, scale, mine life — is the real barrier to entry in mining, and Rio's portfolio (Pilbara, Oyu Tolgoi) is built on tier-1 deposits.</li>
+      <li><b>Oyu Tolgoi copper growth:</b> a large, long-life copper asset already ramping — in a metal where new supply is scarce and slow, owning growth that is already built is a genuine advantage (H1 copper EBITDA +84%).</li>
+      <li><b>Simandou optionality:</b> 60 Mtpa targeted from H2 2028 gives Rio a second iron ore province and high-grade supply that can displace higher-cost producers on the curve.</li>
+      <li><b>Diversification improving:</b> copper, aluminium and lithium reduce the single-commodity dependence that has historically defined Rio's earnings volatility.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Price-taker economics:</b> no pricing power in iron ore, copper, aluminium or lithium. Earnings quality is set by the cost curve position, not by the ability to raise prices.</li>
+      <li><b>BHP</b> — the closest peer: comparable Pilbara scale, larger market cap ($292.4B as printed in the ranking source, unverified), competing for the same "quality diversified miner" allocation.</li>
+      <li><b>Vale and Fortescue</b> in iron ore; <b>Freeport-McMoRan and Southern Copper</b> in copper — each with its own cost/grade position; share gains come from cost curves, not marketing.</li>
+      <li><b>Simandou cuts both ways:</b> 60 Mtpa of new high-grade supply entering the seaborne market from 2028 pressures the iron ore price Rio itself receives — Rio is partly competing with its own future tonnes.</li>
+      <li><b>Resource nationalism:</b> tier-1 assets sit in host countries (Mongolia, Guinea) whose governments are counterparties, not bystanders — fiscal and permitting terms can move.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Rio is the diversified-miner expression of two trades at once — Pilbara cash generation today, copper/Simandou volume growth into 2028. Its moat protects <i>margins through the cycle</i>, not the earnings level in any given year; that distinction is the whole reason for the conservative sizing in §6.</p>
+</section>
+
+<!-- ================= 4 CATALYSTS ================= -->
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months and beyond)</h3>
+      <ul>
+        <li><b>Copper momentum compounding</b> — if H1's +84% copper EBITDA trajectory holds as Oyu Tolgoi ramps, the mix shift re-rates what "Rio earnings" means: less iron-ore beta, more electrification beta.</li>
+        <li><b>Simandou milestones</b> — construction and infrastructure progress toward the 60 Mtpa, H2 2028 target; each de-risking step converts a promised volume story into a bankable one.</li>
+        <li><b>Productivity delivery</b> — progress toward the $1.8B run-rate target is pure margin in a price-taker business and within management's control, unlike prices.</li>
+        <li><b>Dividend trajectory</b> — after a +43% interim raise, the full-year declaration is the next cash-return signal; sustained FCF growth funds it without leverage.</li>
+        <li><b>Aluminium / lithium pivot</b> — further evidence that the non-iron-ore portfolio can carry group growth in a flat iron ore year, as copper did in H1.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Iron ore price</b> — still the largest single EBITDA contributor ($6.8B in H1). A sustained price fall flows almost straight to earnings; there is no hedge in the business model against it.</li>
+        <li><b>Guinea execution</b> — Simandou means building mine, rail and port in Guinea on a fixed narrative timeline (H2 2028). Slippage, cost overrun or political disruption delays the entire second-province thesis.</li>
+        <li><b>Safety</b> — two fatalities in H1 were flagged in the source reporting. Beyond the human cost, safety failures drive regulatory scrutiny, stoppages and reputational damage; this is an open item to monitor, not a closed one.</li>
+        <li><b>Lithium price</b> — the lithium leg's earnings are hostage to one of the most volatile prices in commodities; a prolonged lithium downturn makes that part of the pivot a drag.</li>
+        <li><b>China-linked demand cycle</b> — seaborne iron ore demand is concentrated in Asian steel; a property/steel downturn there hits price and volume simultaneously.</li>
+        <li><b>Self-cannibalising supply</b> — Simandou's 60 Mtpa arriving into the seaborne market from 2028 can soften the very price Rio's Pilbara tonnes earn.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained iron ore price decline <i>while</i> Simandou slips beyond 2028. Either alone is survivable — copper growth offsets a soft iron ore year, and the balance sheet absorbs a project delay. Together they remove both the current cash engine's price support and the future volume story, leaving a flat, fully price-exposed miner at a multiple that assumed growth.</p></div>
+</section>
+
+<!-- ================= 5 VALUATION ================= -->
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p><b>All prices in this section are modelled estimates</b> from the research pack, shown with their assumptions — they were not, and cannot be, verified as facts. Method: earnings-multiple scenarios for the 12–18-month view, and a frozen-parameter model for the 5-year view (same convention as the META sample in this series). Reference price: $81.89 (30 Oct close, unverified).</p>
+
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · 25%</div><div class="price mono">$68</div><div class="ret down">−17% vs $81.89</div><p><b>Modelled EPS ≈ $6.20 × 11×.</b> Iron ore price softens, iron ore EBITDA falls from its $6.8B H1 base, copper growth only partly offsets, and Simandou headlines slip. The multiple compresses toward trough-cycle miner levels.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · 50%</div><div class="price mono">$92</div><div class="ret up">+12% vs $81.89</div><p><b>Modelled EPS ≈ $7.05 × 13×.</b> Copper momentum continues, iron ore holds roughly flat (as in H1), productivity delivery begins, and Simandou stays on its H2 2028 track. A modest re-rating from 11.9× as the copper mix becomes visible in full-year numbers.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · 25%</div><div class="price mono">$110</div><div class="ret up">+34% vs $81.89</div><p><b>Modelled EPS ≈ $7.85 × 14×.</b> Copper prices and Oyu Tolgoi volumes beat, iron ore prices stay firm, lithium recovers, and the market starts pricing Simandou as de-risked. The multiple expands to the top of Rio's normal miner range.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) — modelled</div><div class="wv mono">≈ $91</div></div><p>0.25×$68 + 0.50×$92 + 0.25×$110 = $90.50, or <b>+11%</b> from $81.89 — before dividends (the interim alone was $2.11). Positive but not dramatic skew: this is a cash-generative value name with a growth option, not a momentum story. Re-weight if the iron ore price or the Simandou timeline moves materially.</p></div>
+
+  <h3>5-year projection — frozen-parameter model (modelled estimates)</h3>
+  <p>Starting point: <b>TTM revenue $61.8B</b> (Motley Fool, unverified) and an implied share count of <b>~1.25B held frozen</b> (derived from the $102.7B Fool market cap ÷ $81.89 — an estimate, labelled as such). Only revenue growth, net margin and the exit P/E vary by case. The pack's base case is a ~4% revenue CAGR; the cases below are calibrated to the pack's 5-year prices (Base $100, Bull ~$130, Bear ~$65, weighted ~$99) so the arithmetic can be checked line by line.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (likelihood)</th><th class="n">Revenue growth / yr</th><th class="n">2031 net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">CAGR from $81.89</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%)</td><td class="n">1%</td><td class="n">11%</td><td class="n">~$65B</td><td class="n">~$5.70</td><td class="n">11.5×</td><td class="n">~$65</td><td class="n">−4.5%</td></tr>
+      <tr class="hl"><td>Base (50%)</td><td class="n">4%</td><td class="n">14%</td><td class="n">~$75B</td><td class="n">~$8.40</td><td class="n">12×</td><td class="n">~$100</td><td class="n">+4.1%</td></tr>
+      <tr><td>Bull (25%)</td><td class="n">7%</td><td class="n">15%</td><td class="n">~$87B</td><td class="n">~$10.40</td><td class="n">12.5×</td><td class="n">~$130</td><td class="n">+9.7%</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">≈ $99</td><td class="n">+3.9%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Check the base line: $61.8B × 1.04⁵ ≈ $75.2B revenue; × 14% net margin ≈ $10.5B net income; ÷ ~1.25B frozen shares ≈ $8.40 EPS; × 12 ≈ $100. Weighted: 0.25×$65 + 0.50×$100 + 0.25×$130 = $98.75 ≈ $99. Note what the model says honestly: at miner multiples, even the bull case compounds at under 10%/yr on price alone — the dividend (interim $2.11, +43%) is a material part of the total return, and the bear case is a real loss, not a rounding error. Illustrative model, not a forecast.</p>
+</section>
+
+<!-- ================= 6 RECOMMENDATION ================= -->
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views from the pack, not guarantees and not personalised advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Rationale &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td><b>Buy.</b> Modelled weighted value ≈ $91 (+11%) plus dividends, on verified H1 momentum — copper EBITDA +84%, FCF +75%, interim dividend +43%. The near-term risk is an iron ore price break, not the balance sheet (net debt $14.06B).</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy, sized as a satellite.</b> Modelled weighted 5-yr value ≈ $99 (+3.9%/yr price CAGR) with the dividend on top, and Simandou/Oyu Tolgoi volume growth as the upside the frozen model only partly credits. Commodity price-taker economics, not company quality, are what cap the conviction.</td></tr>
+      <tr><td>Review triggers</td><td><span class="pill trim">Review</span></td><td>Re-underwrite on: a sustained iron ore price decline; Simandou slipping beyond H2 2028; further serious safety incidents after the two H1 fatalities; or copper EBITDA momentum reversing for two consecutive halves.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>RIO target: 2.0% of total portfolio</b> (per the research pack). That is a satellite materials sleeve weight — large enough for the copper/Simandou exposure and dividend to register, small enough that a commodity down-cycle in one name cannot dominate portfolio outcomes.</li>
+    <li><b>Why not bigger at risk 8/10:</b> the 5-year modelled price CAGR is +3.9% weighted (before dividends) with a −4.5%/yr bear case. Higher-octane capital in this series belongs in compounders; RIO's job in the portfolio is diversification into real assets and energy-transition metals, plus income.</li>
+    <li><b>Watch the overlap:</b> broad index funds carry little RIO directly, but any existing BHP / diversified-miner or materials-fund holding stacks on the same iron ore exposure — count combined miner exposure, not just the RIO line.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- ================= 7 MATRIX ================= -->
+<section id="matrix">
+  <div class="sec-head"><span class="sec-num">07</span><h2>Comparative Matrix — RIO row</h2></div>
+  <p>RIO's row in the fixed template used across this series (global Materials top 10 by market cap, Motley Fool, metrics as of 6 Oct 2026; prices at 30 Oct 2026 close; list not in strict market-cap order as printed). Peer rows are populated in each peer's own report.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Company</th><th class="n">Price (30 Oct)</th><th class="n">Mkt cap</th><th class="n">P/E</th><th class="n">P/S</th><th class="n">TTM revenue</th><th class="n">H1 net earnings</th><th class="n">H1 FCF</th><th class="n">Net debt</th><th class="n">Base target*</th><th class="n">5-yr wtd value*</th><th>LT call</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>RIO — Rio Tinto</td><td class="n">$81.89†</td><td class="n">$102.7B†</td><td class="n">11.9×†</td><td class="n">1.7×†</td><td class="n">$61.8B†</td><td class="n">$6.66B</td><td class="n">$3.8B</td><td class="n">$14.06B</td><td class="n">$92</td><td class="n">~$99</td><td><span class="pill buy">Buy</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">† Unverified — price, market cap, multiples and TTM revenue are single-source (Finnhub / Motley Fool) and were not re-checked in the verification pass. The printed P/E (11.9×) and EPS ($6.08) also do not reconcile with each other at the $81.89 price (implied ≈13.5×); see §2. H1 2026 earnings, FCF and net debt are verified. * Modelled estimates from §5, with assumptions shown there — not verified facts.</p>
+</section>
+
+<!-- ================= SOURCES ================= -->
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Rio Tinto (ADR) (RIO)</h2>
+<p><strong>Price (30 Oct 2026 close): $81.89.</strong> <strong>DCF intrinsic: $59.71.</strong> Discount/premium vs DCF: <strong>+37.1%</strong> — i.e. the shares are trading 37.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$59.71</td><td>+37.1%</td><td>g 3.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack H1 2026 verified figures; MarketBeat https://www.marketbeat.com/stocks/NYSE/RIO/ ; Kinfo https://kinfo.com/asset/RIO.US.USD</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Rio Tinto (ADR) (RIO)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Rio Tinto sells iron ore (Pilbara), copper, aluminium and lithium to steel mills, smelters and manufacturers in 34 countries, with no single customer disclosed as a concentration. As with BHP, the material buyer-concentration fact is China&#x27;s CMRG, which in Aug 2026 directed Chinese mills to pause Rio Tinto shipment talks during annual contract negotiations; Chinalco, Rio&#x27;s largest shareholder, is also a Chinese state interest, not a customer.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>China Mineral Resources Group (CMRG) — centralised buyer for &gt;50% of China&#x27;s iron-ore imports</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Chinese, Japanese and Korean steel mills</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Copper smelters, aluminium and battery-chain buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is Chinese steel demand plus CMRG&#x27;s negotiating stance: undervalued steel mills would be a tailwind only if they run harder, which depends on Chinese property and infrastructure demand rather than their share prices; a CMRG pause is a direct headwind that operates independently of any customer&#x27;s valuation, and it is the watch-item for Rio&#x27;s iron-ore volumes.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Rio Tinto (ADR) (RIO)</h2>
+<p><strong>Role: Beneficiary.</strong> Rio&#x27;s copper growth (EBITDA +84% in H1 2026, Oyu Tolgoi) is its AI-electrification channel, while its larger iron-ore business rides Chinese steel demand, not AI — so the AI beta is real but partial.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through electrification: data centres need grid connections, transformers and wiring, all copper-intensive, and the grid build-out behind AI is a multi-year copper demand leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the AI premium here is really a copper premium (trailing P/E 11.9 in the pack where verified): an unwind would compress it toward a through-cycle mining multiple as copper prices fall.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is growth capex committed at peak copper prices that becomes uneconomic if copper falls.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: copper-price reversal, Chinese construction/property weakness, hyperscaler capex cuts or delays, and mine-permit or social-licence setbacks. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">H1 2026 figures are from Rio Tinto's half-year results as carried by the coverage below and were confirmed in the independent verification pass. Market data (price, market cap, multiples) are single-source and flagged unverified in the text. Scenario targets in §5 are this report's modelled estimates, calibrated to the research pack.</p>
+  <ol class="refs">
+    <li><a href="https://tickeron.com/blogs/rio-tinto-rio-reports-strong-h1-2026-earnings-as-copper-powers-growth-18971/" target="_blank" rel="noopener">TickerOn — Rio Tinto H1 2026: revenue $31.03B, EBITDA $14.83B, copper/iron-ore split, FCF, net debt, dividend</a></li>
+    <li><a href="https://finnhub.io/?q=%22RIO%22" target="_blank" rel="noopener">Finnhub — RIO quote data: EPS $6.08, P/E 11.9, market cap $107.2B (unverified in this note)</a></li>
+    <li>Motley Fool — global Materials top-10 ranking and RIO market cap $102.7B, TTM revenue $61.8B, gross profit $18.4B, P/S 1.7× (metrics as of 6 Oct 2026; cited in the research pack, unverified in this note)</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> Research snapshot as of 1 Nov 2026, built from the public sources above. This is a research view, not a guarantee and not personalised financial advice. Prices and multiples move daily; figures flagged "unverified" were not re-checked in the independent verification pass and should be confirmed against a second source before acting. Scenario prices are an illustrative model with stated assumptions. Commodity equities carry price-cycle risk beyond company control — including the iron ore price, Guinea execution on Simandou, and the lithium price — and the position sizing assumes the stated profile (mid-30s, risk 8/10, no near-term need for the funds).</p>
+  <p class="disc">— Blaze</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var pf = document.getElementById('pf'), out = document.getElementById('pfOut');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var v = parseFloat(pf.value) || 0;
+    var t = v*0.02, price = 81.89;
+    out.innerHTML = 'RIO at <b>2.0%</b> = <b>' + fmt(t) + '</b> (≈ ' + Math.floor(t/price) + ' shares at $81.89). Satellite materials weight — see §6 for why it is capped there.';
+  }
+  pf.addEventListener('input', calc); calc();
+
+  var links = document.querySelectorAll('#toc a');
+  var secs = [];
+  links.forEach(function(a){ var el = document.querySelector(a.getAttribute('href')); if(el) secs.push({a:a, el:el}); });
+  function spy(){
+    var y = window.scrollY + 90, cur = null;
+    secs.forEach(function(s){ if (s.el.offsetTop <= y) cur = s; });
+    links.forEach(function(a){ a.classList.remove('on'); });
+    if (cur) cur.a.classList.add('on');
+  }
+  window.addEventListener('scroll', spy, {passive:true}); spy();
+})();
+</script>
+</body>
+</html>

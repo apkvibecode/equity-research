@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — CTATF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f6f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b; --teal:#0f766e; --teal-soft:#dff2ef;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441; --teal:#5ec8bc; --teal-soft:#14302c;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--teal)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.6;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)} p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)} li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)} .teal .ct{color:var(--teal)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--teal-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 110px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--teal)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.blue{background:var(--blue)} .bar-fill.muted{background:var(--muted)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+@media (max-width:760px){.bar-row{grid-template-columns:120px 1fr 84px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:180px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)} .calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+.est{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);border:1px solid var(--amber);padding:1px 6px;border-radius:999px;white-space:nowrap}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Industrials</span><span>Batteries · EV &amp; Energy Storage</span></div>
+  <h1>Contemporary Amperex Technology — CATL <span class="tick">(OTC: CTATF)</span></h1>
+  <p class="lede">The world's leading lithium-ion battery maker, selling EV and energy-storage cells to Tesla, BYD and others — at $42.57 on the US OTC market it trades on a trailing multiple that already assumes a price war, while the forward multiple prices in a sharp earnings recovery. The gap between those two numbers, and whether you can even access the stock cleanly, is the whole investment case.</p>
+  <div class="byline">
+    <span><b>As of:</b> 1 Nov 2026</span>
+    <span><b>Price reference:</b> $42.57 — 30 Oct 2026 close (OTC)</span>
+    <span><b>Latest print in pack:</b> Q3 report 20 Oct 2026, per StockAnalysis</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage context">
+    <span class="tab active">CTATF — this report</span>
+    <span class="tab soon">Industrials — global list, see ranking note below</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close (OTC)</div><div class="vbig mono">$42.57</div><div class="vsub">OTC print — thin, indicative vs primary listings; see §2</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$195.3B</div><div class="vsub">Per Motley Fool, as carried in the research pack</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · TTM P/E / P/S</div><div class="vbig mono">19.5× / 2.5×</div><div class="vsub">Forward P/E 10.9× — different listing, see caveat in §2</div></div>
+  <div class="vcell span3"><div class="vlabel">TTM revenue / Gross profit</div><div class="vbig mono">$77.8B / $19.8B</div><div class="vsub">Fool, CNY-converted · Implied gross margin ≈25.4%</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Modelled base $48 (+13%). Price war and tariff headlines can move an OTC line faster than fundamentals.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY — access-dependent <span class="pill buy">Buy</span></div><div class="vsub">Only via OTC / Hong Kong access; size for FX &amp; policy risk. Modelled weighted value ≈$68.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.0% of portfolio</div><div class="vsub">Small, deliberate satellite — not a core holding at this access &amp; policy risk. See §6.</div></div>
+</div>
+
+<div class="callout teal"><div class="ct">Ranking basis — read first</div>
+<p><b>Global</b> top 10 by market cap (Motley Fool sector pages; rankings &amp; metrics as of <b>5 Oct 2026</b>, with live quote cards updating; prices in this note at the <b>30 Oct 2026 close</b>), <b>including OTC ADRs and state-controlled issuers</b>. The Industrials list carries <b>11 names</b> because BE (a named ticker) is added, and the list is <b>not in strict market-cap order</b> as printed. A NYSE/Nasdaq-only list would be different — e.g. Boeing, Uber and Honeywell would enter. Date-stamp ranking and prices separately, as above, or the two will look inconsistent.</p>
+<p style="margin-top:6px">CTATF is an <b>OTC</b> line for a China-based issuer (<a href="https://weissratings.com/en/stock/ctatf-otc-pk/company-overview" target="_blank" rel="noopener">Weiss Ratings — CTATF OTC overview</a>). OTC prices are thinner and more indicative than an exchange close.</p>
+</div>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>CATL in one view</h2></div>
+  <p>CATL is a <b>scale battery manufacturer</b>, not a car company and not a miner. It sells lithium-ion cells and systems into two demand pools — <b>electric vehicles</b> and <b>energy-storage systems (ESS)</b> — to customers that include <b>Tesla and BYD</b> (per Fool, as carried in the pack). That positioning explains both the attraction and the discount: CATL sits in the middle of the energy-transition supply chain, with genuine cost and chemistry advantages, fully exposed to battery price competition, lithium input prices, and China / US / EU trade policy.</p>
+  <figure>
+    <svg viewBox="0 0 980 210" width="100%" role="img" aria-label="Trailing revenue 77.8 billion splitting into gross profit 19.8 billion and implied cost of sales 58 billion" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="62" width="190" height="76" fill="var(--navy)"/><text x="22" y="94" font-size="14" font-weight="700" fill="#fff">TTM revenue</text><text x="22" y="114" font-size="13" fill="#fff">$77.8B</text><text x="22" y="130" font-size="11" fill="#fff">Fool, CNY-converted</text>
+      <line x1="198" y1="88" x2="360" y2="58" stroke="var(--muted)" stroke-width="14" opacity=".35"/>
+      <line x1="198" y1="116" x2="360" y2="138" stroke="var(--muted)" stroke-width="30" opacity=".35"/>
+      <rect x="372" y="26" width="260" height="62" fill="var(--teal-soft)" stroke="var(--line2)"/><text x="388" y="50" font-size="13" font-weight="700" fill="var(--ink)">Gross profit — $19.8B</text><text x="388" y="70" font-size="12" fill="var(--ink2)">≈25.4% of revenue (19.8 ÷ 77.8)</text>
+      <rect x="372" y="106" width="260" height="62" fill="var(--chip)" stroke="var(--line2)"/><text x="388" y="130" font-size="13" font-weight="700" fill="var(--ink)">Implied cost of sales — $58.0B</text><text x="388" y="150" font-size="12" fill="var(--ink2)">Arithmetic residual: 77.8 − 19.8</text>
+      <rect x="680" y="26" width="288" height="142" fill="var(--paper)" stroke="var(--line2)"/><text x="696" y="52" font-size="13" font-weight="700" fill="var(--ink)">What this does — and doesn't — tell you</text><text x="696" y="74" font-size="12" fill="var(--ink2)">A ~25% gross margin at this scale is the</text><text x="696" y="90" font-size="12" fill="var(--ink2)">cost-curve moat in one number. It is TTM</text><text x="696" y="106" font-size="12" fill="var(--ink2)">and CNY-converted — not a Q3 margin,</text><text x="696" y="122" font-size="12" fill="var(--ink2)">and not a net margin. Operating, net,</text><text x="696" y="138" font-size="12" fill="var(--ink2)">FCF and balance-sheet lines were not</text><text x="696" y="154" font-size="12" fill="var(--ink2)">in the verified pack — see §2.</text>
+    </svg>
+    <figcaption>TTM figures per Motley Fool as carried in the research pack (CNY-converted). Gross margin and cost of sales are simple arithmetic on those two figures, shown so the split can be checked. Q3 report dated 20 Oct 2026 per StockAnalysis — the pack carries the date, not a Q3 income-statement breakdown for CTATF.</figcaption>
+  </figure>
+  <div class="bars" aria-label="Valuation multiples">
+    <div class="bar-row"><span class="bl">Trailing P/E</span><div class="bar-track"><div class="bar-fill blue" style="width:78%"></div></div><span class="bv">19.5×</span></div>
+    <div class="bar-row"><span class="bl">Forward P/E *</span><div class="bar-track"><div class="bar-fill" style="width:44%"></div></div><span class="bv">10.9×</span></div>
+    <div class="bar-row"><span class="bl">Price / Sales</span><div class="bar-track"><div class="bar-fill gold" style="width:10%"></div></div><span class="bv">2.5×</span></div>
+  </div>
+  <p class="small">* Forward P/E 10.9× is for the Vienna listing (StockAnalysis quote <span class="mono">vie/CATL</span>), not the OTC CTATF line — treat the trailing-to-forward gap as directional (market expects earnings growth / a different share base), not as a like-for-like de-rating on the same shares. Sources linked in §2 and Sources.</p>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>CATL makes money by <b>manufacturing lithium-ion battery cells and systems at a scale and unit cost rivals struggle to match</b>, and selling them to vehicle makers and storage developers. It does not sell cars, and in the pack's framing it is not presented as a lithium miner — its economics are manufacturing economics: chemistry, yield, utilisation, and the spread between cell selling prices and input costs, above all lithium.</p>
+
+  <h3>End-market breakdown — qualitative (pack carries no % split)</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>End market</th><th>What CATL sells</th><th>Demand driver</th><th>What to watch</th></tr></thead>
+    <tbody>
+      <tr><td>EV batteries</td><td>Lithium-ion batteries for electric vehicles; customers named in the pack include <b>Tesla and BYD</b></td><td>Global EV adoption and each customer's vehicle volumes</td><td>EV recovery (pack catalyst) vs battery <b>price war</b> (pack risk) — volume can grow while price per kWh falls</td></tr>
+      <tr><td>Energy-storage batteries (ESS)</td><td>Batteries for energy-storage systems</td><td>Grid / renewable storage build-out</td><td>ESS growth is listed first among the pack's catalysts — it diversifies CATL away from pure auto-cycle exposure</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Open question, stated plainly:</b> the verified pack does <b>not</b> carry a revenue % split between EV and ESS, a geographic revenue split, or customer-concentration percentages. Those splits are therefore <b>not shown here</b> rather than estimated. Any future version should take them only from a CATL filing or results release.</p>
+
+  <h3>Geography &amp; footprint — what the pack supports</h3>
+  <ul>
+    <li><b>China-based issuer, global customer base:</b> CTATF is the US OTC line; the pack's catalysts explicitly include <b>overseas plants</b> — localisation outside China is the strategic response to tariff and “de-risking” pressure (see §4).</li>
+    <li><b>Access routes matter:</b> the pack's recommendation is explicitly conditional — <i>only via OTC / HK access</i>. For a US investor that means OTC liquidity, spreads and FX, or a Hong Kong listing route through their broker — not a NYSE/Nasdaq close. Confirm tradability and costs before sizing (see §6).</li>
+  </ul>
+
+  <h3>Structural pivots &amp; supply-chain dependencies</h3>
+  <ul>
+    <li><b>From EV-only toward EV + storage:</b> ESS growth is the pack's lead catalyst — storage demand is driven by grid investment, not car-buying cycles, so a larger ESS mix would smooth (not remove) cyclicality.</li>
+    <li><b>Localisation:</b> overseas plants reduce tariff friction and customer “China-only supply” concerns, at the cost of higher capex and execution risk in new jurisdictions.</li>
+    <li><b>Key input dependency — lithium prices:</b> listed in the pack as a risk. Falling lithium helps input costs but often coincides with falling cell prices; rising lithium squeezes margins if pass-through lags. The spread, not either price alone, is the margin.</li>
+    <li><b>Customer concentration:</b> listed as a risk. Named customers (Tesla, BYD) are very large buyers with bargaining power and, in BYD's case, their own battery capability — volume security and pricing power pull in opposite directions.</li>
+  </ul>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>On the figures the pack <i>does</i> verify, CATL screens as a <b>large, profitable manufacturer on a moderate multiple</b>: $195.3B market cap on $77.8B of TTM revenue (2.5× sales) and a 19.5× trailing P/E, with a ~25.4% implied gross margin. On the figures it does <i>not</i> carry — cash, debt, free cash flow, dividend, buybacks, leverage — this note makes <b>no claim at all</b>. That gap is itself a diagnostic: do not underwrite a balance-sheet view of CTATF from this pack alone.</p>
+
+  <div class="tblwrap"><table>
+    <caption>Verified pack figures — price reference $42.57, 30 Oct 2026 OTC close. Every figure below links to its source in the Sources list.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Source / diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Price (OTC, 30 Oct close)</td><td class="n">$42.57</td><td>Pack figure (Fool). OTC print — thin &amp; indicative; not an exchange close</td></tr>
+      <tr><td>Market capitalisation</td><td class="n">$195.3B</td><td><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool</a> via pack. Check: $195.3B ÷ $77.8B = 2.51× — consistent with the 2.5× P/S below</td></tr>
+      <tr><td>TTM revenue</td><td class="n">$77.8B</td><td>Fool via pack, <b>CNY-converted</b> — FX translation is part of the number</td></tr>
+      <tr><td>TTM gross profit</td><td class="n">$19.8B</td><td>Fool via pack, CNY-converted. Implied gross margin ≈ <b>25.4%</b> (19.8 ÷ 77.8, arithmetic)</td></tr>
+      <tr><td>Trailing P/E (TTM)</td><td class="n">19.5×</td><td><a href="https://companiesmarketcap.com/catl/pe-ratio/" target="_blank" rel="noopener">CompaniesMarketCap — CATL P/E</a></td></tr>
+      <tr><td>Forward P/E</td><td class="n">10.9×</td><td><a href="https://StockAnalysis.com/quote/vie/CATL/" target="_blank" rel="noopener">StockAnalysis — vie/CATL</a>. <b>Different listing (Vienna)</b> — directional only vs the OTC trailing figure</td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n">2.5×</td><td>Pack figure; cross-checks against cap ÷ revenue above</td></tr>
+      <tr><td>Q3 report date</td><td class="n">20 Oct 2026</td><td>Per StockAnalysis, via pack. No Q3 line items are carried in the pack</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tblwrap"><table>
+    <caption>Balance-sheet &amp; capital-allocation diagnostics — status in the verified pack. “Not in pack” means omitted here by design, not zero.</caption>
+    <thead><tr><th>Item</th><th class="n">Status</th><th>Why it matters / what to pull before acting</th></tr></thead>
+    <tbody>
+      <tr><td>Cash, total debt, net cash / (debt), D/E</td><td class="n">Not in pack</td><td>No leverage claim is made in this note. Pull from CATL's latest filing before treating §5 targets as balance-sheet-supported</td></tr>
+      <tr><td>Free cash flow / operating cash flow</td><td class="n">Not in pack</td><td>Battery manufacturing is capex-heavy (incl. overseas plants); FCF conversion is a key unknown, not an assumed strength</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">Not in pack</td><td>Cannot be computed honestly without verified net debt and EBITDA — omitted rather than estimated</td></tr>
+      <tr><td>Dividends / buybacks / R&amp;D split</td><td class="n">Not in pack</td><td>Capital-allocation priority cannot be ranked from this pack; §1's localisation/capex read is qualitative only</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout warn"><div class="ct">How to read the 19.5× → 10.9× gap</div>
+  <p>Do <b>not</b> read “forward P/E is half the trailing P/E, therefore the stock halves in price or doubles in earnings” off these two numbers. They come from <b>different listings and vendors</b> (CompaniesMarketCap trailing; StockAnalysis Vienna forward). The honest read is narrower: the forward source expects materially higher earnings than the trailing period. Verify both multiples on the <i>same</i> listing you would actually buy before using the gap in a decision.</p></div>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating (pack view): real but technology-contestable.</b> The pack names four reinforcing advantages — <b>scale, cell chemistry, cost curve, and customer lock-in</b> — and one structural limit in the same breath: <b>new chemistry (solid-state, sodium-ion) can obsolete a lead built on today's lithium-ion</b>. That pairing is the right frame: CATL's moat defends its share of the <i>current</i> technology generation better than it defends the technology itself.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths (per pack)</h4><ul>
+      <li><b>Scale:</b> described by Fool as the world's leading lithium-ion battery maker — purchasing, utilisation and R&amp;D amortisation advantages compound at that scale.</li>
+      <li><b>Cost curve:</b> the ~25.4% implied TTM gross margin (§2) at $77.8B of revenue is the financial fingerprint of a low-cost producer in a price war — weaker rivals lose money at prices CATL can still profit from.</li>
+      <li><b>Cell chemistry:</b> pack-cited technology depth — chemistry know-how is the product in batteries, not a feature around it.</li>
+      <li><b>Customer lock-in:</b> qualifying a battery supplier into a vehicle or storage platform is slow and safety-critical; incumbency with makers such as Tesla and BYD (named in pack) is sticky — until a platform changeover re-opens the contest.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits</h4><ul>
+      <li><b>Technology discontinuity:</b> solid-state or sodium-ion at commercial scale would reset the cost/chemistry race; a manufacturing lead in lithium-ion does not automatically transfer.</li>
+      <li><b>Buyer power:</b> the largest customers are large enough to dual-source, negotiate hard, or in-source — lock-in cuts both ways when the customer is BYD-scale.</li>
+      <li><b>Price-war exposure:</b> a cost-curve moat wins a price war but still earns less during one; §5's bear case is essentially “price war + tariffs together.”</li>
+      <li><b>Policy as a competitor:</b> US/EU de-risking and tariffs can exclude or tax the lowest-cost producer regardless of product merit — a barrier no factory efficiency removes. Overseas plants mitigate, not eliminate, this.</li>
+    </ul></div>
+  </div>
+  <p><b>Pricing power verdict:</b> limited by design of the market — CATL's edge shows up as <i>margin defence</i> (holding ~25% gross margin while prices fall) rather than price-setting. <b>Barriers to entry:</b> high in capital, chemistry and customer qualification for this generation; lower across a chemistry changeover, which is why the moat is rated contestable rather than permanent.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>ESS growth</b> — energy-storage demand scaling diversifies revenue away from the auto cycle and uses the same cell competence; first-listed catalyst in the pack.</li>
+        <li><b>Overseas plants</b> — localised production that eases tariff / de-risking friction with non-China customers and regulators.</li>
+        <li><b>EV recovery</b> — any broad recovery in EV volumes flows directly to the core EV-battery line.</li>
+        <li><b>Q3 follow-through</b> — Q3 was reported 20 Oct 2026 (per StockAnalysis, via pack); the next filings are where ESS mix and overseas-plant progress would first be <i>verified</i> — until then they remain pack catalysts, not confirmed trends in this note.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Battery price war</b> — cell price competition compresses the spread in §1 even for the cost leader.</li>
+        <li><b>China / US / EU tariffs &amp; de-risking</b> — trade policy can raise CATL's delivered cost, restrict market access, or push customers to local suppliers on policy grounds alone.</li>
+        <li><b>Lithium prices</b> — input-cost volatility with lagged pass-through squeezes gross margin in either fast direction.</li>
+        <li><b>Customer concentration</b> — loss, in-sourcing or hard renegotiation by a very large customer is a single-name revenue event.</li>
+        <li><b>Access, FX &amp; listing risk (holder-specific)</b> — OTC liquidity/spreads, CNY/HKD translation, and China-policy headlines can move CTATF independently of CATL's operating results. This risk belongs to the <i>holder's route in</i>, and the pack prices it via the small 1.0% sizing in §6.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained price war <i>combined with</i> tighter US/EU restrictions — either alone compresses margin or access; together they attack both the profit pool and the addressable market while overseas-plant capex is still being spent. A commercial solid-state breakthrough by a rival would be the slower, deeper version of the same break.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets in this section are <span class="est">Modelled estimates</span> from the research pack — <b>not verified facts and not analyst consensus</b>. Method is shown in full so every number can be re-checked. Returns are computed from the $42.57 reference price.</p>
+
+  <h3>12–18-month targets (pack estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · pack estimate</div><div class="price mono">$32</div><div class="ret down">−24.8% vs $42.57</div><p>Price war deepens and tariff / de-risking measures tighten. Arithmetic: 32 ÷ 42.57 − 1 = −24.8%.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · pack estimate</div><div class="price mono">$48</div><div class="ret up">+12.7% vs $42.57</div><p>Pack base case, stated as +13% (48 ÷ 42.57 − 1 = +12.7%, rounding to the pack's +13%). ESS growth and overseas plants offset price competition.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · pack estimate</div><div class="price mono">$60</div><div class="ret up">+40.9% vs $42.57</div><p>EV recovery plus ESS acceleration with no major new trade restriction. Arithmetic: 60 ÷ 42.57 − 1 = +40.9%.</p></div>
+  </div>
+  <p class="small">No scenario weights for the 12–18-month cases were supplied in the pack, so <b>no weighted 12–18-month price is published here</b> — publishing one would require inventing weights. Compare the three cases directly.</p>
+
+  <h3>5-year projection — price-compounding model (pack method)</h3>
+  <p>The pack's 5-year method is <b>price compounding only</b>: Base assumes a <b>10% price CAGR</b> — $42.57 × 1.10<sup>5</sup> = $42.57 × 1.611 = <b>$68.6 ≈ $69</b>. It does <b>not</b> supply frozen revenue-growth, net-margin, share-count or exit-P/E parameters for CTATF, so — unlike reports where those parameters are supplied — this table invents none. The Bull/Bear CAGRs below are <i>implied</i> by the pack's prices (reverse arithmetic, labelled as such), not separate forecasts.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case</th><th class="n">5-yr price <span class="est">Estimate</span></th><th class="n">Vs $42.57</th><th class="n">Implied price CAGR</th><th>Method / check</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td class="n">~$38</td><td class="n">−10.7%</td><td class="n">≈ −2.2%/yr</td><td>Pack price ~$38. Implied CAGR: (38 ÷ 42.57)<sup>1/5</sup> − 1 ≈ −2.2% — a long price war / restricted-access world</td></tr>
+      <tr class="hl"><td>Base</td><td class="n">$69</td><td class="n">+62.1%</td><td class="n">+10%/yr (pack assumption)</td><td>Pack: $42.57 × 1.611 = $68.6 ≈ $69. Check: 69 ÷ 42.57 − 1 = +62.1% over 5 years</td></tr>
+      <tr><td>Bull</td><td class="n">~$95</td><td class="n">+123.2%</td><td class="n">≈ +17.4%/yr</td><td>Pack price ~$95. Implied CAGR: (95 ÷ 42.57)<sup>1/5</sup> − 1 ≈ +17.4% — ESS + EV + localisation all deliver</td></tr>
+      <tr class="total"><td>Weighted ( pack ≈$68 )</td><td class="n">~$68</td><td class="n">+59.7%</td><td class="n">—</td><td>See weights note below — labelled modelled estimate, not a verified figure</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><div class="ct">Weights — shown so the weighted figure can be checked</div>
+  <p>The pack publishes a weighted 5-year value of <b>~$68</b> but the verification log notes scenario weights were <b>not supplied</b> for most packs. With an illustrative <b>Bear 25% / Base 50% / Bull 25%</b> split the arithmetic is 0.25×$38 + 0.50×$69 + 0.25×$95 = $9.50 + $34.50 + $23.75 = <b>$67.75 ≈ $68</b> — consistent with the pack figure. Treat ~$68 as a <b>modelled estimate under those stated weights</b>; change the weights and the weighted value changes. It is not a consensus target and not a prediction.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile as specified: <b>mid-30s, risk score 8/10</b>. Recommendations below are the pack's <b>research views, not guarantees and not investment advice</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call (pack)</th><th>Rationale in one line</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td>Base +13% is modest compensation for price-war, tariff and OTC-volatility risk over the near window</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td>Scale / cost / chemistry leadership compounds if ESS and localisation deliver — <b>only via OTC/HK access, sized for FX/policy risk</b></td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing — 1.0% of total portfolio</h3>
+  <ul>
+    <li><b>Target weight: 1.0%</b> (pack). Deliberately small for an 8/10 profile: this is a single-name, single-country-policy, OTC-access position — the sizing, not the rating, is where the risk is managed.</li>
+    <li><b>Access check comes before the buy:</b> confirm your broker offers CTATF (OTC) or a Hong Kong route, check the spread and any FX / custody costs, and use limit orders on a thin OTC line — a market order can cost more than the thesis edge.</li>
+    <li><b>Revisit triggers:</b> new US/EU restrictions on Chinese battery supply, a verified filing showing margin collapse in a price war, or a rival solid-state commercial launch — any one argues for exiting a 1% satellite rather than averaging down blindly.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator: 1.0% target weight only. It does not account for any existing battery / China / EV-chain exposure you may already hold via funds — count that look-through exposure before adding.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>CTATF — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $42.57.</strong> <strong>DCF intrinsic: $65.01.</strong> Discount/premium vs DCF: <strong>-34.5%</strong> — i.e. the shares are trading 34.5% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$65.01</td><td>-34.5%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$13B</strong>; constant growth g <strong>9%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$123.67B</strong>; PV of terminal value <strong>$174.59B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$+0.00B</strong>; divided by <strong>4,588.00m</strong> diluted shares = <strong>$65.01</strong>. Base FCF $13.0B — ESTIMATE/UNVERIFIED for precision: 2025 operating cash flow RMB 133.22B (~$18.5B, J.P. Morgan via ChinaBizInsider/EnergyTrend) less estimated capex ~$5.5B (four quarters at the Q3 2025 run-rate of RMB 9.875B, Phillip Securities). Growth g 9%: pack 5-year base CAGR is 10%, capped below r (10%). Net cash set to $0: J.P. Morgan describes a net-cash balance sheet, but no total-debt figure for the OTC share class was reliably sourced, so the DCF excludes any net cash and is conservative on that leg. Shares 4,588m = pack market cap $195.3B ÷ price $42.57 (consistent with Morningstar 4.63B). DPS $0.52 (StockAnalysis). OTC THIN PRINT — treat all CTATF figures as UNVERIFIED approximations, not facts.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://stockanalysis.com/quote/otc/CTATF/ , https://chinabizinsider.com/j-p-morgan-calls-catl-september-selloff-overdone-as-market-share-data-contradicts-de-catl-ization-narrative/ , https://www.morningstar.com/stocks/otcm/ctatf/quote ; price 30 Oct 2026 close $42.57 (OTC). All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CTATF — Top customers (B2B)</h2>
+<p>CATL is classified <strong>B2B</strong>: it sells battery cells and systems to automakers and energy-storage buyers. No revenue-share ranking is disclosed in the pack; the shares below are shares of CATL's China power-battery installations in April 2026 (Kerui via CarNewsChina), NOT revenue shares, and are shown only to give a sense of customer mix.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Tesla, Inc. (reported single largest customer; no share sourced)</td><td></td><td>Covered ticker — DCF intrinsic $23, discount/premium +1638.3%</td></tr><tr><td>Geely</td><td>9.5% of CATL China installations, Apr 2026</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Changan</td><td>8.9% of CATL China installations, Apr 2026</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Xiaomi</td><td>8.5% of CATL China installations, Apr 2026</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Li Auto</td><td>8.3% of CATL China installations, Apr 2026</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>NIO</td><td>6.6% of CATL China installations, Apr 2026</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>BMW, Mercedes-Benz, Volkswagen and other global OEMs (grouped)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> CATL's customer base is deliberately broad — the pack and J.P. Morgan coverage both stress diversification across dozens of automakers — so no single customer in this table dominates revenue, and the April installation shares above (all under 10%) confirm that breadth. If Tesla, the one covered customer, trades at a discount to intrinsic once filled in, that is a potential tailwind for EV volumes and hence battery demand; a premium is a potential headwind — but Tesla is simultaneously building its own LFP capacity with CATL equipment, so a cheap Tesla does not automatically mean more CATL cell orders. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>OTC note: CTATF figures are thin-print approximations; see NOTES.md.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>CTATF — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> CATL is an AI-adjacent beneficiary through energy storage for data centres and through EV demand, but its core is batteries for vehicles — the pack thesis is EV/ESS growth, not AI itself.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: energy-storage systems for data-centre and grid backup, plus EV batteries for a vehicle fleet whose software and autonomy roadmaps are AI-linked; J.P. Morgan's forecast of 20%+ EPS growth through 2027–28 (pack coverage) rests on battery volumes, not AI revenue. Multiple channel: CTATF's forward P/E of 10.9 in the pack is already depressed (A-share de-rating in Sep 2026), so there is little AI premium to compress — an unwind would more likely hit volumes than the multiple.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: EV price wars and ESS order delays if AI/data-centre spending pauses, compounded by China/US/EU tariff and de-risking risks in the pack. Second, multiple compression: low — at ~11× forward earnings the multiple is already near trough levels cited by J.P. Morgan. Third, balance sheet: low — J.P. Morgan describes a net-cash balance sheet, and the company generates positive FCF while tier-2 peers burn cash, so the risk is demand, not solvency. Trigger to watch: a hyperscaler ESS cancellation or a further tariff escalation on Chinese batteries.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are from the CTATF research pack (as of 1 Nov 2026, price reference 30 Oct 2026 close) and its independent verification log. Where the pack and the log conflict, the log wins — applied throughout. Modelled scenario prices are estimates with methodology shown in §5, never verified facts.</p>
+  <ol class="refs">
+    <li><a href="https://www.fool.com/research/largest-industrials-companies/" target="_blank" rel="noopener">Motley Fool — Largest Industrials Companies (ranking basis: rankings/metrics as of 5 Oct 2026; model, customers, market cap, TTM revenue &amp; gross profit via pack)</a></li>
+    <li><a href="https://companiesmarketcap.com/catl/pe-ratio/" target="_blank" rel="noopener">CompaniesMarketCap — CATL P/E ratio (TTM 19.5×)</a></li>
+    <li><a href="https://StockAnalysis.com/quote/vie/CATL/" target="_blank" rel="noopener">StockAnalysis — CATL, Vienna quote (forward P/E 10.9×; Q3 report date 20 Oct 2026 via pack)</a></li>
+    <li><a href="https://weissratings.com/en/stock/ctatf-otc-pk/company-overview" target="_blank" rel="noopener">Weiss Ratings — CTATF (OTC) company overview (CATL, China, OTC)</a></li>
+  </ol>
+  <div class="callout warn"><div class="ct">Open questions — not in the verified pack</div>
+  <p>EV vs ESS revenue split · geographic revenue split · customer-concentration % · cash / debt / leverage · free cash flow · EV/EBITDA · dividend &amp; buyback policy · Q3 2026 line items. Each was omitted above rather than estimated. Pull them from CATL's primary filing before acting on this note.</p></div>
+  <p class="disc"><b>Disclaimer:</b> This is a research summary for information only — not investment advice, not a recommendation to any specific person, and not a guarantee of future returns. Scenario prices are modelled estimates based on the stated assumptions; actual prices will differ. OTC securities carry additional liquidity, spread, currency and regulatory risks. Verify figures against primary filings and your own broker's tradability and costs before making any investment decision. Past and modelled performance do not predict future results.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var toc=document.getElementById('toc');
+  if(toc){
+    var links=Array.prototype.slice.call(toc.querySelectorAll('a'));
+    var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));}).filter(Boolean);
+    function onScroll(){
+      var y=window.scrollY+120, cur=null;
+      secs.forEach(function(s,i){ if(s.offsetTop<=y) cur=i; });
+      links.forEach(function(a,i){ a.style.color = i===cur ? 'var(--blue)' : ''; a.style.borderBottomColor = i===cur ? 'var(--blue)' : 'transparent'; });
+    }
+    window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+  }
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut');
+  function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function calc(){
+    if(!pf||!out) return;
+    var v=parseFloat(pf.value);
+    if(isNaN(v)||v<0){ out.innerHTML='Enter a portfolio value to see the 1.0% sizing.'; return; }
+    var target=v*0.01;
+    var shares = target/42.57;
+    out.innerHTML='Target at <b>1.0%</b>: <b>$'+fmt(target)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(shares)+' shares</b> at $42.57 (before spreads, FX &amp; fees — material on an OTC line).';
+  }
+  if(pf){ pf.addEventListener('input', calc); calc(); }
+})();
+</script>
+</body>
+</html>

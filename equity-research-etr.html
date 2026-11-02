@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ETR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{--bg:#f7f5f0;--paper:#fffdf8;--ink:#131a24;--ink2:#3d4756;--muted:#6b7686;--line:#ddd6c8;--line2:#c9c0ab;--navy:#0d2b52;--blue:#0b5cad;--blue-soft:#e3edf7;--green:#0e6b3a;--green-soft:#e2f0e6;--red:#a4231c;--red-soft:#f7e4e1;--amber:#8a5a00;--amber-soft:#f6ecd2;--gold:#b8860b;--card:#ffffff;--chip:#efece3;--shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06)}
+@media (prefers-color-scheme: dark){:root{--bg:#0e1116;--paper:#141922;--ink:#e8e6df;--ink2:#b9c0cc;--muted:#8b94a3;--line:#2a3140;--line2:#3a4356;--navy:#9db9dd;--blue:#6aa8e8;--blue-soft:#1b2a3f;--green:#5fc98b;--green-soft:#17301f;--red:#e88a80;--red-soft:#3a1e1a;--amber:#e0aa4e;--amber-soft:#332a14;--gold:#d9a441;--card:#171d28;--chip:#1e2634;--shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:80ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}.byline b{color:var(--ink2)}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}.up{color:var(--green)}.down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4{grid-column:span 3}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;margin:20px 0 6px}p{margin:8px 0;color:var(--ink2)}p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}.warn .ct{color:var(--amber)}.bad .ct{color:var(--red)}.good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}tr.hl td{background:var(--blue-soft);color:var(--ink)}tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}.pc.bull h4{color:var(--green)}.pc.bear h4{color:var(--red)}.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)}.sc.base{border-top:4px solid var(--blue)}.sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}.wtd p{color:inherit;opacity:.88;margin:0;font-size:13px;max-width:62ch}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}.pill.hold{background:var(--amber-soft);color:var(--amber)}.pill.trim{background:var(--red-soft);color:var(--red)}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}.calc .out b{color:var(--ink)}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}@media (max-width:760px){.refs{columns:1}}.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static}body{background:#fff}section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Utilities</span><span>Regulated Electric &amp; Gas · Gulf South</span></div>
+  <h1>Entergy <span class="tick">(NYSE: ETR)</span></h1>
+  <p class="lede">A Gulf South regulated utility with the most interesting load-growth story in its peer group — Louisiana industrial and data-centre demand, anchored by the Meta Louisiana campus — trading at the richest trailing multiple in the US utility top 10. At 29.0× trailing earnings into a 2 November results print, the growth story is real but the price leaves no room for a rate-case or execution miss.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $110.11 close, Fri 30 Oct 2026</span>
+    <span><b>Next print:</b> Results due 2 Nov 2026 — after this note's cutoff</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close</div><div class="vbig mono">$110.11</div><div class="vsub">Peer note 29 Oct: ~$109.85, +1.82% on data-centre demand [<a href="https://www.perplexity.ai/finance/lists?preset=peers&symbol=FE">Perplexity Finance</a>]</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap</div><div class="vbig mono">$52.61B</div><div class="vsub">#8 in XLU · TipRanks basis — see ranking note</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · Trailing P/E</div><div class="vbig mono">29.02×</div><div class="vsub">Highest in the XLU top 10 [<a href="https://finnhub.io/?q=%22ETR%22">Finnhub</a>] · Fwd P/E not verified — omitted</div></div>
+  <div class="vcell span3"><div class="vlabel">Analyst target</div><div class="vbig mono">$121.88</div><div class="vsub"><span class="up">+10.7% vs $110.11</span> [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks</a>]</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">HOLD <span class="pill hold">Hold</span></div><div class="vsub">Wait for the 2 Nov print at 29×. Modelled base target $122 (+10.8%) — see §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY on weakness <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value $113.40 (estimate) — entry price matters more than thesis. See §5 explainer.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">1.5% of portfolio</div><div class="vsub">Small, opportunistic regulated-growth sleeve — see §6 for calculator.</div></div>
+</div>
+
+<nav class="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SETUP</span><h2>The setup in one view</h2></div>
+  <p>Entergy enters its <b>2 November 2026 results</b> — due the day after this note's cutoff, so <b>no Q3 print is included here</b> — with momentum and a premium valuation. A peer note on 29 October had ETR at ~$109.85, <b>+1.82% on data-centre demand</b> ahead of results [<a href="https://www.perplexity.ai/finance/lists?preset=peers&symbol=FE">Perplexity Finance peers</a>], and it closed 30 October at <b>$110.11</b>. The debate is narrow and testable: does Louisiana large-load growth convert into allowed, earnable rate base fast enough to justify <b>29.02× trailing earnings — the highest trailing P/E in the XLU top 10</b>?</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>At a glance — 30 Oct 2026</th><th class="n">Value</th><th>Read</th></tr></thead>
+    <tbody>
+      <tr><td>Close price</td><td class="n">$110.11</td><td>Regular-session close, 30 Oct 2026 [<a href="https://finnhub.io/?q=%22ETR%22">Finnhub</a>]</td></tr>
+      <tr><td>Market cap</td><td class="n">$52.61B</td><td>#8 in XLU top 10, TipRanks basis [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks XLU</a>]</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">29.02×</td><td>Highest in the 10 — the central valuation fact of this note</td></tr>
+      <tr><td>Implied trailing EPS (estimate)</td><td class="n">~$3.80</td><td>Derived: $110.11 ÷ 29.02 = $3.80. Labelled estimate — this is the frozen EPS base for the §5 model, not a reported figure</td></tr>
+      <tr class="hl"><td>Analyst target</td><td class="n">$121.88</td><td>+10.7% implied upside; essentially identical to this note's modelled 12–18mo base of $122</td></tr>
+      <tr><td>Next catalyst</td><td class="n">2 Nov 2026</td><td>Results due after cutoff — the HOLD in §6 is explicitly “wait for this print”</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><div class="ct">Ranking basis — read this first</div>
+  <p>Entergy is ranked #8 among <b>Top 10 US-listed Utilities (XLU universe, 30 Oct 2026)</b> — <b>not</b> a global top 10. XLU is 100% US geography, so US-listed-only is defensible as an XLU methodology [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks XLU holdings</a>]. Globally, Iberdrola ($163.31B, #2), Enel ($103.42B, #4) and National Grid ($84.52B, #7) would enter the list and XEL/EXC would fall out [<a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf">FinanceCharts</a>]. Market caps in this note are on a <b>TipRanks</b> basis where the XLU ranking is cited; Finnhub float-based values differ by up to ~$3B across the sector — vendors are not mixed in any one table.</p></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Entergy is a <b>regulated electric and gas utility group in the Gulf South</b> — Arkansas, Louisiana, Mississippi and Texas — whose earnings follow the regulated model: invest in generation, transmission and distribution, then earn an allowed return on that rate base through state rate proceedings. Two features distinguish it from a generic regulated peer: a <b>nuclear fleet</b> providing large-scale, carbon-free baseload, and an <b>industrial customer base</b> — chemicals, LNG-adjacent industry and, now, hyperscale data centres — that gives its territories a load-growth profile most US utilities do not have.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Building block</th><th>What it is</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Regulated utilities — AR · LA · MS · TX</td><td>State-regulated electric (and gas) operations across four Gulf South states</td><td>The earnings engine: allowed returns on rate base. Four separate regulatory relationships diversify single-state rate risk — but concentrate the group in one weather region (see §4)</td></tr>
+      <tr><td>Entergy Louisiana — the large-load story</td><td>The Louisiana operating company at the centre of data-centre demand, in the context of the Meta Louisiana campus and related large-load interest</td><td>This is the growth narrative the 29× multiple is paying for: hyperscale load requires new generation and grid investment, which — if approved — becomes earnable rate base for decades</td></tr>
+      <tr><td>Nuclear fleet</td><td>Large-scale nuclear generation within the regulated fleet</td><td>Baseload that industrial and data-centre customers increasingly value for carbon-free, always-on supply; also the asset base for the nuclear-uprate catalyst in §4</td></tr>
+      <tr><td>Industrial load base</td><td>Chemical, LNG-adjacent and other large industrial customers across the Gulf Coast corridor</td><td>Industrial concentration cuts both ways: structurally higher load growth than residential-led peers, but earnings sensitivity to industrial cycles and to a handful of very large customers</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Geography &amp; structural notes</h3>
+  <ul>
+    <li><b>Four-state Gulf South footprint:</b> Arkansas, Louisiana, Mississippi and Texas. Unlike a single-state utility, no one rate case decides the group's year — but all four territories share Gulf hurricane exposure, so geographic diversification here does <i>not</i> diversify the dominant weather risk.</li>
+    <li><b>Structural pivot — from replacement capex to growth capex:</b> the investment case has shifted from maintaining an ageing fleet toward building for <i>new</i> load (data centres and industrial expansion). Growth capex is more valuable than maintenance capex <i>if</i> regulators approve recovery on schedule — that conditional is the whole §4 risk discussion.</li>
+    <li><b>Supply-chain dependencies:</b> large transformers, switchgear, turbines and nuclear components are the critical path for converting large-load agreements into in-service rate base; long equipment lead times are now a sector-wide constraint, and a data-centre customer's timeline is only as firm as the grid equipment behind it. The verified pack does not carry a quantified supply-chain figure for ETR, so none is shown.</li>
+  </ul>
+  <figure>
+    <svg viewBox="0 0 980 168" width="100%" role="img" aria-label="Entergy structure: four-state regulated footprint, Louisiana large-load growth, and nuclear fleet" style="font-family:'Archivo',sans-serif">
+      <rect x="8" y="30" width="290" height="108" fill="var(--blue-soft)" stroke="var(--line2)"/><text x="24" y="58" font-size="14" font-weight="700" fill="var(--ink)">Regulated — AR · MS · TX</text><text x="24" y="80" font-size="12" fill="var(--ink2)">Allowed-return rate-base model</text><text x="24" y="98" font-size="12" fill="var(--ink2)">Electric &amp; gas operations</text><text x="24" y="116" font-size="12" fill="var(--ink2)">Industrial customer corridor</text>
+      <rect x="345" y="30" width="290" height="108" fill="var(--green-soft)" stroke="var(--line2)"/><text x="361" y="58" font-size="14" font-weight="700" fill="var(--ink)">Entergy Louisiana</text><text x="361" y="80" font-size="12" fill="var(--ink2)">Data-centre large-load demand</text><text x="361" y="98" font-size="12" fill="var(--ink2)">Meta Louisiana campus context</text><text x="361" y="116" font-size="12" fill="var(--ink2)">Chemicals · LNG-adjacent load</text>
+      <rect x="682" y="30" width="290" height="108" fill="var(--chip)" stroke="var(--line2)"/><text x="698" y="58" font-size="14" font-weight="700" fill="var(--ink)">Nuclear Fleet</text><text x="698" y="80" font-size="12" fill="var(--ink2)">Carbon-free baseload at scale</text><text x="698" y="98" font-size="12" fill="var(--ink2)">Uprate optionality (see §4)</text><text x="698" y="116" font-size="12" fill="var(--ink2)">Always-on supply for large load</text>
+    </svg>
+    <figcaption>Structure as described in the verified research pack. No segment revenue split is shown: the pack does not carry one, so none is invented here.</figcaption>
+  </figure>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The verified picture for Entergy is deliberately narrow — and the narrowness itself is diagnostic. What is confirmed is <b>price, size and a rich trailing multiple</b>. What the verification pass could <b>not</b> confirm — forward P/E and dividend — is omitted rather than estimated, following the same rule applied across this utilities series.</p>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $110.11 (30 Oct 2026 close). Market cap on TipRanks XLU basis; trailing P/E from Finnhub.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Market cap</td><td class="n">$52.61B</td><td>#8 of the XLU top 10 at 30 Oct 2026 — mid-pack size, top-of-pack multiple [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks</a>]</td></tr>
+      <tr><td>Trailing P/E</td><td class="n">29.02×</td><td><b>Highest trailing P/E in the 10.</b> Trailing earnings are depressed by one-offs (the §5 model therefore uses a normalised exit multiple, not 29×) [<a href="https://finnhub.io/?q=%22ETR%22">Finnhub</a>]</td></tr>
+      <tr><td>Implied trailing EPS (estimate)</td><td class="n">~$3.80</td><td>Arithmetic only: $110.11 ÷ 29.02. Marked estimate throughout — it is a derived base for modelling, not a reported EPS figure</td></tr>
+      <tr><td>Analyst target</td><td class="n">$121.88</td><td>+10.7% from the close — the Street is pricing delivery, not a re-rating from here [<a href="https://www.tipranks.com/etf/xlu/holdings">TipRanks</a>]</td></tr>
+      <tr><td>Forward P/E</td><td class="n">Not verified</td><td>Explicitly unverified in the research pack — omitted. Do not substitute a third-party forward multiple without checking its EPS basis</td></tr>
+      <tr><td>Dividend</td><td class="n">Not verified</td><td>Also unverified in the pack — no yield is shown in this note. For a regulated utility this is a data gap to close from the primary release, not a negative signal</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout warn"><div class="ct">What is not verified — and therefore not shown</div>
+  <p>The verification pass for this name did <b>not</b> verify Entergy's debt, cash, free cash flow, payout or leverage ratios. This note therefore shows <b>no debt/equity ratio, no EV/EBITDA and no FCF figure</b> for ETR rather than printing unchecked numbers. The verified balance-sheet-relevant fact is the valuation one: at 29.02× trailing earnings, the equity cushion against a disappointing print or rate outcome is the <i>multiple itself</i> — there is no cheapness to fall back on. Treat any precise leverage ratio for ETR from another source as unverified until checked against the 10-Q.</p></div>
+  <h3>Capital allocation read — what can honestly be said</h3>
+  <ul>
+    <li><b>Growth capex is the story, recovery is the question:</b> Louisiana large-load growth implies a multi-year build programme. In the regulated model that capex only creates shareholder value when commissions approve it into rate base on a reasonable timeline — capital allocation quality here is judged in rate proceedings, not in the boardroom alone.</li>
+    <li><b>The multiple disciplines everything:</b> at the sector's highest trailing P/E, buybacks or issuance decisions move per-share value more than at a discounted peer — but no verified buyback/dividend figures were supplied for ETR, so this note makes no claim about the current programme either way.</li>
+    <li><b>Read the 2 Nov print for the missing diagnostics:</b> forward guidance, capex phasing and any rate-case updates in the results will supply exactly the forward P/E and cash-flow inputs this section has had to leave blank.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating: standard regulated franchise, with an above-average territory.</b> Entergy's moat is not wider than other utilities' — all regulated utilities own their territories — but the <i>ground inside the fence</i> is better than most: Gulf Coast industrial density plus hyperscale data-centre interest gives its rate base a growth runway peers in slow-growth territories cannot replicate.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>Exclusive regulated territories:</b> Arkansas, Louisiana, Mississippi and Texas franchises are legal monopolies for distribution — competitors cannot enter, and earnings are set by allowed returns rather than price competition.</li>
+      <li><b>Industrial customer concentration (the good side):</b> chemicals, LNG-adjacent industry and data centres are large, sticky, infrastructure-bound customers. A chemical plant or hyperscale campus does not churn to a rival utility — it cannot.</li>
+      <li><b>Nuclear baseload:</b> carbon-free, always-on generation is precisely what data-centre customers are competing to secure nationally; owning it inside the territory strengthens Entergy's hand in large-load negotiations.</li>
+      <li><b>Load-growth scarcity:</b> in a sector where many territories grow load at ~0–1%, a credible large-load pipeline is a scarce asset — and scarcity is what the premium multiple is actually pricing.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Limits &amp; competitors</h4><ul>
+      <li><b>Named competitive set:</b> Southern Company (SO), Duke Energy (DUK) and American Electric Power (AEP) — larger regulated groups competing for the same “growth utility” allocation and, in AEP's case, for the same data-centre load narrative.</li>
+      <li><b>No pricing power:</b> as with all regulated utilities, prices are set by commission process. Entergy can propose; four state commissions dispose. The moat protects volume, not margin.</li>
+      <li><b>Industrial concentration (the bad side):</b> the same concentration that drives growth exposes earnings to industrial cycles and to the decisions of a small number of very large customers.</li>
+      <li><b>Territory risk is correlated:</b> all four states share Gulf storm exposure — the franchise cannot be diversified from inside the franchise.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Entergy is the XLU top 10's <i>growth-priced</i> regulated name — #8 by size, #1 by trailing multiple. That positioning is coherent if Louisiana load converts to rate base; it is fragile if it does not, because unlike a discounted peer there is no valuation support underneath the narrative. Investors are not buying the cheapest Gulf utility; they are buying the fastest-growing one, in advance.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts (12–18 months)</h3>
+      <ul>
+        <li><b>Results on 2 Nov 2026:</b> the immediate catalyst — guidance, large-load updates and rate-case commentary will either validate the 29× entry multiple or reprice it. This note is deliberately published <i>before</i> that print, and the §6 short-term call is to wait for it.</li>
+        <li><b>Louisiana large-load growth converting to agreements:</b> signed data-centre load (in the context of the Meta Louisiana campus) with approved cost recovery turns narrative into contracted rate-base growth — the single most valuable development available to this stock.</li>
+        <li><b>Nuclear uprates:</b> incremental capacity from the existing nuclear fleet is typically among the cheapest new megawatts a utility can add — uprate approvals add earnings without greenfield construction risk.</li>
+        <li><b>Supportive rate outcomes across the four states:</b> constructive settlements that recognise growth capex in rates de-risk the funding model and support the base case in §5.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Valuation risk first:</b> at <b>29.02× trailing — the highest in the 10</b> — there is no room for a rate-case miss. A merely ordinary disappointment can cost the multiple several turns, which at this level is a double-digit share-price move on unchanged earnings.</li>
+        <li><b>Hurricane / Gulf storm exposure:</b> the entire four-state footprint sits in the Gulf storm corridor. A severe landfall brings restoration costs, outage politics and regulatory scrutiny simultaneously — the sector's most concentrated weather exposure.</li>
+        <li><b>Rate-case and recovery risk:</b> growth capex that commissions disallow, delay or remunerate below plan directly impairs the return on the Louisiana build — the bear case in §5 is mostly this, not demand failure.</li>
+        <li><b>Large-load concentration:</b> if a flagship data-centre timeline slips, the load-growth premium embedded in the price has no second engine to fall back on in the near term.</li>
+        <li><b>Industrial cycle:</b> chemical and LNG-adjacent demand is cyclical; a downturn hits the legacy load base at the same time growth capex is at peak spend.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A 2 November print (or a subsequent rate decision) showing large-load growth arriving <i>slower</i> than the capex committed to serve it — spending into rate base that commissions then remunerate poorly. Demand disappointment alone is survivable at a normal utility multiple; demand disappointment <i>at 29×</i> is the bear case, because the de-rating and the earnings miss compound each other.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets on this page are <b>modelled estimates</b> — their assumptions are shown in full so the arithmetic can be checked. They are not verified facts and not guarantees. The coordinator correction for this name is applied explicitly below: the 5-year weighted value sits <i>below</i> the 12–18-month base target, and this page explains why rather than publishing it silently.</p>
+  <h3>12–18-month targets (modelled estimates)</h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear · modelled</div><div class="price mono">$92</div><div class="ret down">−16.5% vs $110.11</div><p>A soft 2 Nov print or an adverse rate signal de-rates the sector's richest multiple toward an ordinary regulated level. Earnings do not need to collapse — multiple compression from 29× does the damage on its own.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base · modelled</div><div class="price mono">$122</div><div class="ret up">+10.8% vs $110.11</div><p>Guidance holds, Louisiana large-load milestones land, and rate outcomes stay constructive. Essentially the analyst target ($121.88) — the market's own base case, independently matched by this model.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull · modelled</div><div class="price mono">$138</div><div class="ret up">+25.3% vs $110.11</div><p>Large-load agreements convert faster than expected, nuclear uprates are approved, and the market continues to pay a scarcity premium for contracted Gulf load growth — the multiple holds while earnings compound.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Probability-weighted value (12–18 mo) · modelled estimate</div><div class="wv mono">≈ $118.50</div></div><p>Illustrative weighting at 25% bear / 50% base / 25% bull: 0.25×$92 + 0.50×$122 + 0.25×$138 = $118.50, or <b>+7.6%</b> from $110.11. Weights are this note's modelling choice, shown so the figure can be re-cut — they were not part of the verified pack.</p></div>
+
+  <h3>5-year projection — frozen-parameter format, adapted transparently</h3>
+  <p><b>Adaptation note (required, and important here):</b> the standard format in this series is <i>2031 price = 2031 revenue × net margin ÷ shares × P/E</i>. The verified pack for ETR carries no revenue, margin or share-count series, so the transparent equivalent is used in EPS form: <b>2031 price = EPS<sub>base</sub> × (1+g)<sup>5</sup> × exit P/E</b>. The EPS base is itself an <b>estimate</b> — ~$3.80, derived as price ÷ trailing P/E ($110.11 ÷ 29.02) — and the exit multiples are <b>normalised</b> (base 22×), <i>not</i> the trailing 29.02×, because trailing earnings are depressed by one-offs and capitalising a recovery year at 29× would double-count it. Growth <i>g</i> and P/E are frozen per case.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case (weight*)</th><th class="n">EPS growth / yr (g)</th><th class="n">2031 EPS (est.)</th><th class="n">Exit P/E (normalised)</th><th class="n">2031 price (est.)</th><th class="n">Total vs $110.11</th><th class="n">CAGR</th></tr></thead>
+    <tbody>
+      <tr><td>Bear (25%*)</td><td class="n">4%</td><td class="n">~$4.62</td><td class="n">17×</td><td class="n">$78.50</td><td class="n">−28.7%</td><td class="n">~−6.5%</td></tr>
+      <tr class="hl"><td>Base (50%*)</td><td class="n">7%</td><td class="n">~$5.33</td><td class="n">22×</td><td class="n">$117.30</td><td class="n">+6.5%</td><td class="n">~+1.3%</td></tr>
+      <tr><td>Bull (25%*)</td><td class="n">9%</td><td class="n">~$5.85</td><td class="n">24×</td><td class="n">$140.20</td><td class="n">+27.3%</td><td class="n">~+5.0%</td></tr>
+      <tr class="total"><td>Probability-weighted · modelled estimate</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n">$113.40</td><td class="n">+3.0%</td><td class="n">~+0.6%</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">*Weights are this note's stated modelling assumption (25/50/25), supplied here precisely because the verification log flagged that the pack's weighted figure could not be re-checked without them. Check the arithmetic: base $3.80 × 1.07<sup>5</sup> = $5.33; $5.33 × 22 = $117.30. Bull: $3.80 × 1.09<sup>5</sup> = $5.85; × 24 = $140.20. Bear: $3.80 × 1.04<sup>5</sup> = $4.62; × 17 = $78.50. Weighted: 0.25×$78.50 + 0.50×$117.30 + 0.25×$140.20 = $113.40. All outputs are modelled estimates built on an estimated EPS base — two layers of estimation, both disclosed.</p>
+  <div class="callout warn"><div class="ct">Why the 5-year weighted value ($113.40) is below the 12–18-month base target ($122)</div>
+  <p>This inversion was flagged in verification for three utilities (CEG, SRE and ETR) and it is real, not an arithmetic error — the two numbers are built differently. The <b>12–18-month base ($122)</b> prices the stock the way the market currently does: on the large-load narrative at a premium multiple, in line with the $121.88 analyst target. The <b>5-year model</b> deliberately refuses that premium: it starts from depressed trailing EPS (~$3.80, estimate), compounds it at regulated-utility rates (7% base), and exits at a <i>normalised</i> 22× rather than today's 29×. Five years of solid regulated compounding from a depressed base, valued normally, lands at $117.30 — <i>below</i> what the narrative multiple already pays today — and the 25%-weighted bear case (multiple compression to 17×, $78.50) pulls the weighted figure to $113.40. <b>The honest reading:</b> at $110.11 you are pre-paying for the growth. That is exactly why §6 pairs a long-term BUY with “on weakness” and a small 1.5% size — the thesis can be right and the entry price still be the risk.</p></div>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are research views, not guarantees and not investment advice.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call</th><th>Action &amp; triggers</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill hold">Hold</span></td><td><b>Hold — wait for the 2 Nov print.</b> Buying the sector's highest trailing multiple (29.02×) the day before results is paying full price for an untested print. The modelled base ($122, +10.8%) offers acceptable upside <i>after</i> the print confirms guidance and rate commentary; before it, the bear case (−16.5%) is a multiple accident, not an earnings disaster, and those are the hardest to sit through at full size.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td><b>Buy on weakness.</b> The structural story — Gulf industrial load, data-centre demand, nuclear baseload, four-state rate-base compounding — is a genuine regulated growth profile. But the 5-year model (§5) shows today's price already capitalises much of it: accumulate on de-rating toward the bear/base gap rather than chasing strength, and let a better entry do the work the multiple currently does against you.</td></tr>
+      <tr><td>Trim / review triggers</td><td><span class="pill trim">Review</span></td><td>Review on: a rate decision that materially under-remunerates Louisiana growth capex; slippage or cancellation of a flagship large-load agreement; storm restoration costs paired with hostile regulatory treatment; or the multiple expanding further without earnings upgrades. Any one moves the name from “buy on weakness” to “avoid until repriced.”</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>ETR target: 1.5% of total portfolio.</b> Deliberately the small end of single-name sizing. This is a narrative-premium regulated stock, not a discounted compounder: at an 8/10 risk profile it earns a place as an opportunistic growth-utility position, sized so that a full bear-case de-rating (−28.7% over five years in the model; −16.5% near term) costs the portfolio roughly a quarter of one percent — painful, not damaging.</li>
+    <li><b>Entry discipline is the sizing:</b> the 1.5% is a <i>target at a sensible entry</i>, not an instruction to fill it at $110.11 before the print. A staged build — partial after a confirming 2 Nov print, balance on weakness — matches both calls above.</li>
+    <li><b>Sector context:</b> within a utilities sleeve, ETR is the high-beta complement to a larger, cheaper anchor name (in this series, the larger regulated compounders carry 2.5–3.0% targets). Holding both is coherent; holding ETR <i>as</i> the utilities anchor is not — its multiple makes it the satellite, not the ballast.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator uses the single target weight above (1.5%) at the 30 Oct close of $110.11. Share counts are rounded down to whole shares; the remainder stays as cash.</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>ETR — Intrinsic value (uniform methodology, price reference 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $110.11.</strong> <strong>DCF intrinsic: $92.</strong> Discount/premium vs DCF: <strong>+19.7%</strong> — i.e. the shares are trading 19.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$92</td><td>+19.7%</td></tr></table>
+<h3>Method 1 — DCF (10-year, constant growth)</h3>
+<p>Base cash flow: $4 per share — Pack EPS estimate $3.80 - regulated earnings proxy; Q3 results due 2 Nov 2026 are POST-cutoff and NOT used. TTM free cash flow is negative for this utility (growth capex exceeds operating cash flow), so a regulated earnings proxy is used, as the methodology allows, rather than a negative FCF base that would produce a meaningless value. Growth g = 7.0% for years 1&ndash;10 (from pack evidence; capped below r = 8.5%). Terminal value = Year-10 cash flow &times; 1.025 / (0.085 &minus; 0.025). Equity value (restated) = PV of projected cash flow + PV of terminal value, with NO net-cash term. The regulated-earnings proxy is already after interest, so subtracting the net-debt stock would double-count debt.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: research pack (~/workspace/research_notes/equity/ETR/report.md) and StockAnalysis statistics page (https://stockanalysis.com/stocks/etr/statistics/).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ETR — Customer base (B2C-like note — no top-7 business-customer list)</h2>
+<p>Entergy sells electricity and gas principally to households and small businesses through regulated Arkansas, Louisiana, Mississippi and Texas tariffs, so it is treated as B2C-like for this task and no top-7 business-customer list is given. The pack names the Meta Louisiana campus as context for its large-load story but discloses no contracted revenue share, so no customer table is built on it.</p><p><strong>Key demand drivers:</strong> Louisiana large-load growth (including the Meta campus), nuclear uprates, and Gulf hurricane/storm exposure; results due 2 Nov 2026 are post-cutoff and not used here.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ETR — AI trade positioning</h2>
+<p><strong>Role: Beneficiary.</strong> Entergy Louisiana is the pack's data-centre story in the Gulf South, with the Meta Louisiana campus named as context and industrial load (chemicals, LNG-adjacent, data centres) as the moat.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> Large-load growth in Louisiana converts into regulated rate-base growth and nuclear uprates, turning hyperscaler and industrial demand into allowed-return earnings rather than merchant exposure.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> Entergy trades at the highest trailing P/E in the group (29.02 per pack), so the AI load story is already priced in — the multiple channel is fragile upside that depends on the 2 Nov 2026 print justifying it.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order:</strong> First, demand: Louisiana large-load projects delay or the Meta campus scales back, removing the growth leg that justifies 29x earnings. Second, multiple compression: this is the main risk — from the group's highest multiple toward the regulated average if results disappoint, with no room for a rate-case miss. Third, balance sheet: TTM FCF is -$3.10B and Gulf hurricane exposure adds event risk, so a de-rating would coincide with higher funding costs. No quantified sensitivity is claimed, and the 2 Nov 2026 results are post-cutoff and not used here.</p>
+<p><strong>Trigger(s) to watch:</strong> The 2 Nov 2026 results (post-cutoff); Louisiana large-load contract announcements; and any hurricane damage or storm-cost recovery proceedings.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures were independently verified for this series against a second source where the verification log says so; where the log and the research pack conflicted, the log was followed. Modelled targets in §5 are estimates with methodology and weights shown, never verified facts. Forward P/E and dividend were marked unverified and are omitted, not estimated.</p>
+  <ol class="refs">
+    <li><a href="https://finnhub.io/?q=%22ETR%22" target="_blank" rel="noopener">Finnhub — ETR price $110.11, market data and trailing P/E 29.02× (30 Oct 2026)</a></li>
+    <li><a href="https://www.tipranks.com/etf/xlu/holdings" target="_blank" rel="noopener">TipRanks — XLU holdings at 30 Oct 2026 (ranking basis, market cap $52.61B, analyst target $121.88)</a></li>
+    <li><a href="https://www.perplexity.ai/finance/lists?preset=peers&symbol=FE" target="_blank" rel="noopener">Perplexity Finance — utility peers note, 29 Oct 2026 (ETR ~$109.85, +1.82% on data-centre demand ahead of 2 Nov results)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/utilities?columns=custom-dcf" target="_blank" rel="noopener">FinanceCharts — global utilities market caps (Iberdrola, Enel, National Grid context for the US-only ranking note)</a></li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research and education, not investment advice and not a guarantee of future results. Prices are the 30 Oct 2026 regular-session close; the note is dated 1 Nov 2026 and Entergy's results due 2 Nov 2026 are <b>not</b> reflected in it. Scenario prices are modelled estimates built from the stated frozen assumptions — including an estimated EPS base (~$3.80, derived from price ÷ trailing P/E) and normalised exit multiples — and actual outcomes will differ, including possibly by a lot. Figures marked “not verified” in the underlying verification pass (forward P/E, dividend, leverage and cash-flow ratios) have been omitted rather than estimated. Verify any figure against the primary filing (10-Q / earnings release) before acting on it.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var input=document.getElementById('pf'), out=document.getElementById('pfOut');
+  var PRICE=110.11, W=0.015;
+  function fmt(n){return n.toLocaleString('en-US',{maximumFractionDigits:0});}
+  function render(){
+    var v=parseFloat(input.value); if(isNaN(v)||v<0)v=0;
+    var dollars=v*W, shares=Math.floor(dollars/PRICE), spent=shares*PRICE;
+    out.innerHTML='Target at <b>1.5%</b>: <b>$'+fmt(dollars)+'</b> &nbsp;·&nbsp; ≈ <b>'+fmt(shares)+' shares</b> at $110.11 (spends $'+fmt(spent)+')';
+  }
+  input.addEventListener('input',render); render();
+})();
+</script>
+</body>
+</html>

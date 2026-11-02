@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ABBV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#f7f6f2; --surface:#ffffff; --surface2:#efede6; --ink:#17201c; --ink2:#4c5a53;
+    --line:#d9d5c9; --teal:#0c5b4a; --teal-soft:#e2efe9; --amber:#9a6a12; --amber-soft:#f6ecd4;
+    --red:#9c3125; --red-soft:#f7e4e0; --green:#1d6b41; --green-soft:#e1efe4;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --serif:'IBM Plex Serif',Georgia,serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101613; --surface:#182019; --surface2:#1f2a22; --ink:#e8ece7; --ink2:#a9b6ad;
+      --line:#33413a; --teal:#5cc4a8; --teal-soft:#17392f; --amber:#e0b45c; --amber-soft:#3a2f14;
+      --red:#ef9a8d; --red-soft:#3d201b; --green:#7fc996; --green-soft:#1c3325;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+  a{color:var(--teal);text-decoration-thickness:1px;text-underline-offset:2px}
+  h1,h2,h3{font-family:var(--serif);line-height:1.15;margin:0}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+  /* Header */
+  header{padding:34px 0 22px;border-bottom:3px solid var(--ink)}
+  .tickline{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 16px}
+  .ticker{font-family:var(--mono);font-weight:600;font-size:15px;letter-spacing:.14em;background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:3px}
+  .sector{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+  h1{font-size:clamp(34px,6vw,52px);font-weight:700;margin-top:12px}
+  .sub{color:var(--ink2);font-size:17px;margin-top:8px;max-width:70ch}
+  .asof{font-family:var(--mono);font-size:13px;color:var(--ink2);margin-top:12px}
+  .basis{background:var(--surface2);border:1px solid var(--line);border-radius:6px;padding:12px 16px;font-size:14px;margin-top:16px;color:var(--ink2)}
+  .basis strong{color:var(--ink)}
+
+  /* Price strip */
+  .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:22px 0}
+  .strip>div{background:var(--surface);padding:16px 18px}
+  .strip .lab{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+  .strip .val{font-family:var(--mono);font-size:clamp(22px,3.4vw,30px);font-weight:600;margin-top:4px}
+  .strip .note{font-size:13px;color:var(--ink2);margin-top:2px}
+
+  /* Verdict */
+  .verdict{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;margin:26px 0}
+  .vcard{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+  .vcard h2{font-size:21px;margin-bottom:12px}
+  .calls{display:flex;gap:10px;flex-wrap:wrap}
+  .call{border-radius:6px;padding:10px 14px;font-weight:700;font-size:15px}
+  .call small{display:block;font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.75}
+  .buy{background:var(--green-soft);color:var(--green);border:1px solid var(--green)}
+  .hold{background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber)}
+  .vcard p{font-size:14.5px;color:var(--ink2);margin:12px 0 0}
+  .calc label{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);display:block;margin-bottom:8px}
+  .calc .row{display:flex;gap:8px;align-items:center}
+  .calc input{flex:1;min-width:0;font-family:var(--mono);font-size:17px;padding:10px 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink)}
+  .calc .out{margin-top:14px;font-size:15px}
+  .calc .out .num{font-weight:600;font-size:19px}
+
+  /* Sections */
+  section{margin-top:44px}
+  .shead{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:18px}
+  .shead .no{font-family:var(--mono);color:var(--teal);font-weight:600;font-size:15px}
+  .shead h2{font-size:clamp(23px,3.6vw,30px)}
+  p{margin:0 0 12px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px 20px}
+  .card h3{font-size:17px;margin-bottom:10px}
+  .card p,.card li{font-size:14.5px}
+  ul{margin:0;padding-left:19px}
+  li{margin-bottom:7px}
+  .warn{background:var(--red-soft);border:1px solid var(--red);border-radius:8px;padding:14px 18px;font-size:14.5px;margin:14px 0}
+  .warn strong{color:var(--red)}
+  .flag{background:var(--amber-soft);border:1px solid var(--amber);border-radius:8px;padding:14px 18px;font-size:14.5px;margin:14px 0}
+  .openq{border:1px dashed var(--ink2);border-radius:8px;padding:12px 16px;font-size:14px;color:var(--ink2);margin-top:14px}
+
+  /* Tables */
+  .tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);background:var(--surface2)}
+  td.n,th.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  .pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
+  .est{font-size:11px;font-weight:700;letter-spacing:.06em;background:var(--amber-soft);color:var(--amber);border:1px solid var(--amber);border-radius:3px;padding:1px 5px;vertical-align:middle;white-space:nowrap}
+
+  /* Flow chart */
+  .flow{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:20px 22px}
+  .flow h3{font-size:17px;margin-bottom:4px}
+  .flow .cap{font-size:13.5px;color:var(--ink2);margin-bottom:16px}
+  .bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:12px;align-items:center;margin-bottom:10px;font-size:14px}
+  .bar-row .bl{font-weight:600}
+  .bar-row .bl small{display:block;font-weight:400;color:var(--ink2);font-size:12.5px}
+  .track{background:var(--surface2);border-radius:4px;height:26px;position:relative}
+  .fill{position:absolute;inset:0 auto 0 0;border-radius:4px;background:var(--teal)}
+  .fill.dim{background:var(--ink2);opacity:.55}
+  .bar-row .bv{font-family:var(--mono);text-align:right;font-weight:600}
+  .bar-row .bv small{display:block;font-weight:400;color:var(--ink2);font-size:12px}
+
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}
+  .kpi{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .kpi .lab{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+  .kpi .val{font-family:var(--mono);font-size:21px;font-weight:600;margin-top:3px}
+  .kpi .note{font-size:13px;color:var(--ink2)}
+
+  .srcs{font-size:14px}
+  .srcs li{margin-bottom:9px}
+  footer{margin-top:52px;border-top:1px solid var(--line);padding-top:18px;font-size:13.5px;color:var(--ink2)}
+  @media (max-width:760px){
+    .strip{grid-template-columns:1fr 1fr}
+    .verdict,.cols{grid-template-columns:1fr}
+    .kpis{grid-template-columns:1fr 1fr}
+    .bar-row{grid-template-columns:118px 1fr 76px;font-size:13px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="tickline">
+    <span class="ticker">NYSE · ABBV</span>
+    <span class="sector">Health Care — Biopharmaceuticals</span>
+  </div>
+  <h1>AbbVie Inc.</h1>
+  <p class="sub">The post-Humira growth story, now carried by two drugs. Skyrizi and Rinvoq compounded above 20% in Q3 2026 and together made up 48.7% of quarterly revenue — that concentration is both the investment case and the central risk.</p>
+  <p class="asof">Research as of 1 Nov 2026 · Prices are the 30 Oct 2026 regular-session close (1 Nov was a weekend) · Prepared for a mid-30s investor, risk score 8/10 · Research views only — not investment advice.</p>
+  <div class="basis"><strong>Ranking basis:</strong> AbbVie is #3 in the US-domiciled health-care top 10 by market cap (FinanceCharts sector list, last updated 30 Oct 2026, filtered to US-domiciled names). Global ranks differ — Roche, Novartis, Genmab and AstraZeneca sit between US names globally. Danaher (11th US) and Intuitive Surgical (12th US) are reserves, not top-10 members.</div>
+</header>
+
+<div class="strip">
+  <div><div class="lab">Close · 30 Oct 2026</div><div class="val">$294.89</div><div class="note">Confirmed vs Finnhub official close</div></div>
+  <div><div class="lab">Market cap</div><div class="val">$521.11B</div><div class="note">FinanceCharts, 30 Oct 2026</div></div>
+  <div><div class="lab">Q3 2026 revenue</div><div class="val">$17.40B</div><div class="note">+10.3% reported · +10.5% operational</div></div>
+  <div><div class="lab">Dividend yield</div><div class="val">2.35%</div><div class="note">$6.92/yr · +5.2% rise set for 2027</div></div>
+</div>
+
+<div class="verdict">
+  <div class="vcard">
+    <h2>Verdict</h2>
+    <div class="calls">
+      <span class="call buy"><small>Short term · 12–18 mo</small>BUY</span>
+      <span class="call hold"><small>Long term · 5 yr</small>HOLD</span>
+      <span class="call hold"><small>Suggested weight</small>2.5% of portfolio</span>
+    </div>
+    <p>Near term, the raised FY26 guidance, &gt;20% growth in both lead drugs and a growing dividend support buying. Over five years the modelled value sits below today's price (explained in §5) and the 2031–33 patent wave looms — so this is a hold-and-harvest position, not a core compounder to keep adding to at any price.</p>
+  </div>
+  <div class="vcard calc">
+    <h2>Position-size calculator</h2>
+    <label for="pf">Total portfolio value ($)</label>
+    <div class="row"><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" /></div>
+    <p class="out">At 2.5%: <span class="num" id="amt">$12,500</span><br/>≈ <span class="num" id="sh">42 shares</span> at $294.89</p>
+  </div>
+</div>
+
+<!-- 1 -->
+<section>
+  <div class="shead"><span class="no">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>AbbVie is a research-based biopharmaceutical company organised into four portfolios: Immunology, Neuroscience, Oncology and Aesthetics. It sells branded prescription drugs — pricing power comes from patent protection and prescriber habit, and revenue ends abruptly when patents do, which is why the Humira story (once the world's best-selling drug, now in steep biosimilar decline) frames everything else.</p>
+  <p><strong>Q3 2026 (reported 30 Oct 2026):</strong> revenue <span class="num">$17.40B</span>, up 10.3% reported (+10.5% operational). Adjusted EPS <span class="num">$3.82</span>, beating the $3.74 consensus. Management raised FY26 adjusted EPS guidance to <span class="num">$13.95–13.99</span> (from $13.76–13.96) on revenue of about <span class="num">$67.8B</span>. The Apogee Therapeutics acquisition was completed in Q3, adding immunology pipeline depth.</p>
+
+  <div class="flow">
+    <h3>Q3 2026 revenue flow — where the $17.40B came from</h3>
+    <p class="cap">Portfolio bars to scale. Drug lines are components of their portfolio, not additions to it.</p>
+    <div class="bar-row"><span class="bl">Immunology</span><span class="track"><span class="fill" style="width:52.7%"></span></span><span class="bv">$9.17B<small>+16.3%</small></span></div>
+    <div class="bar-row"><span class="bl">↳ Skyrizi<small>psoriasis / IBD</small></span><span class="track"><span class="fill" style="width:33.2%"></span></span><span class="bv">$5.78B<small>+22.7%</small></span></div>
+    <div class="bar-row"><span class="bl">↳ Rinvoq<small>JAK inhibitor</small></span><span class="track"><span class="fill" style="width:15.6%"></span></span><span class="bv">$2.71B<small>+23.9%</small></span></div>
+    <div class="bar-row"><span class="bl">↳ Humira<small>biosimilar erosion</small></span><span class="track"><span class="fill" style="width:3.9%"></span></span><span class="bv">$683M<small>−31.2%</small></span></div>
+    <div class="bar-row"><span class="bl">Neuroscience</span><span class="track"><span class="fill" style="width:19.5%"></span></span><span class="bv">$3.39B<small>+19.4%</small></span></div>
+    <div class="bar-row"><span class="bl">Oncology</span><span class="track"><span class="fill" style="width:9.8%"></span></span><span class="bv">$1.70B<small>+0.8%</small></span></div>
+    <div class="bar-row"><span class="bl">Aesthetics</span><span class="track"><span class="fill" style="width:6.8%"></span></span><span class="bv">$1.18B<small>−1.4%</small></span></div>
+    <div class="bar-row"><span class="bl">All other products<small>balance to total</small></span><span class="track"><span class="fill dim" style="width:11.3%"></span></span><span class="bv">+$1.96B<small>residual</small></span></div>
+  </div>
+
+  <div class="cols" style="margin-top:18px">
+    <div class="card">
+      <h3>Neuroscience detail (Q3)</h3>
+      <ul>
+        <li>Botox Therapeutic — <span class="num">$1.08B</span></li>
+        <li>Vraylar (schizophrenia / bipolar) — ~<span class="num">$1.07B</span></li>
+        <li>Ubrelvy (migraine) — <span class="num">$449M</span></li>
+        <li>Qulipta (migraine prevention) — <span class="num">$398M</span></li>
+      </ul>
+      <p style="margin-top:10px">Neuroscience is the quiet second engine: +19.4% growth, spread across four brands rather than one molecule.</p>
+    </div>
+    <div class="card">
+      <h3>Geography &amp; structure</h3>
+      <p>The business is US-heavy where it matters most: Skyrizi's Q3 sales split <span class="num">$5.02B US / $0.76B ex-US</span> — about 87% of the lead drug's revenue is American, which concentrates both pricing power and US policy risk (IRA negotiation, MFN/Medicaid pricing) in one market.</p>
+      <p>Structural pivot: AbbVie has now fully rotated from Humira dependence to the Skyrizi/Rinvoq immunology pair, and is buying pipeline (Apogee, completed Q3) rather than building every asset internally.</p>
+    </div>
+  </div>
+  <div class="openq"><strong>Open question:</strong> a company-wide geographic revenue split was not verified in the source pack (only the Skyrizi split above was), so no global US/ex-US percentage is stated here.</div>
+</section>
+
+<!-- 2 -->
+<section>
+  <div class="shead"><span class="no">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+
+  <div class="warn"><strong>Do not use the trailing P/E.</strong> StockAnalysis shows 50.77× and FinanceCharts 83.34× (on TTM EPS of $3.54) — both are GAAP-distorted by non-cash charges. The forward multiple and adjusted EPS are the usable gauges for this stock.</div>
+
+  <div class="tblwrap">
+    <table>
+      <tr><th>Metric (TTM unless noted)</th><th class="n">Value</th><th>Basis / source</th></tr>
+      <tr><td>Forward P/E <span class="est">UNVERIFIED ESTIMATE</span></td><td class="n">18.80×</td><td>Provider figure carried in the research pack; the independent verifier could not re-source the forward-P/E dataset to a second provider, so treat as an estimate, not a confirmed fact</td></tr>
+      <tr><td>Price / Sales</td><td class="n">7.89×</td><td>StockAnalysis</td></tr>
+      <tr><td>EV / EBITDA</td><td class="n">18.46×</td><td>StockAnalysis</td></tr>
+      <tr><td>Revenue (TTM)</td><td class="n">$66.01B</td><td>StockAnalysis</td></tr>
+      <tr><td>Gross / operating / net margin</td><td class="n">73.72% / 36.46% / 15.67%</td><td>GAAP, StockAnalysis — net margin is charge-depressed; adjusted EPS of ~$13.97 implies a far higher underlying margin</td></tr>
+      <tr><td>Net income / EPS (TTM, GAAP)</td><td class="n">$10.30B / $5.81</td><td>StockAnalysis</td></tr>
+      <tr><td>Free cash flow</td><td class="n">$18.21B</td><td>FCF margin 27.6% (derived: $18.21B ÷ $66.01B TTM revenue) — the dividend's real funding source</td></tr>
+      <tr><td>Cash / total debt / net debt</td><td class="n">$6.57B / $70.89B / $64.32B</td><td>Legacy of the Allergan acquisition debt load</td></tr>
+      <tr><td>Debt-to-equity</td><td class="n">n/a</td><td>Book equity is negative (−$5.89B) after buybacks and the Allergan deal, so D/E is not meaningful; judge leverage on net debt vs FCF instead (~3.5× FCF)</td></tr>
+      <tr><td>Dividend</td><td class="n">$6.92/yr · 2.35% yield</td><td>Payout 119.14% of GAAP EPS but 67.15% of FCF; a 5.2% rise to $1.82/quarter was announced for 2027</td></tr>
+    </table>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lab">FCF conversion</div><div class="val">27.6%</div><div class="note">of TTM revenue becomes free cash flow ($18.21B ÷ $66.01B)</div></div>
+    <div class="kpi"><div class="lab">Net debt ÷ FCF</div><div class="val">~3.5×</div><div class="note">$64.32B net debt vs $18.21B FCF — manageable, not light</div></div>
+    <div class="kpi"><div class="lab">FY26 adj. EPS guide</div><div class="val">$13.95–13.99</div><div class="note">raised in Q3 from $13.76–13.96</div></div>
+  </div>
+
+  <p><strong>Capital allocation:</strong> the dividend is the priority and it is growing (the announced 2027 rise is +5.2%); debt paydown competes with pipeline acquisitions (Apogee). R&amp;D spend was <strong>not verified</strong> in the retrieved sources for this report, so no R&amp;D figure is stated rather than estimated. Buyback yield was likewise not available in the pack (n/a).</p>
+</section>
+
+<!-- 3 -->
+<section>
+  <div class="shead"><span class="no">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <div class="cols">
+    <div class="card">
+      <h3>What protects it</h3>
+      <ul>
+        <li><strong>Patent estate:</strong> Skyrizi composition-of-matter protection runs to 2033 (per AbbVie's 10-K, as reported by secondary analysis); Rinvoq US generic entry is reported settled to ~2037. That is an unusually long runway for the two growth drugs.</li>
+        <li><strong>Prescriber base:</strong> deep immunology relationships across dermatology, gastroenterology and rheumatology — switching a stable patient is clinically and administratively costly.</li>
+        <li><strong>Brand franchises outside immunology:</strong> Botox (therapeutic and cosmetic) is a two-decade brand with clinic-level lock-in.</li>
+        <li><strong>Scale in manufacturing &amp; payer negotiation</strong> that smaller immunology rivals cannot match.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Who attacks it</h3>
+      <ul>
+        <li><strong>Johnson &amp; Johnson</strong> — Stelara and Tremfya compete directly in psoriasis and IBD.</li>
+        <li><strong>Eli Lilly</strong> — expanding immunology presence alongside its metabolic franchise.</li>
+        <li><strong>Novartis and UCB</strong> — established immunology portfolios (Cosentyx; Bimzelx).</li>
+        <li><strong>JAK-class rivals</strong> — Rinvoq competes within its own drug class on safety labelling as much as efficacy.</li>
+      </ul>
+      <p style="margin-top:10px">Pricing power is real but politically capped: as a top US-revenue drugmaker, AbbVie sits squarely in the path of IRA price negotiation and MFN/Medicaid pricing proposals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section>
+  <div class="shead"><span class="no">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="cols">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul>
+        <li>Skyrizi (+22.7%) and Rinvoq (+23.9%) still compounding above 20% — every quarter that holds pushes the "post-Humira cliff" narrative further out.</li>
+        <li>ABBV-466, a Skyrizi-combination programme, in Phase 2a — a lifecycle-extension path for the flagship.</li>
+        <li>Apogee Therapeutics pipeline, acquired and closed in Q3, adds immunology shots on goal.</li>
+        <li>Dividend growth: +5.2% announced for 2027 ($1.82/quarter) supports the income-holder base.</li>
+        <li>FY26 guidance already raised once (adj. EPS $13.95–13.99); further raises would re-rate the stock toward the bull case.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Downside risks</h3>
+      <ul>
+        <li><strong>Concentration:</strong> Skyrizi + Rinvoq = 48.7% of Q3 revenue. One safety signal or payer decision hits half the company.</li>
+        <li><strong>The 2031–33 patent wave:</strong> Evaluate's forecast puts ~$50B of one-year AbbVie revenue exposure in 2032 — the largest single-company cliff in its forecast.</li>
+        <li><strong>Imbruvica −26%</strong> on IRA pricing and competition — a live example of policy directly removing revenue.</li>
+        <li><strong>Leverage:</strong> $64.32B net debt limits flexibility if growth disappoints.</li>
+        <li><strong>Aesthetics softness:</strong> −1.4% in Q3; consumer-facing and rate-sensitive.</li>
+        <li><strong>MFN / Medicaid pricing</strong> proposals aimed at exactly AbbVie's US-heavy revenue mix.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section>
+  <div class="shead"><span class="no">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All scenario prices on this page are <strong>modelled estimates</strong> — the independent verifier could not confirm them against a second source, so the assumptions and weights are published in full for you to check. Analyst average target: <span class="num">$297.15</span> (vs $294.89 spot — the Street, in aggregate, sees roughly fair value here).</p>
+
+  <h3 style="font-size:18px;margin:18px 0 10px">12–18 month scenarios <span class="est">MODELLED ESTIMATE</span></h3>
+  <div class="tblwrap">
+    <table>
+      <tr><th>Case</th><th class="n">Weight</th><th class="n">Target</th><th class="n">vs $294.89</th><th>What has to happen</th></tr>
+      <tr><td><strong>Bear</strong></td><td class="n">25%</td><td class="n">$250</td><td class="n neg">−15.2%</td><td>Skyrizi/Rinvoq growth halves, pricing action lands, aesthetics worsens</td></tr>
+      <tr><td><strong>Base</strong></td><td class="n">50%</td><td class="n">$320</td><td class="n pos">+8.5%</td><td>Guidance delivered, lead drugs keep compounding in the high teens</td></tr>
+      <tr><td><strong>Bull</strong></td><td class="n">25%</td><td class="n">$360</td><td class="n pos">+22.1%</td><td>Further guidance raises, Apogee/pipeline data lands, multiple re-rates</td></tr>
+      <tr><td colspan="2"><strong>Probability-weighted (25/50/25)</strong></td><td class="n"><strong>$313</strong></td><td class="n pos">+6.0%</td><td>Plus the 2.35% dividend yield on top</td></tr>
+    </table>
+  </div>
+
+  <h3 style="font-size:18px;margin:22px 0 10px">5-year projection — frozen-parameter model <span class="est">MODELLED ESTIMATE</span></h3>
+  <p style="font-size:14.5px">Starting point: TTM revenue $66.01B, 1,770M shares held frozen. Only growth, margin and exit P/E vary by case. The 22% base net margin is a <em>normalised</em> margin — deliberately conservative, well below the margin implied by adjusted EPS of ~$13.97 — and the 19× exit P/E simply holds today's forward level.</p>
+  <div class="tblwrap">
+    <table>
+      <tr><th>Case</th><th class="n">Weight</th><th class="n">Rev growth/yr</th><th class="n">Net margin</th><th class="n">2031 revenue</th><th class="n">2031 EPS</th><th class="n">Exit P/E</th><th class="n">2031 price</th></tr>
+      <tr><td><strong>Bear</strong></td><td class="n">25%</td><td class="n">3%</td><td class="n">17%</td><td class="n">$76.5B</td><td class="n">$7.35</td><td class="n">15×</td><td class="n">$110</td></tr>
+      <tr><td><strong>Base</strong></td><td class="n">50%</td><td class="n">7%</td><td class="n">22%</td><td class="n">$92.6B</td><td class="n">$11.51</td><td class="n">19×</td><td class="n">$219</td></tr>
+      <tr><td><strong>Bull</strong></td><td class="n">25%</td><td class="n">10%</td><td class="n">25%</td><td class="n">$106.3B</td><td class="n">$15.02</td><td class="n">22×</td><td class="n">$330</td></tr>
+      <tr><td colspan="7"><strong>Probability-weighted (25/50/25)</strong></td><td class="n"><strong>$219</strong></td></tr>
+    </table>
+  </div>
+
+  <div class="flag"><strong>Why the 5-year weighted price ($219) sits below today's $294.89 — read this before acting on it:</strong> it is a probability-weighted value across all three cases including the bear case, not a base-case price forecast. Two conservative choices drive it: the model's normalised 22% margin sits far below the profitability implied by AbbVie's adjusted EPS, and the exit P/E is frozen at today's forward 19× while growth is assumed to slow toward the patent wave. In plain terms, the model says $294.89 already prices in much of the Skyrizi/Rinvoq runway — which is exactly why the long-term call is HOLD while the 12–18-month call (guidance momentum + dividend) is BUY.</div>
+
+  <p><strong>Portfolio fit:</strong> at a 2.5% weight, AbbVie contributes dividend income (2.35%) and defensive health-care exposure without letting a single patent cliff dominate the portfolio. For a mid-30s, risk-8/10 profile it belongs in the satellite quality/income sleeve, not the growth core.</p>
+</section>
+
+<!-- Sources -->
+<section>
+  <div class="shead"><span class="no">06</span><h2>Verification &amp; Sources</h2></div>
+  <p style="font-size:14.5px">Q3 2026 revenue, adjusted EPS and the Skyrizi/Rinvoq/Humira lines were independently re-checked against second sources and <strong>confirmed</strong> ($17.404B, $3.82, $5.776B / $2.706B / $683M). The 30 Oct close and market cap were confirmed against Finnhub and FinanceCharts. Forward P/E, the 12–18-month targets and all 5-year modelled prices are labelled estimates above because they could not be independently re-sourced as a dataset.</p>
+  <ul class="srcs">
+    <li><a href="https://www.zacks.com/stock/news/3019950/abbv-beats-on-q3-earnings-sales-stock-rises-on-raised-26-eps-view">Zacks — AbbVie beats on Q3 earnings &amp; sales, raises FY26 EPS view</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/31/is-abbvie-a-buy-after-its-latest-earnings-report/">Motley Fool — Is AbbVie a buy after its latest earnings report? (verification cross-check)</a></li>
+    <li><a href="https://www.biotechreality.com/2026/10/abbvie-q3-2026-results-skyrizi-rinvoq-revenue-guidance.html">Biotech Reality — AbbVie Q3 2026 results: Skyrizi, Rinvoq, guidance</a></li>
+    <li><a href="https://stockanalysis.com/stocks/abbv/statistics/">StockAnalysis — ABBV statistics (TTM multiples, margins, FCF, balance sheet)</a></li>
+    <li><a href="https://www.FinanceCharts.com/stocks/ABBV/value/pe-ratio">FinanceCharts — ABBV P/E ratio (trailing-P/E distortion cross-check)</a></li>
+    <li><a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield">FinanceCharts — Health-care sector ranking (market-cap basis, updated 30 Oct 2026)</a></li>
+    <li><a href="https://www.fool.com/investing/2026/10/22/great-news-for-abbvie-stock-investors/">Motley Fool — patent/runway analysis for AbbVie investors</a></li>
+    <li><a href="https://intuitionlabs.ai/pdfs/drug-patent-expirations-2027-2030-calendar.pdf">IntuitionLabs — drug patent expiration calendar (PDF)</a></li>
+    <li><a href="https://www.pharmavoice.com/news/pharma-patent-cliff-merck-abbvie-dealmaking/832438/">PharmaVoice — the pharma patent cliff: Merck, AbbVie and dealmaking</a></li>
+  </ul>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>ABBV — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $294.89.</strong> <strong>DCF intrinsic: $167.</strong> Discount/premium vs DCF: <strong>+76.6%</strong> — i.e. the shares are trading 76.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$167</td><td>+76.6%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$18.2B</strong>; constant growth g <strong>7%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$156.90B</strong>; PV of terminal value <strong>$203.22B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-64.32B</strong>; divided by <strong>1,770.00m</strong> diluted shares = <strong>$167</strong>. Base FCF $18.21B (pack, TTM). Growth g 7% = pack 5-year base CAGR (Skyrizi/Rinvoq runway). Net debt $64.32B (cash $6.57B − debt $70.89B).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $294.89. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ABBV — Top customers (B2B, intermediated channel)</h2>
+<p>ABBV is classified <strong>B2B</strong>: the majority of its revenue reaches patients through businesses — wholesalers, pharmacy benefit managers (PBMs) and payers — rather than direct consumer sales. The research pack discloses no per-name customer ranking for this ticker, so the table below names the largest known channel customers without inventing shares or order.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>McKesson Corporation (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cencora, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cardinal Health, Inc. (wholesaler)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>UnitedHealth Group / Optum Rx (PBM & payer)</td><td></td><td>Covered ticker — DCF intrinsic $352 discount/premium +15.6%</td></tr><tr><td>CVS Health / Caremark (PBM & pharmacy)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government — Medicare / Medicaid and other federal purchasers</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Hospitals, pharmacies and other providers (dispensing channel)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Because the three US wholesalers together intermediate the majority of US pharma distribution, their financial health matters more to this supplier than any single end-patient trend: if a covered customer in this table (UnitedHealth/Optum) trades at a discount to intrinsic once the coordinator fills in its figure, that would be a potential tailwind for volumes and contract stability, while a premium would be a potential headwind — but a wholesaler or PBM that looks cheap may simply be passing through payer price pressure, which is itself a headwind for drug pricing, so the read-through cuts both ways. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>Sources: research pack (channel description); for the wholesaler trio pattern, Lilly FY2025 10-K (McKesson, Cencora and Cardinal Health each a significant percentage of consolidated revenue, no other customer above 10%) — applied here only as the channel pattern, not as a per-name share for ABBV, which was not re-sourced in this batch.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ABBV — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> AI is a research-productivity tool for this company, not a product it sells; the pack's thesis rests on its drug/device franchise, with no AI revenue line disclosed.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI in immunology/oncology discovery and in commercial targeting for Skyrizi/Rinvoq, supporting — not replacing — the post-Humira franchise transition. Multiple channel: ABBV's 18.80× forward P/E in the pack is a post-patent-cliff pharma multiple, with no AI premium to give back.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: little breaks on AI capex — demand follows prescriptions, payer coverage and patent cliffs, so an AI unwind reaches this name only via a general de-rating. Second, multiple compression: low — the pack forward P/E (high-teens to low-30s for these names) is driven by earnings/pipeline, and an unwind removes at most a small sentiment premium. Third, balance sheet: low direct AI-capex debt; the real risks are the pack's (patent cliffs, litigation, payer pressure), not AI inventory. Trigger to watch: a Skyrizi/Rinvoq competitive or pricing setback, or a renewed Humira-biosimilar erosion, rather than AI spending.</p>
+</div>
+<footer>
+  <p>Prepared 1 Nov 2026 from the sources above. Scenario prices are modelled estimates with stated assumptions, not forecasts or guarantees. This page is research commentary for a stated investor profile (mid-30s, risk 8/10), not personalised investment advice. — Blaze</p>
+</footer>
+
+</div>
+<script>
+  (function(){
+    var pf=document.getElementById('pf'), amt=document.getElementById('amt'), sh=document.getElementById('sh');
+    var PRICE=294.89, W=0.025;
+    function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+    function upd(){
+      var v=parseFloat(pf.value); if(isNaN(v)||v<0)v=0;
+      var a=v*W; amt.textContent=fmt(a); sh.textContent=Math.floor(a/PRICE).toLocaleString('en-US')+' shares';
+    }
+    pf.addEventListener('input',upd); upd();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — EADSY (Airbus SE)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light dark;
+    --bg:#f7f5f1;
+    --paper:#fffdf9;
+    --ink:#17222e;
+    --ink-2:#45525f;
+    --ink-3:#6d7a86;
+    --line:#ddd6c9;
+    --line-2:#c9c0ac;
+    --accent:#17557f;
+    --accent-soft:#e3edf4;
+    --gold:#9a7418;
+    --gold-soft:#f4ecd4;
+    --green:#1e6b3c;
+    --green-soft:#e2efe5;
+    --red:#9c2b23;
+    --red-soft:#f6e4e1;
+    --amber:#8a5a10;
+    --amber-soft:#f6ecd8;
+    --seg-a:#17557f;
+    --seg-b:#7d9db5;
+    --seg-c:#c2a24a;
+    --table-head:#efece4;
+    --shadow:0 1px 2px rgba(23,34,46,.06),0 8px 28px rgba(23,34,46,.07);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#11151a;
+      --paper:#181e25;
+      --ink:#e8e4da;
+      --ink-2:#b3bcc4;
+      --ink-3:#8b96a0;
+      --line:#2c343d;
+      --line-2:#3d4752;
+      --accent:#6fb0dd;
+      --accent-soft:#1d2f40;
+      --gold:#d3ab4a;
+      --gold-soft:#2e2817;
+      --green:#6fc48c;
+      --green-soft:#1d2f22;
+      --red:#e08a80;
+      --red-soft:#38201d;
+      --amber:#d8a860;
+      --amber-soft:#33291a;
+      --seg-a:#6fb0dd;
+      --seg-b:#476b85;
+      --seg-c:#c2a24a;
+      --table-head:#20262e;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Libre Franklin",system-ui,-apple-system,sans-serif;
+    font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 64px}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+  a:hover{border-bottom-style:solid}
+
+  /* ---------- header ---------- */
+  .kicker{
+    display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
+    font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);
+    border-bottom:2px solid var(--ink);padding-bottom:10px;
+  }
+  .kicker .dot{width:3px;height:3px;border-radius:50%;background:var(--ink-3)}
+  h1{
+    font-family:"Source Serif 4",Georgia,serif;font-weight:700;
+    font-size:clamp(30px,5.4vw,44px);line-height:1.08;letter-spacing:-.01em;
+    margin:18px 0 6px;
+  }
+  h1 .ticker{color:var(--accent)}
+  .sub{font-size:16px;color:var(--ink-2);max-width:70ch}
+  .sub strong{color:var(--ink)}
+
+  .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0 4px}
+  .verdict{
+    background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--green);
+    padding:14px 16px;box-shadow:var(--shadow);
+  }
+  .verdict .lab{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+  .verdict .val{font-family:"Source Serif 4",Georgia,serif;font-size:26px;font-weight:700;margin-top:2px}
+  .verdict .val small{font-size:14px;font-weight:600;color:var(--ink-2)}
+  .verdict .note{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+  .verdict.gold{border-top-color:var(--gold)}
+
+  /* ---------- snapshot strip ---------- */
+  .snap{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin:18px 0 6px;
+    background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+  }
+  .snap .cell{padding:12px 14px;border-right:1px solid var(--line)}
+  .snap .cell:last-child{border-right:none}
+  .snap .lab{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+  .snap .num{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:600;margin-top:2px}
+  .snap .src{font-size:11px;color:var(--ink-3)}
+  .dagger{color:var(--amber);font-weight:700}
+  .fnote{font-size:12px;color:var(--ink-3);margin:6px 2px 0}
+  .fnote .dagger{font-size:13px}
+
+  .basis{
+    margin:16px 0 0;padding:12px 16px;background:var(--amber-soft);
+    border:1px solid var(--line-2);font-size:13px;color:var(--ink-2);
+  }
+  .basis strong{color:var(--ink)}
+
+  /* ---------- sections ---------- */
+  section{margin-top:38px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:7px;margin-bottom:14px}
+  .sec-head .no{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--accent)}
+  .sec-head h2{font-family:"Source Serif 4",Georgia,serif;font-size:23px;font-weight:700;line-height:1.15}
+  p{margin-bottom:11px;color:var(--ink-2)}
+  p strong, li strong{color:var(--ink)}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .cols2 > div{min-width:0}
+
+  h3{font-size:13px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin:18px 0 8px;color:var(--ink)}
+  h3:first-child{margin-top:0}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0 14px;background:var(--paper)}
+  th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--table-head);font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-2)}
+  td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px;white-space:nowrap}
+  tr.tot td{font-weight:700;border-top:2px solid var(--ink-2);color:var(--ink)}
+  .pos{color:var(--green);font-weight:600}
+  .neg{color:var(--red);font-weight:600}
+  .flat{color:var(--ink-3)}
+
+  .callout{
+    background:var(--accent-soft);border:1px solid var(--line-2);
+    padding:13px 16px;font-size:13.5px;color:var(--ink-2);margin:12px 0;
+  }
+  .callout strong{color:var(--ink)}
+  .callout.warn{background:var(--amber-soft)}
+
+  ul.tight{list-style:none;margin:4px 0 12px}
+  ul.tight li{padding:7px 0 7px 20px;position:relative;border-bottom:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+  ul.tight li:last-child{border-bottom:none}
+  ul.tight li::before{content:"";position:absolute;left:2px;top:14px;width:7px;height:7px}
+  ul.cat li::before{background:var(--green)}
+  ul.risk li::before{background:var(--red)}
+
+  /* segment visual */
+  .seg-flex{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin:6px 0 4px}
+  .seg-legend{font-size:13px;min-width:220px;flex:1}
+  .seg-legend .row{display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:1px solid var(--line)}
+  .seg-legend .row:last-child{border-bottom:none}
+  .swatch{width:12px;height:12px;flex:none}
+  .seg-legend .amt{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:12.5px}
+
+  /* scenario bars */
+  .scen{margin:20px 0 4px}
+  .scen .row{display:grid;grid-template-columns:104px 1fr 118px;gap:12px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+  .scen .row:last-child{border-bottom:none}
+  .scen .name{font-weight:700;font-size:13.5px}
+  .scen .name small{display:block;font-weight:500;color:var(--ink-3);font-size:11.5px}
+  .scen .track{position:relative;height:20px;background:var(--table-head)}
+  .scen .fill{position:absolute;left:0;top:0;bottom:0}
+  .scen .now{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink)}
+  .scen .nowlab{position:absolute;top:-17px;transform:translateX(-50%);font-size:10px;font-weight:700;letter-spacing:.05em;color:var(--ink-2);white-space:nowrap}
+  .scen .price{font-family:"IBM Plex Mono",monospace;font-size:14px;text-align:right}
+  .scen .price small{display:block;font-size:11.5px}
+  .fill-bear{background:var(--red);opacity:.75}
+  .fill-base{background:var(--accent);opacity:.85}
+  .fill-bull{background:var(--green);opacity:.8}
+  .fill-wtd{background:var(--gold)}
+
+  .est-tag{
+    display:inline-block;font-size:10px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;
+    background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold);
+    padding:1px 6px;border-radius:2px;vertical-align:2px;margin-left:6px;
+  }
+
+  /* calculator */
+  .calc{
+    background:var(--paper);border:1px solid var(--line);box-shadow:var(--shadow);
+    padding:18px;margin-top:14px;
+  }
+  .calc h3{margin-top:0}
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 26px}
+  .calc label{display:block;font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+  .calc input[type=number]{
+    width:100%;font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:600;
+    padding:9px 11px;border:1px solid var(--line-2);background:var(--bg);color:var(--ink);
+  }
+  .calc input[type=range]{width:100%;accent-color:var(--accent);margin-top:10px}
+  .calc .out{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;
+    border-top:1px solid var(--line);padding-top:14px;
+  }
+  .calc .out .lab{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+  .calc .out .big{font-family:"IBM Plex Mono",monospace;font-size:22px;font-weight:600}
+
+  .sources{font-size:13px;color:var(--ink-2)}
+  .sources li{margin-bottom:7px;margin-left:18px}
+  .disclaimer{
+    margin-top:34px;padding:14px 16px;border:1px solid var(--line-2);
+    font-size:12.5px;color:var(--ink-3);background:var(--paper);
+  }
+
+  @media (max-width:760px){
+    .snap{grid-template-columns:repeat(3,1fr)}
+    .snap .cell{border-bottom:1px solid var(--line)}
+    .verdict-row{grid-template-columns:1fr}
+    .cols2{grid-template-columns:1fr}
+    .calc-grid{grid-template-columns:1fr}
+    .scen .row{grid-template-columns:88px 1fr 96px}
+  }
+  @media print{
+    body{background:#fff}
+    .wrap{padding:0}
+    .calc input[type=range]{display:none}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HEADER ================= -->
+  <div class="kicker">
+    <span>Equity Research</span><span class="dot"></span>
+    <span>Sector: Industrials</span><span class="dot"></span>
+    <span>As of 1 Nov 2026</span><span class="dot"></span>
+    <span>Price ref: 30 Oct 2026 close</span>
+  </div>
+
+  <h1>Airbus SE <span class="ticker">(EADSY)</span></h1>
+  <p class="sub">The world&rsquo;s largest commercial aircraft maker in 2025, organised in three divisions &mdash; <strong>Commercial Aircraft</strong>, <strong>Helicopters</strong>, and <strong>Defence &amp; Space</strong> &mdash; operating from 180+ locations. EADSY is the US over-the-counter ADR; the primary listing is Euronext Paris (AIR). The investment case in one line: a <strong>9,310-aircraft backlog</strong> worth roughly a decade of production, a re-rating defence business, and a valuation that still prices in the supply chain rather than the order book.</p>
+
+  <div class="verdict-row">
+    <div class="verdict">
+      <div class="lab">Short term · 12&ndash;18 months</div>
+      <div class="val">Buy</div>
+      <div class="note">Base target $60 (+12.3%) &mdash; modelled estimate, assumptions in &sect;5</div>
+    </div>
+    <div class="verdict">
+      <div class="lab">Long term · 5 years</div>
+      <div class="val">Buy</div>
+      <div class="note">Probability-weighted $67 (+25.4%) &mdash; modelled estimate, &sect;5</div>
+    </div>
+    <div class="verdict gold">
+      <div class="lab">Suggested portfolio weight</div>
+      <div class="val">1.5<small>%</small></div>
+      <div class="note">Mid-30s investor, risk score 8/10 profile</div>
+    </div>
+  </div>
+
+  <div class="snap">
+    <div class="cell">
+      <div class="lab">Price · EADSY (OTC)</div>
+      <div class="num">$53.42<span class="dagger">&dagger;</span></div>
+      <div class="src">30 Oct 2026 close &middot; Motley Fool</div>
+    </div>
+    <div class="cell">
+      <div class="lab">Market cap</div>
+      <div class="num">$168.6bn<span class="dagger">&dagger;</span></div>
+      <div class="src">Motley Fool</div>
+    </div>
+    <div class="cell">
+      <div class="lab">Paris listing (AIR.PA)</div>
+      <div class="num">&euro;192.40<span class="dagger">&dagger;</span></div>
+      <div class="src">Finnhub</div>
+    </div>
+    <div class="cell">
+      <div class="lab">Trailing P/E (Paris)</div>
+      <div class="num">26.2&times;<span class="dagger">&dagger;</span></div>
+      <div class="src">Finnhub</div>
+    </div>
+    <div class="cell">
+      <div class="lab">Price / Sales</div>
+      <div class="num">2.0&times;<span class="dagger">&dagger;</span></div>
+      <div class="src">Motley Fool</div>
+    </div>
+    <div class="cell">
+      <div class="lab">TTM revenue</div>
+      <div class="num">$86.4bn<span class="dagger">&dagger;</span></div>
+      <div class="src">Motley Fool, EUR-converted</div>
+    </div>
+  </div>
+  <p class="fnote"><span class="dagger">&dagger;</span> <strong>Not independently re-verified.</strong> In the verification pass for this sector, EADSY&rsquo;s OTC price, market cap and P/E could not be re-checked against a second feed &mdash; several names in this universe are thin OTC prints rather than liquid exchange closes, so treat these as indicative. Every euro figure in &sect;1&ndash;&sect;2 below is from Airbus&rsquo;s own 9M 2026 release and was verified.</p>
+
+  <div class="basis">
+    <strong>Ranking basis.</strong> This note is one of a global Industrials set ranked by market cap from Motley Fool&rsquo;s sector pages &mdash; rankings and metrics dated <strong>5 Oct 2026</strong>, with prices at the <strong>30 Oct 2026</strong> close &mdash; including OTC ADRs and state-controlled issuers. The Industrials list carries <strong>11 names, not 10</strong> (Bloom Energy was added as a named ticker), and it is <strong>not in strict market-cap order</strong>. A NYSE/Nasdaq-only list would look materially different (Boeing, Uber and Honeywell would enter; OTC-only names would drop out). EADSY&rsquo;s US line trades over the counter with thin volume &mdash; its &ldquo;close&rdquo; is indicative, not a liquid exchange print.
+  </div>
+
+  <!-- ================= 1. BUSINESS MODEL ================= -->
+  <section id="business">
+    <div class="sec-head"><span class="no">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+
+    <p>Airbus sells aircraft, helicopters and defence/space systems, then earns a long tail of higher-margin services revenue from the installed fleet over each airframe&rsquo;s 25&ndash;30-year life. Revenue is recognised overwhelmingly at <strong>delivery</strong>, which makes the P&amp;L a function of production rates and the supply chain &mdash; not of demand, which is effectively sold out for years. Aircraft are priced in US dollars while much of the cost base is in euros, so Airbus runs a large structural FX hedge book; a weaker dollar and a rolling-off hedge rate are live headwinds management flagged again in 9M 2026.</p>
+
+    <h3>9M 2026 segment results (verified &mdash; Airbus release, 28 Oct 2026)</h3>
+    <table>
+      <thead>
+        <tr><th>Segment (&euro;m)</th><th class="n">Revenue 9M26</th><th class="n">YoY</th><th class="n">Share*</th><th class="n">EBIT adj.</th><th class="n">Adj. margin</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Airbus (Commercial Aircraft)</strong></td><td class="n">36,665</td><td class="n pos">+8%</td><td class="n">71.0%</td><td class="n">3,362</td><td class="n">9.2%</td></tr>
+        <tr><td><strong>Airbus Helicopters</strong></td><td class="n">5,646</td><td class="n flat">0%</td><td class="n">10.9%</td><td class="n">445</td><td class="n">7.9%</td></tr>
+        <tr><td><strong>Airbus Defence &amp; Space</strong></td><td class="n">9,341</td><td class="n pos">+5%</td><td class="n">18.1%</td><td class="n">672</td><td class="n">7.2%</td></tr>
+        <tr><td>Eliminations</td><td class="n">&minus;1,007</td><td class="n">&mdash;</td><td class="n">&mdash;</td><td class="n">16</td><td class="n">&mdash;</td></tr>
+        <tr class="tot"><td>Consolidated</td><td class="n">50,645</td><td class="n">+7%</td><td class="n">100%</td><td class="n">4,495</td><td class="n">8.9%</td></tr>
+      </tbody>
+    </table>
+    <p class="fnote">*Share of gross segment revenue (&euro;51,652m before eliminations). Margins computed from the segment figures above. <a href="https://www.airbus.com/en/newsroom/press-releases/2026-10-airbus-reports-nine-month-9m-2026-results">Airbus 9M 2026 press release</a>.</p>
+
+    <div class="seg-flex">
+      <svg width="168" height="168" viewBox="0 0 180 180" role="img" aria-label="9M 2026 revenue mix by segment: Commercial Aircraft 71 percent, Defence and Space 18 percent, Helicopters 11 percent">
+        <g transform="rotate(-90 90 90)" fill="none" stroke-width="30">
+          <circle cx="90" cy="90" r="70" stroke="var(--seg-a)" stroke-dasharray="312.3 439.8" stroke-dashoffset="0"/>
+          <circle cx="90" cy="90" r="70" stroke="var(--seg-c)" stroke-dasharray="79.6 439.8" stroke-dashoffset="-312.3"/>
+          <circle cx="90" cy="90" r="70" stroke="var(--seg-b)" stroke-dasharray="47.9 439.8" stroke-dashoffset="-391.9"/>
+        </g>
+        <text x="90" y="86" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="17" font-weight="600" fill="var(--ink)">&euro;50.6bn</text>
+        <text x="90" y="104" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">9M 2026 revenue</text>
+      </svg>
+      <div class="seg-legend">
+        <div class="row"><span class="swatch" style="background:var(--seg-a)"></span>Commercial Aircraft &mdash; jets + services<span class="amt">&euro;36.7bn · 71%</span></div>
+        <div class="row"><span class="swatch" style="background:var(--seg-c)"></span>Defence &amp; Space &mdash; military aircraft, space, connectivity<span class="amt">&euro;9.3bn · 18%</span></div>
+        <div class="row"><span class="swatch" style="background:var(--seg-b)"></span>Helicopters &mdash; civil &amp; military rotorcraft<span class="amt">&euro;5.6bn · 11%</span></div>
+      </div>
+    </div>
+
+    <div class="cols2">
+      <div>
+        <h3>Commercial Aircraft &mdash; the engine</h3>
+        <p><strong>547 aircraft delivered in 9M 2026</strong> (9M 2025: 507): 428 A320-family, 68 A220s, 38 A350s, 13 A330s. Gross orders of <strong>1,174 aircraft</strong> (net 1,105 after cancellations) more than doubled year-on-year, leaving a <strong>backlog of 9,310 aircraft</strong> at end-September &mdash; about <strong>10.7 years of production</strong> at the ~870/year target rate. The A320neo family alone accounts for 7,529 of the backlog, and the A321neo (5,656) is the single most valuable position in commercial aviation: an airline ordering one today without an existing slot waits into the next decade.</p>
+        <p>Production targets frame the multi-year story: A320 family to <strong>70&ndash;75/month by end-2027</strong>, stabilising at 75; A350 to 12/month in 2028; A330 to 5/month in 2029; A220 to 13/month in 2028.</p>
+      </div>
+      <div>
+        <h3>Helicopters &amp; Defence &amp; Space</h3>
+        <p><strong>Helicopters:</strong> 226 units delivered (218 a year earlier), 311 net orders, backlog of 1,122 units. Revenue was flat at &euro;5.6bn and adjusted EBIT fell 10% to &euro;445m on a less favourable delivery mix &mdash; the one soft segment in 9M.</p>
+        <p><strong>Defence &amp; Space:</strong> the standout. Order intake nearly doubled to <strong>&euro;11.5bn</strong> (9M 2025: &euro;6.8bn) on European rearmament demand, revenue rose 5% to &euro;9.3bn, and adjusted EBIT jumped <strong>60% to &euro;672m</strong> as volumes and profitability improved across all business units. Defence is now the fastest-improving earnings contributor in the group.</p>
+        <p><strong>Supply chain dependencies:</strong> engines are the binding constraint &mdash; management has named Pratt &amp; Whitney the &ldquo;key pacer&rdquo; of the A320neo ramp, with CFM the other engine source; aerostructures (including the former Spirit AeroSystems work packages Airbus is integrating at a &euro;235m 9M cost) and cabin interiors round out the dependency list.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 2. FINANCIAL HEALTH ================= -->
+  <section id="financials">
+    <div class="sec-head"><span class="no">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+
+    <div class="cols2">
+      <div>
+        <h3>9M 2026 consolidated P&amp;L (verified)</h3>
+        <table>
+          <tbody>
+            <tr><td>Revenue</td><td class="n">&euro;50,645m</td><td class="n pos">+7%</td></tr>
+            <tr><td>EBIT adjusted</td><td class="n">&euro;4,495m</td><td class="n pos">+8%</td></tr>
+            <tr><td>EBIT reported</td><td class="n">&euro;4,550m</td><td class="n pos">+35%</td></tr>
+            <tr><td>Net income</td><td class="n">&euro;3,587m</td><td class="n pos">+36%</td></tr>
+            <tr><td>EPS (reported)</td><td class="n">&euro;4.54</td><td class="n pos">+36%</td></tr>
+            <tr><td>R&amp;D expense</td><td class="n">&euro;2.33bn</td><td class="n">9M</td></tr>
+            <tr><td>Capex</td><td class="n">&euro;2.4bn</td><td class="n">9M</td></tr>
+          </tbody>
+        </table>
+        <p>Reported EBIT includes a <strong>positive &euro;270m</strong> dollar working-capital / balance-sheet revaluation effect, partly offset by <strong>&minus;&euro;235m</strong> of Spirit AeroSystems integration costs and a &euro;60m credit from the Defence &amp; Space workforce adaptation plan. Q3 standalone was softer &mdash; revenue &euro;17.469bn (&minus;2%), adjusted EBIT &euro;1.768bn (&minus;9%) &mdash; on lower deliveries and mix, which is precisely the Q4 execution question in &sect;4.</p>
+      </div>
+      <div>
+        <h3>Cash flow &amp; balance sheet (verified)</h3>
+        <table>
+          <tbody>
+            <tr><td>FCF before customer financing, 9M</td><td class="n neg">&minus;&euro;1,268m</td></tr>
+            <tr><td>Total free cash flow, 9M</td><td class="n neg">&minus;&euro;1,108m</td></tr>
+            <tr><td>Gross cash position, 30 Sep 2026</td><td class="n">&euro;21.9bn</td></tr>
+            <tr><td><strong>Net cash position, 30 Sep 2026</strong></td><td class="n"><strong>&euro;7,042m</strong></td></tr>
+            <tr><td>Net cash, 31 Dec 2025</td><td class="n">&euro;12,171m</td></tr>
+            <tr><td>Total liquidity</td><td class="n">~&euro;30bn</td></tr>
+          </tbody>
+        </table>
+        <p>The negative 9M free cash flow is <strong>seasonal and structural, not distress</strong>: Airbus builds inventory through the year for a back-end-loaded delivery profile, and cash lands with Q4 handovers. The &euro;5.1bn net-cash decline from year-end reflects the annual dividend payment and the Unical acquisition. The balance sheet carries <strong>net cash, not net debt</strong> &mdash; leverage is a non-issue, and the FY26 guide (below) implies a swing of roughly &euro;5.8bn of FCF in Q4 alone.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>FY 2026 guidance &mdash; held at 9M (28 Oct 2026):</strong> ~870 commercial aircraft deliveries · EBIT adjusted ~&euro;7.5bn · free cash flow before customer financing ~&euro;4.5bn. Guidance is before M&amp;A, includes currently applicable tariffs, and assumes no additional disruption to global trade, air traffic, the supply chain or internal operations. <a href="https://www.ad-hoc-news.de/boerse/corporate-news/airbus-stock-nine-month-revenue-rises-as-2026-targets-hold/70433752">ad-hoc-news summary of the release</a>.
+    </div>
+
+    <h3>Valuation multiples</h3>
+    <table>
+      <thead><tr><th>Multiple</th><th class="n">Value</th><th>Source / status</th></tr></thead>
+      <tbody>
+        <tr><td>Trailing P/E (Paris listing)</td><td class="n">26.2&times;<span class="dagger">&dagger;</span></td><td>Finnhub &mdash; not independently re-verified</td></tr>
+        <tr><td>Price / sales (TTM)</td><td class="n">2.0&times;<span class="dagger">&dagger;</span></td><td>Motley Fool &mdash; not independently re-verified</td></tr>
+        <tr><td>TTM gross profit / margin</td><td class="n">$13.5bn<span class="dagger">&dagger;</span> / ~15.6%</td><td>Motley Fool, EUR-converted; margin computed</td></tr>
+        <tr><td>9M26 adjusted EBIT margin</td><td class="n">8.9%</td><td>Computed from verified Airbus release figures</td></tr>
+        <tr><td>9M26 net margin</td><td class="n">7.1%</td><td>Computed from verified Airbus release figures</td></tr>
+        <tr><td>EV / EBITDA</td><td class="n">&mdash;</td><td>Not carried in the verified pack &mdash; omitted rather than estimated</td></tr>
+      </tbody>
+    </table>
+    <p><strong>Capital allocation.</strong> Cash returns run through the annual dividend (paid in 2026; the amount is not in the verified sources used here, so it is not stated). Investment is prioritised to the production ramp &mdash; 9M capex of &euro;2.4bn, rising through 2026 to support higher rates and the Spirit work-package integration &mdash; and to R&amp;D of &euro;2.33bn in 9M. With &euro;7.0bn of net cash and ~&euro;30bn of liquidity, Airbus is funding the ramp from its own balance sheet; there is no buyback-led story here, and no leverage story either.</p>
+  </section>
+
+  <!-- ================= 3. MOAT ================= -->
+  <section id="moat">
+    <div class="sec-head"><span class="no">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+
+    <p>Commercial large aircraft is a <strong>two-player market</strong>, and the barriers are about as high as barriers get: certification regimes that take years and billions to clear, a global MRO and training ecosystem airlines are locked into once a fleet type is chosen, and production slots that are themselves a scarce asset. Airbus&rsquo;s moat today is less about technology leadership than about <strong>position</strong>: it holds the stronger hand in the segment that matters most (single-aisle), the bigger backlog, and the healthier balance sheet.</p>
+
+    <table>
+      <thead><tr><th>9M 2026 head-to-head</th><th class="n">Airbus</th><th class="n">Boeing</th><th>Source</th></tr></thead>
+      <tbody>
+        <tr><td>Gross orders</td><td class="n"><strong>1,174</strong></td><td class="n">663</td><td>Airbus release / industry tallies</td></tr>
+        <tr><td>Deliveries</td><td class="n"><strong>547</strong></td><td class="n">475</td><td>Airbus release / industry tallies</td></tr>
+        <tr><td>Commercial backlog</td><td class="n"><strong>9,310</strong></td><td class="n">6,856</td><td>End-Sep 2026</td></tr>
+      </tbody>
+    </table>
+
+    <ul class="tight cat">
+      <li><strong>Pricing power via scarcity.</strong> With the A320neo family sold out years forward (7,529 backlog units; A321neo slots into the next decade for new buyers), Airbus prices from strength and can push escalators through the backlog rather than discounting to win volume.</li>
+      <li><strong>The A321neo/XLR franchise.</strong> The long-range single-aisle has no direct Boeing equivalent in production, letting Airbus open thin transatlantic routes that previously needed widebodies &mdash; a structural share gain, not a cyclical one.</li>
+      <li><strong>Services annuity.</strong> Every delivery adds decades of parts, MRO and digital-services revenue; 9M commercial revenue growth was helped by increased services alongside higher deliveries.</li>
+      <li><strong>Defence optionality.</strong> A second, government-funded moat: European rearmament is flowing into order intake (&euro;11.5bn in 9M, +70% YoY) in programmes where Airbus is a national champion with few substitutes.</li>
+      <li><strong>Certification &amp; ecosystem lock-in.</strong> Pilot type-ratings, simulator networks, lessor preferences and fleet-commonality economics make switching OEMs expensive for airlines &mdash; orders, once placed, rarely move.</li>
+    </ul>
+    <p>The honest limit on the moat: Airbus cannot currently <em>monetise</em> demand faster than its supply chain allows. The moat guarantees the revenue exists; engines and aerostructures decide when it lands. Chinese entrant COMAC remains a long-dated, certification-constrained threat rather than a current competitor outside China.</p>
+  </section>
+
+  <!-- ================= 4. CATALYSTS & RISKS ================= -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="no">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+
+    <div class="cols2">
+      <div>
+        <h3>Catalysts</h3>
+        <ul class="tight cat">
+          <li><strong>The Q4 delivery sprint (near-term, binary).</strong> Hitting ~870 deliveries requires <strong>323 handovers in Q4</strong> &mdash; ~108/month vs a 2026 best month of 89 (June). Success validates the &euro;7.5bn EBIT / &euro;4.5bn FCF guide and the entire ramp narrative into FY26 results.</li>
+          <li><strong>A320-family rate ramp.</strong> 70&ndash;75/month by end-2027 converts backlog into revenue at the programme&rsquo;s best margins; each rate step is a visible earnings escalator.</li>
+          <li><strong>Defence &amp; Space momentum.</strong> Order intake of &euro;11.5bn in 9M (+70%) with adjusted EBIT +60% &mdash; continued European defence budgets re-rate the segment&rsquo;s weight in group earnings.</li>
+          <li><strong>A350 ramp to 12/month (2028)</strong> and widebody mix recovery lift group margin, widebodies being the highest-value deliveries.</li>
+          <li><strong>Boeing&rsquo;s slower recovery.</strong> Every quarter Airbus out-delivers (547 vs 475 in 9M) and out-books (1,174 vs 663 gross orders) its only rival, share and lessor preference compound in Airbus&rsquo;s favour.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Downside risks</h3>
+        <ul class="tight risk">
+          <li><strong>Execution risk is immediate.</strong> Q4 2025 delivered 286 aircraft; repeating that yields ~833 for 2026 &mdash; a ~37-unit miss vs the ~870 target. Engines remain short, and a September A321neo fuselage-component quality flaw pushed roughly 20 jets from Q3 into Q4, with new quality checks on A330s adding variance.</li>
+          <li><strong>Supply chain / engine delays.</strong> Pratt &amp; Whitney has been named the ramp&rsquo;s &ldquo;key pacer&rdquo;; any engine shortfall flows one-for-one into deliveries, revenue and FCF.</li>
+          <li><strong>Tariffs.</strong> Guidance includes <em>currently applicable</em> tariffs only; an escalation in transatlantic trade measures is explicitly outside the guide&rsquo;s assumptions.</li>
+          <li><strong>FX and the hedge book.</strong> Dollar-priced sales against euro costs; management already cites a weaker dollar and a less favourable hedge rate as 9M headwinds &mdash; this worsens mechanically as older, better hedges roll off.</li>
+          <li><strong>Defence &amp; programme charges.</strong> The research pack flags defence losses as a standing risk: fixed-price defence/space programmes have a history of charges, and the current EBIT improvement (+60%) is off a low base.</li>
+          <li><strong>ADR liquidity.</strong> EADSY trades OTC with thin volume; spreads can be wide and the US print can lag the Paris line &mdash; a friction cost, not a thesis risk, but real for position entry/exit.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5. VALUATION ================= -->
+  <section id="valuation">
+    <div class="sec-head"><span class="no">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+
+    <p>All targets below are <strong>modelled estimates</strong> built from the stated assumptions &mdash; they are not verified figures and not analyst consensus. The starting point is the EADSY reference price of <strong>$53.42</strong> (30 Oct 2026 close, OTC<span class="dagger">&dagger;</span>). Scenario weights are published so every weighted figure can be re-checked arithmetically.</p>
+
+    <h3>12&ndash;18-month scenarios <span class="est-tag">Modelled estimate</span></h3>
+    <div class="scen" id="scen-near"></div>
+    <table>
+      <thead><tr><th>Case</th><th class="n">Weight</th><th class="n">Target</th><th class="n">vs $53.42</th><th>Underlying assumption</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bull</strong></td><td class="n">25%</td><td class="n">$70</td><td class="n pos">+31.0%</td><td>870 delivered, ramp visibility into 2027, defence re-rating continues; multiple expands toward the high-20s</td></tr>
+        <tr><td><strong>Base</strong></td><td class="n">50%</td><td class="n">$60</td><td class="n pos">+12.3%</td><td>Deliveries land close to target; guide broadly met; P/E held near today&rsquo;s ~26&times;<span class="dagger">&dagger;</span></td></tr>
+        <tr><td><strong>Bear</strong></td><td class="n">25%</td><td class="n">$45</td><td class="n neg">&minus;15.8%</td><td>Delivery miss (~830s), tariff escalation or engine setback; multiple compresses toward ~20&times;</td></tr>
+        <tr class="tot"><td>Probability-weighted</td><td class="n">100%</td><td class="n">$58.75</td><td class="n pos">+10.0%</td><td>0.50&times;$60 + 0.25&times;$70 + 0.25&times;$45</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5-year projection &mdash; frozen-parameter model <span class="est-tag">Modelled estimate</span></h3>
+    <p>Frozen parameters, in the format used across this research series: <strong>share count, balance-sheet structure and (in the base case) the exit P/E are held at today&rsquo;s levels</strong>; only revenue growth and the adjusted EBIT margin vary by case. The starting revenue base is the verified run-rate implied by 9M 2026 (&euro;50.6bn in nine months; FY26 guide for adjusted EBIT is ~&euro;7.5bn, roughly a 10&ndash;11% margin on full-year revenue).</p>
+    <table>
+      <thead>
+        <tr><th>Case (likelihood)</th><th class="n">Revenue growth/yr</th><th class="n">Adj. EBIT margin</th><th class="n">Exit P/E</th><th class="n">2031 price</th><th class="n">Implied CAGR</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Bull</strong> (25%)</td><td class="n">~8%</td><td class="n">~13%</td><td class="n">~28&times;</td><td class="n"><strong>$90</strong></td><td class="n pos">+11.0%/yr</td></tr>
+        <tr><td><strong>Base</strong> (50%)</td><td class="n">~5%</td><td class="n">~11% (frozen)</td><td class="n">~26&times; (frozen)</td><td class="n"><strong>$68</strong></td><td class="n pos">+5.0%/yr</td></tr>
+        <tr><td><strong>Bear</strong> (25%)</td><td class="n">~2%</td><td class="n">~9.5%</td><td class="n">~22&times;</td><td class="n"><strong>$42</strong></td><td class="n neg">&minus;4.7%/yr</td></tr>
+        <tr class="tot"><td>Probability-weighted</td><td class="n" colspan="3">0.50&times;$68 + 0.25&times;$90 + 0.25&times;$42</td><td class="n">$67</td><td class="n pos">+25.4% total</td></tr>
+      </tbody>
+    </table>
+    <div class="scen" id="scen-five"></div>
+    <p class="fnote">Read the base case plainly: at ~5% annual revenue growth with margins and the multiple simply held where they are, the ADR compounds at roughly 5%/yr to ~$68 &mdash; a bond-like return from an equity with a decade of sold-out production. The bull case is a margin story (widebody mix + defence scale + rate-75 single-aisle economics taking adjusted EBIT margin toward ~13%); the bear case is the supply chain and tariffs keeping growth near 2% while the multiple de-rates. None of these are forecasts of record &mdash; they are arithmetic on the assumptions printed in the table.</p>
+  </section>
+
+  <!-- ================= 6. RECOMMENDATION ================= -->
+  <section id="recommendation">
+    <div class="sec-head"><span class="no">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+
+    <div class="cols2">
+      <div>
+        <h3>Short term (12&ndash;18 months): Buy</h3>
+        <p>The setup is asymmetric into the Q4 print: the stock is priced on the Paris line at ~26&times;<span class="dagger">&dagger;</span> earnings with guidance <em>held</em> at 9M, a doubled order book and a defence segment inflecting. The weighted 12&ndash;18-month value of <strong>$58.75 (+10.0%)</strong> understates the bull path if 870 is delivered. The honest caveat: this is a <strong>high-beta-to-one-quarter</strong> buy &mdash; the Q4 sprint (323 deliveries needed) is the single largest near-term risk, and a miss likely tests the bear case first.</p>
+        <h3>Long term (5 years): Buy</h3>
+        <p>A decade-long backlog, a structurally advantaged single-aisle franchise, a re-arming Europe buying its defence products, net cash on the balance sheet, and a base case that needs nothing heroic &mdash; 5% growth, frozen margins, frozen multiple &mdash; to reach ~$68. Weighted 5-year value <strong>$67 (+25.4%)</strong>. This is a compounder to own through the ramp, not a trade.</p>
+      </div>
+      <div>
+        <h3>Sizing for the stated profile</h3>
+        <p>For a <strong>mid-30s investor with risk score 8/10</strong>, Airbus earns a <strong>1.5% of total portfolio</strong> weight: a real position in a high-quality, lower-volatility industrial compounder, sized as a diversifier alongside higher-octane names rather than as a core growth holding. Its euro/Paris listing also adds currency and market diversity to a US-heavy book. Build it in tranches around the Q4 delivery print if you want to manage the binary risk in &sect;4.</p>
+        <div class="callout warn"><strong>Implementation note:</strong> EADSY is a thin OTC ADR. Where an account offers it, the Paris line (AIR) is the liquid instrument; if using EADSY, use limit orders and expect wider spreads.</div>
+      </div>
+    </div>
+
+    <div class="calc">
+      <h3>Position-size calculator</h3>
+      <div class="calc-grid">
+        <div>
+          <label for="pf">Total portfolio value (USD)</label>
+          <input type="number" id="pf" value="500000" min="0" step="1000">
+        </div>
+        <div>
+          <label for="wt">Target weight &mdash; <span id="wtlab">1.5%</span> (suggested)</label>
+          <input type="number" id="wt" value="1.5" min="0" max="20" step="0.1">
+          <input type="range" id="wtr" min="0" max="5" step="0.1" value="1.5">
+        </div>
+      </div>
+      <div class="out">
+        <div><div class="lab">Position value</div><div class="big" id="outAmt">$7,500</div></div>
+        <div><div class="lab">Approx. EADSY shares @ $53.42<span class="dagger">&dagger;</span></div><div class="big" id="outSh">140</div></div>
+      </div>
+      <p class="fnote" style="margin-top:10px">Runs entirely in this page &mdash; nothing is saved or sent anywhere. Share count is indicative only: EADSY is a thin OTC print, so the executable price will differ.</p>
+    </div>
+  </section>
+
+  <!-- ================= SOURCES ================= -->
+  <section id="sources">
+    <div class="sec-head"><span class="no">07</span><h2>Sources</h2></div>
+    <ol class="sources">
+      <li>Airbus SE &mdash; <a href="https://www.airbus.com/en/newsroom/press-releases/2026-10-airbus-reports-nine-month-9m-2026-results">Airbus reports Nine-Month (9m) 2026 results</a> (28 Oct 2026): segment revenue/EBIT, deliveries, orders, backlog, FCF, net cash, guidance. Primary source for all verified &euro; figures.</li>
+      <li>ad-hoc-news &mdash; <a href="https://www.ad-hoc-news.de/boerse/corporate-news/airbus-stock-nine-month-revenue-rises-as-2026-targets-hold/70433752">Airbus stock: nine-month revenue rises as 2026 targets hold</a>: Q3 standalone figures, FCF before customer financing, guidance confirmation.</li>
+      <li>CAPA / Centre for Aviation &mdash; <a href="https://centreforaviation.com/news/airbus-reports-547-commercial-aircraft-deliveries-1174-gross-orders-for-9m2026-1377498">Airbus reports 547 deliveries, 1,174 gross orders for 9M 2026</a>: backlog of 9,310 aircraft; production-rate targets by programme.</li>
+      <li>AirDataNews &mdash; <a href="https://www.airdatanews.com/airbus-delivers-72-jets-in-september-as-order-backlog-falls-by-58-aircraft/">Airbus delivers 72 jets in September; backlog detail</a>: A320neo-family backlog split (A321neo 5,656 / A320neo 1,860), A330neo and A350 backlogs.</li>
+      <li>AeroXplorer &mdash; <a href="https://aeroxplorer.com/articles/why-airbus-needs-323-deliveries-in-three-months-to-hit-its-2026-target">Why Airbus needs 323 deliveries in three months</a>: Q4 sprint arithmetic, A321neo fuselage quality issue, engine shortages, backlog &asymp; 10.7 years of production.</li>
+      <li>AeroHaber &mdash; <a href="https://aerohaber.com/airbus-and-boeing-report-september-2026-commercial-aircraft-orders-and-deliveries/">Airbus and Boeing September 2026 orders &amp; deliveries</a>: Boeing comparison (663 gross orders, 475 deliveries, 6,856 backlog).</li>
+      <li>Aerospace Global News &mdash; <a href="https://aerospaceglobalnews.com/news/airbus-results-nine-months-2026/">Airbus orders more than double as deliveries rise</a>: R&amp;D &euro;2.33bn, gross cash &euro;21.9bn, net cash &euro;7.0bn.</li>
+      <li>Airbus Q3 2026 earnings call transcript &mdash; <a href="https://www.europesays.com/netherlands/58650/">EuropeSays transcript</a>: capex &euro;2.4bn (9M), liquidity ~&euro;30bn, dividend payment and Unical acquisition effects on net cash.</li>
+      <li>Finnhub &mdash; <a href="https://finnhub.io/?q=%22AIR%2EPA%22">AIR.PA quote</a>: Paris price &euro;192.40 and trailing P/E 26.2&times; as carried in the research pack <span class="dagger">&dagger;</span>not independently re-verified.</li>
+      <li>Motley Fool &mdash; <a href="https://www.fool.com/research/largest-industrials-companies/">Largest Industrials companies</a>: ranking basis (rankings/metrics as of 5 Oct 2026), EADSY price $53.42, market cap $168.6bn, TTM revenue $86.4bn, P/S 2.0&times; <span class="dagger">&dagger;</span>not independently re-verified.</li>
+    </ol>
+
+    <div class="disclaimer">
+      <strong>Important notes.</strong> This note is a research view prepared for a mid-30s investor profile with risk score 8/10; it is <strong>not investment advice and not a guarantee</strong> of any outcome. Prices are referenced to the 30 Oct 2026 close as of 1 Nov 2026 (1 Nov was a weekend; markets were closed). Figures marked <span class="dagger">&dagger;</span> come from the research pack&rsquo;s vendor feeds and could not be independently re-verified in the sector verification pass &mdash; treat them as indicative, particularly for the thinly traded OTC ADR. All scenario targets and 5-year prices are <strong>modelled estimates</strong> whose assumptions and weights are printed alongside them so the arithmetic can be checked; they are not verified facts, analyst consensus, or predictions. Euro figures are as reported by Airbus under IFRS; dollar conversions in vendor data use those vendors&rsquo; own rates. Past segment performance does not predict future results.
+    </div>
+  </section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>EADSY — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $53.42.</strong> <strong>DCF intrinsic: $25.04.</strong> Discount/premium vs DCF: <strong>+113.3%</strong> — i.e. the shares are trading 113.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$25.04</td><td>+113.3%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$4.77B</strong>; constant growth g <strong>5%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$37.26B</strong>; PV of terminal value <strong>$44.08B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-1.98B</strong>; divided by <strong>3,169.13m</strong> diluted shares = <strong>$25.04</strong>. Base FCF $4.77B = OCF $8.84B − capex $4.07B, TTM (TipRanks; Fool's EUR figures give €3.84B on a slightly different window — TipRanks USD figure used). Growth g 5% = pack 5-year base CAGR. Net cash −$1.98B (cash $12.29B − debt $14.27B, TipRanks). Shares 3,169.13m ADR shares (TipRanks; Airbus ordinary shares outstanding were 789.14m at 30 Sep 2026, i.e. ~4 ADRs per ordinary share). DPS $0.935 (TipRanks). OTC ADR — treat as UNVERIFIED for precision; the pack's FY FCF-before-customer-financing target is ~€4.5B.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Research pack + https://www.tipranks.com/stocks/eadsy/statistics , https://www.marketbeat.com/stocks/OTCMKTS/EADSY/ , https://www.airbus.com/en/investors/share-price-and-information ; price 30 Oct 2026 close $53.42 (OTC ADR). All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EADSY — Top customers (B2B, government customers stated as such)</h2>
+<p>Airbus is classified <strong>B2B</strong>: commercial aircraft, helicopters and defence/space systems are sold to airlines, lessors and governments. No ranked customer list is disclosed in the pack.</p>
+<p><strong>largest known customers (ranking not disclosed).</strong> Revenue-share % is shown only where disclosed; blank means not disclosed in the sources used for this batch — the order below is by best available evidence, not a verified ranking.</p><table><tr><th>Customer</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr><tr><td>Commercial airlines (global, A320neo/A350 customers)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Aircraft leasing companies</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>French Government (defence & space)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>German Government (defence & space)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Spanish Government (defence & space)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Other governments and militaries (defence & space, helicopters)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Cargo and business-aviation operators</td><td></td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through (with caveat).</strong> Airbus has no covered customer in this table — its customers are airlines, lessors and governments, none of which is one of the 124 covered tickers — so no discount/premium read-through can be drawn from this build. The operative demand signals from the pack are the delivery ramp toward ~870 aircraft in 2026, the huge backlog, and supply-chain/engine delays: a delivery beat would be the tailwind and a further supply-chain slip the headwind, independent of any peer's valuation. This thesis is conditional: an undervalued customer does not guarantee higher spending on this supplier — that depends on the customer's own priorities, budget and cash position, and on whether the customer's discount reflects a buying opportunity or a business problem.</p>
+<p><small>OTC note: EADSY figures are thin-print approximations; see NOTES.md.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>EADSY — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> Airbus is a low-exposure name to the AI trade: AI does not buy aircraft, and the pack thesis is the delivery ramp, the duopoly backlog and defence/space, not AI.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: no direct AI channel — demand follows airline fleet renewal, travel growth and defence budgets, all of which AI wealth supports only indirectly. Multiple channel: EADSY's 26.2× P/E (Paris, pack) is an aerospace-cycle multiple, not an AI multiple, so an AI unwind reaches it mainly through a general market de-rating.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: airlines defer deliveries if a market unwind hits travel demand, and supply-chain/engine delays (pack risk) compound any slowdown. Second, multiple compression: medium — from ~26× toward a through-cycle aerospace multiple in the high-teens. Third, balance sheet: low — net debt only $1.98B on the TipRanks figures used here, and no AI-capex debt or hyperscaler concentration. Trigger to watch: an airline delivery deferral or a further engine-supply delay, not an AI capex cut.</p>
+</div>
+</div>
+
+<script>
+(function(){
+  // ---------- scenario bars ----------
+  var NOW = 53.42, SCALE = 95; // bars scaled so $95 = 100%
+  function scenRow(name, sub, price, cls){
+    var pct = Math.max(0, Math.min(100, price / SCALE * 100));
+    var chg = (price / NOW - 1) * 100;
+    var sign = chg >= 0 ? "+" : "\u2212";
+    var clsChg = chg >= 0 ? "pos" : "neg";
+    return '<div class="row">'
+      + '<div class="name">' + name + '<small>' + sub + '</small></div>'
+      + '<div class="track"><div class="fill ' + cls + '" style="width:' + pct.toFixed(1) + '%"></div>'
+      + '<div class="now" style="left:' + (NOW / SCALE * 100).toFixed(1) + '%"><span class="nowlab">NOW $53.42</span></div></div>'
+      + '<div class="price">$' + price.toFixed(2) + '<small class="' + clsChg + '">' + sign + Math.abs(chg).toFixed(1) + '%</small></div>'
+      + '</div>';
+  }
+  document.getElementById('scen-near').innerHTML =
+      scenRow('Bull', '25% weight', 70, 'fill-bull')
+    + scenRow('Base', '50% weight', 60, 'fill-base')
+    + scenRow('Weighted', 'probability-weighted', 58.75, 'fill-wtd')
+    + scenRow('Bear', '25% weight', 45, 'fill-bear');
+  document.getElementById('scen-five').innerHTML =
+      scenRow('Bull · 5-yr', '25% weight', 90, 'fill-bull')
+    + scenRow('Base · 5-yr', '50% weight', 68, 'fill-base')
+    + scenRow('Weighted · 5-yr', 'probability-weighted', 67, 'fill-wtd')
+    + scenRow('Bear · 5-yr', '25% weight', 42, 'fill-bear');
+
+  // ---------- position calculator ----------
+  var pf = document.getElementById('pf'),
+      wt = document.getElementById('wt'),
+      wtr = document.getElementById('wtr'),
+      wtlab = document.getElementById('wtlab'),
+      outAmt = document.getElementById('outAmt'),
+      outSh = document.getElementById('outSh');
+  function fmt(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function calc(){
+    var p = parseFloat(pf.value) || 0;
+    var w = parseFloat(wt.value) || 0;
+    var amt = p * w / 100;
+    wtlab.textContent = (Math.round(w * 10) / 10) + '%';
+    outAmt.textContent = fmt(amt);
+    outSh.textContent = Math.floor(amt / NOW).toLocaleString('en-US');
+    if (document.activeElement !== wtr) wtr.value = Math.min(5, Math.max(0, w));
+    if (document.activeElement !== wt) wt.value = w;
+  }
+  pf.addEventListener('input', calc);
+  wt.addEventListener('input', calc);
+  wtr.addEventListener('input', function(){ wt.value = wtr.value; calc(); });
+  calc();
+})();
+</script>
+</body>
+</html>

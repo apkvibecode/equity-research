@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>Equity Research — UNH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650;8..60,800&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fbfcfb;
+        --surface: #ffffff;
+        --surface-2: #f0f4f1;
+        --ink: #14201b;
+        --ink-2: #45554d;
+        --ink-3: #71827a;
+        --line: #dbe4de;
+        --accent: #0d5c4d;
+        --accent-soft: #e2efe9;
+        --gold: #8a6414;
+        --gold-soft: #f6ecd4;
+        --red: #a02c22;
+        --red-soft: #f9e7e4;
+        --green: #17603c;
+        --green-soft: #e2f0e6;
+        --bar-1: #0d5c4d;
+        --bar-2: #5b9384;
+        --bar-3: #a8c6bb;
+        --shadow: 0 1px 2px rgba(20, 32, 27, 0.05), 0 8px 24px rgba(20, 32, 27, 0.05);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0c1210;
+          --surface: #131b17;
+          --surface-2: #1a2420;
+          --ink: #e9efec;
+          --ink-2: #a9bab1;
+          --ink-3: #7d8f86;
+          --line: #26332d;
+          --accent: #4cc2a6;
+          --accent-soft: #173129;
+          --gold: #d9ab4a;
+          --gold-soft: #2e2410;
+          --red: #e08a7d;
+          --red-soft: #33201c;
+          --green: #7cc79b;
+          --green-soft: #16281e;
+          --bar-1: #4cc2a6;
+          --bar-2: #35806c;
+          --bar-3: #274c41;
+          --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+        }
+      }
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", -apple-system, "Segoe UI", sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+      }
+      .wrap { max-width: 920px; margin: 0 auto; padding: 28px 20px 64px; }
+      .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      /* ---------- header ---------- */
+      .kicker {
+        font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--accent); margin: 0 0 10px;
+      }
+      h1 {
+        font-family: "Source Serif 4", Georgia, serif;
+        font-size: clamp(34px, 6vw, 52px); line-height: 1.05;
+        font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em;
+      }
+      h1 .ticker { color: var(--accent); }
+      .sub { font-size: 17px; color: var(--ink-2); margin: 0 0 4px; max-width: 62ch; }
+      .asof { font-size: 13px; color: var(--ink-3); margin: 0 0 20px; }
+      .verdict-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px; }
+      .chip {
+        display: inline-flex; align-items: baseline; gap: 7px;
+        padding: 7px 13px; border-radius: 999px; font-size: 13.5px; font-weight: 600;
+        border: 1px solid var(--line); background: var(--surface);
+      }
+      .chip small { font-weight: 500; color: var(--ink-2); font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; }
+      .chip.buy { background: var(--green-soft); color: var(--green); border-color: transparent; }
+      .chip.buy small { color: var(--green); opacity: 0.75; }
+      .chip.size { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+      .chip.size small { color: var(--accent); opacity: 0.75; }
+
+      .stat-grid {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+        background: var(--line); border: 1px solid var(--line); border-radius: 14px;
+        overflow: hidden; box-shadow: var(--shadow); margin-bottom: 14px;
+      }
+      .stat { background: var(--surface); padding: 16px 16px 13px; }
+      .stat .label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 5px; }
+      .stat .value { font-family: "IBM Plex Mono", monospace; font-size: 23px; font-weight: 600; line-height: 1.1; }
+      .stat .note { font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+      .basis {
+        font-size: 13px; color: var(--ink-2); background: var(--surface-2);
+        border-radius: 10px; padding: 12px 15px; margin: 0 0 8px;
+      }
+      .basis strong { color: var(--ink); }
+
+      /* ---------- sections ---------- */
+      section { margin-top: 44px; }
+      .sec-head { display: flex; align-items: baseline; gap: 12px; border-bottom: 2px solid var(--ink); padding-bottom: 8px; margin-bottom: 16px; }
+      .sec-num { font-family: "IBM Plex Mono", monospace; font-size: 13px; color: var(--accent); font-weight: 600; }
+      h2 { font-family: "Source Serif 4", Georgia, serif; font-size: 26px; font-weight: 650; margin: 0; line-height: 1.15; }
+      h3 { font-size: 16.5px; font-weight: 700; margin: 22px 0 8px; }
+      p { margin: 0 0 12px; max-width: 72ch; }
+      .lede { font-size: 17px; color: var(--ink); }
+      .muted { color: var(--ink-2); }
+      .small { font-size: 13px; }
+      ul.tight { margin: 0 0 12px; padding-left: 20px; }
+      ul.tight li { margin-bottom: 6px; max-width: 70ch; }
+
+      /* tables: wrap in .tbl for mobile stacking */
+      .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); margin-bottom: 8px; }
+      table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+      th, td { padding: 10px 14px; text-align: left; vertical-align: top; }
+      thead th { font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+      tbody tr + tr td { border-top: 1px solid var(--line); }
+      td.num, th.num { text-align: right; font-family: "IBM Plex Mono", monospace; font-size: 13.5px; white-space: nowrap; }
+      tr.total td { font-weight: 700; background: var(--surface-2); }
+      .up { color: var(--green); font-weight: 600; }
+      .down { color: var(--red); font-weight: 600; }
+      .tbl-note { font-size: 12.5px; color: var(--ink-3); margin: 2px 2px 14px; }
+
+      /* segment bars */
+      .bars { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 18px; margin-bottom: 8px; }
+      .bars h3 { margin-top: 0; }
+      .bar-row { display: grid; grid-template-columns: 150px 1fr 74px; align-items: center; gap: 12px; margin-bottom: 10px; font-size: 13.5px; }
+      .bar-row .bl { color: var(--ink-2); font-weight: 500; }
+      .bar-track { height: 20px; background: var(--surface-2); border-radius: 5px; overflow: hidden; }
+      .bar-fill { height: 100%; border-radius: 5px; }
+      .bar-row .bv { font-family: "IBM Plex Mono", monospace; font-size: 13px; text-align: right; font-weight: 600; }
+
+      .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 20px; }
+      .panel h3 { margin-top: 0; display: flex; align-items: center; gap: 8px; }
+      .panel ul { margin: 0; padding-left: 18px; }
+      .panel li { margin-bottom: 8px; font-size: 14.5px; }
+      .dot { width: 9px; height: 9px; border-radius: 50%; flex: none; display: inline-block; }
+      .dot.g { background: var(--green); }
+      .dot.r { background: var(--red); }
+
+      /* scenario cards */
+      .scen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 8px; }
+      .scen .card { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); padding: 16px 18px; }
+      .scen .card .tag { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+      .scen .card .price { font-family: "IBM Plex Mono", monospace; font-size: 30px; font-weight: 600; line-height: 1; }
+      .scen .card .move { font-size: 13.5px; margin-top: 5px; font-weight: 600; }
+      .scen .card p { font-size: 13.5px; color: var(--ink-2); margin: 10px 0 0; }
+      .card.bear .tag { color: var(--red); }
+      .card.base { border-color: var(--accent); }
+      .card.base .tag { color: var(--accent); }
+      .card.bull .tag { color: var(--green); }
+      .weighted {
+        display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline;
+        background: var(--accent-soft); border-radius: 12px; padding: 14px 18px; margin-bottom: 14px;
+      }
+      .weighted .big { font-family: "IBM Plex Mono", monospace; font-size: 22px; font-weight: 600; }
+      .weighted .lbl { font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+
+      .callout { border-radius: 12px; padding: 15px 18px; font-size: 14.5px; margin-bottom: 14px; }
+      .callout.warn { background: var(--gold-soft); color: var(--ink); }
+      .callout.warn strong { color: var(--gold); }
+      .callout p { margin: 0; }
+
+      /* calculator */
+      .calc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); padding: 18px 20px; }
+      .calc label { font-size: 13px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-2); display: block; margin-bottom: 8px; }
+      .calc .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+      .calc input {
+        font-family: "IBM Plex Mono", monospace; font-size: 19px; padding: 10px 12px; width: 210px;
+        border: 1px solid var(--line); border-radius: 9px; background: var(--bg); color: var(--ink);
+      }
+      .calc input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+      .calc .out { font-size: 15px; }
+      .calc .out strong { font-family: "IBM Plex Mono", monospace; font-size: 19px; }
+
+      .sources { font-size: 14px; }
+      .sources li { margin-bottom: 7px; }
+      footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 16px; font-size: 12.5px; color: var(--ink-3); }
+      footer p { margin: 0 0 8px; max-width: none; }
+
+      @media (max-width: 720px) {
+        .stat-grid { grid-template-columns: repeat(2, 1fr); }
+        .cols { grid-template-columns: 1fr; }
+        .scen { grid-template-columns: 1fr; }
+        .bar-row { grid-template-columns: 108px 1fr 62px; gap: 8px; }
+        /* wide tables become stacked cards */
+        .tbl.stack table, .tbl.stack tbody, .tbl.stack tr, .tbl.stack td { display: block; width: 100%; }
+        .tbl.stack thead { display: none; }
+        .tbl.stack tr { padding: 10px 0; border-top: 1px solid var(--line); }
+        .tbl.stack tr:first-child { border-top: none; }
+        .tbl.stack td { border-top: none !important; padding: 3px 14px; text-align: left; }
+        .tbl.stack td.num { text-align: left; }
+        .tbl.stack td::before { content: attr(data-l); display: block; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; font-family: "IBM Plex Sans", sans-serif; margin-bottom: 1px; }
+        .tbl.stack td:first-child { font-weight: 700; font-size: 15px; }
+        .tbl.stack td:first-child::before { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <p class="kicker">Equity Research · Health Care · #5 in US top 10</p>
+        <h1>UnitedHealth Group <span class="ticker">(UNH)</span></h1>
+        <p class="sub">
+          The largest US health insurer, paired with Optum — a care-delivery, pharmacy-benefit and
+          health-data business under one roof. Q3 2026 showed the margin repair management promised
+          is actually happening; the open question is how much of the medical-cost pressure is
+          structural rather than a bad year.
+        </p>
+        <p class="asof">As of 1 Nov 2026 · Price reference: 30 Oct 2026 regular-session close (markets closed over the weekend) · For a mid-30s investor, risk score 8/10</p>
+
+        <div class="verdict-row">
+          <span class="chip buy"><small>Short term</small> Buy</span>
+          <span class="chip buy"><small>Long term</small> Buy</span>
+          <span class="chip size"><small>Suggested size</small> 2.0% of portfolio</span>
+          <span class="chip"><small>Analyst average target</small> $476.64</span>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="label">Price · 30 Oct close</div>
+            <div class="value">$406.97</div>
+            <div class="note">Official close (Finnhub)</div>
+          </div>
+          <div class="stat">
+            <div class="label">Market cap</div>
+            <div class="value">$364.7B</div>
+            <div class="note">FinanceCharts, 30 Oct 2026</div>
+          </div>
+          <div class="stat">
+            <div class="label">Trailing P/E</div>
+            <div class="value">23.26×</div>
+            <div class="note">Forward P/E 17.93×*</div>
+          </div>
+          <div class="stat">
+            <div class="label">Dividend yield</div>
+            <div class="value">2.28%</div>
+            <div class="note">$9.28/yr · payout 53.0%</div>
+          </div>
+          <div class="stat">
+            <div class="label">Revenue (TTM)</div>
+            <div class="value">$450.1B</div>
+            <div class="note">Net margin 3.53%</div>
+          </div>
+          <div class="stat">
+            <div class="label">Free cash flow (TTM)</div>
+            <div class="value">$22.8B</div>
+            <div class="note">FCF margin 5.07%</div>
+          </div>
+          <div class="stat">
+            <div class="label">Net debt</div>
+            <div class="value">$48.5B</div>
+            <div class="note">Debt/equity 0.70</div>
+          </div>
+          <div class="stat">
+            <div class="label">EV / EBITDA</div>
+            <div class="value">14.32×</div>
+            <div class="note">P/S 0.81×</div>
+          </div>
+        </div>
+        <p class="basis">
+          <strong>Ranking basis:</strong> US-domiciled top 10 only — the FinanceCharts global health-care
+          list (last updated 30 Oct 2026) filtered to US-domiciled names. Global ranks differ: Roche,
+          Novartis, Genmab and AstraZeneca sit between US names globally. UNH is the 5th-largest
+          US-domiciled health-care company on that list. Multiples are StockAnalysis TTM figures
+          unless stated. *Forward P/E is the provider figure as published; it was not independently
+          re-verified as a dataset in the verification pass — treat it as a provider estimate.
+        </p>
+      </header>
+
+      <section id="business">
+        <div class="sec-head"><span class="sec-num">01</span><h2>Business model &amp; segment breakdown</h2></div>
+        <p class="lede">
+          Two businesses share one balance sheet. <strong>UnitedHealthcare</strong> is the insurance
+          engine — employer, individual, Medicare Advantage and Medicaid plans covering 48.3 million
+          people. <strong>Optum</strong> is everything around the insurance: Optum Health delivers care
+          directly, Optum Rx runs the pharmacy-benefit manager (PBM), and Optum Insight sells data,
+          analytics and payment services — much of it to UnitedHealthcare itself and to outside payers.
+          The pitch is vertical integration: the same company prices the risk, delivers the care, fills
+          the prescription and owns the claims data. Essentially all revenue is US — the geographic
+          split beyond US dominance is not disclosed in the research pack.
+        </p>
+
+        <div class="bars">
+          <h3>Q3 2026 revenue by business ($B)</h3>
+          <div class="bar-row"><span class="bl">UnitedHealthcare</span><div class="bar-track"><div class="bar-fill" style="width:100%;background:var(--bar-1)"></div></div><span class="bv">$86.3B</span></div>
+          <div class="bar-row"><span class="bl">Optum (total)</span><div class="bar-track"><div class="bar-fill" style="width:77.5%;background:var(--bar-2)"></div></div><span class="bv">$66.9B</span></div>
+          <div class="bar-row"><span class="bl">— Optum Rx</span><div class="bar-track"><div class="bar-fill" style="width:46.2%;background:var(--bar-3)"></div></div><span class="bv">$39.9B</span></div>
+          <div class="bar-row"><span class="bl">— Optum Health</span><div class="bar-track"><div class="bar-fill" style="width:26.5%;background:var(--bar-3)"></div></div><span class="bv">$22.9B</span></div>
+          <div class="bar-row"><span class="bl">— Optum Insight</span><div class="bar-track"><div class="bar-fill" style="width:6.4%;background:var(--bar-3)"></div></div><span class="bv">$5.5B</span></div>
+          <p class="small muted" style="margin:8px 0 0">Segment revenues sum to more than the $112.7B consolidated total because Optum sells heavily to UnitedHealthcare; the difference is eliminated in consolidation.</p>
+        </div>
+
+        <div class="tbl stack">
+          <table>
+            <thead>
+              <tr><th>Q3 2026 (reported 13 Oct)</th><th class="num">Revenue</th><th class="num">YoY</th><th>Detail</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-l="Segment">Consolidated</td>
+                <td class="num" data-l="Revenue">$112.7B</td>
+                <td class="num down" data-l="YoY">−0.4%</td>
+                <td data-l="Detail">Adjusted EPS $4.69, <span class="up">+60.6%</span> YoY, beating the $4.12 consensus. Operating earnings $6.6B.</td>
+              </tr>
+              <tr>
+                <td data-l="Segment">UnitedHealthcare</td>
+                <td class="num" data-l="Revenue">$86.3B</td>
+                <td class="num down" data-l="YoY">−0.8%</td>
+                <td data-l="Detail">48.3m people served (−3.6% — deliberate shrinkage). Operating earnings $2.8B, a 3.3% margin.</td>
+              </tr>
+              <tr>
+                <td data-l="Segment">Optum Health</td>
+                <td class="num" data-l="Revenue">$22.9B</td>
+                <td class="num down" data-l="YoY">−10%</td>
+                <td data-l="Detail">Revenue fell with fewer value-based-care patients, yet segment earnings held at $735m — cost discipline is doing the work.</td>
+              </tr>
+              <tr>
+                <td data-l="Segment">Optum Insight</td>
+                <td class="num" data-l="Revenue">$5.5B</td>
+                <td class="num up" data-l="YoY">+3%</td>
+                <td data-l="Detail">Data, analytics and payments — the highest-quality earnings in the group, and the smallest piece.</td>
+              </tr>
+              <tr>
+                <td data-l="Segment">Optum Rx</td>
+                <td class="num" data-l="Revenue">$39.9B</td>
+                <td class="num" data-l="YoY">—</td>
+                <td data-l="Detail">Pharmacy-benefit management; large revenue, structurally thin margin, and the segment most exposed to PBM regulation.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tbl-note">Sources: UnitedHealth Q3 2026 release (BusinessWire, 13 Oct 2026) and the Q3 earnings-call transcript (Motley Fool). Q3 figures independently confirmed in the verification pass.</p>
+
+        <h3>The cost ratios are the story</h3>
+        <p>
+          For an insurer, two ratios matter more than revenue growth. The <strong>medical care ratio
+          (MCR)</strong> — medical costs as a share of premiums — improved to <strong>88.4%</strong> from
+          89.9% a year ago: the repricing and benefit redesigns are biting. The <strong>operating cost
+          ratio</strong> improved to <strong>12.8%</strong> from 13.5%. Against that, commercial medical
+          trend is running <strong>above 11%</strong>, driven by specialty drugs and No Surprises Act
+          arbitration — so the improvement is coming from price and mix, not from medical costs calming
+          down. Management raised FY26 adjusted EPS guidance to <strong>at least $20.50</strong>, from
+          $19.50–20.00. One flattering item to strip out mentally: a <strong>$610m reserve release</strong>
+          in Q3 made the quarter look better than the underlying run-rate.
+        </p>
+      </section>
+
+      <section id="financials">
+        <div class="sec-head"><span class="sec-num">02</span><h2>Financial health &amp; balance sheet</h2></div>
+        <p>
+          UNH converts an enormous revenue base into thin but very reliable margins — the classic
+          managed-care profile. The trailing numbers still carry the 2025 cost shock, which is why the
+          trailing P/E (23.26×) sits well above the forward P/E (17.93×): the market is paying for the
+          repair, not for the year just printed. At 0.81× sales, the stock is priced like a utility on
+          revenue and like a compounder on repaired earnings.
+        </p>
+        <div class="tbl stack">
+          <table>
+            <thead><tr><th>Metric (TTM)</th><th class="num">Value</th><th>Read</th></tr></thead>
+            <tbody>
+              <tr><td data-l="Metric">Revenue</td><td class="num" data-l="Value">$450.06B</td><td data-l="Read">Largest revenue base in US health care.</td></tr>
+              <tr><td data-l="Metric">Gross / operating / net margin</td><td class="num" data-l="Value">20.05% / 5.85% / 3.53%</td><td data-l="Read">Thin by design — the model is volume and float, not markup.</td></tr>
+              <tr><td data-l="Metric">Net income / EPS</td><td class="num" data-l="Value">$15.88B / $17.50</td><td data-l="Read">Depressed by the 2025 medical-cost surge; guidance implies recovery toward ≥$20.50 adjusted EPS in FY26.</td></tr>
+              <tr><td data-l="Metric">Free cash flow</td><td class="num" data-l="Value">$22.83B</td><td data-l="Read">5.07% FCF margin — cash generation held up even in the bad year.</td></tr>
+              <tr><td data-l="Metric">P/E (trailing / forward)</td><td class="num" data-l="Value">23.26× / 17.93×*</td><td data-l="Read">Cheapest forward multiple in the verified health-care pack.</td></tr>
+              <tr><td data-l="Metric">P/S · EV/EBITDA</td><td class="num" data-l="Value">0.81× · 14.32×</td><td data-l="Read">Low sales multiple reflects the pass-through nature of premiums.</td></tr>
+              <tr><td data-l="Metric">Cash / total debt</td><td class="num" data-l="Value">$28.55B / $74.33B</td><td data-l="Read">Net debt $48.49B as reported by StockAnalysis; debt-to-equity 0.70.</td></tr>
+              <tr><td data-l="Metric">Debt-to-capital</td><td class="num" data-l="Value">41.7%</td><td data-l="Read">At 30 Sep 2026, per the company release — inside the range UNH has historically targeted.</td></tr>
+              <tr><td data-l="Metric">Dividend</td><td class="num" data-l="Value">$9.28/yr · 2.28% yield</td><td data-l="Read">Payout ratio 53.04% of trailing EPS — covered by FCF with room to spare.</td></tr>
+              <tr><td data-l="Metric">Buybacks</td><td class="num" data-l="Value">0.98% buyback yield</td><td data-l="Read">Modest repurchases alongside the dividend; capital return is dividend-led.</td></tr>
+              <tr><td data-l="Metric">R&amp;D</td><td class="num" data-l="Value">n/a</td><td data-l="Read">Services model — no meaningful R&amp;D line; investment runs through Optum Insight's platform spend inside operating costs.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="tbl-note">Source: StockAnalysis UNH statistics (TTM), accessed for the 1 Nov 2026 report; debt-to-capital from the Q3 2026 company release. *Forward P/E is the provider figure as published; the verification pass could not independently re-source the forward P/E dataset, so treat it as a provider estimate, not a verified fact.</p>
+        <p>
+          <strong>Balance-sheet verdict:</strong> leverage is real but ordinary for a company of this
+          cash profile — $22.8B of trailing FCF against $48.5B of reported net debt is roughly two years
+          of cash flow. The balance sheet is not the risk here; the income statement (medical trend) and
+          Washington are.
+        </p>
+      </section>
+
+      <section id="moat">
+        <div class="sec-head"><span class="sec-num">03</span><h2>Competitive moat &amp; industry positioning</h2></div>
+        <p>
+          UNH's moat is <strong>scale plus vertical integration</strong>. With 48.3 million members it is
+          the counterparty every large provider network must deal with; Optum then monetises the same
+          lives a second and third time — delivering their care, managing their prescriptions and selling
+          the analytics built on their claims. That data-and-care loop is genuinely hard to replicate:
+          a rival insurer can match a premium, but it cannot quickly rebuild Optum Health's clinic
+          footprint, Optum Rx's formulary leverage, or Insight's installed payments base.
+        </p>
+        <p>
+          Pricing power exists but is <strong>bounded by regulation</strong>: premiums can be redesigned
+          and repriced annually (and Q3 shows that working — MCR down 150bp while trend runs above 11%),
+          yet Medicare Advantage rates, Medicaid contracts and medical-loss-ratio floors all cap how far
+          that power extends. Diversified earnings across insurance, care and pharmacy soften any single
+          regulatory hit, which is the quiet strength of the model.
+        </p>
+        <p class="muted">
+          Primary competitors: <strong>Elevance Health</strong>, <strong>CVS Health / Aetna</strong> (the
+          closest integrated rival), <strong>Cigna</strong>, <strong>Humana</strong> (Medicare Advantage
+          pure-play) and <strong>Centene</strong> (Medicaid). None matches UNH's combination of
+          membership scale and Optum's non-insurance earnings.
+        </p>
+      </section>
+
+      <section id="catalysts">
+        <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; downside risks</h2></div>
+        <div class="cols">
+          <div class="panel">
+            <h3><span class="dot g"></span>Catalysts</h3>
+            <ul>
+              <li><strong>Margin repair is working, not promised.</strong> MCR improved to 88.4% (from 89.9%) and the operating cost ratio to 12.8% (from 13.5%) in Q3.</li>
+              <li><strong>Guidance raised.</strong> FY26 adjusted EPS now guided to at least $20.50, up from $19.50–20.00 — management is putting numbers behind the repair story.</li>
+              <li><strong>Medicare Advantage margins</strong> running near the top of the 2–4% target range.</li>
+              <li><strong>Optum Health discipline:</strong> $735m of earnings despite a 10% revenue fall — the value-based-care book is being pruned profitably rather than defended at any cost.</li>
+              <li><strong>Optum Insight growth</strong> (+3%) in the highest-quality segment, with the Change Healthcare recovery still annualising.</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3><span class="dot r"></span>Downside risks</h3>
+            <ul>
+              <li><strong>Commercial medical trend above 11%</strong> — specialty drugs and No Surprises Act arbitration. It is stabilising, not falling; if it re-accelerates, the repricing has to run just to stand still.</li>
+              <li><strong>Medicaid is a trough.</strong> 2026 margins guided only modestly better than −1%, with the recovery targeted for 2028 — two more years of drag.</li>
+              <li><strong>Deliberate shrinkage caps growth.</strong> Membership down 3.6% and Optum Health patients down — good for margins, but the top line shrank 0.4% in Q3 and the strategy limits how fast earnings can compound.</li>
+              <li><strong>Regulatory and political scrutiny</strong> of Medicare Advantage billing and of the PBM model (Optum Rx) — the two most profitable parts of the machine are the two most examined.</li>
+              <li><strong>Overhangs:</strong> the Change Healthcare breach fallout and the 2025 management turnover still shadow the story; Q3 also leaned on a $610m reserve release that will not repeat on schedule.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="valuation">
+        <div class="sec-head"><span class="sec-num">05</span><h2>Scenario valuation &amp; price targets</h2></div>
+        <p>
+          All scenario prices below are <strong>modelled estimates</strong>, built from the stated
+          assumptions — not analyst consensus and not verified facts. The one external anchor: the
+          analyst average 12-month target is <strong>$476.64</strong>, close to the base case here.
+        </p>
+
+        <h3>12–18 month scenarios (from $406.97)</h3>
+        <div class="scen">
+          <div class="card bear">
+            <div class="tag">Bear</div>
+            <div class="price">$340</div>
+            <div class="move down">−16.5%</div>
+            <p>Commercial trend re-accelerates above 11%, Medicaid stays at trough margins, and MA/PBM scrutiny produces a concrete earnings hit. The market re-rates UNH as a no-growth insurer.</p>
+          </div>
+          <div class="card base">
+            <div class="tag">Base</div>
+            <div class="price">$470</div>
+            <div class="move up">+15.5%</div>
+            <p>Margin repair continues at the Q3 pace, FY26 lands at or above the ≥$20.50 guide, and membership stabilises. The multiple drifts back toward the high-teens on forward earnings.</p>
+          </div>
+          <div class="card bull">
+            <div class="tag">Bull</div>
+            <div class="price">$540</div>
+            <div class="move up">+32.7%</div>
+            <p>MCR improves another leg, Optum Health returns to growth, the Medicaid recovery gets pulled forward, and regulatory noise fades — UNH re-rates as a compounder again.</p>
+          </div>
+        </div>
+
+        <h3>5-year projection — frozen-parameter model</h3>
+        <p class="muted">
+          Same format as the earlier earnings briefings: starting revenue and share count are frozen at
+          today's values (revenue $450.06B TTM, 897.59m shares) and only growth, net margin and the exit
+          P/E vary by case. Scenario weights: Bear 25% / Base 50% / Bull 25%.
+        </p>
+        <div class="tbl stack">
+          <table>
+            <thead>
+              <tr><th>Case (weight)</th><th class="num">Revenue CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">2031 EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-l="Case">Bear (25%)</td>
+                <td class="num" data-l="Revenue CAGR">1%</td>
+                <td class="num" data-l="2031 revenue">~$473B</td>
+                <td class="num" data-l="Net margin">3.0%</td>
+                <td class="num" data-l="2031 EPS">$15.81</td>
+                <td class="num" data-l="Exit P/E">14×</td>
+                <td class="num" data-l="Price">$221</td>
+              </tr>
+              <tr>
+                <td data-l="Case">Base (50%)</td>
+                <td class="num" data-l="Revenue CAGR">4%</td>
+                <td class="num" data-l="2031 revenue">$547.6B</td>
+                <td class="num" data-l="Net margin">4.5%</td>
+                <td class="num" data-l="2031 EPS">$27.45</td>
+                <td class="num" data-l="Exit P/E">18×</td>
+                <td class="num" data-l="Price">$494</td>
+              </tr>
+              <tr>
+                <td data-l="Case">Bull (25%)</td>
+                <td class="num" data-l="Revenue CAGR">6%</td>
+                <td class="num" data-l="2031 revenue">~$602B</td>
+                <td class="num" data-l="Net margin">5.5%</td>
+                <td class="num" data-l="2031 EPS">$36.91</td>
+                <td class="num" data-l="Exit P/E">21×</td>
+                <td class="num" data-l="Price">$775</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="weighted">
+          <span class="lbl">Probability-weighted 5-yr value</span>
+          <span class="big">$496</span>
+          <span class="small muted">vs $406.97 today (+21.9% over five years, before the 2.28% dividend). A weighted value — including the bear case — not a base-case forecast: the base case alone is $494, and the modest implied return is exactly why the position size below is capped.</span>
+        </div>
+        <div class="callout warn">
+          <p><strong>Read the model honestly:</strong> even the bull case needs margins UNH has not yet
+          re-proven (5.5% net vs 3.53% trailing), and the bear case is not exotic — it is roughly
+          "2025's cost problem never fully goes away." The 12–18 month base case (+15.5%) carries most
+          of the expected return; the 5-year case is a slow repair, not a compounder's curve.</p>
+        </div>
+      </section>
+
+      <section id="recommendation">
+        <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; portfolio sizing</h2></div>
+        <p class="lede">
+          <strong>Short term: Buy. Long term: Buy. Suggested size: 2.0% of the total portfolio</strong>
+          for a mid-30s investor at risk score 8/10.
+        </p>
+        <p>
+          The case in one paragraph: UNH carries the cheapest forward multiple in the verified
+          health-care pack (17.93× provider figure) while the repair it needs is already visible in the
+          numbers — MCR down 150bp, cost ratio down 70bp, guidance raised, and a 2.28% dividend paid out
+          of $22.8B of free cash flow while you wait. That combination — priced for the problem,
+          evidencing the fix — is what a buy looks like in a defensive sector. The size is capped at
+          2.0%, below what the valuation alone might argue for, because the risks are regulatory and
+          political rather than commercial: a single MA or PBM ruling can gap the stock in a way no
+          amount of segment analysis diversifies away.
+        </p>
+        <div class="calc">
+          <label for="pf">Position-size calculator — your total portfolio value ($)</label>
+          <div class="row">
+            <input id="pf" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+            <div class="out" id="calcOut" aria-live="polite"></div>
+          </div>
+          <p class="small muted" style="margin:10px 0 0">At the suggested 2.0% weight and the $406.97 reference price. Whole shares rounded down; the remainder stays as cash in the sleeve.</p>
+        </div>
+        <h3>How this fits the wider portfolio</h3>
+        <p>
+          UNH is a health-care sleeve holding: defensive cash flows, low correlation to the AI-capex
+          trade that dominates the technology names, and a dividend that pays you through the repair.
+          In the multi-sector framework it belongs in the quality/defensive bucket alongside the other
+          large health-care names — sized so that a sector-wide regulatory event is a bad quarter,
+          not a bad plan.
+        </p>
+      </section>
+
+      <section id="sources">
+        <div class="sec-head"><span class="sec-num">07</span><h2>Sources &amp; verification</h2></div>
+        <ul class="sources tight">
+          <li><a href="https://www.businesswire.com/news/home/20261013236116/en/UnitedHealth-Group-Reports-Third-Quarter-2026-Results" target="_blank" rel="noopener">UnitedHealth Group Q3 2026 results — company release (BusinessWire, 13 Oct 2026)</a></li>
+          <li><a href="https://www.fool.com/earnings/call-transcripts/2026/10/13/unitedhealth-unh-q3-2026-earnings-call-transcript/" target="_blank" rel="noopener">UNH Q3 2026 earnings-call transcript — Motley Fool</a></li>
+          <li><a href="https://stockanalysis.com/stocks/unh/statistics/" target="_blank" rel="noopener">UNH valuation, margins and balance-sheet statistics (TTM) — StockAnalysis</a></li>
+          <li><a href="https://leverageshares.com/en-eu/insights/unitedhealth-beats-q3-2026-earnings-and-raises-outlook/" target="_blank" rel="noopener">UnitedHealth beats Q3 2026 and raises outlook — Leverage Shares analysis</a></li>
+          <li><a href="https://www.financecharts.com/sectors/health_care?columns=fcfyield&sort=fcfyield" target="_blank" rel="noopener">Health-care sector ranking and market caps (updated 30 Oct 2026) — FinanceCharts</a></li>
+        </ul>
+        <p class="small muted">
+          <strong>Verification note:</strong> Q3 2026 revenue (−0.4% YoY), adjusted EPS $4.69, the 88.4%
+          medical care ratio and the raised ≥$20.50 FY26 guidance were independently confirmed against a
+          second source in a separate verification pass; the 30 Oct close was confirmed against the
+          official-close record. The forward P/E and all scenario/5-year prices are labelled estimates
+          where they appear — the scenario prices are model outputs with their assumptions shown, and the
+          25/50/25 weights reproduce the $496 weighted value exactly.
+        </p>
+      </section>
+
+      
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>UNH — Intrinsic value (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $406.97.</strong> <strong>DCF intrinsic: $352.</strong> Discount/premium vs DCF: <strong>+15.6%</strong> — i.e. the shares are trading 15.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$352</td><td>+15.6%</td></tr></table>
+<h3>Method 1 — DCF</h3>
+<p>Base TTM FCF <strong>$22.8B</strong>; constant growth g <strong>4%</strong> for years 1–10; discount rate r <strong>10%</strong> (default bucket); terminal g 3%. PV of projected FCF <strong>$169.88B</strong>; PV of terminal value <strong>$191.71B</strong> (terminal value = Year-10 FCF × 1.03 ÷ (r − 0.03), discounted at r); plus net cash <strong>$-45.78B</strong>; divided by <strong>897.59m</strong> diluted shares = <strong>$352</strong>. Base FCF $22.83B (pack, TTM). Growth g 4% = pack 5-year base CAGR. Net cash −$45.78B (cash $28.55B − debt $74.33B; the pack states net debt $48.49B, $2.71B higher — the arithmetic figure is used so the fragment reproduces). Equity $106.19B derived from debt ÷ D/E 0.70. DPS $9.28 (pack).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><small>Sources: Pack (StockAnalysis via research pack); price 30 Oct 2026 close $406.97. All modelled values are estimates with methodology shown; price reference is the 30 Oct 2026 close throughout.</small></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>UNH — Customers: payer / consumer-mixed (no top-7 business-customer list)</h2>
+<p>UnitedHealth is classified <strong>payer/consumer-mixed</strong>, not purely B2B or B2C: UnitedHealthcare insures 48.3m people (pack, Q3 2026) — employers, governments (Medicare/Medicaid) and individuals — while Optum sells care, pharmacy and data services to providers, payers and employers. Because the “customer” is in large part the insured population and the government programmes themselves, no top-7 business-customer list is presented.</p>
+<p><strong>Key demand drivers:</strong> medical-cost trend (pack: commercial trend above 11%, driven by specialty drugs and No Surprises Act arbitration) and the medical care ratio (88.4% in Q3 2026, from 89.9%), together with Optum's ability to grow Health, Insight and Rx volumes while holding the operating cost ratio (12.8%, from 13.5%).</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>UNH — AI trade positioning</h2>
+<p><strong>Role: Low exposure.</strong> UnitedHealth's economics are medical-cost trend and payer contracting, not AI infrastructure; AI matters only as an Optum data/analytics efficiency tool.</p>
+<p><strong>While the AI trade runs.</strong> Demand channel: AI-assisted claims, care management and Optum Insight analytics (pack: Insight $5.5B in Q3 2026, +3%) can lower the operating cost ratio (12.8% in Q3, from 13.5%), but AI does not create insured lives or premium growth. Multiple channel: UNH's 17.93× forward P/E in the pack is a payer-repair multiple, with no AI premium to unwind.</p>
+<p><strong>When the AI trade unwinds — what breaks, in order.</strong> First, demand: nothing AI-specific breaks — demand follows enrolment (48.3m people, pack) and medical trend (commercial trend above 11%). Second, multiple compression: low on AI grounds; the real multiple risk is regulatory or a medical-cost spike. Third, balance sheet: low AI exposure — debt $74.33B in the pack is payer/operating leverage, not AI-capex debt, and there is no AI customer concentration. Trigger to watch: a Medicare/Medicaid policy change or a medical-cost-ratio miss (MCR was 88.4% in Q3), not an AI capex announcement.</p>
+</div>
+<footer>
+        <p>Equity research — UnitedHealth Group (UNH), Health Care sector. Prepared 1 Nov 2026 from the verified research pack; prices as of the 30 Oct 2026 close. Research views only — not guarantees and not investment advice. Scenario prices are modelled estimates with stated assumptions, not predictions. Figures carry the hedges of their sources: the forward P/E is a provider figure not independently re-verified, and the Q3 result includes a $610m reserve release noted in the text.</p>
+        <p>Sibling reports for the other US health-care top-10 names (LLY, JNJ, ABBV, MRK, TMO, AMGN, GILD, ABT, PFE) and the sector index are published as separate artifacts in this series.</p>
+      </footer>
+    </div>
+
+    <script>
+      (function () {
+        var PRICE = 406.97, WEIGHT = 0.02;
+        var input = document.getElementById("pf");
+        var out = document.getElementById("calcOut");
+        function fmt(n) {
+          return n.toLocaleString("en-US", { maximumFractionDigits: 0 });
+        }
+        function render() {
+          var v = parseFloat(input.value);
+          if (!isFinite(v) || v < 0) {
+            out.textContent = "Enter a portfolio value to see the position size.";
+            return;
+          }
+          var target = v * WEIGHT;
+          var shares = Math.floor(target / PRICE);
+          var deployed = shares * PRICE;
+          out.innerHTML =
+            "2.0% target: <strong>$" + fmt(target) + "</strong> · " +
+            "<strong>" + fmt(shares) + " shares</strong> ($" + fmt(deployed) + " deployed)";
+        }
+        input.addEventListener("input", render);
+        render();
+      })();
+    </script>
+  </body>
+</html>

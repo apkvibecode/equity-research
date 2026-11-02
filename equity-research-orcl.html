@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — ORCL</title>
+<style>
+  :root{
+    --bg:#f7f6f2; --surface:#ffffff; --surface2:#efede6; --ink:#1a1d21; --muted:#5c6068;
+    --line:#ddd9cd; --accent:#a93226; --accent-soft:#f6e9e6; --good:#1e7a3c; --bad:#b42318;
+    --amber:#8a6d1a; --amber-soft:#f5eeda; --chip:#eceade;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#131417; --surface:#1c1e22; --surface2:#23262b; --ink:#ecebe6; --muted:#a3a7ad;
+      --line:#33363d; --accent:#e0786a; --accent-soft:#332320; --good:#5cc47e; --bad:#f08a7e;
+      --amber:#d9b84a; --amber-soft:#2e2a1c; --chip:#26282e;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 64px}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;line-height:1.2}
+  h1{font-size:2rem;margin:4px 0 6px}
+  h2{font-size:1.35rem;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid var(--ink)}
+  h3{font-size:1.05rem;margin:18px 0 6px}
+  p{margin:8px 0}
+  section{margin-top:38px}
+  .meta-line{font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .sub{color:var(--muted);font-size:1.02rem;margin:0 0 4px}
+  .down{color:var(--bad);font-weight:600}
+  .up{color:var(--good);font-weight:600}
+  /* snapshot */
+  .snap{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0 6px}
+  .snap .cell{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .snap .k{font-size:.74rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+  .snap .v{font-size:1.3rem;font-weight:700;margin-top:2px}
+  .snap .n{font-size:.8rem;color:var(--muted)}
+  /* verdict */
+  .verdict{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:16px 18px;margin-top:18px}
+  .verdict .row{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:8px}
+  .verdict b{font-size:1.05rem}
+  .tag{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600}
+  .tag.buy{background:var(--accent-soft);color:var(--accent)}
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.94rem}
+  th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.hl td{background:var(--surface2);font-weight:600}
+  .tablewrap{overflow-x:auto}
+  /* cards grid */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+  .card h3{margin-top:0}
+  ul{margin:6px 0 6px 18px;padding:0}
+  li{margin:5px 0}
+  .note{background:var(--amber-soft);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:.92rem;margin:14px 0}
+  .note b{color:var(--amber)}
+  .small{font-size:.86rem;color:var(--muted)}
+  /* income flow */
+  .flow{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+  .flow svg{width:100%;height:auto;display:block}
+  /* calculator */
+  .calc{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-top:14px}
+  .calc label{font-size:.88rem;color:var(--muted);display:block;margin-bottom:6px}
+  .calc .inrow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .calc input{font-size:1.05rem;padding:9px 12px;border:1px solid var(--line);border-radius:8px;
+    background:var(--bg);color:var(--ink);width:200px}
+  .calc .out{margin-top:12px;font-size:1rem}
+  .calc .out b{font-size:1.15rem}
+  a{color:var(--accent)}
+  .sources{font-size:.9rem}
+  .sources li{margin:7px 0;word-break:break-all}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted)}
+  @media (max-width:640px){
+    .snap{grid-template-columns:repeat(2,1fr)}
+    .cols{grid-template-columns:1fr}
+    h1{font-size:1.6rem}
+    .wrap{padding:20px 14px 48px}
+    /* wide scenario table becomes stacked rows — no sideways scroll */
+    table.stack tr:first-child{display:none}
+    table.stack tr{display:block;padding:8px 0;border-bottom:1px solid var(--line)}
+    table.stack td{display:flex;justify-content:space-between;gap:16px;border-bottom:none;padding:3px 10px;text-align:right}
+    table.stack td::before{content:attr(data-label);font-size:.76rem;letter-spacing:.04em;
+      text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding-top:2px}
+    table.stack td:first-child{font-weight:700}
+    table.stack td:first-child::before{content:""}
+    table.stack td.formula{white-space:normal}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="meta-line">Information Technology · Equity Research · As of 1 Nov 2026</div>
+  <h1>Oracle Corporation (ORCL)</h1>
+  <p class="sub">Cloud database, Oracle Cloud Infrastructure (OCI), enterprise applications — and a leveraged bet that OCI becomes a fourth hyperscaler for AI workloads.</p>
+  <p class="small">Price reference: 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Sector ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung and SK Hynix appear in that source’s global ranking but are excluded from detail (foreign listings, not in the named set). Research views only — not guarantees, not investment advice.</p>
+
+  <div class="snap">
+    <div class="cell"><div class="k">Price — 30 Oct close</div><div class="v">$130.67</div><div class="n"><span class="down">−6.37% on the day</span> · −49.1% YoY (SectorAlpha)</div></div>
+    <div class="cell"><div class="k">Market cap</div><div class="v">~$395–406B</div><div class="n">~3.03B shares · range reflects provider variance (pack ~$396B; Finnhub $405.97B)</div></div>
+    <div class="cell"><div class="k">Trailing P/E</div><div class="v">21.46×</div><div class="n">Price ÷ trailing earnings per share</div></div>
+    <div class="cell"><div class="k">P/S</div><div class="v">5.46×</div><div class="n">On TTM revenue of $71.78B</div></div>
+    <div class="cell"><div class="k">EV / Sales</div><div class="v">6.70×</div><div class="n">Above P/S — reflects the debt load</div></div>
+    <div class="cell"><div class="k">Latest quarter (ended 31 Aug 2026)</div><div class="v">$19.34B rev</div><div class="n"><span class="up">+29.6% YoY</span> · net income $4.76B · diluted EPS $1.56</div></div>
+  </div>
+
+  <div class="verdict">
+    <span class="tag buy">Verdict</span>
+    <div class="row">
+      <div>Short term (12–18m): <b>Hold</b></div>
+      <div>Long term (5y): <b>Buy</b></div>
+      <div>Suggested weight: <b>1.5% of portfolio</b></div>
+    </div>
+    <p style="margin-bottom:0">The market is pricing OCI as a hyperscaler, but its free-cash-flow profile is not yet hyperscaler-like. That gap — backlog conversion versus capex and debt — is the whole investment question. For a mid-30s investor at risk score 8/10, the pack sizes ORCL at a deliberately modest 1.5%: a real position in the AI-cloud build-out, capped because the balance sheet, not the income statement, carries the risk.</p>
+  </div>
+
+  <section>
+    <h2>1 · Business Model &amp; Segment Breakdown</h2>
+    <p>Oracle sells four things that reinforce each other:</p>
+    <ul>
+      <li><b>Cloud database</b> — the original franchise. Decades of enterprise data sit in Oracle databases, and moving that data (not just the licence) is what makes customers sticky.</li>
+      <li><b>OCI (Oracle Cloud Infrastructure)</b> — the growth engine and the pivot. Oracle is repositioning OCI as an AI-training and AI-hosting cloud, signing large multi-year commitments that require very high capital expenditure up front.</li>
+      <li><b>Applications</b> — Fusion (ERP/HCM) and NetSuite, sold as SaaS to the same enterprise base that runs the database.</li>
+      <li><b>Legacy on-prem licences &amp; support</b> — the declining but highly profitable base that funds the transition; the execution risk is managing the licence-to-cloud migration without hollowing out this cash stream.</li>
+    </ul>
+    <p><b>Latest quarter (ended 31 Aug 2026):</b> revenue $19.34B, up 29.6% year over year; net income $4.76B; diluted EPS $1.56. Trailing-twelve-month revenue is $71.78B. The growth rate is the story: a company of Oracle’s age and size growing near 30% is being driven by the OCI pivot, not by the legacy base.</p>
+    <p><b>Supply-chain / dependency note:</b> the pack flags the dependencies that matter for OCI — the AI-hosting build-out depends on data-centre capacity, power and accelerator supply, and the revenue side depends on a concentrated set of very large AI commitments (see Risks). No segment-by-segment revenue split was carried in the verified pack, so none is invented here.</p>
+  </section>
+
+  <section>
+    <h2>2 · Financial Health &amp; Balance Sheet Diagnostics</h2>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Metric</th><th class="num">Value</th><th>Read</th></tr>
+      <tr><td>Price (30 Oct 2026 close)</td><td class="num">$130.67</td><td>−6.37% on the day; −49.1% YoY per the SectorAlpha table — the stock has halved from its highs even as revenue accelerated</td></tr>
+      <tr><td>Market cap</td><td class="num">~$395–406B</td><td>~3.03B shares. Provider variance of ~2–6% is normal; Finnhub prints $405.97B against the pack’s ~$396B</td></tr>
+      <tr><td>Trailing P/E</td><td class="num">21.46×</td><td>Not demanding for ~30% quarterly revenue growth — the discount is the market charging for leverage and FCF, not for growth</td></tr>
+      <tr><td>P/S</td><td class="num">5.46×</td><td>On TTM revenue $71.78B</td></tr>
+      <tr><td>EV / Sales</td><td class="num">6.70×</td><td>The 1.24× gap over P/S is the balance sheet talking: enterprise value carries substantial net debt</td></tr>
+      <tr><td>Dividend</td><td class="num">Payer</td><td>Oracle is a dividend payer (per pack); yield not carried in the verified pack</td></tr>
+      <tr><td>Quarter net margin (31 Aug 2026 qtr)</td><td class="num">~24.6%</td><td>$4.76B net income on $19.34B revenue — computed from the verified quarter figures</td></tr>
+    </table>
+    </div>
+
+    <div class="flow">
+      <h3 style="margin-top:0">Quarter income flow — ended 31 Aug 2026</h3>
+      <svg viewBox="0 0 640 150" role="img" aria-label="Revenue 19.34 billion dollars flows to net income 4.76 billion, with 14.58 billion of costs and other items as the combined residual">
+        <rect x="10" y="30" width="170" height="90" rx="8" fill="#a93226" opacity="0.88"/>
+        <text x="95" y="68" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Revenue</text>
+        <text x="95" y="92" text-anchor="middle" fill="#fff" font-size="14">$19.34B</text>
+        <path d="M180,55 C260,55 260,45 330,45" stroke="#8a6d1a" stroke-width="16" fill="none" opacity="0.55"/>
+        <path d="M180,100 C260,100 260,105 330,105" stroke="#1e7a3c" stroke-width="16" fill="none" opacity="0.55"/>
+        <rect x="330" y="18" width="300" height="52" rx="8" fill="#8a6d1a" opacity="0.18"/>
+        <text x="480" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Costs, opex, interest, tax &amp; other</text>
+        <text x="480" y="60" text-anchor="middle" font-size="13" fill="currentColor">$14.58B — combined residual (derived)</text>
+        <rect x="330" y="82" width="300" height="52" rx="8" fill="#1e7a3c" opacity="0.18"/>
+        <text x="480" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor">Net income</text>
+        <text x="480" y="124" text-anchor="middle" font-size="13" fill="currentColor">$4.76B · diluted EPS $1.56</text>
+      </svg>
+      <p class="small" style="margin-bottom:0">Built only from the verified quarter figures (revenue $19.34B, net income $4.76B). The middle band is the combined residual — the pack does not carry a verified gross-profit / opex split for this quarter, so the flow does not invent one.</p>
+    </div>
+
+    <div class="note"><b>Open question — debt &amp; cash:</b> the pack states debt is high and rising with the OCI build, and explicitly directs that net debt be verified from the latest 10-Q before publication rather than quoting a stale cash figure. That 10-Q figure is not in the verified pack, so this report does <b>not</b> print a net-debt or cash number for ORCL. The EV/Sales vs P/S gap above is the verified signal that leverage is material. Capital allocation in one line: spending is dominated by OCI capex; Oracle remains a dividend payer; no verified buyback figure was carried in the pack.</div>
+
+    <p><b>Free cash flow:</b> the central diagnostic. The October read-across — “Meta FCF negative / hyperscaler burn” — hit Oracle hardest among large caps, per the pack, because the market is pricing OCI as a hyperscaler while its FCF profile is not yet hyperscaler-like. Very high capex against large multi-year commitments means cash conversion, not demand, is the constraint to watch each quarter.</p>
+  </section>
+
+  <section>
+    <h2>3 · Competitive Moat &amp; Industry Positioning</h2>
+    <ul>
+      <li><b>Database lock-in</b> — the deepest moat in enterprise software. Mission-critical data in Oracle databases is expensive and risky to migrate, which converts directly into pricing power on support and cloud migration terms.</li>
+      <li><b>Enterprise applications attach</b> — Fusion and NetSuite sell into the installed database base, raising switching costs beyond any single product.</li>
+      <li><b>OCI price/performance claims</b> — Oracle competes for AI training/hosting workloads on claimed price/performance rather than scale; the claim is a positioning asset only while backlog converts to delivered, paid capacity.</li>
+      <li><b>Sovereign cloud</b> — dedicated/sovereign offerings give Oracle a route into government and regulated-industry workloads where the hyperscalers’ standard regions are a harder sell.</li>
+    </ul>
+    <p><b>Primary competitors:</b> AWS, Microsoft Azure and Google Cloud in infrastructure; Snowflake in data platforms; SAP in enterprise applications. Oracle is the challenger in cloud scale and the incumbent in database — the moat defends the old business better than it guarantees the new one.</p>
+  </section>
+
+  <section>
+    <h2>4 · Catalysts &amp; Downside Risks</h2>
+    <div class="cols">
+      <div class="card">
+        <h3>Catalysts</h3>
+        <ul>
+          <li><b>OCI backlog conversion</b> — large multi-year AI commitments converting into recognised revenue at the current ~30% growth pace.</li>
+          <li><b>AI hosting wins</b> — further large AI-training/hosting deals validating OCI as a genuine fourth hyperscaler.</li>
+          <li><b>Applications momentum</b> — Fusion/NetSuite SaaS growth compounding on the installed base while the legacy base declines slowly.</li>
+          <li><b>Valuation reset already done</b> — at −49.1% YoY and 21.46× trailing earnings, part of the disappointment is already in the price.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Downside risks</h3>
+        <ul>
+          <li><b>Capex / FCF burn</b> — the hyperscaler-spending read-across hit Oracle hardest among large caps in October; sustained negative FCF pressure is the primary risk.</li>
+          <li><b>Debt</b> — high and rising with the OCI build (see the open-question note in Section 2); leverage magnifies any growth disappointment.</li>
+          <li><b>Customer concentration in AI deals</b> — the OCI story leans on a small number of very large AI commitments; a single delay or cancellation is material.</li>
+          <li><b>Transition execution</b> — the licence-to-cloud shift must not cannibalise the high-margin support base faster than cloud revenue replaces it.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>5 · Scenario-Based Valuation &amp; Price Targets</h2>
+    <p class="small">All scenario prices below are <b>modelled estimates</b> with methodology shown — not verified facts and not analyst consensus. Verification note: scenario weights were not supplied to the independent verifier for most packs, so every modelled figure is labelled as an estimate, with the ORCL weights (25 / 50 / 25) published here so the weighted result can be checked.</p>
+
+    <h3>12–18 month targets</h3>
+    <div class="tablewrap">
+    <table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">vs $130.67</th><th>What has to happen</th></tr>
+      <tr><td>Bull</td><td class="num">$210</td><td class="num"><span class="up">+61%</span></td><td>Backlog converts on schedule, AI hosting wins continue, FCF burn visibly narrows</td></tr>
+      <tr><td>Base</td><td class="num">$165</td><td class="num"><span class="up">+26%</span></td><td>OCI growth holds near the current pace; capex stays heavy but funded without stress</td></tr>
+      <tr><td>Bear</td><td class="num">$95</td><td class="num"><span class="down">−27%</span></td><td>A large AI commitment slips, FCF burn deepens, and the debt load forces a multiple cut</td></tr>
+    </table>
+    </div>
+
+    <h3>5-year projection — frozen-parameter format</h3>
+    <p>Starting point: TTM revenue $71.8B, ~3.03B shares held frozen. Only revenue growth, net margin and the exit P/E vary by case — the same format used across this research series.</p>
+    <div class="tablewrap">
+    <table class="stack">
+      <tr><th>Case (weight)</th><th class="num">Rev growth/yr</th><th class="num">Net margin</th><th class="num">2031 revenue</th><th class="num">2031 EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr>
+      <tr><td data-label="Case (weight)">Bull (25%)</td><td class="num" data-label="Rev growth/yr">25%</td><td class="num" data-label="Net margin">25%</td><td class="num" data-label="2031 revenue">~$219B</td><td class="num" data-label="2031 EPS">~$18.08</td><td class="num" data-label="Exit P/E">28×</td><td class="num" data-label="Price">$507</td></tr>
+      <tr><td data-label="Case (weight)">Base (50%)</td><td class="num" data-label="Rev growth/yr">18%</td><td class="num" data-label="Net margin">22%</td><td class="num" data-label="2031 revenue">~$164B</td><td class="num" data-label="2031 EPS">$11.92</td><td class="num" data-label="Exit P/E">22×</td><td class="num" data-label="Price">$262</td></tr>
+      <tr><td data-label="Case (weight)">Bear (25%)</td><td class="num" data-label="Rev growth/yr">8%</td><td class="num" data-label="Net margin">16%</td><td class="num" data-label="2031 revenue">~$106B</td><td class="num" data-label="2031 EPS">~$5.57</td><td class="num" data-label="Exit P/E">15×</td><td class="num" data-label="Price">$84</td></tr>
+      <tr class="hl"><td data-label="Case">Probability-weighted</td><td class="num formula" data-label="Calculation" colspan="5">0.25 × $507 + 0.50 × $262 + 0.25 × $84</td><td class="num" data-label="Price">$279</td></tr>
+    </table>
+    </div>
+    <p class="small">Worked base case, exactly as modelled: $71.8B growing at 18%/yr for 5 years → ~$164B revenue × 22% net margin = $36.1B net income ÷ 3.03B shares = $11.92 EPS × 22 = <b>$262</b>. Weighted value $279 is ~+114% vs the $130.67 reference price — a modelled estimate, driven mostly by whether OCI sustains high-teens-or-better growth for five straight years without the debt load forcing dilution or a margin reset.</p>
+  </section>
+
+  <section>
+    <h2>6 · Recommendation &amp; Portfolio Sizing</h2>
+    <p><b>Short term (12–18 months): Hold.</b> The 12–18m base case ($165) offers ~+26%, but the path runs through FCF and debt headlines that have already produced a −49.1% year; there is no verified net-debt figure yet to underwrite adding aggressively.</p>
+    <p><b>Long term (5 years): Buy.</b> The 5-year modelled maths ($279 weighted vs $130.67 today) rewards the database moat plus OCI conversion — provided position size respects the balance-sheet risk.</p>
+    <p><b>Sizing: 1.5% of total portfolio</b> for a mid-30s investor at risk score 8/10 (per pack). That is a satellite weight, not a core holding — deliberately below the mega-cap core names in this series, reflecting leverage and customer concentration rather than any doubt about the database franchise.</p>
+
+    <div class="calc">
+      <label for="pv">Position-size calculator — enter your total portfolio value (USD)</label>
+      <div class="inrow">
+        <input id="pv" type="number" inputmode="decimal" min="0" step="1000" value="500000" />
+        <span class="small">Target weight: 1.5% · Reference price: $130.67</span>
+      </div>
+      <div class="out" id="out" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sources</h2>
+    <ul class="sources">
+      <li>Finnhub — ORCL quote &amp; financials: <a href="https://finnhub.io/?q=%22ORCL%22">https://finnhub.io/?q=%22ORCL%22</a></li>
+      <li>BuyMeWhiskey — ORCL stock analysis: <a href="https://buymewhiskey.com/stock-analysis/orcl">https://buymewhiskey.com/stock-analysis/orcl</a></li>
+      <li>FinanceCharts — ORCL vs PLTR P/S ratio, current vs average: <a href="https://www.financecharts.com/compare/ORCL,PLTR/value/ps-ratio-current-vs-avg">https://www.financecharts.com/compare/ORCL,PLTR/value/ps-ratio-current-vs-avg</a></li>
+      <li>SectorAlpha — Top US companies (price, YoY change, ranking table): <a href="https://www.sectoralpha.in/top-us-companies">https://www.sectoralpha.in/top-us-companies</a></li>
+    </ul>
+    <p class="small">Verification status: the 30 Oct 2026 close of $130.67 was independently confirmed to the cent in the sector verification log (Finnhub/MarketBeat). Market-cap figures differ by provider (~$396B pack vs $405.97B Finnhub) — shown as a range. ORCL’s net debt / cash position is an open question pending the latest 10-Q and is intentionally not quoted. All scenario prices are modelled estimates with assumptions shown above.</p>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>ORCL — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $130.67.</strong> <strong>No DCF intrinsic (DCF withdrawn — see note).</strong> The withdrawn DCF memo figure of $99 is shown below for reference only and is not used as an intrinsic value. DDM, asset-based and weighted-average figures have been removed in this DCF-only revision.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g) — WITHDRAWN</td><td>$99 (memo only, withdrawn — not used)</td><td>— (memo)</td></tr></table>
+<p><strong>Method 1 — DCF: $99 — WITHDRAWN.</strong> ORCL DCF base $15B assumes capex moderating to ~$32B, contradicting management's FY2027 capex guidance of $90–95B; this DCF is therefore a scenario, not a central value, and must not be read as a valuation verdict. It is kept visible above as a memo only and contributes 0% to any intrinsic value in this revision. Base FCF $15.00B, constant growth g = 12% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $165.85B; Year-10 FCF = $46.59B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $264.29B. Equity value = PV of FCF + PV of terminal value + net cash ($-132.06B) = $298.08B; divided by 3.024B diluted shares = $99. Base note: FORWARD NORMALISED ASSUMPTION (labelled, not a reported figure): TTM FCF to Aug 2026 was -$28.72B (OCF $46.94B less capex $75.66B, InTickers) and FY2026 FCF was -$23.7B, so no TTM base is usable. Base $15B assumes OCF near the TTM $47B with capex moderating to ~$32B as the OCI build matures; it is an assumption, not a forecast, and the DCF is correspondingly fragile. Net cash: cash + investments $37.08B less total debt $169.14B (InTickers, Aug 2026). Common equity excludes the $4.95B Series D mandatory convertible preferred.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://intickers.com/reports/orcl/ ; https://raw.githubusercontent.com/yennanliu/finance_data/main/10-q/ORCL/ORCL_2026-08-31_10-Q.pdf ; https://stockanalysis.com/stocks/orcl/dividend/</p>
+</div></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ORCL — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of ORCL's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>OpenAI</td><td>OCI AI hosting — large multi-year commitments (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Meta Platforms</td><td>OCI AI capacity (reported)</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>ByteDance</td><td>Cloud capacity (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>xAI</td><td>OCI AI hosting (private)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Amazon</td><td>Oracle Database@AWS / cloud interconnection</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Alphabet (Google)</td><td>Oracle Database@Google Cloud</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Enterprise application and database customers (undisclosed individually)</td><td>Fusion/NetSuite/database installed base — no ranked list disclosed</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Oracle's read-through is dominated by a handful of AI hosting relationships — OpenAI above all, plus Meta and other private AI labs — most of which are not in coverage, so the filled DCF intrinsics for Meta, Amazon and Alphabet give only a partial picture: discounts there would be a potential tailwind for OCI conversion, premiums a headwind. An undervalued customer does not guarantee higher OCI spending — it depends on that customer's own model-training priorities and cash position — and Oracle's own pack risk is funding the build (negative FCF, $169B of debt), not customer demand alone. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>ORCL — AI trade positioning</h2>
+<p><strong>Role: Beneficiary — OCI as AI hosting cloud, debt-funded.</strong> Oracle is the leveraged AI beneficiary in the pack: OCI is being priced as a hyperscaler (quarter ended 31 Aug 2026: revenue $19.34B, +29.6% YoY; RPO $638B, +363% YoY in later coverage), but its FCF profile, the pack stresses, 'is not yet hyperscaler-like'.</p>
+<p>While the AI trade runs, demand comes through OCI AI-training/hosting commitments converting backlog into revenue, with fiscal 2027 revenue guided to $90B in the pack's coverage. On multiples, Oracle trades at 21.5x trailing earnings in the pack — the cheapest large AI name — but that multiple is flattered by a −49.1% YoY fall and by earnings that exclude the funding cost of the build.</p>
+<p>If the AI trade unwinds, demand breaks first through AI-deal delays and RPO conversion slowing, while the capex bill does not stop: FY2026 FCF was −$23.7B on $55.7B of capex, TTM FCF to Aug 2026 −$28.72B, and S&P downgraded Oracle to BBB− in the pack's coverage window. Multiple compression follows, but the balance sheet breaks first in sequence: $169.14B of debt against $37.08B of cash and investments, plus $30.6B of operating leases, and a $40B fiscal 2027 financing plan leaning on a $20B at-the-market equity programme. Triggers to watch: RPO conversion, quarterly FCF, any change to the financing plan, and OpenAI-concentration headlines.</p>
+</div>
+<footer>
+    Equity Research — ORCL · Information Technology sector series · Data as of 1 Nov 2026, priced off the 30 Oct 2026 close. Research views only, not guarantees, not investment advice. Modelled scenario prices are estimates; verify any figure against the linked sources before acting on it.
+  </footer>
+</div>
+
+<script>
+  (function(){
+    var input = document.getElementById('pv');
+    var out = document.getElementById('out');
+    var PRICE = 130.67, WEIGHT = 0.015;
+    function render(){
+      var v = parseFloat(input.value);
+      if (isNaN(v) || v < 0) { out.textContent = 'Enter a portfolio value to see the position size.'; return; }
+      var dollars = v * WEIGHT;
+      var shares = dollars / PRICE;
+      out.innerHTML = 'At 1.5%: <b>$' + dollars.toLocaleString('en-US',{maximumFractionDigits:0}) +
+        '</b> in ORCL ≈ <b>' + shares.toLocaleString('en-US',{maximumFractionDigits:1}) +
+        ' shares</b> at $130.67. Satellite weight — sized for the leverage and AI-deal concentration risk, not as a core holding.';
+    }
+    input.addEventListener('input', render);
+    render();
+  })();
+</script>
+</body>
+</html>

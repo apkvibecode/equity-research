@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — DIS · Walt Disney</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fcfcfb; --surface:#ffffff; --surface2:#f1f2ee; --ink:#101820; --muted:#5b6570; --line:#dde0d8;
+  --navy:#0f2a44; --navy2:#16395c; --gold:#a67c2e; --gold-bg:#fdf6e3; --red:#9e2b25; --green:#1a6b4a; --green-bg:#e6f2ec;
+  --amber-bg:#fef3c7; --chip:#eef1ea;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0d1117; --surface:#151b24; --surface2:#1b2430; --ink:#eef1f4; --muted:#9aa6b2; --line:#2a3542; --navy:#dbeafe; --gold:#d4a94e; --gold-bg:#2a2413; --green-bg:#142e22; --amber-bg:#2f2810; --chip:#1e2a36; }
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.55}
+a{color:var(--navy2)} @media(prefers-color-scheme:dark){a{color:#8ab4e6}}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+.topbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--line);font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.topbar strong{color:var(--ink)}
+.hero{padding:28px 0 8px;display:grid;grid-template-columns:1.5fr .9fr;gap:28px}
+@media(max-width:760px){.hero{grid-template-columns:1fr}}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h1{font-family:"Fraunces",Georgia,serif;font-weight:900;font-size:clamp(36px,6vw,58px);line-height:.95;margin:8px 0 10px;letter-spacing:-.02em}
+h1 span{font-weight:700;font-size:.55em;display:block;letter-spacing:0;margin-top:6px;color:var(--muted)}
+.lede{font-size:17px;color:var(--muted);max-width:62ch;margin:0}
+.pricecard{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--navy);padding:18px;border-radius:6px}
+.price{font-family:"IBM Plex Mono",monospace;font-size:42px;font-weight:600;line-height:1}
+.price small{font-size:14px;color:var(--muted)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}
+@media(max-width:760px){.grid4{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px}
+.stat b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.stat strong{font-family:"IBM Plex Mono",monospace;font-size:22px}
+.stat p{margin:4px 0 0;font-size:12.5px;color:var(--muted)}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:18px 0}
+@media(max-width:700px){.verdict{grid-template-columns:1fr}}
+.verdict div{padding:16px;background:var(--surface)}
+.verdict div+div{border-left:1px solid var(--line)} @media(max-width:700px){.verdict div+div{border-left:none;border-top:1px solid var(--line)}}
+.verdict .hold{background:var(--amber-bg)} .verdict .buy{background:var(--green-bg)}
+.verdict h3{margin:0 0 4px;font-size:12px;letter-spacing:.1em;text-transform:uppercase} .verdict p{margin:0;font-weight:700;font-size:18px} .verdict span{font-size:13px;color:var(--muted);font-weight:400;display:block;margin-top:2px}
+h2{font-family:"Fraunces",Georgia,serif;font-size:28px;margin:36px 0 6px;line-height:1.1} h2 i{font-style:normal;color:var(--gold);font-family:"IBM Plex Mono",monospace;font-size:18px;vertical-align:super;margin-right:6px}
+.sub{color:var(--muted);margin:0 0 14px;max-width:70ch}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:760px){.cols{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px}
+.card h3{margin:0 0 8px;font-size:15px} .card ul{margin:0;padding-left:18px} .card li{margin:6px 0;font-size:14.5px}
+table{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1px solid var(--line)}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top} th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--surface2)}
+td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;white-space:nowrap}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:99px;background:var(--chip);border:1px solid var(--line)}
+.tag.est{background:var(--gold-bg);color:var(--gold);border-color:var(--gold)}
+.note{font-size:13px;color:var(--muted);border-left:3px solid var(--gold);padding:8px 12px;background:var(--gold-bg);margin:12px 0}
+.seg{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.seg span{flex:1;min-width:150px;padding:12px;border-radius:6px;color:#fff}
+.seg .a{background:#0f2a44}.seg .b{background:#5b4a1f}.seg .c{background:#1a6b4a}
+.seg b{display:block;font-size:13px}.seg small{opacity:.85;font-size:12px;line-height:1.3;display:block}
+.bars{margin:14px 0}.bar-row{display:grid;grid-template-columns:110px 1fr 70px;gap:10px;align-items:center;margin:8px 0;font-size:13px}
+.bar{height:14px;background:var(--surface2);border:1px solid var(--line);border-radius:99px;overflow:hidden}.bar i{display:block;height:100%}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px} @media(max-width:760px){.calc{grid-template-columns:1fr}}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+button{font:inherit;font-weight:600;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:9px 14px;border-radius:99px;cursor:pointer}
+button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)} @media(prefers-color-scheme:dark){button[aria-pressed="true"]{background:#e8eef5;color:#0d1117}}
+input[type=number]{width:100%;padding:11px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:inherit}
+.bigout{font-family:"IBM Plex Mono",monospace;font-size:28px}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)} footer li{margin:5px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span><strong>COMMUNICATION SERVICES</strong> &nbsp;·&nbsp; NYSE: DIS</span><span>As of <strong>1 Nov 2026</strong> · Price ref: 30 Oct 2026 close</span><span>Mid-30s · Risk 8/10</span></div>
+
+  <section class="hero">
+    <div>
+      <div class="kicker">Equity Research — Sample Depth</div>
+      <h1>Walt Disney <span>DIS — Parks cash engine, DTC now profitable, ESPN going direct</span></h1>
+      <p class="lede">Disney is three businesses in one ticker: a studio + streaming group trying to prove DTC margins, a sports network rebuilding itself as a direct product, and an Experiences business — parks, cruises and resorts — that funds everything else. The investment question is whether DTC and ESPN DTC can compound fast enough to offset linear TV decline.</p>
+    </div>
+    <aside class="pricecard">
+      <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700">Last close — 30 Oct 2026</div>
+      <div class="price">$110.94 <small>/ share</small></div>
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--muted)">Market cap <strong style="color:var(--ink)">$191.6B</strong> (FinanceCharts: $191.559B). Ranking basis: FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. GOOGL counted once (GOOG excluded as duplicate class). SPCX (SpaceX) is listed on NASDAQ (IPO 12 June 2026) and ranks #2 in the sector.</p>
+    </aside>
+  </section>
+
+  <div class="grid4">
+    <div class="stat"><b>Trailing P/E</b><strong>22.36×</strong><p>Finnhub — indicative</p></div>
+    <div class="stat"><b>EPS (as supplied)</b><strong>$6.85</strong><p>Finnhub — indicative</p></div>
+    <div class="stat"><b>Revenue TTM</b><strong>~$95B</strong><p><span class="tag est">ESTIMATE</span> Not re-verified in log</p></div>
+    <div class="stat"><b>Operating margin</b><strong>15–18%</strong><p><span class="tag est">ESTIMATE</span> Range, not verified</p></div>
+  </div>
+
+  <div class="verdict">
+    <div class="hold"><h3>Short term · 12–18 mo</h3><p>HOLD</p><span>Modelled base $130 vs $110.94 today — upside exists, but execution on DTC/ESPN has to show up first.</span></div>
+    <div class="buy"><h3>Long term · 5 years</h3><p>BUY</p><span>Modelled weighted $218 (estimate) — driven by parks compounding + DTC margin, not multiple expansion alone.</span></div>
+    <div><h3>Suggested weight</h3><p>2% of portfolio</p><span>For a mid-30s, risk 8/10 profile — a quality compounder sleeve, not a core AI holding.</span></div>
+  </div>
+  <div class="note"><strong>How to read the numbers:</strong> Price, market cap, P/E and EPS above are the confirmed pack values. Revenue TTM and margin are explicitly labelled <strong>ESTIMATE</strong> — the verification log did not re-verify them. Precise debt-to-equity was <strong>not verified</strong>, so no D/E ratio is presented as fact below. Every scenario price is a <strong>modelled estimate</strong> with its maths shown.</div>
+
+  <h2><i>01</i>Business Model &amp; Segment Breakdown</h2>
+  <p class="sub">Three reportable engines, one IP library feeding all of them.</p>
+  <div class="seg">
+    <span class="a"><b>Entertainment</b><small>Studios + DTC: Disney+, Hulu, ESPN+ (legacy bundle). The pivot is DTC profitability over raw subscriber adds.</small></span>
+    <span class="b"><b>Sports</b><small>ESPN — linear rights + the new ESPN direct-to-consumer product. Rights costs are the swing factor.</small></span>
+    <span class="c"><b>Experiences</b><small>Parks, cruises, resorts. Described in the pack as “the cash engine” — pricing power + fleet/park capex.</small></span>
+  </div>
+  <div class="cols">
+    <div class="card"><h3>Geography &amp; footprint</h3><ul><li><strong>US-heavy</strong> revenue base, per the pack.</li><li>International parks: Paris (owned), Hong Kong and Shanghai (joint ventures), Tokyo under licence — so international park economics are not all fully consolidated the same way.</li><li>Cruise fleet expansion extends Experiences beyond fixed park geography.</li></ul></div>
+    <div class="card"><h3>Structural pivots &amp; dependencies</h3><ul><li><strong>Pivot 1:</strong> DTC — from subscriber growth to profitability and margin.</li><li><strong>Pivot 2:</strong> ESPN DTC — turning a declining linear bundle asset into a direct subscription product.</li><li><strong>Pivot 3:</strong> Experiences capex — parks and cruise investment as the long-duration growth bet.</li><li><strong>Dependencies:</strong> hit content to feed studios → DTC → parks; sports-rights renewals; consumer travel demand.</li></ul></div>
+  </div>
+
+  <h2><i>02</i>Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <p class="sub">Valuation is undemanding versus Disney’s history, but the balance-sheet detail in this pack is deliberately thin — and labelled as such.</p>
+  <table>
+    <tr><th>Metric</th><th>Value</th><th>Reading</th></tr>
+    <tr><td>Price (30 Oct 2026)</td><td class="num">$110.94</td><td>Confirmed — Finnhub / FinanceCharts</td></tr>
+    <tr><td>Market cap</td><td class="num">$191.6B</td><td>FinanceCharts $191.559B</td></tr>
+    <tr><td>P/E / EPS</td><td class="num">22.36× / $6.85</td><td>Finnhub, indicative — do not mix EPS definitions across vendors</td></tr>
+    <tr><td>Revenue TTM</td><td class="num">~$95B</td><td><span class="tag est">ESTIMATE</span> — not re-verified</td></tr>
+    <tr><td>Operating margin</td><td class="num">15–18%</td><td><span class="tag est">ESTIMATE</span> — range only</td></tr>
+    <tr><td>Dividend / buybacks</td><td class="num">Resumed / ongoing</td><td>Per pack — capital return has restarted alongside deleveraging</td></tr>
+    <tr><td>Leverage</td><td class="num">Elevated, deleveraging</td><td>Debt elevated from the Fox deal, now deleveraging. Precise D/E <strong>not verified</strong> — omitted rather than guessed.</td></tr>
+  </table>
+  <p style="font-size:14px">Capital allocation in one line: fund Experiences and DTC investment first, keep reducing Fox-era leverage, and return the remainder via the resumed dividend and ongoing buybacks. Free-cash-flow and EV/EBITDA figures were not supplied as verified values for DIS in this pack, so they are not invented here.</p>
+
+  <h2><i>03</i>Competitive Moat &amp; Industry Positioning</h2>
+  <div class="cols">
+    <div class="card"><h3>Where the moat is real</h3><ul><li><strong>IP library:</strong> Marvel, Star Wars, Pixar and Disney animation — franchises that monetise across film, streaming, parks and merchandise in a way rivals cannot copy quickly.</li><li><strong>Parks scarcity:</strong> land, brand and decades of capex create a physical moat; a new entrant cannot replicate the Experiences footprint.</li><li><strong>ESPN rights:</strong> live sports rights remain scarce attention — if ESPN DTC retains them, churn economics differ from general entertainment.</li><li><strong>Pricing power:</strong> clearest in Experiences (ticket, hotel, cruise pricing); weakest in DTC, where price rises are tested against Netflix/YouTube alternatives.</li></ul></div>
+    <div class="card"><h3>Competitors</h3><ul><li><strong>Streaming / attention:</strong> Netflix, Amazon, YouTube</li><li><strong>Studios + parks:</strong> Comcast / NBCUniversal</li><li><strong>Studios + DTC:</strong> Warner Bros Discovery</li></ul><p style="font-size:13.5px;color:var(--muted)">Barriers are IP and physical assets, not technology alone — which is why content execution (hit rate) matters more for Disney than for a pure platform.</p></div>
+  </div>
+
+  <h2><i>04</i>Catalysts &amp; Downside Risks</h2>
+  <div class="cols">
+    <div class="card"><h3>Catalysts</h3><ul><li>DTC margin expansion proving the pivot</li><li>ESPN direct-to-consumer launch and retention</li><li>Cruise fleet additions feeding Experiences growth</li><li>Parks pricing holding without volume loss</li></ul></div>
+    <div class="card"><h3>Risks</h3><ul><li>Box-office volatility — a weak slate hits studios and DTC simultaneously</li><li>Linear TV decline outpacing DTC growth</li><li>Sports-rights inflation compressing Sports margins</li><li>Consumer travel slowdown hitting Experiences</li><li>Succession and content-execution risk at the top</li></ul></div>
+  </div>
+
+  <h2><i>05</i>Scenario-Based Valuation &amp; Price Targets</h2>
+  <p class="sub">All targets below are <strong>modelled estimates</strong>, not verified facts and not guarantees. Methodology is shown so the arithmetic can be checked. Weights for the 5-year model: Base 50% / Bull 25% / Bear 25%.</p>
+
+  <h3 style="margin:18px 0 8px">12–18 month horizon — modelled</h3>
+  <table>
+    <tr><th>Case</th><th class="num">Target</th><th class="num">vs $110.94</th><th>Note</th></tr>
+    <tr><td>Bear</td><td class="num">$95</td><td class="num">−14%</td><td>Linear decline + soft travel</td></tr>
+    <tr><td>Base</td><td class="num">$130</td><td class="num">+17%</td><td>Close to StockAnalysis consensus ~$128.75 cited via TipRanks snippet in the pack</td></tr>
+    <tr><td>Bull</td><td class="num">$155</td><td class="num">+40%</td><td>DTC margin + ESPN DTC traction</td></tr>
+    <tr><td><strong>Weighted (50/25/25)</strong></td><td class="num"><strong>$127.50</strong></td><td class="num">+15%</td><td>0.50×130 + 0.25×155 + 0.25×95 — modelled estimate</td></tr>
+  </table>
+
+  <h3 style="margin:22px 0 8px">5-year projection — frozen-parameter model (modelled estimate)</h3>
+  <p style="font-size:14px;margin:0 0 8px">Starting point in the model: 2026E revenue <strong>$96B</strong>, shares <strong>1.73B</strong> (cap ÷ price). Each case holds its margin and exit P/E as shown; only revenue CAGR, margin, share count and multiple vary by case.</p>
+  <table>
+    <tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 Revenue</th><th class="num">Net margin</th><th class="num">EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr>
+    <tr><td>Base (50%)</td><td class="num">6%</td><td class="num">$129B</td><td class="num">14%</td><td class="num">$10.60</td><td class="num">20×</td><td class="num"><strong>$212</strong></td></tr>
+    <tr><td>Bull (25%)</td><td class="num">9%</td><td class="num">$148B</td><td class="num">17%</td><td class="num">$15.00</td><td class="num">24×</td><td class="num"><strong>$360</strong></td></tr>
+    <tr><td>Bear (25%)</td><td class="num">2%</td><td class="num">$106B</td><td class="num">10%</td><td class="num">$6.13</td><td class="num">14×</td><td class="num"><strong>$86</strong></td></tr>
+    <tr><td colspan="6"><strong>Probability-weighted (0.50×212 + 0.25×360 + 0.25×86)</strong></td><td class="num"><strong>$218</strong></td></tr>
+  </table>
+  <p style="font-size:13px;color:var(--muted)">Check the Base maths: $129B × 14% = $18.0B net income ÷ 1.70B shares = $10.6 EPS × 20 = $212. Bull: $148B × 17% ÷ 1.68B = $15.0 × 24 = $360. Bear: $106B × 10% ÷ 1.73B = $6.13 × 14 = $86.</p>
+
+  <div class="bars" aria-label="2031 revenue by scenario">
+    <div class="bar-row"><span>Bear · $106B</span><div class="bar"><i style="width:72%;background:#9e2b25"></i></div><b>$86</b></div>
+    <div class="bar-row"><span>Base · $129B</span><div class="bar"><i style="width:87%;background:#0f2a44"></i></div><b>$212</b></div>
+    <div class="bar-row"><span>Bull · $148B</span><div class="bar"><i style="width:100%;background:#1a6b4a"></i></div><b>$360</b></div>
+  </div>
+
+  <div class="calc">
+    <div class="card">
+      <h3>Explore a scenario</h3>
+      <div class="btns" role="group" aria-label="Scenario">
+        <button id="bBear" aria-pressed="false" onclick="setCase('bear')">Bear</button>
+        <button id="bBase" aria-pressed="true" onclick="setCase('base')">Base</button>
+        <button id="bBull" aria-pressed="false" onclick="setCase('bull')">Bull</button>
+      </div>
+      <p id="caseText" style="font-size:14.5px;margin:6px 0"></p>
+      <p style="font-size:12.5px;color:var(--muted)">Modelled estimate — changing the case changes the inputs, not a forecast.</p>
+    </div>
+    <div class="card">
+      <h3>Position sizer — 2% suggested weight</h3>
+      <label for="pf" style="font-size:13px;font-weight:600">Total portfolio ($)</label>
+      <input id="pf" type="number" value="500000" min="0" step="1000" oninput="sizePos()">
+      <p style="margin:12px 0 2px">At 2%: <span class="bigout" id="alloc">$10,000</span></p>
+      <p style="margin:0;font-size:13.5px;color:var(--muted)">≈ <span id="shares">90</span> shares at $110.94. Illustrative only — not investment advice.</p>
+    </div>
+  </div>
+
+  <h2><i>06</i>Recommendation in Plain Terms</h2>
+  <div class="card">
+    <p style="margin:0;font-size:15px"><strong>Short term — HOLD.</strong> The modelled base case ($130) offers ~17% upside, but it depends on DTC margin and ESPN DTC evidence that has not yet printed. <strong>Long term — BUY</strong> in modest size: the 5-year weighted model ($218, estimate) is powered by Experiences compounding and DTC margin, with the IP library as downside protection. At <strong>2%</strong> of a risk-8/10 portfolio, Disney adds a non-AI, cash-generative diversifier — sized so a weak box-office cycle or a travel slowdown cannot dominate the portfolio outcome.</p>
+  </div>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — DIS (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $110.94.</strong> <strong>DCF intrinsic: $64.</strong> Discount/premium vs DCF: <strong>+73.3%</strong> — i.e. the shares are trading 73.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$64</td><td>+73.3%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $8.29bn. TTM FCF (TipRanks/Fool: OCF $16.99bn - capex $8.70bn = $8.29bn). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $68.0bn + PV of terminal value $84.22bn + net cash $-40.86bn, divided by 1.727bn diluted shares = <strong>$64</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.TipRanks.com/stocks/dis/statistics</li><li>Annual dividend $1.50 (2 x $0.75; MarketBeat yield 1.35% x $110.94; Forbes DPS 1.50). Note: TipRanks trailing $0.75 reflects a single semi-annual payment, not the annual rate.</li><li>https://twelvedata.com/markets/441722/stock/nyse/dis/statistics</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Customers — DIS (B2C note)</h2>
+<p>Consumer-facing: no top-7 business-customer list. Revenue comes from households (streaming subscriptions, parks and cruises, studio content) and advertisers, with no single business customer disclosed above 10%. Key demand drivers: parks attendance and pricing, direct-to-consumer profitability, and sports-rights and studio-slates performance.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — DIS</h2>
+<p><strong>Role: Low exposure / At-risk at the margin.</strong> Disney's AI exposure is content and distribution efficiency, not infrastructure: the pack's thesis is DTC profitability, ESPN direct-to-consumer and parks, with AI a cost and personalisation tool rather than a revenue line.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows modestly through DTC recommendation and ad targeting; the multiple is supported by parks cash flow and DTC margin, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in advertising and consumer travel if the unwind becomes a consumer downturn; then the multiple compresses toward a through-cycle media multiple; then the balance sheet — debt $46.0bn against cash $5.2bn — limits parks/cruise capex flexibility. Watch: DTC margin, parks attendance, and any AI-driven content-cost or rights-cost inflation.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+    <strong style="color:var(--ink)">Sources &amp; verification</strong>
+    <ul>
+      <li>Price $110.94 (30 Oct 2026) — Finnhub: <a href="https://finnhub.io/?q=%22DIS%22">finnhub.io/?q="DIS"</a> — confirmed in the independent verification log (FinanceCharts / Finnhub).</li>
+      <li>Market cap &amp; sector ranking basis — FinanceCharts biggest-companies / Communication Services, last updated 30 Oct 2026: <a href="https://www.financecharts.com/sectors/communication_services">financecharts.com/sectors/communication_services</a></li>
+      <li>12–18 mo consensus reference ~$128.75 — StockAnalysis consensus as cited in a TipRanks snippet in the research pack (no direct URL supplied in the pack; shown as a reference point only).</li>
+      <li>Revenue TTM (~$95B) and operating margin (15–18%) are labelled ESTIMATE — not re-verified in the log. Precise D/E not verified and therefore omitted. All scenario prices are modelled estimates with methodology shown above.</li>
+    </ul>
+    <p>Research views only, as of 1 Nov 2026 — not guarantees and not investment advice. Verify prices before acting; markets were closed on 1 Nov 2026 (weekend), so the reference price is the 30 Oct 2026 close.</p>
+  </footer>
+</div>
+<script>
+var CASES={
+ bear:{rev:"$106B",cagr:"2%",margin:"10%",eps:"$6.13",pe:"14×",price:"$86",text:"Bear — $86: 2% revenue CAGR to $106B, 10% margin, $6.13 EPS at 14×. The world where linear decline and a travel soft patch overwhelm DTC progress."},
+ base:{rev:"$129B",cagr:"6%",margin:"14%",eps:"$10.60",pe:"20×",price:"$212",text:"Base — $212: 6% revenue CAGR to $129B, 14% margin, $10.60 EPS at 20×. Parks compound steadily and DTC margin does the rest."},
+ bull:{rev:"$148B",cagr:"9%",margin:"17%",eps:"$15.00",pe:"24×",price:"$360",text:"Bull — $360: 9% revenue CAGR to $148B, 17% margin, $15.00 EPS at 24×. ESPN DTC works, DTC margins surprise, and Experiences pricing holds."}
+};
+function setCase(k){
+  ["bear","base","bull"].forEach(function(x){document.getElementById("b"+x.charAt(0).toUpperCase()+x.slice(1)).setAttribute("aria-pressed", x===k?"true":"false");});
+  document.getElementById("caseText").textContent=CASES[k].text;
+}
+function sizePos(){
+  var v=parseFloat(document.getElementById("pf").value)||0;
+  var a=v*0.02;
+  document.getElementById("alloc").textContent="$"+a.toLocaleString("en-US",{maximumFractionDigits:0});
+  document.getElementById("shares").textContent=Math.floor(a/110.94).toLocaleString("en-US");
+}
+setCase("base"); sizePos();
+</script>
+</body>
+</html>

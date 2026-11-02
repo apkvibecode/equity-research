@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — SHEL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#f7f5f0; --paper:#fffdf8; --ink:#131a24; --ink2:#3d4756; --muted:#6b7686;
+  --line:#ddd6c8; --line2:#c9c0ab;
+  --navy:#0d2b52; --blue:#0b5cad; --blue-soft:#e3edf7;
+  --green:#0e6b3a; --green-soft:#e2f0e6; --red:#a4231c; --red-soft:#f7e4e1;
+  --amber:#8a5a00; --amber-soft:#f6ecd2; --gold:#b8860b;
+  --card:#ffffff; --chip:#efece3;
+  --shadow:0 1px 2px rgba(19,26,36,.06),0 8px 24px rgba(19,26,36,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1116; --paper:#141922; --ink:#e8e6df; --ink2:#b9c0cc; --muted:#8b94a3;
+    --line:#2a3140; --line2:#3a4356;
+    --navy:#9db9dd; --blue:#6aa8e8; --blue-soft:#1b2a3f;
+    --green:#5fc98b; --green-soft:#17301f; --red:#e88a80; --red-soft:#3a1e1a;
+    --amber:#e0aa4e; --amber-soft:#332a14; --gold:#d9a441;
+    --card:#171d28; --chip:#1e2634;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Archivo",system-ui,sans-serif;font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+a:hover{text-decoration:underline}
+.mono{font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 64px}
+.masthead{border-bottom:3px double var(--line2);padding:26px 0 16px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:700;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.masthead h1{font-family:"Newsreader",serif;font-size:clamp(30px,5.4vw,46px);line-height:1.05;font-weight:700;margin:10px 0 6px;letter-spacing:-.01em}
+.masthead h1 .tick{color:var(--blue)}
+.lede{font-size:16.5px;color:var(--ink2);max-width:78ch;margin:0}
+.byline{margin-top:12px;font-size:12.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.byline b{color:var(--ink2)}
+.tabs{display:flex;gap:6px;margin:18px 0 0;flex-wrap:wrap}
+.tab{font:600 13px "Archivo",sans-serif;padding:8px 14px;border:1px solid var(--line2);border-radius:999px;background:var(--card);color:var(--ink2)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media (prefers-color-scheme: dark){.tab.active{color:#0e1116}}
+.tab.soon{opacity:.55;border-style:dashed}
+.verdict{margin-top:18px;background:var(--paper);border:1px solid var(--line2);box-shadow:var(--shadow);display:grid;grid-template-columns:repeat(12,1fr)}
+.vcell{padding:14px 16px;border-right:1px solid var(--line)}
+.vcell:last-child{border-right:0}
+.vlabel{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.vbig{font-family:"Newsreader",serif;font-size:26px;font-weight:700;line-height:1.15;margin-top:2px}
+.vsub{font-size:12.5px;color:var(--ink2)}
+.up{color:var(--green)} .down{color:var(--red)}
+.span3{grid-column:span 3}.span4{grid-column:span 4}.span2{grid-column:span 2}.span6{grid-column:span 6}
+@media (max-width:760px){.verdict{grid-template-columns:repeat(6,1fr)}.span3,.span4,.span2{grid-column:span 3}.span6{grid-column:span 6}.vcell{border-bottom:1px solid var(--line)}}
+nav.toc{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line2);margin-top:22px;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.toc::-webkit-scrollbar{display:none}
+nav.toc a{white-space:nowrap;font-size:12.5px;font-weight:600;color:var(--ink2);padding:10px 11px;border-bottom:2px solid transparent}
+nav.toc a:hover{text-decoration:none;color:var(--ink)}
+section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--gold);font-weight:600}
+h2{font-family:"Newsreader",serif;font-size:26px;font-weight:700;margin:0;line-height:1.15}
+h3{font-size:15px;font-weight:800;letter-spacing:.01em;margin:20px 0 6px}
+p{margin:8px 0;color:var(--ink2)}
+p b,li b{color:var(--ink)}
+ul{margin:6px 0 10px;padding-left:20px;color:var(--ink2)}
+li{margin:4px 0}
+.callout{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;margin:14px 0;box-shadow:var(--shadow)}
+.callout .ct{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;color:var(--blue);margin-bottom:4px}
+.callout p{margin:4px 0}
+.warn .ct{color:var(--amber)} .bad .ct{color:var(--red)} .good .ct{color:var(--green)}
+.tblwrap{overflow-x:auto;margin:12px 0;border:1px solid var(--line2);background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;padding:9px 12px;border-bottom:2px solid var(--line2);background:var(--paper)}
+td{padding:8px 12px;border-bottom:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td:first-child{color:var(--ink);font-weight:600}
+tr.hl td{background:var(--blue-soft);color:var(--ink)}
+tr.total td{border-top:2px solid var(--line2);font-weight:700;color:var(--ink)}
+caption{caption-side:top;text-align:left;font-size:12px;color:var(--muted);padding:8px 12px 0}
+.small{font-size:12.5px;color:var(--muted)}
+.bars{margin:12px 0}
+.bar-row{display:grid;grid-template-columns:170px 1fr 92px;gap:10px;align-items:center;margin:6px 0;font-size:13px}
+.bar-row .bl{font-weight:600;color:var(--ink)}
+.bar-track{height:16px;background:var(--chip);position:relative}
+.bar-fill{height:100%;background:var(--blue)}
+.bar-fill.gold{background:var(--gold)} .bar-fill.green{background:var(--green)} .bar-fill.neg{background:var(--red)}
+.bar-row .bv{font-family:"IBM Plex Mono",monospace;text-align:right;font-size:12.5px}
+.geo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.geo{grid-template-columns:1fr}.bar-row{grid-template-columns:120px 1fr 78px}}
+figure{margin:14px 0;background:var(--card);border:1px solid var(--line2);padding:14px}
+figcaption{font-size:12px;color:var(--muted);margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+.proscons{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media (max-width:760px){.proscons{grid-template-columns:1fr}}
+.pc{border:1px solid var(--line2);background:var(--paper);padding:12px 14px}
+.pc h4{margin:0 0 6px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.pc.bull h4{color:var(--green)} .pc.bear h4{color:var(--red)}
+.pc ul{margin:0;padding-left:18px;font-size:13.5px}
+.scen{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}
+@media (max-width:760px){.scen{grid-template-columns:1fr}}
+.sc{border:1px solid var(--line2);background:var(--paper);padding:14px 16px;box-shadow:var(--shadow)}
+.sc .tag{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.sc .price{font-family:"Newsreader",serif;font-size:34px;font-weight:700;line-height:1.1;margin:4px 0 2px}
+.sc .ret{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600}
+.sc p{font-size:13px;margin:6px 0 0}
+.sc.bear{border-top:4px solid var(--red)} .sc.base{border-top:4px solid var(--blue)} .sc.bull{border-top:4px solid var(--green)}
+.wtd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--navy);color:#fff;padding:14px 16px;margin:12px 0}
+@media (prefers-color-scheme: dark){.wtd{background:#1b2a3f;color:var(--ink)}}
+.wtd .wv{font-family:"Newsreader",serif;font-size:30px;font-weight:700}
+.wtd p{color:inherit;opacity:.85;margin:0;font-size:13px;max-width:62ch}
+.toggle{display:inline-flex;border:1px solid var(--line2);border-radius:999px;overflow:hidden;margin:8px 0}
+.toggle button{font:600 12.5px "Archivo",sans-serif;border:0;background:var(--card);color:var(--ink2);padding:7px 14px;cursor:pointer}
+.toggle button.on{background:var(--navy);color:#fff}
+@media (prefers-color-scheme: dark){.toggle button.on{color:#0e1116}}
+.calc{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:10px 0}
+.calc label{font-size:12px;font-weight:700;color:var(--muted);display:block;letter-spacing:.06em;text-transform:uppercase}
+.calc input{font:600 15px "IBM Plex Mono",monospace;padding:9px 11px;border:1px solid var(--line2);background:var(--card);color:var(--ink);width:170px;margin-top:4px}
+.calc .out{font-size:14px;color:var(--ink2)}
+.calc .out b{color:var(--ink)}
+.pill{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:999px;text-transform:uppercase}
+.pill.buy{background:var(--green-soft);color:var(--green)}
+.pill.hold{background:var(--amber-soft);color:var(--amber)}
+.pill.trim{background:var(--red-soft);color:var(--red)}
+.badge-unv{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.08em;padding:2px 8px;border-radius:999px;background:var(--amber-soft);color:var(--amber);text-transform:uppercase;vertical-align:middle}
+footer{margin-top:34px;border-top:3px double var(--line2);padding-top:14px}
+.refs{columns:2;column-gap:28px;font-size:13px}
+@media (max-width:760px){.refs{columns:1}}
+.refs li{margin:5px 0;break-inside:avoid}
+.disc{font-size:12px;color:var(--muted);margin-top:16px;max-width:88ch}
+@media print{nav.toc{position:static} body{background:#fff} section{break-inside:avoid-page}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <div class="kicker"><span>Equity Research · Energy</span><span>Integrated Oil, Gas &amp; LNG</span></div>
+  <h1>Shell plc <span class="tick">(NYSE: SHEL)</span></h1>
+  <p class="lede">An integrated energy major priced like a declining commodity producer — about 11.9× earnings and roughly 1.0× sales on the research pack's figures — while still converting a single quarter into $21B of operating cash flow and $16.3B of free cash flow. The debate is not whether Shell generates cash today; it is whether LNG growth, chemicals recovery and buybacks can outrun oil-price, European regulatory and transition-capex risk.</p>
+  <div class="byline">
+    <span><b>As of:</b> Sunday, 1 Nov 2026</span>
+    <span><b>Price reference:</b> $108.69 — 30 Oct 2026 close <span class="badge-unv">Unverified — see note</span></span>
+    <span><b>Latest context:</b> Q3 2026 cash-flow figures via Zacks coverage</span>
+    <span><b>Horizon:</b> 12–18 months + 5-year model</span>
+  </div>
+  <div class="tabs" aria-label="Coverage universe">
+    <span class="tab active">SHEL — this report</span>
+    <span class="tab soon">Energy peers in this series: XOM · CVX · COP · MPC + global names — see ranking note in §1</span>
+  </div>
+</header>
+
+<div class="verdict" role="region" aria-label="Key figures">
+  <div class="vcell span3"><div class="vlabel">Price · 30 Oct close *</div><div class="vbig mono">$108.69</div><div class="vsub">Research-pack figure; not re-checked in the independent verification pass</div></div>
+  <div class="vcell span3"><div class="vlabel">Market cap (ranking basis) *</div><div class="vbig mono">$308.8B</div><div class="vsub">Motley Fool ranking figure. Finnhub ADR figure is $229.5B — see §2 for why they differ</div></div>
+  <div class="vcell span3"><div class="vlabel">Valuation · P/E / P/S *</div><div class="vbig mono">11.9× / ~1.0×</div><div class="vsub">P/E via Finnhub; P/S on Fool market cap vs $296.6B TTM revenue</div></div>
+  <div class="vcell span3"><div class="vlabel">Q3 cash generation</div><div class="vbig mono">$16.3B FCF</div><div class="vsub">Operating cash flow $21B in the quarter (Zacks context)</div></div>
+  <div class="vcell span4"><div class="vlabel">Short term (12–18 mo)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Base-case modelled target $120 (+10%) — estimate, §5. Cash generation supports the call; oil price is the swing factor.</div></div>
+  <div class="vcell span4"><div class="vlabel">Long term (5 yr)</div><div class="vbig" style="font-size:21px">BUY <span class="pill buy">Buy</span></div><div class="vsub">Modelled weighted 5-yr value ≈ $119 — estimate with assumptions shown in §5.</div></div>
+  <div class="vcell span4"><div class="vlabel">Sizing · mid-30s, risk 8/10</div><div class="vbig" style="font-size:21px">2.0% of portfolio</div><div class="vsub">Energy diversifier, not a core compounder at this weight. See §6.</div></div>
+</div>
+<p class="small" style="margin-top:8px">* Verification status: the independent verification log for this sector explicitly lists SHEL price, market cap and P/E as <b>not re-checked</b> in its pass. They are shown here as research-pack figures and labelled unverified — not as independently verified facts. All scenario prices are modelled estimates, never verified facts.</p>
+
+<nav class="toc" id="toc">
+  <a href="#snapshot">Snapshot</a><a href="#business">1 · Business model</a><a href="#financials">2 · Financial health</a><a href="#moat">3 · Moat</a><a href="#catalysts">4 · Catalysts &amp; risks</a><a href="#valuation">5 · Valuation &amp; targets</a><a href="#recommendation">6 · Recommendation &amp; sizing</a><a href="#sources">Sources</a>
+</nav>
+
+<section id="snapshot">
+  <div class="sec-head"><span class="sec-num">SNAPSHOT</span><h2>The story in one view</h2></div>
+  <p>Shell is an <b>integrated</b> major: upstream oil and gas, LNG, chemicals and products, marketing, and renewables, operating in <b>70+ countries</b> with <b>2.8 million barrels of oil equivalent per day</b> of production in 2025 (Motley Fool, via the research pack). Integration is the whole investment case — when crude weakens, refining, chemicals, marketing and LNG trading can cushion; when crude strengthens, upstream captures it. Q3 illustrated the cushion: <b>Chemicals &amp; Products adjusted earnings were $3.9B, up from $2.9B in the prior quarter</b>, alongside group operating cash flow of $21B.</p>
+  <div class="bars" aria-label="Cash and scale bars">
+    <div class="bar-row"><span class="bl">TTM revenue</span><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><span class="bv">$296.6B</span></div>
+    <div class="bar-row"><span class="bl">TTM gross profit</span><div class="bar-track"><div class="bar-fill gold" style="width:18%"></div></div><span class="bv">$52.3B</span></div>
+    <div class="bar-row"><span class="bl">Q3 operating cash flow</span><div class="bar-track"><div class="bar-fill green" style="width:7%"></div></div><span class="bv">$21.0B</span></div>
+    <div class="bar-row"><span class="bl">Q3 free cash flow</span><div class="bar-track"><div class="bar-fill green" style="width:5.5%"></div></div><span class="bv">$16.3B</span></div>
+  </div>
+  <p class="small">Bar widths are scaled to TTM revenue for visual comparison only — quarterly cash-flow figures and trailing-twelve-month revenue are different periods and should not be annualised from this chart. TTM revenue and gross profit: Motley Fool via research pack. Q3 OCF/FCF: Zacks context via research pack. Gross margin implied by the pack figures is $52.3B ÷ $296.6B ≈ 17.6% (calculated).</p>
+  <div class="callout warn"><div class="ct">Ranking basis — read this before comparing market caps</div>
+  <p>This series ranks the Energy universe as a <b>global top 10 by market cap (Motley Fool, metrics as of 2 Oct 2026; prices at the 30 Oct 2026 close)</b>, including state-controlled issuers. A NYSE/Nasdaq-only list would differ. The list as printed is <b>not in strict market-cap order</b>, and ranking metrics and prices are date-stamped separately (2 Oct vs 30 Oct) — so a name's rank and its 30 Oct market cap will not always line up. Shell itself is NYSE-listed and would survive a US-listed-only filter; the distinction is US-listed vs US-domiciled.</p></div>
+</section>
+
+<section id="business">
+  <div class="sec-head"><span class="sec-num">01</span><h2>Business Model &amp; Segment Breakdown</h2></div>
+  <p>Shell earns money at <b>every step of the hydrocarbon chain, plus a growing LNG and lower-carbon book</b>: it produces oil and gas, liquefies and trades gas globally, refines and makes chemicals, and sells fuels and products through one of the world's largest retail/marketing networks. The research pack describes the model in one line — <i>integrated oil, gas, LNG, chemicals, renewables; 70+ countries, 2.8m boe/d in 2025</i> — and that breadth is both the moat (§3) and the complexity discount in the multiple (§2).</p>
+
+  <h3>What the pack confirms — and what it does not split out</h3>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Building block</th><th class="n">Confirmed figure</th><th>Mechanics / read</th></tr></thead>
+    <tbody>
+      <tr><td>Group revenue (TTM)</td><td class="n">$296.6B</td><td>The scale base for the ~1.0× P/S. Commodity-linked: revenue moves with oil, gas and refining margins even when volumes are flat.</td></tr>
+      <tr><td>Group gross profit (TTM)</td><td class="n">$52.3B</td><td>≈17.6% implied gross margin (calculated from pack figures) — thin, as expected for an integrated major where most value sits in spreads, not manufacturing mark-up.</td></tr>
+      <tr><td>Production (2025)</td><td class="n">2.8m boe/d</td><td>Upstream volume anchor (Motley Fool via pack). Boe/d = barrels of oil equivalent per day, gas converted to oil-equivalent energy.</td></tr>
+      <tr><td>Chemicals &amp; Products — Q3 adj. earnings</td><td class="n">$3.9B</td><td>Up from $2.9B in the prior quarter (Zacks context via pack) — the clearest segment-level earnings datapoint in the pack, and evidence for the chemicals-recovery catalyst in §4.</td></tr>
+      <tr><td>Geographic footprint</td><td class="n">70+ countries</td><td>Global diversification of assets and demand — and, symmetrically, exposure to many fiscal and regulatory regimes (§4).</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small"><b>Open gap, stated plainly:</b> the research pack does not provide a segment-by-segment revenue split (Upstream vs Integrated Gas/LNG vs Chemicals &amp; Products vs Renewables) or a geographic revenue split for Shell. No split is invented here. The only segment earnings figure carried is Chemicals &amp; Products adjusted earnings above; treat any segment-mix percentages seen elsewhere as outside this note's verified base.</p>
+
+  <div class="geo">
+    <div>
+      <h3>Structural pivots in the model</h3>
+      <ul>
+        <li><b>LNG at the centre:</b> the pack names the LNG portfolio and trading as a core moat asset and LNG growth as a lead catalyst — gas, and especially liquefied gas sold globally, is positioned as the bridge business inside the portfolio.</li>
+        <li><b>Chemicals recovery as swing factor:</b> the jump from $2.9B to $3.9B in quarterly adjusted earnings shows how much group earnings can move when Chemicals &amp; Products recovers — and, in reverse, how much it can subtract in a downturn.</li>
+        <li><b>Transition capex discipline:</b> renewables sit inside the model, but the pack frames the risk as <i>discipline</i> — spending on transition assets must compete for capital with buybacks and the cash-generative core (§4).</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Dependencies that matter</h3>
+      <ul>
+        <li><b>Commodity prices first:</b> oil and gas prices are the single largest driver of revenue, cash flow and the share price — no operational improvement fully offsets a sustained price fall.</li>
+        <li><b>Refining &amp; chemicals margins:</b> downstream earnings depend on crack spreads and chemicals margins set by global supply/demand, not by Shell alone.</li>
+        <li><b>Host-government terms:</b> operating in 70+ countries means fiscal terms, windfall taxes and permits are set by others — concentrated in Europe for regulatory/windfall risk (§4).</li>
+        <li><b>Trading conditions:</b> the LNG/trading moat earns most when markets are volatile and dislocated; calm, well-supplied gas markets compress that edge.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="financials">
+  <div class="sec-head"><span class="sec-num">02</span><h2>Financial Health &amp; Balance Sheet Diagnostics</h2></div>
+  <p>The headline tension is <b>two different market caps</b>. For ranking the global Energy universe, the pack uses the <b>Motley Fool figure of $308.8B</b>. Finnhub's ADR-based figure is <b>$229.5B</b>. The pack attributes the gap to <b>ADR / share-class counting</b> — not to a change in the business — and directs: use the Fool figure for the universe ranking, Finnhub for the P/E. Every ratio below states which cap it uses, so the reader never mixes the two.</p>
+
+  <div class="toggle" role="group" aria-label="Market cap basis toggle">
+    <button id="btnFool" class="on" type="button">Fool cap — $308.8B (ranking basis)</button>
+    <button id="btnFinnhub" type="button">Finnhub ADR cap — $229.5B</button>
+  </div>
+  <div class="tblwrap"><table>
+    <caption>Valuation snapshot — price $108.69 (30 Oct 2026 close, research-pack figure, unverified). TTM = trailing twelve months.</caption>
+    <thead><tr><th>Metric</th><th class="n">Value</th><th>Diagnostic</th></tr></thead>
+    <tbody>
+      <tr><td>Trailing P/E</td><td class="n">11.9×</td><td>Via Finnhub (pack instruction). Single-digit-to-low-teens is the integrated-major zone — the market pays for cash return, not growth, in this sector. <span class="badge-unv">Unverified</span></td></tr>
+      <tr><td>Price / Sales (TTM)</td><td class="n" data-fool="~1.0×" data-finnhub="~0.8×">~1.0×</td><td data-fool="On Fool cap $308.8B ÷ $296.6B revenue ≈ 1.04× (calculated) — low in absolute terms, normal for a commodity-revenue business" data-finnhub="On Finnhub ADR cap $229.5B ÷ $296.6B revenue ≈ 0.77× (calculated) — the lower figure is an artefact of ADR counting, not extra cheapness">On Fool cap $308.8B ÷ $296.6B revenue ≈ 1.04× (calculated) — low in absolute terms, normal for a commodity-revenue business</td></tr>
+      <tr><td>Market cap used</td><td class="n" data-fool="$308.8B" data-finnhub="$229.5B">$308.8B</td><td data-fool="Motley Fool ranking figure — use for universe comparisons" data-finnhub="Finnhub ADR figure — pack attributes the $79.3B gap to ADR/share-class counting">Motley Fool ranking figure — use for universe comparisons</td></tr>
+      <tr><td>TTM revenue / gross profit</td><td class="n">$296.6B / $52.3B</td><td>Motley Fool via pack; implied gross margin ≈17.6% (calculated)</td></tr>
+      <tr><td>Q3 operating cash flow</td><td class="n">$21.0B</td><td>Zacks context via pack — a very strong single quarter of cash generation</td></tr>
+      <tr class="hl"><td>Q3 free cash flow</td><td class="n">$16.3B</td><td>OCF $21B − FCF $16.3B implies ≈$4.7B of capex/other deductions in the quarter (calculated) — an FCF conversion of ~78% of OCF for the quarter</td></tr>
+      <tr><td>Chemicals &amp; Products adj. earnings (Q3)</td><td class="n">$3.9B</td><td>Vs $2.9B in the prior quarter — +$1.0B quarter-on-quarter swing (Zacks context via pack)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout"><div class="ct">What the pack does not carry — omitted, not estimated</div>
+  <p>The research pack for Shell does <b>not</b> provide total debt, cash, net debt, debt-to-equity, dividend amount/yield, a buyback amount, or forward multiples (forward P/E, EV/EBITDA) or R&amp;D spend. Under this note's no-invention rule those lines are <b>omitted rather than filled with unverified figures</b>. That is a real limitation for a balance-sheet diagnostic: leverage cannot be scored from this pack, and any position should be re-checked against Shell's own filings before acting. What <i>can</i> be scored is cash generation — and on the Q3 figures carried ($21B OCF, $16.3B FCF), near-term cash health is strong.</p></div>
+
+  <h3>Capital allocation — what the pack supports</h3>
+  <ul>
+    <li><b>Buybacks are a named catalyst</b> in the pack (§4): continued repurchases alongside $16.3B of quarterly FCF would shrink the share count and support per-share value — but the pack carries no buyback amount or authorisation figure, so none is quoted.</li>
+    <li><b>Capex discipline is the competing claim on cash:</b> transition and LNG investment compete with shareholder returns; the pack flags <i>transition capex discipline</i> as a risk, i.e. overspending there directly reduces the cash available for returns.</li>
+    <li><b>Free-cash-flow first:</b> with a ~78% quarterly OCF-to-FCF conversion (calculated), the investment case rests on cash conversion staying high — that, not revenue growth, is the number to track each quarter.</li>
+  </ul>
+</section>
+
+<section id="moat">
+  <div class="sec-head"><span class="sec-num">03</span><h2>Competitive Moat &amp; Industry Positioning</h2></div>
+  <p><b>Moat rating (pack basis): real but commodity-bounded.</b> The pack names three moat sources — <b>LNG portfolio and trading, integrated scale, and marketing</b>. None of them lets Shell set the price of oil. What they do is let Shell <i>capture more of the value chain per barrel and per molecule</i> than a pure producer, and smooth earnings across the cycle.</p>
+  <div class="proscons">
+    <div class="pc bull"><h4>Moat strengths</h4><ul>
+      <li><b>LNG portfolio &amp; trading:</b> a global liquefaction, shipping and trading book can route cargoes to wherever price is highest — an optionality a fixed-asset producer does not have, and one that earns in volatile gas markets.</li>
+      <li><b>Integrated scale:</b> upstream, refining, chemicals and products under one balance sheet; downstream and chemicals can cushion upstream downturns — Q3's Chemicals &amp; Products recovery ($2.9B → $3.9B) is the pack's own example.</li>
+      <li><b>Marketing reach:</b> a retail and B2B marketing network across 70+ countries gives Shell a branded, customer-facing margin layer on top of commodity production.</li>
+      <li><b>Cash self-funding:</b> $16.3B of FCF in a single quarter (pack/Zacks) funds investment and returns without depending on capital markets — a durability advantage over smaller, leveraged producers.</li>
+    </ul></div>
+    <div class="pc bear"><h4>Moat limits &amp; competitors</h4><ul>
+      <li><b>Price-taker at the core:</b> crude and benchmark gas prices are set globally. Integration dampens the cycle; it does not remove it. Pricing power, in the consumer-brand sense, is limited to the marketing layer.</li>
+      <li><b>Peer set is formidable:</b> Shell competes with the other global majors in this series' Energy universe — including Exxon Mobil and Chevron on the US side and large state-controlled producers globally — on projects, LNG contracts and trading talent.</li>
+      <li><b>Regulatory asymmetry:</b> European windfall and regulatory exposure (pack, §4) falls more heavily on a Europe-anchored major than on US peers.</li>
+      <li><b>Transition overhang:</b> the same hydrocarbon cash flows that fund the dividend-and-buyback model are the ones energy-transition policy targets — a structural, slow-moving headwind to the terminal multiple.</li>
+    </ul></div>
+  </div>
+  <p><b>Positioning verdict:</b> Shell's edge is <i>portfolio breadth plus LNG/trading optionality</i>, not cost leadership in any single basin or pricing power over customers. That supports a durable, cash-generative franchise — and also explains why the market caps it at ~11.9× earnings rather than paying a growth multiple: the moat protects cash flow, it does not compound revenue.</p>
+</section>
+
+<section id="catalysts">
+  <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; Downside Risks</h2></div>
+  <div class="two">
+    <div>
+      <h3>Catalysts</h3>
+      <ul>
+        <li><b>LNG growth</b> — pack's lead catalyst: growth in the LNG portfolio/trading business supports both earnings mix and the moat narrative.</li>
+        <li><b>Buybacks</b> — continued repurchases funded by FCF of the Q3 scale ($16.3B) mechanically lift per-share metrics and signal management's view of value at ~11.9×.</li>
+        <li><b>Chemicals recovery</b> — already visible: Chemicals &amp; Products adjusted earnings rose from $2.9B to $3.9B quarter-on-quarter; further recovery is direct earnings upside.</li>
+        <li><b>Cash-flow delivery</b> — repeat quarters near $21B OCF would make the low multiple harder to justify and support the base case in §5.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Downside risks</h3>
+      <ul>
+        <li><b>Oil &amp; gas price</b> — the dominant risk. A sustained price fall compresses revenue, OCF and FCF simultaneously; the 12–18-month bear case ($90) is essentially this scenario.</li>
+        <li><b>European windfall / regulatory</b> — windfall taxes and regulation in Shell's home region can take a direct slice of upstream profit and raise compliance cost.</li>
+        <li><b>Transition capex discipline</b> — if transition/LNG capex expands faster than cash flow, buybacks and balance-sheet flexibility are what get cut.</li>
+        <li><b>Valuation-data risk (specific to this note)</b> — the price, cap and P/E in this note are pack figures the verification log did not re-check; confirm the live price before any trade.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout bad"><div class="ct">What would break the thesis</div><p>A sustained oil/gas downturn that pushes quarterly FCF far below the Q3 run-rate <i>while</i> capex commitments stay fixed — the integrated cushion (chemicals, products, marketing) softens a weak quarter, but it cannot replace upstream cash flow for years at a time. In that world the bear cases in §5, not the base, govern.</p></div>
+</section>
+
+<section id="valuation">
+  <div class="sec-head"><span class="sec-num">05</span><h2>Scenario-Based Valuation &amp; Price Targets</h2></div>
+  <p>All targets below are <b>modelled estimates from the research pack, with methodology shown — never verified facts</b>. The pack supplies the 12–18-month Bear/Base/Bull prices and the 5-year scenario prices; returns are calculated from the $108.69 reference price. Scenario weights were not supplied to the independent verifier, so where a weighted figure is shown, its weights are stated explicitly as a modelling assumption so the arithmetic can be checked.</p>
+
+  <h3>12–18-month targets <span class="badge-unv">Modelled estimates</span></h3>
+  <div class="scen">
+    <div class="sc bear"><div class="tag" style="color:var(--red)">Bear</div><div class="price mono">$90</div><div class="ret down">−17.2% vs $108.69 (calculated)</div><p>Oil/gas price weakness dominates; LNG and chemicals cushion only partly; the multiple compresses below 11.9× as cash flow falls.</p></div>
+    <div class="sc base"><div class="tag" style="color:var(--blue)">Base</div><div class="price mono">$120</div><div class="ret up">+10% per pack (+10.4% calculated)</div><p>Cash generation near the Q3 pattern, LNG growth and buybacks proceed, chemicals recovery holds — modest re-rating and per-share progress, not a growth re-rating.</p></div>
+    <div class="sc bull"><div class="tag" style="color:var(--green)">Bull</div><div class="price mono">$140</div><div class="ret up">+28.8% vs $108.69 (calculated)</div><p>Stronger commodity backdrop plus LNG/trading outperformance and a fuller chemicals recovery; market pays a higher multiple for proven cash conversion.</p></div>
+  </div>
+  <div class="wtd"><div><div class="vlabel" style="color:inherit;opacity:.75">Illustrative weighted value (12–18 mo)</div><div class="wv mono">≈ $118</div></div><p>Using stated modelling weights of 25% Bear / 50% Base / 25% Bull: 0.25×$90 + 0.50×$120 + 0.25×$140 = $117.50 ≈ $118 (+8.1% vs $108.69, calculated). Weights are this note's assumption — the pack did not supply them — so treat the weighted figure as illustrative, and the three scenario prices as the substance.</p></div>
+
+  <h3>5-year projection — frozen-parameter model <span class="badge-unv">Modelled estimates</span></h3>
+  <p>Method exactly as carried in the pack: the <b>starting price is frozen at $108.69</b> and only the annual price-compounding rate varies by case. Base case: <b>2% per year → $108.69 × 1.02<sup>5</sup> = $108.69 × 1.104 ≈ $120</b>. No revenue, margin or share-count assumptions are added, because the pack does not supply them for Shell — inventing an EPS build would break this note's sourcing rule.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Case</th><th class="n">Implied path</th><th class="n">5-yr price</th><th class="n">Vs $108.69</th><th>What has to happen</th></tr></thead>
+    <tbody>
+      <tr><td>Bear</td><td class="n">Sustained price weakness</td><td class="n">~$82</td><td class="n">−24.5% (calc.)</td><td>Prolonged oil/gas downturn and/or windfall-regulatory drag overwhelms the integrated cushion</td></tr>
+      <tr class="hl"><td>Base</td><td class="n">+2% / yr (pack)</td><td class="n">$120</td><td class="n">+10.4% (calc.)</td><td>Cash generation and buybacks roughly offset commodity cyclicality; low-single-digit compounding</td></tr>
+      <tr><td>Bull</td><td class="n">Strong cycle + LNG growth</td><td class="n">~$155</td><td class="n">+42.6% (calc.)</td><td>LNG/trading and chemicals deliver through the period and the market sustains a higher multiple on the cash flow</td></tr>
+      <tr class="total"><td>Probability-weighted</td><td class="n">25 / 50 / 25 weights*</td><td class="n">~$119</td><td class="n">+9.5% (calc.)</td><td>*Pack weighted figure ≈ $119; it reconciles with 0.25×$82 + 0.50×$120 + 0.25×$155 = $119.25 (calculated). Weights were not supplied to the verifier — modelled estimate.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Read the 5-year shape honestly: even the weighted case (~$119) is only ~+9.5% over five years on price alone in this model — Shell's long-term case in the pack rests on <b>cash generation and shareholder returns along the way</b>, not on price compounding. The 12–18-month base (+10%) and the 5-year base (+10.4% total) being similar is a feature of the pack's conservative 2% base CAGR, not an error.</p>
+</section>
+
+<section id="recommendation">
+  <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; Portfolio Sizing</h2></div>
+  <p>Investor profile assumed, as specified: <b>mid-30s, long accumulation horizon, self-rated risk tolerance 8/10</b>. Recommendations are the research pack's views — <b>research views only, not guarantees, not investment advice</b>.</p>
+  <div class="tblwrap"><table>
+    <thead><tr><th>Horizon</th><th>Call (pack)</th><th>Rationale in pack terms</th></tr></thead>
+    <tbody>
+      <tr><td>Short term (12–18 mo)</td><td><span class="pill buy">Buy</span></td><td>Base-case modelled target $120 is +10% above the $108.69 reference, with Q3 cash generation ($21B OCF / $16.3B FCF) as the supporting evidence. The bear case ($90, −17%) is the explicit cost of being wrong on oil price.</td></tr>
+      <tr><td>Long term (5 yr)</td><td><span class="pill buy">Buy</span></td><td>Weighted modelled 5-yr value ≈ $119, with the return case carried by ongoing cash generation and buybacks rather than multiple expansion. Position as an income-and-value energy holding, not a growth compounder.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Sizing for this profile</h3>
+  <ul>
+    <li><b>SHEL target: 2.0% of total portfolio</b> (pack recommendation for the mid-30s, risk-8/10 profile). At this weight Shell diversifies a tech-heavy portfolio with commodity-linked cash flow without letting a single commodity price drive overall returns.</li>
+    <li><b>Role in the portfolio:</b> Energy sleeve — counterweight to growth/AI holdings; expect the return to arrive unevenly and tied to the oil/gas cycle, including through the buyback/return channel the pack cites.</li>
+    <li><b>Re-check before trading:</b> because this note's price/cap/P/E are unverified pack figures (§2), confirm the live SHEL price and Shell's latest filing figures before placing any order.</li>
+  </ul>
+  <div class="calc">
+    <div><label for="pf">Your portfolio value ($)</label><input id="pf" type="number" inputmode="decimal" value="500000" min="0" step="1000" aria-label="Your portfolio value in dollars" /></div>
+    <div class="out" id="pfOut" aria-live="polite"></div>
+  </div>
+  <p class="small">Calculator applies the pack's 2.0% target weight mechanically — it is arithmetic, not advice. Shares are rounded down to whole shares at the $108.69 reference price (unverified).</p>
+</section>
+
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Shell plc (SHEL)</h2>
+<p><strong>Price (30 Oct 2026 close): $108.69.</strong> <strong>DCF intrinsic: $120.</strong> Discount/premium vs DCF: <strong>-9.4%</strong> — i.e. the shares are trading 9.4% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$120</td><td>-9.4%</td><td>g 2.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack Q3 context; TipRanks https://www.tipranks.com/stocks/shel/statistics ; MarketBeat book value https://www.marketbeat.com/stocks/NYSE/SHEL/ ; Q3 report summary https://www.themarketsdaily.com/2026/10/31/shell-nyse-shel-closes-arc-deal-lines-up-5-0-billion-buyback-and-cuts-net-debt.html</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Shell plc (SHEL)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Shell sells LNG, crude, refined products and chemicals to utilities, refiners, traders, airlines and industrial buyers in 70+ countries, with no single customer disclosed as a concentration.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>LNG buyers — utilities and importers (Europe, Asia)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Refiners, traders and chemical manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Aviation, marine, retail and industrial fuel buyers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> With no disclosed covered-ticker customer, the read-through is through LNG contracting and trading demand: undervalued utilities and industrial buyers would be a potential tailwind to Shell&#x27;s LNG volumes only if they sign or extend contracts, which depends on their own power demand and credit, not their valuation alone; overvalued buyers retrenching would be a headwind via softer LNG and chemicals realisations.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Shell plc (SHEL)</h2>
+<p><strong>Role: Beneficiary.</strong> Shell&#x27;s LNG portfolio and trading desk sit directly on the data-centre power trade: AI compute needs firm, dispatchable power, and LNG is the marginal fuel filling that gap in Europe and Asia.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through power: data centres need firm electricity, supporting gas/LNG demand (plus oil-fired backup in tight grids).</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, there is little AI premium to unwind (trailing P/E 11.9 in the pack where verified), so compression would come from falling oil/gas prices and refining margins, not AI sentiment.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: the risk is commodity-project capex committed at peak prices and state dividends exceeding through-cycle FCF.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: hyperscaler capex cuts or data-centre project delays, an oil/gas price reversal, OPEC+ supply increases, and (for LNG names) European/Asian gas-demand softness. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+<footer id="sources">
+  <h2 style="font-size:21px">Sources &amp; further reading</h2>
+  <p class="small">Key figures are from the finished research pack for SHEL (as of 1 Nov 2026), which names its sources inline; the independent verification log for the Industrials / Energy / Materials pack is the authority on verification status, and where the pack and the log conflict, the log wins — that rule is applied throughout this note.</p>
+  <ol class="refs">
+    <li>Motley Fool — global Energy ranking and metrics (metrics as of 2 Oct 2026): SHEL market cap $308.8B (ranking basis), TTM revenue $296.6B, gross profit $52.3B, production 2.8m boe/d (2025), 70+ countries. Named in the research pack; no URL was carried in the pack, so none is invented here.</li>
+    <li>Finnhub — SHEL trailing P/E 11.9× and ADR market cap $229.5B. Named in the research pack as the P/E source; the pack attributes the cap gap vs Fool to ADR/share-class counting.</li>
+    <li><a href="https://WWW.ZACKS.COM/stock/news/3019847/chevron-q3-earnings-beat-estimates-on-strong-refining-margins" target="_blank" rel="noopener">Zacks — Chevron Q3 earnings coverage</a> (the pack's cited source for the Q3 context: SHEL operating cash flow $21B, free cash flow $16.3B, Chemicals &amp; Products adjusted earnings $3.9B vs $2.9B prior quarter).</li>
+    <li>Independent verification log — Industrials, Energy, Materials pack (checked 1 Nov 2026): §1 lists SHEL price, market cap and P/E among the tickers <b>not re-checked</b> in that pass; §2 sets the corrected global (not US-only) top-10 framing and the separate date-stamps for ranking (Oct 2026) vs prices (30 Oct 2026); §3 requires every 5-year weighted figure to be labelled a modelled estimate with weights shown. All three rulings are applied in this note.</li>
+  </ol>
+  <p class="disc"><b>Disclaimer:</b> This note is research and education, not investment advice and not a guarantee of any outcome. Prices are referenced to the 30 Oct 2026 close as of 1 Nov 2026 (1 Nov 2026 was a weekend). Figures labelled “unverified” are research-pack values that the independent verification pass did not re-check; figures labelled “modelled estimates” are scenario arithmetic with assumptions shown, not forecasts. Calculated figures are arithmetic on pack values and are marked “(calculated)”. The research pack carried no Shell segment revenue split, geographic revenue split, debt/cash balances, dividend or forward multiples, so none are presented. Verify live prices and primary filings before making any investment decision.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  // Market-cap basis toggle (§2)
+  var btnFool=document.getElementById('btnFool'), btnFin=document.getElementById('btnFinnhub');
+  function setBasis(which){
+    btnFool.classList.toggle('on', which==='fool');
+    btnFin.classList.toggle('on', which==='finnhub');
+    var key = which==='fool' ? 'fool' : 'finnhub';
+    document.querySelectorAll('[data-fool]').forEach(function(el){
+      el.textContent = el.getAttribute('data-'+key);
+    });
+  }
+  btnFool.addEventListener('click', function(){ setBasis('fool'); });
+  btnFin.addEventListener('click', function(){ setBasis('finnhub'); });
+
+  // Position-size calculator (§6) — 2.0% target weight at $108.69 reference
+  var pf=document.getElementById('pf'), out=document.getElementById('pfOut'), PRICE=108.69, W=0.02;
+  function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function calc(){
+    var v=parseFloat(pf.value);
+    if(isNaN(v)||v<0){ out.innerHTML='Enter a portfolio value to see the 2.0% sizing.'; return; }
+    var dollars=v*W, shares=Math.floor(dollars/PRICE);
+    out.innerHTML='Target SHEL position at <b>2.0%</b>: <b>$'+fmt(dollars)+'</b> &asymp; <b>'+fmt(shares)+' shares</b> at $108.69. Remainder of portfolio: <b>$'+fmt(v-dollars)+'</b>.';
+  }
+  pf.addEventListener('input', calc);
+  calc();
+})();
+</script>
+</body>
+</html>

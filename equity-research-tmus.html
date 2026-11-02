@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — TMUS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf8f5; --surface:#ffffff; --surface2:#f3efe9; --ink:#1a1614; --ink2:#5c554e; --ink3:#8a8178;
+    --line:#e3ddd3; --accent:#c4005f; --accent-soft:#fce8f1; --green:#177245; --green-soft:#e2f2e8;
+    --amber:#9a6206; --amber-soft:#fdf0d5; --red:#b42318; --red-soft:#fdecea; --blue:#175cd3; --blue-soft:#e8effd;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#141110; --surface:#1e1a18; --surface2:#282220; --ink:#f2ece7; --ink2:#b8aca1; --ink3:#8d8177;
+      --line:#3a332e; --accent:#ff5da2; --accent-soft:#3d1226; --green:#4cc38a; --green-soft:#123324;
+      --amber:#f2b84b; --amber-soft:#3a2a08; --red:#ff7a6e; --red-soft:#3d1712; --blue:#7aa7ff; --blue-soft:#16294d;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:28px 20px 64px}
+  h1,h2,h3{font-family:"Newsreader",Georgia,serif;line-height:1.15;margin:0}
+  a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+  .mono{font-family:"IBM Plex Mono",monospace}
+
+  /* Header */
+  .topline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+  .topline .dot{width:4px;height:4px;border-radius:50%;background:var(--ink3)}
+  .pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.02em;text-transform:none}
+  .pill-buy{background:var(--green-soft);color:var(--green)}
+  .pill-est{background:var(--amber-soft);color:var(--amber)}
+  .hero{margin-top:14px}
+  .hero h1{font-size:clamp(34px,6vw,52px);font-weight:700;letter-spacing:-.01em}
+  .hero h1 .ticker{color:var(--accent)}
+  .hero .sub{margin-top:10px;font-size:17px;color:var(--ink2);max-width:680px}
+  .hero .sub strong{color:var(--ink)}
+
+  .pricecard{margin-top:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:18px}
+  @media(max-width:720px){.pricecard{grid-template-columns:1fr 1fr}}
+  .pc-label{font-size:11.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3)}
+  .pc-price{font-family:"IBM Plex Mono",monospace;font-size:36px;font-weight:600;line-height:1.1;margin-top:4px}
+  .pc-change{font-size:13.5px;font-weight:600;color:var(--green);margin-top:2px}
+  .pc-value{font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;margin-top:6px}
+  .pc-note{font-size:12.5px;color:var(--ink2);margin-top:2px;line-height:1.45}
+
+  .verifybar{margin-top:14px;background:var(--surface2);border-radius:10px;padding:12px 16px;font-size:13.5px;color:var(--ink2);display:flex;gap:10px;align-items:flex-start}
+  .verifybar b{color:var(--ink)}
+
+  /* Sections */
+  section{margin-top:44px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:18px}
+  .sec-num{font-family:"IBM Plex Mono",monospace;font-size:13px;font-weight:600;color:var(--accent)}
+  .sec-head h2{font-size:26px;font-weight:700}
+  .sec-head .tag{margin-left:auto;font-size:12px;color:var(--ink3);font-weight:500;text-align:right}
+  p{margin:0 0 12px}
+  .lead{font-size:16.5px}
+  ul{margin:0 0 12px;padding-left:20px} li{margin-bottom:6px}
+  li::marker{color:var(--accent)}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:720px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+  .card h3{font-size:18px;margin-bottom:8px}
+  .card p,.card li{font-size:14.5px;color:var(--ink2)}
+  .card p strong,.card li strong{color:var(--ink)}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;margin:6px 0 14px}
+  th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3);font-weight:600;text-align:left;padding:8px 10px;border-bottom:2px solid var(--line)}
+  td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num,th.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13.5px;white-space:nowrap}
+  tr.hl td{background:var(--accent-soft);font-weight:600}
+  .table-scroll{overflow-x:auto}
+  @media(max-width:640px){
+    .table-scroll table{min-width:0}
+    .stack-table thead{display:none}
+    .stack-table tr{display:block;border-bottom:2px solid var(--line);padding:6px 0}
+    .stack-table td{display:flex;justify-content:space-between;gap:14px;border-bottom:none;padding:5px 2px;text-align:right}
+    .stack-table td::before{content:attr(data-l);font-family:"IBM Plex Sans",sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink3);text-align:left;white-space:normal}
+    .stack-table td:first-child{font-weight:700;justify-content:flex-start}
+    .stack-table td:first-child::before{display:none}
+  }
+
+  .callout{border-radius:10px;padding:14px 16px;font-size:14.5px;margin:14px 0}
+  .callout-amber{background:var(--amber-soft);color:var(--ink)}
+  .callout-amber b{color:var(--amber)}
+  .callout-green{background:var(--green-soft)} .callout-green b{color:var(--green)}
+  .callout-red{background:var(--red-soft)} .callout-red b{color:var(--red)}
+
+  /* Scenario bars */
+  .bars{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:14px 0}
+  .bars h3{font-size:17px;margin-bottom:4px}
+  .bars .cap{font-size:13px;color:var(--ink2);margin-bottom:16px}
+  .bar-row{display:grid;grid-template-columns:110px 1fr 76px;gap:12px;align-items:center;margin-bottom:12px;font-size:13.5px}
+  @media(max-width:560px){.bar-row{grid-template-columns:86px 1fr 64px}}
+  .bar-track{height:22px;background:var(--surface2);border-radius:6px;position:relative;overflow:hidden}
+  .bar-fill{height:100%;border-radius:6px}
+  .bar-val{font-family:"IBM Plex Mono",monospace;font-weight:600;text-align:right}
+
+  /* Verdict */
+  .verdict{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:var(--radius);padding:22px}
+  .verdict-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:6px}
+  @media(max-width:720px){.verdict-grid{grid-template-columns:1fr}}
+  .v-cell .pc-label{margin-bottom:4px}
+  .v-big{font-family:"Newsreader",serif;font-size:24px;font-weight:700}
+  .v-big.green{color:var(--green)}
+  .calc{margin-top:18px;background:var(--surface2);border-radius:10px;padding:16px}
+  .calc-row{display:flex;flex-wrap:wrap;gap:14px;align-items:end}
+  .calc label{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);display:block;margin-bottom:5px}
+  .calc input{font-family:"IBM Plex Mono",monospace;font-size:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:190px;max-width:100%}
+  .calc-out{font-size:15px} .calc-out b{font-family:"IBM Plex Mono",monospace}
+
+  .sources{font-size:13.5px;color:var(--ink2)}
+  .sources li{margin-bottom:5px;word-break:break-word}
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-size:12.5px;color:var(--ink3);line-height:1.6}
+  .fig-note{font-size:12.5px;color:var(--ink3);margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topline">
+    <span>Equity Research</span><span class="dot"></span><span>Communication Services</span><span class="dot"></span><span>As of 1 Nov 2026</span>
+    <span class="pill pill-buy">Long-term: BUY</span>
+    <span class="pill pill-est">Scenarios are modelled estimates</span>
+  </div>
+
+  <div class="hero">
+    <h1>T-Mobile US <span class="ticker">— TMUS</span></h1>
+    <p class="sub">The US wireless leader built on the Sprint merger's spectrum: <strong>best-in-class 5G depth, the lowest churn among the majors, and a capital-return story that has matured into a dividend plus buybacks.</strong> After a −23% year-to-date slide into 30 Oct, the pack's call is to buy the sell-off — a 15.1× P/E for the sector's best network, paying a ~3% dividend while buying back stock.</p>
+  </div>
+
+  <div class="pricecard">
+    <div>
+      <div class="pc-label">Price — 30 Oct 2026 close</div>
+      <div class="pc-price">$156.44</div>
+      <div class="pc-change">▲ +6.21% on the day</div>
+    </div>
+    <div>
+      <div class="pc-label">Market cap</div>
+      <div class="pc-value">$165.7B</div>
+      <div class="pc-note">FinanceCharts ranking basis, 30 Oct 2026</div>
+    </div>
+    <div>
+      <div class="pc-label">Trailing P/E</div>
+      <div class="pc-value">15.10×</div>
+      <div class="pc-note">MarketBeat</div>
+    </div>
+    <div>
+      <div class="pc-label">Suggested position</div>
+      <div class="pc-value">2%</div>
+      <div class="pc-note">Of total portfolio — mid-30s, risk 8/10 profile</div>
+    </div>
+  </div>
+
+  <div class="verifybar">
+    <span aria-hidden="true">✓</span>
+    <div><b>Verification status:</b> price, market cap, P/E, dividend and shareholder-yield figures below were independently checked against a second source (see Sources). Revenue of ~$84B is labelled an <b>estimate — not re-verified</b>. Every scenario price is a <b>modelled estimate</b> with its assumptions shown, never a verified fact.</div>
+  </div>
+
+  <!-- 1 -->
+  <section id="business">
+    <div class="sec-head"><span class="sec-num">01</span><h2>Business model &amp; segment breakdown</h2><span class="tag">What it sells, and where</span></div>
+    <p class="lead">T-Mobile US is a pure-play US wireless carrier: consumer and business mobile service, plus fixed wireless broadband delivered over its 5G network. Its footprint is the United States, including Puerto Rico and the US Virgin Islands — there is no international segment to dilute or complicate the story.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Core revenue streams</h3>
+        <ul>
+          <li><strong>Consumer wireless</strong> — postpaid and prepaid mobile plans, the historic core of the business.</li>
+          <li><strong>Business wireless</strong> — enterprise and government accounts, an explicit growth focus in the pack.</li>
+          <li><strong>Fixed wireless broadband</strong> — home internet over 5G, taking share from cable without laying last-mile cable.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Structural pivots</h3>
+        <ul>
+          <li><strong>5G leadership from the Sprint merger</strong> — the acquired 2.5&nbsp;GHz spectrum is the foundation of the current network advantage.</li>
+          <li><strong>Fibre JV expansion</strong> — moving into fibre via joint ventures, extending beyond wireless-only access.</li>
+          <li><strong>Capital return matures</strong> — the story has shifted from build-out spending to a dividend plus buybacks (Section 2).</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout callout-amber"><b>Estimate — not re-verified:</b> the pack puts revenue at roughly <b>~$84B</b> with margins expanding, and uses $84B as the 2026E base in the valuation model. That figure was <b>not</b> independently re-verified, so treat it — and everything modelled from it — as an estimate, not a confirmed actual. Q3 2026 results were released on 28 Oct (per MarketBeat).</div>
+    <p><strong>Dependencies to keep in view:</strong> spectrum is the raw material — future spectrum costs and availability directly affect the cost base — and Deutsche Telekom's controlling stake (flagged again in Risks) means strategic direction is not set by US public shareholders alone.</p>
+  </section>
+
+  <!-- 2 -->
+  <section id="financials">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Financial health &amp; balance-sheet diagnostics</h2><span class="tag">Multiples, cash return</span></div>
+    <p class="lead">At 15.10× trailing earnings, TMUS trades like a mature utility-style cash compounder rather than a growth stock — and it now returns cash like one: a dividend, plus a buyback large enough that total shareholder yield approaches 7.4%.</p>
+    <div class="table-scroll">
+      <table class="stack-table">
+        <thead><tr><th>Metric</th><th class="num">Value</th><th>Source / note</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Metric">Price (30 Oct 2026 close)</td><td class="num" data-l="Value">$156.44</td><td data-l="Note">+6.21% on the day; −23% year-to-date to 30 Oct</td></tr>
+          <tr><td data-l="Metric">Market cap</td><td class="num" data-l="Value">$165.7B</td><td data-l="Note">FinanceCharts / pack figure $165.71B</td></tr>
+          <tr><td data-l="Metric">Trailing P/E</td><td class="num" data-l="Value">15.10×</td><td data-l="Note">MarketBeat</td></tr>
+          <tr><td data-l="Metric">Dividend (annual)</td><td class="num" data-l="Value">$4.68</td><td data-l="Note">StockAnalysis</td></tr>
+          <tr><td data-l="Metric">Dividend yield</td><td class="num" data-l="Value">2.61–2.99%</td><td data-l="Note">2.99% StockAnalysis / 2.61% MarketBeat — range reflects price &amp; date differences between vendors</td></tr>
+          <tr><td data-l="Metric">Payout ratio</td><td class="num" data-l="Value">~39–45%</td><td data-l="Note">Pack range</td></tr>
+          <tr><td data-l="Metric">Buyback yield</td><td class="num" data-l="Value">4.39%</td><td data-l="Note">StockAnalysis</td></tr>
+          <tr class="hl"><td data-l="Metric">Total shareholder yield</td><td class="num" data-l="Value">7.38%</td><td data-l="Note">Dividend + buyback yield, StockAnalysis</td></tr>
+          <tr><td data-l="Metric">Revenue (2026E base)</td><td class="num" data-l="Value">~$84B est.</td><td data-l="Note"><strong>Estimate — not re-verified</strong>; margin described as expanding</td></tr>
+          <tr><td data-l="Metric">Shares (model base)</td><td class="num" data-l="Value">1.06B</td><td data-l="Note">Model input; buybacks shrink it in base/bull cases (Section 5)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>Capital allocation read:</strong> a ~39–45% payout ratio leaves the dividend covered with room to spare, and the 4.39% buyback yield does the heavier lifting — combined, 7.38% of market value is being returned to shareholders per year at the 30 Oct price. That is the balance-sheet story the pack is buying: not leverage-fuelled growth, but a self-funding network converting into cash returns. Note the pack does not publish a debt-to-equity figure for TMUS, so none is shown here rather than estimated.</p>
+  </section>
+
+  <!-- 3 -->
+  <section id="moat">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Competitive moat &amp; industry positioning</h2><span class="tag">Why customers stay</span></div>
+    <p class="lead">The moat is physical: spectrum. T-Mobile's 2.5&nbsp;GHz holdings from the Sprint merger give it the deepest mid-band 5G capacity of the US majors — the layer that delivers both speed and coverage — and spectrum, once licensed, cannot be replicated by spending alone on any quick timetable.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Moat evidence in the pack</h3>
+        <ul>
+          <li><strong>Best 5G spectrum depth (2.5&nbsp;GHz)</strong> among the majors.</li>
+          <li><strong>Lowest churn among the majors recently</strong> — customers leaving at the slowest rate is the market's own verdict on network quality.</li>
+          <li><strong>Scale</strong> — at $165.7B it is large enough to fund network and fibre investment from its own cash generation.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Competitive set</h3>
+        <ul>
+          <li><strong>Verizon (VZ)</strong> and <strong>AT&amp;T (T)</strong> — the other two national carriers; the direct fight for postpaid subscribers.</li>
+          <li><strong>Cable operators</strong> — competing from the other direction, bundling mobile with broadband and attacking fixed wireless's home-internet pitch.</li>
+        </ul>
+      </div>
+    </div>
+    <p>Pricing power follows from churn: a carrier customers don't leave can hold price and sell up (business accounts, fixed wireless) instead of discounting to defend its base. The vulnerability is symmetrical — if a price war starts (Risks), spectrum depth doesn't prevent margin compression, it only makes T-Mobile the likely survivor of one.</p>
+  </section>
+
+  <!-- 4 -->
+  <section id="catalysts">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Catalysts &amp; downside risks</h2><span class="tag">What moves it next</span></div>
+    <div class="grid2">
+      <div class="card">
+        <h3 style="color:var(--green)">Catalysts</h3>
+        <ul>
+          <li><strong>Fibre JV expansion</strong> — a second access product alongside fixed wireless.</li>
+          <li><strong>Business-segment growth</strong> — enterprise share is the under-penetrated pool.</li>
+          <li><strong>Buyback execution</strong> — the 4.39% buyback yield mechanically lifts EPS if delivered.</li>
+          <li><strong>Margin expansion</strong> — the pack's base case assumes margins keep expanding from the ~$84B revenue base (estimate).</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="color:var(--red)">Downside risks</h3>
+        <ul>
+          <li><strong>Price war</strong> — promotional escalation by VZ, T or cable compresses the whole industry's pricing.</li>
+          <li><strong>Integration / fibre execution</strong> — JV fibre is a new muscle; delays or cost overruns hit the pivot story.</li>
+          <li><strong>Deutsche Telekom control</strong> — a controlling parent can act in its own interest over minority holders'.</li>
+          <li><strong>Spectrum costs</strong> — future auctions or renewals are large, lumpy cash demands.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section id="valuation">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Scenario valuation &amp; price targets</h2><span class="tag">All figures modelled estimates</span></div>
+    <p class="lead">Two horizons, both modelled. The 12–18-month cases frame the near-term recovery from the sell-off; the 5-year model uses the frozen-parameter format — revenue CAGR, net margin, share count and exit P/E are the only levers, and every input is shown so you can re-run it yourself.</p>
+
+    <h3 style="font-size:19px;margin:18px 0 6px">12–18-month scenarios — modelled estimates</h3>
+    <div class="table-scroll">
+      <table class="stack-table">
+        <thead><tr><th>Case</th><th class="num">Target</th><th class="num">vs $156.44</th><th>Read</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Case">Bear</td><td class="num" data-l="Target">$140</td><td class="num" data-l="vs">−10.5%</td><td data-l="Read">Sell-off extends; price war or execution slip</td></tr>
+          <tr class="hl"><td data-l="Case">Base</td><td class="num" data-l="Target">$185</td><td class="num" data-l="vs">+18.3%</td><td data-l="Read">Steady execution, buyback delivered</td></tr>
+          <tr><td data-l="Case">Bull</td><td class="num" data-l="Target">$240</td><td class="num" data-l="vs">+53.4%</td><td data-l="Read">Fibre + business growth re-rates the stock</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout callout-amber"><b>Street check:</b> MarketBeat's consensus target is <b>$238.25</b> — essentially at this model's <b>bull</b> case, not its base. Read that as the Street already pricing in the good outcome; the pack's base of $185 is deliberately more conservative.</div>
+
+    <h3 style="font-size:19px;margin:22px 0 6px">5-year projection — frozen-parameter model (modelled estimates)</h3>
+    <p style="font-size:14.5px;color:var(--ink2)">Base year 2026E revenue <strong style="color:var(--ink)">$84B (estimate, not re-verified)</strong>, 1.06B shares. Weights: Base 50% / Bull 25% / Bear 25%.</p>
+    <div class="table-scroll">
+      <table class="stack-table">
+        <thead><tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">2031 revenue</th><th class="num">Net margin</th><th class="num">Shares</th><th class="num">EPS</th><th class="num">Exit P/E</th><th class="num">Price</th></tr></thead>
+        <tbody>
+          <tr><td data-l="Case">Bear (25%)</td><td class="num" data-l="CAGR">2%</td><td class="num" data-l="Revenue">$93B</td><td class="num" data-l="Margin">10%</td><td class="num" data-l="Shares">1.06B</td><td class="num" data-l="EPS">$8.77</td><td class="num" data-l="P/E">12×</td><td class="num" data-l="Price">$105</td></tr>
+          <tr class="hl"><td data-l="Case">Base (50%)</td><td class="num" data-l="CAGR">5%</td><td class="num" data-l="Revenue">$107B</td><td class="num" data-l="Margin">14%</td><td class="num" data-l="Shares">1.00B</td><td class="num" data-l="EPS">$15.00</td><td class="num" data-l="P/E">15×</td><td class="num" data-l="Price">$225</td></tr>
+          <tr><td data-l="Case">Bull (25%)</td><td class="num" data-l="CAGR">7%</td><td class="num" data-l="Revenue">$118B</td><td class="num" data-l="Margin">17%</td><td class="num" data-l="Shares">0.97B</td><td class="num" data-l="EPS">$20.70</td><td class="num" data-l="P/E">18×</td><td class="num" data-l="Price">$372</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14.5px">Worked example (base): $107B × 14% = $15.0B net income ÷ 1.00B shares = $15.00 EPS × 15× = <strong>$225</strong>. Probability-weighted 5-year value: <strong class="mono">$232</strong> (+48% vs $156.44) — a modelled estimate built on the unverified $84B revenue base, so hold it more loosely than the verified multiples in Section 2.</p>
+
+    <div class="bars">
+      <h3>5-year scenario prices vs today's price</h3>
+      <div class="cap">Modelled estimates. Bar length proportional to price; dashed marker is today's $156.44 close.</div>
+      <svg viewBox="0 0 640 168" width="100%" role="img" aria-label="Bar chart of TMUS 5-year scenario prices: bear 105 dollars, base 225 dollars, bull 372 dollars, weighted 232 dollars, versus current price 156.44 dollars" style="display:block">
+        <!-- scale: 372 -> 440px wide starting x=110 -->
+        <line x1="295" y1="6" x2="295" y2="140" stroke="var(--ink3)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="295" y="158" text-anchor="middle" font-size="11" fill="var(--ink2)" font-family="IBM Plex Sans">Today $156.44</text>
+        <text x="0" y="26" font-size="13" fill="var(--ink)" font-family="IBM Plex Sans" font-weight="600">Bear</text>
+        <rect x="110" y="10" width="124" height="22" rx="5" fill="var(--red)"/>
+        <text x="630" y="26" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$105</text>
+        <text x="0" y="62" font-size="13" fill="var(--ink)" font-family="IBM Plex Sans" font-weight="600">Base</text>
+        <rect x="110" y="46" width="266" height="22" rx="5" fill="var(--accent)"/>
+        <text x="630" y="62" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$225</text>
+        <text x="0" y="98" font-size="13" fill="var(--ink)" font-family="IBM Plex Sans" font-weight="600">Bull</text>
+        <rect x="110" y="82" width="440" height="22" rx="5" fill="var(--green)"/>
+        <text x="630" y="98" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$372</text>
+        <text x="0" y="134" font-size="13" fill="var(--ink)" font-family="IBM Plex Sans" font-weight="600">Weighted</text>
+        <rect x="110" y="118" width="274" height="22" rx="5" fill="var(--blue)"/>
+        <text x="630" y="134" text-anchor="end" font-size="13" font-weight="600" fill="var(--ink)" font-family="IBM Plex Mono">$232</text>
+      </svg>
+      <div class="fig-note">The bear case ($105) sits below today's price — the market is not pricing in a price war. Everything right of the dashed line is the return for being right on execution and buybacks.</div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section id="verdict">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Recommendation &amp; position sizing</h2><span class="tag">Mid-30s · risk 8/10</span></div>
+    <div class="verdict">
+      <div class="verdict-grid">
+        <div class="v-cell">
+          <div class="pc-label">Short term (12–18 mo)</div>
+          <div class="v-big green">BUY</div>
+          <p style="font-size:14px;color:var(--ink2);margin-top:4px">Post-sell-off entry: −23% YTD into 30 Oct, with a modelled base of $185 (+18%). Note the Street target ($238.25) already sits at the bull case — upside beyond base needs the bull story.</p>
+        </div>
+        <div class="v-cell">
+          <div class="pc-label">Long term (5 yr)</div>
+          <div class="v-big green">BUY</div>
+          <p style="font-size:14px;color:var(--ink2);margin-top:4px">Spectrum moat + 7.38% shareholder yield compounding underneath a $232 modelled weighted value vs $156.44 today.</p>
+        </div>
+        <div class="v-cell">
+          <div class="pc-label">Suggested weight</div>
+          <div class="v-big">2%</div>
+          <p style="font-size:14px;color:var(--ink2);margin-top:4px">A supporting telecom position, not a core holding — steady cash return inside a growth-tilted, risk-8/10 portfolio.</p>
+        </div>
+      </div>
+      <div class="calc">
+        <div class="calc-row">
+          <div>
+            <label for="pv">Your portfolio value ($)</label>
+            <input id="pv" type="number" inputmode="decimal" min="0" value="500000" />
+          </div>
+          <div class="calc-out" id="calcOut" aria-live="polite"></div>
+        </div>
+        <div class="fig-note">At the suggested 2% weight and the 30 Oct close of $156.44. Whole shares rounded down; cash remainder stays uninvested.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sources -->
+  <section id="sources">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Sources &amp; ranking basis</h2></div>
+    <ul class="sources">
+      <li>Price, dividend &amp; yields — StockAnalysis, TMUS dividend page: <a href="https://stockanalysis.com/stocks/tmus/dividend/" target="_blank" rel="noopener">stockanalysis.com/stocks/tmus/dividend</a></li>
+      <li>Price, P/E, Q3 release date &amp; consensus target ($238.25) — MarketBeat, TMUS: <a href="https://www.marketbeat.com/stocks/NASDAQ/TMUS/" target="_blank" rel="noopener">marketbeat.com/stocks/NASDAQ/TMUS</a></li>
+      <li>Sector ranking basis — FinanceCharts biggest-companies pages, last updated 30 Oct 2026; prices are the 30 Oct 2026 close. GOOGL counted once (GOOG excluded as a duplicate share class). SPCX (SpaceX) is listed on NASDAQ (IPO 12 Jun 2026) and ranks #2 in Communication Services; DTEGY is therefore #11 and is retained as an 11th name in the sector set.</li>
+    </ul>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — TMUS (30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $156.44.</strong> <strong>DCF intrinsic: $194.</strong> Discount/premium vs DCF: <strong>-19.4%</strong> — i.e. the shares are trading 19.4% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$194</td><td>-19.4%</td></tr></table>
+<p><strong>Method 1 — DCF.</strong> Base TTM FCF $18.65bn. TTM FCF (Intickers/InvestorsEngine: $18.65bn; Fool $16.08bn on a different capex definition — $18.65bn used as the standardised figure). Growth g = 5% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $145.69bn + PV of terminal value $172.34bn + net cash $-112.42bn, divided by 1.06bn diluted shares = <strong>$194</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://intickers.com/reports/tmus/</li><li>Pack: $4.68 annual (Intickers: $1.17 quarterly x4)</li><li>https://twelvedata.com/markets/716801/stock/nasdaq/tmus/statistics</li></ul>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — TMUS (B2B)</h2>
+<p><em>Table: largest known customers (ranking not disclosed). Revenue-share % is shown only where disclosed; otherwise it is left blank — no ranking or share has been invented.</em></p><table><thead><tr><th>Customer / customer group</th><th>Revenue share</th><th>Customer DCF intrinsic / discount-premium</th></tr></thead><tbody><tr><td>Large enterprise wireless customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>US government / public-sector customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Wholesale / MVNO partners (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Business fixed-wireless / fibre-JV customers (group)</td><td></td><td>not in coverage — no intrinsic on file (customer group)</td></tr><tr><td>Consumer subscribers (fragmented; shown for completeness, not a single customer)</td><td></td><td>not in coverage — no intrinsic on file (fragmented consumers)</td></tr><tr><td>Device and channel partners (not customers in the revenue sense)</td><td></td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Deutsche Telekom — majority owner, not a customer (shown to avoid confusion)</td><td></td><td>not in coverage — no intrinsic on file</td></tr></tbody></table><p><strong>Read-through.</strong> T-Mobile discloses no single business customer above 10% of revenue, so the read-through is aggregate: if its enterprise and government buyers were broadly trading at a discount to intrinsic, that would be a potential tailwind for business lines and fixed-wireless growth, and the reverse would be a headwind. But an undervalued customer does not guarantee higher spending, which depends on that customer's own priorities and cash position, so this is a backdrop, not a pipeline.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — TMUS</h2>
+<p><strong>Role: Low exposure.</strong> T-Mobile's AI exposure is network and customer-experience efficiency, not AI infrastructure: the pack's thesis is 5G leadership, fibre JVs and buybacks, with FCF of $18.65bn TTM funding returns.</p><p><strong>While the AI trade runs.</strong> While the AI trade runs, demand grows through business 5G and fixed-wireless as enterprises digitise; the multiple is supported by margin expansion and buybacks, not an AI premium.</p><p><strong>When the AI trade unwinds.</strong> If the trade unwinds, demand breaks first in business growth and fibre-JV execution if enterprise spending stalls; then the multiple compresses toward a through-cycle telecom multiple; then the balance sheet — debt $118.0bn against cash $5.6bn — limits buyback pace. Watch: postpaid adds, fibre execution, and any price war with Verizon/AT&T or a fourth-carrier entrant.</p><p><em>No quantified sensitivity is shown unless the pack supports it; where the pack does not give a figure, the assessment is qualitative (high/medium/low) with reasoning, as above.</em></p>
+</div>
+<footer>
+    Research views only — not guarantees and not investment advice. Prepared 1 Nov 2026 for a mid-30s investor with a risk score of 8/10; price reference is the 30 Oct 2026 regular-session close (1 Nov 2026 was a weekend). Figures marked “estimate — not re-verified” and all scenario prices are modelled estimates with methodology shown; verified figures carry their source above. Do your own diligence before acting.
+  </footer>
+
+</div>
+<script>
+  (function(){
+    var PRICE = 156.44, WEIGHT = 0.02;
+    var input = document.getElementById('pv');
+    var out = document.getElementById('calcOut');
+    function fmt(n){ return n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+    function render(){
+      var pv = parseFloat(input.value);
+      if(!isFinite(pv) || pv < 0){ out.innerHTML = 'Enter a portfolio value to see the position size.'; return; }
+      var dollars = pv * WEIGHT;
+      var shares = Math.floor(dollars / PRICE);
+      var invested = shares * PRICE;
+      out.innerHTML = '2% = <b>$' + fmt(dollars) + '</b> &nbsp;→&nbsp; <b>' + fmt(shares) + ' shares</b> (≈ $' + fmt(invested) + ' invested)';
+    }
+    input.addEventListener('input', render);
+    render();
+  })();
+</script>
+</body>
+</html>

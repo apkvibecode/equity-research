@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — LIN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#fffdf8; --surface2:#efece3; --ink:#18201c; --muted:#5c665f; --line:#ddd6c4;
+  --accent:#0f5c4d; --accent2:#b7791f; --good:#0f6b4a; --bad:#9b2c2c; --warn:#8a5a12;
+  --chip:#e6efe9;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#101512; --surface:#171d19; --surface2:#1e2621; --ink:#e8ebe6; --muted:#a8b0a6; --line:#2e3832; --accent:#4fb99f; --accent2:#d9a441; --chip:#1e2e27; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55;font-size:15px}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:28px 20px 56px}
+.topbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:12px}
+h1{font-family:Fraunces,Georgia,serif;font-size:46px;line-height:.95;margin:18px 0 6px;letter-spacing:-.02em}
+h1 span{color:var(--accent)}
+.sub{font-size:17px;color:var(--muted);max-width:720px;margin:0}
+.verdict{display:grid;grid-template-columns:1.3fr .9fr;gap:16px;margin:22px 0}
+@media(max-width:720px){.verdict{grid-template-columns:1fr} h1{font-size:36px}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.card h3{margin:0 0 8px;font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.big{font-family:Fraunces,serif;font-size:32px;line-height:1}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:18px 0}
+@media(max-width:720px){.stats{grid-template-columns:1fr 1fr}}
+.stat{background:var(--surface);padding:14px}
+.stat b{display:block;font-family:"IBM Plex Mono",monospace;font-size:19px}
+.stat span{font-size:12px;color:var(--muted)}
+h2{font-family:Fraunces,serif;font-size:26px;margin:34px 0 6px;border-top:2px solid var(--ink);padding-top:16px}
+h2 i{font-style:normal;color:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:14px;vertical-align:middle;margin-right:8px}
+.lede{color:var(--muted);margin:0 0 14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:10px 0}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--line);padding:8px}
+td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+td.r,th.r{text-align:right;font-family:"IBM Plex Mono",monospace;font-size:13px}
+.pill{display:inline-block;background:var(--chip);border:1px solid var(--line);border-radius:999px;padding:2px 9px;font-size:12px;font-weight:600}
+.buy{color:var(--good);font-weight:700}.hold{color:var(--warn);font-weight:700}
+.note{background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--muted)}
+ul{margin:8px 0;padding-left:18px} li{margin:5px 0}
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0}
+.flow div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px;text-align:center;min-width:130px}
+.flow b{display:block;font-family:"IBM Plex Mono",monospace}
+.flow span{font-size:11px;color:var(--muted)}
+.arrow{color:var(--muted);font-size:18px}
+input{font:inherit;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);width:170px}
+button{font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 16px;cursor:pointer}
+.src{font-size:12.5px;color:var(--muted)}
+.foot{border-top:1px solid var(--line);margin-top:36px;padding-top:14px;font-size:12.5px;color:var(--muted)}
+.est{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--warn)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span>Equity Research · Materials</span><span>As of 1 Nov 2026 · Price ref: 30 Oct 2026 close</span><span>Research views — not guarantees</span></div>
+
+  <h1>Linde plc <span>(LIN)</span></h1>
+  <p class="sub">The world's industrial-gases oligopolist — oxygen, nitrogen, hydrogen and medical gases sold largely on long-term take-or-pay contracts. The strongest moat in Materials, priced like it.</p>
+
+  <div class="verdict">
+    <div class="card">
+      <h3>Recommendation</h3>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div><span class="src">Short term (12–18 mo)</span><div class="big buy">BUY</div></div>
+        <div><span class="src">Long term (5 yr)</span><div class="big buy">BUY</div></div>
+        <div><span class="src">Suggested weight</span><div class="big">2.5%</div><span class="src">of total portfolio — core Materials holding</span></div>
+      </div>
+      <p style="margin:12px 0 0">For a mid-30s investor, risk score 8/10. Linde is the defensive anchor inside a high-risk portfolio: lower growth than the AI names, but contract-backed cash flows that behave very differently in a downturn. Sizing stays modest because the entry multiple — 33.8× earnings — leaves little room for disappointment.</p>
+    </div>
+    <div class="card">
+      <h3>At a glance — 30 Oct 2026 close</h3>
+      <table>
+        <tr><td>Share price</td><td class="r">$514.24</td></tr>
+        <tr><td>Market cap</td><td class="r">$237.1B</td></tr>
+        <tr><td>Trailing P/E · EPS (TTM)</td><td class="r">33.8× · $14.61</td></tr>
+        <tr><td>P/S (TTM)</td><td class="r">6.7×</td></tr>
+      </table>
+      <p class="src">Price, P/E and EPS via Finnhub. <span class="est">Verification note:</span> the independent check reproduced the $514.24 close via Finnhub only — the pack's own source — so treat it as corroborated, pending a second feed, not fully independently verified. See Sources.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>$35.5B</b><span>Revenue, TTM</span></div>
+    <div class="stat"><b>$17.1B</b><span>Gross profit, TTM</span></div>
+    <div class="stat"><b>48.2%</b><span>Gross margin — derived: $17.1B ÷ $35.5B</span></div>
+    <div class="stat"><b>80+</b><span>Countries of operation</span></div>
+  </div>
+  <p class="src">Ranking basis: <strong>global</strong> top 10 by market cap in Materials (Motley Fool, metrics as of 6 Oct 2026; prices at 30 Oct 2026 close), including OTC names. The printed list is <em>not</em> in strict market-cap order — e.g. BHP ($292.4B) is printed after LIN ($237.1B). A US-listed-only list would differ. Revenue and gross profit per Motley Fool figures in the research pack.</p>
+
+  <h2><i>01</i>Business Model &amp; Segment Breakdown</h2>
+  <p class="lede">Linde sells the gases industry cannot run without — and locks customers in with plants built on their sites.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Three engines</h3>
+      <ul>
+        <li><strong>Industrial gases</strong> — oxygen, nitrogen, argon and specialty gases for steel, chemicals, refining, food and manufacturing, delivered by pipeline (on-site), in bulk liquid, and in cylinders.</li>
+        <li><strong>Medical / healthcare gases</strong> — medical oxygen and related gases and services for hospitals and homecare; demand is non-cyclical and regulated.</li>
+        <li><strong>Engineering</strong> — designs and builds large chemical and gas-processing plants, including for third parties; lumpy, project-based revenue that feeds the installed on-site base.</li>
+      </ul>
+      <p class="src">Segment revenue splits (%) were not in the verified research pack and are therefore not shown — no split has been invented.</p>
+    </div>
+    <div class="card">
+      <h3>How the money is locked in</h3>
+      <ul>
+        <li><strong>On-site, take-or-pay contracts:</strong> Linde builds a plant at or beside the customer's site and the customer pays whether or not it takes the full volume — the core of revenue durability.</li>
+        <li><strong>Distribution density:</strong> gases are expensive to ship far, so a dense local plant and cylinder network is itself a barrier — a rival cannot profitably serve a region without matching density.</li>
+        <li><strong>Geography:</strong> operations in 80+ countries (per the pack / Motley Fool), so no single plant or customer dominates — but energy prices and industrial output in each region drive local volumes.</li>
+        <li><strong>Clean-energy pivot:</strong> up to $50B of clean-energy investment announced in 2023 over the decade — hydrogen and carbon-capture projects that reuse the same on-site contract model.</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:14px"><strong>Supply-chain dependencies:</strong> the critical input is <em>electricity</em> — air separation is power-intensive, so power price and availability set unit costs; contracts typically pass energy costs through, but with a lag. The other dependency is large-project execution in Engineering: steel, compressors and multi-year construction timelines.</p>
+
+  <h2><i>02</i>Financial Health &amp; Balance Sheet Diagnostics</h2>
+  <p class="lede">Premium multiples on premium margins. The verified pack is deliberately narrow here — only the figures below were confirmed, so leverage, free cash flow and dividend detail that was not verified is omitted rather than estimated.</p>
+  <div class="flow" role="img" aria-label="TTM income flow: revenue 35.5 billion dollars, cost of revenue 18.4 billion derived, gross profit 17.1 billion dollars">
+    <div><b>$35.5B</b><span>Revenue (TTM)</span></div><span class="arrow">→</span>
+    <div><b>$18.4B</b><span>Cost of revenue — derived ($35.5B − $17.1B)</span></div><span class="arrow">→</span>
+    <div><b>$17.1B</b><span>Gross profit (TTM)</span></div>
+  </div>
+  <table>
+    <tr><th>Metric</th><th class="r">Value</th><th>Reading</th></tr>
+    <tr><td>Trailing P/E</td><td class="r">33.8×</td><td>Rich for Materials — the market pays for contract durability, not growth. Any multiple compression hits the price even if earnings hold.</td></tr>
+    <tr><td>EPS (TTM)</td><td class="r">$14.61</td><td>As reported by Finnhub. Note: $514.24 ÷ $14.61 = 35.2×, not the reported 33.8× P/E — the vendor's P/E and EPS are carried exactly as reported in the pack and evidently rest on different EPS bases or vintages; neither figure has been altered to force a reconciliation. Implied shares outstanding ≈ 461M (derived: $237.1B ÷ $514.24).</td></tr>
+    <tr><td>P/S (TTM)</td><td class="r">6.7×</td><td>Cross-checks: $237.1B ÷ $35.5B = 6.68× — consistent with the pack.</td></tr>
+    <tr><td>Gross margin</td><td class="r">48.2%</td><td>Derived from pack figures. Very high for a “chemicals” name — reflects pricing power and pass-through contracts, not commodity exposure.</td></tr>
+    <tr><td>Free cash flow · leverage · dividends / buybacks</td><td class="r">—</td><td><span class="est">Not in verified pack — omitted.</span> Do not underwrite LIN from this note alone on balance-sheet grounds; pull the latest 10-Q for debt, FCF and capital-return detail before sizing up.</td></tr>
+  </table>
+  <div class="note"><strong>What this means:</strong> on the verified numbers, LIN is a quality compounder trading at a quality price. The diagnostic question is not “is it cheap?” — at 33.8× it is not — but “does contract-backed, mid-single-digit earnings growth justify paying today for many years of it upfront?” Sections 5–6 answer that with scenarios rather than a single point estimate.</div>
+
+  <h2><i>03</i>Competitive Moat &amp; Industry Positioning</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Why the moat is the strongest in Materials</h3>
+      <ul>
+        <li><strong>Oligopoly structure:</strong> Linde and Air Liquide dominate global industrial gases; a small number of rational players limits price wars.</li>
+        <li><strong>Take-or-pay on-site contracts</strong> convert a commodity (gas) into an annuity-like revenue stream with high switching costs — a customer cannot casually re-source the oxygen its plant runs on.</li>
+        <li><strong>Distribution density</strong> is a physical barrier: plants, pipelines and cylinder fleets take decades and heavy capex to replicate region by region.</li>
+        <li><strong>Pricing power</strong> is evidenced by the 48.2% derived gross margin and contractual energy pass-throughs.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Where the moat is thinner</h3>
+      <ul>
+        <li>Regional and local gas producers compete on price at the cylinder / merchant end of the market, where contracts are shorter.</li>
+        <li>Large customers (steel, chemicals) have bargaining power at contract renewal, and a plant closure removes the volume entirely — the moat protects price, not the customer's existence.</li>
+        <li>Hydrogen and clean-energy economics are still policy-dependent; subsidies and carbon prices, not just technology, decide returns on the up-to-$50B programme.</li>
+      </ul>
+      <p><span class="pill">Primary competitor: Air Liquide (AIQUF)</span> <span class="src">— its price / cap / P/E were <strong>not</strong> re-checked in verification and are not quoted here.</span></p>
+    </div>
+  </div>
+
+  <h2><i>04</i>Catalysts &amp; Downside Risks</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Catalysts</h3>
+      <ul>
+        <li><strong>Electronics gases</strong> — semiconductor fab build-out needs ultra-pure gases; a structurally growing, high-purity niche.</li>
+        <li><strong>Hydrogen / clean energy</strong> — execution on the up-to-$50B decade programme (announced 2023), including blue / green hydrogen and CCS-linked projects.</li>
+        <li><strong>Healthcare gases</strong> — steady, regulated demand growth independent of the industrial cycle.</li>
+        <li><strong>Contract wins and renewals</strong> — each new on-site plant adds a long-dated, take-or-pay revenue stream.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Downside risks</h3>
+      <ul>
+        <li><strong>Industrial slowdown</strong> — steel, chemicals and manufacturing volumes fall with global capex; merchant volumes are the first to soften.</li>
+        <li><strong>High P/E (33.8×)</strong> — the single biggest price risk: de-rating, not earnings collapse, is the realistic bear mechanism.</li>
+        <li><strong>Energy costs</strong> — power is the main input; pass-through lags squeeze margin in a fast energy spike.</li>
+        <li><strong>Project / policy risk</strong> — clean-energy returns depend on subsidies and carbon policy surviving election cycles across 80+ jurisdictions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2><i>05</i>Scenario-Based Valuation &amp; Price Targets</h2>
+  <p class="lede">All targets below are <span class="est">modelled estimates</span> from the research pack — not verified facts. Methodology is shown so the arithmetic can be checked; scenario weights for the weighted figures were not supplied to the independent verifier, so weighted prices are labelled accordingly.</p>
+  <h3 style="margin:16px 0 4px">12–18-month targets (from $514.24)</h3>
+  <table>
+    <tr><th>Case</th><th class="r">Target</th><th class="r">vs. spot</th><th>What has to happen</th></tr>
+    <tr><td><strong>Bull</strong></td><td class="r">$640</td><td class="r">+24.5%</td><td>Electronics and clean-energy wins land, multiple holds near today's premium.</td></tr>
+    <tr><td><strong>Base</strong></td><td class="r">$560</td><td class="r">+8.9%</td><td>Steady contract compounding; modest earnings growth, no re-rating. (Pack rounds this to +9%.)</td></tr>
+    <tr><td><strong>Bear</strong></td><td class="r">$450</td><td class="r">−12.5%</td><td>Industrial slowdown plus P/E compression from 33.8× toward the high-20s.</td></tr>
+  </table>
+  <h3 style="margin:18px 0 4px">5-year frozen-parameter projection</h3>
+  <p>Frozen-parameter method, same format as the META sample: today's price is compounded at a scenario CAGR — parameters held steady, only the growth rate varies by case. Base case check, shown in the pack: $514.24 × 1.05<sup>5</sup> = $514.24 × 1.276 ≈ <strong>$656</strong>.</p>
+  <table>
+    <tr><th>Case</th><th>Assumption</th><th class="r">5-yr price</th><th class="r">vs. spot</th></tr>
+    <tr><td><strong>Bull</strong></td><td>Clean-energy + electronics drive growth well above the base CAGR</td><td class="r">~$850</td><td class="r">+65.3%</td></tr>
+    <tr><td><strong>Base</strong></td><td>5% price CAGR (pack methodology, above)</td><td class="r">$656</td><td class="r">+27.6%</td></tr>
+    <tr><td><strong>Bear</strong></td><td>Slowdown + de-rating offsets contract growth</td><td class="r">~$470</td><td class="r">−8.6%</td></tr>
+    <tr><td><strong>Probability-weighted</strong></td><td><span class="est">Modelled estimate</span> — weights not supplied to verifier; figure as given in pack</td><td class="r">~$644</td><td class="r">+25.2%</td></tr>
+  </table>
+  <div class="note"><strong>How to read this:</strong> even the 5-year base case (+27.6% over five years, ≈5% a year) is a bond-like return with equity risk attached — that is the honest consequence of paying 33.8×. LIN earns its place as a stabiliser, not as the portfolio's growth engine. A materially better entry would come from the bear-case price zone (~$450), not from chasing strength.</div>
+
+  <h2><i>06</i>Verdict &amp; Portfolio Sizing</h2>
+  <table>
+    <tr><th>Horizon</th><th>View</th><th>Rationale in one line</th></tr>
+    <tr><td>Short term (12–18 mo)</td><td class="buy">BUY</td><td>Base case +8.9% with a contracted, defensive earnings stream; downside case is a de-rating, not a business break.</td></tr>
+    <tr><td>Long term (5 yr)</td><td class="buy">BUY</td><td>Strongest moat in Materials compounds steadily; weighted modelled value ~$644 is ~25% above spot.</td></tr>
+    <tr><td>Suggested weight</td><td><strong>2.5% of total portfolio</strong></td><td>Core Materials holding for a mid-30s, risk-8/10 investor — ballast, sized so its low-single-digit expected CAGR cannot drag the whole portfolio.</td></tr>
+  </table>
+  <div class="card" style="margin-top:14px">
+    <h3>Position-size calculator</h3>
+    <label>Your total portfolio ($) <input id="pf" type="number" value="100000" min="0" step="1000"></label>
+    <button id="calc" type="button">Calculate 2.5%</button>
+    <p id="out" style="margin:12px 0 0;font-family:'IBM Plex Mono',monospace">LIN allocation: $2,500 · ≈ 4.9 shares at $514.24</p>
+    <p class="src">In-session only — nothing is saved. Share count is illustrative and ignores fractional-share and tax considerations.</p>
+  </div>
+
+  <h2>Sources</h2>
+  <ul class="src">
+    <li>Price ($514.24, 30 Oct 2026 close), trailing P/E (33.8×), EPS TTM ($14.61) — Finnhub: <a href="https://finnhub.io/?q=%22LIN%22" target="_blank" rel="noopener">finnhub.io — LIN</a>. Independent verification reproduced the close via Finnhub only (the pack's own source); a second feed was not retrieved in this pass.</li>
+    <li>Market cap ($237.1B), TTM revenue ($35.5B), gross profit ($17.1B), P/S (6.7×), 80+ countries, clean-energy programme (up to $50B, announced 2023) — Motley Fool figures as carried in the research pack (ranking metrics as of 6 Oct 2026).</li>
+    <li>Scenario targets (12–18 mo: $450 / $560 / $640; 5-yr: ~$470 / $656 / ~$850; weighted ~$644) — modelled estimates from the research pack, methodology shown in §5; not independently verified facts.</li>
+    <li>Derived figures are labelled “derived” where they appear (gross margin 48.2%, cost of revenue $18.4B, implied shares ≈461M, percentage moves vs. spot).</li>
+  </ul>
+  <p class="src"><strong>Open gaps, stated plainly:</strong> segment revenue splits, free cash flow, leverage / debt, and dividend / buyback figures for LIN were not in the verified pack and have been omitted rather than estimated. Competitor (Air Liquide) price, cap and P/E were explicitly not re-checked in verification and are not quoted.</p>
+
+  <div class="foot">Equity Research — LIN · As of 1 Nov 2026 · Price reference: 30 Oct 2026 close ($514.24). Recommendations are research views, not guarantees and not investment advice. Verify balance-sheet detail in Linde's latest SEC filing before acting on sizing.</div>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>Intrinsic value — Linde plc (LIN)</h2>
+<p><strong>Price (30 Oct 2026 close): $514.24.</strong> <strong>DCF intrinsic: $126.</strong> Discount/premium vs DCF: <strong>+308.1%</strong> — i.e. the shares are trading 308.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Value</th><th>Discount / Premium vs DCF</th><th>Inputs</th></tr><tr><td>DCF (10-year, constant growth)</td><td>$126</td><td>+308.1%</td><td>g 4.0%, r 10%, terminal g 3%</td></tr></table>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: Pack; TipRanks https://www.tipranks.com/stocks/lin/statistics ; MarketBeat book value https://www.marketbeat.com/stocks/NASDAQ/LIN/ ; InTickers https://intickers.com/reports/lin/</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>Top customers — Linde plc (LIN)</h2>
+<p><strong>Classification: B2B.</strong> The majority of revenue comes from businesses and governments, not consumers. No ranked top-7 customer list is disclosed: Linde sells industrial and medical gases plus engineering to thousands of customers in 80+ countries under long-term, often take-or-pay on-site contracts — the opposite of customer concentration. Its largest buyer groups are chemicals, electronics, healthcare, metals and energy customers.</p>
+<p><strong>Largest known customers (ranking not disclosed)</strong> — ordered by best available evidence; revenue shares are left blank because none is disclosed, and no ranking or share has been invented:</p>
+<table><tr><th>Customer / buyer channel</th><th>Revenue share</th><th>Coverage</th></tr><tr><td>Chemicals, refining and metals manufacturers</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Electronics / semiconductor fabs (on-site gases)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Healthcare systems and hospitals (medical gases)</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>Energy, hydrogen and clean-energy projects</td><td>—</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> No covered-ticker customer is disclosed, so the read-through is industrial production and fab investment as a whole: undervalued chemicals, electronics and healthcare buyers would be a potential tailwind to Linde&#x27;s contracted volumes only if they expand output and fabs, which depends on their own capex cycles rather than their valuation alone; overvalued buyers deferring plants would be a headwind through slower on-site signings.</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AI trade positioning — Linde plc (LIN)</h2>
+<p><strong>Role: Enabler.</strong> Linde&#x27;s on-site industrial gases are a direct input to semiconductor fabrication: fabs cannot run without ultra-pure gases, so every AI-chip fab expansion is a Linde (and Air Liquide) contract opportunity.</p>
+<p><strong>While the AI trade runs — demand channel:</strong> While the AI trade runs, demand comes through fab construction and utilisation: new AI-chip fabs need long-term on-site gas contracts, plus hydrogen projects as a second leg.</p>
+<p><strong>While the AI trade runs — multiple channel:</strong> On multiples, the gas oligopoly already trades at a premium (trailing P/E 33.8 in the pack) — an unwind would compress it toward a through-cycle industrial multiple.</p>
+<p><strong>When the AI trade unwinds, what breaks in order:</strong> (1) demand — hyperscaler capex cuts, data-centre delays/cancellations, and the commodity-price leg; (2) multiple compression toward a pre-AI/through-cycle multiple; (3) balance sheet — On the balance sheet, there is no AI-capex debt: capex is contracted project spend and contracts are take-or-pay, so the risk is deferred signings, not stranded inventory.</p>
+<p><strong>Specific trigger(s) to watch:</strong> Triggers to watch: fab capex cuts or delays by major chipmakers, a pause in hydrogen project FIDs, and industrial-production downturns in chemicals and electronics. No quantified AI sensitivity is claimed (no pack figure supports one). Key distinction: commodity prices, not AI sentiment, drive this name, so an AI unwind hits it mainly through the commodity cycle and risk appetite.</p>
+</div>
+</div>
+<script>
+document.getElementById('calc').addEventListener('click', function(){
+  var v = parseFloat(document.getElementById('pf').value) || 0;
+  var alloc = v * 0.025;
+  var shares = alloc / 514.24;
+  document.getElementById('out').textContent = 'LIN allocation: $' + alloc.toLocaleString('en-US',{maximumFractionDigits:0}) + ' · ≈ ' + shares.toFixed(1) + ' shares at $514.24';
+});
+</script>
+</body>
+</html>

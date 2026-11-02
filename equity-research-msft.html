@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<link rel="icon" href="data:," />
+<title>Equity Research — MSFT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --surface:#fffdf8; --surface2:#efece4; --ink:#18202e; --muted:#5c6577; --line:#ddd6c6;
+  --accent:#0b5fa5; --accent-ink:#ffffff; --teal:#0e7c6b; --bull:#067647; --bear:#b42318; --amber:#b54708;
+  --chip:#e8eef4; --shadow:0 1px 3px rgba(24,32,46,.08), 0 8px 24px rgba(24,32,46,.06);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11151c; --surface:#1a1f29; --surface2:#232a38; --ink:#e9ecf2; --muted:#a3adbd; --line:#303a4c;
+    --accent:#4da3e8; --accent-ink:#0b1622; --teal:#3ec2ab; --bull:#4ade9e; --bear:#ff8a7a; --amber:#ffb26b;
+    --chip:#24344a; --shadow:0 1px 3px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;font-size:16px;line-height:1.6}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px 56px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+h1,h2{font-family:"Newsreader",Georgia,serif;line-height:1.12;margin:0}
+h2{font-size:1.65rem;font-weight:700;letter-spacing:-.01em}
+h3{font-size:1rem;margin:0 0 6px}
+p{margin:0 0 10px}
+.small{font-size:.86rem;color:var(--muted)}
+.tiny{font-size:.78rem;color:var(--muted)}
+
+/* Snapshot header */
+.snapshot{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px 22px 18px;margin:18px 0 14px}
+.snap-top{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:flex-start}
+.ticker{display:flex;gap:14px;align-items:flex-start}
+.ticker-badge{background:var(--accent);color:var(--accent-ink);font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.05rem;padding:10px 12px;border-radius:10px;letter-spacing:.02em}
+h1{font-size:2rem}
+.verdicts{display:flex;gap:8px;flex-wrap:wrap}
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 12px;font-size:.82rem;font-weight:600;border:1px solid var(--line);background:var(--surface2)}
+.pill.buy{background:var(--bull);color:#fff;border-color:transparent}
+@media (prefers-color-scheme: dark){.pill.buy{color:#08130d}}
+.pill.alloc{background:var(--chip)}
+.statgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.stat{border:1px solid var(--line);border-radius:10px;padding:12px 12px 10px;background:var(--bg)}
+.stat .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-size:1.28rem;font-weight:600;margin:2px 0 0}
+.stat .n{font-size:.78rem;color:var(--muted)}
+.notice{border:1px solid var(--line);border-left:4px solid var(--amber);background:var(--surface);border-radius:10px;padding:12px 14px;margin:0 0 14px;font-size:.9rem}
+.notice strong{color:var(--ink)}
+
+/* Nav */
+nav.toc{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 6px}
+nav.toc a{background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;padding:7px 12px;border-radius:999px;font-size:.85rem;font-weight:500}
+nav.toc a:hover{border-color:var(--accent);color:var(--accent)}
+
+section.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:22px;margin:14px 0}
+.sec-head{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:16px}
+.sec-num{font-family:"IBM Plex Mono",monospace;font-size:.78rem;color:var(--accent);font-weight:600;letter-spacing:.06em}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.kv{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.kv .big{font-family:"IBM Plex Mono",monospace;font-size:1.35rem;font-weight:600}
+ul.tight{margin:6px 0 0;padding-left:18px}
+ul.tight li{margin:4px 0}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:var(--chip);color:var(--ink)}
+.tag.warn{background:#fdf0e6;color:#7a2e0e}
+@media (prefers-color-scheme: dark){.tag.warn{background:#3a2415;color:#ffb26b}}
+.bar-row{display:grid;grid-template-columns:150px 1fr 92px;gap:10px;align-items:center;margin:10px 0;font-size:.9rem}
+.bar-track{height:14px;background:var(--surface2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+.bar-fill{height:100%;background:var(--accent)}
+.bar-fill.teal{background:var(--teal)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:14px 0}
+.flow-box{flex:1 1 150px;border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--bg);text-align:center}
+.flow-box .fb-v{font-family:"IBM Plex Mono",monospace;font-weight:600;font-size:1.15rem}
+.flow-arrow{align-self:center;color:var(--muted);font-weight:700}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+th:first-child,td:first-child{text-align:left}
+thead th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-bottom:2px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+.weighted{background:var(--surface2);font-weight:600}
+.up{color:var(--bull);font-weight:600}.down{color:var(--bear);font-weight:600}
+.scen-bars{margin:16px 0 4px}
+.scen-row{display:grid;grid-template-columns:118px 1fr 120px;gap:10px;align-items:center;margin:9px 0;font-size:.88rem}
+.scen-track{position:relative;height:22px;background:var(--surface2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.scen-fill{height:100%}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.calc label{font-size:.85rem;font-weight:600;display:block;margin-bottom:6px}
+.calc input{width:100%;font-family:"IBM Plex Mono",monospace;font-size:1.1rem;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.calc-out{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.calc-out .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.calc-out .row:last-child{border-bottom:none}
+.risk-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.risk-col{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg)}
+.risk-col h3{color:var(--teal)} .risk-col.risks h3{color:var(--bear)}
+.src{font-size:.86rem} .src li{margin:6px 0;word-break:break-word}
+footer{margin-top:18px}
+@media (max-width:720px){
+  .statgrid{grid-template-columns:1fr 1fr}
+  .grid2,.grid3,.calc,.risk-list{grid-template-columns:1fr}
+  .bar-row{grid-template-columns:110px 1fr 76px}
+  .scen-row{grid-template-columns:92px 1fr 96px}
+  h1{font-size:1.6rem} h2{font-size:1.35rem}
+  section.card,.snapshot{padding:16px}
+  .table-scroll{overflow-x:auto}
+  div.bar-track + p.tiny, .bar-row + p.tiny{margin-left:0 !important}
+  .stack-table thead{display:none}
+  .stack-table, .stack-table tbody, .stack-table tr, .stack-table td{display:block;width:100%}
+  .stack-table tr{border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin:0 0 10px;background:var(--bg)}
+  .stack-table td{display:flex;justify-content:space-between;gap:14px;border-bottom:1px dashed var(--line);padding:6px 0;text-align:right}
+  .stack-table td::before{content:attr(data-label);font-size:.76rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;text-align:left;padding-top:2px}
+  .stack-table td[colspan]{display:block;text-align:left}
+  .stack-table td[colspan]::before{display:block;margin-bottom:2px}
+  .stack-table tr td:last-child{border-bottom:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- SNAPSHOT -->
+  <div class="snapshot">
+    <div class="snap-top">
+      <div class="ticker">
+        <div class="ticker-badge">MSFT</div>
+        <div>
+          <h1>Microsoft</h1>
+          <p class="small" style="margin:2px 0 0">Information Technology &middot; Productivity, Azure cloud, Windows, LinkedIn, Gaming, Dynamics<br>
+          As of <strong>1 Nov 2026</strong> &middot; Price reference: <strong>30 Oct 2026 close</strong> (1 Nov was a weekend)</p>
+        </div>
+      </div>
+      <div class="verdicts">
+        <span class="pill buy">Short term (12–18m): BUY</span>
+        <span class="pill buy">Long term (5yr): BUY</span>
+        <span class="pill alloc">Target weight: 5.0% of portfolio</span>
+      </div>
+    </div>
+    <div class="statgrid">
+      <div class="stat"><div class="k">Price — 30 Oct close</div><div class="v">$521.91</div><div class="n">Confirmed to the cent in verification</div></div>
+      <div class="stat"><div class="k">Market cap</div><div class="v">$3.88T</div><div class="n">~7.43B shares outstanding</div></div>
+      <div class="stat"><div class="k">Trailing P/E</div><div class="v">27.2×</div><div class="n">P/S ~11.2× — see §2 for maths</div></div>
+      <div class="stat"><div class="k">TTM revenue</div><div class="v">$346.45B</div><div class="n">FY26 revenue $331.8B, +18%</div></div>
+    </div>
+    <p class="tiny" style="margin:14px 0 0">Ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Samsung / SK Hynix appear in that source’s global ranking but are excluded from detail (foreign listings, not in the named set). Prepared for a mid-30s investor, risk score 8/10. Research views only — not guarantees, not investment advice. Every modelled target below is labelled as an estimate with its methodology shown.</p>
+  </div>
+
+  <div class="notice"><strong>Verification note — one correction applied:</strong> the “AI business &gt;$37B” figure is <strong>not</strong> FY26 revenue. It is an annualised run-rate disclosed in <strong>Q3 FY26 (April 2026)</strong>, +123% year-on-year. It is dated that way everywhere on this page. All 5-year scenario prices are <strong>modelled estimates</strong> (weights 25% bear / 50% base / 25% bull, shown in §5) — the independent verifier could not treat them as verified facts, and neither should you.</div>
+
+  <nav class="toc" aria-label="Sections">
+    <a href="#business">1 · Business</a>
+    <a href="#financials">2 · Financial health</a>
+    <a href="#moat">3 · Moat</a>
+    <a href="#catalysts">4 · Catalysts &amp; risks</a>
+    <a href="#valuation">5 · Valuation &amp; targets</a>
+    <a href="#recommendation">6 · Recommendation &amp; sizing</a>
+    <a href="#sources">Sources</a>
+  </nav>
+
+  <!-- 1 BUSINESS -->
+  <section class="card" id="business">
+    <div class="sec-head"><h2>Business model &amp; segment breakdown</h2><span class="sec-num">SECTION 01</span></div>
+    <p>Microsoft sells to enterprises and consumers through three intertwined engines: <strong>productivity software</strong> (Microsoft 365, Dynamics), <strong>cloud infrastructure and AI</strong> (Azure, Microsoft Cloud), and <strong>platforms and audiences</strong> (Windows, LinkedIn, Gaming, GitHub). The structural pivot in the verified pack is explicit: monetising AI through <strong>Copilot / Microsoft 365</strong> on the application layer and <strong>Azure AI</strong> on the infrastructure layer — funded by very high capital spending.</p>
+
+    <div class="grid3" style="margin-top:14px">
+      <div class="kv"><span class="tag">Full year FY26</span><div class="big" style="margin-top:8px">$331.8B</div><p class="small">Revenue, <strong>+18%</strong> year-on-year. Confirmed in verification against a second source.</p></div>
+      <div class="kv"><span class="tag">Q4 FY26</span><div class="big" style="margin-top:8px">$90.0B</div><p class="small">Revenue, +18% ($90.007B in verification). Operating income <strong>$40.6B</strong> — a 45.1% operating margin for the quarter (derived: 40.6 ÷ 90.0).</p></div>
+      <div class="kv"><span class="tag">Q4 capex</span><div class="big" style="margin-top:8px">$41B</div><p class="small">Capital expenditure including finance leases in Q4 FY26 alone. This is the scale of the AI build-out — and the central debate in §4.</p></div>
+    </div>
+
+    <h3 style="margin-top:20px">Where the revenue concentrates</h3>
+    <p class="small">Only the two aggregates below are in the verified pack. No finer segment split — and no geographic split — was supplied, so none is invented here. See “Open questions” at the end of this section.</p>
+    <div class="bar-row"><span>Microsoft Cloud</span><div class="bar-track"><div class="bar-fill" style="width:64.5%"></div></div><span class="mono">&gt;$214B · +27%</span></div>
+    <p class="tiny" style="margin:-4px 0 6px 160px">More than ~64.5% of FY26 revenue (derived: 214 ÷ 331.8; the numerator is a “greater than” figure, so the share is a floor).</p>
+    <div class="bar-row"><span>of which: Azure</span><div class="bar-track"><div class="bar-fill teal" style="width:30.1%"></div></div><span class="mono">&gt;$100B · +41%</span></div>
+    <p class="tiny" style="margin:-4px 0 6px 160px">Azure passed $100B for a full year for the first time; FY growth +41% reported (+40% constant-currency). Q4 Azure grew +43%, guided to the mid-40s for the next quarter.</p>
+
+    <div class="flow" aria-label="Q4 FY26 income flow">
+      <div class="flow-box"><div class="tiny">Q4 REVENUE</div><div class="fb-v">$90.0B</div><div class="tiny">+18% YoY</div></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><div class="tiny">COSTS &amp; EXPENSES (implied)</div><div class="fb-v">$49.4B</div><div class="tiny">Derived: 90.0 − 40.6</div></div>
+      <div class="flow-arrow" aria-hidden="true">→</div>
+      <div class="flow-box"><div class="tiny">OPERATING INCOME</div><div class="fb-v">$40.6B</div><div class="tiny">45.1% margin (derived)</div></div>
+    </div>
+
+    <div class="grid2">
+      <div>
+        <h3>Core revenue streams</h3>
+        <ul class="tight">
+          <li><strong>Productivity / 365</strong> — the subscription base the Copilot upsell attaches to.</li>
+          <li><strong>Azure + cloud</strong> — now the majority of the company via Microsoft Cloud (&gt;$214B).</li>
+          <li><strong>Windows, LinkedIn, Gaming, Dynamics</strong> — platform reach and professional / consumer audiences alongside the enterprise core.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>The AI line — read the date</h3>
+        <p>AI business <strong>&gt;$37B annualised run-rate, +123%</strong> — as disclosed in <strong>Q3 FY26 (April 2026)</strong>. <span class="tag warn">Run-rate, not FY revenue</span></p>
+        <p class="small">A run-rate annualises one period’s pace; it is not audited full-year revenue and the pack carries no newer AI figure. Treat it as evidence of momentum as of April 2026, not as an FY26 total.</p>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:14px"><strong>Open questions (not in the verified pack — labelled, not filled in):</strong> geographic revenue distribution; revenue by individual segment beyond the Cloud and Azure aggregates above; and named supply-chain dependencies. The pack identifies the dependency that matters most in economic terms — the AI data-centre build itself, at $41B of capex in a single quarter including finance leases — but does not break out suppliers or geographies.</p>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section class="card" id="financials">
+    <div class="sec-head"><h2>Financial health &amp; balance-sheet diagnostics</h2><span class="sec-num">SECTION 02</span></div>
+    <div class="grid3">
+      <div class="kv"><div class="k small" style="font-weight:600">TRAILING P/E</div><div class="big">27.2×</div><p class="small">On the $521.91 close.</p></div>
+      <div class="kv"><div class="k small" style="font-weight:600">PRICE / SALES</div><div class="big">~11.2×</div><p class="small">Maths shown in pack: $3.88T market cap ÷ $346B TTM revenue. Premium multiple — the market is paying for durability and AI growth, not current cash yield.</p></div>
+      <div class="kv"><div class="k small" style="font-weight:600">SHARES</div><div class="big">~7.43B</div><p class="small">Share count used consistently in the §5 valuation maths.</p></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div>
+        <h3>Capital allocation</h3>
+        <ul class="tight">
+          <li><strong>Dividend payer</strong> with ongoing <strong>buybacks</strong> (per pack; no amounts were supplied, so no yield or buyback total is printed).</li>
+          <li><strong>Capex dominates the story:</strong> $41B in Q4 FY26 alone, including finance leases, directed at the AI build-out.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Free cash flow — the honest caveat</h3>
+        <p>The pack’s instruction is blunt and this page follows it: <strong>capex is the key swing factor for FCF — do not model FCF as growing with revenue in 2026–27.</strong> Revenue can compound at 12–16% in the scenarios while cash generation lags, because the spending comes first.</p>
+      </div>
+    </div>
+
+    <p class="small" style="margin-top:12px"><strong>What is not printed, and why:</strong> the verified pack supplies no MSFT cash balance, debt total, debt-to-equity ratio, EV/EBITDA, or FCF total. Rather than estimate them, this section leaves them out. If you need a leverage view before sizing up beyond the 5.0% target, those five figures are the gap to close in the next research pass — they are open questions, not zeros.</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section class="card" id="moat">
+    <div class="sec-head"><h2>Competitive moat &amp; industry positioning</h2><span class="sec-num">SECTION 03</span></div>
+    <div class="grid2">
+      <div>
+        <h3>Why the moat is wide</h3>
+        <ul class="tight">
+          <li><strong>Enterprise distribution</strong> — Microsoft already sits inside the customer’s contracts, identity and security stack; Copilot and Azure AI are sold into an installed base rather than won from scratch.</li>
+          <li><strong>365 / Windows lock-in</strong> — switching costs are organisational, not just technical: documents, workflows and habits.</li>
+          <li><strong>Azure hybrid</strong> — serving customers who cannot move everything to a single public cloud.</li>
+          <li><strong>GitHub / LinkedIn data and reach</strong> — developer and professional graphs competitors cannot easily replicate.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Who it fights</h3>
+        <ul class="tight">
+          <li><strong>AWS</strong> — the cloud scale rival.</li>
+          <li><strong>Google Cloud</strong> — cloud + AI model rival.</li>
+          <li><strong>Oracle</strong> — enterprise database / cloud rival.</li>
+          <li><strong>Salesforce</strong> — enterprise applications rival.</li>
+        </ul>
+        <p class="small" style="margin-top:8px">Pricing power follows from the lock-in: the Copilot pricing question in §4 is really a test of how much of that power converts into per-seat AI revenue.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 CATALYSTS / RISKS -->
+  <section class="card" id="catalysts">
+    <div class="sec-head"><h2>Catalysts &amp; downside risks</h2><span class="sec-num">SECTION 04</span></div>
+    <div class="risk-list">
+      <div class="risk-col">
+        <h3>Catalysts</h3>
+        <ul class="tight">
+          <li><strong>Azure AI acceleration</strong> — Q4 Azure +43% with mid-40s growth guided for the next quarter; if that guide holds, the AI-infrastructure thesis stays intact.</li>
+          <li><strong>Copilot pricing &amp; adoption</strong> — converting the 365 installed base into paid AI seats is the highest-leverage monetisation path in the pack.</li>
+          <li><strong>Cloud momentum</strong> — Microsoft Cloud &gt;$214B, +27%, gives the AI products a distribution engine already at scale.</li>
+        </ul>
+      </div>
+      <div class="risk-col risks">
+        <h3>Risks</h3>
+        <ul class="tight">
+          <li><strong>Capex / return-on-capex scrutiny</strong> — the market’s split verdict on 28 Oct (in prior coverage): Azure beat, but investors questioned the spend. At $41B in one quarter, every quarter re-opens that argument.</li>
+          <li><strong>OpenAI exposure</strong> — a named concentration in the pack: strategy, supply and reputation partly ride on one partner.</li>
+          <li><strong>Regulation</strong> — enterprise/cloud scale invites continuing regulatory attention (per pack; no specific case or figure was supplied).</li>
+          <li><strong>Multiple risk</strong> — at 27.2× trailing earnings and ~11.2× sales, disappointment is priced harshly; the bear cases in §5 assume exactly that compression.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section class="card" id="valuation">
+    <div class="sec-head"><h2>Scenario valuation &amp; price targets</h2><span class="sec-num">SECTION 05 · ALL TARGETS ARE MODELLED ESTIMATES</span></div>
+    <p class="small">Method (frozen-parameter format): start from TTM revenue <strong>$346B</strong> and <strong>7.43B shares</strong> held constant; vary only revenue growth, net margin and exit P/E by case. Weights: <strong>25% bear / 50% base / 25% bull</strong>. These are the pack’s scenarios, independently checkable from the assumptions shown — not analyst consensus and not verified facts.</p>
+
+    <h3 style="margin-top:16px">5-year projection (to ~2031)</h3>
+    <table class="stack-table">
+      <thead><tr><th>Case (weight)</th><th>Rev. growth /yr</th><th>2031 revenue</th><th>Net margin</th><th>2031 EPS</th><th>Exit P/E</th><th>Price</th><th>vs $521.91</th></tr></thead>
+      <tbody>
+        <tr><td data-label="Case"><strong>Bull</strong> (25%)</td><td data-label="Rev. growth /yr">16%</td><td data-label="2031 revenue">~$727B</td><td data-label="Net margin">37%</td><td data-label="2031 EPS">~$36.19</td><td data-label="Exit P/E">33×</td><td data-label="Price" class="mono"><strong>$1,195</strong></td><td data-label="vs $521.91" class="up">+129.0%</td></tr>
+        <tr><td data-label="Case"><strong>Base</strong> (50%)</td><td data-label="Rev. growth /yr">12%</td><td data-label="2031 revenue">$610B</td><td data-label="Net margin">35%</td><td data-label="2031 EPS">$28.70</td><td data-label="Exit P/E">28×</td><td data-label="Price" class="mono"><strong>$804</strong></td><td data-label="vs $521.91" class="up">+54.0%</td></tr>
+        <tr><td data-label="Case"><strong>Bear</strong> (25%)</td><td data-label="Rev. growth /yr">7%</td><td data-label="2031 revenue">~$485B</td><td data-label="Net margin">32%</td><td data-label="2031 EPS">~$20.90</td><td data-label="Exit P/E">22×</td><td data-label="Price" class="mono"><strong>$460</strong></td><td data-label="vs $521.91" class="down">−11.9%</td></tr>
+        <tr class="weighted"><td data-label="Case">Probability-weighted</td><td data-label="Formula" colspan="5">0.25 × $1,195 + 0.50 × $804 + 0.25 × $460 = $815.75</td><td data-label="Price" class="mono">$816</td><td data-label="vs $521.91" class="up">+56.3%</td></tr>
+      </tbody>
+    </table>
+    <p class="tiny">Worked base case, exactly as in the pack: $346B × 1.12⁵ ≈ $610B revenue × 35% margin = $213B net income ÷ 7.43B shares = $28.70 EPS × 28 = $804. Bull and bear EPS/revenue cells are derived the same way from their stated growth and margin. Note the bear case sits <em>below</em> today’s price: five years of 7% growth with margin and multiple compression loses money from $521.91 — that is the priced-in expectation you are underwriting.</p>
+
+    <div class="scen-bars" role="img" aria-label="Bar chart of 5-year scenario prices: bear 460 dollars, current price 521 dollars 91, weighted 816 dollars, base 804 dollars, bull 1195 dollars">
+      <div class="scen-row"><span>Bear · $460</span><div class="scen-track"><div class="scen-fill" style="width:38.5%;background:var(--bear)"></div></div><span class="mono down">−11.9%</span></div>
+      <div class="scen-row"><span>Today · $521.91</span><div class="scen-track"><div class="scen-fill" style="width:43.7%;background:var(--muted)"></div></div><span class="mono">30 Oct close</span></div>
+      <div class="scen-row"><span>Base · $804</span><div class="scen-track"><div class="scen-fill" style="width:67.3%;background:var(--accent)"></div></div><span class="mono up">+54.0%</span></div>
+      <div class="scen-row"><span>Weighted · $816</span><div class="scen-track"><div class="scen-fill" style="width:68.3%;background:var(--teal)"></div></div><span class="mono up">+56.3%</span></div>
+      <div class="scen-row"><span>Bull · $1,195</span><div class="scen-track"><div class="scen-fill" style="width:100%;background:var(--bull)"></div></div><span class="mono up">+129.0%</span></div>
+    </div>
+
+    <h3 style="margin-top:22px">12–18-month targets <span class="tag" style="margin-left:6px">Modelled estimates</span></h3>
+    <div class="table-scroll">
+    <table>
+      <thead><tr><th>Case</th><th>Target</th><th>vs $521.91</th><th>What has to happen (read with §4)</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Bull</strong></td><td class="mono">$650</td><td class="up">+24.5%</td><td style="text-align:left">Azure holds mid-40s growth and Copilot pricing lands; capex scrutiny fades.</td></tr>
+        <tr><td><strong>Base</strong></td><td class="mono">$580</td><td class="up">+11.1%</td><td style="text-align:left">Azure momentum continues, spend debate stays unresolved but contained.</td></tr>
+        <tr><td><strong>Bear</strong></td><td class="mono">$430</td><td class="down">−17.6%</td><td style="text-align:left">Return-on-capex doubts or an OpenAI / regulatory setback compress the 27.2× multiple.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="tiny">The pack supplies no weights or formula for the 12–18-month range, so no weighted figure is printed for that horizon — only the three case prices, labelled as modelled estimates.</p>
+  </section>
+
+  <!-- 6 RECOMMENDATION -->
+  <section class="card" id="recommendation">
+    <div class="sec-head"><h2>Recommendation &amp; portfolio sizing</h2><span class="sec-num">SECTION 06</span></div>
+    <div class="grid3">
+      <div class="kv"><span class="tag">Short term · 12–18m</span><div class="big" style="color:var(--bull);margin-top:6px">BUY</div><p class="small">Base target $580 (+11.1%) with Azure guided to mid-40s growth — per pack recommendation.</p></div>
+      <div class="kv"><span class="tag">Long term · 5yr</span><div class="big" style="color:var(--bull);margin-top:6px">BUY</div><p class="small">Weighted modelled value $816 (+56.3%) on 25/50/25 scenarios — per pack recommendation.</p></div>
+      <div class="kv"><span class="tag">Target weight</span><div class="big" style="margin-top:6px">5.0%</div><p class="small">Of total portfolio, for a mid-30s investor at risk 8/10 (pack figure). A core-sized single-name position — large enough to matter, capped well below the $3.88T company’s index weight in your life.</p></div>
+    </div>
+
+    <h3 style="margin-top:20px">Position-size calculator</h3>
+    <p class="small">In-memory only — nothing is saved or sent. Uses the $521.91 reference price and the 5.0% target weight.</p>
+    <div class="calc">
+      <div>
+        <label for="pf">Your total portfolio value ($)</label>
+        <input id="pf" type="number" min="0" step="1000" value="500000" inputmode="decimal" />
+        <p class="tiny" style="margin-top:8px">Default $500,000 is an illustration, not your actual portfolio. Change it and the sizing updates instantly.</p>
+      </div>
+      <div class="calc-out" aria-live="polite">
+        <div class="row"><span>Target MSFT position (5.0%)</span><strong class="mono" id="out-target">$25,000</strong></div>
+        <div class="row"><span>Shares at $521.91</span><strong class="mono" id="out-shares">47.9</strong></div>
+        <div class="row"><span>Value at 12–18m base ($580)</span><strong class="mono" id="out-base">$27,782</strong></div>
+        <div class="row"><span>Value at 5yr weighted ($816, modelled)</span><strong class="mono" id="out-wtd">$39,087</strong></div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:14px"><strong>How to read the two BUYs together:</strong> both horizons point the same way in the pack, but for different reasons — the short-term case leans on guided Azure momentum, the long-term case on compounding at 12% with a 35% net margin surviving the capex cycle. The bear cases (−17.6% near-term, −11.9% over five years) are the cost if the return-on-capex argument wins. Size at 5.0% means even the bear path is survivable inside a diversified, risk-8/10 portfolio.</p>
+  </section>
+
+  <!-- SOURCES -->
+  <section class="card" id="sources">
+    <div class="sec-head"><h2>Sources, verification &amp; limits</h2><span class="sec-num">APPENDIX</span></div>
+    <p class="small">Pack sources (as cited in the research pack):</p>
+    <ul class="src">
+      <li>Techi — Magnificent Seven stocks: <a href="https://www.techi.com/magnificent-seven-stocks/" target="_blank" rel="noopener">techi.com/magnificent-seven-stocks</a></li>
+      <li>Analytics Insight — largest technology companies by revenue in 2026: <a href="https://www.analyticsinsight.net/technology/list-of-largest-technology-companies-by-revenue-in-2026" target="_blank" rel="noopener">analyticsinsight.net</a></li>
+      <li>FinanceCharts — AVGO / NVDA / MSFT revenue comparison: <a href="https://www.financecharts.com/compare/AVGO,NVDA,MSFT/summary/revenue-ttm" target="_blank" rel="noopener">financecharts.com/compare/AVGO,NVDA,MSFT</a></li>
+      <li>Finnhub — MSFT quote: <a href="https://finnhub.io/?q=%22MSFT%22" target="_blank" rel="noopener">finnhub.io/?q=“MSFT”</a></li>
+    </ul>
+    <p class="small">Independent verification (1 Nov 2026, second sources) confirmed: FY26 revenue $331.8B (+18%) and Q4 revenue $90.007B (+18%); Azure &gt;$100B for the FY (+41% reported, +40% constant-currency) with Q4 at +43%; the $521.91 close to the cent; and market cap $3.88T. It <strong>corrected</strong> the AI figure’s dating (Q3 FY26 run-rate — applied above) and flagged all 5-year weighted prices as unverifiable without published weights — this page publishes the weights and formula so the $816 figure can be checked. Sector ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, updated 30 Oct 2026.</p>
+    <p class="small"><strong>Limits:</strong> no geographic split, no per-segment revenue beyond Cloud/Azure aggregates, no cash/debt/EV-EBITDA/FCF totals, and no dividend yield or buyback amounts were in the verified pack — each is marked as an open question where it belongs rather than filled with an estimate. Scenario prices are modelled estimates, not forecasts or guarantees.</p>
+  </section>
+
+  
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>MSFT — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $521.91.</strong> <strong>DCF intrinsic: $236.</strong> Discount/premium vs DCF: <strong>+121.1%</strong> — i.e. the shares are trading 121.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$236</td><td>+121.1%</td></tr></table>
+<p><strong>Method 1 — DCF: $236.</strong> Base FCF $59.96B, constant growth g = 12% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $662.95B; Year-10 FCF = $186.23B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $1,056.46B. Equity value = PV of FCF + PV of terminal value + net cash ($36.55B) = $1,755.96B; divided by 7.43B diluted shares = $236. Base note: TTM FCF to 30 Sep 2026: OCF $195.88B less cash capex $135.92B = $59.96B (InTickers/GeminIQ). Capex-depressed: pack warns not to model FCF as growing with revenue in 2026-27; g is set at the pack base revenue CAGR of 12%, not above it.</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://intickers.com/reports/msft/ ; https://www.geminiq.com/blog/microsoft-earnings-q1-fy2027 ; https://chartsview.co.uk/research/technology/research-msft ; https://www.apexticker.com/Best-Dividend-Stocks-2026.html</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MSFT — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of MSFT's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known relationships (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Enterprise and commercial customers (undisclosed individually)</td><td>Productivity, Azure and Dynamics — no ranked customer list is disclosed; revenue is broadly spread across enterprises and governments</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>OpenAI</td><td>Azure AI hosting and Copilot ecosystem (private; also an investment holding, not a revenue customer in the ordinary sense)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr><tr><td>US Government and public sector</td><td>Cloud and productivity contracts (not a single ticker)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> Microsoft's revenue is broadly spread across enterprises and governments rather than concentrated in a few named buyers, so there is no single-customer read-through to lean on; the filled figures for its largest ecosystem relationships matter only indirectly, through enterprise IT budgets. An undervalued enterprise customer base would be a mild tailwind for Azure and 365 renewals, but it does not guarantee higher spending — budgets follow each customer's own priorities and cash position, and the October evidence was that even strong cloud demand did not stop multiple compression. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>MSFT — AI trade positioning</h2>
+<p><strong>Role: Enabler and Beneficiary.</strong> Microsoft is both: Azure hosts the AI build-out (pack: Azure >$100B in FY26, +41%; Q4 +43%) and Copilot/365 monetises it, while its AI business runs at a >$37B annualised run-rate (re-dated per the coordinator correction to Q3 FY26, April 2026, +123% YoY — a run-rate, not FY26 revenue).</p>
+<p>While the AI trade runs, demand comes through Azure AI consumption and Copilot/365 seats, with Microsoft Cloud above $214B (+27%) in the pack. On multiples, Microsoft trades around 27x trailing earnings in the pack, below its recent premium history, so the AI narrative has supported rather than stretched the multiple — but that rests on Azure growth sustaining the mid-40s guide the pack cites.</p>
+<p>If the AI trade unwinds, demand breaks first through Azure AI consumption slowing and Copilot seat-growth disappointment, while the capex bill does not fall as fast: Q4 FY26 capex was $41B including finance leases, and TTM FCF has already compressed to ~$60B from $195.9B of OCF. Multiple compression follows toward a through-cycle software multiple, and the balance sheet — $76.8B of cash and short-term investments against $40.3B of debt at FY2026-end, plus $28.1B of data-center finance leases the pack's coverage flags — absorbs the strain but does not remove it. Triggers to watch: Azure growth versus the mid-40s guide, quarterly FCF after the lease-accounting change, and OpenAI-related earnings swings (37% of the Q1 FY27 EPS increase per coverage).</p>
+</div>
+<footer>
+    <p class="tiny">Equity Research — MSFT · Information Technology · Data as of 1 Nov 2026, prices at the 30 Oct 2026 close · Research views only, not investment advice. — Blaze</p>
+  </footer>
+</div>
+<script>
+(function(){
+  var PRICE=521.91, W=0.05, BASE12=580, WTD5=816;
+  var pf=document.getElementById('pf');
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function upd(){
+    var v=parseFloat(pf.value); if(isNaN(v)||v<0)v=0;
+    var target=v*W, shares=target/PRICE;
+    document.getElementById('out-target').textContent=fmt(target);
+    document.getElementById('out-shares').textContent=shares.toLocaleString('en-US',{maximumFractionDigits:1});
+    document.getElementById('out-base').textContent=fmt(shares*BASE12);
+    document.getElementById('out-wtd').textContent=fmt(shares*WTD5);
+  }
+  pf.addEventListener('input',upd); upd();
+})();
+</script>
+</body>
+</html>

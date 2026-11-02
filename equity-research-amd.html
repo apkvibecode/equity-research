@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Equity Research — AMD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f1; --surface:#ffffff; --surface2:#f0ede7; --ink:#1a1815; --muted:#6b6560; --line:#ddd8cf;
+  --red:#c1272d; --red-soft:#fdf0f0; --green:#166534; --green-bg:#ecfdf3; --amber:#92400e; --amber-bg:#fef6e3;
+  --gold:#8a6d2b;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#131110; --surface:#1c1a18; --surface2:#24211f; --ink:#ece8e1; --muted:#a8a099; --line:#35312e; --red:#f87171; --red-soft:#2a1a1a; --green:#4ade80; --green-bg:#14291c; --amber:#fbbf24; --amber-bg:#2a2210; --gold:#d4b56a; }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.6;font-size:15.5px}
+a{color:var(--red);text-decoration:none} a:hover{text-decoration:underline}
+.wrap{max-width:880px;margin:0 auto;padding:28px 20px 56px}
+.topbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);padding-bottom:14px}
+.topbar b{color:var(--ink)}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;line-height:1.15;margin:0}
+h1{font-size:42px;letter-spacing:-.02em}
+h2{font-size:26px;margin-bottom:10px}
+h3{font-size:17px}
+.hero{display:grid;grid-template-columns:1.35fr .85fr;gap:28px;padding:28px 0 22px;border-bottom:2px solid var(--ink)}
+@media(max-width:680px){.hero{grid-template-columns:1fr} h1{font-size:34px}}
+.ticker{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:999px;font-family:"JetBrains Mono",monospace;font-size:13px;font-weight:700;letter-spacing:.06em;margin-bottom:14px}
+.ticker i{width:8px;height:8px;background:#ed1c24;border-radius:50%;display:block}
+.lede{font-size:17px;color:var(--muted);margin-top:12px;line-height:1.55}
+.pricebox{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px}
+.price{font-family:"JetBrains Mono",monospace;font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.down{color:var(--red);font-weight:700}
+.small{font-size:12.5px;color:var(--muted);line-height:1.5}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:18px 0}
+@media(max-width:680px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--surface);padding:14px 16px}
+.kpi label{display:block;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.kpi strong{font-size:18px;font-family:"JetBrains Mono",monospace}
+.kpi span{display:block;font-size:12px;color:var(--muted)}
+.alert{border:1px solid #e8c9a0;background:var(--amber-bg);border-radius:12px;padding:14px 16px;margin:18px 0}
+.alert b{color:var(--amber)}
+.verdict{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:18px 0}
+@media(max-width:680px){.verdict{grid-template-columns:1fr}}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.vcard label{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.badge{display:inline-block;padding:3px 9px;border-radius:999px;font-weight:700;font-size:13px;margin:6px 0}
+.buy{background:var(--green-bg);color:var(--green);border:1px solid color-mix(in srgb, var(--green) 30%, transparent)}
+section{padding:28px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--red);margin-bottom:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h3{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:2px solid var(--ink)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+td.num,th.num{text-align:right;font-family:"JetBrains Mono",monospace;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.bar-row{display:grid;grid-template-columns:110px 1fr 72px;gap:10px;align-items:center;margin:8px 0;font-size:13px}
+.bar{height:10px;background:var(--surface2);border-radius:999px;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px}
+.toggle{display:inline-flex;background:var(--surface2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:3px}
+.toggle button{border:0;background:transparent;padding:6px 12px;border-radius:999px;font-weight:600;cursor:pointer;color:var(--muted);font-family:inherit}
+.toggle button.active{background:var(--ink);color:var(--bg)}
+input[type=number]{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font-size:16px;font-family:"JetBrains Mono",monospace}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:680px){.calc{grid-template-columns:1fr}}
+.result{font-family:"JetBrains Mono",monospace;font-size:28px;font-weight:700}
+ul{padding-left:18px;margin:8px 0} li{margin:5px 0}
+.foot{font-size:12.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px;margin-top:10px}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:var(--surface2);border:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><span><b>Equity Research</b> &nbsp;•&nbsp; Information Technology — Semiconductors</span><span>As of 1 Nov 2026</span></div>
+
+  <div class="hero">
+    <div>
+      <div class="ticker"><i></i> NASDAQ: AMD</div>
+      <h1>Advanced Micro Devices — the #2 AI bet priced for perfection</h1>
+      <p class="lede">EPYC keeps taking server share and Instinct is the only credible #2 AI accelerator — but at 45× forward earnings, a single soft guide erased 10.9% in one session. The business is real; the valuation leaves no cushion.</p>
+      <p class="small" style="margin-top:14px">Ranking basis: FinanceCharts “Biggest Tech Companies for Nov 2026”, last updated 30 Oct 2026; prices = 30 Oct 2026 close. Research views only — not investment advice, not a guarantee.</p>
+    </div>
+    <div class="pricebox">
+      <label style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--muted)">30 Oct 2026 close</label>
+      <div class="price">$504.80</div>
+      <p style="margin:8px 0"><span class="down">▼ −10.88% on the day</span> <span class="small">−$61.62 from $566.42 prior close — verified independently (Finnhub).</span></p>
+      <div style="border-top:1px solid var(--line);padding-top:10px;margin-top:10px">
+        <div style="display:flex;justify-content:space-between"><span class="small">Market cap</span><strong style="font-family:'JetBrains Mono',monospace">$824.07B</strong></div>
+        <div style="display:flex;justify-content:space-between"><span class="small">Shares out</span><strong style="font-family:'JetBrains Mono',monospace">1.632B</strong></div>
+        <div style="display:flex;justify-content:space-between"><span class="small">Dividend</span><strong>None</strong></div>
+      </div>
+      <!-- price drop visual -->
+      <svg viewBox="0 0 300 54" width="100%" style="margin-top:14px" aria-label="Price fell from 566.42 to 504.80">
+        <rect x="4" y="8" width="292" height="14" rx="7" fill="#e7e2d9"/><rect x="4" y="8" width="260" height="14" rx="7" fill="#9a948c"/>
+        <rect x="4" y="32" width="292" height="14" rx="7" fill="#fde8e8"/><rect x="4" y="32" width="232" height="14" rx="7" fill="#c1272d"/>
+        <text x="4" y="6" font-size="9" fill="currentColor" opacity=".6">PRIOR $566.42</text>
+      </svg>
+      <p class="small">Next catalyst in days: <strong style="color:var(--ink)">Q3 earnings — 3 Nov 2026.</strong></p>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><label>TTM Revenue</label><strong>$41.31B</strong><span>+39.5% YoY (StockAnalysis)</span></div>
+    <div class="kpi"><label>TTM Net Income / EPS</label><strong>$6.43B · $3.90</strong><span>GAAP basis — see warning below</span></div>
+    <div class="kpi"><label>Forward P/E</label><strong>45.15×</strong><span>The usable multiple</span></div>
+    <div class="kpi"><label>Trailing P/E</label><strong>129.55×</strong><span>Not usable — depressed GAAP margin</span></div>
+  </div>
+
+  <div class="alert"><b>⚠ Read the P/E correctly:</b> Trailing P/E of <strong>129.55× is meaningless for valuation here</strong> — GAAP margin is depressed by amortisation / acquisition costs (Xilinx). Use the forward / non-GAAP margin path instead. That distinction is why Q2 shows two EPS numbers below.</div>
+
+  <div class="verdict">
+    <div class="vcard"><label>Short term · 12–18 mo</label><br><span class="badge buy">BUY — on weakness</span><p class="small">Base target $580. The 30 Oct drop is the entry the valuation demanded — but size for volatility into 3 Nov earnings.</p></div>
+    <div class="vcard"><label>Long term · 5 years</label><br><span class="badge buy">BUY</span><p class="small">Modelled weighted value $667 (estimate, methodology below). EPYC + Instinct compounding story intact.</p></div>
+    <div class="vcard"><label>Portfolio weight</label><br><strong style="font-size:28px;font-family:'JetBrains Mono',monospace">2.5%</strong><p class="small">For mid-30s, risk 8/10. Single-name semi exposure — high beta, no dividend cushion.</p></div>
+  </div>
+
+  <!-- 1 BUSINESS -->
+  <section>
+    <div class="eyebrow">01 — Business model & segments</div>
+    <h2>Four engines, one fab dependency</h2>
+    <p>AMD sells performance per watt and per dollar against entrenched incumbents — x86 CPUs against Intel, GPUs / accelerators against Nvidia — using a fabless, chiplet-based design manufactured entirely by partners.</p>
+    <div class="grid2">
+      <div class="card"><h3>Data Center — the growth engine</h3><p class="small" style="color:var(--ink);font-size:14px">EPYC server CPUs + Instinct AI accelerators. This is where the re-rating lives: EPYC share gains in servers and Instinct as the hyperscalers’ second source to Nvidia.</p></div>
+      <div class="card"><h3>Client</h3><p class="small" style="color:var(--ink);font-size:14px">Ryzen PC processors. Cyclical, tied to PC refresh — steadier than Gaming, less strategic than Data Center.</p></div>
+      <div class="card"><h3>Gaming</h3><p class="small" style="color:var(--ink);font-size:14px">Radeon GPUs and semi-custom console silicon. Volatile with console cycles and consumer GPU demand.</p></div>
+      <div class="card"><h3>Embedded (Xilinx)</h3><p class="small" style="color:var(--ink);font-size:14px">Adaptive / FPGA and embedded products from the Xilinx acquisition. Diversifies revenue, but its amortisation is a key reason GAAP earnings understate the run-rate — hence the P/E warning.</p></div>
+    </div>
+    <h3 style="margin-top:18px">Supply chain — the shared bottleneck</h3>
+    <p><strong>TSMC fabrication + advanced packaging</strong> for leading-edge silicon, and <strong>HBM memory dependency shared with Nvidia</strong>. AMD does not control its own capacity: packaging slots and HBM allocation are contested with Nvidia and Broadcom custom silicon, so supply — not just demand — can cap Instinct shipments.</p>
+    <h3 style="margin-top:16px">Latest print — Q2 2026 (reported 4 Aug 2026)</h3>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:10px 0">
+      <div class="toggle" role="group" aria-label="EPS basis"><button id="btnNonGaap" class="active" onclick="setEps('nongaap')">Non-GAAP</button><button id="btnGaap" onclick="setEps('gaap')">GAAP</button></div>
+      <span class="small">Toggle to see why the two EPS figures differ</span>
+    </div>
+    <table>
+      <tr><th>Metric — Q2 2026</th><th class="num">Value</th><th>Note</th></tr>
+      <tr><td>Revenue</td><td class="num">$11.536B</td><td>+50.1% YoY — confirmed</td></tr>
+      <tr><td>EPS (<span id="epsBasisLabel">non-GAAP</span>)</td><td class="num" id="epsValue">$1.66</td><td id="epsNote">vs $1.62 consensus — a beat</td></tr>
+      <tr><td>TTM revenue</td><td class="num">$41.31B</td><td>StockAnalysis</td></tr>
+    </table>
+    <p class="small">Sources: Barchart / Wedbush preview and StockAnalysis revenue history — both confirmed in independent verification. GAAP EPS was $1.38 in the same quarter.</p>
+  </section>
+
+  <!-- 2 FINANCIALS -->
+  <section>
+    <div class="eyebrow">02 — Financial health & balance sheet</div>
+    <h2>Growth is elite; the multiple prices it in</h2>
+    <table>
+      <tr><th>Metric (30 Oct 2026)</th><th class="num">AMD</th><th>Read</th></tr>
+      <tr><td>Price / Market cap</td><td class="num">$504.80 / $824.07B</td><td>−10.88% in one session</td></tr>
+      <tr><td>Trailing P/E</td><td class="num">129.55×</td><td><span class="tag">Ignore</span> GAAP margin depressed by amortisation</td></tr>
+      <tr><td>Forward P/E</td><td class="num">45.15×</td><td>The valuation anchor — still demanding</td></tr>
+      <tr><td>Price / Sales</td><td class="num">~20×</td><td>On TTM revenue $41.31B</td></tr>
+      <tr><td>TTM net margin (implied)</td><td class="num">~15.6%</td><td>$6.43B ÷ $41.31B — model assumes expansion to 22%</td></tr>
+      <tr><td>Cash (cited)</td><td class="num">$5.54B</td><td>Per Stocknear as cited in pack; <em>balance-sheet detail to verify from 10-Q — treat as cited, not independently confirmed in the verification log</em></td></tr>
+      <tr><td>Dividend</td><td class="num">—</td><td>None. Return is entirely price appreciation</td></tr>
+    </table>
+    <p><strong>Capital allocation:</strong> No dividend — cash is retained for R&amp;D, chiplet / packaging investment and Instinct scale-up. That fits a growth compounder, but it also means there is no income cushion when the multiple compresses, as on 30 Oct.</p>
+    <p><strong>What to watch in the 10-Q:</strong> Confirm the cash position and any debt / lease detail directly from the filing before treating the $5.54B cited figure as a balance-sheet fact. The verification log did not independently re-source AMD’s full balance sheet in this pass — that gap is labelled here rather than filled in.</p>
+    <div class="bar-row"><span>TTM revenue growth</span><div class="bar"><i style="width:66%;background:#c1272d"></i></div><b>+39.5%</b></div>
+    <div class="bar-row"><span>Q2 YoY growth</span><div class="bar"><i style="width:84%;background:#1a1815"></i></div><b>+50.1%</b></div>
+    <p class="small">Bars are illustrative scale only (100% = full width).</p>
+  </section>
+
+  <!-- 3 MOAT -->
+  <section>
+    <div class="eyebrow">03 — Competitive moat & positioning</div>
+    <h2>#2 in two hard markets — with a real design edge</h2>
+    <div class="grid2">
+      <div class="card"><h3>Where the moat is real</h3><ul><li><strong>x86 duopoly with Intel</strong> — only two licences matter in PC/server x86; EPYC has been gaining share on performance-per-watt.</li><li><strong>Chiplet expertise</strong> — modular dies improve yields and cost vs monolithic designs.</li><li><strong>Instinct as #2 AI accelerator</strong> — hyperscalers want a second source to Nvidia; AMD is the only scaled alternative today.</li></ul></div>
+      <div class="card"><h3>Where it is thin</h3><ul><li><strong>No CUDA equivalent</strong> — Nvidia’s software moat is the deepest barrier in AI compute.</li><li><strong>No fab control</strong> — TSMC + HBM are shared, contested inputs.</li><li><strong>Custom ASIC competition</strong> — Broadcom-built hyperscaler silicon competes for the same AI budgets without needing a merchant GPU win.</li></ul></div>
+    </div>
+    <table>
+      <tr><th>Competitor</th><th>Threat</th></tr>
+      <tr><td><strong>Nvidia</strong> — dominant</td><td>CUDA ecosystem, full-stack AI systems, HBM/packaging priority</td></tr>
+      <tr><td><strong>Intel</strong></td><td>x86 incumbent; a credible server recovery would slow EPYC share gains</td></tr>
+      <tr><td><strong>Broadcom / hyperscaler ASICs</strong></td><td>In-house silicon removes merchant-chip demand workload by workload</td></tr>
+    </table>
+  </section>
+
+  <!-- 4 CATALYSTS RISKS -->
+  <section>
+    <div class="eyebrow">04 — Catalysts & downside risks</div>
+    <h2>The next print is in days — and the stock just proved the risk</h2>
+    <div class="grid2">
+      <div class="card" style="border-top:3px solid var(--green)"><h3>↑ Catalysts</h3><ul><li><strong>Q3 earnings — 3 Nov 2026:</strong> immediate catalyst, days away</li><li>Instinct adoption / hyperscaler design wins broadening beyond one or two buyers</li><li>Continued EPYC server share gains</li><li>Margin expansion as Data Center mix rises — the model’s 15.6% → 22% path</li></ul></div>
+      <div class="card" style="border-top:3px solid var(--red)"><h3>↓ Risks</h3><ul><li><strong>Valuation:</strong> forward 45× leaves no room for a miss — 30 Oct’s −10.9% is the proof, not a hypothetical</li><li>Nvidia CUDA moat limits Instinct software switching</li><li>Hyperscaler in-house silicon (via Broadcom and internal teams)</li><li>HBM / advanced-packaging supply caps shipments even when demand is there</li><li>PC / Gaming cyclicality in Client and Gaming segments</li></ul></div>
+    </div>
+  </section>
+
+  <!-- 5 VALUATION -->
+  <section>
+    <div class="eyebrow">05 — Scenario valuation & price targets</div>
+    <h2>Two horizons, methodology shown</h2>
+    <p class="small" style="font-size:13.5px;color:var(--ink)"><strong>All scenario prices below are MODELLED ESTIMATES</strong> — not verified facts and not analyst consensus. The 5-year model is frozen-parameter: starting revenue $41.3B, shares held at 1.632B, only growth, net margin and exit P/E vary by case. Weights are 25% Bear / 50% Base / 25% Bull, shown so the weighted figure can be recomputed.</p>
+
+    <h3 style="margin:16px 0 4px">12–18 month targets</h3>
+    <table>
+      <tr><th>Case</th><th class="num">Target</th><th class="num">vs $504.80</th></tr>
+      <tr><td>Bull</td><td class="num">$720</td><td class="num">+42.6%</td></tr>
+      <tr><td>Base</td><td class="num">$580</td><td class="num">+14.9%</td></tr>
+      <tr><td>Bear</td><td class="num">$350</td><td class="num">−30.7%</td></tr>
+    </table>
+
+    <h3 style="margin:18px 0 4px">5-year projection — frozen-parameter model</h3>
+    <table>
+      <tr><th>Case (weight)</th><th class="num">Rev CAGR</th><th class="num">Net margin</th><th class="num">Exit P/E</th><th class="num">2031 price</th></tr>
+      <tr><td>Bull (25%)</td><td class="num">30%</td><td class="num">28%</td><td class="num">50×</td><td class="num"><strong>$1,315</strong></td></tr>
+      <tr><td>Base (50%)</td><td class="num">22%</td><td class="num">22%</td><td class="num">40×</td><td class="num"><strong>$601</strong></td></tr>
+      <tr><td>Bear (25%)</td><td class="num">10%</td><td class="num">15%</td><td class="num">25×</td><td class="num"><strong>$153</strong></td></tr>
+    </table>
+    <p class="small">Base-case arithmetic, checkable: $41.3B × 1.22<sup>5</sup> ≈ $111.5B revenue × 22% margin = $24.5B net income ÷ 1.632B shares = $15.03 EPS × 40 = <strong>$601</strong>. Weighted: 0.25×$1,315 + 0.50×$601 + 0.25×$153 = <strong>$667</strong> (modelled estimate).</p>
+    <div style="margin:14px 0">
+      <div class="bar-row"><span>Bear $153</span><div class="bar"><i style="width:12%;background:#9a948c"></i></div><b>−70%</b></div>
+      <div class="bar-row"><span>Today $505</span><div class="bar"><i style="width:38%;background:#1a1815"></i></div><b>—</b></div>
+      <div class="bar-row"><span>Base $601</span><div class="bar"><i style="width:46%;background:#166534"></i></div><b>+19%</b></div>
+      <div class="bar-row"><span>Weighted $667</span><div class="bar"><i style="width:51%;background:#8a6d2b"></i></div><b>+32%</b></div>
+      <div class="bar-row"><span>Bull $1,315</span><div class="bar"><i style="width:100%;background:#c1272d"></i></div><b>+161%</b></div>
+    </div>
+    <p>The spread is the story: $153 to $1,315 is not a forecasting error — it is what a 45× forward multiple does. If Instinct stalls, the bear case is a de-rating, not just slower growth.</p>
+
+    <h3 style="margin:18px 0 8px">Position size — 2.5% guide</h3>
+    <div class="calc">
+      <div><label class="small" style="font-weight:700;letter-spacing:.06em;text-transform:uppercase">Your total portfolio ($)</label><input type="number" id="portVal" value="500000" min="0" step="1000" oninput="calcSize()"><p class="small" style="margin-top:8px">Guide for mid-30s, risk 8/10: <strong style="color:var(--ink)">2.5%</strong> in AMD. Keep total single-name semi exposure in check alongside NVDA / AVGO / MRVL holdings.</p></div>
+      <div><label class="small" style="font-weight:700;letter-spacing:.06em;text-transform:uppercase">Suggested AMD allocation</label><div class="result" id="allocOut">$12,500</div><p class="small" id="sharesOut">≈ 25 shares at $504.80</p><p class="small">Illustrative only — based on the 2.5% guide above, not personalised advice.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Sources & verification</div>
+    <h2>Sources</h2>
+    <ul>
+      <li><a href="https://stockanalysis.com/stocks/amd/statistics/?ref=marketreview.ai" target="_blank" rel="noopener">StockAnalysis — AMD statistics</a> · <a href="https://stockanalysis.com/stocks/amd/revenue/" target="_blank" rel="noopener">AMD revenue history</a></li>
+      <li><a href="https://www.marketbeat.com/stocks/NASDAQ/AMD/" target="_blank" rel="noopener">MarketBeat — AMD</a></li>
+      <li><a href="https://finnhub.io/?q=%22AMD%22" target="_blank" rel="noopener">Finnhub — AMD quote (price −10.88% confirmed)</a></li>
+      <li><a href="https://www.barchart.com/story/news/8460028/wedbush-sees-server-cpu-demand-as-key-earnings-growth-driver-what-that-means-for-amd-stock-ahead-of-november-3" target="_blank" rel="noopener">Barchart / Wedbush — Q2 EPS $1.66 vs $1.62, revenue +50.1%</a></li>
+    </ul>
+    <p class="small">Verification note: Q2 EPS/revenue, TTM revenue and the 30 Oct close were CONFIRMED in the independent verification log for Information Technology (checked 1 Nov 2026, second sources). Cash $5.54B is carried as cited in the pack (Stocknear) with balance-sheet detail still to verify from the 10-Q — it is not presented as independently confirmed. All 5-year and 12–18-month prices are modelled estimates with methodology and weights shown above.</p>
+  </section>
+
+  <p class="foot">Equity Research — AMD · As of 1 Nov 2026 · Price reference: 30 Oct 2026 regular-session close ($504.80). For a mid-30s investor, risk score 8/10. This page is research and education only, not investment advice. Modelled targets are estimates under stated assumptions; they are not guarantees or analyst consensus.</p>
+
+<!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
+<div class="card" style="margin-top:16px">
+<h2>AMD — Intrinsic value (price reference: 30 Oct 2026 close)</h2>
+<p><strong>Price (30 Oct 2026 close): $504.80.</strong> <strong>DCF intrinsic: $190.</strong> Discount/premium vs DCF: <strong>+165.7%</strong> — i.e. the shares are trading 165.7% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
+<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$190</td><td>+165.7%</td></tr></table>
+<p><strong>Method 1 — DCF: $190.</strong> Base FCF $8.40B, constant growth g = 15% for years 1–10, discount rate r = 10% (standard (10%)), terminal growth 3%. PV of projected FCF (years 1–10) = $108.14B; Year-10 FCF = $33.98B; terminal value = Year-10 FCF × 1.03 / (10% − 3%) discounted to present = $192.78B. Equity value = PV of FCF + PV of terminal value + net cash ($8.83B) = $309.75B; divided by 1.632B diluted shares = $190. Base note: TTM FCF $8.40B (OCF $10.08B less capex $1.68B, InTickers). g capped at 15% (pack base CAGR 22%).</p>
+<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
+<p>Sources: https://intickers.com/reports/amd/ ; https://www.tipranks.com/stocks/ch:amd/financials</p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AMD — Top customers (B2B)</h2>
+<p><strong>Classification: B2B.</strong> The majority of AMD's revenue comes from businesses and/or government, not consumers. The table below is labelled “Largest known customers (ranking not disclosed)”: no ranked top-7 list with revenue shares is disclosed in the pack or in the 10-K major-customer disclosures relied on here, so the order follows best available evidence and <strong>no ranking or revenue share is invented</strong>. Revenue-share % is left blank where not disclosed. Customer intrinsic values and discount/premium figures are taken from this same build; customers outside the 124-ticker coverage have no intrinsic on file and none is built for them.</p>
+<table><tr><th>Customer</th><th>Relationship / what they buy</th><th>Revenue share (disclosed only)</th><th>Customer DCF intrinsic</th><th>Customer discount/premium</th></tr><tr><td>Microsoft</td><td>EPYC CPUs + Instinct accelerators — Azure</td><td></td><td>$236</td><td>+121.1%</td></tr><tr><td>Alphabet (Google)</td><td>EPYC + Instinct — Google Cloud</td><td></td><td>$45</td><td>+521.9%</td></tr><tr><td>Meta Platforms</td><td>EPYC + Instinct — AI capacity</td><td></td><td>$242</td><td>+154.1%</td></tr><tr><td>Amazon</td><td>EPYC — AWS</td><td></td><td>$25</td><td>+861.4%</td></tr><tr><td>Oracle</td><td>EPYC + Instinct — OCI</td><td></td><td>N/A (DCF withdrawn)</td><td>N/A</td></tr><tr><td>Sony</td><td>Semi-custom silicon — PlayStation</td><td></td><td>$27.12</td><td>-6.7%</td></tr><tr><td>Dell Technologies</td><td>Client and server CPUs (not in coverage)</td><td></td><td>not in coverage — no intrinsic on file</td><td>not in coverage — no intrinsic on file</td></tr></table>
+<p><strong>Read-through:</strong> AMD's read-through runs through Azure, Google Cloud, Meta and AWS plus Oracle and Sony: discounts at those filled customer intrinsics would support EPYC share gains and Instinct adoption, while premiums would warn of slower data-center orders. An undervalued customer does not guarantee higher AMD spending, though — it depends on each customer's own accelerator roadmap, its CUDA lock-in calculus and its cash position, and the pack's central AMD risk is Nvidia's software moat, not customer solvency. <em>Customer discount/premium figures above are taken from this same build.</em></p>
+</div>
+<div class="card" style="margin-top:16px">
+<h2>AMD — AI trade positioning</h2>
+<p><strong>Role: Beneficiary and challenger Enabler.</strong> AMD is the #2 AI accelerator (Instinct) and the EPYC share-gainer: Q2 2026 revenue +50.1% YoY, Data Center led by EPYC and Instinct, with the pack framing Instinct adoption as the swing factor against Nvidia's CUDA moat.</p>
+<p>While the AI trade runs, demand comes through EPYC server share and Instinct accelerator orders from hyperscalers diversifying away from Nvidia, plus the Q3 earnings print on 3 Nov 2026 that the pack flags as the next catalyst. On multiples, AMD is the stretched name in the pack: trailing P/E ~129.6x on depressed GAAP margins, forward ~45x — the 30 Oct −10.9% fall is the pack's own proof that there is no room for a miss.</p>
+<p>If the AI trade unwinds, demand breaks first through Instinct order delays as hyperscalers pause second-source spending and revert to their primary supplier, with EPYC share gains slowing as enterprise server spending cools. Multiple compression follows from a forward 45x that has no through-cycle cushion; the pack's bear case is built on exactly this. The balance sheet is a mitigant ($13.11B cash against $4.28B debt in the figures used here) but not a defence against de-rating. Triggers to watch: the 3 Nov Q3 print and guide, Instinct customer announcements, and hyperscaler capex guides.</p>
+</div>
+</div>
+<script>
+function setEps(mode){
+  var isGaap = mode==='gaap';
+  document.getElementById('btnGaap').classList.toggle('active', isGaap);
+  document.getElementById('btnNonGaap').classList.toggle('active', !isGaap);
+  document.getElementById('epsValue').textContent = isGaap ? '$1.38' : '$1.66';
+  document.getElementById('epsBasisLabel').textContent = isGaap ? 'GAAP' : 'non-GAAP';
+  document.getElementById('epsNote').textContent = isGaap ? 'GAAP — includes amortisation / acquisition costs' : 'vs $1.62 consensus — a beat';
+}
+function calcSize(){
+  var v = parseFloat(document.getElementById('portVal').value)||0;
+  var alloc = v*0.025;
+  document.getElementById('allocOut').textContent = '$'+alloc.toLocaleString('en-US',{maximumFractionDigits:0});
+  var sh = alloc/504.80;
+  document.getElementById('sharesOut').textContent = '≈ '+sh.toFixed(1)+' shares at $504.80';
+}
+calcSize();
+</script>
+</body>
+</html>
