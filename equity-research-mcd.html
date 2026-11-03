@@ -285,11 +285,18 @@ input{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;ba
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — MCD (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $258.12.</strong> <strong>DCF intrinsic: $98.</strong> Discount/premium vs DCF: <strong>+163.4%</strong> — i.e. the shares are trading 163.4% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$98</td><td>+163.4%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $7.76bn. TTM FCF (Intickers/RockFlow: OCF $11.35bn - capex $3.59bn = $7.76bn). Growth g = 4% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $57.74bn + PV of terminal value $65.16bn + net cash $-53.78bn, divided by 0.708bn diluted shares = <strong>$98</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://intickers.com/reports/mcd/</li><li>$1.93 quarterly x4 = $7.72 (Intickers, Sep 2026 raise)</li><li>https://coindataflow.com/en/stock/MCD</li></ul>
+<p><strong>Price (30 Oct 2026 close): $258.12.</strong> <strong>Peter Lynch fair value: $190.48.</strong> Discount/premium: <strong>+35.5%</strong> — i.e. the shares are trading 35.5% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -26.2%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 calendar years 2020–2025), floored at 5% and capped at 25% after averaging.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$11.95 — GAAP diluted (Finnhub / research pack)</td></tr>
+<tr><td>Annual net income ($m) — 2020 / 2021 / 2022 / 2023 / 2024 / 2025</td><td>4,731 / 7,545 / 6,177 / 8,469 / 8,223 / 8,563</td></tr>
+<tr><td>YoY net-income growth — 2021 / 2022 / 2023 / 2024 / 2025</td><td>+59.48% / -18.13% / +37.11% / -2.90% / +4.13%</td></tr>
+<tr><td>Average growth rate</td><td>15.94%</td></tr>
+<tr><td>Capped / floored rate used</td><td>15.94% (no cap or floor applied)</td></tr>
+<tr><td>Fair-value computation</td><td>15.94 × $11.95 = <strong>$190.48</strong></td></tr></table>
+<p>Cross-check vs valueinvesting.io: published $197.90, variance -3.8% (own $190.48 vs published $197.90). The growth rate matches exactly (15.94% on both); the gap is EPS vintage — the site uses TTM EPS $12.42 against $11.95 here.</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net income — McDonald's 10-K / FinanceCharts annual series as tabulated above; cross-check page https://valueinvesting.io/MCD/valuation/fair-value.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — MCD (B2C note)</h2>

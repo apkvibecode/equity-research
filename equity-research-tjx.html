@@ -259,11 +259,19 @@
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — TJX (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $140.31.</strong> <strong>DCF intrinsic: $66.</strong> Discount/premium vs DCF: <strong>+112.6%</strong> — i.e. the shares are trading 112.6% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$66</td><td>+112.6%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $4.4bn. TTM levered FCF (TwelveData $4.40bn; OCF $8.03bn - capex). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $36.09bn + PV of terminal value $44.7bn + net cash $-8.32bn, divided by 1.1bn diluted shares = <strong>$66</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/201255/stock/nyse/tjx/statistics</li><li>Forward annual dividend rate $1.92 (TwelveData/coindataflow; trailing $1.81)</li></ul>
+<p><strong>Price (30 Oct 2026 close): $140.31.</strong> <strong>Peter Lynch fair value: $135.25.</strong> Discount/premium: <strong>+3.7%</strong> — i.e. the shares are trading 3.7% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -3.6%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 fiscal years ending in January/February), floored at 5% and capped at 25% after averaging. TJX's fiscal year ends in late January / early February, so the latest complete fiscal year at 30 Oct 2026 is the year ended 31 Jan 2026.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$5.41 — GAAP diluted, TTM to Aug 2026 (MarketCapOf TTM figure)</td></tr>
+<tr><td>Annual net income ($m) — FY ended Jan 2021 / Jan 2022 / Jan 2023 / Feb 2024 / Feb 2025 / Jan 2026</td><td>90.47 / 3,283 / 3,498 / 4,474 / 4,864 / 5,494</td></tr>
+<tr><td>YoY net-income growth — FY2022 / FY2023 / FY2024 / FY2025 / FY2026 (company fiscal labels)</td><td>+3,528.83% / +6.55% / +27.90% / +8.72% / +12.95%</td></tr>
+<tr><td>Average growth rate</td><td>716.99%</td></tr>
+<tr><td>Capped / floored rate used</td><td>25.00% (capped)</td></tr>
+<tr><td>Fair-value computation</td><td>25.00 × $5.41 = <strong>$135.25</strong></td></tr></table>
+<p><em>Note:</em> the FY2022 growth rate is a Covid-base artefact (FY2021 net income was only $90.47m during store closures); the 25% cap is what makes the result usable at all, and the fair value should be read with that caveat.</p>
+<p>Cross-check vs valueinvesting.io: published $137.89, variance -1.9% (own $135.25 vs published $137.89). The site shows the same capped 25% rate (average 716.95% on its $3,282.82m FY2022 figure) and TTM EPS $5.52 against $5.41 here.</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net income — TJX 10-K / MarketBeat / YCharts annual series as tabulated above; cross-check page https://valueinvesting.io/TJX/valuation/fair-value.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — TJX (B2C note)</h2>

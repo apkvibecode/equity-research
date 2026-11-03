@@ -248,11 +248,19 @@ details{margin:10px 0} summary{cursor:pointer;font-weight:600}
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — TSLA (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $399.81.</strong> <strong>DCF intrinsic: $23.</strong> Discount/premium vs DCF: <strong>+1638.3%</strong> — i.e. the shares are trading 1638.3% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$23</td><td>+1638.3%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $3.3bn. TTM FCF (Intickers: OCF $18.71bn - capex $15.41bn = $3.30bn; TwelveData levered FCF $4.74bn is close). Growth g = 10% constant for years 1–10; discount rate r = 12% (high-risk 12%); terminal growth 3%. PV of projected FCF $29.93bn + PV of terminal value $31.54bn + net cash $29.0bn, divided by 3.953bn diluted shares = <strong>$23</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://intickers.com/reports/tsla/</li><li>https://twelvedata.com/markets/192184/stock/nasdaq/tsla/statistics</li></ul>
+<p><strong>Price (30 Oct 2026 close): $399.81.</strong> <strong>Peter Lynch fair value: $22.75.</strong> Discount/premium: <strong>+1,657.4%</strong> — i.e. the shares are trading 1,657.4% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -94.3%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 years of annual net income attributable to common stockholders, calendar years 2020–2025), floored at 5% and capped at 25% after averaging.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$0.91 — GAAP diluted, TTM (vendor TTM figure; research pack P/E range implies $0.81–$0.91 on depressed TTM net income)</td></tr>
+<tr><td>Annual net income attributable ($m) — 2020 / 2021 / 2022 / 2023 / 2024 / 2025</td><td>721 / 5,524 / 12,583 / 14,997 / 7,091 / 3,794</td></tr>
+<tr><td>YoY net-income growth — 2021 / 2022 / 2023 / 2024 / 2025</td><td>+666.16% / +127.79% / +19.18% / -52.72% / -46.50%</td></tr>
+<tr><td>Average growth rate</td><td>142.78%</td></tr>
+<tr><td>Capped / floored rate used</td><td>25.00% (capped)</td></tr>
+<tr><td>Fair-value computation</td><td>25.00 × $0.91 = <strong>$22.75</strong></td></tr></table>
+<p><em>Note:</em> the average is dominated by the 2021 rebound from a very small 2020 base, and 2023 includes a $5.93bn one-off non-cash tax benefit; the 25% cap limits, but does not remove, that distortion. The result is a formula output on depressed TTM earnings, not a claim that Tesla is worth $22.75 as a business.</p>
+<p>Cross-check vs valueinvesting.io: published $20.37 (25.00 × $0.81, capped, average 149.66%); this file $22.75; +11.7%; VARIANCE-EXPLAINED — both capped at 25%; gap is EPS only (file $0.91 vs site $0.81); file arithmetic 25 × 0.91 = 22.75 correct.</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net income attributable — Tesla 10-K / Macrotrends / FinanceCharts annual series as tabulated above; TTM EPS — vendor TTM figure consistent with the research pack ~/workspace/research_notes/equity/TSLA/report.md (TTM net income $3.22bn context).</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — TSLA (B2C note)</h2>
