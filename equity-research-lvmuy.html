@@ -286,11 +286,19 @@ tr.weighted td{font-weight:700;background:var(--gold-soft)}
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — LVMUY (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $85.93.</strong> <strong>DCF intrinsic: $97.19.</strong> Discount/premium vs DCF: <strong>-11.6%</strong> — i.e. the shares are trading 11.6% below DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$97.19</td><td>-11.6%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $15.48bn. TTM FCF in USD (TipRanks: OCF $19.23bn - capex $3.75bn = $15.48bn; EUR FCF €14.45bn in the latest year is consistent). ADR-equivalent shares used. Growth g = 5% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $120.93bn + PV of terminal value $143.05bn + net cash $-24.4bn, divided by 2.465bn diluted shares = <strong>$97.19</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.tipranks.com/stocks/lvmuy/statistics</li><li>TwelveData forward annual dividend rate $3.47 per ADR (Paris dividend divided by the ADR ratio). TipRanks $1.233 is on a different ADR basis and is not used.</li><li>https://twelvedata.com/markets/901791/stock/otc/lvmuy/statistics</li></ul>
+<p><strong>Price (30 Oct 2026 close): $85.93.</strong> <strong>Peter Lynch fair value: $128.00.</strong> Discount/premium: <strong>-32.9%</strong> — i.e. the shares are trading 32.9% below the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): +49.0%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 calendar years 2020–2025, net income — group share, in euros as reported), floored at 5% and capped at 25% after averaging. The ADR price is per ADR as listed in the file; Finnhub's €21.84 figure is the Paris ordinary-share EPS and is NOT used here — the per-ADR EPS below is the ADR-basis figure.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$5.12 per ADR — GAAP diluted, TTM (CoinDataFlow TTM figure for LVMUY)</td></tr>
+<tr><td>Annual net income, group share (€m) — 2020 / 2021 / 2022 / 2023 / 2024 / 2025</td><td>4,702 / 12,036 / 14,084 / 15,174 / 12,550 / 10,878</td></tr>
+<tr><td>YoY net-income growth — 2021 / 2022 / 2023 / 2024 / 2025</td><td>+155.98% / +17.02% / +7.74% / -17.29% / -13.32%</td></tr>
+<tr><td>Average growth rate</td><td>30.03%</td></tr>
+<tr><td>Capped / floored rate used</td><td>25.00% (capped)</td></tr>
+<tr><td>Fair-value computation</td><td>25.00 × $5.12 = <strong>$128.00</strong></td></tr></table>
+<p><em>Note:</em> the average is dominated by the 2021 post-Covid rebound (+155.98%); the cap at 25% limits that distortion.</p>
+<p>Cross-check vs valueinvesting.io: site covers this ticker via primary listing MC.PA: EUR 549.78 (25.00 × 21.99, average 30.02% capped; net-income series identical to this file); this file $128.00; +0.4% converted (ADR ≈ 1/5 ordinary: €549.78/5 × 1.16 ≈ $127.5 — approximate conversion, not exact); MATCH (converted).</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net income, group share (€) — LVMH annual results / Value.Today annual summary as tabulated above; TTM EPS per ADR — CoinDataFlow LVMUY statistics.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — LVMUY (B2C note)</h2>

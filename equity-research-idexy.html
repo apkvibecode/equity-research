@@ -294,11 +294,19 @@ ul.tight{margin:6px 0;padding-left:18px} ul.tight li{margin:5px 0}
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — IDEXY (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $15.68.</strong> <strong>DCF intrinsic: $11.05.</strong> Discount/premium vs DCF: <strong>+41.9%</strong> — i.e. the shares are trading 41.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$11.05</td><td>+41.9%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $7.25bn. TTM levered FCF (TwelveData $7.25bn; coindataflow $6.49bn is close). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $59.47bn + PV of terminal value $73.66bn + net cash $4.69bn, divided by 12.47bn diluted shares = <strong>$11.05</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/776347/stock/otc/idexy/statistics</li><li>TwelveData forward annual dividend rate $0.49 per ADR (trailing $0.50). MarketBeat yield 1.98% implies ~$0.31 on a different basis and is not used; the $0.49 rate is the forward rate.</li></ul>
+<p><strong>Price (30 Oct 2026 close): $15.68.</strong> <strong>Peter Lynch fair value: $15.00.</strong> Discount/premium: <strong>+4.5%</strong> — i.e. the shares are trading 4.5% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -4.3%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 fiscal years ending 31 January, in euros as reported), floored at 5% and capped at 25% after averaging. Inditex's fiscal year ends 31 January, so the latest complete fiscal year at 30 Oct 2026 is the year ended 31 Jan 2026. The ADR price is per ADR as listed in the file; Finnhub's 1.996 figure is the ordinary-share EPS in euros and is NOT used here — the per-ADR EPS below is the ADR-basis figure.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$0.60 per ADR — GAAP diluted, TTM through 31 Jul 2026 (TwelveData TTM figure for IDEXY)</td></tr>
+<tr><td>Annual net profit (€m) — FY ended Jan 2021 / Jan 2022 / Jan 2023 / Jan 2024 / Jan 2025 / Jan 2026</td><td>1,104 / 3,250 / 4,147 / 5,381 / 5,877 / 6,220</td></tr>
+<tr><td>YoY net-income growth — FY2021 / FY2022 / FY2023 / FY2024 / FY2025 (company fiscal labels)</td><td>+194.38% / +27.60% / +29.76% / +9.22% / +5.84%</td></tr>
+<tr><td>Average growth rate</td><td>53.36%</td></tr>
+<tr><td>Capped / floored rate used</td><td>25.00% (capped)</td></tr>
+<tr><td>Fair-value computation</td><td>25.00 × $0.60 = <strong>$15.00</strong></td></tr></table>
+<p><em>Note:</em> the average is dominated by the FY2021 post-Covid rebound (+194.38%); the cap at 25% limits that distortion.</p>
+<p>Cross-check vs valueinvesting.io: site covers this ticker via primary listing ITX.MC: EUR 51.41 (25.00 × 2.06, capped); this file $15.00; +0.6% converted (ADR ≈ 1/4 ordinary at ≈ $1.16/€ — approximate conversion, not exact); MATCH (converted).</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net profit (€) — Inditex consolidated annual accounts (FY2021–FY2025 results releases) as tabulated above; TTM EPS per ADR — TwelveData IDEXY statistics.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — IDEXY (B2C note)</h2>

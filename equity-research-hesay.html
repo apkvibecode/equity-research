@@ -179,11 +179,18 @@ footer{margin-top:36px;color:var(--muted);font-size:12px;border-top:1px solid va
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — HESAY (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $144.37.</strong> <strong>DCF intrinsic: $92.</strong> Discount/premium vs DCF: <strong>+56.9%</strong> — i.e. the shares are trading 56.9% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$92</td><td>+56.9%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $4.74bn. TTM FCF (TipRanks: OCF $5.81bn - capex $1.07bn = $4.74bn; TwelveData levered FCF $5.49bn is close). ADR-equivalent shares 1.056bn (TipRanks). Growth g = 6% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $38.88bn + PV of terminal value $48.16bn + net cash $10.03bn, divided by 1.056bn diluted shares = <strong>$92</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://www.tipranks.com/stocks/hesay/statistics</li><li>Trailing annual dividend rate $2.10 (TwelveData; yield ~1.46% x $144.37). Forward $3.01 and TipRanks $1.52 are on different ADR bases and are not used — see NOTES.md.</li><li>https://twelvedata.com/markets/107873/stock/otc/hesay/statistics</li></ul>
+<p><strong>Price (30 Oct 2026 close): $144.37.</strong> <strong>Peter Lynch fair value: $125.50.</strong> Discount/premium: <strong>+15.0%</strong> — i.e. the shares are trading 15.0% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -13.1%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 calendar years 2020–2025, net profit attributable to owners, in euros as reported), floored at 5% and capped at 25% after averaging. The ADR price is per ADR as listed in the file; Finnhub's 43.06 figure is the Paris ordinary-share EPS and is NOT used here — the per-ADR EPS below is the ADR-basis figure.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$5.02 per ADR — GAAP diluted, TTM (CoinDataFlow TTM figure for HESAY)</td></tr>
+<tr><td>Annual net profit attributable (€m) — 2020 / 2021 / 2022 / 2023 / 2024 / 2025</td><td>1,385 / 2,445 / 3,367 / 4,311 / 4,603 / 4,524</td></tr>
+<tr><td>YoY net-income growth — 2021 / 2022 / 2023 / 2024 / 2025</td><td>+76.53% / +37.71% / +28.04% / +6.77% / -1.72%</td></tr>
+<tr><td>Average growth rate</td><td>29.47%</td></tr>
+<tr><td>Capped / floored rate used</td><td>25.00% (capped)</td></tr>
+<tr><td>Fair-value computation</td><td>25.00 × $5.02 = <strong>$125.50</strong></td></tr></table>
+<p>Cross-check vs valueinvesting.io: site covers this ticker via primary listing RMS.PA: EUR 1,069.20 (25.00 × 42.77, average 29.46% capped; net-income series identical to this file); this file $125.50; +1.2% converted (ADR ≈ 1/10 ordinary at ≈ $1.16/€ — approximate conversion, not exact); MATCH (converted).</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net profit attributable (€) — Hermès Universal Registration Document / Value.Today annual summary as tabulated above; TTM EPS per ADR — CoinDataFlow HESAY statistics.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — HESAY (B2C note)</h2>

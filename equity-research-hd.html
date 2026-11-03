@@ -226,11 +226,18 @@ footer{color:var(--muted);font-size:13px;padding:18px 4px}
 <!-- v2 additions (Nov 2026 update): intrinsic value, top customers, AI trade positioning -->
 <div class="card" style="margin-top:16px">
 <h2>Intrinsic value — HD (30 Oct 2026 close)</h2>
-<p><strong>Price (30 Oct 2026 close): $329.20.</strong> <strong>DCF intrinsic: $197.</strong> Discount/premium vs DCF: <strong>+67.1%</strong> — i.e. the shares are trading 67.1% above DCF intrinsic value. Discount/premium % = (Price − DCF intrinsic) / DCF intrinsic × 100; negative = discount, positive = premium.</p>
-<table><tr><th>Method</th><th>Intrinsic per share</th><th>Discount/premium vs DCF</th></tr><tr><td>DCF (10-year, constant g)</td><td>$197</td><td>+67.1%</td></tr></table>
-<p><strong>Method 1 — DCF.</strong> Base TTM FCF $15.1bn. TTM FCF (Intickers: $15.1bn; OCF $18.78bn - capex ~$3.7bn). Levered FCF $10.76bn (TwelveData) is after interest and is not used. Growth g = 5% constant for years 1–10; discount rate r = 10% (default 10%); terminal growth 3%. PV of projected FCF $117.96bn + PV of terminal value $139.53bn + net cash $-61.11bn, divided by 0.998bn diluted shares = <strong>$197</strong>. Terminal value = Year-10 FCF × 1.03 / (r − 0.03), discounted at r.</p>
-<p><strong>Note (DCF-only revision):</strong> intrinsic value is now DCF only per the user's instruction; DDM, asset-based and weighted-average figures have been removed; DCF inputs and assumptions are unchanged from the November build.</p>
-<p><em>Sources:</em></p><ul><li>research pack ~/workspace/research_notes/equity/&lt;TICKER&gt;/report.md (price 30 Oct 2026, coordinator corrections applied)</li><li>https://twelvedata.com/markets/647158/stock/nyse/hd/statistics</li><li>$2.33 quarterly x4 = $9.32 (pack/Intickers)</li></ul>
+<p><strong>Price (30 Oct 2026 close): $329.20.</strong> <strong>Peter Lynch fair value: $71.15.</strong> Discount/premium: <strong>+362.7%</strong> — i.e. the shares are trading 362.7% above the Lynch fair value. Discount/premium % = (Price − Fair value) / Fair value × 100; negative = discount, positive = premium. <strong>Upside to fair value (secondary figure): -78.4%</strong> = (Fair value − Price) / Price × 100.</p>
+<p><strong>Method — Peter Lynch fair value = Earnings Growth Rate × TTM diluted EPS.</strong> The growth rate is the arithmetic average of the 5 annual year-over-year net-income growth rates (6 fiscal years, fiscal years ending in January/February), floored at 5% and capped at 25% after averaging. Home Depot's fiscal year ends in late January / early February, so the latest complete fiscal year at 30 Oct 2026 is the year ended 1 Feb 2026.</p>
+<table><tr><th>Item</th><th>Value</th></tr>
+<tr><td>TTM diluted EPS (basis)</td><td>$14.23 — GAAP diluted (Finnhub / research pack)</td></tr>
+<tr><td>Annual net income ($m) — FY ended Jan 2021 / Jan 2022 / Jan 2023 / Jan 2024 / Feb 2025 / Feb 2026</td><td>12,866 / 16,433 / 17,105 / 15,143 / 14,806 / 14,156</td></tr>
+<tr><td>YoY net-income growth — FY2021 / FY2022 / FY2023 / FY2024 / FY2025 (company fiscal labels)</td><td>+27.72% / +4.09% / -11.47% / -2.23% / -4.39%</td></tr>
+<tr><td>Average growth rate</td><td>2.75%</td></tr>
+<tr><td>Capped / floored rate used</td><td>5.00% (floored)</td></tr>
+<tr><td>Fair-value computation</td><td>5.00 × $14.23 = <strong>$71.15</strong></td></tr></table>
+<p>Cross-check vs valueinvesting.io: published $71.30, variance -0.2% (own $71.15 vs published $71.30). The site shows the same 2.75% average (floored to 5%) and TTM EPS $14.26 against $14.23 here.</p>
+<p><strong>Removal note:</strong> DCF intrinsic figures previously shown here have been removed, because this set now carries a single intrinsic value — the Peter Lynch fair value below. No other intrinsic-value figure is carried in this card.</p>
+<p><em>Sources:</em> annual net income — Home Depot 10-K / Macrotrends / Stonks annual series as tabulated above; cross-check page https://valueinvesting.io/HD/valuation/fair-value.</p>
 </div>
 <div class="card" style="margin-top:16px">
 <h2>Customers — HD (B2C / mixed note)</h2>
